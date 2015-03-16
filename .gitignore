@@ -1,0 +1,16 @@
+proj.win32/
+proj.android/
+proj.ios/
+proj.linux/
+proj.blackberry/
+proj.mac/
+proj.winrt/
+proj.wp8/
+proj.marmalade/
+proj.tizen/
+Backup/
+proj.wp8-xaml/
+*.zip
+*.vcxproj
+*.filters
+*.DS_Store
