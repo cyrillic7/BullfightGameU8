@@ -7,6 +7,11 @@
 //
 
 #include "MainScene.h"
+MainScene::MainScene(){
+}
+MainScene::~MainScene(){
+    CCLog("~ <<%s>>",__PRETTY_FUNCTION__);
+}
 CCScene* MainScene::scene()
 {
     CCScene *scene = CCScene::create();

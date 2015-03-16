@@ -16,6 +16,8 @@ USING_NS_CC_EXT;
 class MainScene:public CCLayer
 {
 public:
+    MainScene();
+    ~MainScene();
 
     static CCScene* scene();
     

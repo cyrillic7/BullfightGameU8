@@ -15,9 +15,9 @@
 #define RMS_IS_SOUND "isSound"
 
 //层级////////////////////////////////////////////////////////////////////////
-#define K_Z_ORDER_HERO 480+4//主角
-#define K_Z_ORDER_HUD 640+6//UI层
-#define K_Z_ORDER_POP 640+7//弹出层
+#define K_Z_ORDER_HERO 1//主角
+#define K_Z_ORDER_HUD 2//UI层
+#define K_Z_ORDER_POP 3//弹出层
 
 //#define CCS_PATH_ANIMATION(name) CCString::createWithFormat("ccs/Animation/%s",(name))->getCString()
 
