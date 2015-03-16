@@ -14,6 +14,7 @@ USING_NS_CC_EXT;
 class LogoScene:public CCLayer
 {
 public:
+
     CREATE_FUNC(LogoScene);
 };
 #endif /* defined(__BullfightGame__LogoScene__) */
