@@ -16,6 +16,7 @@ USING_NS_CC_EXT;
 class MainScene:public CCLayer
 {
 public:
+
     static CCScene* scene();
     
     CREATE_FUNC(MainScene);
