@@ -14,7 +14,12 @@ USING_NS_CC_EXT;
 class LogoScene:public CCLayer
 {
 public:
-
+    LogoScene();
+    ~LogoScene();
+    
+    static CCScene* scene();
     CREATE_FUNC(LogoScene);
+private:
+    void updateToMainScene(float dt);
 };
 #endif /* defined(__BullfightGame__LogoScene__) */
