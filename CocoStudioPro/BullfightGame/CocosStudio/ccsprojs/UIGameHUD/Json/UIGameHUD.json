@@ -9,8 +9,12 @@
   "dataScale": 1,
   "designHeight": 640,
   "designWidth": 960,
-  "textures": null,
-  "texturesPng": [],
+  "textures": [
+    "UIGameHUD.plist"
+  ],
+  "texturesPng": [
+    "UIGameHUD.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",

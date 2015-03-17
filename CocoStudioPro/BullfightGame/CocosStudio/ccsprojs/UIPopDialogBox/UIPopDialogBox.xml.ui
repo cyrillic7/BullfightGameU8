@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <UIProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ProjectDir>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\ccsprojs\UIGameHUD</ProjectDir>
+  <ProjectDir>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\ccsprojs\UIPopDialogBox</ProjectDir>
   <Version>1.6.0.0</Version>
   <Resources>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\assets</Resources>
-  <Name>UIGameHUD</Name>
-  <JsonFileName>UIGameHUD.json</JsonFileName>
-  <JsonFolder>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\ccsprojs\UIGameHUD\Json</JsonFolder>
+  <Name>UIPopDialogBox</Name>
+  <JsonFileName>UIPopDialogBox.json</JsonFileName>
+  <JsonFolder>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\ccsprojs\UIPopDialogBox\Json</JsonFolder>
   <JsonList>
-    <string>UIGameHUD.json</string>
+    <string>UIPopDialogBoxUserInfo.json</string>
   </JsonList>
   <CanvasSize>
     <Width>480</Width>
     <Height>320</Height>
   </CanvasSize>
-  <filePath>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\ccsprojs\UIGameHUD\UIGameHUD.xml.ui</filePath>
+  <filePath>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\ccsprojs\UIPopDialogBox\UIPopDialogBox.xml.ui</filePath>
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <imageFileList>
@@ -23,5 +23,5 @@
     <string>UIGameHUD.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIGameHUD.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxUserInfo.json</CurrentUIJson>
 </UIProject>

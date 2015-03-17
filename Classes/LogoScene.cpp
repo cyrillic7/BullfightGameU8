@@ -8,9 +8,9 @@
 
 #include "LogoScene.h"
 #include "Tools.h"
-#include "MainScene.h"
+#include "GameLobbyScene.h"
 LogoScene::LogoScene(){
-    scheduleOnce(SEL_SCHEDULE(&LogoScene::updateToMainScene), 3);
+    scheduleOnce(SEL_SCHEDULE(&LogoScene::updateToMainScene), 0.5);
 }
 LogoScene::~LogoScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
@@ -23,5 +23,5 @@ CCScene* LogoScene::scene()
     return scene;
 }
 void LogoScene::updateToMainScene(float dt){
-    Tools::setTransitionAnimation(0, 0, MainScene::scene());
+	Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene());
 }
