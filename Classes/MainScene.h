@@ -11,17 +11,23 @@
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
+#include "GameHUD.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 class MainScene:public CCLayer
 {
 public:
+	CC_SYNTHESIZE(GameHUD *, gameHUD, GameHUD);
+public:
     MainScene();
     ~MainScene();
-
+	virtual void onEnter();
+	virtual void onExit();
     static CCScene* scene();
     
     CREATE_FUNC(MainScene);
+private:
+	void initHUD();
 };
 
 #endif /* defined(__BullfightGame__MainScene__) */

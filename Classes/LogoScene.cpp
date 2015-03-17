@@ -13,7 +13,7 @@ LogoScene::LogoScene(){
     scheduleOnce(SEL_SCHEDULE(&LogoScene::updateToMainScene), 3);
 }
 LogoScene::~LogoScene(){
-    CCLog("~ <<%s>>",__PRETTY_FUNCTION__);
+	CCLog("~ <<%s>>", __FUNCTION__);
 }
 CCScene* LogoScene::scene()
 {

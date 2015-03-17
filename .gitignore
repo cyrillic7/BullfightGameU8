@@ -14,3 +14,5 @@ proj.wp8-xaml/
 *.vcxproj
 *.filters
 *.DS_Store
+*/Backup
+*.Dir

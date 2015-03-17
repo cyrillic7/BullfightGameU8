@@ -21,5 +21,6 @@ public:
     CREATE_FUNC(LogoScene);
 private:
     void updateToMainScene(float dt);
+	//mirrors.neusoft.edu.cn  80
 };
 #endif /* defined(__BullfightGame__LogoScene__) */

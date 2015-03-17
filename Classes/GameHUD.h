@@ -13,10 +13,16 @@
 #include "cocos-ext.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
+using namespace gui;
 class GameHUD:public CCLayer
 {
 public:
+	virtual void onEnter();
+	virtual void onExit();
     CREATE_FUNC(GameHUD);
+private:
+	//菜单////////////////////////////////////////////////////////////////////////
+	void menuPause(CCObject* pSender, TouchEventType type);
 };
 
 #endif /* defined(__BullfightGame__GameHUD__) */
