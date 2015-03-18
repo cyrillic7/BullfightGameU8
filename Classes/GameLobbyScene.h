@@ -1,9 +1,6 @@
 //
 //  GameLobbyScene.h
-//  BullfightGame
-//
-//  Created by 张 恒 on 15/3/16.
-//
+//  游戏大厅
 //
 #pragma once
 #include "cocos-ext.h"

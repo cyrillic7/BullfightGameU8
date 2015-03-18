@@ -27,7 +27,11 @@ public:
     
     CREATE_FUNC(MainScene);
 private:
+	//初始化
 	void initHUD();
+	//添加背景
+	void addBg();
+	void testLogic();
 };
 
 #endif /* defined(__BullfightGame__MainScene__) */

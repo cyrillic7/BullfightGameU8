@@ -1,9 +1,6 @@
 //
 //  ClassicLobbyScene.h
-//  BullfightGame
-//
-//  Created by 张 恒 on 15/3/16.
-//
+//	经典厅
 //
 #pragma once
 #include "cocos-ext.h"
@@ -13,7 +10,7 @@ using namespace gui;
 class ClassicLobbyScene:public CCLayer
 {
 private:
-	enum GameType
+	enum GameLevel
 	{
 		LEVEL_0=1,//初级
 	};

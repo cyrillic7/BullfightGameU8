@@ -10,10 +10,12 @@
   "designHeight": 640,
   "designWidth": 960,
   "textures": [
-    "UIGameHUD.plist"
+    "UIGameHUD.plist",
+    "UIGameLobby0.plist"
   ],
   "texturesPng": [
-    "UIGameHUD.png"
+    "UIGameHUD.png",
+    "UIGameLobby0.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
