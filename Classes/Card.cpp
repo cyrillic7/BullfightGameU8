@@ -1,14 +1,13 @@
-/*
- * BallBase.cpp
- *
- *  Created on: 2013年3月17日
- *      Author: zhang
- */
+
 
 #include "Card.h"
+#include "DataModel.h"
 Card::Card()
 {
 }
 Card::~Card() {
 }
-
+void Card::createCard(){
+	m_cpArmatureCard = CCArmature::create("AnimationCard");
+//	DataModel::sharedDataModel()->getMainScene()->batchCard->addChild(m_cpArmatureCard);
+}

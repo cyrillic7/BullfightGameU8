@@ -16,11 +16,11 @@ class LogoScene:public CCLayer
 public:
     LogoScene();
     ~LogoScene();
-    
+    //场景初始化
     static CCScene* scene();
     CREATE_FUNC(LogoScene);
 private:
+	//进入主游戏场景
     void updateToMainScene(float dt);
-	//mirrors.neusoft.edu.cn  80
 };
 #endif /* defined(__BullfightGame__LogoScene__) */

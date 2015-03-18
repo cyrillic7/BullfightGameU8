@@ -8,24 +8,34 @@
 
 #include "MainScene.h"
 #include "GameConfig.h"
-#include "GameConfig.h"
+#include "DataModel.h"
+#include "BaseAttributes.h"
 #include "GameLogic.h"
+#include "TCPSocket.h"
+
 MainScene::MainScene(){
 }
 MainScene::~MainScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
+
+	DataModel *m = DataModel::sharedDataModel();
+	CC_SAFE_RELEASE_NULL(m);
+	BaseAttributes *b = BaseAttributes::sharedAttributes();
+	CC_SAFE_RELEASE_NULL(b);
 }
 CCScene* MainScene::scene()
 {
     CCScene *scene = CCScene::create();
     MainScene *layer = MainScene::create();
     scene->addChild(layer);
+	DataModel::sharedDataModel()->setMainScene(layer);
     return scene;
 }
 void MainScene::onEnter(){
 	CCLayer::onEnter();
 	addBg();
 	initHUD();
+	initCard();
 	testLogic();
 }
 void MainScene::onExit(){
@@ -39,6 +49,14 @@ void MainScene::addBg(){
 void MainScene::initHUD(){
 	gameHUD = GameHUD::create();
 	this->addChild(gameHUD, K_Z_ORDER_HUD);
+}
+//初始化扑克动画
+void MainScene::initCard(){
+	TCPSocket *tcp = new TCPSocket();
+	
+	//lp= sevser;
+	tcp->Connect("125.88.145.41", 8100);
+	CC_SAFE_DELETE(tcp);
 }
 void MainScene::testLogic(){
 	BYTE tempCard[5] = {2,2,2,4,5};

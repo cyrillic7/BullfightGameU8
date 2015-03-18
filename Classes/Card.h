@@ -1,9 +1,4 @@
-/*
- * Card.h
- *
- *  Created on: 2015年3月17日
- *      Author: zhang
- */
+
 #pragma once
 #include "cocos2d.h"
 #include "cocos-ext.h"
@@ -16,8 +11,14 @@ USING_NS_CC_EXT;
 
 class Card:public CCNode {
 public:
+	//牌动画
+	CCArmature *m_cpArmatureCard;
+	//BYTE cardValue;
+	//BYTE cardColor;
 public:
 	Card();
 	~Card();
 	CREATE_FUNC(Card);
+
+	void createCard();
 };

@@ -17,7 +17,13 @@ USING_NS_CC_EXT;
 class MainScene:public CCLayer
 {
 public:
+	enum GameState
+	{
+		STATE_REDING=0, 
+	};
+
 	CC_SYNTHESIZE(GameHUD *, gameHUD, GameHUD);
+	
 public:
     MainScene();
     ~MainScene();
@@ -29,6 +35,8 @@ public:
 private:
 	//初始化
 	void initHUD();
+	//初始化扑克
+	void initCard();
 	//添加背景
 	void addBg();
 	void testLogic();

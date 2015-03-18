@@ -23,13 +23,7 @@ void BaseAttributes::initBaseAttrobutes(){
  	this->initGoodsProperty();
 }
 void BaseAttributes::initGoodsProperty(){
-	CCString *tempStr = CCString::createWithFormat("data/goodsProperty.plist");;
-	/*if (DEBUG_TEST) {
-		if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-		{
-			tempStr = CCString::createWithFormat("/sdcard/data/DevilsComing2/data/goodsProperty.plist");
-		}
-	}*/
+	/*CCString *tempStr = CCString::createWithFormat("data/goodsProperty.plist");;
 	CCArray *goodsArray = CCArray::createWithContentsOfFile(tempStr->getCString());
 	for (int i = 0; i < goodsArray->count(); i++) {
 		CCDictionary* mDic = dynamic_cast<CCDictionary *>(goodsArray->objectAtIndex(i));
@@ -38,5 +32,5 @@ void BaseAttributes::initGoodsProperty(){
 		goodsAttackRange[i] = dynamic_cast<CCString *>(mDic->objectForKey("attackRange"))->floatValue();
 	}
 	goodsArray->removeAllObjects();
-	CC_SAFE_RELEASE_NULL(goodsArray);
+	CC_SAFE_RELEASE_NULL(goodsArray);*/
 }

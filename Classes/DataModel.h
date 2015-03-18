@@ -15,7 +15,7 @@ public:
 
 	CC_SYNTHESIZE(MainScene *, mainScene, MainScene);
 	
-	int enemyBaseLife;
+	
 
 	CCArray *_bullet;
 };

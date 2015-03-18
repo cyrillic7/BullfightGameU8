@@ -17,5 +17,5 @@
   <ResourceFileList>
     <string>card.plist</string>
   </ResourceFileList>
-  <bBatchImage>false</bBatchImage>
+  <bBatchImage>true</bBatchImage>
 </AnimationProject>

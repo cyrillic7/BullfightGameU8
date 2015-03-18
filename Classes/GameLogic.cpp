@@ -20,7 +20,7 @@ GameLogic::~GameLogic() {
 //获取牛牛
 bool GameLogic::GetOxCard(BYTE cbCardData[], BYTE cbCardCount)
 {
-	//ASSERT(cbCardCount == MAX_COUNT);
+	assert(cbCardCount == MAX_COUNT);
 
 	//设置变量
 	BYTE bTemp[MAX_COUNT], bTempData[MAX_COUNT];
@@ -47,7 +47,7 @@ bool GameLogic::GetOxCard(BYTE cbCardData[], BYTE cbCardCount)
 						cbCardData[bCount++] = bTempData[k];
 					}
 				}
-				//ASSERT(bCount == 3);
+				assert(bCount == 3);
 				
 				cbCardData[bCount++] = bTempData[i];
 				cbCardData[bCount++] = bTempData[j];
@@ -110,7 +110,7 @@ void GameLogic::SortCardList(BYTE cbCardData[], BYTE cbCardCount)
 //获取类型
 BYTE GameLogic::GetCardType(BYTE cbCardData[], BYTE cbCardCount)
 {
-	//ASSERT(cbCardCount == MAX_COUNT);
+	assert(cbCardCount == MAX_COUNT);
 
 	BYTE bKingCount = 0, bTenCount = 0;
 	for (BYTE i = 0; i<cbCardCount; i++)
