@@ -53,9 +53,17 @@ void MainScene::initHUD(){
 //初始化扑克动画
 void MainScene::initCard(){
 	TCPSocket *tcp = new TCPSocket();
-	
+   /* ODSocket cdSocket;
+    cdSocket.Init();
+    bool isok=cdSocket.Create(AF_INET,SOCK_STREAM,0);
+    bool iscon=cdSocket.Connect("127.0.0.1",8888);*/
 	//lp= sevser;
-	tcp->Connect("125.88.145.41", 8100);
+    TCPSocket tc;
+    tc.Init();
+    tc.Create(AF_INET, SOCK_STREAM,0);
+    bool isConnect=tc.Connect("125.88.145.41", 8100);
+	//bool isConnect=tcp->Connect("125.88.145.41", 8100);
+    CCLog("connect:%d",isConnect);
 	CC_SAFE_DELETE(tcp);
 }
 void MainScene::testLogic(){

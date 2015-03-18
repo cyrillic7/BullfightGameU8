@@ -1,18 +1,86 @@
+/*
+ * define file about portable socket class.
+ * description:this sock is suit both windows and linux
+ * design:odison
+ * e-mail:odison@126.com>
+ *
+ */
 
-#pragma once
-#include "WinSock2.h"
-class TCPSocket{
+#ifndef _ODSOCKET_H_
+#define _ODSOCKET_H_
+
+#ifdef WIN32
+#include <winsock2.h>
+typedef int				socklen_t;
+#else
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <arpa/inet.h>
+typedef int				SOCKET;
+
+//#pragma region define win32 const variable in linux
+#define INVALID_SOCKET	-1
+#define SOCKET_ERROR	-1
+//#pragma endregion
+#endif
+
+
+class TCPSocket {
+    
 public:
-	virtual DWORD __cdecl Connect(DWORD dwServerIP, WORD wPort);
-	//连接操作
-	virtual DWORD __cdecl Connect(const char* szServerIP, WORD wPort);
-	//地址解释
-	DWORD TranslateAddr(const char* pszServerAddr);
-	//辅助变量
+    TCPSocket(SOCKET sock = INVALID_SOCKET);
+    ~TCPSocket();
+    
+    // Create socket object for snd/recv data
+    bool Create(int af, int type, int protocol = 0);
+    
+    // Connect socket
+    bool Connect(const char* ip, unsigned short port);
+    //#region server
+    // Bind socket
+    bool Bind(unsigned short port);
+    
+    // Listen socket
+    bool Listen(int backlog = 5);
+    
+    // Accept socket
+    bool Accept(TCPSocket& s, char* fromip = NULL);
+    //#endregion
+    int Select();
+    // Send socket
+    int Send(const char* buf, int len, int flags = 0);
+    
+    // Recv socket
+    int Recv(char* buf, int len, int flags = 0);
+    
+    // Close socket
+    int Close();
+    
+    // Get errno
+    int GetError();
+    
+    //#pragma region just for win32
+    // Init winsock DLL
+    static int Init();
+    // Clean winsock DLL
+    static int Clean();
+    //#pragma endregion
+    
+    // Domain parse
+    static bool DnsParse(const char* domain, char* ip);
+    
+    TCPSocket& operator = (SOCKET s);
+    
+    operator SOCKET ();
+    
 protected:
-	//WORD							m_wSocketID;						//网络标识
-	BYTE							m_cbSocketStatus;					//网络状态
-	//内核变量
-protected:
-	SOCKET							m_hSocket;							//连接句柄
+    SOCKET m_sock;
+    fd_set  fdR;
 };
+
+#endif
