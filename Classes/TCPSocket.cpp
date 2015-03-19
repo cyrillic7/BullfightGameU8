@@ -99,10 +99,26 @@ TCPSocket::TCPSocket(SOCKET sock) {
 
 	m_wRecvSize = 0;
 	m_dwSendPacketCount = 0;
+	m_dwRecvPacketCount = 0;
 	m_dwSendTickCount = 0;
+						
+	//m_dwSendXorKey = 0x12345678;
+	//m_dwRecvXorKey = 0x12345678;
 
-	m_dwSendXorKey = 0x12345678;
-	m_dwRecvXorKey = 0x12345678;
+	m_wRecvSize = 0;
+	m_cbSendRound = 0;
+	m_cbRecvRound = 0;
+	m_dwSendXorKey = 0;
+	m_dwRecvXorKey = 0;
+	m_dwSendTickCount = 0;
+	m_dwRecvTickCount = 0;
+	m_dwSendPacketCount = 0;
+	m_dwRecvPacketCount = 0;
+	//m_cbSocketStatus=SHUT_REASON_NORMAL;
+	
+	//m_ProxyInfo.wProxyPort=0;
+	//m_ProxyInfo.cbProxyType=enProxyServerType::ProxyType_None;
+	
 }
 
 TCPSocket::~TCPSocket() {

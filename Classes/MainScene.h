@@ -39,7 +39,10 @@ private:
 	void initCardLayer();
 	//添加背景
 	void addBg();
+	//测试逻辑
 	void testLogic();
+	//测试网络
+	void testTcpSocket();
 };
 
 #endif /* defined(__BullfightGame__MainScene__) */

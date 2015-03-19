@@ -20,7 +20,7 @@ typedef int				socklen_t;
 #endif
 
 
-
+#pragma  pack(1)
 //登录命令
 #define MDM_MB_LOGON				100									//广场登录
 
@@ -29,12 +29,12 @@ typedef int				socklen_t;
 #define SUB_MB_LOGON_ACCOUNTS		2									//帐号登录
 #define SUB_MB_REGISTER_ACCOUNTS	3									//注册帐号
 
-#define	LEN_MD5						32
+#define	LEN_MD5						33
 #define	LEN_ACCOUNTS				32
-#define LEN_MACHINE_ID				64
-#define LEN_MOBILE_PHONE			11
-#define LEN_PASS_PORT_ID			14
-#define LEN_PHONE_VERIFY_ID			11
+#define LEN_MACHINE_ID				33
+#define LEN_MOBILE_PHONE			12
+#define LEN_PASS_PORT_ID			19
+#define LEN_PHONE_VERIFY_ID			7
 struct TCP_Info
 {
 	BYTE							cbDataKind;							//数据类型
@@ -76,4 +76,5 @@ struct CMD_MB_LogonAccounts
 	TCHAR							szPassPortID[LEN_PASS_PORT_ID];		 //身份证号（身份证绑定使用）
 	TCHAR							szPhoneVerifyID[LEN_PHONE_VERIFY_ID];//手机验证号（手机绑定使用）
 };
+#pragma pack()
 #endif

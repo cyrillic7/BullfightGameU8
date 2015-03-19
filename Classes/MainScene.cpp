@@ -13,6 +13,7 @@
 #include "TCPSocket.h"
 #include "StructLogon.h"
 #include "CardLayer.h"
+#include <tchar.h>
 MainScene::MainScene(){
 }
 MainScene::~MainScene(){
@@ -37,6 +38,7 @@ void MainScene::onEnter(){
 	initHUD();
 	initCardLayer();
 	testLogic();
+	testTcpSocket();
 }
 void MainScene::onExit(){
 	CCLayer::onExit();
@@ -54,40 +56,45 @@ void MainScene::initHUD(){
 void MainScene::initCardLayer(){
 	CardLayer *cardLayer = CardLayer::create();
 	this->addChild(cardLayer);
-	/*//TCPSocket *tcp = new TCPSocket();
-	//lp= sevser;
-    TCPSocket tcp;
-    tcp.Init();
-    tcp.Create(AF_INET, SOCK_STREAM,0);
-    bool isConnect=tcp.Connect("125.88.145.41", 8100);
-	//bool isConnect = tcp.Connect("127.0.0.1", 7880);
-	//bool isConnect=tcp->Connect("125.88.145.41", 8100);
-    CCLog("connect:%d",isConnect);
+}
+void MainScene::testTcpSocket(){
+	TCPSocket tcp;
+	tcp.Init();
+	tcp.Create(AF_INET, SOCK_STREAM, 0);
+	bool isConnect = tcp.Connect("125.88.145.41", 8100);
+	//bool isConnect = tcp.Connect("192.168.0.104", 8100);
+	CCLog("connect:%d", isConnect);
 
-	//tc.Send("123", strlen("123")+1, 0);
-	//bool isSend=tc.SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS);
-	//tc.SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, , );
 	CMD_MB_LogonAccounts logonAccounts;
+	memset(&logonAccounts, 0, sizeof(CMD_MB_LogonAccounts));
 	logonAccounts.cbDeviceType = 2;
-	logonAccounts.dwPlazaVersion = 2.1;
+	logonAccounts.dwPlazaVersion = 2;
 
-	memset(logonAccounts.szAccounts, '/0', LEN_ACCOUNTS);
-	memset(logonAccounts.szMachineID, '/0', LEN_MACHINE_ID);
-	memset(logonAccounts.szMobilePhone, '/0', LEN_MOBILE_PHONE);
-	memset(logonAccounts.szPassPortID, '/0', LEN_PASS_PORT_ID);
-	memset(logonAccounts.szPassword, '/0', LEN_MD5);
-	memset(logonAccounts.szPhoneVerifyID, '/0', LEN_PHONE_VERIFY_ID);
+	int n = sizeof(CMD_MB_LogonAccounts);
 
-	//logonAccounts.szAccounts = _T(zh);
+	//CWHEncrypt::MD5Encrypt(szTempPassword, szPassword);
+	//CWHEncrypt::MD5Encrypt("1234533", );
+	 
 
+    _tcscpy(logonAccounts.szPassword, _TEXT("12333333"));
+	_tcscpy(logonAccounts.szAccounts, _TEXT("test"));
+	_tcscpy(logonAccounts.szMachineID, _TEXT("ie3289423jjkj"));
+	_tcscpy(logonAccounts.szMobilePhone, _TEXT("13623456543"));
+	_tcscpy(logonAccounts.szPassPortID, _TEXT("12345678900987"));
+	
+	_tcscpy(logonAccounts.szPhoneVerifyID, _TEXT("18667653456"));
+	 
+	//unsigned char* output;
+	//CCCrypto::MD5("ds", 2, output);
+	 
+	//CCCrypto::MD5(logonAccounts.szPassword, sizeof(logonAccounts.szPassword), output);
 	logonAccounts.wModuleID = 0;
 
-	bool isSend=tcp.SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &logonAccounts, sizeof(logonAccounts));
+
+	bool isSend = tcp.SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &logonAccounts, sizeof(logonAccounts));
 	CCLog("send:%d", isSend);
-	bool isRead=tcp.OnSocketNotifyRead(0,0);
+	bool isRead = tcp.OnSocketNotifyRead(0, 0);
 	CCLog("read:%d", isRead);
-	
-	//CC_SAFE_DELETE(tcp);*/
 }
 void MainScene::testLogic(){
 	/*BYTE tempCard[5] = {2,2,3,8,6};
