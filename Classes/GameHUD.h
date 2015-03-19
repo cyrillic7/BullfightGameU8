@@ -23,6 +23,10 @@ public:
 private:
 	//菜单////////////////////////////////////////////////////////////////////////
 	void menuPause(CCObject* pSender, TouchEventType type);
+	//无牛按键
+	void menuCancel(CCObject* pSender, TouchEventType type);
+	//提示按键
+	void menuPrompt(CCObject* pSender, TouchEventType type);
 };
 
 #endif /* defined(__BullfightGame__GameHUD__) */

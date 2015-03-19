@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "MainScene.h"
+#include "GameLogic.h"
 USING_NS_CC;
 class DataModel:public CCObject{
 public:
@@ -15,7 +16,7 @@ public:
 
 	CC_SYNTHESIZE(MainScene *, mainScene, MainScene);
 	
-	
+	GameLogic *gameLogic;
 
 	CCArray *_bullet;
 };

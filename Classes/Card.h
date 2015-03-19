@@ -11,7 +11,7 @@ USING_NS_CC_EXT;
 
 class Card:public CCNode {
 public:
-	//牌动画
+	//扑克动画
 	CCArmature *m_cpArmatureCard;
 	//BYTE cardValue;
 	//BYTE cardColor;
@@ -19,6 +19,6 @@ public:
 	Card();
 	~Card();
 	CREATE_FUNC(Card);
-
-	void createCard();
+	//创建扑克动画
+	void createCardArmature(CCBatchNode *cardBatch,short cardColor,short cardValue);
 };

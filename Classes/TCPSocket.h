@@ -29,6 +29,9 @@ typedef int				SOCKET;
 //#pragma endregion
 #endif
 
+//长度定义
+#define SOCKET_TCP_BUFFER			16384								//网络缓冲
+#define SOCKET_TCP_PACKET			(SOCKET_TCP_BUFFER-sizeof(TCP_Head))//网络缓冲
 
 class TCPSocket {
     
@@ -81,6 +84,66 @@ public:
 protected:
     SOCKET m_sock;
     fd_set  fdR;
+
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+	//接收变量
+protected:
+	WORD							m_wRecvSize;						//接收长度
+	BYTE							m_cbRecvBuf[SOCKET_TCP_BUFFER * 10];		//接收缓冲
+	//加密数据
+protected:
+	BYTE							m_cbSendRound;						//字节映射
+	BYTE							m_cbRecvRound;						//字节映射
+	DWORD							m_dwSendXorKey;						//发送密钥
+	DWORD							m_dwRecvXorKey;						//接收密钥
+
+	BYTE static						g_SendByteMap[];
+	BYTE static						g_RecvByteMap[];
+	//计数变量
+protected:
+	DWORD							m_dwSendTickCount;					//发送时间
+	DWORD							m_dwRecvTickCount;					//接收时间
+	DWORD							m_dwSendPacketCount;				//发送计数
+	DWORD							m_dwRecvPacketCount;				//接受计数
+
+	//加密函数
+protected:
+	//解密数据
+	WORD CrevasseBuffer(BYTE cbDataBuffer[], WORD wDataSize);
+	//加密数据
+	WORD EncryptBuffer(BYTE cbDataBuffer[], WORD wDataSize, WORD wBufferSize);
+
+	//内联函数
+private:
+	//字节映射
+	inline WORD SeedRandMap(WORD wSeed);
+	//发送映射
+	inline BYTE MapSendByte(BYTE cbData);
+	//接收映射
+	inline BYTE MapRecvByte(BYTE cbData);
+
+	//操作接口
+public:
+	//发送函数
+	virtual DWORD __cdecl SendData(WORD wMainCmdID, WORD wSubCmdID);
+	//发送函数
+	virtual DWORD __cdecl SendData(WORD wMainCmdID, WORD wSubCmdID, VOID * const pData, WORD wDataSize);
+
+	//辅助函数
+protected:
+	//关闭连接
+	//VOID CloseSocket(BYTE cbShutReason);
+	//缓冲数据
+	//VOID AmortizeBuffer(VOID * pData, WORD wDataSize);
+	//发送数据
+	DWORD SendDataBuffer(VOID * pBuffer, WORD wSendSize);
+
+	//消息函数
+public:
+	//网络读取
+	LRESULT OnSocketNotifyRead(WPARAM wParam, LPARAM lParam);
 };
+
 
 #endif

@@ -10,18 +10,17 @@
     <string>UIGameHUD.json</string>
   </JsonList>
   <CanvasSize>
-    <Width>480</Width>
-    <Height>320</Height>
+    <Width>960</Width>
+    <Height>640</Height>
   </CanvasSize>
   <filePath>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\ccsprojs\UIGameHUD\UIGameHUD.xml.ui</filePath>
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <imageFileList>
     <string>UIGameHUD.plist</string>
+    <string>UIGameHUD0.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>UIGameHUD.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIGameHUD.json</CurrentUIJson>
+  <CurrentUIJson />
 </UIProject>

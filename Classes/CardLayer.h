@@ -14,4 +14,8 @@ public:
 	~CardLayer();
 	CREATE_FUNC(CardLayer);
 	virtual bool init();
+	
+private:
+	//发牌
+	void sendCard();
 };

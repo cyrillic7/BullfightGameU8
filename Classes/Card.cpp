@@ -7,7 +7,9 @@ Card::Card()
 }
 Card::~Card() {
 }
-void Card::createCard(){
+void Card::createCardArmature(CCBatchNode *cardBatch,short cardColor,short cardValue)
+{
 	m_cpArmatureCard = CCArmature::create("AnimationCard");
-//	DataModel::sharedDataModel()->getMainScene()->batchCard->addChild(m_cpArmatureCard);
+	cardBatch->addChild(m_cpArmatureCard);
+	m_cpArmatureCard->getAnimation()->play(CCString::createWithFormat("card_%d_%d",cardColor,cardValue)->getCString());
 }

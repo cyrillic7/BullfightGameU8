@@ -35,8 +35,8 @@ public:
 private:
 	//初始化
 	void initHUD();
-	//初始化扑克
-	void initCard();
+	//初始化扑克层
+	void initCardLayer();
 	//添加背景
 	void addBg();
 	void testLogic();

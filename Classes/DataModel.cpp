@@ -15,11 +15,15 @@ DataModel::DataModel()
 {
 	DataModel::isMusic = Tools::getBoolByRMS(RMS_IS_MUSIC);
 	DataModel::isSound = Tools::getBoolByRMS(RMS_IS_SOUND);
+
+	gameLogic = new GameLogic();
 }
 DataModel::~DataModel() {
 	CCLog("~ <<%s>>",__FUNCTION__);
 	_bullet->removeAllObjects();
 	_bullet->release();
+
+	CC_SAFE_DELETE(gameLogic);
 	/*
 	_outputEnemysData->removeAllObjects();
 	_outputEnemysData->release();
