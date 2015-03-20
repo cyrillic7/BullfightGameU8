@@ -1,12 +1,12 @@
 //
-//  MainScene.cpp
+//  LogonScene.cpp
 //  BullfightGame
 //
 //  Created by 寮�鎭�on 15/3/16.
 //
 //
 
-#include "MainScene.h"
+#include "LogonScene.h"
 #include "GameConfig.h"
 #include "DataModel.h"
 #include "BaseAttributes.h"
@@ -15,13 +15,9 @@
 #include "CardLayer.h"
 #include <tchar.h>
 #include "MD5.h"
-
-#include <thread>
-#include <iostream>
-pthread_t MainScene::threadHimi;
-MainScene::MainScene(){
+LogonScene::LogonScene(){
 }
-MainScene::~MainScene(){
+LogonScene::~LogonScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
 
 	DataModel *m = DataModel::sharedDataModel();
@@ -29,74 +25,39 @@ MainScene::~MainScene(){
 	BaseAttributes *b = BaseAttributes::sharedAttributes();
 	CC_SAFE_RELEASE_NULL(b);
 }
-CCScene* MainScene::scene()
+CCScene* LogonScene::scene()
 {
     CCScene *scene = CCScene::create();
-    MainScene *layer = MainScene::create();
+    LogonScene *layer = LogonScene::create();
     scene->addChild(layer);
-	DataModel::sharedDataModel()->setMainScene(layer);
     return scene;
 }
-void* MainScene::networkThread(void*){
-	DataModel::sharedDataModel()->getMainScene()->testTcpSocket();
-	return 0;
-}
-void MainScene::onEnter(){
+void LogonScene::onEnter(){
 	CCLayer::onEnter();
 	addBg();
 	initHUD();
 	initCardLayer();
 	testLogic();
-	//testTcpSocket();
-	
-	//std::thread *t1 = new std::thread(test);
-    //t1->join();
-	//static pthread_t        s_networkThread;
-	//pthread_create(&s_networkThread, NULL, testTcpSocket, NULL);
-	threadStart();
+	testTcpSocket();
 }
-void MainScene::onExit(){
+void LogonScene::onExit(){
 	CCLayer::onExit();
 }
-void MainScene::addBg(){
+void LogonScene::addBg(){
 	CCSprite *bg = CCSprite::create("res/room1_n.jpg");
 	this->addChild(bg);
 	bg->setPosition(ccp(SCENE_SIZE.width/2,SCENE_SIZE.height/2));
 }
-void MainScene::initHUD(){
+void LogonScene::initHUD(){
 	gameHUD = GameHUD::create();
 	this->addChild(gameHUD, K_Z_ORDER_HUD);
 }
 //鍒濆鍖栨墤鍏嬪姩鐢�
-void MainScene::initCardLayer(){
+void LogonScene::initCardLayer(){
 	CardLayer *cardLayer = CardLayer::create();
 	this->addChild(cardLayer);
 }
-
-
-
-int MainScene::threadStart(){
-	int errCode = 0;
-	do{
-		pthread_attr_t tAttr;
-		errCode = pthread_attr_init(&tAttr);
-
-		CC_BREAK_IF(errCode != 0);
-
-			errCode = pthread_attr_setdetachstate(&tAttr, PTHREAD_CREATE_DETACHED);
-
-		if (errCode != 0) {
-			pthread_attr_destroy(&tAttr);
-			break;
-		}
-
-		errCode = pthread_create(&threadHimi, &tAttr, networkThread, this);
-
-	} while (0);
-	return errCode;
-}
-
-void MainScene::testTcpSocket(){
+void LogonScene::testTcpSocket(){
 	Init();
 	Create(AF_INET, SOCK_STREAM, 0);
 	bool isConnect=Connect("125.88.145.41", 8100);
@@ -115,8 +76,7 @@ void MainScene::testTcpSocket(){
 	_tcscpy(logonAccounts.szPassPortID, _TEXT("12"));
 	_tcscpy(logonAccounts.szPhoneVerifyID, _TEXT("1"));
 
-	logonAccounts.wModuleID = 210; //210为二人牛牛标示
-
+	logonAccounts.wModuleID = 0;
 
 	MD5 m;
 	MD5::char8 str[] = "z12345678";
@@ -127,14 +87,8 @@ void MainScene::testTcpSocket(){
 
 	bool isSend = SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &logonAccounts, sizeof(logonAccounts));
 	CCLog("send:%d", isSend);
-	/*bool isRead = OnSocketNotifyRead(0, 0);
-	CCLog("read:%d", isRead);*/
-
-	while (1)
-	{
-		bool isRead = OnSocketNotifyRead(0, 0);
-		CCLog("read:%d", isRead);
-	}
+	bool isRead = OnSocketNotifyRead(0, 0);
+	CCLog("read:%d", isRead);
 
 	//isRead = OnSocketNotifyRead(0, 0);
 	//CCLog("2read:%d", isRead);
@@ -142,7 +96,7 @@ void MainScene::testTcpSocket(){
 	//isRead = OnSocketNotifyRead(0, 0);
 	//CCLog("3read:%d", isRead);
 }
-void MainScene::testLogic(){
+void LogonScene::testLogic(){
 	BYTE tempCard[5] = { 2, 2, 3, 8, 6 };
 	bool ox = GetOxCard(tempCard, 5);
 	CCLog("ox:%d", ox);
@@ -163,7 +117,7 @@ void MainScene::testLogic(){
 
 	CC_SAFE_DELETE(logic);*/
 }
-bool MainScene::OnEventTCPSocketRead(WORD wSocketID, TCP_Command Command, void * pDataBuffer, WORD wDataSize){
+bool LogonScene::OnEventTCPSocketRead(WORD wSocketID, TCP_Command Command, void * pDataBuffer, WORD wDataSize){
 	if (Command.wMainCmdID == MDM_GP_LOGON)
 	{
 		if (Command.wSubCmdID == SUB_GP_UPDATE_NOTIFY)
@@ -197,39 +151,7 @@ bool MainScene::OnEventTCPSocketRead(WORD wSocketID, TCP_Command Command, void *
 			CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)pDataBuffer;
 			CCLog("登录成功");
 			//读取列表
-			//TCPSocket::OnSocketNotifyRead(0, 0);
-		}
-	}
-	//获取列表
-	if (Command.wMainCmdID == 2)
-	{
-		if (Command.wSubCmdID == SUB_MB_LIST_SERVER)
-		{
-			//效验参数
-			if (wDataSize != sizeof(tagGameKind)) return false;
-
-			tagGameKind *gs = (tagGameKind*)pDataBuffer;
-			CCLog("获取游戏种类");
-		}
-	}
-	if (Command.wMainCmdID==101)
-	{
-		if (Command.wSubCmdID==101)
-		{
-			int gameServerSize = sizeof(tagGameServer);
-			int serverCount = wDataSize / gameServerSize;
-
-			//void *pDataBuffer = pDataBuffer + sizeof(tagGameServer);
-			BYTE cbDataBuffer[SOCKET_TCP_PACKET + sizeof(TCP_Head)];
-			CopyMemory(cbDataBuffer, pDataBuffer, wDataSize);
-			for (int i = 0; i < serverCount; i++)
-			{
-				void * pDataBuffer = cbDataBuffer + i*sizeof(tagGameServer);
-				tagGameServer *gameServer = (tagGameServer*)pDataBuffer;
-				
-			}
-			//tagGameServer *gameServer = (tagGameServer*)pDataBuffer;
-			//TCPSocket::OnSocketNotifyRead(0, 0);
+			TCPSocket::OnSocketNotifyRead(0, 0);
 		}
 	}
 	//获取列表

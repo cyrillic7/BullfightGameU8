@@ -3,12 +3,12 @@
 #pragma once
 using namespace std;
 
-class MMD5
+class MD5
 {
 public:
 	typedef unsigned char uchar8; //make sure it is 8bit
 	typedef char char8; //make sure it is 8bit
-	MMD5();
+	MD5();
 
 	void init();
 

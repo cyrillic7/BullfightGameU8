@@ -1,4 +1,4 @@
-#include"MMD5.h"
+#include"MD5.h"
 
 #include<iostream>
 using namespace std;
@@ -7,7 +7,7 @@ const int S[4][4] = { 7, 12, 17, 22,
 5, 9, 14, 20,
 4, 11, 16, 23,
 6, 10, 15, 21 };
-void MMD5::init()
+void MD5::init()
 {
 	A = 0x67452301;
 	B = 0xefcdab89;
@@ -21,56 +21,56 @@ void MMD5::init()
 	isDone_ = false;
 }
 
-MMD5::MMD5()
+MD5::MD5()
 {
 	init();
 }
 
-inline MMD5::uint32 MMD5::RotateLeft(const uint32 x, int n)
+inline MD5::uint32 MD5::RotateLeft(const uint32 x, int n)
 {
 	return (x << n) | (x >> (32 - n));
 	// if x is signed, use: (x << n) | ((x & 0xFFFFFFFF) >> (32-n))
 }
-inline MMD5::uint32 MMD5::F(const uint32 x, const uint32 y, const uint32 z)
+inline MD5::uint32 MD5::F(const uint32 x, const uint32 y, const uint32 z)
 {
 	return (x & y) | ((~x) & z);
 }
-inline MMD5::uint32 MMD5::G(const uint32 x, const uint32 y, const uint32 z)
+inline MD5::uint32 MD5::G(const uint32 x, const uint32 y, const uint32 z)
 {
 	return (x & z) | (y & (~z));
 }
-inline MMD5::uint32 MMD5::H(const uint32 x, const uint32 y, const uint32 z)
+inline MD5::uint32 MD5::H(const uint32 x, const uint32 y, const uint32 z)
 {
 	return x ^ y ^ z;
 }
-inline MMD5::uint32 MMD5::I(const uint32 x, const uint32 y, const uint32 z)
+inline MD5::uint32 MD5::I(const uint32 x, const uint32 y, const uint32 z)
 {
 	return y ^ (x | (~z));
 }
 
-inline void MMD5::FF(uint32 &a, const uint32 b, const uint32 c, const uint32 d,
+inline void MD5::FF(uint32 &a, const uint32 b, const uint32 c, const uint32 d,
 	const uint32 Mj, const int s, const uint32 ti)
 {
 	a = b + RotateLeft(a + F(b, c, d) + Mj + ti, s);
 }
-inline void MMD5::GG(uint32 &a, const uint32 b, const uint32 c, const uint32 d,
+inline void MD5::GG(uint32 &a, const uint32 b, const uint32 c, const uint32 d,
 	const uint32 Mj, const int s, const uint32 ti)
 {
 	a = b + RotateLeft(a + G(b, c, d) + Mj + ti, s);
 }
-inline void MMD5::HH(uint32 &a, const uint32 b, const uint32 c, const uint32 d,
+inline void MD5::HH(uint32 &a, const uint32 b, const uint32 c, const uint32 d,
 	const uint32 Mj, const int s, const uint32 ti)
 {
 	a = b + RotateLeft(a + H(b, c, d) + Mj + ti, s);
 }
-inline void MMD5::II(uint32 &a, const uint32 b, const uint32 c, const uint32 d,
+inline void MD5::II(uint32 &a, const uint32 b, const uint32 c, const uint32 d,
 	const uint32 Mj, const int s, const uint32 ti)
 {
 	a = b + RotateLeft(a + I(b, c, d) + Mj + ti, s);
 }
 
 // link A B C D to result(bit style result and hexadecimal style result)
-void MMD5::LinkResult()
+void MD5::LinkResult()
 {
 	//bit style result
 	for (int i = 0; i < 4; i++)  //link A: low to high
@@ -99,7 +99,7 @@ void MMD5::LinkResult()
 }
 
 //print the md5 by hex
-void MMD5::printMd5()
+void MD5::printMd5()
 {
 	if (!isDone_)
 	{
@@ -111,7 +111,7 @@ void MMD5::printMd5()
 }
 
 //get the md5 value of hex style 
-string MMD5::GetMd5()
+string MD5::GetMd5()
 {
 	if (!isDone_)
 	{
@@ -122,7 +122,7 @@ string MMD5::GetMd5()
 	return a;
 }
 
-void MMD5::UcharToUint(uint32 output[], const uchar8 input[], const unsigned int transLength)
+void MD5::UcharToUint(uint32 output[], const uchar8 input[], const unsigned int transLength)
 {
 	for (int i = 0, j = 0; j < transLength; i++, j += 4)
 	{
@@ -132,7 +132,7 @@ void MMD5::UcharToUint(uint32 output[], const uchar8 input[], const unsigned int
 }
 
 // four round on a block of 512 bits;
-void MMD5::FourRound(const uchar8 block[])
+void MD5::FourRound(const uchar8 block[])
 {
 	uint32 a = A, b = B, c = C, d = D;
 	uint32 M[16];
@@ -217,7 +217,7 @@ void MMD5::FourRound(const uchar8 block[])
 }
 
 // update md5,must consider the remain_.
-void MMD5::UpdateMd5(const uchar8 input[], const int length)
+void MD5::UpdateMd5(const uchar8 input[], const int length)
 {
 	isDone_ = false;
 	totalInputBits_ += (length << 3);
@@ -248,13 +248,13 @@ void MMD5::UpdateMd5(const uchar8 input[], const int length)
 
 }
 
-void MMD5::UpdateMd5(const char8 input[], const int length)
+void MD5::UpdateMd5(const char8 input[], const int length)
 {
 	UpdateMd5((const uchar8 *)input, length);
 }
 
 // padding with 100000... to remain_ and add the 64bit original size of input 
-void MMD5::Finalize()
+void MD5::Finalize()
 {
 	if (isDone_ == true)
 		return;
@@ -291,14 +291,14 @@ void MMD5::Finalize()
 }
 
 // comput the md5 based on input, (just this one input)
-void MMD5::ComputMd5(const uchar8 input[], const int length)
+void MD5::ComputMd5(const uchar8 input[], const int length)
 {
 	init();
 	UpdateMd5(input, length);
 	Finalize();
 }
 
-void MMD5::ComputMd5(const char8 input[], const int length)
+void MD5::ComputMd5(const char8 input[], const int length)
 {
 	ComputMd5((const uchar8 *)input, length);
 }

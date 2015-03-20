@@ -60,6 +60,8 @@ typedef int				socklen_t;
 
 #define LEN_NICKNAME				32 									//昵称长度
 #define LEN_SERVER					32 
+#define LEN_KIND					32 
+#define LEN_PROCESS					32 
 
 //内核命令
 #define MDM_KN_COMMAND				0									//内核命令
@@ -149,5 +151,19 @@ struct tagGameServer
 	TCHAR							szDescription[LEN_SERVER];			//房间描述
 	WORD							wServerType;						//房间类型 0,默认房间，1新房间、2热门房间
 };
+//游戏种类
+struct tagGameKind
+{
+	WORD							wTypeID;							//类型索引
+	WORD							wJoinID;							//挂接索引
+	WORD							wSortID;							//排序索引
+	WORD							wKindID;							//类型索引
+	WORD							wGameID;							//模块索引
+	DWORD							dwOnLineCount;						//在线人数
+	DWORD							dwFullCount;						//满员人数
+	TCHAR							szKindName[LEN_KIND];				//游戏名字
+	TCHAR							szProcessName[LEN_PROCESS];			//进程名字
+};
+
 #pragma pack()
 #endif
