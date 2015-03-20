@@ -22,6 +22,28 @@ typedef int				socklen_t;
 
 #pragma  pack(1)
 //登录命令
+
+#define MDM_GP_LOGON				1									//广场登录
+
+//登录模式
+#define SUB_GP_LOGON_GAMEID			1									//I D 登录
+#define SUB_GP_LOGON_ACCOUNTS		2									//帐号登录
+#define SUB_GP_REGISTER_ACCOUNTS	3									//注册帐号
+#define SUB_GP_LOGON_LOGOUT_GAMEID  4                                   //退出大厅
+#define SUB_GP_LOBBY_IP 			5									//比赛服务器ip
+
+//登录结果
+#define SUB_GP_LOGON_SUCCESS		100									//登录成功
+#define SUB_GP_LOGON_FAILURE		101									//登录失败
+#define SUB_GP_LOGON_FINISH			102									//登录完成
+#define SUB_GP_VALIDATE_MBCARD      103                                 //登录失败
+
+//升级提示
+#define SUB_GP_UPDATE_NOTIFY		200									//升级提示
+
+
+//////////////////////////////////////////////////////////////////////////
+//登录命令
 #define MDM_MB_LOGON				100									//广场登录
 
 //登录模式
@@ -35,6 +57,24 @@ typedef int				socklen_t;
 #define LEN_MOBILE_PHONE			12
 #define LEN_PASS_PORT_ID			19
 #define LEN_PHONE_VERIFY_ID			7
+
+#define LEN_NICKNAME				32 									//昵称长度
+#define LEN_SERVER					32 
+
+//内核命令
+#define MDM_KN_COMMAND				0									//内核命令
+#define SUB_KN_DETECT_SOCKET		1									//检测命令
+#define SUB_KN_VALIDATE_SOCKET		2									//验证命令
+
+//////////////////////////////////////////////////////////////////////////////////
+//列表命令
+
+#define MDM_MB_SERVER_LIST			101									//列表信息
+
+//列表信息
+#define SUB_MB_LIST_KIND			100									//种类列表
+#define SUB_MB_LIST_SERVER			101									//房间列表
+#define SUB_MB_LIST_FINISH			200									//列表完成
 struct TCP_Info
 {
 	BYTE							cbDataKind;							//数据类型
@@ -75,6 +115,39 @@ struct CMD_MB_LogonAccounts
 
 	TCHAR							szPassPortID[LEN_PASS_PORT_ID];		 //身份证号（身份证绑定使用）
 	TCHAR							szPhoneVerifyID[LEN_PHONE_VERIFY_ID];//手机验证号（手机绑定使用）
+};
+//登录失败
+struct CMD_MB_LogonFailure
+{
+	LONG							lResultCode;						//错误代码
+	TCHAR							szDescribeString[128];				//描述消息
+};
+//登录成功
+struct CMD_MB_LogonSuccess
+{
+	WORD							wFaceID;							//头像标识
+	BYTE							cbGender;							//用户性别
+	DWORD							dwUserID;							//用户 I D
+	DWORD							dwGameID;							//游戏 I D
+	DWORD							dwExperience;						//经验数值
+	DWORD							dwLoveLiness;						//用户魅力
+	TCHAR							szNickName[LEN_NICKNAME];			//用户昵称
+};
+//游戏房间
+struct tagGameServer
+{
+	WORD							wKindID;							//名称索引
+	WORD							wNodeID;							//节点索引
+	WORD							wSortID;							//排序索引
+	WORD							wServerID;							//房间索引
+	WORD							wServerPort;						//房间端口
+	DWORD							dwOnLineCount;						//在线人数
+	DWORD							dwFullCount;						//满员人数
+	TCHAR							szServerAddr[32];					//房间名称
+	TCHAR							szServerName[LEN_SERVER];			//房间名称
+	TCHAR							szGameLevel[LEN_SERVER];			//场次
+	TCHAR							szDescription[LEN_SERVER];			//房间描述
+	WORD							wServerType;						//房间类型 0,默认房间，1新房间、2热门房间
 };
 #pragma pack()
 #endif

@@ -114,6 +114,7 @@ TCPSocket::TCPSocket(SOCKET sock) {
 	m_dwRecvTickCount = 0;
 	m_dwSendPacketCount = 0;
 	m_dwRecvPacketCount = 0;
+	m_nRecHit = 0;
 	//m_cbSocketStatus=SHUT_REASON_NORMAL;
 	
 	//m_ProxyInfo.wProxyPort=0;
@@ -575,26 +576,36 @@ LRESULT TCPSocket::OnSocketNotifyRead(WPARAM wParam, LPARAM lParam)
 			WORD wDataSize = wRealySize - sizeof(TCP_Head);
 			void * pDataBuffer = cbDataBuffer + sizeof(TCP_Head);
 			TCP_Command Command = ((TCP_Head *)cbDataBuffer)->CommandInfo;
-
-			/*//内核命令
+			//内核命令
 			if (Command.wMainCmdID == MDM_KN_COMMAND)
 			{
 				switch (Command.wSubCmdID)
 				{
-				case SUB_KN_DETECT_SOCKET:	//网络检测
-				{
-												m_nRecHit++;
-												//发送数据
-												SendData(MDM_KN_COMMAND, SUB_KN_DETECT_SOCKET, pDataBuffer, wDataSize);
-												break;
-				}
+					case SUB_KN_DETECT_SOCKET:	//网络检测
+					{
+						m_nRecHit++;
+						//发送数据
+						SendData(MDM_KN_COMMAND, SUB_KN_DETECT_SOCKET, pDataBuffer, wDataSize);
+						break;
+					}
 				}
 				continue;
 			}
+			/*//////////////////////////////////////////////////////////////////////////
+			
 
+			
+			
+			//////////////////////////////////////////////////////////////////////////
+			
+			*/
 			//处理数据
-			bool bSuccess = m_pITCPSocketSink->OnEventTCPSocketRead(m_wSocketID, Command, pDataBuffer, wDataSize);
-			if (bSuccess == false) throw TEXT("网络数据包处理失败");*/
+			bool bSuccess = OnEventTCPSocketRead(m_wSocketID, Command, pDataBuffer, wDataSize);
+			//if (bSuccess == false) throw TEXT("网络数据包处理失败");
+			if (!bSuccess)
+			{
+				return bSuccess;
+			}
 		};
 	}
 	catch (LPCTSTR pszError)

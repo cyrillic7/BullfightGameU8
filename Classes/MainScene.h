@@ -12,9 +12,11 @@
 #include "cocos2d.h"
 #include "cocos-ext.h"
 #include "GameHUD.h"
+#include "TCPSocket.h"
+#include "GameLogic.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
-class MainScene:public CCLayer
+class MainScene:public CCLayer,public TCPSocket,public GameLogic
 {
 public:
 	enum GameState
@@ -43,6 +45,8 @@ private:
 	void testLogic();
 	//测试网络
 	void testTcpSocket();
+
+	bool OnEventTCPSocketRead(WORD	wSocketID, TCP_Command tCommand, void * pDataBuffer, WORD wDataSize);
 };
 
 #endif /* defined(__BullfightGame__MainScene__) */

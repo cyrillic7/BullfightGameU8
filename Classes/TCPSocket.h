@@ -28,12 +28,12 @@ typedef int				SOCKET;
 #define SOCKET_ERROR	-1
 //#pragma endregion
 #endif
-
+#include "ITCPSocket.h"
 //长度定义
 #define SOCKET_TCP_BUFFER			16384								//网络缓冲
 #define SOCKET_TCP_PACKET			(SOCKET_TCP_BUFFER-sizeof(TCP_Head))//网络缓冲
 
-class TCPSocket {
+class TCPSocket:public ITCPSocket {
     
 public:
     TCPSocket(SOCKET sock = INVALID_SOCKET);
@@ -87,6 +87,12 @@ protected:
 
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
+	ITCPSocket *				m_pITCPSocket;					//回调接口
+	//辅助变量
+protected:
+	WORD							m_wSocketID;						//网络标识
+	BYTE							m_cbSocketStatus;					//网络状态
+	int                             m_nRecHit;
 	//接收变量
 protected:
 	WORD							m_wRecvSize;						//接收长度
@@ -143,6 +149,7 @@ protected:
 public:
 	//网络读取
 	LRESULT OnSocketNotifyRead(WPARAM wParam, LPARAM lParam);
+
 };
 
 
