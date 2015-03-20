@@ -28,6 +28,7 @@ MainScene::~MainScene(){
 	CC_SAFE_RELEASE_NULL(m);
 	BaseAttributes *b = BaseAttributes::sharedAttributes();
 	CC_SAFE_RELEASE_NULL(b);
+
 }
 CCScene* MainScene::scene()
 {
@@ -47,6 +48,7 @@ void MainScene::onEnter(){
 	initHUD();
 	initCardLayer();
 	testLogic();
+	
 	//testTcpSocket();
 	
 	//std::thread *t1 = new std::thread(test);
@@ -91,7 +93,7 @@ int MainScene::threadStart(){
 		}
 
 		errCode = pthread_create(&threadHimi, &tAttr, networkThread, this);
-
+		pthread_detach(threadHimi);
 	} while (0);
 	return errCode;
 }
@@ -135,12 +137,6 @@ void MainScene::testTcpSocket(){
 		bool isRead = OnSocketNotifyRead(0, 0);
 		CCLog("read:%d", isRead);
 	}
-
-	//isRead = OnSocketNotifyRead(0, 0);
-	//CCLog("2read:%d", isRead);
-
-	//isRead = OnSocketNotifyRead(0, 0);
-	//CCLog("3read:%d", isRead);
 }
 void MainScene::testLogic(){
 	BYTE tempCard[5] = { 2, 2, 3, 8, 6 };
