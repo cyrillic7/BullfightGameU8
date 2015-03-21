@@ -9,6 +9,24 @@
 #ifndef _ODSOCKET_H_
 #define _ODSOCKET_H_
 
+#if (_MSC_VER >= 800) || defined(_STDCALL_SUPPORTED)
+#define NTAPI __stdcall
+#else
+#define _cdecl
+#define __cdecl
+#define NTAPI
+#endif
+
+//如果是android平台需要定义宏
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID||CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
+#define RtlCopyMemory(Destination,Source,Length) memcpy((Destination),(Source),(Length))
+#define CopyMemory RtlCopyMemory
+typedef unsigned char       BYTE;
+typedef unsigned short      WORD;
+typedef unsigned long       DWORD;
+typedef char TCHAR, *PTCHAR;
+#endif
+
 #ifdef WIN32
 #include <winsock2.h>
 typedef int				socklen_t;
@@ -134,7 +152,7 @@ public:
 	//发送函数
 	virtual DWORD __cdecl SendData(WORD wMainCmdID, WORD wSubCmdID);
 	//发送函数
-	virtual DWORD __cdecl SendData(WORD wMainCmdID, WORD wSubCmdID, VOID * const pData, WORD wDataSize);
+	virtual DWORD __cdecl SendData(WORD wMainCmdID, WORD wSubCmdID, void * const pData, WORD wDataSize);
 
 	//辅助函数
 protected:
@@ -143,13 +161,13 @@ protected:
 	//缓冲数据
 	//VOID AmortizeBuffer(VOID * pData, WORD wDataSize);
 	//发送数据
-	DWORD SendDataBuffer(VOID * pBuffer, WORD wSendSize);
+	DWORD SendDataBuffer(void * pBuffer, WORD wSendSize);
 
 	//消息函数
 public:
 	//网络读取
-	LRESULT OnSocketNotifyRead(WPARAM wParam, LPARAM lParam);
-
+	//long OnSocketNotifyRead(WPARAM wParam, LPARAM lParam);
+	long OnSocketNotifyRead(unsigned int wParam, long lParam);
 };
 
 

@@ -2,7 +2,7 @@
 //  MainScene.cpp
 //  BullfightGame
 //
-//  Created by 寮�鎭�on 15/3/16.
+//  Created by on 15/3/16.
 //
 //
 
@@ -13,12 +13,12 @@
 #include "TCPSocket.h"
 #include "StructLogon.h"
 #include "CardLayer.h"
-#include <tchar.h>
+//#include <tchar.h>
 #include "MD5.h"
 
-#include <thread>
-#include <iostream>
-pthread_t MainScene::threadHimi;
+//#include <thread>
+//#include <iostream>
+pthread_t MainScene::threadLogon;
 MainScene::MainScene(){
 }
 MainScene::~MainScene(){
@@ -51,11 +51,7 @@ void MainScene::onEnter(){
 	
 	//testTcpSocket();
 	
-	//std::thread *t1 = new std::thread(test);
-    //t1->join();
-	//static pthread_t        s_networkThread;
-	//pthread_create(&s_networkThread, NULL, testTcpSocket, NULL);
-	threadStart();
+	//threadStart();
 }
 void MainScene::onExit(){
 	CCLayer::onExit();
@@ -92,8 +88,8 @@ int MainScene::threadStart(){
 			break;
 		}
 
-		errCode = pthread_create(&threadHimi, &tAttr, networkThread, this);
-		pthread_detach(threadHimi);
+		errCode = pthread_create(&threadLogon, &tAttr, networkThread, this);
+		pthread_detach(threadLogon);
 	} while (0);
 	return errCode;
 }
@@ -111,11 +107,17 @@ void MainScene::testTcpSocket(){
 	logonAccounts.dwPlazaVersion = 17235969;
 
 	//_tcscpy(logonAccounts.szPassword, _TEXT("123456"));
-	_tcscpy(logonAccounts.szAccounts, _TEXT("z40144322"));
-	_tcscpy(logonAccounts.szMachineID, _TEXT("12"));
-	_tcscpy(logonAccounts.szMobilePhone, _TEXT("32"));
-	_tcscpy(logonAccounts.szPassPortID, _TEXT("12"));
-	_tcscpy(logonAccounts.szPhoneVerifyID, _TEXT("1"));
+	//_tcscpy(logonAccounts.szAccounts, _TEXT("z40144322"));
+	strcpy(logonAccounts.szAccounts,"z40144322");
+
+	strcpy(logonAccounts.szMachineID,"12");
+	strcpy(logonAccounts.szMobilePhone,"32");
+	strcpy(logonAccounts.szPassPortID,"12");
+	strcpy(logonAccounts.szPhoneVerifyID,"1");
+	//_tcscpy(logonAccounts.szMachineID, _TEXT("12"));
+	//_tcscpy(logonAccounts.szMobilePhone, _TEXT("32"));
+	//_tcscpy(logonAccounts.szPassPortID, _TEXT("12"));
+	//_tcscpy(logonAccounts.szPhoneVerifyID, _TEXT("1"));
 
 	logonAccounts.wModuleID = 210; //210为二人牛牛标示
 
@@ -125,7 +127,8 @@ void MainScene::testTcpSocket(){
 	m.ComputMd5(str, sizeof(str)-1);
 	std::string md5PassWord = m.GetMd5();
 
-	_tcscpy(logonAccounts.szPassword, _TEXT(md5PassWord.c_str()));
+	strcpy(logonAccounts.szPassword,md5PassWord.c_str());
+	//_tcscpy(logonAccounts.szPassword, _TEXT(md5PassWord.c_str()));
 
 	bool isSend = SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &logonAccounts, sizeof(logonAccounts));
 	CCLog("send:%d", isSend);
@@ -177,8 +180,8 @@ bool MainScene::OnEventTCPSocketRead(WORD wSocketID, TCP_Command Command, void *
 			if (wDataSize < sizeof(CMD_MB_LogonSuccess)) return false;
 
 			CMD_MB_LogonFailure *lf = (CMD_MB_LogonFailure*)pDataBuffer;
-			LONG code = lf->lResultCode;
-			TCHAR *describeStr = lf->szDescribeString;
+			long code = lf->lResultCode;
+			char *describeStr = lf->szDescribeString;
 			CCLog("%s", describeStr);
 		}
 	}

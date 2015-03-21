@@ -1,6 +1,6 @@
 #include "AppDelegate.h"
 #include "GameConfig.h"
-#include "MainScene.h"
+#include "LogonScene.h"
 USING_NS_CC;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include "vld.h"
@@ -32,7 +32,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     pDirector->setAnimationInterval(1.0 / 60);
 
     // create a scene. it's an autorelease object
-	CCScene *pScene = MainScene::scene();
+	CCScene *pScene = LogonScene::scene();
 
     // run
     pDirector->runWithScene(pScene);

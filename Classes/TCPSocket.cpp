@@ -1,6 +1,20 @@
 #include <stdio.h>
 #include "TCPSocket.h"
 #include "StructLogon.h"
+
+#ifdef WIN32
+#include <objbase.h>
+#else
+#include <uuid/uuid.h>
+typedef struct _GUID
+{
+	unsigned long Data1;
+	unsigned short Data2;
+	unsigned short Data3;
+	unsigned char Data4[8];
+} GUID, UUID;
+#endif
+
 #define ASSERT(_Expression)     ((void)0)
 
 #ifdef WIN32
@@ -119,7 +133,6 @@ TCPSocket::TCPSocket(SOCKET sock) {
 	
 	//m_ProxyInfo.wProxyPort=0;
 	//m_ProxyInfo.cbProxyType=enProxyServerType::ProxyType_None;
-	
 }
 
 TCPSocket::~TCPSocket() {
@@ -611,6 +624,7 @@ LRESULT TCPSocket::OnSocketNotifyRead(WPARAM wParam, LPARAM lParam)
 	catch (LPCTSTR pszError)
 	{
 		int nError = GetLastError();
+		Close();
 		//CloseSocket(SHUT_REASON_EXCEPTION);
 	}
 

@@ -15,13 +15,16 @@
 #include "TCPSocket.h"
 #include "GameLogic.h"
 
-
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#include "pthread/pthread.h"
+#endif
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) ||  (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
 #include "CCPThreadWinRT.h"
+
 typedef void THREAD_VOID;
 #define THREAD_RETURN
 #else
-#include "pthread/pthread.h"
+
 typedef void* THREAD_VOID;
 #define THREAD_RETURN 0
 #endif
@@ -38,7 +41,7 @@ public:
 
 	CC_SYNTHESIZE(GameHUD *, gameHUD, GameHUD);
 private:
-	static pthread_t threadHimi;
+	static pthread_t threadLogon;
 public:
     MainScene();
     ~MainScene();

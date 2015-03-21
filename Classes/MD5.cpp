@@ -116,7 +116,8 @@ string MD5::GetMd5()
 	if (!isDone_)
 	{
 		cout << "Error: computation is not finished" << endl;
-		exit(0);
+		//exit(0);
+
 	}
 	string a((const char *)md5Result_hex_);
 	return a;

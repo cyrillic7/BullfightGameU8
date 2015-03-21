@@ -121,8 +121,8 @@ struct CMD_MB_LogonAccounts
 //登录失败
 struct CMD_MB_LogonFailure
 {
-	LONG							lResultCode;						//错误代码
-	TCHAR							szDescribeString[128];				//描述消息
+	long							lResultCode;						//错误代码
+	char							szDescribeString[128];				//描述消息
 };
 //登录成功
 struct CMD_MB_LogonSuccess
