@@ -20,5 +20,5 @@ public:
 	~Card();
 	CREATE_FUNC(Card);
 	//创建扑克动画
-	void createCardArmature(CCBatchNode *cardBatch,short cardColor,short cardValue);
+	void createCardArmature(CCBatchNode *cardBatch, short cardColor, short cardValue, int zOrder);
 };

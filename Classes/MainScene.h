@@ -14,6 +14,8 @@
 #include "GameHUD.h"
 #include "TCPSocket.h"
 #include "GameLogic.h"
+#include "CardLayer.h"
+#include "PlayerLayer.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include "pthread/pthread.h"
@@ -34,12 +36,21 @@ USING_NS_CC_EXT;
 class MainScene:public CCLayer,public TCPSocket,public GameLogic
 {
 public:
+	//游戏状态
 	enum GameState
 	{
-		STATE_REDING=0, 
+		STATE_OBSERVER=0,			//旁观状态
+		STATE_READY,				//准备状态
+		STATE_SEND_CARD,			//发牌状态
 	};
+	CC_SYNTHESIZE(GameState,gameState,GameState);
+	CC_SYNTHESIZE(GameState,serverState,ServerState);
 
 	CC_SYNTHESIZE(GameHUD *, gameHUD, GameHUD);
+	//扑克层
+	CardLayer *cardLayer;
+	//玩家信息层
+	PlayerLayer *playerLayer;
 private:
 	static pthread_t threadLogon;
 public:
@@ -52,11 +63,21 @@ public:
     CREATE_FUNC(MainScene);
 
 	void testTcpSocket();
+
+	//收到准备完成回调
+	void onEventReadyFnish();
+	//收到发牌完成回调
+	void onEventSendCardFnish();
+	//设置状态并更新
+	void setGameStateWithUpdate(GameState gameState);
+	void setServerStateWithUpdate(GameState serverState);
 private:
 	//初始化
 	void initHUD();
 	//初始化扑克层
 	void initCardLayer();
+	//初始化玩家信息层
+	void initPlayerLayer();
 	//添加背景
 	void addBg();
 	//测试逻辑
@@ -66,6 +87,8 @@ private:
 	int threadStart();
 	static void* networkThread(void*);
 	bool OnEventTCPSocketRead(WORD	wSocketID, TCP_Command tCommand, void * pDataBuffer, WORD wDataSize);
+	//更新状态
+	void updateState();
 };
 
 #endif /* defined(__BullfightGame__MainScene__) */

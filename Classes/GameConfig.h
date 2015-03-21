@@ -9,14 +9,14 @@
 #define CCS_PATH_SCENE(name) "publish/"#name
 #define CCS_PATH_ANIMATION(name) "publish/animation/"#name
 
+#define MAX_PLAYER							5						 //最大玩家数
 
 //存档////////////////////////////////////////////////////////////////////////
 #define RMS_IS_MUSIC "isMusic"
 #define RMS_IS_SOUND "isSound"
 
 //层级////////////////////////////////////////////////////////////////////////
-#define K_Z_ORDER_HERO 1//主角
-#define K_Z_ORDER_HUD 2//UI层
+#define K_Z_ORDER_HUD 10//UI层
 #define K_Z_ORDER_POP 3//弹出层
 
 //#define CCS_PATH_ANIMATION(name) CCString::createWithFormat("ccs/Animation/%s",(name))->getCString()

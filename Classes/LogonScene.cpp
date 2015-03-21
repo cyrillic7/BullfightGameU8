@@ -9,6 +9,7 @@
 #include "LogonScene.h"
 #include "Tools.h"
 #include "MainScene.h"
+#include "MD5.h"
 LogonScene::LogonScene(){
 }
 LogonScene::~LogonScene(){
@@ -23,6 +24,7 @@ CCScene* LogonScene::scene()
 }
 void LogonScene::onEnter(){
 	CCLayer::onEnter();
+
 	Tools::setTransitionAnimation(0,0,MainScene::scene());
 }
 void LogonScene::onExit(){

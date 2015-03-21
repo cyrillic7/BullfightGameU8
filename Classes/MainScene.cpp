@@ -12,14 +12,16 @@
 #include "BaseAttributes.h"
 #include "TCPSocket.h"
 #include "StructLogon.h"
-#include "CardLayer.h"
+
 //#include <tchar.h>
 #include "MD5.h"
 
 //#include <thread>
 //#include <iostream>
 pthread_t MainScene::threadLogon;
-MainScene::MainScene(){
+MainScene::MainScene()
+:gameState(STATE_OBSERVER)
+{
 }
 MainScene::~MainScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
@@ -47,6 +49,7 @@ void MainScene::onEnter(){
 	addBg();
 	initHUD();
 	initCardLayer();
+	initPlayerLayer();
 	testLogic();
 	
 	//testTcpSocket();
@@ -65,10 +68,24 @@ void MainScene::initHUD(){
 	gameHUD = GameHUD::create();
 	this->addChild(gameHUD, K_Z_ORDER_HUD);
 }
-//鍒濆鍖栨墤鍏嬪姩鐢�
+//
 void MainScene::initCardLayer(){
-	CardLayer *cardLayer = CardLayer::create();
+	cardLayer = CardLayer::create();
 	this->addChild(cardLayer);
+}
+void MainScene::initPlayerLayer(){
+	playerLayer = PlayerLayer::create();
+	this->addChild(playerLayer);
+}
+//收到准备完成回调
+void MainScene::onEventReadyFnish(){
+	CCLog("准备完成开始发牌.");
+	//setGameStateWithUpdate(STATE_SEND_CARD);
+	setServerStateWithUpdate(STATE_SEND_CARD);
+}
+//收到发牌完成回调
+void MainScene::onEventSendCardFnish(){
+	
 }
 
 
@@ -241,4 +258,21 @@ bool MainScene::OnEventTCPSocketRead(WORD wSocketID, TCP_Command Command, void *
 		}
 	}
 	return 1;
+}
+void MainScene::setGameStateWithUpdate(GameState gameState){
+	setGameState(gameState);
+	updateState();
+}
+void MainScene::setServerStateWithUpdate(GameState serverState){
+	setServerState(serverState);
+	updateState();
+}
+//更新状态
+void MainScene::updateState(){
+	//操作层更新状态
+	gameHUD->updateState();
+	//更新扑克层状态
+	cardLayer->updateState();
+	//玩家信息层更新状态
+	playerLayer->updateState();
 }

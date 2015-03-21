@@ -5,7 +5,7 @@
 #ifdef WIN32
 #include <objbase.h>
 #else
-#include <uuid/uuid.h>
+//#include <uuid/uuid.h>
 typedef struct _GUID
 {
 	unsigned long Data1;
@@ -532,7 +532,7 @@ DWORD TCPSocket::SendDataBuffer(void * pBuffer, WORD wSendSize)
 	while (wSended < wSendSize)
 	{
 		int iErrorCode = send(m_sock, (char *)pBuffer + wSended, wSendSize - wSended, 0);
-		int nError = GetLastError();
+		//int nError = GetLastError();
 		if (iErrorCode == SOCKET_ERROR)
 		{
 			if (WSAGetLastError() == WSAEWOULDBLOCK)
@@ -549,7 +549,7 @@ DWORD TCPSocket::SendDataBuffer(void * pBuffer, WORD wSendSize)
 	return true;
 }
 //网络读取
-LRESULT TCPSocket::OnSocketNotifyRead(WPARAM wParam, LPARAM lParam)
+long TCPSocket::OnSocketNotifyRead(unsigned int wParam, long lParam)
 {
 	try
 	{
@@ -604,14 +604,6 @@ LRESULT TCPSocket::OnSocketNotifyRead(WPARAM wParam, LPARAM lParam)
 				}
 				continue;
 			}
-			/*//////////////////////////////////////////////////////////////////////////
-			
-
-			
-			
-			//////////////////////////////////////////////////////////////////////////
-			
-			*/
 			//处理数据
 			bool bSuccess = OnEventTCPSocketRead(m_wSocketID, Command, pDataBuffer, wDataSize);
 			//if (bSuccess == false) throw TEXT("网络数据包处理失败");
@@ -621,9 +613,9 @@ LRESULT TCPSocket::OnSocketNotifyRead(WPARAM wParam, LPARAM lParam)
 			}
 		};
 	}
-	catch (LPCTSTR pszError)
+	catch (char* pszError)
 	{
-		int nError = GetLastError();
+		//int nError = GetLastError();
 		Close();
 		//CloseSocket(SHUT_REASON_EXCEPTION);
 	}
