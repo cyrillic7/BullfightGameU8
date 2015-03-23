@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "TCPSocket.h"
 #include "StructLogon.h"
-
+#include "Tools.h"
 #ifdef WIN32
 #include <objbase.h>
 #else
@@ -13,6 +13,21 @@ typedef struct _GUID
 	unsigned short Data3;
 	unsigned char Data4[8];
 } GUID, UUID;
+
+#define WSAEWOULDBLOCK                   10035L
+
+/*void CopyMemory(
+__in  PVOID Destination,
+__in  const VOID *Source,
+__in  SIZE_T Length
+);
+
+void MoveMemory(
+	__in  PVOID Destination,
+	__in  const VOID *Source,
+	__in  long Length
+	);
+	*/
 #endif
 
 #define ASSERT(_Expression)     ((void)0)
@@ -133,6 +148,18 @@ TCPSocket::TCPSocket(SOCKET sock) {
 	
 	//m_ProxyInfo.wProxyPort=0;
 	//m_ProxyInfo.cbProxyType=enProxyServerType::ProxyType_None;
+	/*uuid_t uu;
+	    int i;
+	    uuid_generate(uu);
+	
+		    for (i = 0; i < 16; i++)
+		    { 
+		        printf("%02X-", uu[i]);
+		    }
+	   printf("\n");*/
+	
+	   
+
 }
 
 TCPSocket::~TCPSocket() {
@@ -362,7 +389,8 @@ WORD TCPSocket::EncryptBuffer(BYTE pcbDataBuffer[], WORD wDataSize, WORD wBuffer
 		//生成第一次随机种子
 		GUID Guid;
 		CoCreateGuid(&Guid);
-		dwXorKey = GetTickCount()*GetTickCount();
+		//dwXorKey = GetTickCount()*GetTickCount();
+		dwXorKey = Tools::getMicroSeconds();
 		dwXorKey ^= Guid.Data1;
 		dwXorKey ^= Guid.Data2;
 		dwXorKey ^= Guid.Data3;
@@ -535,17 +563,18 @@ DWORD TCPSocket::SendDataBuffer(void * pBuffer, WORD wSendSize)
 		//int nError = GetLastError();
 		if (iErrorCode == SOCKET_ERROR)
 		{
-			if (WSAGetLastError() == WSAEWOULDBLOCK)
+			if (GetError() == WSAEWOULDBLOCK)
 			{
-				m_dwSendTickCount = GetTickCount() / 1000L;
+				//m_dwSendTickCount = GetTickCount() / 1000L;
+				m_dwSendTickCount = Tools::getMicroSeconds() / 1000L;
 				return true;
 			}
 			return false;
 		}
 		wSended += iErrorCode;
 	}
-	m_dwSendTickCount = GetTickCount() / 1000L;
-
+	//m_dwSendTickCount = GetTickCount() / 1000L;
+	m_dwSendTickCount = Tools::getMicroSeconds()/1000L;
 	return true;
 }
 //网络读取
@@ -558,7 +587,8 @@ long TCPSocket::OnSocketNotifyRead(unsigned int wParam, long lParam)
 		if (iRetCode == SOCKET_ERROR) return 0;
 		ASSERT(m_dwSendPacketCount > 0);
 		m_wRecvSize += iRetCode;
-		m_dwRecvTickCount = GetTickCount() / 1000L;
+		//m_dwRecvTickCount = GetTickCount() / 1000L;
+		m_dwRecvTickCount = Tools::getMicroSeconds() / 1000L;
 
 		//变量定义
 		WORD wPacketSize = 0;

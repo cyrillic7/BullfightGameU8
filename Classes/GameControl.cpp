@@ -6,10 +6,10 @@
 //
 //
 
-#include "GameHUD.h"
+#include "GameControl.h"
 #include "GameConfig.h"
 #include "DataModel.h"
-void GameHUD::onEnter(){
+void GameControl::onEnter(){
 	CCLayer::onEnter();
 	UILayer *m_pWidget = UILayer::create();
 	this->addChild(m_pWidget);
@@ -19,24 +19,24 @@ void GameHUD::onEnter(){
 	m_pWidget->addWidget(pWidget);
 	
 	UIButton* button = static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonPause"));
-	button->addTouchEventListener(this, SEL_TouchEvent(&GameHUD::menuPause));
+	button->addTouchEventListener(this, SEL_TouchEvent(&GameControl::menuPause));
 
 	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonOx"));
-	button->addTouchEventListener(this, SEL_TouchEvent(&GameHUD::menuCancel));
+	button->addTouchEventListener(this, SEL_TouchEvent(&GameControl::menuCancel));
 	button->setEnabled(false);
 
 	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonPrompt"));
-	button->addTouchEventListener(this, SEL_TouchEvent(&GameHUD::menuPrompt));
+	button->addTouchEventListener(this, SEL_TouchEvent(&GameControl::menuPrompt));
 	button->setEnabled(false);
 	//绑定准备按键
 	bReady = static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonReady"));
-	bReady->addTouchEventListener(this, SEL_TouchEvent(&GameHUD::menuReady));
+	bReady->addTouchEventListener(this, SEL_TouchEvent(&GameControl::menuReady));
 	
 }
-void GameHUD::onExit(){
+void GameControl::onExit(){
 	CCLayer::onExit();
 }
-void GameHUD::menuPause(CCObject* pSender, TouchEventType type){
+void GameControl::menuPause(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
 	case TOUCH_EVENT_ENDED:
@@ -46,7 +46,7 @@ void GameHUD::menuPause(CCObject* pSender, TouchEventType type){
 		break;
 	}
 }
-void GameHUD::menuCancel(CCObject* pSender, TouchEventType type){
+void GameControl::menuCancel(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
 	case TOUCH_EVENT_ENDED:
@@ -56,7 +56,7 @@ void GameHUD::menuCancel(CCObject* pSender, TouchEventType type){
 		break;
 	}
 }
-void GameHUD::menuPrompt(CCObject* pSender, TouchEventType type){
+void GameControl::menuPrompt(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
 	case TOUCH_EVENT_ENDED:
@@ -67,7 +67,7 @@ void GameHUD::menuPrompt(CCObject* pSender, TouchEventType type){
 	}
 }
 //准备按键
-void GameHUD::menuReady(CCObject* pSender, TouchEventType type){
+void GameControl::menuReady(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
 	case TOUCH_EVENT_ENDED:
@@ -92,7 +92,7 @@ void GameHUD::menuReady(CCObject* pSender, TouchEventType type){
 		break;
 	}
 }
-void GameHUD::updateState(){
+void GameControl::updateState(){
 	switch (DataModel::sharedDataModel()->getMainScene()->getGameState())
 	{
 	case MainScene::STATE_SEND_CARD:

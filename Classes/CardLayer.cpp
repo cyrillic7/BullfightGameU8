@@ -4,6 +4,8 @@
 #include "GameConfig.h"
 #include "Card.h"
 #include "DataModel.h"
+#define MAX_CARD_COUNT								5						//最大牌数
+#define SEND_CARD_DELAY_TIME						0.1						//发牌延时时长 
 CardLayer::CardLayer()
 :sendCardState(SEND_STATE_WAIT)
 {
@@ -91,38 +93,47 @@ void CardLayer::sendCardIng(){
 	this->addChild(card);
 	card->m_cpArmatureCard->setScale(0.3);
 	card->m_cpArmatureCard->setPosition(ccp(SCENE_SIZE.width/2, SCENE_SIZE.height/2));
-
+	//偏移索引
+	int offsetIndex = 0;
 	for (int i = 0; i < MAX_PLAYER; i++)
 	{
-		sendFiveCard(i);
+		if (canSendCard[i])
+		{
+			sendFiveCard(i, offsetIndex);
+		}
+		else{
+			offsetIndex++;
+		}
 	}
 	
 }
 //发5张牌
-void CardLayer::sendFiveCard(int index){
-	if (canSendCard[index])
+void CardLayer::sendFiveCard(int index,int offsetIndex){
+	UIPanel *playerPanel = DataModel::sharedDataModel()->getMainScene()->playerLayer->playerPanel[index];
+	UIImageView *iPlayerIcon = (UIImageView*)playerPanel->getChildByName("headPortrait");
+	CCPoint playerPos = playerPanel->getPosition();
+	CCPoint cardPos = ccpAdd(playerPos, iPlayerIcon->getPosition());
+	for (int i = 0; i < MAX_CARD_COUNT; i++)
 	{
-		CCPoint cardPos = DataModel::sharedDataModel()->getMainScene()->playerLayer->playerPanel[index]->getPosition();
-		for (int i = 0; i < 5; i++)
-		{
-			Card *cardMove = Card::create();
-			cardMove->createCardArmature(batchCard, 5, 0, 1);
-			this->addChild(cardMove);
-			cardMove->m_cpArmatureCard->setScale(0.3);
-			int offx = rand() % 3;
-			int offy = rand() % 3;
-			cardMove->m_cpArmatureCard->setPosition(ccp(SCENE_SIZE.width / 2 + offx, SCENE_SIZE.height / 2 + offy));
-			CCPoint offPos = ccp(i*20,0);
-			moveCardAction(cardMove->m_cpArmatureCard, ccpAdd(cardPos,offPos));
-		}
+		Card *cardMove = Card::create();
+		cardMove->createCardArmature(batchCard, 5, 0, 1);
+		this->addChild(cardMove);
+		cardMove->m_cpArmatureCard->setScale(0.3);
+		int offx = rand() % 3;
+		int offy = rand() % 3;
+		cardMove->m_cpArmatureCard->setPosition(ccp(SCENE_SIZE.width / 2 + offx, SCENE_SIZE.height / 2 + offy));
+		CCPoint offPos = ccp(60+i*20,0);
+		moveCardAction(cardMove->m_cpArmatureCard, (index-offsetIndex)*SEND_CARD_DELAY_TIME*MAX_CARD_COUNT + i*SEND_CARD_DELAY_TIME, ccpAdd(cardPos, offPos));
 	}
 }
-void CardLayer::moveCardAction(CCArmature *armature, CCPoint targetPos){
+//移动单张牌
+void CardLayer::moveCardAction(CCArmature *armature, float fTime, CCPoint targetPos){
 	float moveSpeed=0.2;
+	CCDelayTime *delayTime = CCDelayTime::create(fTime);
 	CCMoveTo *moveTo = CCMoveTo::create(moveSpeed, targetPos);
 	CCScaleTo *scaleTo = CCScaleTo::create(moveSpeed, 0.5);
 	CCSpawn *spawn = CCSpawn::create(moveTo,scaleTo, NULL);
-	CCSequence *seq = CCSequence::create(spawn,NULL);
+	CCSequence *seq = CCSequence::create(delayTime,spawn,NULL);
 	armature->runAction(seq);
 }
 void CardLayer::updateState(){

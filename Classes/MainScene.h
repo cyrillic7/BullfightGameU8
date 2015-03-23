@@ -11,7 +11,7 @@
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
-#include "GameHUD.h"
+#include "GameControl.h"
 #include "TCPSocket.h"
 #include "GameLogic.h"
 #include "CardLayer.h"
@@ -46,7 +46,7 @@ public:
 	CC_SYNTHESIZE(GameState,gameState,GameState);
 	CC_SYNTHESIZE(GameState,serverState,ServerState);
 
-	CC_SYNTHESIZE(GameHUD *, gameHUD, GameHUD);
+	CC_SYNTHESIZE(GameControl *, gameHUD, GameControl);
 	//扑克层
 	CardLayer *cardLayer;
 	//玩家信息层

@@ -38,8 +38,8 @@ private:
 	//发牌中
 	void sendCardIng();
 	//发5张牌
-	void sendFiveCard(int index);
+	void sendFiveCard(int index, int offsetIndex);
 	//移动扑克
-	void moveCardAction(CCArmature *armature, CCPoint targetPos);
-	
+	void moveCardAction(CCArmature *armature, float fTime, CCPoint targetPos);
+	float getCardScale(int index);
 };

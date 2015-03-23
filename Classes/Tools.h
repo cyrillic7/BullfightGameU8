@@ -45,5 +45,8 @@ public:
 	static void releseSound();
 
 	static float myRand_0_1();*/
+	static std::string get_date_now();
+	static int getTime();
+	static long getMicroSeconds();
 };
 

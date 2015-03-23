@@ -947,7 +947,7 @@
         "options": {
           "__type": "PanelSurrogate:#EditorCommon.JsonModel.Component.GUI",
           "classname": "Panel",
-          "name": "player2",
+          "name": "player4",
           "ZOrder": 0,
           "actiontag": 55922433,
           "anchorPointX": 0,
@@ -1603,7 +1603,7 @@
         "options": {
           "__type": "PanelSurrogate:#EditorCommon.JsonModel.Component.GUI",
           "classname": "Panel",
-          "name": "player4",
+          "name": "player2",
           "ZOrder": 0,
           "actiontag": 41406050,
           "anchorPointX": 0,
@@ -1619,8 +1619,8 @@
           "ignoreSize": false,
           "layoutParameter": null,
           "opacity": 255,
-          "positionPercentX": 0.03958315,
-          "positionPercentY": 0.0312499218,
+          "positionPercentX": 0.0385416672,
+          "positionPercentY": 0.0296875,
           "positionType": 0,
           "rotation": 0,
           "scaleX": 1,

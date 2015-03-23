@@ -54,7 +54,7 @@ void MainScene::onEnter(){
 	
 	//testTcpSocket();
 	
-	//threadStart();
+	threadStart();
 }
 void MainScene::onExit(){
 	CCLayer::onExit();
@@ -65,7 +65,7 @@ void MainScene::addBg(){
 	bg->setPosition(ccp(SCENE_SIZE.width/2,SCENE_SIZE.height/2));
 }
 void MainScene::initHUD(){
-	gameHUD = GameHUD::create();
+	gameHUD = GameControl::create();
 	this->addChild(gameHUD, K_Z_ORDER_HUD);
 }
 //
@@ -119,7 +119,7 @@ void MainScene::testTcpSocket(){
 	CCLog("Connect:%d", isConnect);
 
 	CMD_MB_LogonAccounts logonAccounts;
-	memset(&logonAccounts, 0, sizeof(CMD_MB_LogonAccounts));
+	//memset(&logonAccounts, 0, sizeof(CMD_MB_LogonAccounts));
 	logonAccounts.cbDeviceType = 2;
 	logonAccounts.dwPlazaVersion = 17235969;
 

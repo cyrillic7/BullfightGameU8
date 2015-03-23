@@ -14,14 +14,14 @@
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
-class GameHUD:public CCLayer
+class GameControl:public CCLayer
 {
 private:
 	UIButton *bReady;
 public:
 	virtual void onEnter();
 	virtual void onExit();
-    CREATE_FUNC(GameHUD);
+    CREATE_FUNC(GameControl);
 	//更新状态
 	void updateState();
 private:
