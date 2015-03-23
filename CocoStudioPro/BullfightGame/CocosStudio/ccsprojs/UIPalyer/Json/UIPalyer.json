@@ -12,9 +12,7 @@
   "textures": [
     "UIPalyer0.plist"
   ],
-  "texturesPng": [
-    "UIPalyer0.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -317,7 +315,7 @@
           "sizePercentY": 0.234375,
           "sizeType": 0,
           "tag": 5,
-          "touchAble": true,
+          "touchAble": false,
           "useMergedTexture": false,
           "visible": true,
           "width": 150,
@@ -645,7 +643,7 @@
           "sizePercentY": 0.234375,
           "sizeType": 0,
           "tag": 29,
-          "touchAble": true,
+          "touchAble": false,
           "useMergedTexture": false,
           "visible": true,
           "width": 150,
@@ -973,7 +971,7 @@
           "sizePercentY": 0.234375,
           "sizeType": 0,
           "tag": 41,
-          "touchAble": true,
+          "touchAble": false,
           "useMergedTexture": false,
           "visible": true,
           "width": 150,
@@ -1301,7 +1299,7 @@
           "sizePercentY": 0.234375,
           "sizeType": 0,
           "tag": 53,
-          "touchAble": true,
+          "touchAble": false,
           "useMergedTexture": false,
           "visible": true,
           "width": 150,
@@ -1629,7 +1627,7 @@
           "sizePercentY": 0.234375,
           "sizeType": 0,
           "tag": 65,
-          "touchAble": true,
+          "touchAble": false,
           "useMergedTexture": false,
           "visible": true,
           "width": 150,

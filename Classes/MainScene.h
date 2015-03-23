@@ -42,11 +42,15 @@ public:
 		STATE_OBSERVER=0,			//旁观状态
 		STATE_READY,				//准备状态
 		STATE_SEND_CARD,			//发牌状态
+		STATE_FIGHT_BANKER,			//抢庄状态
+		STATE_BETTING,				//投注
+		STATE_OPT_OX,				//选牛
+		STATE_SETTLE_ACCOUNFS,		//结算
 	};
 	CC_SYNTHESIZE(GameState,gameState,GameState);
 	CC_SYNTHESIZE(GameState,serverState,ServerState);
 
-	CC_SYNTHESIZE(GameControl *, gameHUD, GameControl);
+	CC_SYNTHESIZE(GameControl *, gameControl, GameControl);
 	//扑克层
 	CardLayer *cardLayer;
 	//玩家信息层
@@ -88,7 +92,8 @@ private:
 	static void* networkThread(void*);
 	bool OnEventTCPSocketRead(WORD	wSocketID, TCP_Command tCommand, void * pDataBuffer, WORD wDataSize);
 	//更新状态
-	void updateState();
+	void updateGameState();
+	void updateServerState();
 };
 
 #endif /* defined(__BullfightGame__MainScene__) */

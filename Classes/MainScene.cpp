@@ -25,6 +25,10 @@ MainScene::MainScene()
 }
 MainScene::~MainScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
+	GUIReader::purge();
+	CCArmatureDataManager::purge();
+	CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
+	CCTextureCache::sharedTextureCache()->removeUnusedTextures();
 
 	DataModel *m = DataModel::sharedDataModel();
 	CC_SAFE_RELEASE_NULL(m);
@@ -65,8 +69,8 @@ void MainScene::addBg(){
 	bg->setPosition(ccp(SCENE_SIZE.width/2,SCENE_SIZE.height/2));
 }
 void MainScene::initHUD(){
-	gameHUD = GameControl::create();
-	this->addChild(gameHUD, K_Z_ORDER_HUD);
+	gameControl = GameControl::create();
+	this->addChild(gameControl, K_Z_ORDER_HUD);
 }
 //
 void MainScene::initCardLayer(){
@@ -261,18 +265,21 @@ bool MainScene::OnEventTCPSocketRead(WORD wSocketID, TCP_Command Command, void *
 }
 void MainScene::setGameStateWithUpdate(GameState gameState){
 	setGameState(gameState);
-	updateState();
+	updateGameState();
 }
 void MainScene::setServerStateWithUpdate(GameState serverState){
 	setServerState(serverState);
-	updateState();
+	updateServerState();
 }
 //更新状态
-void MainScene::updateState(){
+void MainScene::updateGameState(){
 	//操作层更新状态
-	gameHUD->updateState();
-	//更新扑克层状态
-	cardLayer->updateState();
+	gameControl->updateState();
+	
 	//玩家信息层更新状态
 	playerLayer->updateState();
+}
+void MainScene::updateServerState(){
+	//更新扑克层状态
+	cardLayer->updateState();
 }

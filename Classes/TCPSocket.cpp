@@ -419,7 +419,8 @@ WORD TCPSocket::EncryptBuffer(BYTE pcbDataBuffer[], WORD wDataSize, WORD wBuffer
 	//插入密钥
 	if (m_dwSendPacketCount == 0)
 	{
-		MoveMemory(pcbDataBuffer + sizeof(TCP_Head)+sizeof(DWORD), pcbDataBuffer + sizeof(TCP_Head), wDataSize);
+		//MoveMemory(pcbDataBuffer + sizeof(TCP_Head)+sizeof(DWORD), pcbDataBuffer + sizeof(TCP_Head), wDataSize);
+		memmove(pcbDataBuffer + sizeof(TCP_Head)+sizeof(DWORD), pcbDataBuffer + sizeof(TCP_Head), wDataSize);
 		*((DWORD *)(pcbDataBuffer + sizeof(TCP_Head))) = m_dwSendXorKey;
 		pHead->TCPInfo.wPacketSize += sizeof(DWORD);
 		wDataSize += sizeof(DWORD);
@@ -474,7 +475,11 @@ WORD TCPSocket::CrevasseBuffer(BYTE pcbDataBuffer[], WORD wDataSize)
 		pcbDataBuffer[i] = MapRecvByte(pcbDataBuffer[i]);
 		cbCheckCode += pcbDataBuffer[i];
 	}
-	if (cbCheckCode != 0) throw TEXT("数据包效验码错误");
+	//if (cbCheckCode != 0) throw TEXT("数据包效验码错误");//注：先不做处理
+	if (cbCheckCode!=0)
+	{
+		printf("数据包效验码错误");
+	}
 
 	return wDataSize;
 }
@@ -609,8 +614,8 @@ long TCPSocket::OnSocketNotifyRead(unsigned int wParam, long lParam)
 			m_dwRecvPacketCount++;
 			CopyMemory(cbDataBuffer, m_cbRecvBuf, wPacketSize);
 			m_wRecvSize -= wPacketSize;
-			MoveMemory(m_cbRecvBuf, m_cbRecvBuf + wPacketSize, m_wRecvSize);
-
+			//MoveMemory(m_cbRecvBuf, m_cbRecvBuf + wPacketSize, m_wRecvSize);
+			memmove(m_cbRecvBuf, m_cbRecvBuf + wPacketSize, m_wRecvSize);
 			//解密数据
 			WORD wRealySize = CrevasseBuffer(cbDataBuffer, wPacketSize);
 			ASSERT(wRealySize >= sizeof(TCP_Head));

@@ -17,6 +17,11 @@ ClassicLobbyScene::ClassicLobbyScene(){
 }
 ClassicLobbyScene::~ClassicLobbyScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
+	this->removeAllChildrenWithCleanup(true);
+	GUIReader::purge();
+	CCArmatureDataManager::purge();
+	CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
+	CCTextureCache::sharedTextureCache()->removeUnusedTextures();
 }
 CCScene* ClassicLobbyScene::scene()
 {

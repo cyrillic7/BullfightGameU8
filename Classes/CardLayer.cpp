@@ -8,6 +8,7 @@
 #define SEND_CARD_DELAY_TIME						0.1						//发牌延时时长 
 CardLayer::CardLayer()
 :sendCardState(SEND_STATE_WAIT)
+, sSendCardCount(0)
 {
 }
 CardLayer::~CardLayer() {
@@ -123,18 +124,38 @@ void CardLayer::sendFiveCard(int index,int offsetIndex){
 		int offy = rand() % 3;
 		cardMove->m_cpArmatureCard->setPosition(ccp(SCENE_SIZE.width / 2 + offx, SCENE_SIZE.height / 2 + offy));
 		CCPoint offPos = ccp(60+i*20,0);
-		moveCardAction(cardMove->m_cpArmatureCard, (index-offsetIndex)*SEND_CARD_DELAY_TIME*MAX_CARD_COUNT + i*SEND_CARD_DELAY_TIME, ccpAdd(cardPos, offPos));
+		moveCardAction(cardMove->m_cpArmatureCard, (index-offsetIndex)*SEND_CARD_DELAY_TIME*MAX_CARD_COUNT + i*SEND_CARD_DELAY_TIME, ccpAdd(cardPos, offPos),index);
 	}
 }
 //移动单张牌
-void CardLayer::moveCardAction(CCArmature *armature, float fTime, CCPoint targetPos){
+void CardLayer::moveCardAction(CCArmature *armature, float fTime, CCPoint targetPos,int index){
 	float moveSpeed=0.2;
 	CCDelayTime *delayTime = CCDelayTime::create(fTime);
 	CCMoveTo *moveTo = CCMoveTo::create(moveSpeed, targetPos);
-	CCScaleTo *scaleTo = CCScaleTo::create(moveSpeed, 0.5);
+	CCScaleTo *scaleTo = CCScaleTo::create(moveSpeed, getCardScale(index));
 	CCSpawn *spawn = CCSpawn::create(moveTo,scaleTo, NULL);
-	CCSequence *seq = CCSequence::create(delayTime,spawn,NULL);
+	CCCallFunc *callbackFunc = CCCallFunc::create(this,SEL_CallFunc(&CardLayer::onSendCardFinish));
+	CCSequence *seq = CCSequence::create(delayTime,spawn,callbackFunc,NULL);
 	armature->runAction(seq);
+}
+void CardLayer::onSendCardFinish(){
+	sSendCardCount++;
+	if (sSendCardCount==getCurAllCardCount()*MAX_CARD_COUNT)
+	{
+		DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_FIGHT_BANKER);
+		//DataModel::sharedDataModel()->getMainScene()->setServerStateWithUpdate(MainScene::STATE_FIGHT_BANKER);
+	}
+}
+short CardLayer::getCurAllCardCount(){
+	int count = 0;
+	for (int i = 0; i < MAX_CARD_COUNT; i++)
+	{
+		if (canSendCard[i])
+		{
+			count++;
+		}
+	}
+	return count;
 }
 void CardLayer::updateState(){
 	switch (DataModel::sharedDataModel()->getMainScene()->getServerState())
@@ -155,4 +176,11 @@ void CardLayer::setCanSendCard(){
 	canSendCard[3] = true;
 	canSendCard[4] = true;
 
+}
+float CardLayer::getCardScale(int index){
+	if (index==2)
+	{
+		return 0.5;
+	}
+	return 0.3;
 }

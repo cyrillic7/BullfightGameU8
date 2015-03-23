@@ -20,6 +20,8 @@ private:
 	CC_SYNTHESIZE(SendCardState, sendCardState, SendCardState);
 	//能否发牌
 	bool canSendCard[MAX_PLAYER];
+	//发牌计数器
+	short sSendCardCount;
 public:
 	CardLayer();
 	~CardLayer();
@@ -40,6 +42,11 @@ private:
 	//发5张牌
 	void sendFiveCard(int index, int offsetIndex);
 	//移动扑克
-	void moveCardAction(CCArmature *armature, float fTime, CCPoint targetPos);
+	void moveCardAction(CCArmature *armature, float fTime, CCPoint targetPos,int index);
+	//获取牌放大倍数
 	float getCardScale(int index);
+	//单张牌发完回调
+	void onSendCardFinish();
+	//获取当前局总牌数
+	short getCurAllCardCount();
 };

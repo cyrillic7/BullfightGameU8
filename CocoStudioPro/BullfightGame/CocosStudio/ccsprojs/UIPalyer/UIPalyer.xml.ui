@@ -19,9 +19,7 @@
   <imageFileList>
     <string>UIPalyer0.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>UIPalyer0.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>UIPalyer.json</CurrentUIJson>
 </UIProject>

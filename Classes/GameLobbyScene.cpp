@@ -11,11 +11,19 @@
 #include "GameConfig.h"
 #include "PopDialogBoxUserInfo.h"
 #include "ClassicLobbyScene.h"
+#include <stdio.h>
+//#include <uuid/uuid.h>
+
 GameLobbyScene::GameLobbyScene(){
   
 }
 GameLobbyScene::~GameLobbyScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
+	this->removeAllChildrenWithCleanup(true);
+	GUIReader::purge();
+	CCArmatureDataManager::purge();
+	CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
+	CCTextureCache::sharedTextureCache()->removeUnusedTextures();
 }
 CCScene* GameLobbyScene::scene()
 {
@@ -41,6 +49,20 @@ void GameLobbyScene::onEnter(){
 		button->addTouchEventListener(this, SEL_TouchEvent(&GameLobbyScene::menuSelectMode));
 	}
 	//
+	//uuid_t uu;
+	/*
+	uuid_t uu;
+	uuid_generate(uu);
+	char buf[10] = { 0 };
+	sprintf(buf, "%02x", uu[0]);
+	str += buf;
+	for (int i = 1; i < 16; i++) {
+		memset(buf, 0, 10);
+		sprintf(buf, "-%02x", uu[i]);
+		str += buf;
+	}
+	cout << "UUID:" << str << endl;
+	*/
 }
 void GameLobbyScene::onExit(){
 	CCLayer::onExit();
