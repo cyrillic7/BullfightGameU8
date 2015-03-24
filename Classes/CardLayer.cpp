@@ -138,6 +138,7 @@ void CardLayer::moveCardAction(CCArmature *armature, float fTime, CCPoint target
 	CCCallFunc *callbackFunc = CCCallFunc::create(this,SEL_CallFunc(&CardLayer::onSendCardFinish));
 	CCSequence *seq = CCSequence::create(delayTime,spawn,callbackFunc,NULL);
 	armature->runAction(seq);
+
 }
 void CardLayer::onSendCardFinish(){
 	sSendCardCount++;
