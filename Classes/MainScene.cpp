@@ -26,7 +26,8 @@ MainScene::MainScene()
 }
 MainScene::~MainScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
-	isReadData = false;
+
+
 	GUIReader::purge();
 	CCArmatureDataManager::purge();
 	CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
@@ -46,6 +47,11 @@ CCScene* MainScene::scene()
 	DataModel::sharedDataModel()->setMainScene(layer);
     return scene;
 }
+void MainScene::stopTcpSocket(){
+	isReadData = false;
+	Close();
+		//pthread_exit(&threadLogon);
+}
 void* MainScene::networkThread(void*){
 	DataModel::sharedDataModel()->getMainScene()->testTcpSocket();
 	return 0;
@@ -60,7 +66,7 @@ void MainScene::onEnter(){
 	
 	//testTcpSocket();
 	
-	//threadStart();
+	threadStart();
 }
 void MainScene::onExit(){
 	CCLayer::onExit();
@@ -161,8 +167,9 @@ void MainScene::testTcpSocket(){
 
 	while (isReadData)
 	{
-		bool isRead = OnSocketNotifyRead(0, 0);
-		CCLog("read:%d", isRead);
+		CCLog("begin-------------------------------------------");
+		isReadData = OnSocketNotifyRead(0, 0);
+		CCLog("read:%d", isReadData);
 	}
 }
 void MainScene::testLogic(){
@@ -248,7 +255,7 @@ bool MainScene::OnEventTCPSocketRead(WORD wSocketID, TCP_Command Command, void *
 			{
 				void * pDataBuffer = cbDataBuffer + i*sizeof(tagGameServer);
 				tagGameServer *gameServer = (tagGameServer*)pDataBuffer;
-				
+				//memcoyp(gameServer,0,sizeof(tagGameServer));
 				DataModel::sharedDataModel()->tagGameServerList.push_back(gameServer);
 				CCLog("dd");
 			}

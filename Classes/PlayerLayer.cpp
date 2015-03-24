@@ -36,4 +36,5 @@ void PlayerLayer::hidePlayer(UIPanel *panel){
 }
 void PlayerLayer::updateState(){
 
+
 }

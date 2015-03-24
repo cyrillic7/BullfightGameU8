@@ -4,6 +4,7 @@
 #include "Tools.h"
 #ifdef WIN32
 #include <objbase.h>
+#pragma comment(lib, "wsock32")
 #else
 //#include <uuid/uuid.h>
 typedef struct _GUID
@@ -15,27 +16,9 @@ typedef struct _GUID
 } GUID, UUID;
 
 #define WSAEWOULDBLOCK                   10035L
-
-/*void CopyMemory(
-__in  PVOID Destination,
-__in  const VOID *Source,
-__in  SIZE_T Length
-);
-
-void MoveMemory(
-	__in  PVOID Destination,
-	__in  const VOID *Source,
-	__in  long Length
-	);
-	*/
 #endif
 
 #define ASSERT(_Expression)     ((void)0)
-
-#ifdef WIN32
-#pragma comment(lib, "wsock32")
-#endif
-
 /*//发送字节映射表
 BYTE TCPSocket::g_SendByteMap[256]=				
 {
@@ -167,19 +150,6 @@ TCPSocket::~TCPSocket() {
 
 int TCPSocket::Init() {
 #ifdef WIN32
-    /*
-     http://msdn.microsoft.com/zh-cn/vstudio/ms741563(en-us,VS.85).aspx
-     
-     typedef struct WSAData {
-     WORD wVersion;								//winsock version
-     WORD wHighVersion;							//The highest version of the Windows Sockets specification that the Ws2_32.dll can support
-     char szDescription[WSADESCRIPTION_LEN+1];
-     char szSystemStatus[WSASYSSTATUS_LEN+1];
-     unsigned short iMaxSockets;
-     unsigned short iMaxUdpDg;
-     char FAR * lpVendorInfo;
-     }WSADATA, *LPWSADATA;
-     */
     WSADATA wsaData;
     //#define MAKEWORD(a,b) ((WORD) (((BYTE) (a)) | ((WORD) ((BYTE) (b))) << 8))
     WORD version = MAKEWORD(2, 0);
@@ -388,6 +358,13 @@ WORD TCPSocket::EncryptBuffer(BYTE pcbDataBuffer[], WORD wDataSize, WORD wBuffer
 	{
 		//生成第一次随机种子
 		GUID Guid;
+		Guid.Data1=121324L;
+		Guid.Data2 = 22;
+		Guid.Data3 = 34;
+		for (int i= 0; i < 8; i++) {
+			Guid.Data4[i]='s';
+		}
+
 		//CoCreateGuid(&Guid);
 		//dwXorKey = GetTickCount()*GetTickCount();
 		dwXorKey = Tools::getMicroSeconds();

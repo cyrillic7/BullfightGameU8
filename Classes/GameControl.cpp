@@ -62,6 +62,7 @@ void GameControl::menuPause(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
+
 		Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene());
 	}
 		break;
@@ -97,6 +98,8 @@ void GameControl::menuReady(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
+		DataModel::sharedDataModel()->getMainScene()->stopTcpSocket();
+		/*
 		//设置主状态为准备状态
 		DataModel::sharedDataModel()->getMainScene()->setGameState(MainScene::STATE_READY);
 		//处理按键
@@ -110,7 +113,7 @@ void GameControl::menuReady(CCObject* pSender, TouchEventType type){
 			CCNode *image = (CCNode *)arrayImage->objectAtIndex(i);
 			image->setVisible(false);
 		}
-		DataModel::sharedDataModel()->getMainScene()->onEventReadyFnish();
+		DataModel::sharedDataModel()->getMainScene()->onEventReadyFnish();*/
 	}
 		break;
 	default:

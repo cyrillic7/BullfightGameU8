@@ -68,7 +68,7 @@ public:
     CREATE_FUNC(MainScene);
 
 	void testTcpSocket();
-
+	void stopTcpSocket();
 	//收到准备完成回调
 	void onEventReadyFnish();
 	//收到发牌完成回调
