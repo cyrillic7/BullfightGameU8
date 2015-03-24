@@ -126,6 +126,7 @@ void CardLayer::sendFiveCard(int index,int offsetIndex){
 		CCPoint offPos = ccp(60+i*20,0);
 		moveCardAction(cardMove->m_cpArmatureCard, (index-offsetIndex)*SEND_CARD_DELAY_TIME*MAX_CARD_COUNT + i*SEND_CARD_DELAY_TIME, ccpAdd(cardPos, offPos),index);
 	}
+
 }
 //“∆∂Øµ•’≈≈∆
 void CardLayer::moveCardAction(CCArmature *armature, float fTime, CCPoint targetPos,int index){
