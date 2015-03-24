@@ -21,10 +21,12 @@
 pthread_t MainScene::threadLogon;
 MainScene::MainScene()
 :gameState(STATE_OBSERVER)
+, isReadData(true)
 {
 }
 MainScene::~MainScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
+	isReadData = false;
 	GUIReader::purge();
 	CCArmatureDataManager::purge();
 	CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
@@ -58,7 +60,7 @@ void MainScene::onEnter(){
 	
 	//testTcpSocket();
 	
-	threadStart();
+	//threadStart();
 }
 void MainScene::onExit(){
 	CCLayer::onExit();
@@ -126,6 +128,7 @@ void MainScene::testTcpSocket(){
 	//memset(&logonAccounts, 0, sizeof(CMD_MB_LogonAccounts));
 	logonAccounts.cbDeviceType = 2;
 	logonAccounts.dwPlazaVersion = 17235969;
+	
 
 	//_tcscpy(logonAccounts.szPassword, _TEXT("123456"));
 	//_tcscpy(logonAccounts.szAccounts, _TEXT("z40144322"));
@@ -156,7 +159,7 @@ void MainScene::testTcpSocket(){
 	/*bool isRead = OnSocketNotifyRead(0, 0);
 	CCLog("read:%d", isRead);*/
 
-	while (1)
+	while (isReadData)
 	{
 		bool isRead = OnSocketNotifyRead(0, 0);
 		CCLog("read:%d", isRead);
@@ -214,10 +217,9 @@ bool MainScene::OnEventTCPSocketRead(WORD wSocketID, TCP_Command Command, void *
 			//效验参数
 			if (wDataSize != sizeof(CMD_MB_LogonSuccess)) return false;
 			
-			CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)pDataBuffer;
+			DataModel::sharedDataModel()->logonSuccessUserInfo = (CMD_MB_LogonSuccess*)pDataBuffer;
+			//CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)pDataBuffer;
 			CCLog("登录成功");
-			//读取列表
-			//TCPSocket::OnSocketNotifyRead(0, 0);
 		}
 	}
 	//获取列表
@@ -227,8 +229,8 @@ bool MainScene::OnEventTCPSocketRead(WORD wSocketID, TCP_Command Command, void *
 		{
 			//效验参数
 			if (wDataSize != sizeof(tagGameKind)) return false;
-
 			tagGameKind *gs = (tagGameKind*)pDataBuffer;
+			
 			CCLog("获取游戏种类");
 		}
 	}
@@ -247,12 +249,14 @@ bool MainScene::OnEventTCPSocketRead(WORD wSocketID, TCP_Command Command, void *
 				void * pDataBuffer = cbDataBuffer + i*sizeof(tagGameServer);
 				tagGameServer *gameServer = (tagGameServer*)pDataBuffer;
 				
+				DataModel::sharedDataModel()->tagGameServerList.push_back(gameServer);
+				CCLog("dd");
 			}
 			//tagGameServer *gameServer = (tagGameServer*)pDataBuffer;
 			//TCPSocket::OnSocketNotifyRead(0, 0);
 		}
 	}
-	//获取列表
+	//获取列表完成
 	if (Command.wMainCmdID == MDM_MB_SERVER_LIST)
 	{
 		if (Command.wSubCmdID == SUB_MB_LIST_FINISH)

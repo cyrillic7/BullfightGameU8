@@ -388,7 +388,7 @@ WORD TCPSocket::EncryptBuffer(BYTE pcbDataBuffer[], WORD wDataSize, WORD wBuffer
 	{
 		//生成第一次随机种子
 		GUID Guid;
-		CoCreateGuid(&Guid);
+		//CoCreateGuid(&Guid);
 		//dwXorKey = GetTickCount()*GetTickCount();
 		dwXorKey = Tools::getMicroSeconds();
 		dwXorKey ^= Guid.Data1;

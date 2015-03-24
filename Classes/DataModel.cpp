@@ -16,12 +16,13 @@ DataModel::DataModel()
 	DataModel::isMusic = Tools::getBoolByRMS(RMS_IS_MUSIC);
 	DataModel::isSound = Tools::getBoolByRMS(RMS_IS_SOUND);
 
+	deviceSize = CCDirector::sharedDirector()->getWinSize();
 	gameLogic = new GameLogic();
 }
 DataModel::~DataModel() {
 	CCLog("~ <<%s>>",__FUNCTION__);
-	_bullet->removeAllObjects();
-	_bullet->release();
+	m_aTagGameKind->removeAllObjects();
+	m_aTagGameKind->release();
 
 	CC_SAFE_DELETE(gameLogic);
 	/*
@@ -68,8 +69,8 @@ DataModel* DataModel::sharedDataModel()
 }
 void DataModel::initDataModel(){
 
-	_bullet = CCArray::create();
-	_bullet->retain();
+	m_aTagGameKind = CCArray::create();
+	m_aTagGameKind->retain();
 	/*
 	
 	_outputEnemysData = CCArray::create();

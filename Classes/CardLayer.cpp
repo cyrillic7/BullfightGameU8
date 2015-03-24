@@ -93,7 +93,7 @@ void CardLayer::sendCardIng(){
 	card->createCardArmature(batchCard, 5, 0,0);
 	this->addChild(card);
 	card->m_cpArmatureCard->setScale(0.3);
-	card->m_cpArmatureCard->setPosition(ccp(SCENE_SIZE.width/2, SCENE_SIZE.height/2));
+	card->m_cpArmatureCard->setPosition(ccp(DataModel::sharedDataModel()->deviceSize.width/2, DataModel::sharedDataModel()->deviceSize.height/2));
 	//Æ«ÒÆË÷Òý
 	int offsetIndex = 0;
 	for (int i = 0; i < MAX_PLAYER; i++)

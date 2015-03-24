@@ -20,14 +20,14 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     pDirector->setOpenGLView(pEGLView);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	CCEGLView::sharedOpenGLView()->setFrameSize(SCENE_SIZE.width, SCENE_SIZE.height);
-	//CCEGLView::sharedOpenGLView()->setFrameSize(960, 540);
+	//CCEGLView::sharedOpenGLView()->setFrameSize(SCENE_SIZE.width, SCENE_SIZE.height);
+	CCEGLView::sharedOpenGLView()->setFrameSize(1250, 500);
 #endif
-	CCEGLView::sharedOpenGLView()->setDesignResolutionSize(SCENE_SIZE.width, SCENE_SIZE.height, kResolutionExactFit);//ÆÁÄ»ÊÊÅä
+	//CCEGLView::sharedOpenGLView()->setDesignResolutionSize(SCENE_SIZE.width, SCENE_SIZE.height, kResolutionExactFit);//ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½
+	CCEGLView::sharedOpenGLView()->setDesignResolutionSize(SCENE_SIZE.width, SCENE_SIZE.height, kResolutionFixedHeight);//ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½
 	pDirector->setProjection(kCCDirectorProjection2D);//2DÍ¶Ó°
     // turn on display FPS
     pDirector->setDisplayStats(true);
-
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
 

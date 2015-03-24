@@ -57,6 +57,7 @@ public:
 	PlayerLayer *playerLayer;
 private:
 	static pthread_t threadLogon;
+	bool isReadData;
 public:
     MainScene();
     ~MainScene();

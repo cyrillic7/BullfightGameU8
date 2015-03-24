@@ -98,7 +98,23 @@ struct TCP_Head
 	TCP_Command						CommandInfo;						//命令信息
 };
 
+//I D 登录
+struct CMD_GR_LogonUserID
+{
+	//版本信息
+	DWORD							dwPlazaVersion;						//广场版本
+	DWORD							dwFrameVersion;						//框架版本
+	DWORD							dwProcessVersion;					//进程版本
 
+	//登录信息
+	DWORD							dwUserID;							//用户 I D
+	TCHAR							szPassword[LEN_MD5];				//登录密码
+	TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
+	WORD							wKindID;							//类型索引
+
+	TCHAR							szPassPortID[LEN_PASS_PORT_ID];		 //身份证号（身份证绑定使用）
+	TCHAR							szPhoneVerifyID[LEN_PHONE_VERIFY_ID];//手机验证号（手机绑定使用）
+};
 //帐号登录
 struct CMD_MB_LogonAccounts
 {
