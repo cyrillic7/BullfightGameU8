@@ -122,7 +122,7 @@ void CardLayer::sendFiveCard(int index,int offsetIndex){
 		cardMove->m_cpArmatureCard->setScale(0.3);
 		int offx = rand() % 3;
 		int offy = rand() % 3;
-		cardMove->m_cpArmatureCard->setPosition(ccp(SCENE_SIZE.width / 2 + offx, SCENE_SIZE.height / 2 + offy));
+		cardMove->m_cpArmatureCard->setPosition(ccp(DataModel::sharedDataModel()->deviceSize.width / 2 + offx, DataModel::sharedDataModel()->deviceSize.height / 2 + offy));
 		CCPoint offPos = ccp(60+i*20,0);
 		moveCardAction(cardMove->m_cpArmatureCard, (index-offsetIndex)*SEND_CARD_DELAY_TIME*MAX_CARD_COUNT + i*SEND_CARD_DELAY_TIME, ccpAdd(cardPos, offPos),index);
 	}
