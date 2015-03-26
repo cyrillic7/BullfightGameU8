@@ -11,6 +11,7 @@
 
 #include "MD5.h"
 #include "DataModel.h"
+#include "DefaultListerner1.h"
 pthread_t TCPLogonID::threadLogonID;
 TCPLogonID * TCPLogonID::logonID;
 TCPLogonID::TCPLogonID():
@@ -62,6 +63,18 @@ void TCPLogonID::stopTcpSocket(){
 void TCPLogonID::sendData(const char* ip, unsigned short port){
 	Init();
 	Create(AF_INET, SOCK_STREAM, 0);
+	SetListerner(new DefaultListerner1());
+	bool isConnect=Connect(ip, port);
+	//bool isConnect=Connect("192.168.0.104", 8100);
+
+	CCLog("Connect:%d", isConnect);
+	if (!isConnect)
+	{
+		stopTcpSocket();
+		return;
+	}
+	/*Init();
+	Create(AF_INET, SOCK_STREAM, 0);
 	bool isConnect=Connect(ip, port);
 	CCLog("Connect:%d", isConnect);
 	if (!isConnect)
@@ -106,7 +119,7 @@ void TCPLogonID::sendData(const char* ip, unsigned short port){
 		isReadData = OnSocketNotifyRead(0, 0);
 		CCLog("read:%d", isReadData);
 	}
-	stopTcpSocket();
+	stopTcpSocket();*/
 }
 bool TCPLogonID::OnEventTCPSocketRead(unsigned short wSocketID, TCP_Command Command, void * pDataBuffer, unsigned short wDataSize){
 	if (Command.wMainCmdID == MDM_GR_LOGON)
