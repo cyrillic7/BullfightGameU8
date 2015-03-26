@@ -7,10 +7,11 @@
 //
 
 #include "TCPLogon.h"
-#include "StructLogon.h"
+#include "CMD_LogonServer.h"
 #include "MD5.h"
 #include "DataModel.h"
 //#include "GameLobbyScene.h"
+#include "DefaultListerner.h"
 pthread_t TCPLogon::threadLogon;
 TCPLogon * TCPLogon::logon;
 TCPLogon::TCPLogon():
@@ -104,8 +105,10 @@ void TCPLogon::sendData(){
 	}*/
 	Init();
 	Create(AF_INET, SOCK_STREAM, 0);
+	SetListerner(new DefaultListerner());
 	bool isConnect=Connect("125.88.145.41", 8100);
 	//bool isConnect=Connect("192.168.0.104", 8100);
+	
 	CCLog("Connect:%d", isConnect);
 	if (!isConnect)
 	{
@@ -113,6 +116,7 @@ void TCPLogon::sendData(){
 		return;
 	}
 	
+	/*
 	
 
 	CMD_MB_LogonAccounts logonAccounts;
@@ -159,25 +163,26 @@ void TCPLogon::sendData(){
 		isReadData = OnSocketNotifyRead(0, 0);
 		CCLog("read:%d", isReadData);
 	}
-	stopTcpSocket();
+	stopTcpSocket();*/
 }
 bool TCPLogon::OnEventTCPSocketRead(unsigned short wSocketID, TCP_Command Command, void * pDataBuffer, unsigned short wDataSize){
-	if (Command.wMainCmdID == MDM_GP_LOGON)
+	if (Command.wMainCmdID == 1)
 	{
-		if (Command.wSubCmdID == SUB_GP_UPDATE_NOTIFY)
+		if (Command.wSubCmdID == SUB_MB_UPDATE_NOTIFY)
 		{
-			//效验参数
+
+			/*//效验参数
 			assert(wDataSize >= sizeof(CMD_GR_UpdateNotify));
 			if (wDataSize < sizeof(CMD_GR_UpdateNotify)) return false;
 
 			CMD_GR_UpdateNotify *lf = (CMD_GR_UpdateNotify*)pDataBuffer;
-			CCLog("升级提示");
+			CCLog("升级提示");*/
 		}
 	}
 	//登录失败
 	if (Command.wMainCmdID == MDM_MB_LOGON)
 	{
-		if (Command.wSubCmdID == SUB_GP_LOGON_FAILURE)
+		if (Command.wSubCmdID == SUB_MB_LOGON_FAILURE)
 		{
 			//效验参数
 			assert(wDataSize >= sizeof(CMD_MB_LogonSuccess));
@@ -192,7 +197,7 @@ bool TCPLogon::OnEventTCPSocketRead(unsigned short wSocketID, TCP_Command Comman
 	//登录成功
 	if (Command.wMainCmdID == MDM_MB_LOGON)
 	{
-		if (Command.wSubCmdID == SUB_GP_LOGON_SUCCESS)
+		if (Command.wSubCmdID == SUB_MB_LOGON_SUCCESS)
 		{
 			//效验参数
 			if (wDataSize != sizeof(CMD_MB_LogonSuccess)) return false;

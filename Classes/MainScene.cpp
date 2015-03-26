@@ -11,7 +11,7 @@
 #include "DataModel.h"
 #include "BaseAttributes.h"
 #include "TCPSocket.h"
-#include "StructLogon.h"
+#include "CMD_LogonServer.h"
 
 //#include <tchar.h>
 #include "MD5.h"
@@ -194,7 +194,7 @@ void MainScene::testLogic(){
 	CC_SAFE_DELETE(logic);*/
 }
 bool MainScene::OnEventTCPSocketRead(unsigned short wSocketID, TCP_Command Command, void * pDataBuffer, unsigned short wDataSize){
-	if (Command.wMainCmdID == MDM_GP_LOGON)
+/*	if (Command.wMainCmdID == MDM_GP_LOGON)
 	{
 		if (Command.wSubCmdID == SUB_GP_UPDATE_NOTIFY)
 		{
@@ -278,7 +278,7 @@ bool MainScene::OnEventTCPSocketRead(unsigned short wSocketID, TCP_Command Comma
 			CCLog("列表完成");
 			//tagGameServer *gs = (tagGameServer*)pDataBuffer;
 		}
-	}
+	}*/
 	return 1;
 }
 void MainScene::setGameStateWithUpdate(GameState gameState){

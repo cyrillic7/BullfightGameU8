@@ -45,6 +45,7 @@ typedef int				SOCKET;
 #define SOCKET_TCP_BUFFER			16384								//网络缓冲
 #define SOCKET_TCP_PACKET			(SOCKET_TCP_BUFFER-sizeof(TCP_Head))//网络缓冲
 #include "ITCPSocket.h"
+class SocketListerner;
 class TCPSocket:public ITCPSocket
 {
 public:
@@ -116,8 +117,8 @@ protected:
 	DWORD							m_dwSendXorKey;						//发送密钥
 	DWORD							m_dwRecvXorKey;						//接收密钥
 
-	BYTE static						g_SendByteMap[];
-	BYTE static						g_RecvByteMap[];
+	//BYTE static						g_SendByteMap[];
+	//BYTE static						g_RecvByteMap[];
 	//计数变量
 protected:
 	DWORD							m_dwSendTickCount;					//发送时间
@@ -140,6 +141,9 @@ private:
 	inline BYTE MapSendByte(BYTE cbData);
 	//接收映射
 	inline BYTE MapRecvByte(BYTE cbData);
+	//监听
+	 SocketListerner* listerner;
+
 
 	//操作接口
 public:
@@ -162,4 +166,6 @@ public:
 	//网络读取
 	//long OnSocketNotifyRead(WPARAM wParam, LPARAM lParam);
 	long OnSocketNotifyRead(unsigned int wParam, long lParam);
+	//监听
+	void SetListerner(SocketListerner* listerner);
 };

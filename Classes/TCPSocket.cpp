@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include "TCPSocket.h"
-#include "StructLogon.h"
+#include "CMD_LogonServer.h"
 #include "Tools.h"
+#include "Packet.h"
+#include "SocketListerner.h"
 #ifdef WIN32
 #include <objbase.h>
 #pragma comment(lib, "wsock32")
@@ -62,7 +64,7 @@ BYTE TCPSocket::g_RecvByteMap[256] =
 };
 //数据加密密钥
 const static DWORD g_dwPacketKey=0xA55AA55A;*/
-const static DWORD g_dwPacketKey = 0xC39AC594A;
+/*const static DWORD g_dwPacketKey = 0xC39AC594A;
 BYTE TCPSocket::g_SendByteMap[256] =
 {
 	0x61, 0x63, 0xF6, 0xA5, 0xF5, 0x5A, 0x07, 0xF0, 0x13, 0x12, 0x5C, 0x8B, 0xBC, 0xE1, 0x65, 0xD8,
@@ -102,7 +104,7 @@ BYTE TCPSocket::g_RecvByteMap[256] =
 	0xF0, 0xF4, 0xF2, 0x61, 0xB0, 0x8D, 0xC6, 0x7D, 0x0F, 0xE5, 0x58, 0xDA, 0xE9, 0x5A, 0x92, 0x2D,
 	0x78, 0x0D, 0x2B, 0x4E, 0x50, 0x4D, 0xD3, 0xAC, 0x39, 0xC9, 0x5E, 0xB6, 0x25, 0xE7, 0x6F, 0x66,
 	0x07, 0x4B, 0x79, 0xFF, 0xF6, 0x04, 0x02, 0xDE, 0x6A, 0x55, 0x82, 0x6E, 0x5C, 0xAB, 0x23, 0x5B
-};
+};*/
 //TCPSocket::TCPSocket(){
 //	m_dwSendPacketCount = 0;
 //}
@@ -146,6 +148,7 @@ TCPSocket::TCPSocket(SOCKET sock) {
 }
 
 TCPSocket::~TCPSocket() {
+	delete this->listerner;
 }
 
 int TCPSocket::Init() {
@@ -195,8 +198,11 @@ bool TCPSocket::Connect(const char* ip, unsigned short port) {
     svraddr.sin_port = htons(port);
     int ret = connect(m_sock, (struct sockaddr*) &svraddr, sizeof(svraddr));
     if (ret == SOCKET_ERROR) {
+		//this->listerner->OnClose(this,false);
         return false;
     }
+	this->listerner->OnOpen(this);
+	this->listerner->Start();
     return true;
 }
 
@@ -617,7 +623,8 @@ long TCPSocket::OnSocketNotifyRead(unsigned int wParam, long lParam)
 				continue;
 			}
 			//处理数据
-			bool bSuccess = OnEventTCPSocketRead(m_wSocketID, Command, pDataBuffer, wDataSize);
+			//bool bSuccess = OnEventTCPSocketRead(m_wSocketID, Command, pDataBuffer, wDataSize);
+			bool bSuccess=listerner->OnMessage(this,m_wSocketID, Command, pDataBuffer, wDataSize);
 			//if (bSuccess == false) throw TEXT("网络数据包处理失败");
 			if (!bSuccess)
 			{
@@ -633,4 +640,13 @@ long TCPSocket::OnSocketNotifyRead(unsigned int wParam, long lParam)
 	}
 
 	return 1;
+}
+/**
+ * 设置一个socket状态监听
+ * @param listerner
+ */
+void TCPSocket::SetListerner(SocketListerner* listerner)
+{
+    this->listerner = listerner;
+    this->listerner->SetContext(this);
 }

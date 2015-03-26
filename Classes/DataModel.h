@@ -2,7 +2,7 @@
 #include "cocos2d.h"
 #include "MainScene.h"
 #include "GameLogic.h"
-#include "StructLogon.h"
+#include "CMD_LogonServer.h"
 USING_NS_CC;
 class DataModel:public CCObject{
 public:

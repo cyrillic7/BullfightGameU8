@@ -21,12 +21,7 @@
     <string>UIGameHUD.plist</string>
     <string>UIGameLobby0.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>UIGameHUD.png</string>
-    <string>UIGameLobby0.png</string>
-    <string>UIGameHUD.png</string>
-    <string>UIGameLobby0.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIGameLobby.json</CurrentUIJson>
+  <CurrentUIJson />
 </UIProject>

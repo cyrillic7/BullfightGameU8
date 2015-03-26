@@ -7,7 +7,8 @@
 //
 
 #include "TCPLogonID.h"
-#include "StructLogon.h"
+#include "CMD_GameServer.h"
+
 #include "MD5.h"
 #include "DataModel.h"
 pthread_t TCPLogonID::threadLogonID;
@@ -91,7 +92,7 @@ void TCPLogonID::sendData(const char* ip, unsigned short port){
 
 	
 	int luidSize=sizeof(CMD_GR_LogonUserID);
-	bool isSend = SendData(MDM_GP_LOGON, SUB_GR_LOGON_USERID, &logonUserID, sizeof(logonUserID));
+	bool isSend = SendData(MDM_GR_LOGON, SUB_GR_LOGON_USERID, &logonUserID, sizeof(logonUserID));
 	CCLog("send:%d", isSend);
 	
 	if (!isSend)
@@ -108,9 +109,9 @@ void TCPLogonID::sendData(const char* ip, unsigned short port){
 	stopTcpSocket();
 }
 bool TCPLogonID::OnEventTCPSocketRead(unsigned short wSocketID, TCP_Command Command, void * pDataBuffer, unsigned short wDataSize){
-	if (Command.wMainCmdID == MDM_GP_LOGON)
+	if (Command.wMainCmdID == MDM_GR_LOGON)
 	{
-		if (Command.wSubCmdID == SUB_GP_UPDATE_NOTIFY)
+		if (Command.wSubCmdID == SUB_GR_UPDATE_NOTIFY)
 		{
 			//效验参数
 			assert(wDataSize >= sizeof(CMD_GR_UpdateNotify));
@@ -119,7 +120,7 @@ bool TCPLogonID::OnEventTCPSocketRead(unsigned short wSocketID, TCP_Command Comm
 			CMD_GR_UpdateNotify *lf = (CMD_GR_UpdateNotify*)pDataBuffer;
 			CCLog("==");
 		}
-		if (Command.wSubCmdID == SUB_GP_LOGON_SUCCESS)
+		if (Command.wSubCmdID == SUB_GR_LOGON_SUCCESS)
 		{
 			int size=sizeof(CMD_GR_LogonSuccess);
 			//效验参数
@@ -130,6 +131,64 @@ bool TCPLogonID::OnEventTCPSocketRead(unsigned short wSocketID, TCP_Command Comm
 			CCLog("==");
 		}
 	}
-	
+	if (Command.wMainCmdID==MDM_GR_CONFIG)
+	{
+		switch (Command.wSubCmdID)
+		{
+		case SUB_GR_CONFIG_COLUMN:
+		{
+			/*int size=sizeof(tagColumnItem);
+			//效验参数
+			assert(wDataSize >= sizeof(CMD_GR_ConfigColumn));
+			if (wDataSize < sizeof(CMD_GR_ConfigColumn)) return false;
+			*/
+			CMD_GR_ConfigColumn *lf = (CMD_GR_ConfigColumn*)pDataBuffer;
+			CCLog("列表配置");
+		}
+			break;
+		case SUB_GR_CONFIG_SERVER:
+			{
+				int size=sizeof(CMD_GR_ConfigServer);
+				//效验参数
+				assert(wDataSize >= sizeof(CMD_GR_ConfigServer));
+				if (wDataSize < sizeof(CMD_GR_ConfigServer)) return false;
+
+				CMD_GR_ConfigServer *lf = (CMD_GR_ConfigServer*)pDataBuffer;
+				CCLog("房间配置");
+			}
+			break;
+		case SUB_GR_CONFIG_PROPERTY:
+			{
+				CMD_GR_ConfigProperty *lf = (CMD_GR_ConfigProperty*)pDataBuffer;
+				CCLog("道具配置");
+			}
+			break;
+		case SUB_GR_CONFIG_FINISH:
+			{
+				CCLog("配置完成");
+			}
+			break;
+		default:
+			break;
+		}
+		
+		
+	}
+	if (Command.wMainCmdID==MDM_GR_USER){
+		switch (Command.wSubCmdID)
+		{
+		case SUB_GR_USER_ENTER://用户进入
+			{
+				int wSize=wDataSize;
+				int size =sizeof(tagUserInfoHead);
+				tagUserInfoHead *info= (tagUserInfoHead*)pDataBuffer;
+  				CCLog("用户进入");
+			}
+			break;
+		default:
+			break;
+		}
+	}
+	CCLog("main:%d  sub:%d",Command.wMainCmdID,Command.wSubCmdID);
 	return 1;
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include "StructLogon.h"
+#include "Packet.h"
 class ITCPSocket
 {
 public:
