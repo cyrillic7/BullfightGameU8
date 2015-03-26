@@ -17,6 +17,7 @@ typedef int				socklen_t;
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <arpa/inet.h>
+#include "TCPSocket.h"
 #endif
 
 
@@ -24,6 +25,10 @@ typedef int				socklen_t;
 //登录命令
 
 #define MDM_GP_LOGON				1									//广场登录
+//登录模式
+#define SUB_GR_LOGON_USERID			1									//I D 登录
+#define SUB_GR_LOGON_MOBILE			2									//手机登录
+#define SUB_GR_LOGON_ACCOUNTS		3									//帐户登录
 
 //登录模式
 #define SUB_GP_LOGON_GAMEID			1									//I D 登录
@@ -150,6 +155,25 @@ struct CMD_MB_LogonSuccess
 	DWORD							dwExperience;						//经验数值
 	DWORD							dwLoveLiness;						//用户魅力
 	TCHAR							szNickName[LEN_NICKNAME];			//用户昵称
+};
+//登录成功
+struct CMD_GR_LogonSuccess
+{
+	DWORD							dwUserRight;						//用户权限
+	DWORD							dwMasterRight;						//管理权限
+};
+//升级提示
+struct CMD_GR_UpdateNotify
+{
+	//升级标志
+	BYTE							cbMustUpdatePlaza;					//强行升级
+	BYTE							cbMustUpdateClient;					//强行升级
+	BYTE							cbAdviceUpdateClient;				//建议升级
+
+	//当前版本
+	DWORD							dwCurrentPlazaVersion;				//当前版本
+	DWORD							dwCurrentFrameVersion;				//当前版本
+	DWORD							dwCurrentClientVersion;				//当前版本
 };
 //游戏房间
 struct tagGameServer

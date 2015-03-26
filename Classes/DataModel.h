@@ -26,4 +26,5 @@ public:
 	std::vector <tagGameServer *> tagGameServerList;
 
 	CMD_MB_LogonSuccess *logonSuccessUserInfo;
+	//tagGameServer *tagGameServerList[];
 };

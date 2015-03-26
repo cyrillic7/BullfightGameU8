@@ -13,12 +13,7 @@
     "UIGameHUD.plist",
     "UIGameLobby0.plist"
   ],
-  "texturesPng": [
-    "UIGameHUD.png",
-    "UIGameLobby0.png",
-    "UIGameHUD.png",
-    "UIGameLobby0.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -1086,7 +1081,7 @@
               "layoutParameter": null,
               "opacity": 255,
               "positionPercentX": 0.245833337,
-              "positionPercentY": 0.4923073,
+              "positionPercentY": 0.4846154,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1.1287,

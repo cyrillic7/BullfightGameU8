@@ -56,8 +56,6 @@ public:
 	//玩家信息层
 	PlayerLayer *playerLayer;
 private:
-	static pthread_t threadLogon;
-	bool isReadData;
 public:
     MainScene();
     ~MainScene();
@@ -68,7 +66,7 @@ public:
     CREATE_FUNC(MainScene);
 
 	void testTcpSocket();
-	void stopTcpSocket();
+	
 	//收到准备完成回调
 	void onEventReadyFnish();
 	//收到发牌完成回调
@@ -91,7 +89,7 @@ private:
 	
 	int threadStart();
 	static void* networkThread(void*);
-	bool OnEventTCPSocketRead(WORD	wSocketID, TCP_Command tCommand, void * pDataBuffer, WORD wDataSize);
+	bool OnEventTCPSocketRead(unsigned short	wSocketID, TCP_Command tCommand, void * pDataBuffer, unsigned short wDataSize);
 	//更新状态
 	void updateGameState();
 	void updateServerState();

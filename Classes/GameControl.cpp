@@ -98,7 +98,9 @@ void GameControl::menuReady(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		DataModel::sharedDataModel()->getMainScene()->stopTcpSocket();
+		CMD_MB_LogonSuccess *x=DataModel::sharedDataModel()->logonSuccessUserInfo;
+		CCLog("--");
+		//DataModel::sharedDataModel()->getMainScene()->stopTcpSocket();
 		/*
 		//设置主状态为准备状态
 		DataModel::sharedDataModel()->getMainScene()->setGameState(MainScene::STATE_READY);

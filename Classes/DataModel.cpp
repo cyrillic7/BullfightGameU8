@@ -18,6 +18,7 @@ DataModel::DataModel()
 
 	deviceSize = CCDirector::sharedDirector()->getWinSize();
 	gameLogic = new GameLogic();
+	logonSuccessUserInfo=new CMD_MB_LogonSuccess();
 }
 DataModel::~DataModel() {
 	CCLog("~ <<%s>>",__FUNCTION__);
@@ -25,6 +26,13 @@ DataModel::~DataModel() {
 	m_aTagGameKind->release();
 
 	CC_SAFE_DELETE(gameLogic);
+	CC_SAFE_DELETE(logonSuccessUserInfo);
+
+	for (int i=0;i<tagGameServerList.size();i++)
+	{
+		CC_SAFE_DELETE(tagGameServerList[i]);
+	}
+	tagGameServerList.resize(0);
 	/*
 	_outputEnemysData->removeAllObjects();
 	_outputEnemysData->release();

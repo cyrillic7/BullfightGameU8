@@ -1,6 +1,7 @@
 #include "AppDelegate.h"
 #include "GameConfig.h"
 #include "GameLobbyScene.h"
+#include "DataModel.h"
 USING_NS_CC;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include "vld.h"
@@ -11,6 +12,8 @@ AppDelegate::AppDelegate() {
 
 AppDelegate::~AppDelegate() 
 {
+	DataModel *m = DataModel::sharedDataModel();
+	CC_SAFE_RELEASE_NULL(m);
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
@@ -20,12 +23,12 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     pDirector->setOpenGLView(pEGLView);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	//CCEGLView::sharedOpenGLView()->setFrameSize(SCENE_SIZE.width, SCENE_SIZE.height);
-	CCEGLView::sharedOpenGLView()->setFrameSize(1250, 500);
+	CCEGLView::sharedOpenGLView()->setFrameSize(SCENE_SIZE.width, SCENE_SIZE.height);
+	//CCEGLView::sharedOpenGLView()->setFrameSize(1250, 500);
 #endif
 	//CCEGLView::sharedOpenGLView()->setDesignResolutionSize(SCENE_SIZE.width, SCENE_SIZE.height, kResolutionExactFit);//��Ļ����
 	CCEGLView::sharedOpenGLView()->setDesignResolutionSize(SCENE_SIZE.width, SCENE_SIZE.height, kResolutionFixedHeight);//��Ļ����
-	pDirector->setProjection(kCCDirectorProjection2D);//2DͶӰ
+	pDirector->setProjection(kCCDirectorProjection2D);//2D投影
     // turn on display FPS
     pDirector->setDisplayStats(true);
     // set FPS. the default value is 1.0/60 if you don't call this

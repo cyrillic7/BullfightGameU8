@@ -1,14 +1,7 @@
 /*
- * define file about portable socket class.
- * description:this sock is suit both windows and linux
- * design:odison
- * e-mail:odison@126.com>
  *
  */
-
-#ifndef _ODSOCKET_H_
-#define _ODSOCKET_H_
-
+#pragma once
 #if (_MSC_VER >= 800) || defined(_STDCALL_SUPPORTED)
 #define NTAPI __stdcall
 #else
@@ -17,7 +10,7 @@
 #define NTAPI
 #endif
 
-//Èç¹ûÊÇandroidÆ½Ì¨ĞèÒª¶¨Òåºê
+//å¦‚æœæ˜¯androidå¹³å°éœ€è¦å®šä¹‰å®
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID||CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
 #define RtlCopyMemory(Destination,Source,Length) memcpy((Destination),(Source),(Length))
 #define CopyMemory RtlCopyMemory
@@ -39,6 +32,7 @@ typedef int				socklen_t;
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <arpa/inet.h>
+//
 typedef int				SOCKET;
 
 //#pragma region define win32 const variable in linux
@@ -46,13 +40,13 @@ typedef int				SOCKET;
 #define SOCKET_ERROR	-1
 //#pragma endregion
 #endif
-#include "ITCPSocket.h"
-//³¤¶È¶¨Òå
-#define SOCKET_TCP_BUFFER			16384								//ÍøÂç»º³å
-#define SOCKET_TCP_PACKET			(SOCKET_TCP_BUFFER-sizeof(TCP_Head))//ÍøÂç»º³å
 
-class TCPSocket:public ITCPSocket {
-    
+//é•¿åº¦å®šä¹‰
+#define SOCKET_TCP_BUFFER			16384								//ç½‘ç»œç¼“å†²
+#define SOCKET_TCP_PACKET			(SOCKET_TCP_BUFFER-sizeof(TCP_Head))//ç½‘ç»œç¼“å†²
+#include "ITCPSocket.h"
+class TCPSocket:public ITCPSocket
+{
 public:
     TCPSocket(SOCKET sock = INVALID_SOCKET);
     ~TCPSocket();
@@ -105,70 +99,67 @@ protected:
 
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
-	ITCPSocket *				m_pITCPSocket;					//»Øµ÷½Ó¿Ú
-	//¸¨Öú±äÁ¿
+	//ITCPSocket *				m_pITCPSocket;					//å›è°ƒæ¥å£
+	//è¾…åŠ©å˜é‡
 protected:
-	WORD							m_wSocketID;						//ÍøÂç±êÊ¶
-	BYTE							m_cbSocketStatus;					//ÍøÂç×´Ì¬
+	WORD							m_wSocketID;						//ç½‘ç»œæ ‡è¯†
+	BYTE							m_cbSocketStatus;					//ç½‘ç»œçŠ¶æ€
 	int                             m_nRecHit;
-	//½ÓÊÕ±äÁ¿
+	//æ¥æ”¶å˜é‡
 protected:
-	WORD							m_wRecvSize;						//½ÓÊÕ³¤¶È
-	BYTE							m_cbRecvBuf[SOCKET_TCP_BUFFER * 10];		//½ÓÊÕ»º³å
-	//¼ÓÃÜÊı¾İ
+	WORD							m_wRecvSize;						//æ¥æ”¶é•¿åº¦
+	BYTE							m_cbRecvBuf[SOCKET_TCP_BUFFER * 10];		//æ¥æ”¶ç¼“å†²
+	//åŠ å¯†æ•°æ®
 protected:
-	BYTE							m_cbSendRound;						//×Ö½ÚÓ³Éä
-	BYTE							m_cbRecvRound;						//×Ö½ÚÓ³Éä
-	DWORD							m_dwSendXorKey;						//·¢ËÍÃÜÔ¿
-	DWORD							m_dwRecvXorKey;						//½ÓÊÕÃÜÔ¿
+	BYTE							m_cbSendRound;						//å­—èŠ‚æ˜ å°„
+	BYTE							m_cbRecvRound;						//å­—èŠ‚æ˜ å°„
+	DWORD							m_dwSendXorKey;						//å‘é€å¯†é’¥
+	DWORD							m_dwRecvXorKey;						//æ¥æ”¶å¯†é’¥
 
 	BYTE static						g_SendByteMap[];
 	BYTE static						g_RecvByteMap[];
-	//¼ÆÊı±äÁ¿
+	//è®¡æ•°å˜é‡
 protected:
-	DWORD							m_dwSendTickCount;					//·¢ËÍÊ±¼ä
-	DWORD							m_dwRecvTickCount;					//½ÓÊÕÊ±¼ä
-	DWORD							m_dwSendPacketCount;				//·¢ËÍ¼ÆÊı
-	DWORD							m_dwRecvPacketCount;				//½ÓÊÜ¼ÆÊı
+	DWORD							m_dwSendTickCount;					//å‘é€æ—¶é—´
+	DWORD							m_dwRecvTickCount;					//æ¥æ”¶æ—¶é—´
+	DWORD							m_dwSendPacketCount;				//å‘é€è®¡æ•°
+	DWORD							m_dwRecvPacketCount;				//æ¥å—è®¡æ•°
 
-	//¼ÓÃÜº¯Êı
+	//åŠ å¯†å‡½æ•°
 protected:
-	//½âÃÜÊı¾İ
+	//è§£å¯†æ•°æ®
 	WORD CrevasseBuffer(BYTE cbDataBuffer[], WORD wDataSize);
-	//¼ÓÃÜÊı¾İ
+	//åŠ å¯†æ•°æ®
 	WORD EncryptBuffer(BYTE cbDataBuffer[], WORD wDataSize, WORD wBufferSize);
 
-	//ÄÚÁªº¯Êı
+	//å†…è”å‡½æ•°
 private:
-	//×Ö½ÚÓ³Éä
+	//å­—èŠ‚æ˜ å°„
 	inline WORD SeedRandMap(WORD wSeed);
-	//·¢ËÍÓ³Éä
+	//å‘é€æ˜ å°„
 	inline BYTE MapSendByte(BYTE cbData);
-	//½ÓÊÕÓ³Éä
+	//æ¥æ”¶æ˜ å°„
 	inline BYTE MapRecvByte(BYTE cbData);
 
-	//²Ù×÷½Ó¿Ú
+	//æ“ä½œæ¥å£
 public:
-	//·¢ËÍº¯Êı
+	//å‘é€å‡½æ•°
 	virtual DWORD __cdecl SendData(WORD wMainCmdID, WORD wSubCmdID);
-	//·¢ËÍº¯Êı
+	//å‘é€å‡½æ•°
 	virtual DWORD __cdecl SendData(WORD wMainCmdID, WORD wSubCmdID, void * const pData, WORD wDataSize);
 
-	//¸¨Öúº¯Êı
+	//è¾…åŠ©å‡½æ•°
 protected:
-	//¹Ø±ÕÁ¬½Ó
+	//å…³é—­è¿æ¥
 	//VOID CloseSocket(BYTE cbShutReason);
-	//»º³åÊı¾İ
+	//ç¼“å†²æ•°æ®
 	//VOID AmortizeBuffer(VOID * pData, WORD wDataSize);
-	//·¢ËÍÊı¾İ
+	//å‘é€æ•°æ®
 	DWORD SendDataBuffer(void * pBuffer, WORD wSendSize);
 
-	//ÏûÏ¢º¯Êı
+	//æ¶ˆæ¯å‡½æ•°
 public:
-	//ÍøÂç¶ÁÈ¡
+	//ç½‘ç»œè¯»å–
 	//long OnSocketNotifyRead(WPARAM wParam, LPARAM lParam);
 	long OnSocketNotifyRead(unsigned int wParam, long lParam);
 };
-
-
-#endif

@@ -18,23 +18,19 @@
 
 //#include <thread>
 //#include <iostream>
-pthread_t MainScene::threadLogon;
 MainScene::MainScene()
 :gameState(STATE_OBSERVER)
-, isReadData(true)
 {
 }
 MainScene::~MainScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
-
 
 	GUIReader::purge();
 	CCArmatureDataManager::purge();
 	CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
 	CCTextureCache::sharedTextureCache()->removeUnusedTextures();
 
-	DataModel *m = DataModel::sharedDataModel();
-	CC_SAFE_RELEASE_NULL(m);
+	
 	BaseAttributes *b = BaseAttributes::sharedAttributes();
 	CC_SAFE_RELEASE_NULL(b);
 
@@ -47,11 +43,7 @@ CCScene* MainScene::scene()
 	DataModel::sharedDataModel()->setMainScene(layer);
     return scene;
 }
-void MainScene::stopTcpSocket(){
-	isReadData = false;
-	Close();
-		//pthread_exit(&threadLogon);
-}
+
 void* MainScene::networkThread(void*){
 	DataModel::sharedDataModel()->getMainScene()->testTcpSocket();
 	return 0;
@@ -104,7 +96,7 @@ void MainScene::onEventSendCardFnish(){
 
 int MainScene::threadStart(){
 	int errCode = 0;
-	do{
+	/*do{
 		pthread_attr_t tAttr;
 		errCode = pthread_attr_init(&tAttr);
 
@@ -119,7 +111,7 @@ int MainScene::threadStart(){
 
 		errCode = pthread_create(&threadLogon, &tAttr, networkThread, this);
 		pthread_detach(threadLogon);
-	} while (0);
+	} while (0);*/
 	return errCode;
 }
 
@@ -127,8 +119,13 @@ void MainScene::testTcpSocket(){
 	Init();
 	Create(AF_INET, SOCK_STREAM, 0);
 	bool isConnect=Connect("125.88.145.41", 8100);
-	//bool isConnect=Connect("192.168.0.104", 8100);
 	CCLog("Connect:%d", isConnect);
+	if (!isConnect)
+	{
+		return;
+	}
+	//bool isConnect=Connect("192.168.0.104", 8100);
+	
 
 	CMD_MB_LogonAccounts logonAccounts;
 	//memset(&logonAccounts, 0, sizeof(CMD_MB_LogonAccounts));
@@ -164,13 +161,16 @@ void MainScene::testTcpSocket(){
 	CCLog("send:%d", isSend);
 	/*bool isRead = OnSocketNotifyRead(0, 0);
 	CCLog("read:%d", isRead);*/
-
-	while (isReadData)
+	if (!isSend)
+	{
+		return;
+	}
+	/*while (isReadData)
 	{
 		CCLog("begin-------------------------------------------");
 		isReadData = OnSocketNotifyRead(0, 0);
 		CCLog("read:%d", isReadData);
-	}
+	}*/
 }
 void MainScene::testLogic(){
 	BYTE tempCard[5] = { 2, 2, 3, 8, 6 };
@@ -193,7 +193,7 @@ void MainScene::testLogic(){
 
 	CC_SAFE_DELETE(logic);*/
 }
-bool MainScene::OnEventTCPSocketRead(WORD wSocketID, TCP_Command Command, void * pDataBuffer, WORD wDataSize){
+bool MainScene::OnEventTCPSocketRead(unsigned short wSocketID, TCP_Command Command, void * pDataBuffer, unsigned short wDataSize){
 	if (Command.wMainCmdID == MDM_GP_LOGON)
 	{
 		if (Command.wSubCmdID == SUB_GP_UPDATE_NOTIFY)
@@ -224,8 +224,15 @@ bool MainScene::OnEventTCPSocketRead(WORD wSocketID, TCP_Command Command, void *
 			//效验参数
 			if (wDataSize != sizeof(CMD_MB_LogonSuccess)) return false;
 			
-			DataModel::sharedDataModel()->logonSuccessUserInfo = (CMD_MB_LogonSuccess*)pDataBuffer;
-			//CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)pDataBuffer;
+			CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)pDataBuffer;
+			
+			DataModel::sharedDataModel()->logonSuccessUserInfo->cbGender=ls->cbGender;
+			DataModel::sharedDataModel()->logonSuccessUserInfo->dwExperience=ls->dwExperience;
+			DataModel::sharedDataModel()->logonSuccessUserInfo->dwGameID=ls->dwGameID;
+			DataModel::sharedDataModel()->logonSuccessUserInfo->dwLoveLiness=ls->dwLoveLiness;
+			DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID=ls->dwUserID;
+			strcpy(DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName,ls->szNickName);
+			DataModel::sharedDataModel()->logonSuccessUserInfo->wFaceID=ls->wFaceID;
 			CCLog("登录成功");
 		}
 	}

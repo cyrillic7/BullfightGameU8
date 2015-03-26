@@ -13,7 +13,12 @@
     "UIGameHUD.plist",
     "UIGameLobby0.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIGameHUD.png",
+    "UIGameLobby0.png",
+    "UIGameHUD.png",
+    "UIGameLobby0.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -1102,7 +1107,7 @@
             "options": {
               "__type": "LabelSurrogate:#EditorCommon.JsonModel.Component.GUI",
               "classname": "Label",
-              "name": "Label_3",
+              "name": "labelUserName",
               "ZOrder": 0,
               "actiontag": 35483542,
               "anchorPointX": 0,
