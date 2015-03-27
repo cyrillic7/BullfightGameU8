@@ -10,10 +10,12 @@
 #include "Tools.h"
 #include "GameConfig.h"
 #include "PopDialogBoxUserInfo.h"
+#include "PopDialogBoxLoading.h"
 #include "ClassicLobbyScene.h"
 #include "DataModel.h"
+#include "SocketThread.h"
+#include "DefaultListerner.h"
 #include <stdio.h>
-#include "TCPLogonID.h"
 
 #ifdef WIN32
 #define UTEXT(str) GBKToUTF8(str)
@@ -56,10 +58,12 @@ const char* GBKToUTF8(const char *strChar)
 #endif
 
 GameLobbyScene::GameLobbyScene(){
-  
+	scheduleUpdate();
 }
 GameLobbyScene::~GameLobbyScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
+	unscheduleUpdate();
+	
 	//移除对象
 	this->removeAllChildrenWithCleanup(true);
 	//清理数据
@@ -78,6 +82,16 @@ CCScene* GameLobbyScene::scene()
 }
 void GameLobbyScene::onEnter(){
 	CCLayer::onEnter();
+	//contentScaleFactor
+	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
+	//float scale=SCENE_SIZE.height/deviceSize.height;
+
+	CCSprite *spriteBg=CCSprite::create("res/main_bg.jpg");
+	this->addChild(spriteBg);
+	spriteBg->setPosition(ccp(deviceSize.width/2,deviceSize.height/2));
+	float scale=deviceSize.height/spriteBg->getContentSize().height;
+	spriteBg->setScale(scale);
+	
 	UILayer *m_pWidget = UILayer::create();
 	this->addChild(m_pWidget);
 
@@ -92,11 +106,37 @@ void GameLobbyScene::onEnter(){
 		button = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("buttonMode%d",i+1)->getCString()));
 		button->addTouchEventListener(this, SEL_TouchEvent(&GameLobbyScene::menuSelectMode));
 	}
+	scroll=static_cast<UIScrollView*>(m_pWidget->getWidgetByName("ScrollView"));
+	scroll->setInnerContainerSize(scroll->getContentSize());
 	//用户名
 	userName=static_cast<UILabel*>(m_pWidget->getWidgetByName("labelUserName"));
+	
+	//添加监听事件
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(GameLobbyScene::callbackData),LISTENER_LOGON,NULL);
 	initTCPLogon();
 }
+void GameLobbyScene::callbackData(CCObject *obj){
+	//CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)obj;
+	PopDialogBoxLoading *pdb = (PopDialogBoxLoading*)this->getChildByTag(189);
+	pdb->removeFromParentAndCleanup(true);
+	//////////////////////////////////////////////////////////////////////////
+	//设置用户名
+	//char *name=DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName;
+	//userName->setText(UTEXT(name));
+	//userName->setText("dsdsg");
+}
+void GameLobbyScene::update(float dt){
+	char *name=DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName;
+    if(strcmp(userName->getStringValue(),"游客")==0&&strcmp(name, "") != 0)
+	{
+		userName->setText(UTEXT(name));
+		CCLog("333333333333");
+	}
+}
 void GameLobbyScene::onExit(){
+	//移除监听事件 
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, LISTENER_LOGON); 
+
 	CCLayer::onExit();
 }
 void GameLobbyScene::menuResetUser(CCObject* pSender, TouchEventType type){
@@ -114,13 +154,8 @@ void GameLobbyScene::menuSelectMode(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		//tagGameServer *server=DataModel::sharedDataModel()->tagGameServerList[0];
-		TCPLogonID *tcpID=TCPLogonID::create();
-		this->addChild(tcpID);
-		tcpID->startSendThread();
-
-		/*UIButton *button = (UIButton*)pSender;
-		enterLobbyByMode(button->getTag());*/
+		UIButton *button = (UIButton*)pSender;
+		enterLobbyByMode(button->getTag());
 	}
 		break;
 	default:
@@ -132,10 +167,6 @@ void GameLobbyScene::popDialogBoxUserInfo(){
 	PopDialogBox *pdb = PopDialogBoxUserInfo::create();
 	this->addChild(pdb);
 	pdb->playAnimation();
-	char *name=DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName;
-	
-	
-	userName->setText(UTEXT(name));
 }
 void GameLobbyScene::enterLobbyByMode(int mode){
 	switch (mode)
@@ -151,6 +182,13 @@ void GameLobbyScene::initTCPLogon(){
 	tcpLogon=TCPLogon::create();
 	this->addChild(tcpLogon);
 	tcpLogon->startSendThread();
+	/*SocketThread *socketThread=SocketThread::GetInstance();
+	//SocketThread::GetInstance()->getSocket().SetListerner(new DefaultListerner());
+	socketThread->start();
+	*/
+	PopDialogBox *pdb = PopDialogBoxLoading::create();
+	this->addChild(pdb);
+	pdb->setTag(189);
 }
 bool GameLobbyScene::OnEventTCPSocketRead(unsigned short wSocketID, TCP_Command tCommand, void * pDataBuffer, unsigned short wDataSize){
 	CCLog("========================");

@@ -20,7 +20,7 @@ public:
 	UILabel *userName;
 private:
 	TCPLogon *tcpLogon;
-	
+	UIScrollView *scroll;
 public:
     GameLobbyScene();
     ~GameLobbyScene();
@@ -29,8 +29,11 @@ public:
 
     static CCScene* scene();
     CREATE_FUNC(GameLobbyScene);
+
+	void callbackData(CCObject *obj);
 private:
 	//
+	void update(float dt);
 	void initTCPLogon();
 	//弹出框
 	void popDialogBoxUserInfo();

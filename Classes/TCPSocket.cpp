@@ -198,7 +198,7 @@ bool TCPSocket::Connect(const char* ip, unsigned short port) {
     svraddr.sin_port = htons(port);
     int ret = connect(m_sock, (struct sockaddr*) &svraddr, sizeof(svraddr));
     if (ret == SOCKET_ERROR) {
-		//this->listerner->OnClose(this,false);
+		this->listerner->OnClose(this,false);
         return false;
     }
 	this->listerner->OnOpen(this);

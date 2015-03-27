@@ -21,6 +21,7 @@ typedef int				socklen_t;
 
 #define MAX_COLUMN 32
 #define MAX_PROPERTY 128  
+#define LEN_PASSWORD 33
 
 #pragma  pack(1)
 //////////////////////////////////////////////////////////////////////////
@@ -174,7 +175,13 @@ struct CMD_GR_UserStatus
 	DWORD							dwUserID;							//用户标识
 	tagUserStatus					UserStatus;							//用户状态
 };
-
+//坐下请求
+struct CMD_GR_UserSitDown
+{
+	WORD							wTableID;							//桌子位置
+	WORD							wChairID;							//椅子位置
+	TCHAR							szPassword[LEN_PASSWORD];			//桌子密码
+};
 
 //////////////////////////////////////////////////////////////////////////////////
 //状态命令
@@ -184,5 +191,11 @@ struct CMD_GR_UserStatus
 #define SUB_GR_TABLE_INFO			100									//桌子信息
 #define SUB_GR_TABLE_STATUS			101									//桌子状态
 //////////////////////////////////////////////////////////////////////////
+//桌子信息
+struct CMD_GR_TableInfo
+{
+	WORD							wTableCount;						//桌子数目
+	tagTableStatus					TableStatusArray[512];				//桌子状态
+};
 #pragma pack()
 

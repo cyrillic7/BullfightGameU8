@@ -19,6 +19,8 @@ USING_NS_CC_EXT;
 
 class TCPLogonID:public CCNode,public TCPSocket
 {
+public:
+	TCPSocket ts;
 private:
 	static pthread_t threadLogonID;
 	static TCPLogonID *logonID;

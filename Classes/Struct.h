@@ -157,7 +157,15 @@ struct tagUserRemoteInfo
 	WORD							wServerID;							//房间标识
 	TCHAR							szGameServer[LEN_SERVER];			//房间位置
 };
+//////////////////////////////////////////////////////////////////////////////////
+//用户信息
 
+//桌子状态
+struct tagTableStatus
+{
+	BYTE							cbTableLock;						//锁定标志
+	BYTE							cbPlayStatus;						//游戏标志
+};
 //////////////////////////////////////////////////////////////////////////////////
 
 #pragma pack()

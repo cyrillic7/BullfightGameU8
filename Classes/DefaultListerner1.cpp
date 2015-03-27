@@ -26,17 +26,17 @@ DefaultListerner1::~DefaultListerner1()
 
 void DefaultListerner1::OnClose(TCPSocket* so, bool fromRemote)
 {
-    printf("%s\n","closed");
+    CCLog("%s\n","closed");
 }
 
 void DefaultListerner1::OnError(TCPSocket* so, const char* e)
 {
-	printf("%s\n","error connection");
+	CCLog("%s\n","error connection");
 }
 
 void DefaultListerner1::OnIdle(TCPSocket* so)
 {
-	printf("%s\n","connection idle");
+	CCLog("%s\n","connection idle");
 }
 
 /**
@@ -55,7 +55,7 @@ bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Co
 			if (wDataSize < sizeof(CMD_GR_UpdateNotify)) return false;
 
 			CMD_GR_UpdateNotify *lf = (CMD_GR_UpdateNotify*)pDataBuffer;
-			CCLog("==");
+			CCLog("升级提示");
 		}
 		if (Command.wSubCmdID == SUB_GR_LOGON_SUCCESS)
 		{
@@ -65,10 +65,10 @@ bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Co
 			if (wDataSize < sizeof(CMD_GR_LogonSuccess)) return false;
 
 			CMD_GR_LogonSuccess *lf = (CMD_GR_LogonSuccess*)pDataBuffer;
-			CCLog("==");
+			CCLog("登录成功");
 		}
 	}
-	if (Command.wMainCmdID==MDM_GR_CONFIG)
+	else if (Command.wMainCmdID==MDM_GR_CONFIG)
 	{
 		switch (Command.wSubCmdID)
 		{
@@ -103,15 +103,21 @@ bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Co
 		case SUB_GR_CONFIG_FINISH:
 			{
 				CCLog("配置完成");
+
+				CMD_GR_UserSitDown sit;
+				sit.wTableID=1;
+				sit.wChairID=1;
+				strcpy(sit.szPassword,"");
+
+				bool isSend=so->SendData(MDM_GR_USER,SUB_GR_USER_SITDOWN,&sit, sizeof(sit));
+				CCLog("Classic:%d",isSend);
 			}
 			break;
 		default:
 			break;
 		}
-		
-		
 	}
-	if (Command.wMainCmdID==MDM_GR_USER){
+	else if (Command.wMainCmdID==MDM_GR_USER){
 		switch (Command.wSubCmdID)
 		{
 		case SUB_GR_USER_ENTER://用户进入
@@ -119,12 +125,38 @@ bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Co
 				int wSize=wDataSize;
 				int size =sizeof(tagUserInfoHead);
 				tagUserInfoHead *info= (tagUserInfoHead*)pDataBuffer;
-  				CCLog("用户进入");
+  				//CCLog("用户进入");
+			}
+			break;
+		case SUB_GR_USER_STATUS://用户状态
+			{
+				int wSize=wDataSize;
+				int size =sizeof(CMD_GR_UserStatus);
+				 CMD_GR_UserStatus *info= (CMD_GR_UserStatus*)pDataBuffer;
+				// CCLog("state %d",info->dwUserID);
 			}
 			break;
 		default:
 			break;
 		}
+	}else if(Command.wMainCmdID==MDM_GR_STATUS)
+	{
+		switch (Command.wSubCmdID)
+		{
+		case SUB_GR_TABLE_INFO:
+			{
+				CMD_GR_TableInfo *lf = (CMD_GR_TableInfo*)pDataBuffer;
+				 
+				CCLog("桌子信息");
+			}
+			break;
+		default:
+			break;
+		}
+	}
+	else 
+	{
+		CCLog("error---------- %d    %d",Command.wMainCmdID,Command.wSubCmdID);
 	}
 	return true;
 }

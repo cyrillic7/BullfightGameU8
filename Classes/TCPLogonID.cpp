@@ -62,7 +62,7 @@ void TCPLogonID::stopTcpSocket(){
 }
 void TCPLogonID::sendData(const char* ip, unsigned short port){
 	Init();
-	Create(AF_INET, SOCK_STREAM, 0);
+	ts=Create(AF_INET, SOCK_STREAM, 0);
 	SetListerner(new DefaultListerner1());
 	bool isConnect=Connect(ip, port);
 	//bool isConnect=Connect("192.168.0.104", 8100);

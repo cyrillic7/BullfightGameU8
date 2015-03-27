@@ -23,6 +23,7 @@ public:
     static CCScene* scene();
     CREATE_FUNC(ClassicLobbyScene);
 private:
+	void initTCPLogon();
 	//弹出框
 	void popDialogBoxUserInfo();
 	//菜单设置用户信息

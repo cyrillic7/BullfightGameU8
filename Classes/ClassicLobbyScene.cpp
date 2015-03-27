@@ -12,6 +12,8 @@
 #include "PopDialogBoxUserInfo.h"
 #include "GameLobbyScene.h"
 #include "MainScene.h"
+#include "TCPLogonID.h"
+#include "CMD_GameServer.h"
 ClassicLobbyScene::ClassicLobbyScene(){
   
 }
@@ -47,9 +49,16 @@ void ClassicLobbyScene::onEnter(){
 		button = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("buttonStar%d",i)->getCString()));
 		button->addTouchEventListener(this, SEL_TouchEvent(&ClassicLobbyScene::menuStar));
 	}
+	initTCPLogon();
 }
 void ClassicLobbyScene::onExit(){
 	CCLayer::onExit();
+}
+void ClassicLobbyScene::initTCPLogon(){
+	TCPLogonID *tcpID=TCPLogonID::create();
+	this->addChild(tcpID);
+	tcpID->setTag(999);
+	tcpID->startSendThread();
 }
 void ClassicLobbyScene::menuResetUser(CCObject* pSender, TouchEventType type){
 	switch (type)
@@ -66,7 +75,15 @@ void ClassicLobbyScene::menuStar(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		enterMainSceneByMode(((UIButton*)pSender)->getTag());
+		TCPLogonID *tcpID=(TCPLogonID *)this->getChildByTag(999);
+		CMD_GR_UserSitDown sit;
+		sit.wTableID=28;
+		sit.wChairID=1;
+
+		bool isSend=tcpID->ts.SendData(MDM_GR_USER,SUB_GR_USER_SITDOWN,&sit, sizeof(sit));
+		CCLog("Classic:%d",isSend);
+		//tcpID->sendData();
+		//enterMainSceneByMode(((UIButton*)pSender)->getTag());
 	}
 		break;
 	default:

@@ -8,10 +8,11 @@
   <JsonFolder>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\ccsprojs\UIPopDialogBox\Json</JsonFolder>
   <JsonList>
     <string>UIPopDialogBoxUserInfo.json</string>
+    <string>UIPopDialogBoxLoading.json</string>
   </JsonList>
   <CanvasSize>
-    <Width>480</Width>
-    <Height>320</Height>
+    <Width>960</Width>
+    <Height>640</Height>
   </CanvasSize>
   <filePath>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\ccsprojs\UIPopDialogBox\UIPopDialogBox.xml.ui</filePath>
   <ProjectType>UIProject</ProjectType>
@@ -21,7 +22,8 @@
   </imageFileList>
   <imagePngList>
     <string>UIGameHUD.png</string>
+    <string>UIGameHUD.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxUserInfo.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxLoading.json</CurrentUIJson>
 </UIProject>

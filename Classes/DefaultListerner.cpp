@@ -92,6 +92,8 @@ bool DefaultListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Com
 			strcpy(DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName,ls->szNickName);
 			DataModel::sharedDataModel()->logonSuccessUserInfo->wFaceID=ls->wFaceID;
 			CCLog("登录成功");
+
+			
 		}
 	}
 	//获取列表
@@ -151,6 +153,7 @@ bool DefaultListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Com
 			//GameLobbyScene *gls=(GameLobbyScene*)this->getParent();
 			//gls->userName->setText(DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName);
 			so->Close();
+			CCNotificationCenter::sharedNotificationCenter()->postNotification(LISTENER_LOGON,(CCObject*)pDataBuffer);
 			//return 0;
 			//tagGameServer *gs = (tagGameServer*)pDataBuffer;
 		}

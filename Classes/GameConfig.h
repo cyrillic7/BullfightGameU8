@@ -4,7 +4,8 @@
 #define GAME_VERSION "Version1.1.0"//游戏版本号
 
 #define LISTENER_NAME "listener_plane_war"//监听通知名称
-#define SCENE_SIZE CCSize(960,640)			//设计尺寸
+#define LISTENER_LOGON "listener_logon"
+#define SCENE_SIZE CCSize(1136,640)			//设计尺寸
 //#define CCS_PATH_SCENE(name) CCString::createWithFormat("publish/%s",(name))->getCString()
 #define CCS_PATH_SCENE(name) "publish/"#name
 #define CCS_PATH_ANIMATION(name) "publish/animation/"#name
