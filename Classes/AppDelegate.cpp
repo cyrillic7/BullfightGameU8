@@ -39,6 +39,12 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // run
     pDirector->runWithScene(pScene);
 
+
+	/*CCDirector::sharedDirector()->getScheduler()->scheduleSelector(
+		  schedule_selector(MTNotificationQueue::postNotifications),
+		  MTNotificationQueue::sharedNotificationQueue(),
+		  1.0 / 60.0,
+		  false);*/
     return true;
 }
 

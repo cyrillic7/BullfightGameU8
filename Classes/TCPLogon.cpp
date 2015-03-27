@@ -113,6 +113,10 @@ void TCPLogon::sendData(){
 	if (!isConnect)
 	{
 		stopTcpSocket();
+
+		Create(AF_INET, SOCK_STREAM, 0);
+		SetListerner(new DefaultListerner());
+		bool isConnect=Connect("125.88.145.41", 8100);
 		return;
 	}
 	
