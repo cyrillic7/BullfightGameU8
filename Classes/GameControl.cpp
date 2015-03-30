@@ -11,6 +11,9 @@
 #include "DataModel.h"
 #include "GameLobbyScene.h"
 #include "Tools.h"
+#include "TCPSocketControl.h"
+#include "Packet.h"
+#include "CMD_GameServer.h"
 void GameControl::onEnter(){
 	CCLayer::onEnter();
 	UILayer *m_pWidget = UILayer::create();
@@ -98,8 +101,14 @@ void GameControl::menuReady(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		CMD_MB_LogonSuccess *x=DataModel::sharedDataModel()->logonSuccessUserInfo;
-		CCLog("--");
+		
+		/*CMD_GR_UserSitDown sit;
+		sit.wTableID=28;
+		sit.wChairID=1;*/
+
+		bool isSend=TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_FRAME,SUB_GF_USER_READY);
+		//bool isSend=tcpID->ts.SendData(MDM_GR_USER,SUB_GR_USER_SITDOWN,&sit, sizeof(sit));
+		CCLog("gameIng:%d",isSend);
 		//DataModel::sharedDataModel()->getMainScene()->stopTcpSocket();
 		/*
 		//设置主状态为准备状态

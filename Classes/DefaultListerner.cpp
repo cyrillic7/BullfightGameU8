@@ -12,6 +12,7 @@
 #include "CMD_LogonServer.h"
 #include "MD5.h"
 #include "DataModel.h"
+#include "TCPSocketControl.h"
 //#include "iconv.h"
 #include "cocos2d.h"
 using namespace std;
@@ -28,17 +29,17 @@ DefaultListerner::~DefaultListerner()
 
 void DefaultListerner::OnClose(TCPSocket* so, bool fromRemote)
 {
-    printf("%s\n","closed");
+    CCLog("%s\n","00000000000000---closed");
 }
 
 void DefaultListerner::OnError(TCPSocket* so, const char* e)
 {
-	printf("%s\n","error connection");
+	CCLog("%s\n","error connection");
 }
 
 void DefaultListerner::OnIdle(TCPSocket* so)
 {
-	printf("%s\n","connection idle");
+	CCLog("%s\n","connection idle");
 }
 
 /**
@@ -73,7 +74,7 @@ bool DefaultListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Com
 			CMD_MB_LogonFailure *lf = (CMD_MB_LogonFailure*)pDataBuffer;
 			long code = lf->lResultCode;
 			char *describeStr = lf->szDescribeString;
-			CCLog("%s", describeStr);
+			//CCLog("%s", describeStr);
 		}
 	}
 	//登录成功
@@ -140,7 +141,7 @@ bool DefaultListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Com
 				tempTag->wSortID=gameServer->wSortID;
 				//memcoyp(gameServer,0,sizeof(tagGameServer));
 				DataModel::sharedDataModel()->tagGameServerList.push_back(tempTag);
-                CCLog("%s",tempTag->szServerName);
+               // CCLog("%s",tempTag->szServerName);
 			}
 			//tagGameServer *gameServer = (tagGameServer*)pDataBuffer;
 			//TCPSocket::OnSocketNotifyRead(0, 0);
@@ -155,8 +156,12 @@ bool DefaultListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Com
 			CCLog("列表完成");
 			//GameLobbyScene *gls=(GameLobbyScene*)this->getParent();
 			//gls->userName->setText(DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName);
-			so->Close();
+			
 			CCNotificationCenter::sharedNotificationCenter()->postNotification(LISTENER_LOGON,(CCObject*)pDataBuffer);
+			
+			//TCPSocketControl::sharedTCPSocketControl()->stopSocket();
+			//delete TCPSocketControl::sharedTCPSocketControl();
+			//so->Close();
 			//return 0;
 			//tagGameServer *gs = (tagGameServer*)pDataBuffer;
 		}
@@ -199,14 +204,5 @@ void DefaultListerner::OnOpen(TCPSocket* so)
 
 	bool isSend = so->SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &logonAccounts, sizeof(logonAccounts));
 	CCLog("send:%d", isSend);
-   /* printf("%s","connecting");
-	Frame* f=new Frame(512);
-    f->PutFloat(10.1f);
-	std::string buff="我去啊a。。。。。";
-	//ByteBuf::Convert(buff,"utf-8","gbk");
-	f->PutString((char*)buff.c_str());
-	//f->PutString(s);
-    f->End();
-    so->Send(f);
-    delete f;*/
+
 }

@@ -1,5 +1,6 @@
 #include "Thread.h"
 #include "cocos2d.h"
+USING_NS_CC;
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
 #include <string>
 #include <sstream>
@@ -15,6 +16,7 @@ Thread::Thread() : status(UNINITIALIZED), sem(NULL)
 
 Thread::~Thread()
 {
+	CCLog("~Thread");
 	End();
 }
 

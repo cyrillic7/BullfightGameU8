@@ -10,11 +10,11 @@
   "designHeight": 640,
   "designWidth": 960,
   "textures": [
-    "UIGameHUD.plist"
+    "UIPopDialogBox0.plist"
   ],
   "texturesPng": [
-    "UIGameHUD.png",
-    "UIGameHUD.png"
+    "UIPopDialogBox0.png",
+    "UIPopDialogBox0.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -44,13 +44,13 @@
           "ignoreSize": true,
           "layoutParameter": null,
           "opacity": 255,
-          "positionPercentX": 0.483506948,
-          "positionPercentY": 0.525190949,
+          "positionPercentX": 0.483333319,
+          "positionPercentY": 0.525,
           "positionType": 1,
           "rotation": 0,
           "scaleX": 1,
           "scaleY": 1,
-          "sizePercentX": 0.0989583358,
+          "sizePercentX": 0.08020833,
           "sizePercentY": 0.0421875,
           "sizeType": 0,
           "tag": 8,
@@ -77,7 +77,7 @@
       "classname": "Panel",
       "name": "Panel_4",
       "ZOrder": 0,
-      "actiontag": 52165903,
+      "actiontag": -1,
       "anchorPointX": 0,
       "anchorPointY": 0,
       "classType": "CocoStudio.EngineAdapterWrap.CSPanel",

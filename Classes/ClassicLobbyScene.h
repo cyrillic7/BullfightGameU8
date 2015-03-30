@@ -14,6 +14,8 @@ private:
 	{
 		LEVEL_0=1,//初级
 	};
+	bool isDeleteList;
+	bool isEnterGame;
 public:
     ClassicLobbyScene();
     ~ClassicLobbyScene();
@@ -23,6 +25,7 @@ public:
     static CCScene* scene();
     CREATE_FUNC(ClassicLobbyScene);
 private:
+	void update(float delta);
 	void initTCPLogon();
 	//弹出框
 	void popDialogBoxUserInfo();
@@ -31,4 +34,6 @@ private:
 	void menuStar(CCObject* pSender, TouchEventType type);
 
 	void enterMainSceneByMode(int mode);
+
+	void callbackData(CCObject *obj);
 };

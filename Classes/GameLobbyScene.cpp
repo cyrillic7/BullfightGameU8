@@ -15,13 +15,9 @@
 #include "DataModel.h"
 #include "SocketThread.h"
 #include "DefaultListerner.h"
-#include <stdio.h>
-
-
-
-
-
-
+//#include <stdio.h>
+#include "MD5.h"
+#include "TCPSocketControl.h"
 
 #ifdef WIN32
 #define UTEXT(str) GBKToUTF8(str)
@@ -111,7 +107,8 @@ const char* gb23122utf8(const char * gb2312)
 }
 #endif
 
-GameLobbyScene::GameLobbyScene(){
+GameLobbyScene::GameLobbyScene()
+:deleteSocket(false){
 	scheduleUpdate();
 }
 GameLobbyScene::~GameLobbyScene(){
@@ -164,7 +161,8 @@ void GameLobbyScene::onEnter(){
 	scroll->setInnerContainerSize(scroll->getContentSize());
 	//用户名
 	userName=static_cast<UILabel*>(m_pWidget->getWidgetByName("labelUserName"));
-	
+	//金币
+	pLabelGoldCount=static_cast<UILabel*>(m_pWidget->getWidgetByName("LabelGoldCount"));
 	//添加监听事件
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(GameLobbyScene::callbackData),LISTENER_LOGON,NULL);
 	initTCPLogon();
@@ -178,13 +176,21 @@ void GameLobbyScene::callbackData(CCObject *obj){
 	//char *name=DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName;
 	//userName->setText(UTEXT(name));
 	//userName->setText("dsdsg");
+	deleteSocket=true;
 }
 void GameLobbyScene::update(float dt){
 	char *name=DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName;
     if(strcmp(userName->getStringValue(),"游客")==0&&strcmp(name, "") != 0)
 	{
 		userName->setText(UTEXT(name));
+		pLabelGoldCount->setText(CCString::createWithFormat("%ld",DataModel::sharedDataModel()->logonSuccessUserInfo->dwExperience)->getCString());
 		CCLog("333333333333");
+	}
+	if (deleteSocket)
+	{
+		TCPSocketControl::sharedTCPSocketControl()->stopSocket();
+		deleteSocket=false;
+		CCLog("2222222222222");
 	}
 }
 void GameLobbyScene::onExit(){
@@ -233,9 +239,50 @@ void GameLobbyScene::enterLobbyByMode(int mode){
 	}
 }
 void GameLobbyScene::initTCPLogon(){
-	tcpLogon=TCPLogon::create();
-	this->addChild(tcpLogon);
-	tcpLogon->startSendThread();
+	TCPSocketControl *tcp=TCPSocketControl::sharedTCPSocketControl();
+	tcp->ip="125.88.145.41";
+	tcp->port=8100;
+	tcp->listerner=new DefaultListerner();
+	tcp->startSendThread();
+	//delete tcp->listerner;
+	/*CMD_MB_LogonAccounts logonAccounts;
+	//memset(&logonAccounts, 0, sizeof(CMD_MB_LogonAccounts));
+	logonAccounts.cbDeviceType = 2;
+	logonAccounts.dwPlazaVersion = 17235969;
+
+
+	//_tcscpy(logonAccounts.szPassword, _TEXT("123456"));
+	//_tcscpy(logonAccounts.szAccounts, _TEXT("z40144322"));
+	strcpy(logonAccounts.szAccounts,"z40144322");
+
+	strcpy(logonAccounts.szMachineID,"12");
+	strcpy(logonAccounts.szMobilePhone,"32");
+	strcpy(logonAccounts.szPassPortID,"12");
+	strcpy(logonAccounts.szPhoneVerifyID,"1");
+	//_tcscpy(logonAccounts.szMachineID, _TEXT("12"));
+	//_tcscpy(logonAccounts.szMobilePhone, _TEXT("32"));
+	//_tcscpy(logonAccounts.szPassPortID, _TEXT("12"));
+	//_tcscpy(logonAccounts.szPhoneVerifyID, _TEXT("1"));
+
+	logonAccounts.wModuleID = 210; //210为二人牛牛标示
+
+
+	MD5 m;
+	MD5::char8 str[] = "z12345678";
+	m.ComputMd5(str, sizeof(str)-1);
+	std::string md5PassWord = m.GetMd5();
+
+	strcpy(logonAccounts.szPassword,md5PassWord.c_str());
+	//_tcscpy(logonAccounts.szPassword, _TEXT(md5PassWord.c_str()));
+
+	//bool isSend = so->SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &logonAccounts, sizeof(logonAccounts));
+	//CCLog("send:%d", isSend);
+
+	bool isSend =TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &logonAccounts, sizeof(logonAccounts));
+	CCLog("send:%d", isSend);
+	//tcpLogon=TCPLogon::create();
+	//this->addChild(tcpLogon);
+	//tcpLogon->startSendThread();*/
 	/*SocketThread *socketThread=SocketThread::GetInstance();
 	//SocketThread::GetInstance()->getSocket().SetListerner(new DefaultListerner());
 	socketThread->start();

@@ -168,4 +168,6 @@ public:
 	long OnSocketNotifyRead(unsigned int wParam, long lParam);
 	//监听
 	void SetListerner(SocketListerner* listerner);
+	SocketListerner *getListerner();
+	void deleteListerner();
 };

@@ -40,7 +40,8 @@ TCPSocket SocketThread::getSocket(){
 	return this->csocket;
 }
 
-SocketThread* SocketThread::m_pInstance=new SocketThread; 
+//SocketThread* SocketThread::m_pInstance=new SocketThread; 
+SocketThread* SocketThread::m_pInstance;
 SocketThread* SocketThread::GetInstance(){	
 	return m_pInstance;
 }
@@ -58,7 +59,7 @@ SocketThread::SocketThread(void)
 }
 SocketThread::~SocketThread(void)
 {
-	if(m_pInstance!=NULL){
+	//if(m_pInstance!=NULL){
 		delete m_pInstance;
-	}
+	//}
 }

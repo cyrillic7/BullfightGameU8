@@ -15,10 +15,12 @@ public:
 	{
 		MODE_=1,
 		MODE_CLASSIC,//经典模式
-		MODE_1
+		MODE_1,
+		MODE_2
 	};
 	UILabel *userName;
 private:
+	UILabel *pLabelGoldCount;
 	TCPLogon *tcpLogon;
 	UIScrollView *scroll;
 public:
@@ -33,6 +35,7 @@ public:
 	void callbackData(CCObject *obj);
 private:
 	//
+	bool deleteSocket;
 	void update(float dt);
 	void initTCPLogon();
 	//弹出框

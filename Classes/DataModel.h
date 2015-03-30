@@ -14,7 +14,7 @@ private:
 public:
 	static bool isSound;
 	static bool isMusic;
-
+	bool isSit;
 	CCSize deviceSize;
 
 	CC_SYNTHESIZE(MainScene *, mainScene, MainScene);

@@ -1,10 +1,12 @@
 #pragma once
 
+
 #define DEBUG_TEST 1 //0调试模式、1测试模式、2发布模式
 #define GAME_VERSION "Version1.1.0"//游戏版本号
 
 #define LISTENER_NAME "listener_plane_war"//监听通知名称
 #define LISTENER_LOGON "listener_logon"
+#define LISTENER_PLAY "listener_play"
 #define SCENE_SIZE CCSize(1136,640)			//设计尺寸
 //#define CCS_PATH_SCENE(name) CCString::createWithFormat("publish/%s",(name))->getCString()
 #define CCS_PATH_SCENE(name) "publish/"#name
@@ -19,6 +21,8 @@
 //层级////////////////////////////////////////////////////////////////////////
 #define K_Z_ORDER_HUD 10//UI层
 #define K_Z_ORDER_POP 3//弹出层
+
+
 
 //#define CCS_PATH_ANIMATION(name) CCString::createWithFormat("ccs/Animation/%s",(name))->getCString()
 
@@ -65,6 +69,8 @@
 //#define RMS_BULLET_COUNT_BY_MAGIC_WAND "bulletCountByMagicWand"
 #define RMS_UNLOCK_TUTORIALS_INDEX "unlockTutorialsIndex"
 //#define RMS_TEMP_SKILL_PROBABILITY "tempSkillProbability"*/
+
+
 
 
 

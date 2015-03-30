@@ -12,6 +12,7 @@ bool DataModel::isMusic = true;
 //int DataModel::gameCustomsPass = 0;
 DataModel* _sharedContext;
 DataModel::DataModel()
+:isSit(false)
 {
 	DataModel::isMusic = Tools::getBoolByRMS(RMS_IS_MUSIC);
 	DataModel::isSound = Tools::getBoolByRMS(RMS_IS_SOUND);

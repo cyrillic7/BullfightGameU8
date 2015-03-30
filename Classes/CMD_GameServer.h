@@ -170,6 +170,15 @@ struct CMD_GR_ConfigProperty
 
 //////////////////////////////////////////////////////////////////////////
 //用户状态
+#define US_NULL						0x00								//没有状态
+#define US_FREE						0x01								//站立状态
+#define US_SIT						0x02								//坐下状态
+#define US_READY					0x03								//同意状态
+#define US_LOOKON					0x04								//旁观状态
+#define US_PLAYING					0x05								//游戏状态
+#define US_OFFLINE					0x06								//断线状态
+//////////////////////////////////////////////////////////////////////////
+//用户状态
 struct CMD_GR_UserStatus
 {
 	DWORD							dwUserID;							//用户标识
@@ -197,5 +206,111 @@ struct CMD_GR_TableInfo
 	WORD							wTableCount;						//桌子数目
 	tagTableStatus					TableStatusArray[512];				//桌子状态
 };
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
+//框架命令
+
+#define MDM_GF_FRAME				100									//框架命令
+
+//////////////////////////////////////////////////////////////////////////////////
+//框架命令
+
+//用户命令
+#define SUB_GF_GAME_OPTION			1									//游戏配置
+#define SUB_GF_USER_READY			2									//用户准备
+#define SUB_GF_LOOKON_CONFIG		3									//旁观配置
+
+//聊天命令
+#define SUB_GF_USER_CHAT			10									//用户聊天
+#define SUB_GF_USER_EXPRESSION		11									//用户表情
+
+//游戏信息
+#define SUB_GF_GAME_STATUS			100									//游戏状态
+#define SUB_GF_GAME_SCENE			101									//游戏场景
+#define SUB_GF_LOOKON_STATUS		102									//旁观状态
+
+//系统消息
+#define SUB_GF_SYSTEM_MESSAGE		200									//系统消息
+#define SUB_GF_ACTION_MESSAGE		201									//动作消息
+
+//////////////////////////////////////////////////////////////////////////////////
+
+//游戏配置
+struct CMD_GF_GameOption
+{
+	BYTE							cbAllowLookon;						//旁观标志
+	DWORD							dwFrameVersion;						//框架版本
+	DWORD							dwClientVersion;					//游戏版本
+};
+
+struct CMD_GF_GameOptionMatch
+{
+	BYTE							cbAllowLookon;						//旁观标志
+	DWORD							dwFrameVersion;						//框架版本
+	DWORD							dwClientVersion;					//游戏版本
+	BYTE                            cbMatchStatus;                      //客户的比赛状态
+};
+
+//旁观配置
+struct CMD_GF_LookonConfig
+{
+	DWORD							dwUserID;							//用户标识
+	BYTE							cbAllowLookon;						//允许旁观
+};
+
+//旁观状态
+struct CMD_GF_LookonStatus
+{
+	BYTE							cbAllowLookon;						//允许旁观
+};
+
+//游戏环境
+struct CMD_GF_GameStatus
+{
+	BYTE							cbGameStatus;						//游戏状态
+	BYTE							cbAllowLookon;						//旁观标志
+};
+
+//用户聊天
+struct CMD_GF_C_UserChat
+{
+	WORD							wChatLength;						//信息长度
+	DWORD							dwChatColor;						//信息颜色
+	DWORD							dwTargetUserID;						//目标用户
+	//TCHAR							szChatString[LEN_USER_CHAT];		//聊天信息
+};
+
+//用户聊天
+struct CMD_GF_S_UserChat
+{
+	WORD							wChatLength;						//信息长度
+	DWORD							dwChatColor;						//信息颜色
+	DWORD							dwSendUserID;						//发送用户
+	DWORD							dwTargetUserID;						//目标用户
+	//TCHAR							szChatString[LEN_USER_CHAT];		//聊天信息
+};
+
+//用户表情
+struct CMD_GF_C_UserExpression
+{
+	WORD							wItemIndex;							//表情索引
+	DWORD							dwTargetUserID;						//目标用户
+};
+
+//用户表情
+struct CMD_GF_S_UserExpression
+{
+	WORD							wItemIndex;							//表情索引
+	DWORD							dwSendUserID;						//发送用户
+	DWORD							dwTargetUserID;						//目标用户
+};
+
+//签到
+struct GP_CheckInGetSocre
+{
+	long							lResultCode;						//操作代码
+	TCHAR							szDescribeString[128];				//描述消息
+};
+
 #pragma pack()
 

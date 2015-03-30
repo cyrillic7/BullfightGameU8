@@ -2,6 +2,7 @@
 #include "GameConfig.h"
 #include "GameLobbyScene.h"
 #include "DataModel.h"
+#include "TCPSocketControl.h"
 USING_NS_CC;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include "vld.h"
@@ -14,6 +15,8 @@ AppDelegate::~AppDelegate()
 {
 	DataModel *m = DataModel::sharedDataModel();
 	CC_SAFE_RELEASE_NULL(m);
+	TCPSocketControl *tcp=TCPSocketControl::sharedTCPSocketControl();
+	CC_SAFE_DELETE(tcp);
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {

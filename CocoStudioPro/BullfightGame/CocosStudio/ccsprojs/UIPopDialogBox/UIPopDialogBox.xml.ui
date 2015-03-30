@@ -18,12 +18,12 @@
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <imageFileList>
-    <string>UIGameHUD.plist</string>
+    <string>UIPopDialogBox0.plist</string>
   </imageFileList>
   <imagePngList>
-    <string>UIGameHUD.png</string>
-    <string>UIGameHUD.png</string>
+    <string>UIPopDialogBox0.png</string>
+    <string>UIPopDialogBox0.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxLoading.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxUserInfo.json</CurrentUIJson>
 </UIProject>

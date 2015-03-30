@@ -129,6 +129,8 @@ TCPSocket::TCPSocket(SOCKET sock) {
 	m_dwSendPacketCount = 0;
 	m_dwRecvPacketCount = 0;
 	m_nRecHit = 0;
+
+	listerner=NULL;
 	//m_cbSocketStatus=SHUT_REASON_NORMAL;
 	
 	//m_ProxyInfo.wProxyPort=0;
@@ -148,9 +150,19 @@ TCPSocket::TCPSocket(SOCKET sock) {
 }
 
 TCPSocket::~TCPSocket() {
-	delete this->listerner;
+	CCLog("~TCPSocket");
+	deleteListerner();
 }
-
+void TCPSocket::deleteListerner(){
+	if (this->listerner)
+	{
+		CCLog("delete-----");
+		//this->listerner->End();
+		delete this->listerner;
+		this->listerner=NULL;
+		CCLog("delete---1111111111111--");
+	}
+}
 int TCPSocket::Init() {
 #ifdef WIN32
     WSADATA wsaData;
@@ -297,6 +309,7 @@ int TCPSocket::Recv(char* buf, int len, int flags) {
 }
 
 int TCPSocket::Close() {
+	//this->listerner->OnClose(this,false);
 #ifdef WIN32
     return (closesocket(m_sock));
 #else
@@ -647,6 +660,13 @@ long TCPSocket::OnSocketNotifyRead(unsigned int wParam, long lParam)
  */
 void TCPSocket::SetListerner(SocketListerner* listerner)
 {
+	//if (this->listerner)
+	//{
+		//CC_SAFE_DELETE(this->listerner);
+	//}
     this->listerner = listerner;
     this->listerner->SetContext(this);
+}
+SocketListerner* TCPSocket::getListerner(){
+	return this->listerner;
 }

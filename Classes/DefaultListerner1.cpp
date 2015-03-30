@@ -26,7 +26,7 @@ DefaultListerner1::~DefaultListerner1()
 
 void DefaultListerner1::OnClose(TCPSocket* so, bool fromRemote)
 {
-    CCLog("%s\n","closed");
+    CCLog("%s\n","-----111111closed");
 }
 
 void DefaultListerner1::OnError(TCPSocket* so, const char* e)
@@ -46,6 +46,7 @@ void DefaultListerner1::OnIdle(TCPSocket* so)
  */
 bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Command Command, void * pDataBuffer, unsigned short wDataSize)
 {
+	//CCLog("onMessage------------------------------");
 	if (Command.wMainCmdID == MDM_GR_LOGON)
 	{
 		if (Command.wSubCmdID == SUB_GR_UPDATE_NOTIFY)
@@ -133,6 +134,18 @@ bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Co
 				int wSize=wDataSize;
 				int size =sizeof(CMD_GR_UserStatus);
 				 CMD_GR_UserStatus *info= (CMD_GR_UserStatus*)pDataBuffer;
+				 if (info->dwUserID==DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID)
+				 {
+					 tagUserStatus state=info->UserStatus;
+					 if (state.cbUserStatus==US_SIT)
+					 {
+						 DataModel::sharedDataModel()->isSit=true;
+						 CCLog("坐下:table: %d desk:%d",state.wTableID,state.wChairID);
+						// CCNotificationCenter::sharedNotificationCenter()->postNotification(LISTENER_LOGON,NULL);
+						 CCLog("==============dd");
+					 }
+					 CCLog("状态：%d",state.cbUserStatus);
+				 }
 				// CCLog("state %d",info->dwUserID);
 			}
 			break;
@@ -156,7 +169,7 @@ bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Co
 	}
 	else 
 	{
-		CCLog("error---------- %d    %d",Command.wMainCmdID,Command.wSubCmdID);
+		CCLog("other---------- %d    %d",Command.wMainCmdID,Command.wSubCmdID);
 	}
 	return true;
 }
@@ -166,12 +179,10 @@ void DefaultListerner1::OnOpen(TCPSocket* so)
 	CCLog("open22222==========================");
 	CMD_GR_LogonUserID logonUserID;
 	memset(&logonUserID, 0, sizeof(CMD_GR_LogonUserID));
-	//logonUserID.dwFrameVersion=17235969;
-	//logonUserID.dwPlazaVersion=16777217;
-	//logonUserID.dwProcessVersion=16908289;
+
 	logonUserID.dwFrameVersion=16777217;
 	logonUserID.dwPlazaVersion=17235969;
-	logonUserID.dwProcessVersion= 17104897;
+	logonUserID.dwProcessVersion= 17170433;
 	logonUserID.dwUserID=DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID;
 	strcpy(logonUserID.szMachineID,"12");
 	strcpy(logonUserID.szPassPortID,"12");
@@ -185,6 +196,7 @@ void DefaultListerner1::OnOpen(TCPSocket* so)
 	strcpy(logonUserID.szPhoneVerifyID,"1");
 	logonUserID.wKindID=DataModel::sharedDataModel()->tagGameServerList[0]->wKindID;
 
+	CCLog("房间名:%d",DataModel::sharedDataModel()->tagGameServerList[0]->wServerPort);
 
 	int luidSize=sizeof(CMD_GR_LogonUserID);
 	bool isSend = so->SendData(MDM_GR_LOGON, SUB_GR_LOGON_USERID, &logonUserID, sizeof(logonUserID));

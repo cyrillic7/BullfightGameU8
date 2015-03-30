@@ -23,13 +23,14 @@ public:
 private:
     pthread_t threadId;
     int Create(func f, void * context, bool detached = false, bool scope = false);
-    void End();
+    
     int Init();
     static void * DoRun(void * context);
 protected:
     int status;
     sem_t* sem;
 public:
+	void End();
     Thread();
     virtual ~Thread();
     virtual void Run() = 0;

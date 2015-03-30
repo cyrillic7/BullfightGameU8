@@ -6,6 +6,8 @@
  */
 
 #include "PopDialogBoxUserInfo.h"
+#include "DataModel.h"
+#include "GameConfig.h"
 PopDialogBoxUserInfo::PopDialogBoxUserInfo()
 {
 	
@@ -23,11 +25,17 @@ void PopDialogBoxUserInfo::onEnter(){
 
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));
+	//设置游戏ID
+	UILabel *labelUserID=static_cast<UILabel*>(pUILayer->getWidgetByName("LabelUserID"));
+	labelUserID->setText(CCString::createWithFormat("ID:%d",DataModel::sharedDataModel()->logonSuccessUserInfo->dwGameID)->getCString());
+	UILabel *pLabelNickName=static_cast<UILabel*>(pUILayer->getWidgetByName("LabelNickName"));
+	pLabelNickName->setText(DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName);
+	
+	
 }
 void PopDialogBoxUserInfo::onExit(){
 	CCLayer::onExit();
 }
 void PopDialogBoxUserInfo::playAnimation(){
 	imageBg->runAction(CCEaseBackOut::create(CCScaleTo::create(0.2, 1)));
-	//pUILayer
 }
