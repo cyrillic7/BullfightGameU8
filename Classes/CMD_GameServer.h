@@ -191,7 +191,12 @@ struct CMD_GR_UserSitDown
 	WORD							wChairID;							//椅子位置
 	TCHAR							szPassword[LEN_PASSWORD];			//桌子密码
 };
-
+//用户分数
+struct CMD_GR_UserScore
+{
+	DWORD							dwUserID;							//用户标识
+	tagUserScore					UserScore;							//积分信息
+};
 //////////////////////////////////////////////////////////////////////////////////
 //状态命令
 

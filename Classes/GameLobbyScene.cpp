@@ -173,9 +173,9 @@ void GameLobbyScene::callbackData(CCObject *obj){
 	pdb->removeFromParentAndCleanup(true);
 	//////////////////////////////////////////////////////////////////////////
 	//设置用户名
-	//char *name=DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName;
-	//userName->setText(UTEXT(name));
-	//userName->setText("dsdsg");
+	char *name=DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName;
+	userName->setText(UTEXT(name));
+	
 	deleteSocket=true;
 }
 void GameLobbyScene::update(float dt){
@@ -183,7 +183,7 @@ void GameLobbyScene::update(float dt){
     if(strcmp(userName->getStringValue(),"游客")==0&&strcmp(name, "") != 0)
 	{
 		userName->setText(UTEXT(name));
-		pLabelGoldCount->setText(CCString::createWithFormat("%ld",DataModel::sharedDataModel()->logonSuccessUserInfo->dwExperience)->getCString());
+		//pLabelGoldCount->setText(CCString::createWithFormat("%ld",DataModel::sharedDataModel()->logonSuccessUserInfo->dwExperience)->getCString());
 		CCLog("333333333333");
 	}
 	if (deleteSocket)
@@ -241,6 +241,7 @@ void GameLobbyScene::enterLobbyByMode(int mode){
 void GameLobbyScene::initTCPLogon(){
 	TCPSocketControl *tcp=TCPSocketControl::sharedTCPSocketControl();
 	tcp->ip="125.88.145.41";
+	//tcp->ip="192.168.0.104";
 	tcp->port=8100;
 	tcp->listerner=new DefaultListerner();
 	tcp->startSendThread();

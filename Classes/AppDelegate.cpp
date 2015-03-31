@@ -1,8 +1,10 @@
 #include "AppDelegate.h"
 #include "GameConfig.h"
 #include "GameLobbyScene.h"
+#include "BaseAttributes.h"
 #include "DataModel.h"
 #include "TCPSocketControl.h"
+#include "MTNotificationQueue.h"
 USING_NS_CC;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include "vld.h"
@@ -15,8 +17,12 @@ AppDelegate::~AppDelegate()
 {
 	DataModel *m = DataModel::sharedDataModel();
 	CC_SAFE_RELEASE_NULL(m);
+	BaseAttributes *base=BaseAttributes::sharedAttributes();
+	CC_SAFE_DELETE(base);
 	TCPSocketControl *tcp=TCPSocketControl::sharedTCPSocketControl();
 	CC_SAFE_DELETE(tcp);
+	MTNotificationQueue *mtQueue=MTNotificationQueue::sharedNotificationQueue();
+	CC_SAFE_DELETE(mtQueue);
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
@@ -41,6 +47,13 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // run
     pDirector->runWithScene(pScene);
+
+	CCDirector::sharedDirector()->getScheduler()->scheduleSelector(  
+		schedule_selector(MTNotificationQueue::postNotifications),  
+		MTNotificationQueue::sharedNotificationQueue(),  
+		1.0 / 60.0,  
+		false);
+
 
 
 	/*CCDirector::sharedDirector()->getScheduler()->scheduleSelector(

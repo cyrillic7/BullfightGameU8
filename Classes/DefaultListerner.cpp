@@ -13,8 +13,8 @@
 #include "MD5.h"
 #include "DataModel.h"
 #include "TCPSocketControl.h"
-//#include "iconv.h"
 #include "cocos2d.h"
+#include "MTNotificationQueue.h"
 using namespace std;
 
 
@@ -157,8 +157,8 @@ bool DefaultListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Com
 			//GameLobbyScene *gls=(GameLobbyScene*)this->getParent();
 			//gls->userName->setText(DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName);
 			
-			CCNotificationCenter::sharedNotificationCenter()->postNotification(LISTENER_LOGON,(CCObject*)pDataBuffer);
-			
+			//CCNotificationCenter::sharedNotificationCenter()->postNotification(LISTENER_LOGON,(CCObject*)pDataBuffer);
+			MTNotificationQueue::sharedNotificationQueue()->postNotification(LISTENER_LOGON,(CCObject*)pDataBuffer);
 			//TCPSocketControl::sharedTCPSocketControl()->stopSocket();
 			//delete TCPSocketControl::sharedTCPSocketControl();
 			//so->Close();
@@ -178,9 +178,9 @@ void DefaultListerner::OnOpen(TCPSocket* so)
 	logonAccounts.dwPlazaVersion = 17235969;
 
 
-	//_tcscpy(logonAccounts.szPassword, _TEXT("123456"));
-	//_tcscpy(logonAccounts.szAccounts, _TEXT("z40144322"));
+
 	strcpy(logonAccounts.szAccounts,"z40144322");
+	//strcpy(logonAccounts.szAccounts,"zhangh189");
 
 	strcpy(logonAccounts.szMachineID,"12");
 	strcpy(logonAccounts.szMobilePhone,"32");
@@ -196,6 +196,7 @@ void DefaultListerner::OnOpen(TCPSocket* so)
 
 	MD5 m;
 	MD5::char8 str[] = "z12345678";
+	//MD5::char8 str[] = "z123456789";
 	m.ComputMd5(str, sizeof(str)-1);
 	std::string md5PassWord = m.GetMd5();
 

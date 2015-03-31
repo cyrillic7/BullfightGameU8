@@ -11,6 +11,18 @@
 class PopDialogBoxUserInfo: public PopDialogBox {
 private:
 	UIImageView *imageBg;
+	//昵称输入框
+	UITextField *pLabelNickName;
+	UIImageView *piNickNameBg;
+	UICheckBox *pcbSexGirl;
+	UICheckBox *pcbSexBoy;
+	//UILabel *plSexBoy;
+	//UILabel *plSexGirl;
+	UIImageView *piSexIcon;
+	UILabel *plSexBoyInfo;
+	bool isShowChange;
+
+	UIPanel *ppSexInfo,*ppSexSelect;
 public:
 	PopDialogBoxUserInfo();
 	~PopDialogBoxUserInfo();
@@ -20,4 +32,11 @@ private:
 	virtual void onExit();
 
 	virtual void playAnimation();
+	//
+	void menuChange(CCObject *object, TouchEventType type);
+	void setShowChangeView();
+	//更新性别
+	void updateSex();
+	//复选框回调（选择性别）
+	void onCheckBoxSelectedStateEvent(CCObject *pSender, CheckBoxEventType type);
 };

@@ -13,9 +13,10 @@
 #include "MD5.h"
 #include "DataModel.h"
 //#include "iconv.h"
+#include "cmd_ox.h"
 #include "cocos2d.h"
 using namespace std;
-
+#define VERSION_FRAME 16777217
 DefaultListerner1::DefaultListerner1()
 {
 }
@@ -106,7 +107,7 @@ bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Co
 				CCLog("配置完成");
 
 				CMD_GR_UserSitDown sit;
-				sit.wTableID=1;
+				sit.wTableID=28;
 				sit.wChairID=1;
 				strcpy(sit.szPassword,"");
 
@@ -129,6 +130,12 @@ bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Co
   				//CCLog("用户进入");
 			}
 			break;
+		case SUB_GR_USER_SCORE:
+			{
+				CMD_GR_UserScore *userScore=(CMD_GR_UserScore*)pDataBuffer;
+				//CCLog("用户分数");
+			}
+			break;
 		case SUB_GR_USER_STATUS://用户状态
 			{
 				int wSize=wDataSize;
@@ -143,10 +150,27 @@ bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Co
 						 CCLog("坐下:table: %d desk:%d",state.wTableID,state.wChairID);
 						// CCNotificationCenter::sharedNotificationCenter()->postNotification(LISTENER_LOGON,NULL);
 						 CCLog("==============dd");
+						// 
+						 CMD_GF_GameOption GameOption;
+						 ZeroMemory(&GameOption,sizeof(GameOption));
+
+						 //构造数据
+						 GameOption.dwFrameVersion=VERSION_FRAME;
+						 GameOption.cbAllowLookon=0;
+						 GameOption.dwClientVersion=17170433;
+
+						 bool isSend = so->SendData(MDM_GF_FRAME, SUB_GF_GAME_OPTION, &GameOption, sizeof(GameOption));
+						 CCLog("send---:%d", isSend);
+					 }else if (state.cbUserStatus==US_PLAYING)
+					 {
+						 int gameState=sizeof(CMD_GF_GameStatus);
+						 int data=wDataSize;
+						 CMD_GF_GameStatus *gameStatue=(CMD_GF_GameStatus*)pDataBuffer;
+						 CCLog("游戏状态 ");
 					 }
 					 CCLog("状态：%d",state.cbUserStatus);
 				 }
-				// CCLog("state %d",info->dwUserID);
+				//CCLog("state %d",info->dwUserID);
 			}
 			break;
 		default:
@@ -167,6 +191,30 @@ bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Co
 			break;
 		}
 	}
+	else if(Command.wMainCmdID==MDM_GF_FRAME)
+	{
+		
+		switch (Command.wSubCmdID)
+		{
+			case SUB_GF_GAME_STATUS:
+				{
+					CCLog("游戏状态 ");
+				}
+				break;
+			case SUB_GF_SYSTEM_MESSAGE:
+				{
+					CCLog("系统消息");
+				}
+				break;
+			case SUB_GF_GAME_SCENE:
+				{
+					CCLog("游戏场景");
+				}
+				break;
+			default:
+				break;
+		}
+	}
 	else 
 	{
 		CCLog("other---------- %d    %d",Command.wMainCmdID,Command.wSubCmdID);
@@ -180,7 +228,7 @@ void DefaultListerner1::OnOpen(TCPSocket* so)
 	CMD_GR_LogonUserID logonUserID;
 	memset(&logonUserID, 0, sizeof(CMD_GR_LogonUserID));
 
-	logonUserID.dwFrameVersion=16777217;
+	logonUserID.dwFrameVersion=VERSION_FRAME;
 	logonUserID.dwPlazaVersion=17235969;
 	logonUserID.dwProcessVersion= 17170433;
 	logonUserID.dwUserID=DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID;

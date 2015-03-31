@@ -76,6 +76,8 @@ void ClassicLobbyScene::initTCPLogon(){
 	TCPSocketControl *tcp=TCPSocketControl::sharedTCPSocketControl();
 	tcp->ip=DataModel::sharedDataModel()->tagGameServerList[0]->szServerAddr;
 	tcp->port=DataModel::sharedDataModel()->tagGameServerList[0]->wServerPort;
+	CCLog("ip:%s",tcp->ip);
+	CCLog("port:%d",tcp->port);
 	tcp->listerner=new DefaultListerner1();
 	tcp->startSendThread();
 }

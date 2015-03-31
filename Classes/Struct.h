@@ -166,6 +166,25 @@ struct tagTableStatus
 	BYTE							cbTableLock;						//锁定标志
 	BYTE							cbPlayStatus;						//游戏标志
 };
+//用户积分
+struct tagUserScore
+{
+	//积分信息
+	SCORE							lScore;								//用户分数
+	SCORE							lGrade;								//用户成绩
+	SCORE							lInsure;							//用户银行
+
+	//输赢信息
+	DWORD							dwWinCount;							//胜利盘数
+	DWORD							dwLostCount;						//失败盘数
+	DWORD							dwDrawCount;						//和局盘数
+	DWORD							dwFleeCount;						//逃跑盘数
+
+	//全局信息
+	DWORD							dwUserMedal;						//用户奖牌
+	DWORD							dwExperience;						//用户经验
+	long							lLoveLiness;						//用户魅力
+};
 //////////////////////////////////////////////////////////////////////////////////
 
 #pragma pack()

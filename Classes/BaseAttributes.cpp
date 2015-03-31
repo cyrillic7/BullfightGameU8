@@ -20,17 +20,15 @@ BaseAttributes::~BaseAttributes(){
 	CCLog("~ <<%s>>", __FUNCTION__);
 }
 void BaseAttributes::initBaseAttrobutes(){
- 	this->initGoodsProperty();
+ 	this->initStr();
 }
-void BaseAttributes::initGoodsProperty(){
-	/*CCString *tempStr = CCString::createWithFormat("data/goodsProperty.plist");;
-	CCArray *goodsArray = CCArray::createWithContentsOfFile(tempStr->getCString());
-	for (int i = 0; i < goodsArray->count(); i++) {
-		CCDictionary* mDic = dynamic_cast<CCDictionary *>(goodsArray->objectAtIndex(i));
-		goodsLife[i] = dynamic_cast<CCString *>(mDic->objectForKey("life"))->intValue();
-		goodsAttack[i] = dynamic_cast<CCString *>(mDic->objectForKey("attackValue"))->intValue();
-		goodsAttackRange[i] = dynamic_cast<CCString *>(mDic->objectForKey("attackRange"))->floatValue();
-	}
-	goodsArray->removeAllObjects();
-	CC_SAFE_RELEASE_NULL(goodsArray);*/
+void BaseAttributes::initStr(){
+	CCString *tempStr = CCString::createWithFormat("data/str.plist");
+	CCDictionary *mDic=CCDictionary::createWithContentsOfFile(tempStr->getCString());
+	
+	sexBoyName = dynamic_cast<CCString *>(mDic->objectForKey("strSexBoy"))->getCString();
+	sexGirlName=dynamic_cast<CCString *>(mDic->objectForKey("strSexGirl"))->getCString();
+
+	mDic->removeAllObjects();
+	CC_SAFE_RELEASE_NULL(mDic);
 }
