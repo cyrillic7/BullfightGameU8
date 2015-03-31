@@ -132,8 +132,9 @@ void Thread::End()
 		sem_close(sem);
         #else
         sem_destroy(sem);
+        delete sem;
         #endif
-		delete sem;
+		
 		sem = NULL;
 	}
 }

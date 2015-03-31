@@ -66,11 +66,11 @@
 //游戏状态
 struct CMD_S_StatusFree
 {
-	LONGLONG							lCellScore;							//基础积分
+	long long							lCellScore;							//基础积分
 
 	//历史积分
-	LONGLONG							lTurnScore[GAME_PLAYER];			//积分信息
-	LONGLONG							lCollectScore[GAME_PLAYER];			//积分信息
+	long long							lTurnScore[GAME_PLAYER];			//积分信息
+	long long							lCollectScore[GAME_PLAYER];			//积分信息
 	TCHAR								szGameRoomName[SERVER_LEN];			//房间名称
 };
 
@@ -82,8 +82,8 @@ struct CMD_S_StatusCall
 	BYTE                                cbPlayStatus[GAME_PLAYER];          //用户状态
 
 	//历史积分
-	LONGLONG							lTurnScore[GAME_PLAYER];			//积分信息
-	LONGLONG							lCollectScore[GAME_PLAYER];			//积分信息
+	long long							lTurnScore[GAME_PLAYER];			//积分信息
+	long long							lCollectScore[GAME_PLAYER];			//积分信息
 	TCHAR								szGameRoomName[SERVER_LEN];			//房间名称
 };
 
@@ -93,14 +93,14 @@ struct CMD_S_StatusScore
 	//下注信息
 	BYTE                                cbPlayStatus[GAME_PLAYER];          //用户状态
 	BYTE                                cbDynamicJoin;                      //动态加入
-	LONGLONG							lTurnMaxScore;						//最大下注
-	LONGLONG							lTableScore[GAME_PLAYER];			//下注数目
+	long long							lTurnMaxScore;						//最大下注
+	long long							lTableScore[GAME_PLAYER];			//下注数目
 	WORD								wBankerUser;						//庄家用户
 	TCHAR								szGameRoomName[SERVER_LEN];			//房间名称
 
 	//历史积分
-	LONGLONG							lTurnScore[GAME_PLAYER];			//积分信息
-	LONGLONG							lCollectScore[GAME_PLAYER];			//积分信息
+	long long							lTurnScore[GAME_PLAYER];			//积分信息
+	long long							lCollectScore[GAME_PLAYER];			//积分信息
 };
 
 //游戏状态
@@ -109,8 +109,8 @@ struct CMD_S_StatusPlay
 	//状态信息
 	BYTE                                cbPlayStatus[GAME_PLAYER];          //用户状态
 	BYTE                                cbDynamicJoin;                      //动态加入
-	LONGLONG							lTurnMaxScore;						//最大下注
-	LONGLONG							lTableScore[GAME_PLAYER];			//下注数目
+	long long							lTurnMaxScore;						//最大下注
+	long long							lTableScore[GAME_PLAYER];			//下注数目
 	WORD								wBankerUser;						//庄家用户
 
 	//扑克信息
@@ -118,8 +118,8 @@ struct CMD_S_StatusPlay
 	BYTE								bOxCard[GAME_PLAYER];				//牛牛数据
 
 	//历史积分
-	LONGLONG							lTurnScore[GAME_PLAYER];			//积分信息
-	LONGLONG							lCollectScore[GAME_PLAYER];			//积分信息
+	long long							lTurnScore[GAME_PLAYER];			//积分信息
+	long long							lCollectScore[GAME_PLAYER];			//积分信息
 	TCHAR								szGameRoomName[SERVER_LEN];			//房间名称
 };
 
@@ -134,7 +134,7 @@ struct CMD_S_CallBanker
 struct CMD_S_GameStart
 {
 	//下注信息
-	LONGLONG							lTurnMaxScore;						//最大下注
+	long long							lTurnMaxScore;						//最大下注
 	WORD								wBankerUser;						//庄家用户
 };
 
@@ -142,14 +142,14 @@ struct CMD_S_GameStart
 struct CMD_S_AddScore
 {
 	WORD								wAddScoreUser;						//加注用户
-	LONGLONG							lAddScoreCount;						//加注数目
+	long long							lAddScoreCount;						//加注数目
 };
 
 //游戏结束
 struct CMD_S_GameEnd
 {
-	LONGLONG							lGameTax[GAME_PLAYER];				//游戏税收
-	LONGLONG							lGameScore[GAME_PLAYER];			//游戏得分
+	long long							lGameTax[GAME_PLAYER];				//游戏税收
+	long long							lGameScore[GAME_PLAYER];			//游戏得分
 // 	BYTE								cbCardData[GAME_PLAYER];			//用户扑克
 	BYTE								cbCardData[GAME_PLAYER][MAX_COUNT];	//用户扑克
 };
@@ -202,7 +202,7 @@ struct CMD_C_SPECIAL_CLIENT_REPORT
 //用户加注
 struct CMD_C_AddScore
 {
-	LONGLONG							lScore;								//加注数目
+	long long							lScore;								//加注数目
 };
 
 //用户摊牌
@@ -239,7 +239,7 @@ struct CMD_S_CommandResult
 //控制区域信息
 struct tagControlInfo
 {
-	INT  nAreaWin;		//控制区域
+	int  nAreaWin;		//控制区域
 };
 
 //服务器控制返回

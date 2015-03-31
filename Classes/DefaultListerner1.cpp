@@ -152,7 +152,7 @@ bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Co
 						 CCLog("==============dd");
 						// 
 						 CMD_GF_GameOption GameOption;
-						 ZeroMemory(&GameOption,sizeof(GameOption));
+						 //ZeroMemory(&GameOption,sizeof(GameOption));
 
 						 //构造数据
 						 GameOption.dwFrameVersion=VERSION_FRAME;
