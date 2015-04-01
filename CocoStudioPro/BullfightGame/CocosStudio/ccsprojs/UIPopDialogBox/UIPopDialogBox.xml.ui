@@ -9,20 +9,34 @@
   <JsonList>
     <string>UIPopDialogBoxUserInfo.json</string>
     <string>UIPopDialogBoxLoading.json</string>
+    <string>UIPopDialogBoxSetUp.json</string>
   </JsonList>
   <CanvasSize>
-    <Width>960</Width>
+    <Width>1136</Width>
     <Height>640</Height>
   </CanvasSize>
   <filePath>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\ccsprojs\UIPopDialogBox\UIPopDialogBox.xml.ui</filePath>
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <imageFileList>
-    <string>UIPopDialogBox0.plist</string>
+    <string>UIPanel.plist</string>
+    <string>UIButton.plist</string>
+    <string>UIUserInfo.plist</string>
+    <string>UICheckBox.plist</string>
   </imageFileList>
   <imagePngList>
-    <string>UIPopDialogBox0.png</string>
-    <string>UIPopDialogBox0.png</string>
+    <string>UIPanel.png</string>
+    <string>UIButton.png</string>
+    <string>UIUserInfo.png</string>
+    <string>UICheckBox.png</string>
+    <string>UIPanel.png</string>
+    <string>UIButton.png</string>
+    <string>UIUserInfo.png</string>
+    <string>UICheckBox.png</string>
+    <string>UIPanel.png</string>
+    <string>UIButton.png</string>
+    <string>UIUserInfo.png</string>
+    <string>UICheckBox.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>UIPopDialogBoxUserInfo.json</CurrentUIJson>

@@ -10,11 +10,24 @@
   "designHeight": 640,
   "designWidth": 1136,
   "textures": [
-    "UIPopDialogBox0.plist"
+    "UIPanel.plist",
+    "UIButton.plist",
+    "UIUserInfo.plist",
+    "UICheckBox.plist"
   ],
   "texturesPng": [
-    "UIPopDialogBox0.png",
-    "UIPopDialogBox0.png"
+    "UIPanel.png",
+    "UIButton.png",
+    "UIUserInfo.png",
+    "UICheckBox.png",
+    "UIPanel.png",
+    "UIButton.png",
+    "UIUserInfo.png",
+    "UICheckBox.png",
+    "UIPanel.png",
+    "UIButton.png",
+    "UIUserInfo.png",
+    "UICheckBox.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -80,14 +93,14 @@
               "normal": null,
               "normalData": {
                 "path": "u_user_info_btn_close.png",
-                "plistFile": "",
-                "resourceType": 0
+                "plistFile": "UIButton.plist",
+                "resourceType": 1
               },
               "pressed": null,
               "pressedData": {
                 "path": "u_user_info_btn_close_press.png",
-                "plistFile": "",
-                "resourceType": 0
+                "plistFile": "UIButton.plist",
+                "resourceType": 1
               },
               "scale9Enable": false,
               "scale9Height": 57,
@@ -144,8 +157,8 @@
               "fileName": null,
               "fileNameData": {
                 "path": "hand_icon.png",
-                "plistFile": "",
-                "resourceType": 0
+                "plistFile": "UIUserInfo.plist",
+                "resourceType": 1
               },
               "scale9Enable": false,
               "scale9Height": 80,
@@ -299,8 +312,8 @@
               "fileName": null,
               "fileNameData": {
                 "path": "u_u_info_title.png",
-                "plistFile": "",
-                "resourceType": 0
+                "plistFile": "UIPanel.plist",
+                "resourceType": 1
               },
               "scale9Enable": false,
               "scale9Height": 69,
@@ -466,14 +479,14 @@
                   "normal": null,
                   "normalData": {
                     "path": "u_info_btn_save.png",
-                    "plistFile": "",
-                    "resourceType": 0
+                    "plistFile": "UIButton.plist",
+                    "resourceType": 1
                   },
                   "pressed": null,
                   "pressedData": {
                     "path": "u_info_btn_save_press.png",
-                    "plistFile": "",
-                    "resourceType": 0
+                    "plistFile": "UIButton.plist",
+                    "resourceType": 1
                   },
                   "scale9Enable": false,
                   "scale9Height": 67,
@@ -586,8 +599,8 @@
                       "fileName": null,
                       "fileNameData": {
                         "path": "u_info_change_icon.png",
-                        "plistFile": "",
-                        "resourceType": 0
+                        "plistFile": "UIUserInfo.plist",
+                        "resourceType": 1
                       },
                       "scale9Enable": false,
                       "scale9Height": 20,
@@ -626,7 +639,7 @@
                   "tag": 40,
                   "touchAble": false,
                   "useMergedTexture": false,
-                  "visible": false,
+                  "visible": true,
                   "width": 210,
                   "x": -121,
                   "y": 20,
@@ -637,8 +650,8 @@
                   "fileName": null,
                   "fileNameData": {
                     "path": "u_info_change_bg.png",
-                    "plistFile": "",
-                    "resourceType": 0
+                    "plistFile": "UIUserInfo.plist",
+                    "resourceType": 1
                   },
                   "scale9Enable": true,
                   "scale9Height": 32,
@@ -745,8 +758,8 @@
                       "fileName": null,
                       "fileNameData": {
                         "path": "u_info_icon_boy.png",
-                        "plistFile": "",
-                        "resourceType": 0
+                        "plistFile": "UIUserInfo.plist",
+                        "resourceType": 1
                       },
                       "scale9Enable": false,
                       "scale9Height": 30,
@@ -860,26 +873,26 @@
                       "backGroundBox": null,
                       "backGroundBoxData": {
                         "path": "u_info_sex_normal.png",
-                        "plistFile": "",
-                        "resourceType": 0
+                        "plistFile": "UICheckBox.plist",
+                        "resourceType": 1
                       },
                       "backGroundBoxDisabled": null,
                       "backGroundBoxDisabledData": {
-                        "path": "u_info_icon_boy.png",
-                        "plistFile": "",
+                        "path": null,
+                        "plistFile": null,
                         "resourceType": 0
                       },
                       "backGroundBoxSelected": null,
                       "backGroundBoxSelectedData": {
                         "path": "u_info_sex_normal.png",
-                        "plistFile": "",
-                        "resourceType": 0
+                        "plistFile": "UICheckBox.plist",
+                        "resourceType": 1
                       },
                       "frontCross": null,
                       "frontCrossData": {
                         "path": "u_info_sex_selected.png",
-                        "plistFile": "",
-                        "resourceType": 0
+                        "plistFile": "UICheckBox.plist",
+                        "resourceType": 1
                       },
                       "frontCrossDisabled": null,
                       "frontCrossDisabledData": {
@@ -982,26 +995,26 @@
                       "backGroundBox": null,
                       "backGroundBoxData": {
                         "path": "u_info_sex_normal.png",
-                        "plistFile": "",
-                        "resourceType": 0
+                        "plistFile": "UICheckBox.plist",
+                        "resourceType": 1
                       },
                       "backGroundBoxDisabled": null,
                       "backGroundBoxDisabledData": {
-                        "path": "u_info_icon_girl.png",
-                        "plistFile": "",
+                        "path": null,
+                        "plistFile": null,
                         "resourceType": 0
                       },
                       "backGroundBoxSelected": null,
                       "backGroundBoxSelectedData": {
                         "path": "u_info_sex_normal.png",
-                        "plistFile": "",
-                        "resourceType": 0
+                        "plistFile": "UICheckBox.plist",
+                        "resourceType": 1
                       },
                       "frontCross": null,
                       "frontCrossData": {
                         "path": "u_info_sex_selected.png",
-                        "plistFile": "",
-                        "resourceType": 0
+                        "plistFile": "UICheckBox.plist",
+                        "resourceType": 1
                       },
                       "frontCrossDisabled": null,
                       "frontCrossDisabledData": {
@@ -1143,7 +1156,7 @@
               "ignoreSize": false,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": 0.144285709,
+              "positionPercentX": 0.142857149,
               "positionPercentY": 0.2665148,
               "positionType": 1,
               "rotation": 0,
@@ -1157,7 +1170,7 @@
               "useMergedTexture": false,
               "visible": true,
               "width": 400,
-              "x": 101,
+              "x": 100,
               "y": 117,
               "capInsetsHeight": 29,
               "capInsetsWidth": 29,
@@ -1166,8 +1179,8 @@
               "fileName": null,
               "fileNameData": {
                 "path": "u_u_info_bg.png",
-                "plistFile": "",
-                "resourceType": 0
+                "plistFile": "UIPanel.plist",
+                "resourceType": 1
               },
               "scale9Enable": true,
               "scale9Height": 80,
@@ -1197,8 +1210,8 @@
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": -0.120476186,
-              "positionPercentY": 0.1070615,
+              "positionPercentX": -0.12,
+              "positionPercentY": 0.1047836,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -1247,8 +1260,8 @@
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": -0.120476186,
-              "positionPercentY": 0.00683371071,
+              "positionPercentX": -0.12,
+              "positionPercentY": 0.004555809,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -1297,8 +1310,8 @@
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": -0.120476186,
-              "positionPercentY": -0.100227796,
+              "positionPercentX": -0.12,
+              "positionPercentY": -0.100227788,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -1347,8 +1360,8 @@
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": -0.0219047572,
-              "positionPercentY": 0.1070615,
+              "positionPercentX": -0.021428572,
+              "positionPercentY": 0.1047836,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -1397,8 +1410,8 @@
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": -0.0219047572,
-              "positionPercentY": 0.00683371071,
+              "positionPercentX": -0.021428572,
+              "positionPercentY": 0.004555809,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -1447,8 +1460,8 @@
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": -0.0219047572,
-              "positionPercentY": -0.100227796,
+              "positionPercentX": -0.021428572,
+              "positionPercentY": -0.100227788,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -1497,8 +1510,8 @@
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": 0.320952415,
-              "positionPercentY": 0.00683371071,
+              "positionPercentX": 0.32,
+              "positionPercentY": 0.004555809,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -1529,14 +1542,14 @@
               "normal": null,
               "normalData": {
                 "path": "btn_exchange.png",
-                "plistFile": "",
-                "resourceType": 0
+                "plistFile": "UIUserInfo.plist",
+                "resourceType": 1
               },
               "pressed": null,
               "pressedData": {
                 "path": "btn_exchange_press.png",
-                "plistFile": "",
-                "resourceType": 0
+                "plistFile": "UIUserInfo.plist",
+                "resourceType": 1
               },
               "scale9Enable": false,
               "scale9Height": 37,
@@ -1647,8 +1660,8 @@
                   "fileName": null,
                   "fileNameData": {
                     "path": "u_u_info_gold_icon.png",
-                    "plistFile": "",
-                    "resourceType": 0
+                    "plistFile": "UIUserInfo.plist",
+                    "resourceType": 1
                   },
                   "scale9Enable": false,
                   "scale9Height": 36,
@@ -1707,14 +1720,14 @@
               "normal": null,
               "normalData": {
                 "path": "btn_green.png",
-                "plistFile": "",
-                "resourceType": 0
+                "plistFile": "UIButton.plist",
+                "resourceType": 1
               },
               "pressed": null,
               "pressedData": {
                 "path": "btn_green_press.png",
-                "plistFile": "",
-                "resourceType": 0
+                "plistFile": "UIButton.plist",
+                "resourceType": 1
               },
               "scale9Enable": false,
               "scale9Height": 58,
@@ -1745,17 +1758,17 @@
               "flipX": false,
               "flipY": false,
               "height": 210,
-              "ignoreSize": true,
+              "ignoreSize": false,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": -0.306150854,
-              "positionPercentY": 0.158898935,
+              "positionPercentX": -0.305714279,
+              "positionPercentY": 0.157175392,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
               "scaleY": 1,
-              "sizePercentX": 0.114285715,
-              "sizePercentY": 0.18223235,
+              "sizePercentX": 0.3,
+              "sizePercentY": 0.4783599,
               "sizeType": 0,
               "tag": 75,
               "touchAble": false,
@@ -1764,17 +1777,17 @@
               "width": 210,
               "x": -214,
               "y": 69,
-              "capInsetsHeight": 1,
-              "capInsetsWidth": 1,
-              "capInsetsX": 0,
-              "capInsetsY": 0,
+              "capInsetsHeight": 26,
+              "capInsetsWidth": 26,
+              "capInsetsX": 5,
+              "capInsetsY": 5,
               "fileName": null,
               "fileNameData": {
                 "path": "u_info_hand_frame.png",
-                "plistFile": "",
-                "resourceType": 0
+                "plistFile": "UIUserInfo.plist",
+                "resourceType": 1
               },
-              "scale9Enable": false,
+              "scale9Enable": true,
               "scale9Height": 210,
               "scale9Width": 210
             }
@@ -1822,8 +1835,8 @@
           "fileName": null,
           "fileNameData": {
             "path": "ui_pop_user_info_bg.png",
-            "plistFile": "",
-            "resourceType": 0
+            "plistFile": "UIPanel.plist",
+            "resourceType": 1
           },
           "scale9Enable": true,
           "scale9Height": 439,

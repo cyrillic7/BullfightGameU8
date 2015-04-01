@@ -10,9 +10,11 @@
   "designHeight": 640,
   "designWidth": 960,
   "textures": [
+    "UIUserInfo.plist",
     "UIPalyer0.plist"
   ],
   "texturesPng": [
+    "UIUserInfo.png",
     "UIPalyer0.png"
   ],
   "version": "1.6.0.0",
@@ -43,7 +45,7 @@
               "customProperty": "",
               "flipX": false,
               "flipY": false,
-              "height": 117,
+              "height": 80,
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
@@ -60,7 +62,7 @@
               "touchAble": false,
               "useMergedTexture": true,
               "visible": true,
-              "width": 119,
+              "width": 80,
               "x": 80,
               "y": 79,
               "capInsetsHeight": 1,
@@ -69,13 +71,13 @@
               "capInsetsY": 0,
               "fileName": null,
               "fileNameData": {
-                "path": "nan_n.png",
+                "path": "hand_icon.png",
                 "plistFile": "",
                 "resourceType": 1
               },
               "scale9Enable": false,
-              "scale9Height": 117,
-              "scale9Width": 119
+              "scale9Height": 80,
+              "scale9Width": 80
             }
           },
           {
@@ -371,7 +373,7 @@
               "customProperty": "",
               "flipX": false,
               "flipY": false,
-              "height": 117,
+              "height": 80,
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
@@ -388,7 +390,7 @@
               "touchAble": false,
               "useMergedTexture": true,
               "visible": true,
-              "width": 119,
+              "width": 80,
               "x": 80,
               "y": 79,
               "capInsetsHeight": 1,
@@ -397,13 +399,13 @@
               "capInsetsY": 0,
               "fileName": null,
               "fileNameData": {
-                "path": "nan_n.png",
+                "path": "hand_icon.png",
                 "plistFile": "",
                 "resourceType": 1
               },
               "scale9Enable": false,
-              "scale9Height": 117,
-              "scale9Width": 119
+              "scale9Height": 80,
+              "scale9Width": 80
             }
           },
           {
@@ -699,7 +701,7 @@
               "customProperty": "",
               "flipX": false,
               "flipY": false,
-              "height": 117,
+              "height": 80,
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
@@ -716,7 +718,7 @@
               "touchAble": false,
               "useMergedTexture": true,
               "visible": true,
-              "width": 119,
+              "width": 80,
               "x": 80,
               "y": 79,
               "capInsetsHeight": 1,
@@ -725,13 +727,13 @@
               "capInsetsY": 0,
               "fileName": null,
               "fileNameData": {
-                "path": "nan_n.png",
+                "path": "hand_icon.png",
                 "plistFile": "",
                 "resourceType": 1
               },
               "scale9Enable": false,
-              "scale9Height": 117,
-              "scale9Width": 119
+              "scale9Height": 80,
+              "scale9Width": 80
             }
           },
           {
@@ -1027,7 +1029,7 @@
               "customProperty": "",
               "flipX": false,
               "flipY": false,
-              "height": 117,
+              "height": 80,
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
@@ -1044,7 +1046,7 @@
               "touchAble": false,
               "useMergedTexture": true,
               "visible": true,
-              "width": 119,
+              "width": 80,
               "x": 80,
               "y": 79,
               "capInsetsHeight": 1,
@@ -1053,13 +1055,13 @@
               "capInsetsY": 0,
               "fileName": null,
               "fileNameData": {
-                "path": "nan_n.png",
+                "path": "hand_icon.png",
                 "plistFile": "",
                 "resourceType": 1
               },
               "scale9Enable": false,
-              "scale9Height": 117,
-              "scale9Width": 119
+              "scale9Height": 80,
+              "scale9Width": 80
             }
           },
           {
@@ -1355,7 +1357,7 @@
               "customProperty": "",
               "flipX": false,
               "flipY": false,
-              "height": 117,
+              "height": 80,
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
@@ -1372,7 +1374,7 @@
               "touchAble": false,
               "useMergedTexture": true,
               "visible": true,
-              "width": 119,
+              "width": 80,
               "x": 80,
               "y": 79,
               "capInsetsHeight": 1,
@@ -1381,13 +1383,13 @@
               "capInsetsY": 0,
               "fileName": null,
               "fileNameData": {
-                "path": "nan_n.png",
+                "path": "hand_icon.png",
                 "plistFile": "",
                 "resourceType": 1
               },
               "scale9Enable": false,
-              "scale9Height": 117,
-              "scale9Width": 119
+              "scale9Height": 80,
+              "scale9Width": 80
             }
           },
           {

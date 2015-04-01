@@ -42,6 +42,8 @@ private:
 	void popDialogBoxUserInfo();
 	//菜单设置用户信息
 	void menuResetUser(CCObject* pSender, TouchEventType type);
+	//菜单设置
+	void menuSetUp(CCObject* pSender, TouchEventType type);
 	void menuSelectMode(CCObject* pSender, TouchEventType type);
 
 	void enterLobbyByMode(int mode);

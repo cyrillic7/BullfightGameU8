@@ -10,7 +10,10 @@
   "designHeight": 640,
   "designWidth": 960,
   "textures": [
-    "UIGameHUD.plist"
+    "UIPanel.plist",
+    "UIButton.plist",
+    "UIUserInfo.plist",
+    "UICheckBox.plist"
   ],
   "texturesPng": [],
   "version": "1.6.0.0",

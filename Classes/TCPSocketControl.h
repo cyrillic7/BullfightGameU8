@@ -28,7 +28,7 @@ public:
 	virtual ~TCPSocketControl();
 public:
 	static TCPSocketControl* sharedTCPSocketControl();
-
+	void initTCPSocket();
 	int startSendThread();
 	static void* networkThread(void* object);
 	void initNetwork();

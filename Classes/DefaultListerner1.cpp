@@ -12,6 +12,7 @@
 #include "CMD_GameServer.h"
 #include "MD5.h"
 #include "DataModel.h"
+#include "MTNotificationQueue.h"
 //#include "iconv.h"
 #include "cmd_ox.h"
 #include "cocos2d.h"
@@ -106,13 +107,14 @@ bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Co
 			{
 				CCLog("配置完成");
 
-				CMD_GR_UserSitDown sit;
+				MTNotificationQueue::sharedNotificationQueue()->postNotification("configFinish",NULL);
+				/*CMD_GR_UserSitDown sit;
 				sit.wTableID=28;
 				sit.wChairID=1;
 				strcpy(sit.szPassword,"");
 
 				bool isSend=so->SendData(MDM_GR_USER,SUB_GR_USER_SITDOWN,&sit, sizeof(sit));
-				CCLog("Classic:%d",isSend);
+				CCLog("Classic:%d",isSend);*/
 			}
 			break;
 		default:

@@ -4291,7 +4291,7 @@
         },
         {
           "name": "card_3_13",
-          "dr": 1,
+          "dr": 0,
           "lp": false,
           "to": 0,
           "drTW": 0,
@@ -4365,7 +4365,7 @@
         },
         {
           "name": "card_5_0",
-          "dr": 1,
+          "dr": 0,
           "lp": false,
           "to": 0,
           "drTW": 0,

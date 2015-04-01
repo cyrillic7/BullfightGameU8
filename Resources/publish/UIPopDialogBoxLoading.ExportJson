@@ -8,13 +8,22 @@
   },
   "dataScale": 1,
   "designHeight": 640,
-  "designWidth": 960,
+  "designWidth": 1136,
   "textures": [
-    "UIPopDialogBox0.plist"
+    "UIPanel.plist",
+    "UIButton.plist",
+    "UIUserInfo.plist",
+    "UICheckBox.plist"
   ],
   "texturesPng": [
-    "UIPopDialogBox0.png",
-    "UIPopDialogBox0.png"
+    "UIPanel.png",
+    "UIButton.png",
+    "UIUserInfo.png",
+    "UICheckBox.png",
+    "UIPanel.png",
+    "UIButton.png",
+    "UIUserInfo.png",
+    "UICheckBox.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

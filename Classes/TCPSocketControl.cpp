@@ -32,9 +32,13 @@ TCPSocketControl* TCPSocketControl::sharedTCPSocketControl()
 {
 	if (_sharedTCPSocketControl == 0) {
 		_sharedTCPSocketControl = new TCPSocketControl();
+		_sharedTCPSocketControl->initTCPSocket();
 		return _sharedTCPSocketControl;
 	}
 	return _sharedTCPSocketControl;
+}
+void TCPSocketControl::initTCPSocket(){
+	
 }
 int TCPSocketControl::startSendThread(){
 	int errCode = 0;
@@ -64,7 +68,14 @@ void* TCPSocketControl::networkThread(void* object){
 void TCPSocketControl::initNetwork(){
 	/*DefaultListerner *df=new DefaultListerner();
 	*///TCPSocket tcp;
-	tcp=new TCPSocket();
+	if (tcp)
+	{
+		//delete tcp;
+		//tcp=NULL;
+	}else
+	{
+		tcp=new TCPSocket();
+	}
 	tcp->Init();
 	tcp->Create(AF_INET, SOCK_STREAM, 0);
 	tcp->SetListerner(listerner);

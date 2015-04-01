@@ -17,9 +17,11 @@
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <imageFileList>
+    <string>UIUserInfo.plist</string>
     <string>UIPalyer0.plist</string>
   </imageFileList>
   <imagePngList>
+    <string>UIUserInfo.png</string>
     <string>UIPalyer0.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>

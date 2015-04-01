@@ -17,6 +17,7 @@
 #include "TCPSocketControl.h"
 #include "DefaultListerner1.h"
 #include "DataModel.h"
+#include "PopDialogBoxLoading.h"
 ClassicLobbyScene::ClassicLobbyScene()
 :isDeleteList(false)
 ,isEnterGame(false)
@@ -42,6 +43,14 @@ CCScene* ClassicLobbyScene::scene()
 }
 void ClassicLobbyScene::onEnter(){
 	CCLayer::onEnter();
+	//添加背景
+	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
+	CCSprite *spriteBg=CCSprite::create("res/main_bg.jpg");
+	this->addChild(spriteBg);
+	spriteBg->setPosition(ccp(deviceSize.width/2,deviceSize.height/2));
+	float scale=deviceSize.height/spriteBg->getContentSize().height;
+	spriteBg->setScale(scale);
+
 	UILayer *m_pWidget = UILayer::create();
 	this->addChild(m_pWidget);
 
@@ -54,17 +63,20 @@ void ClassicLobbyScene::onEnter(){
 
 	for (int i = 0; i < 4; i++)
 	{
-		button = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("buttonStar%d",i)->getCString()));
+		button = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("ButtonScene%d",i+1)->getCString()));
 		button->addTouchEventListener(this, SEL_TouchEvent(&ClassicLobbyScene::menuStar));
 	}
 	//添加监听事件
-	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(GameLobbyScene::callbackData),LISTENER_PLAY,NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::callbackData),LISTENER_PLAY,NULL);
+
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::callbackData1),"configFinish",NULL);
 
 	initTCPLogon();
 }
 void ClassicLobbyScene::onExit(){
 	//移除监听事件 
 	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, LISTENER_PLAY); 
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, "configFinish"); 
 
 	CCLayer::onExit();
 }
@@ -73,6 +85,10 @@ void ClassicLobbyScene::initTCPLogon(){
 	this->addChild(tcpID);
 	tcpID->setTag(999);
 	tcpID->startSendThread();*/
+	PopDialogBox *pdb = PopDialogBoxLoading::create();
+	this->addChild(pdb);
+	pdb->setTag(189);
+
 	TCPSocketControl *tcp=TCPSocketControl::sharedTCPSocketControl();
 	tcp->ip=DataModel::sharedDataModel()->tagGameServerList[0]->szServerAddr;
 	tcp->port=DataModel::sharedDataModel()->tagGameServerList[0]->wServerPort;
@@ -136,4 +152,8 @@ void ClassicLobbyScene::update(float delta){
 void ClassicLobbyScene::callbackData(CCObject *obj){
 	//enterMainSceneByMode(1);
 	isEnterGame=true;
+}
+void ClassicLobbyScene::callbackData1(CCObject *obj){
+	PopDialogBox *pdb=(PopDialogBoxLoading*)this->getChildByTag(189);
+	pdb->removeFromParentAndCleanup(true);
 }

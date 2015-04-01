@@ -8,4 +8,8 @@
     <Project>UIPopDialogBoxLoading</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxSetUp</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

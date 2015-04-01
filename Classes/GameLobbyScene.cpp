@@ -15,6 +15,7 @@
 #include "DataModel.h"
 #include "SocketThread.h"
 #include "DefaultListerner.h"
+#include "PopDialogBoxSetUp.h"
 //#include <stdio.h>
 #include "MD5.h"
 #include "TCPSocketControl.h"
@@ -133,10 +134,8 @@ CCScene* GameLobbyScene::scene()
 }
 void GameLobbyScene::onEnter(){
 	CCLayer::onEnter();
-	//contentScaleFactor
+	//添加背景
 	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
-	//float scale=SCENE_SIZE.height/deviceSize.height;
-
 	CCSprite *spriteBg=CCSprite::create("res/main_bg.jpg");
 	this->addChild(spriteBg);
 	spriteBg->setPosition(ccp(deviceSize.width/2,deviceSize.height/2));
@@ -152,6 +151,9 @@ void GameLobbyScene::onEnter(){
 
 	UIButton* button = static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonUser"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&GameLobbyScene::menuResetUser));
+
+	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonSetUp"));
+	button->addTouchEventListener(this, SEL_TouchEvent(&GameLobbyScene::menuSetUp));
 	for (int i = 0; i < 3;i++)
 	{
 		button = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("buttonMode%d",i+1)->getCString()));
@@ -204,6 +206,20 @@ void GameLobbyScene::menuResetUser(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 		popDialogBoxUserInfo();
+		break;
+	default:
+		break;
+	}
+}
+void GameLobbyScene::menuSetUp(CCObject* pSender, TouchEventType type){
+	switch (type)
+	{
+	case TOUCH_EVENT_ENDED:
+		{
+			PopDialogBox *pdbSetUp = PopDialogBoxSetUp::create();
+			this->addChild(pdbSetUp);
+			pdbSetUp->playAnimation();
+		}
 		break;
 	default:
 		break;

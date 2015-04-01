@@ -36,4 +36,5 @@ private:
 	void enterMainSceneByMode(int mode);
 
 	void callbackData(CCObject *obj);
+	void callbackData1(CCObject *obj);
 };
