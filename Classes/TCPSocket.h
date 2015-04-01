@@ -44,9 +44,9 @@ typedef int				SOCKET;
 //长度定义
 #define SOCKET_TCP_BUFFER			16384								//网络缓冲
 #define SOCKET_TCP_PACKET			(SOCKET_TCP_BUFFER-sizeof(TCP_Head))//网络缓冲
-#include "ITCPSocket.h"
+//#include "ITCPSocket.h"
 class SocketListerner;
-class TCPSocket:public ITCPSocket
+class TCPSocket
 {
 public:
     TCPSocket(SOCKET sock = INVALID_SOCKET);

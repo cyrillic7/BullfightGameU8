@@ -24,7 +24,6 @@ public:
 	void postNotifications(float dt);
 	~MTNotificationQueue(void);
 	void postNotification(const char* name, CCObject* object);
-
 };
 
 #endif /* MTNOTIFICATIONQUEUE_H_ */

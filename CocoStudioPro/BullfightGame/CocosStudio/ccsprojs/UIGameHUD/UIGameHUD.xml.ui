@@ -18,11 +18,11 @@
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <imageFileList>
     <string>UIButton.plist</string>
-    <string>UIGameHUD0.plist</string>
+    <string>UIGameIng.plist</string>
   </imageFileList>
   <imagePngList>
     <string>UIButton.png</string>
-    <string>UIGameHUD0.png</string>
+    <string>UIGameIng.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>UIGameHUD.json</CurrentUIJson>

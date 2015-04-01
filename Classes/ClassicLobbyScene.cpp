@@ -12,7 +12,6 @@
 #include "PopDialogBoxUserInfo.h"
 #include "GameLobbyScene.h"
 #include "MainScene.h"
-#include "TCPLogonID.h"
 #include "CMD_GameServer.h"
 #include "TCPSocketControl.h"
 #include "DefaultListerner1.h"
@@ -112,7 +111,7 @@ void ClassicLobbyScene::menuStar(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		TCPLogonID *tcpID=(TCPLogonID *)this->getChildByTag(999);
+		//TCPLogonID *tcpID=(TCPLogonID *)this->getChildByTag(999);
 		CMD_GR_UserSitDown sit;
 		sit.wTableID=28;
 		sit.wChairID=1;

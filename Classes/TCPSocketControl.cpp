@@ -70,12 +70,13 @@ void TCPSocketControl::initNetwork(){
 	*///TCPSocket tcp;
 	if (tcp)
 	{
-		//delete tcp;
-		//tcp=NULL;
+		delete tcp;
+		tcp=NULL;
 	}else
 	{
-		tcp=new TCPSocket();
+		
 	}
+	tcp=new TCPSocket();
 	tcp->Init();
 	tcp->Create(AF_INET, SOCK_STREAM, 0);
 	tcp->SetListerner(listerner);

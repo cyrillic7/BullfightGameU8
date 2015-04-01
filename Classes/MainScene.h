@@ -89,7 +89,7 @@ private:
 	
 	int threadStart();
 	static void* networkThread(void*);
-	bool OnEventTCPSocketRead(unsigned short	wSocketID, TCP_Command tCommand, void * pDataBuffer, unsigned short wDataSize);
+//	bool OnEventTCPSocketRead(unsigned short	wSocketID, TCP_Command tCommand, void * pDataBuffer, unsigned short wDataSize);
 	//更新状态
 	void updateGameState();
 	void updateServerState();

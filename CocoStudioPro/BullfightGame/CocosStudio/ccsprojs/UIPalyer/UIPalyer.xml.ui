@@ -18,11 +18,11 @@
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <imageFileList>
     <string>UIUserInfo.plist</string>
-    <string>UIPalyer0.plist</string>
+    <string>UIGameIng.plist</string>
   </imageFileList>
   <imagePngList>
     <string>UIUserInfo.png</string>
-    <string>UIPalyer0.png</string>
+    <string>UIGameIng.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>UIPalyer.json</CurrentUIJson>

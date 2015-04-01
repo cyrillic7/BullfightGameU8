@@ -4,11 +4,10 @@
 //
 #pragma once
 #include "cocos-ext.h"
-#include "TCPLogon.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
-class GameLobbyScene:public CCLayer,public ITCPSocket
+class GameLobbyScene:public CCLayer
 {
 public:
 	enum ModeType
@@ -21,7 +20,6 @@ public:
 	UILabel *userName;
 private:
 	UILabel *pLabelGoldCount;
-	TCPLogon *tcpLogon;
 	UIScrollView *scroll;
 public:
     GameLobbyScene();
@@ -47,6 +45,5 @@ private:
 	void menuSelectMode(CCObject* pSender, TouchEventType type);
 
 	void enterLobbyByMode(int mode);
-
-	bool OnEventTCPSocketRead(unsigned short	wSocketID, TCP_Command tCommand, void * pDataBuffer, unsigned short wDataSize);
+//	bool OnEventTCPSocketRead(unsigned short	wSocketID, TCP_Command tCommand, void * pDataBuffer, unsigned short wDataSize);
 };

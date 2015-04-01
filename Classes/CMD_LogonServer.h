@@ -2,7 +2,7 @@
 *
 */
 #pragma once
-
+#include "Packet.h"
 //基本包
 #ifdef WIN32
 #include <winsock2.h>

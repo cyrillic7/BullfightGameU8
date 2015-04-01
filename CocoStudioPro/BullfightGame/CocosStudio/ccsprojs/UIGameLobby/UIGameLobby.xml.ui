@@ -19,14 +19,17 @@
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <imageFileList>
     <string>UIGameLobby.plist</string>
+    <string>UIClassicLobby.plist</string>
     <string>UIUserInfo.plist</string>
     <string>UIMode.plist</string>
   </imageFileList>
   <imagePngList>
     <string>UIGameLobby.png</string>
+    <string>UIClassicLobby.png</string>
     <string>UIUserInfo.png</string>
     <string>UIMode.png</string>
     <string>UIGameLobby.png</string>
+    <string>UIClassicLobby.png</string>
     <string>UIUserInfo.png</string>
     <string>UIMode.png</string>
   </imagePngList>

@@ -10,13 +10,11 @@ pthread_mutex_t sharedNotificationQueueLock;
 class LifeManager_PThreadMutex  
 {  
 	pthread_mutex_t* mutex;  
-
 public:  
 	LifeManager_PThreadMutex(pthread_mutex_t* mut) : mutex(mut)  
 	{  
 		pthread_mutex_init(mutex, NULL);  
 	}  
-
 	~LifeManager_PThreadMutex()  
 	{  
 		pthread_mutex_destroy(mutex);  
@@ -40,10 +38,7 @@ public:
 #define LifeCircleMutexLock(mutex) LifeCircleMutexLocker __locker__(mutex) 
 
 
-
-
 MTNotificationQueue* MTNotificationQueue::mInstance = NULL;
-
 MTNotificationQueue::MTNotificationQueue(void)
 {
 }
@@ -89,8 +84,5 @@ void MTNotificationQueue::postNotification(const char* name, CCObject* object)
 
 	notifications.push_back(arg);  
 }  
-
-
-
 
 

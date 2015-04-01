@@ -39,7 +39,7 @@ void DefaultListerner::OnError(TCPSocket* so, const char* e)
 
 void DefaultListerner::OnIdle(TCPSocket* so)
 {
-	CCLog("%s\n","connection idle");
+	CCLog("%s\n","listerner-- connection idle");
 }
 
 /**

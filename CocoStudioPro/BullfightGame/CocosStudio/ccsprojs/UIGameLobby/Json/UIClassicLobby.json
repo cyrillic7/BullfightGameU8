@@ -11,14 +11,17 @@
   "designWidth": 1136,
   "textures": [
     "UIGameLobby.plist",
+    "UIClassicLobby.plist",
     "UIUserInfo.plist",
     "UIMode.plist"
   ],
   "texturesPng": [
     "UIGameLobby.png",
+    "UIClassicLobby.png",
     "UIUserInfo.png",
     "UIMode.png",
     "UIGameLobby.png",
+    "UIClassicLobby.png",
     "UIUserInfo.png",
     "UIMode.png"
   ],
