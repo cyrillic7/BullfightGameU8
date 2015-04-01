@@ -4,6 +4,9 @@
 #include "Tools.h"
 #include "Packet.h"
 #include "SocketListerner.h"
+#include "cocos2d.h"
+USING_NS_CC;
+
 #ifdef WIN32
 #include <objbase.h>
 #pragma comment(lib, "wsock32")
@@ -474,7 +477,7 @@ WORD TCPSocket::CrevasseBuffer(BYTE pcbDataBuffer[], WORD wDataSize)
 	//if (cbCheckCode != 0) throw TEXT("数据包效验码错误");//注：先不做处理
 	if (cbCheckCode!=0)
 	{
-		printf("数据包效验码错误");
+		CCLog("数据包效验码错误");
 	}
 
 	return wDataSize;
@@ -641,6 +644,7 @@ long TCPSocket::OnSocketNotifyRead(unsigned int wParam, long lParam)
 			//if (bSuccess == false) throw TEXT("网络数据包处理失败");
 			if (!bSuccess)
 			{
+                CCLog("网络数据包处理失败");
 				return bSuccess;
 			}
 		};
