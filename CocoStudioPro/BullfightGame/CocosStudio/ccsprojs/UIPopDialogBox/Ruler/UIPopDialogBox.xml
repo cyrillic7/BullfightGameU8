@@ -12,4 +12,16 @@
     <Project>UIPopDialogBoxSetUp</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxHelp</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxFeedback</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxAbout</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

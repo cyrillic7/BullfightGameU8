@@ -644,7 +644,7 @@ long TCPSocket::OnSocketNotifyRead(unsigned int wParam, long lParam)
 			//if (bSuccess == false) throw TEXT("网络数据包处理失败");
 			if (!bSuccess)
 			{
-                CCLog("网络数据包处理失败");
+                CCLog("网络数据包处理失败 ");
 				return bSuccess;
 			}
 		};
@@ -664,10 +664,6 @@ long TCPSocket::OnSocketNotifyRead(unsigned int wParam, long lParam)
  */
 void TCPSocket::SetListerner(SocketListerner* listerner)
 {
-	//if (this->listerner)
-	//{
-		//CC_SAFE_DELETE(this->listerner);
-	//}
     this->listerner = listerner;
     this->listerner->SetContext(this);
 }

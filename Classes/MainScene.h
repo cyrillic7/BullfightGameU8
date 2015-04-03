@@ -41,8 +41,9 @@ public:
 	{
 		STATE_OBSERVER=0,			//旁观状态
 		STATE_READY,				//准备状态
+		STATE_WAIT,					//等待服务端响应
 		STATE_SEND_CARD,			//发牌状态
-		STATE_FIGHT_BANKER,			//抢庄状态
+		STATE_CALL_BANKER,			//抢庄状态
 		STATE_BETTING,				//投注
 		STATE_OPT_OX,				//选牛
 		STATE_SETTLE_ACCOUNFS,		//结算

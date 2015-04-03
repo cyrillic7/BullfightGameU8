@@ -316,6 +316,34 @@ struct GP_CheckInGetSocre
 	long							lResultCode;						//操作代码
 	TCHAR							szDescribeString[128];				//描述消息
 };
+//////////////////////////////////////////////////////////////////////////////////
+//游戏命令
 
+#define MDM_GF_GAME					200									//游戏命令
+
+//////////////////////////////////////////////////////////////////////////////////
+//携带信息
+
+//其他信息
+#define DTP_GR_TABLE_PASSWORD		1									//桌子密码
+
+//用户属性
+#define DTP_GR_NICK_NAME			10									//用户昵称
+#define DTP_GR_GROUP_NAME			11									//社团名字
+#define DTP_GR_UNDER_WRITE			12									//个性签名
+
+//附加信息
+#define DTP_GR_USER_NOTE			20									//用户备注
+#define DTP_GR_CUSTOM_FACE			21									//自定头像
+
+//////////////////////////////////////////////////////////////////////////////////
+
+//请求错误
+#define REQUEST_FAILURE_NORMAL		0									//常规原因
+#define REQUEST_FAILURE_NOGOLD		1									//金币不足
+#define REQUEST_FAILURE_NOSCORE		2									//积分不足
+#define REQUEST_FAILURE_PASSWORD	3									//密码错误
+
+//////////////////////////////////////////////////////////////////////////////////
 #pragma pack()
 

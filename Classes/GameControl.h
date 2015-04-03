@@ -46,6 +46,8 @@ private:
 	void menuFight(CCObject* pSender, TouchEventType type);
 	//投注
 	void menuBetting(CCObject* pSender, TouchEventType type);
+	//////////////////////////////////////////////////////////////////////////
+	void onCallBanker(CCObject *obj);
 };
 
 #endif /* defined(__BullfightGame__GameHUD__) */

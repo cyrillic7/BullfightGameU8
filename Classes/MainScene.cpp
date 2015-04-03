@@ -83,9 +83,8 @@ void MainScene::initPlayerLayer(){
 }
 //收到准备完成回调
 void MainScene::onEventReadyFnish(){
-	CCLog("准备完成开始发牌.");
-	//setGameStateWithUpdate(STATE_SEND_CARD);
-	setServerStateWithUpdate(STATE_SEND_CARD);
+	CCLog("准备完成等待服务端响应.");
+	setServerStateWithUpdate(STATE_WAIT);
 }
 //收到发牌完成回调
 void MainScene::onEventSendCardFnish(){

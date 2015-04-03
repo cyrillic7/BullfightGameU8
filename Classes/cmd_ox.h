@@ -66,12 +66,12 @@
 //游戏状态
 struct CMD_S_StatusFree
 {
-	long long							lCellScore;							//基础积分
+	__int64							lCellScore;							//基础积分
 
 	//历史积分
-	long long							lTurnScore[GAME_PLAYER];			//积分信息
-	long long							lCollectScore[GAME_PLAYER];			//积分信息
-	TCHAR								szGameRoomName[SERVER_LEN];			//房间名称
+	__int64							lTurnScore[GAME_PLAYER];			//积分信息
+	__int64							lCollectScore[GAME_PLAYER];			//积分信息
+	TCHAR							szGameRoomName[SERVER_LEN];			//房间名称
 };
 
 //游戏状态
@@ -82,8 +82,8 @@ struct CMD_S_StatusCall
 	BYTE                                cbPlayStatus[GAME_PLAYER];          //用户状态
 
 	//历史积分
-	long long							lTurnScore[GAME_PLAYER];			//积分信息
-	long long							lCollectScore[GAME_PLAYER];			//积分信息
+	__int64							lTurnScore[GAME_PLAYER];			//积分信息
+	__int64							lCollectScore[GAME_PLAYER];			//积分信息
 	TCHAR								szGameRoomName[SERVER_LEN];			//房间名称
 };
 

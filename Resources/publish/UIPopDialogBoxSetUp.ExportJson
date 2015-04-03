@@ -783,7 +783,7 @@
                 "options": {
                   "__type": "ButtonSurrogate:#EditorCommon.JsonModel.Component.GUI",
                   "classname": "Button",
-                  "name": "Button_58",
+                  "name": "ButtonCLPassword",
                   "ZOrder": 0,
                   "actiontag": 49314726,
                   "anchorPointX": 0.5,
@@ -856,7 +856,7 @@
                 "options": {
                   "__type": "ButtonSurrogate:#EditorCommon.JsonModel.Component.GUI",
                   "classname": "Button",
-                  "name": "Button_59",
+                  "name": "ButtonCBPassword",
                   "ZOrder": 0,
                   "actiontag": 56727092,
                   "anchorPointX": 0.5,
@@ -1212,7 +1212,7 @@
             "options": {
               "__type": "ButtonSurrogate:#EditorCommon.JsonModel.Component.GUI",
               "classname": "Button",
-              "name": "Button_37",
+              "name": "ButtonHelp",
               "ZOrder": 0,
               "actiontag": 32948183,
               "anchorPointX": 0.5,
@@ -1285,7 +1285,7 @@
             "options": {
               "__type": "ButtonSurrogate:#EditorCommon.JsonModel.Component.GUI",
               "classname": "Button",
-              "name": "Button_38",
+              "name": "ButtonFeedback",
               "ZOrder": 0,
               "actiontag": 17170998,
               "anchorPointX": 0.5,
@@ -1358,7 +1358,7 @@
             "options": {
               "__type": "ButtonSurrogate:#EditorCommon.JsonModel.Component.GUI",
               "classname": "Button",
-              "name": "Button_39",
+              "name": "ButtonAbout",
               "ZOrder": 0,
               "actiontag": 53341043,
               "anchorPointX": 0.5,

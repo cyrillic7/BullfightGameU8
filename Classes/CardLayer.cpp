@@ -144,7 +144,7 @@ void CardLayer::onSendCardFinish(){
 	sSendCardCount++;
 	if (sSendCardCount==getCurAllCardCount()*MAX_CARD_COUNT)
 	{
-		DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_FIGHT_BANKER);
+		DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_CALL_BANKER);
 		//DataModel::sharedDataModel()->getMainScene()->setServerStateWithUpdate(MainScene::STATE_FIGHT_BANKER);
 	}
 }

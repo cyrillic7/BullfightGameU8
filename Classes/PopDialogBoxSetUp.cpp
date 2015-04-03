@@ -9,6 +9,9 @@
 #include "DataModel.h"
 #include "GameConfig.h"
 #include "BaseAttributes.h"
+#include "PopDialogBoxHelp.h"
+#include "PopDialogBoxFeedback.h"
+#include "PopDialogBoxAbout.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxSetUp::PopDialogBoxSetUp()
 {
@@ -27,10 +30,42 @@ void PopDialogBoxSetUp::onEnter(){
 
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));
+	//帮助按键
+	backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonHelp"));
+	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxSetUp::menuHelp));
+	//意见反馈
+	backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonFeedback"));
+	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxSetUp::menuFeedback));
+	//关于我们
+	backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonAbout"));
+	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxSetUp::menuAbout));
+
+	playAnimation();
 }
 void PopDialogBoxSetUp::onExit(){
 	CCLayer::onExit();
 }
-void PopDialogBoxSetUp::playAnimation(){
-	imageBg->runAction(CCEaseBackOut::create(CCScaleTo::create(0.2, 1)));
+//帮助
+void PopDialogBoxSetUp::menuHelp(CCObject *object, TouchEventType type){
+	if (type==TOUCH_EVENT_ENDED)
+	{
+		PopDialogBoxHelp *help=PopDialogBoxHelp::create();
+		this->addChild(help);
+	}
+}
+//意见反馈
+void PopDialogBoxSetUp::menuFeedback(CCObject *object, TouchEventType type){
+	if (type==TOUCH_EVENT_ENDED)
+	{
+		PopDialogBoxFeedback *feedback=PopDialogBoxFeedback::create();
+		this->addChild(feedback);
+	}
+}
+//关于我们
+void PopDialogBoxSetUp::menuAbout(CCObject *object, TouchEventType type){
+	if (type==TOUCH_EVENT_ENDED)
+	{
+		PopDialogBoxAbout *about=PopDialogBoxAbout::create();
+		this->addChild(about);
+	}
 }

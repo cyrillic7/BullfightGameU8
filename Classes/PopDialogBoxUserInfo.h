@@ -10,7 +10,7 @@
 #include "PopDialogBox.h"
 class PopDialogBoxUserInfo: public PopDialogBox {
 private:
-	UIImageView *imageBg;
+
 	//昵称输入框
 	UITextField *pLabelNickName;
 	UIImageView *piNickNameBg;
@@ -31,7 +31,7 @@ private:
 	virtual void onEnter();
 	virtual void onExit();
 
-	virtual void playAnimation();
+	//virtual void playAnimation();
 	//
 	void menuChange(CCObject *object, TouchEventType type);
 	void setShowChangeView();

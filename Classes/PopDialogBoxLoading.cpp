@@ -23,5 +23,4 @@ void PopDialogBoxLoading::onExit(){
 }
 void PopDialogBoxLoading::playAnimation(){
 	imageBg->runAction(CCEaseBackOut::create(CCScaleTo::create(0.2, 1)));
-	//pUILayer
 }

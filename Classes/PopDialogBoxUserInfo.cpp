@@ -54,13 +54,13 @@ void PopDialogBoxUserInfo::onEnter(){
 	ppSexSelect=static_cast<UIPanel*>(pUILayer->getWidgetByName("PanelSexSelect"));
 	updateSex();
 	setShowChangeView();
+
+	playAnimation();
 }
 void PopDialogBoxUserInfo::onExit(){
 	CCLayer::onExit();
 }
-void PopDialogBoxUserInfo::playAnimation(){
-	imageBg->runAction(CCEaseBackOut::create(CCScaleTo::create(0.2, 1)));
-}
+
 void PopDialogBoxUserInfo::menuChange(CCObject *object, TouchEventType type){
 	if (type==TOUCH_EVENT_ENDED)
 	{

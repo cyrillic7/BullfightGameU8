@@ -9,8 +9,6 @@
 
 #include "PopDialogBox.h"
 class PopDialogBoxSetUp: public PopDialogBox {
-private:
-	UIImageView *imageBg;
 public:
 	PopDialogBoxSetUp();
 	~PopDialogBoxSetUp();
@@ -18,6 +16,8 @@ public:
 private:
 	virtual void onEnter();
 	virtual void onExit();
-
-	virtual void playAnimation();
+	//帮助
+	void menuHelp(CCObject *object, TouchEventType type);
+	void menuFeedback(CCObject *object, TouchEventType type);
+	void menuAbout(CCObject *object, TouchEventType type);
 };

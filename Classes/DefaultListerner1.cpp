@@ -17,7 +17,9 @@
 #include "cmd_ox.h"
 #include "cocos2d.h"
 using namespace std;
-#define VERSION_FRAME 16777217
+#define VERSION_FRAME				16777217
+#define VERSION_CLIENT				17170433
+#define VERSION_PLAZA 				17235969
 DefaultListerner1::DefaultListerner1()
 {
 }
@@ -159,22 +161,21 @@ bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Co
 						 //构造数据
 						 GameOption.dwFrameVersion=VERSION_FRAME;
 						 GameOption.cbAllowLookon=0;
-						 GameOption.dwClientVersion=17170433;
+						 GameOption.dwClientVersion=VERSION_CLIENT;
 
 						 bool isSend = so->SendData(MDM_GF_FRAME, SUB_GF_GAME_OPTION, &GameOption, sizeof(GameOption));
 						 CCLog("send---:%d", isSend);
 					 }else if (state.cbUserStatus==US_PLAYING)
 					 {
-						 int gameState=sizeof(CMD_GF_GameStatus);
-						 int data=wDataSize;
-						 CMD_GF_GameStatus *gameStatue=(CMD_GF_GameStatus*)pDataBuffer;
+						 //CMD_S_StatusFree *gameStatue=(CMD_S_StatusFree*)pDataBuffer;
 						 CCLog("游戏状态 ");
-					 }
+					}
 					 CCLog("状态：%d",state.cbUserStatus);
 				 }
 				//CCLog("state %d",info->dwUserID);
 			}
 			break;
+
 		default:
 			break;
 		}
@@ -217,6 +218,66 @@ bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Co
 				break;
 		}
 	}
+	else if(Command.wMainCmdID==MDM_GF_GAME)
+	{
+		switch (Command.wSubCmdID)
+		{
+		case SUB_S_CALL_BANKER://用户叫庄
+			{
+				int size=wDataSize;
+				CMD_S_CallBanker *callBanker=(CMD_S_CallBanker*)pDataBuffer;
+				CCLog("用户叫庄");
+			}
+			break;
+		case SUB_S_GAME_START:
+			{
+				//效验数据
+				if (wDataSize!=sizeof(CMD_S_GameStart)) return false;
+				CMD_S_GameStart * pGameStart=(CMD_S_GameStart *)pDataBuffer;
+				//int size=wDataSize;
+				CCLog("游戏开始 ");
+			}
+			break;
+		case SUB_S_ADD_SCORE:
+			{
+				//效验数据
+				if (wDataSize!=sizeof(CMD_S_AddScore)) return false;
+				CMD_S_AddScore * pAddScore=(CMD_S_AddScore *)pDataBuffer;
+
+				CCLog("加注结果");
+			}
+			break;
+		case SUB_S_SEND_CARD:
+			{
+				CCLog("发牌");
+				//效验数据
+				if (wDataSize!=sizeof(CMD_S_SendCard)) return false;
+				CMD_S_SendCard * pSendCard=(CMD_S_SendCard *)pDataBuffer;
+			}
+			break;
+		case SUB_S_OPEN_CARD:
+			{
+				//效验数据
+				if (wDataSize!=sizeof(CMD_S_Open_Card)) return false;
+				CMD_S_Open_Card * pOpenCard=(CMD_S_Open_Card *)pDataBuffer;
+
+				CCLog("开牌 ");
+			}
+			break;
+		case SUB_S_GAME_END:
+			{
+				//效验参数
+				if (wDataSize!=sizeof(CMD_S_GameEnd)) return false;
+				CMD_S_GameEnd * pGameEnd=(CMD_S_GameEnd *)pDataBuffer;
+
+				CCLog("游戏结束");
+			}
+			break;
+		default:
+			CCLog("游戏命令:%d",Command.wSubCmdID);
+			break;
+		}
+	}
 	else 
 	{
 		CCLog("other---------- %d    %d",Command.wMainCmdID,Command.wSubCmdID);
@@ -231,8 +292,8 @@ void DefaultListerner1::OnOpen(TCPSocket* so)
 	memset(&logonUserID, 0, sizeof(CMD_GR_LogonUserID));
 
 	logonUserID.dwFrameVersion=VERSION_FRAME;
-	logonUserID.dwPlazaVersion=17235969;
-	logonUserID.dwProcessVersion= 17170433;
+	logonUserID.dwPlazaVersion=VERSION_PLAZA;
+	logonUserID.dwProcessVersion= VERSION_CLIENT;
 	logonUserID.dwUserID=DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID;
 	strcpy(logonUserID.szMachineID,"12");
 	strcpy(logonUserID.szPassPortID,"12");

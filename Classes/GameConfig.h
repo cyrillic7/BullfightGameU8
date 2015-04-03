@@ -7,6 +7,7 @@
 #define LISTENER_NAME "listener_plane_war"//监听通知名称
 #define LISTENER_LOGON "listener_logon"
 #define LISTENER_PLAY "listener_play"
+#define LISTENER_GAMEING "listener_gameing"
 #define SCENE_SIZE CCSize(1136,640)			//设计尺寸
 //#define CCS_PATH_SCENE(name) CCString::createWithFormat("publish/%s",(name))->getCString()
 #define CCS_PATH_SCENE(name) "publish/"#name

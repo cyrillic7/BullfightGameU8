@@ -218,7 +218,6 @@ void GameLobbyScene::menuSetUp(CCObject* pSender, TouchEventType type){
 		{
 			PopDialogBox *pdbSetUp = PopDialogBoxSetUp::create();
 			this->addChild(pdbSetUp);
-			pdbSetUp->playAnimation();
 		}
 		break;
 	default:
@@ -242,7 +241,6 @@ void GameLobbyScene::menuSelectMode(CCObject* pSender, TouchEventType type){
 void GameLobbyScene::popDialogBoxUserInfo(){
 	PopDialogBox *pdb = PopDialogBoxUserInfo::create();
 	this->addChild(pdb);
-	pdb->playAnimation();
 }
 void GameLobbyScene::enterLobbyByMode(int mode){
 	switch (mode)

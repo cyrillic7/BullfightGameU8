@@ -10,6 +10,9 @@
     <string>UIPopDialogBoxUserInfo.json</string>
     <string>UIPopDialogBoxLoading.json</string>
     <string>UIPopDialogBoxSetUp.json</string>
+    <string>UIPopDialogBoxHelp.json</string>
+    <string>UIPopDialogBoxFeedback.json</string>
+    <string>UIPopDialogBoxAbout.json</string>
   </JsonList>
   <CanvasSize>
     <Width>1136</Width>
@@ -37,7 +40,19 @@
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
+    <string>UIPanel.png</string>
+    <string>UIButton.png</string>
+    <string>UIUserInfo.png</string>
+    <string>UICheckBox.png</string>
+    <string>UIPanel.png</string>
+    <string>UIButton.png</string>
+    <string>UIUserInfo.png</string>
+    <string>UICheckBox.png</string>
+    <string>UIPanel.png</string>
+    <string>UIButton.png</string>
+    <string>UIUserInfo.png</string>
+    <string>UICheckBox.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxUserInfo.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxHelp.json</CurrentUIJson>
 </UIProject>

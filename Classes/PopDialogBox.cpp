@@ -7,7 +7,8 @@
 
 #include "PopDialogBox.h"
 PopDialogBox::PopDialogBox()
-:pUILayer(NULL){
+:pUILayer(NULL)
+,imageBg(NULL){
 	pUILayer = UILayer::create();
 	addChild(pUILayer);
 	
@@ -39,5 +40,11 @@ void PopDialogBox::menuBack(CCObject *object, TouchEventType type){
 		//this->getParent()->removeChild(this, true);
 		*/
 		this->removeFromParentAndCleanup(true);
+	}
+}
+void PopDialogBox::playAnimation(){
+	if (imageBg)
+	{
+		imageBg->runAction(CCEaseBackOut::create(CCScaleTo::create(0.2, 1)));
 	}
 }

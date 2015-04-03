@@ -56,9 +56,13 @@ void GameControl::onEnter(){
 		button = static_cast<UIButton*>(pBetting->getChildByName("bgImage")->getChildByName(CCString::createWithFormat("bettingButton%d",i+1)->getCString()));
 		button->addTouchEventListener(this, SEL_TouchEvent(&GameControl::menuBetting));
 	}
+	//添加监听事件
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(GameControl::onCallBanker),LISTENER_GAMEING,NULL);
 }
 void GameControl::onExit(){
 	CCLayer::onExit();
+	//移除监听事件 
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, LISTENER_GAMEING); 
 }
 void GameControl::menuPause(CCObject* pSender, TouchEventType type){
 	switch (type)
@@ -108,9 +112,9 @@ void GameControl::menuReady(CCObject* pSender, TouchEventType type){
 
 		bool isSend=TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_FRAME,SUB_GF_USER_READY);
 		//bool isSend=tcpID->ts.SendData(MDM_GR_USER,SUB_GR_USER_SITDOWN,&sit, sizeof(sit));
-		CCLog("gameIng:%d",isSend);
+		CCLog("ready send:%d",isSend);
 		//DataModel::sharedDataModel()->getMainScene()->stopTcpSocket();
-		/*
+		
 		//设置主状态为准备状态
 		DataModel::sharedDataModel()->getMainScene()->setGameState(MainScene::STATE_READY);
 		//处理按键
@@ -124,7 +128,7 @@ void GameControl::menuReady(CCObject* pSender, TouchEventType type){
 			CCNode *image = (CCNode *)arrayImage->objectAtIndex(i);
 			image->setVisible(false);
 		}
-		DataModel::sharedDataModel()->getMainScene()->onEventReadyFnish();*/
+		DataModel::sharedDataModel()->getMainScene()->onEventReadyFnish();
 	}
 		break;
 	default:
@@ -176,7 +180,7 @@ void GameControl::menuBetting(CCObject* pSender, TouchEventType type){
 void GameControl::updateState(){
 	switch (DataModel::sharedDataModel()->getMainScene()->getGameState())
 	{
-	case MainScene::STATE_FIGHT_BANKER:
+	case MainScene::STATE_CALL_BANKER:
 	{
 		bReady->setVisible(false);
 		pFightForBanker->setEnabled(true);
@@ -201,4 +205,7 @@ void GameControl::updateState(){
 	default:
 		break;
 	}
+}
+void GameControl::onCallBanker(CCObject *obj){
+	DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_CALL_BANKER);
 }

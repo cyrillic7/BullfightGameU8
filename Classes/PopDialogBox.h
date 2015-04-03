@@ -15,6 +15,9 @@ USING_NS_CC_EXT;
 using namespace ui;
 class PopDialogBox: public CCLayer {
 public:
+	UILayer * pUILayer;
+	UIImageView *imageBg;
+public:
 	PopDialogBox();
 	~PopDialogBox();
 
@@ -22,7 +25,8 @@ public:
 	void menuBack(CCObject *object, TouchEventType type);
 
 	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent){ return true; };
-	virtual void playAnimation(){};
-public:
-	UILayer * pUILayer;
+	//播放放大动画
+	void playAnimation();
+
+	
 };
