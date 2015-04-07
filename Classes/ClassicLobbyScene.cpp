@@ -17,6 +17,8 @@
 #include "DefaultListerner1.h"
 #include "DataModel.h"
 #include "PopDialogBoxLoading.h"
+#include "SocketThread.h"
+#include "MD5.h"
 ClassicLobbyScene::ClassicLobbyScene()
 :isDeleteList(false)
 ,isEnterGame(false)
@@ -41,14 +43,14 @@ CCScene* ClassicLobbyScene::scene()
     return scene;
 }
 void ClassicLobbyScene::onEnter(){
-	CCLayer::onEnter();
-	//添加背景
+	BaseLobbyScene::onEnter();
+	/*//添加背景
 	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
 	CCSprite *spriteBg=CCSprite::create("res/main_bg.jpg");
 	this->addChild(spriteBg);
 	spriteBg->setPosition(ccp(deviceSize.width/2,deviceSize.height/2));
 	float scale=deviceSize.height/spriteBg->getContentSize().height;
-	spriteBg->setScale(scale);
+	spriteBg->setScale(scale);*/
 
 	UILayer *m_pWidget = UILayer::create();
 	this->addChild(m_pWidget);
@@ -57,9 +59,9 @@ void ClassicLobbyScene::onEnter(){
 	UILayout *pWidget = dynamic_cast<UILayout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UIClassicLobby.ExportJson)));
 	m_pWidget->addWidget(pWidget);
 
-	UIButton* button = static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonUser"));
-	button->addTouchEventListener(this, SEL_TouchEvent(&ClassicLobbyScene::menuResetUser));
-
+	/*UIButton* button = static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonUser"));
+	button->addTouchEventListener(this, SEL_TouchEvent(&ClassicLobbyScene::menuResetUser));*/
+	UIButton* button=NULL;
 	for (int i = 0; i < 4; i++)
 	{
 		button = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("ButtonScene%d",i+1)->getCString()));
@@ -69,6 +71,7 @@ void ClassicLobbyScene::onEnter(){
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::callbackData),LISTENER_PLAY,NULL);
 
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::callbackData1),"configFinish",NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::onOpen),LISTENER_OPEN,NULL);
 
 	initTCPLogon();
 }
@@ -76,8 +79,9 @@ void ClassicLobbyScene::onExit(){
 	//移除监听事件 
 	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, LISTENER_PLAY); 
 	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, "configFinish"); 
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, LISTENER_OPEN); 
 
-	CCLayer::onExit();
+	BaseLobbyScene::onExit();
 }
 void ClassicLobbyScene::initTCPLogon(){
 	/*TCPLogonID *tcpID=TCPLogonID::create();
@@ -100,7 +104,7 @@ void ClassicLobbyScene::menuResetUser(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
 	case TOUCH_EVENT_ENDED:
-		popDialogBoxUserInfo();
+		popDialogBox();
 		break;
 	default:
 		break;
@@ -127,7 +131,7 @@ void ClassicLobbyScene::menuStar(CCObject* pSender, TouchEventType type){
 		break;
 	}
 }
-void ClassicLobbyScene::popDialogBoxUserInfo(){
+void ClassicLobbyScene::popDialogBox(){
 	TCPSocketControl::sharedTCPSocketControl()->stopSocket();
 	Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene());
 }
@@ -155,4 +159,36 @@ void ClassicLobbyScene::callbackData(CCObject *obj){
 void ClassicLobbyScene::callbackData1(CCObject *obj){
 	PopDialogBox *pdb=(PopDialogBoxLoading*)this->getChildByTag(189);
 	pdb->removeFromParentAndCleanup(true);
+}
+void ClassicLobbyScene::onOpen(CCObject *obj){
+	CMD_GR_LogonUserID logonUserID;
+	memset(&logonUserID, 0, sizeof(CMD_GR_LogonUserID));
+
+	logonUserID.dwFrameVersion=VERSION_FRAME;
+	logonUserID.dwPlazaVersion=VERSION_PLAZA;
+	logonUserID.dwProcessVersion= VERSION_CLIENT;
+	logonUserID.dwUserID=DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID;
+	strcpy(logonUserID.szMachineID,"12");
+	strcpy(logonUserID.szPassPortID,"12");
+
+	MD5 m;
+	MD5::char8 str[] = "z12345678";
+	m.ComputMd5(str, sizeof(str)-1);
+	std::string md5PassWord = m.GetMd5();
+	strcpy(logonUserID.szPassword,md5PassWord.c_str());
+
+	strcpy(logonUserID.szPhoneVerifyID,"1");
+	logonUserID.wKindID=DataModel::sharedDataModel()->tagGameServerList[0]->wKindID;
+
+	CCLog("房间名:%d",DataModel::sharedDataModel()->tagGameServerList[0]->wServerPort);
+
+	int luidSize=sizeof(CMD_GR_LogonUserID);
+	bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GR_LOGON, SUB_GR_LOGON_USERID, &logonUserID, sizeof(logonUserID));
+	CCLog("send:%d", isSend);
+
+	if (!isSend)
+	{
+		//stopTcpSocket();
+		return;
+	}
 }

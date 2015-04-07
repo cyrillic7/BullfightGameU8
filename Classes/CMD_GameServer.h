@@ -80,7 +80,7 @@ struct CMD_GR_LogonSuccess
 //登录失败
 struct CMD_GR_LogonFailure
 {
-	LONG							lErrorCode;							//错误代码
+	long							lErrorCode;							//错误代码
 	TCHAR							szDescribeString[128];				//描述消息
 };
 //////////////////////////////////////////////////////////////////////////////////

@@ -9,6 +9,7 @@
   <JsonList>
     <string>UIClassicLobby.json</string>
     <string>UIGameLobby.json</string>
+    <string>UIBaseLobby.json</string>
   </JsonList>
   <CanvasSize>
     <Width>1136</Width>
@@ -20,19 +21,23 @@
   <imageFileList>
     <string>UIGameLobby.plist</string>
     <string>UIClassicLobby.plist</string>
-    <string>UIUserInfo.plist</string>
     <string>UIMode.plist</string>
+    <string>UIUserInfo.plist</string>
   </imageFileList>
   <imagePngList>
     <string>UIGameLobby.png</string>
     <string>UIClassicLobby.png</string>
-    <string>UIUserInfo.png</string>
     <string>UIMode.png</string>
+    <string>UIUserInfo.png</string>
     <string>UIGameLobby.png</string>
     <string>UIClassicLobby.png</string>
-    <string>UIUserInfo.png</string>
     <string>UIMode.png</string>
+    <string>UIUserInfo.png</string>
+    <string>UIGameLobby.png</string>
+    <string>UIClassicLobby.png</string>
+    <string>UIMode.png</string>
+    <string>UIUserInfo.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIClassicLobby.json</CurrentUIJson>
+  <CurrentUIJson>UIBaseLobby.json</CurrentUIJson>
 </UIProject>

@@ -173,38 +173,6 @@ bool DefaultListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Com
 void DefaultListerner::OnOpen(TCPSocket* so)
 {
 	CCLog("open==========================");
-	CMD_MB_LogonAccounts logonAccounts;
-	//memset(&logonAccounts, 0, sizeof(CMD_MB_LogonAccounts));
-	logonAccounts.cbDeviceType = 2;
-	logonAccounts.dwPlazaVersion = 17235969;
-
-
-
-	strcpy(logonAccounts.szAccounts,"z40144322");
-	//strcpy(logonAccounts.szAccounts,"zhangh189");
-
-	strcpy(logonAccounts.szMachineID,"12");
-	strcpy(logonAccounts.szMobilePhone,"32");
-	strcpy(logonAccounts.szPassPortID,"12");
-	strcpy(logonAccounts.szPhoneVerifyID,"1");
-	//_tcscpy(logonAccounts.szMachineID, _TEXT("12"));
-	//_tcscpy(logonAccounts.szMobilePhone, _TEXT("32"));
-	//_tcscpy(logonAccounts.szPassPortID, _TEXT("12"));
-	//_tcscpy(logonAccounts.szPhoneVerifyID, _TEXT("1"));
-
-	logonAccounts.wModuleID = 210; //210为二人牛牛标示
-
-
-	MD5 m;
-	MD5::char8 str[] = "z12345678";
-	//MD5::char8 str[] = "z123456789";
-	m.ComputMd5(str, sizeof(str)-1);
-	std::string md5PassWord = m.GetMd5();
-
-	strcpy(logonAccounts.szPassword,md5PassWord.c_str());
-	//_tcscpy(logonAccounts.szPassword, _TEXT(md5PassWord.c_str()));
-
-	bool isSend = so->SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &logonAccounts, sizeof(logonAccounts));
-	CCLog("send:%d", isSend);
+	MTNotificationQueue::sharedNotificationQueue()->postNotification(LISTENER_OPEN,NULL);
 
 }

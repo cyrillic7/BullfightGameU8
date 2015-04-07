@@ -208,7 +208,7 @@ void GameControl::menuBetting(CCObject* pSender, TouchEventType type){
 		pBetting->setEnabled(false);
 		UIButton *button=(UIButton*)pSender;
 		int bTemp=button->getTag();
-		__int64 lCurrentScore=0;
+		long long lCurrentScore=0;
 		if(bTemp==1)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore/8,1L);
 		else if(bTemp==2)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore/4,1L);
 		else if(bTemp==3)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore/2,1L);
@@ -263,7 +263,7 @@ void GameControl::onCallBanker(CCObject *obj){
 void GameControl::onAddScore(CCObject *obj){
 	for (int i = 0; i < 4; i++)
 	{
-		__int64 lCurrentScore=0;
+		long long lCurrentScore=0;
 		if(i==0)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore/8,1L);
 		else if(i==1)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore/4,1L);
 		else if(i==2)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore/2,1L);

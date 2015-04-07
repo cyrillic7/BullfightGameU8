@@ -12,7 +12,7 @@
 #define MAX_TIMES						5									//最大赔率
 
 #define VERSION_SERVER					PROCESS_VERSION(2,0,1)				//程序版本
-#define VERSION_CLIENT					PROCESS_VERSION(2,0,1)				//程序版本
+//#define VERSION_CLIENT					PROCESS_VERSION(2,0,1)				//程序版本
 
 //结束原因
 #define GER_NO_PLAYER					0x10								//没有玩家

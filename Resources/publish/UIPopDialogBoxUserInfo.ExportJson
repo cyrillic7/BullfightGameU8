@@ -13,13 +13,19 @@
     "UIPanel.plist",
     "UIButton.plist",
     "UIUserInfo.plist",
-    "UICheckBox.plist"
+    "UICheckBox.plist",
+    "UITask.plist",
+    "UILoadingBar.plist",
+    "UIRanking.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
     "UIUserInfo.png",
-    "UICheckBox.png"
+    "UICheckBox.png",
+    "UITask.png",
+    "UILoadingBar.png",
+    "UIRanking.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -1684,13 +1690,13 @@
                   "layoutParameter": null,
                   "opacity": 255,
                   "positionPercentX": 0.105263159,
-                  "positionPercentY": 0.003161631,
+                  "positionPercentY": 0,
                   "positionType": 0,
                   "rotation": 0,
                   "scaleX": 1,
                   "scaleY": 1,
-                  "sizePercentX": 0.625,
-                  "sizePercentY": 0.465517253,
+                  "sizePercentX": 0.6315789,
+                  "sizePercentY": 0.5344828,
                   "sizeType": 0,
                   "tag": 167,
                   "touchAble": false,

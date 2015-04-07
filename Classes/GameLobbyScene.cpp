@@ -133,14 +133,14 @@ CCScene* GameLobbyScene::scene()
     return scene;
 }
 void GameLobbyScene::onEnter(){
-	CCLayer::onEnter();
-	//添加背景
+	BaseLobbyScene::onEnter();
+	/*//添加背景
 	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
 	CCSprite *spriteBg=CCSprite::create("res/main_bg.jpg");
 	this->addChild(spriteBg);
 	spriteBg->setPosition(ccp(deviceSize.width/2,deviceSize.height/2));
 	float scale=deviceSize.height/spriteBg->getContentSize().height;
-	spriteBg->setScale(scale);
+	spriteBg->setScale(scale);*/
 	
 	UILayer *m_pWidget = UILayer::create();
 	this->addChild(m_pWidget);
@@ -149,11 +149,12 @@ void GameLobbyScene::onEnter(){
 	UILayout *pWidget = dynamic_cast<UILayout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UIGameLobby.ExportJson)));
 	m_pWidget->addWidget(pWidget);
 
-	UIButton* button = static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonUser"));
+	/*UIButton* button = static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonUser"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&GameLobbyScene::menuResetUser));
 
 	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonSetUp"));
-	button->addTouchEventListener(this, SEL_TouchEvent(&GameLobbyScene::menuSetUp));
+	button->addTouchEventListener(this, SEL_TouchEvent(&GameLobbyScene::menuSetUp));*/
+	UIButton* button=NULL;
 	for (int i = 0; i < 3;i++)
 	{
 		button = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("buttonMode%d",i+1)->getCString()));
@@ -161,13 +162,57 @@ void GameLobbyScene::onEnter(){
 	}
 	scroll=static_cast<UIScrollView*>(m_pWidget->getWidgetByName("ScrollView"));
 	scroll->setInnerContainerSize(scroll->getContentSize());
-	//用户名
+	/*//用户名
 	userName=static_cast<UILabel*>(m_pWidget->getWidgetByName("labelUserName"));
 	//金币
-	pLabelGoldCount=static_cast<UILabel*>(m_pWidget->getWidgetByName("LabelGoldCount"));
+	pLabelGoldCount=static_cast<UILabel*>(m_pWidget->getWidgetByName("LabelGoldCount"));*/
 	//添加监听事件
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(GameLobbyScene::callbackData),LISTENER_LOGON,NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(GameLobbyScene::onOpen),LISTENER_OPEN,NULL);
 	initTCPLogon();
+}
+
+void GameLobbyScene::onExit(){
+	//移除监听事件 
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, LISTENER_LOGON); 
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, LISTENER_OPEN); 
+
+	BaseLobbyScene::onExit();
+}
+void GameLobbyScene::onOpen(CCObject *obj){
+	CMD_MB_LogonAccounts logonAccounts;
+	//memset(&logonAccounts, 0, sizeof(CMD_MB_LogonAccounts));
+	logonAccounts.cbDeviceType = 2;
+	logonAccounts.dwPlazaVersion = 17235969;
+
+
+
+	strcpy(logonAccounts.szAccounts,"z40144322");
+	//strcpy(logonAccounts.szAccounts,"zhangh189");
+
+	strcpy(logonAccounts.szMachineID,"12");
+	strcpy(logonAccounts.szMobilePhone,"32");
+	strcpy(logonAccounts.szPassPortID,"12");
+	strcpy(logonAccounts.szPhoneVerifyID,"1");
+	//_tcscpy(logonAccounts.szMachineID, _TEXT("12"));
+	//_tcscpy(logonAccounts.szMobilePhone, _TEXT("32"));
+	//_tcscpy(logonAccounts.szPassPortID, _TEXT("12"));
+	//_tcscpy(logonAccounts.szPhoneVerifyID, _TEXT("1"));
+
+	logonAccounts.wModuleID = 210; //210为二人牛牛标示
+
+
+	MD5 m;
+	MD5::char8 str[] = "z12345678";
+	//MD5::char8 str[] = "z123456789";
+	m.ComputMd5(str, sizeof(str)-1);
+	std::string md5PassWord = m.GetMd5();
+
+	strcpy(logonAccounts.szPassword,md5PassWord.c_str());
+	//_tcscpy(logonAccounts.szPassword, _TEXT(md5PassWord.c_str()));
+
+	bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &logonAccounts, sizeof(logonAccounts));
+	CCLog("send:%d", isSend);
 }
 void GameLobbyScene::callbackData(CCObject *obj){
 	//CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)obj;
@@ -176,12 +221,12 @@ void GameLobbyScene::callbackData(CCObject *obj){
 	//////////////////////////////////////////////////////////////////////////
 	//设置用户名
 	char *name=DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName;
-	userName->setText(UTEXT(name));
+//	userName->setText(UTEXT(name));
 	
 	deleteSocket=true;
 }
 void GameLobbyScene::update(float dt){
-	char *name=DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName;
+	/*char *name=DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName;
     if(strcmp(userName->getStringValue(),"游客")==0&&strcmp(name, "") != 0)
 	{
 		userName->setText(UTEXT(name));
@@ -193,19 +238,13 @@ void GameLobbyScene::update(float dt){
 		TCPSocketControl::sharedTCPSocketControl()->stopSocket();
 		deleteSocket=false;
 		CCLog("2222222222222");
-	}
-}
-void GameLobbyScene::onExit(){
-	//移除监听事件 
-	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, LISTENER_LOGON); 
-
-	CCLayer::onExit();
+	}*/
 }
 void GameLobbyScene::menuResetUser(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
 	case TOUCH_EVENT_ENDED:
-		popDialogBoxUserInfo();
+		popDialogBox();
 		break;
 	default:
 		break;
@@ -238,7 +277,7 @@ void GameLobbyScene::menuSelectMode(CCObject* pSender, TouchEventType type){
 	}
 }
 
-void GameLobbyScene::popDialogBoxUserInfo(){
+void GameLobbyScene::popDialogBox(){
 	PopDialogBox *pdb = PopDialogBoxUserInfo::create();
 	this->addChild(pdb);
 }

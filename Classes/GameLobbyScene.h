@@ -4,10 +4,11 @@
 //
 #pragma once
 #include "cocos-ext.h"
+#include "BaseLobbyScene.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
-class GameLobbyScene:public CCLayer
+class GameLobbyScene:public BaseLobbyScene
 {
 public:
 	enum ModeType
@@ -31,13 +32,14 @@ public:
     CREATE_FUNC(GameLobbyScene);
 
 	void callbackData(CCObject *obj);
+	void onOpen(CCObject *obj);
 private:
 	//
 	bool deleteSocket;
 	void update(float dt);
 	void initTCPLogon();
 	//弹出框
-	void popDialogBoxUserInfo();
+	void popDialogBox();
 	//菜单设置用户信息
 	void menuResetUser(CCObject* pSender, TouchEventType type);
 	//菜单设置

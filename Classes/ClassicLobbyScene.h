@@ -4,10 +4,11 @@
 //
 #pragma once
 #include "cocos-ext.h"
+#include "BaseLobbyScene.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
-class ClassicLobbyScene:public CCLayer
+class ClassicLobbyScene:public BaseLobbyScene
 {
 private:
 	enum GameLevel
@@ -26,9 +27,10 @@ public:
     CREATE_FUNC(ClassicLobbyScene);
 private:
 	void update(float delta);
+	
 	void initTCPLogon();
 	//弹出框
-	void popDialogBoxUserInfo();
+	void popDialogBox();
 	//菜单设置用户信息
 	void menuResetUser(CCObject* pSender, TouchEventType type);
 	void menuStar(CCObject* pSender, TouchEventType type);
@@ -37,4 +39,5 @@ private:
 
 	void callbackData(CCObject *obj);
 	void callbackData1(CCObject *obj);
+	void onOpen(CCObject *obj);
 };

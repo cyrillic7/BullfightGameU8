@@ -17,10 +17,9 @@
 #include "cmd_ox.h"
 #include "cocos2d.h"
 #include "QueueData.h"
+#include "GameConfig.h"
 using namespace std;
-#define VERSION_FRAME				16777217
-#define VERSION_CLIENT				17170433
-#define VERSION_PLAZA 				17235969
+
 DefaultListerner1::DefaultListerner1()
 {
 }
@@ -368,34 +367,5 @@ bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Co
 void DefaultListerner1::OnOpen(TCPSocket* so)
 {
 	CCLog("open22222==========================");
-	CMD_GR_LogonUserID logonUserID;
-	memset(&logonUserID, 0, sizeof(CMD_GR_LogonUserID));
-
-	logonUserID.dwFrameVersion=VERSION_FRAME;
-	logonUserID.dwPlazaVersion=VERSION_PLAZA;
-	logonUserID.dwProcessVersion= VERSION_CLIENT;
-	logonUserID.dwUserID=DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID;
-	strcpy(logonUserID.szMachineID,"12");
-	strcpy(logonUserID.szPassPortID,"12");
-
-	MD5 m;
-	MD5::char8 str[] = "z12345678";
-	m.ComputMd5(str, sizeof(str)-1);
-	std::string md5PassWord = m.GetMd5();
-	strcpy(logonUserID.szPassword,md5PassWord.c_str());
-
-	strcpy(logonUserID.szPhoneVerifyID,"1");
-	logonUserID.wKindID=DataModel::sharedDataModel()->tagGameServerList[0]->wKindID;
-
-	CCLog("房间名:%d",DataModel::sharedDataModel()->tagGameServerList[0]->wServerPort);
-
-	int luidSize=sizeof(CMD_GR_LogonUserID);
-	bool isSend = so->SendData(MDM_GR_LOGON, SUB_GR_LOGON_USERID, &logonUserID, sizeof(logonUserID));
-	CCLog("send:%d", isSend);
-
-	if (!isSend)
-	{
-		//stopTcpSocket();
-		return;
-	}
+	MTNotificationQueue::sharedNotificationQueue()->postNotification(LISTENER_OPEN,NULL);
 }
