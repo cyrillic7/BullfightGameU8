@@ -7,7 +7,10 @@
 #define LISTENER_NAME "listener_plane_war"//监听通知名称
 #define LISTENER_LOGON "listener_logon"
 #define LISTENER_PLAY "listener_play"
-#define LISTENER_GAMEING "listener_gameing"
+//#define LISTENER_GAMEING "listener_gameing"
+#define LISTENER_CALL_BANKER "callBanker"
+#define LISTENER_ADD_SCORE "addScore"		//加注
+#define LISTENER_SEND_CARD "sendCard"		//发牌
 #define SCENE_SIZE CCSize(1136,640)			//设计尺寸
 //#define CCS_PATH_SCENE(name) CCString::createWithFormat("publish/%s",(name))->getCString()
 #define CCS_PATH_SCENE(name) "publish/"#name

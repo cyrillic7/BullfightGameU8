@@ -75,6 +75,7 @@ bool DefaultListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Com
 			long code = lf->lResultCode;
 			char *describeStr = lf->szDescribeString;
 			//CCLog("%s", describeStr);
+			CCLog("登录失败");
 		}
 	}
 	//登录成功

@@ -16,6 +16,7 @@
 //#include "iconv.h"
 #include "cmd_ox.h"
 #include "cocos2d.h"
+#include "QueueData.h"
 using namespace std;
 #define VERSION_FRAME				16777217
 #define VERSION_CLIENT				17170433
@@ -71,6 +72,14 @@ bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Co
 
 			CMD_GR_LogonSuccess *lf = (CMD_GR_LogonSuccess*)pDataBuffer;
 			CCLog("登录成功");
+		}
+		if (Command.wSubCmdID==SUB_GR_LOGON_FAILURE)
+		{
+			//assert(wDataSize >= sizeof(CMD_GR_LogonFailure));
+			//if (wDataSize < sizeof(CMD_GR_LogonFailure)) return false;
+			
+			CMD_GR_LogonFailure *lf = (CMD_GR_LogonFailure*)pDataBuffer;
+			CCLog("登录失败:%s",lf->szDescribeString);
 		}
 	}
 	else if (Command.wMainCmdID==MDM_GR_CONFIG)
@@ -226,7 +235,29 @@ bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Co
 			{
 				int size=wDataSize;
 				CMD_S_CallBanker *callBanker=(CMD_S_CallBanker*)pDataBuffer;
-				CCLog("用户叫庄");
+				if (callBanker->bFirstTimes)
+				{
+					if (callBanker->wCallBanker==1)
+					{
+						CCLog("首次自己叫庄");
+						MTNotificationQueue::sharedNotificationQueue()->postNotification(LISTENER_CALL_BANKER,NULL);
+					}else
+					{
+						CCLog("首次对方叫庄");
+					}
+				}else
+				{
+					if (callBanker->wCallBanker==1)
+					{
+						CCLog("自己叫庄");
+						MTNotificationQueue::sharedNotificationQueue()->postNotification(LISTENER_CALL_BANKER,NULL);
+
+					}else
+					{
+						CCLog("对方叫庄");
+					}
+				}
+				//CCLog("用户叫庄");
 			}
 			break;
 		case SUB_S_GAME_START:
@@ -235,7 +266,15 @@ bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Co
 				if (wDataSize!=sizeof(CMD_S_GameStart)) return false;
 				CMD_S_GameStart * pGameStart=(CMD_S_GameStart *)pDataBuffer;
 				//int size=wDataSize;
-				CCLog("游戏开始 ");
+				CCLog("庄家:%d   最大:::%ld",pGameStart->wBankerUser,pGameStart->lTurnMaxScore);
+				//CCLog("游戏开始 ");
+				DataModel::sharedDataModel()->m_lTurnMaxScore=pGameStart->lTurnMaxScore;
+
+				QueueData *qData=new QueueData();
+				qData->Command=Command;
+				qData->pDataBuffer=pDataBuffer;
+				//qData->pDataBuffer=memcpy() pDataBuffer;
+				MTNotificationQueue::sharedNotificationQueue()->postNotification(LISTENER_ADD_SCORE,qData);
 			}
 			break;
 		case SUB_S_ADD_SCORE:
@@ -253,6 +292,38 @@ bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Co
 				//效验数据
 				if (wDataSize!=sizeof(CMD_S_SendCard)) return false;
 				CMD_S_SendCard * pSendCard=(CMD_S_SendCard *)pDataBuffer;
+				CCLog("");
+				for (int i = 0; i < 5; i++)
+				{
+					DataModel::sharedDataModel()->card[1][i]=pSendCard->cbCardData[1][i];
+				}
+				MTNotificationQueue::sharedNotificationQueue()->postNotification(LISTENER_SEND_CARD,NULL);
+				//{修改发牌方式 2010-01-13
+				for(WORD i=0;i<MAX_COUNT;i++)
+				{
+					/*for (WORD j=m_wBankerUser;j<m_wBankerUser+GAME_PLAYER;j++)
+					{
+						WORD w=j%GAME_PLAYER;
+						if (m_cbPlayStatus[w]==TRUE)
+						{
+							WORD wViewChairID=m_wViewChairID[w];
+							if(pSendCard->cbCardData[w][i]!=0&&w==GetMeChairID())
+							{
+								BYTE cbCardData[MAX_COUNT];
+								BYTE cbCardCount=(BYTE)m_GameClientView.m_CardControl[wViewChairID].GetCardData(cbCardData,CountArray(cbCardData));
+
+								cbCardData[cbCardCount++]=m_cbHandCardData[w][i];
+								m_GameClientView.m_CardControl[wViewChairID].SetCardData(cbCardData,cbCardCount);
+							}else{
+								BYTE cbCardData[MAX_COUNT];
+								BYTE cbCardCount=(BYTE)m_GameClientView.m_CardControl[wViewChairID].GetCardData(cbCardData,CountArray(cbCardData));
+
+								cbCardData[cbCardCount++]=m_cbHandCardData[w%GAME_PLAYER][i];
+								m_GameClientView.m_CardControl[wViewChairID].SetCardData(cbCardData,cbCardCount);
+							}
+						}
+					}*/
+				}
 			}
 			break;
 		case SUB_S_OPEN_CARD:
@@ -269,7 +340,16 @@ bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Co
 				//效验参数
 				if (wDataSize!=sizeof(CMD_S_GameEnd)) return false;
 				CMD_S_GameEnd * pGameEnd=(CMD_S_GameEnd *)pDataBuffer;
-
+				for (int i = 0; i < 2; i++)
+				{
+					for (int j = 0; j < 5; j++)
+					{
+						int color=DataModel::sharedDataModel()->gameLogic->GetCardColor(pGameEnd->cbCardData[i][j]);
+						int value=DataModel::sharedDataModel()->gameLogic->GetCardValue(pGameEnd->cbCardData[i][j]);
+						CCLog("---------color:%d  value:%d",color,value);
+					}
+				}
+				
 				CCLog("游戏结束");
 			}
 			break;

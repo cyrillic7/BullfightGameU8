@@ -14,6 +14,8 @@
 #include "TCPSocketControl.h"
 #include "Packet.h"
 #include "CMD_GameServer.h"
+#include "cmd_ox.h"
+#include "QueueData.h"
 void GameControl::onEnter(){
 	CCLayer::onEnter();
 	UILayer *m_pWidget = UILayer::create();
@@ -53,16 +55,21 @@ void GameControl::onEnter(){
 	pBetting->setEnabled(false);
 	for (int i = 0; i < 4; i++)
 	{
-		button = static_cast<UIButton*>(pBetting->getChildByName("bgImage")->getChildByName(CCString::createWithFormat("bettingButton%d",i+1)->getCString()));
-		button->addTouchEventListener(this, SEL_TouchEvent(&GameControl::menuBetting));
+		pbBetting[i] = static_cast<UIButton*>(pBetting->getChildByName("bgImage")->getChildByName(CCString::createWithFormat("bettingButton%d",i+1)->getCString()));
+		pbBetting[i]->addTouchEventListener(this, SEL_TouchEvent(&GameControl::menuBetting));
 	}
 	//添加监听事件
-	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(GameControl::onCallBanker),LISTENER_GAMEING,NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(GameControl::onCallBanker),LISTENER_CALL_BANKER,NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(GameControl::onAddScore),LISTENER_ADD_SCORE,NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(GameControl::onSendCard),LISTENER_SEND_CARD,NULL);
+
 }
 void GameControl::onExit(){
 	CCLayer::onExit();
 	//移除监听事件 
-	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, LISTENER_GAMEING); 
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, LISTENER_CALL_BANKER); 
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, LISTENER_ADD_SCORE); 
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, LISTENER_SEND_CARD); 
 }
 void GameControl::menuPause(CCObject* pSender, TouchEventType type){
 	switch (type)
@@ -82,7 +89,18 @@ void GameControl::menuCancel(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_SETTLE_ACCOUNFS);
+		/*//发送消息
+		CMD_C_OxCard OxCard;
+		OxCard.bOX=(m_GameClientView.m_CardControl[wViewChairID].GetOX())?TRUE:FALSE;
+		SendSocketData(SUB_C_OPEN_CARD,&OxCard,sizeof(OxCard));
+		//DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_SETTLE_ACCOUNFS);*/
+
+		CMD_C_OxCard OxCard;
+		OxCard.bOX=DataModel::sharedDataModel()->gameLogic->GetOxCard(DataModel::sharedDataModel()->card[1],5);
+		//发送信息
+		bool isSend=TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_GAME,SUB_C_OPEN_CARD,&OxCard,sizeof(OxCard));
+		CCLog("OxCard:%d",isSend);
+		DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_WAIT);
 	}
 		break;
 	default:
@@ -142,7 +160,16 @@ void GameControl::menuNotFight(CCObject* pSender, TouchEventType type){
 	case TOUCH_EVENT_ENDED:
 	{
 		pFightForBanker->setEnabled(false);
-		DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_BETTING);
+		//DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_BETTING);
+		DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_WAIT);
+
+		//设置变量
+		CMD_C_CallBanker CallBanker;
+		CallBanker.bBanker = (BYTE)0;
+
+		//发送信息
+		TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_GAME,SUB_C_CALL_BANKER,&CallBanker,sizeof(CallBanker));
+		//SendSocketData(SUB_C_CALL_BANKER,&CallBanker,sizeof(CallBanker));
 	}
 		break;
 	default:
@@ -156,7 +183,16 @@ void GameControl::menuFight(CCObject* pSender, TouchEventType type){
 	case TOUCH_EVENT_ENDED:
 	{
 		pFightForBanker->setEnabled(false);
-		DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_OPT_OX);
+		//DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_OPT_OX);
+		DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_WAIT);
+
+		//设置变量
+		CMD_C_CallBanker CallBanker;
+		CallBanker.bBanker = (BYTE)1;
+
+		//发送信息
+		TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_GAME,SUB_C_CALL_BANKER,&CallBanker,sizeof(CallBanker));
+		//SendSocketData(SUB_C_CALL_BANKER,&CallBanker,sizeof(CallBanker));
 	}
 		break;
 	default:
@@ -170,7 +206,22 @@ void GameControl::menuBetting(CCObject* pSender, TouchEventType type){
 	case TOUCH_EVENT_ENDED:
 	{
 		pBetting->setEnabled(false);
-		DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_OPT_OX);
+		UIButton *button=(UIButton*)pSender;
+		int bTemp=button->getTag();
+		__int64 lCurrentScore=0;
+		if(bTemp==1)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore/8,1L);
+		else if(bTemp==2)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore/4,1L);
+		else if(bTemp==3)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore/2,1L);
+		else if(bTemp==4)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore,1L);
+
+		//DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_OPT_OX);
+		DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_WAIT);
+
+		//发送消息
+		CMD_C_AddScore AddScore;
+		AddScore.lScore=lCurrentScore;
+		//发送信息
+		TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_GAME,SUB_C_ADD_SCORE,&AddScore,sizeof(AddScore));
 	}
 		break;
 	default:
@@ -208,4 +259,26 @@ void GameControl::updateState(){
 }
 void GameControl::onCallBanker(CCObject *obj){
 	DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_CALL_BANKER);
+}
+void GameControl::onAddScore(CCObject *obj){
+	for (int i = 0; i < 4; i++)
+	{
+		__int64 lCurrentScore=0;
+		if(i==0)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore/8,1L);
+		else if(i==1)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore/4,1L);
+		else if(i==2)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore/2,1L);
+		else if(i==3)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore,1L);
+		pbBetting[i]->setTitleText(CCString::createWithFormat("%d",lCurrentScore)->getCString());
+	}
+	QueueData * pQueueStart=(QueueData*)obj;
+	CMD_S_GameStart *pGameStart=(CMD_S_GameStart*)pQueueStart->pDataBuffer;
+	CCLog("maxScore:%ld",pGameStart->lTurnMaxScore);
+
+	DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_BETTING);
+
+	CC_SAFE_DELETE(pQueueStart);
+}
+void GameControl::onSendCard(CCObject *obj){
+	//DataModel::sharedDataModel()->getMainScene()->cardLayer
+	DataModel::sharedDataModel()->getMainScene()->setServerStateWithUpdate(MainScene::STATE_SEND_CARD);
 }

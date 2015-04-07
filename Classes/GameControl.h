@@ -25,6 +25,8 @@ private:
 	UIPanel *pOptOx;
 	//投注容器
 	UIPanel *pBetting;
+	//加注按键
+	UIButton *pbBetting[4];
 public:
 	virtual void onEnter();
 	virtual void onExit();
@@ -48,6 +50,8 @@ private:
 	void menuBetting(CCObject* pSender, TouchEventType type);
 	//////////////////////////////////////////////////////////////////////////
 	void onCallBanker(CCObject *obj);
+	void onAddScore(CCObject *obj);
+	void onSendCard(CCObject *obj);
 };
 
 #endif /* defined(__BullfightGame__GameHUD__) */

@@ -117,13 +117,24 @@ void CardLayer::sendFiveCard(int index,int offsetIndex){
 	for (int i = 0; i < MAX_CARD_COUNT; i++)
 	{
 		Card *cardMove = Card::create();
-		cardMove->createCardArmature(batchCard, 5, 0, 1);
+		if (index==2)
+		{
+			//BYTE mCrad[5] =DataModel::sharedDataModel()->card[1];
+			int cardColor = DataModel::sharedDataModel()->gameLogic->GetCardColor(DataModel::sharedDataModel()->card[1][i])/16;
+			int cardValue = DataModel::sharedDataModel()->gameLogic->GetCardValue(DataModel::sharedDataModel()->card[1][i]);
+			CCLog("Color:%d   values:%d",cardColor,cardValue);
+			cardMove->createCardArmature(batchCard, cardColor, cardValue, 1);
+		}else
+		{
+			cardMove->createCardArmature(batchCard, 5, 0, 1);
+		}
+		
 		this->addChild(cardMove);
 		cardMove->m_cpArmatureCard->setScale(0.3);
 		int offx = rand() % 3;
 		int offy = rand() % 3;
 		cardMove->m_cpArmatureCard->setPosition(ccp(DataModel::sharedDataModel()->deviceSize.width / 2 + offx, DataModel::sharedDataModel()->deviceSize.height / 2 + offy));
-		CCPoint offPos = ccp(60+i*20,0);
+		CCPoint offPos = ccp(60+i*50,0);
 		moveCardAction(cardMove->m_cpArmatureCard, (index-offsetIndex)*SEND_CARD_DELAY_TIME*MAX_CARD_COUNT + i*SEND_CARD_DELAY_TIME, ccpAdd(cardPos, offPos),index);
 	}
 
@@ -144,7 +155,7 @@ void CardLayer::onSendCardFinish(){
 	sSendCardCount++;
 	if (sSendCardCount==getCurAllCardCount()*MAX_CARD_COUNT)
 	{
-		DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_CALL_BANKER);
+		DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_OPT_OX);
 		//DataModel::sharedDataModel()->getMainScene()->setServerStateWithUpdate(MainScene::STATE_FIGHT_BANKER);
 	}
 }

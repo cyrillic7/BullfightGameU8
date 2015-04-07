@@ -77,6 +77,12 @@ struct CMD_GR_LogonSuccess
 	DWORD							dwUserRight;						//用户权限
 	DWORD							dwMasterRight;						//管理权限
 };
+//登录失败
+struct CMD_GR_LogonFailure
+{
+	LONG							lErrorCode;							//错误代码
+	TCHAR							szDescribeString[128];				//描述消息
+};
 //////////////////////////////////////////////////////////////////////////////////
 //配置命令
 

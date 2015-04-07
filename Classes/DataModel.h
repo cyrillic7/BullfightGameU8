@@ -26,5 +26,7 @@ public:
 	std::vector <tagGameServer *> tagGameServerList;
 
 	CMD_MB_LogonSuccess *logonSuccessUserInfo;
+	int m_lTurnMaxScore;//最大加注数
+	BYTE card[2][5];
 	//tagGameServer *tagGameServerList[];
 };

@@ -466,7 +466,7 @@
                     "resourceType": 0
                   },
                   "fontName": "微软雅黑",
-                  "fontSize": 14,
+                  "fontSize": 30,
                   "fontType": 0,
                   "normal": null,
                   "normalData": {
@@ -483,7 +483,7 @@
                   "scale9Enable": false,
                   "scale9Height": 67,
                   "scale9Width": 90,
-                  "text": "",
+                  "text": "修改",
                   "textColorB": 255,
                   "textColorG": 255,
                   "textColorR": 255
@@ -631,7 +631,7 @@
                   "tag": 40,
                   "touchAble": false,
                   "useMergedTexture": true,
-                  "visible": true,
+                  "visible": false,
                   "width": 210,
                   "x": -121,
                   "y": 20,
@@ -1659,6 +1659,56 @@
                   "scale9Height": 36,
                   "scale9Width": 35
                 }
+              },
+              {
+                "classname": "Label",
+                "name": null,
+                "children": [],
+                "options": {
+                  "__type": "LabelSurrogate:#EditorCommon.JsonModel.Component.GUI",
+                  "classname": "Label",
+                  "name": "Label_7",
+                  "ZOrder": 0,
+                  "actiontag": 1993291,
+                  "anchorPointX": 0.5,
+                  "anchorPointY": 0.5,
+                  "classType": "CocoStudio.EngineAdapterWrap.CSLabel",
+                  "colorB": 255,
+                  "colorG": 255,
+                  "colorR": 255,
+                  "customProperty": "",
+                  "flipX": false,
+                  "flipY": false,
+                  "height": 31,
+                  "ignoreSize": true,
+                  "layoutParameter": null,
+                  "opacity": 255,
+                  "positionPercentX": 0.105263159,
+                  "positionPercentY": 0.003161631,
+                  "positionType": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "sizePercentX": 0.625,
+                  "sizePercentY": 0.465517253,
+                  "sizeType": 0,
+                  "tag": 167,
+                  "touchAble": false,
+                  "useMergedTexture": true,
+                  "visible": true,
+                  "width": 96,
+                  "x": 16,
+                  "y": 0,
+                  "areaHeight": 0,
+                  "areaWidth": 0,
+                  "fontFile": null,
+                  "fontName": "微软雅黑",
+                  "fontSize": 24,
+                  "hAlignment": 0,
+                  "text": "绑定手机",
+                  "touchScaleEnable": false,
+                  "vAlignment": 0
+                }
               }
             ],
             "options": {
@@ -1707,7 +1757,7 @@
                 "resourceType": 0
               },
               "fontName": "微软雅黑",
-              "fontSize": 14,
+              "fontSize": 28,
               "fontType": 0,
               "normal": null,
               "normalData": {

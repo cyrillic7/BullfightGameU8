@@ -54,5 +54,5 @@
     <string>UICheckBox.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxHelp.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxFeedback.json</CurrentUIJson>
 </UIProject>

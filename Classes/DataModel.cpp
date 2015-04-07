@@ -13,6 +13,7 @@ bool DataModel::isMusic = true;
 DataModel* _sharedContext;
 DataModel::DataModel()
 :isSit(false)
+,m_lTurnMaxScore(0)
 {
 	DataModel::isMusic = Tools::getBoolByRMS(RMS_IS_MUSIC);
 	DataModel::isSound = Tools::getBoolByRMS(RMS_IS_SOUND);
