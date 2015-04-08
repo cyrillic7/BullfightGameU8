@@ -268,7 +268,7 @@ bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Co
 				if (wDataSize!=sizeof(CMD_S_GameStart)) return false;
 				CMD_S_GameStart * pGameStart=(CMD_S_GameStart *)pDataBuffer;
 				//int size=wDataSize;
-				CCLog("庄家:%d   最大:::%ld",pGameStart->wBankerUser,pGameStart->lTurnMaxScore);
+				CCLog("庄家:%d   最大:::%lld",pGameStart->wBankerUser,pGameStart->lTurnMaxScore);
 				//CCLog("游戏开始 ");
 				DataModel::sharedDataModel()->m_lTurnMaxScore=pGameStart->lTurnMaxScore;
 

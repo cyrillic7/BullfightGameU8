@@ -101,6 +101,7 @@ void TCPSocketControl::stopSocket(){
 
 	//delete _sharedTCPSocketControl;
 	//_sharedTCPSocketControl=NULL;
+
 	//thread_
 	//delete tcp;
 	//tcp=NULL;

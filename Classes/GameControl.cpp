@@ -268,11 +268,11 @@ void GameControl::onAddScore(CCObject *obj){
 		else if(i==1)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore/4,1L);
 		else if(i==2)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore/2,1L);
 		else if(i==3)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore,1L);
-		pbBetting[i]->setTitleText(CCString::createWithFormat("%d",lCurrentScore)->getCString());
+		pbBetting[i]->setTitleText(CCString::createWithFormat("%lld",lCurrentScore)->getCString());
 	}
 	QueueData * pQueueStart=(QueueData*)obj;
 	CMD_S_GameStart *pGameStart=(CMD_S_GameStart*)pQueueStart->pDataBuffer;
-	CCLog("maxScore:%ld",pGameStart->lTurnMaxScore);
+	CCLog("maxScore:%lld",pGameStart->lTurnMaxScore);
 
 	DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_BETTING);
 

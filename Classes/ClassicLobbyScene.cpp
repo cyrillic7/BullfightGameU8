@@ -23,6 +23,7 @@ ClassicLobbyScene::ClassicLobbyScene()
 :isDeleteList(false)
 ,isEnterGame(false)
 {
+	DataModel::sharedDataModel()->isSit=false;
 	scheduleUpdate();
 }
 ClassicLobbyScene::~ClassicLobbyScene(){
@@ -148,8 +149,8 @@ void ClassicLobbyScene::enterMainSceneByMode(int mode){
 void ClassicLobbyScene::update(float delta){
 	if (DataModel::sharedDataModel()->isSit)
 	{
-		enterMainSceneByMode(1);
 		DataModel::sharedDataModel()->isSit=false;
+		enterMainSceneByMode(1);
 	}
 }
 void ClassicLobbyScene::callbackData(CCObject *obj){
