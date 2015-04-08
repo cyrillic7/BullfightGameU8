@@ -22,5 +22,5 @@ void PopDialogBoxLoading::onExit(){
 	CCLayer::onExit();
 }
 void PopDialogBoxLoading::playAnimation(){
-	imageBg->runAction(CCEaseBackOut::create(CCScaleTo::create(0.2, 1)));
+	pWidgetBg->runAction(CCEaseBackOut::create(CCScaleTo::create(0.2, 1)));
 }

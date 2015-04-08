@@ -316,6 +316,7 @@ int TCPSocket::Close() {
 #ifdef WIN32
     return (closesocket(m_sock));
 #else
+	shutdown(m_sock,SHUT_RDWR);//避免延时
     return (close(m_sock));
 #endif
 }
@@ -380,9 +381,9 @@ WORD TCPSocket::EncryptBuffer(BYTE pcbDataBuffer[], WORD wDataSize, WORD wBuffer
 	{
 		//生成第一次随机种子
 		GUID Guid;
-		Guid.Data1=121324L;
-		Guid.Data2 = 22;
-		Guid.Data3 = 34;
+		Guid.Data1=abs(rand()%10000);
+		Guid.Data2 =abs(rand()%100);
+		Guid.Data3 = abs(rand()%100);
 		for (int i= 0; i < 8; i++) {
 			Guid.Data4[i]='s';
 		}
@@ -653,6 +654,7 @@ long TCPSocket::OnSocketNotifyRead(unsigned int wParam, long lParam)
 	{
 		//int nError = GetLastError();
 		Close();
+		return 0;
 		//CloseSocket(SHUT_REASON_EXCEPTION);
 	}
 

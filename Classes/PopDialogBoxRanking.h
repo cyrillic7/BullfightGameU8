@@ -10,7 +10,7 @@
 #include "PopDialogBox.h"
 class PopDialogBoxRanking: public PopDialogBox {
 private:
-
+	UICheckBox *pcbRanking[2];
 public:
 	PopDialogBoxRanking();
 	~PopDialogBoxRanking();
@@ -18,4 +18,6 @@ public:
 private:
 	virtual void onEnter();
 	virtual void onExit();
+	//复选框回调（选择排名类型）
+	void onCheckBoxSelectedStateEvent(CCObject *pSender, CheckBoxEventType type);
 };

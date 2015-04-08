@@ -10,7 +10,6 @@
 #include "PopDialogBox.h"
 class PopDialogBoxShop: public PopDialogBox {
 private:
-
 public:
 	PopDialogBoxShop();
 	~PopDialogBoxShop();

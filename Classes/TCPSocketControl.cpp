@@ -91,12 +91,16 @@ void TCPSocketControl::initNetwork(){
 	CCLog("close----------------------------");
 	isRun=true;*/
 }
+void TCPSocketControl::deleteControl(){
+	
+}
 void TCPSocketControl::stopSocket(){
 	//tcp->getListerner()->End();
 	tcp->Clean();
 	tcp->Close();
-	delete _sharedTCPSocketControl;
-	_sharedTCPSocketControl=NULL;
+
+	//delete _sharedTCPSocketControl;
+	//_sharedTCPSocketControl=NULL;
 	//thread_
 	//delete tcp;
 	//tcp=NULL;

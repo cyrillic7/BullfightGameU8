@@ -13,8 +13,8 @@ class GameLobbyScene:public BaseLobbyScene
 public:
 	enum ModeType
 	{
-		MODE_=1,
-		MODE_CLASSIC,//经典模式
+		MODE_CLASSIC=1,//经典模式
+		MODE_,
 		MODE_1,
 		MODE_2
 	};

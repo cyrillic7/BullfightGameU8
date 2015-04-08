@@ -29,10 +29,6 @@
     <GuidesList />
   </GuidesProject>
   <GuidesProject>
-    <Project>UIPopDialogBoxActivity</Project>
-    <GuidesList />
-  </GuidesProject>
-  <GuidesProject>
     <Project>UIPopDialogBoxTask</Project>
     <GuidesList />
   </GuidesProject>
@@ -50,6 +46,10 @@
   </GuidesProject>
   <GuidesProject>
     <Project>UIPopDialogBoxRanking</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxActivity</Project>
     <GuidesList />
   </GuidesProject>
 </ArrayOfGuidesProject>

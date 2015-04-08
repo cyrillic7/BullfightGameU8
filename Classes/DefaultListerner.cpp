@@ -29,7 +29,9 @@ DefaultListerner::~DefaultListerner()
 
 void DefaultListerner::OnClose(TCPSocket* so, bool fromRemote)
 {
+	TCPSocketControl::sharedTCPSocketControl()->deleteControl();
     CCLog("%s\n","00000000000000---closed");
+	//End();
 }
 
 void DefaultListerner::OnError(TCPSocket* so, const char* e)

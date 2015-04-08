@@ -16,7 +16,7 @@ using namespace ui;
 class PopDialogBox: public CCLayer {
 public:
 	UILayer * pUILayer;
-	UIImageView *imageBg;
+	UIImageView *pWidgetBg;
 public:
 	PopDialogBox();
 	~PopDialogBox();

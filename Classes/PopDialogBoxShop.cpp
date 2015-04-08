@@ -11,7 +11,6 @@
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxShop::PopDialogBoxShop()
 {
-	
 }
 PopDialogBoxShop::~PopDialogBoxShop() {
 	CCLog("~ <<%s>>",__FUNCTION__);
@@ -21,8 +20,15 @@ void PopDialogBoxShop::onEnter(){
 	Layout* layoutPauseUI = static_cast<Layout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UIPopDialogBoxShop.ExportJson)));
 	pUILayer->addWidget(layoutPauseUI);
 	
-	imageBg = static_cast<UIImageView*>(pUILayer->getWidgetByName("bg"));
-	imageBg->setScale(0.8);
+	pWidgetBg = static_cast<UIImageView*>(pUILayer->getWidgetByName("bg"));
+	pWidgetBg->setScale(0.8);
+	//添加背景
+	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
+	CCSprite *bg=CCSprite::create("res/shop_bg.jpg");
+	pWidgetBg->addNode(bg,-1);
+	bg->setPosition(CCPointZero);
+	float scale=deviceSize.height/bg->getContentSize().height;
+	bg->setScale(scale);
 	//关闭
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));

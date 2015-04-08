@@ -232,13 +232,13 @@ void GameLobbyScene::update(float dt){
 		userName->setText(UTEXT(name));
 		//pLabelGoldCount->setText(CCString::createWithFormat("%ld",DataModel::sharedDataModel()->logonSuccessUserInfo->dwExperience)->getCString());
 		CCLog("333333333333");
-	}
+	}*/
 	if (deleteSocket)
 	{
 		TCPSocketControl::sharedTCPSocketControl()->stopSocket();
 		deleteSocket=false;
 		CCLog("2222222222222");
-	}*/
+	}
 }
 void GameLobbyScene::menuResetUser(CCObject* pSender, TouchEventType type){
 	switch (type)

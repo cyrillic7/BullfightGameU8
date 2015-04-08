@@ -14,12 +14,12 @@
     <string>UIPopDialogBoxFeedback.json</string>
     <string>UIPopDialogBoxAbout.json</string>
     <string>UIPopDialogBoxMore.json</string>
-    <string>UIPopDialogBoxActivity.json</string>
     <string>UIPopDialogBoxTask.json</string>
     <string>UIPopDialogBoxBank.json</string>
     <string>UIPopDialogBoxShop.json</string>
     <string>UIPopDialogBoxAuction.json</string>
     <string>UIPopDialogBoxRanking.json</string>
+    <string>UIPopDialogBoxActivity.json</string>
   </JsonList>
   <CanvasSize>
     <Width>1136</Width>
@@ -35,7 +35,10 @@
     <string>UICheckBox.plist</string>
     <string>UITask.plist</string>
     <string>UILoadingBar.plist</string>
+    <string>UIShop.plist</string>
     <string>UIRanking.plist</string>
+    <string>UIActivity.plist</string>
+    <string>Font.plist</string>
   </imageFileList>
   <imagePngList>
     <string>UIPanel.png</string>
@@ -44,92 +47,131 @@
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UIShop.png</string>
     <string>UIRanking.png</string>
+    <string>UIActivity.png</string>
+    <string>Font.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UIShop.png</string>
     <string>UIRanking.png</string>
+    <string>UIActivity.png</string>
+    <string>Font.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UIShop.png</string>
     <string>UIRanking.png</string>
+    <string>UIActivity.png</string>
+    <string>Font.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UIShop.png</string>
     <string>UIRanking.png</string>
+    <string>UIActivity.png</string>
+    <string>Font.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UIShop.png</string>
     <string>UIRanking.png</string>
+    <string>UIActivity.png</string>
+    <string>Font.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UIShop.png</string>
     <string>UIRanking.png</string>
+    <string>UIActivity.png</string>
+    <string>Font.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UIShop.png</string>
     <string>UIRanking.png</string>
+    <string>UIActivity.png</string>
+    <string>Font.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UIShop.png</string>
     <string>UIRanking.png</string>
+    <string>UIActivity.png</string>
+    <string>Font.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UIShop.png</string>
     <string>UIRanking.png</string>
+    <string>UIActivity.png</string>
+    <string>Font.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UIShop.png</string>
     <string>UIRanking.png</string>
+    <string>UIActivity.png</string>
+    <string>Font.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UIShop.png</string>
     <string>UIRanking.png</string>
+    <string>UIActivity.png</string>
+    <string>Font.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UIShop.png</string>
     <string>UIRanking.png</string>
+    <string>UIActivity.png</string>
+    <string>Font.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UIShop.png</string>
     <string>UIRanking.png</string>
+    <string>UIActivity.png</string>
+    <string>Font.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxMore.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxShop.json</CurrentUIJson>
 </UIProject>

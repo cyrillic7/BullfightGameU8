@@ -8,7 +8,7 @@
 #include "PopDialogBox.h"
 PopDialogBox::PopDialogBox()
 :pUILayer(NULL)
-,imageBg(NULL){
+,pWidgetBg(NULL){
 	pUILayer = UILayer::create();
 	addChild(pUILayer);
 	
@@ -43,8 +43,8 @@ void PopDialogBox::menuBack(CCObject *object, TouchEventType type){
 	}
 }
 void PopDialogBox::playAnimation(){
-	if (imageBg)
+	if (pWidgetBg)
 	{
-		imageBg->runAction(CCEaseBackOut::create(CCScaleTo::create(0.2, 1)));
+		pWidgetBg->runAction(CCEaseBackOut::create(CCScaleTo::create(0.2, 1)));
 	}
 }

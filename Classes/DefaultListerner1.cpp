@@ -18,6 +18,7 @@
 #include "cocos2d.h"
 #include "QueueData.h"
 #include "GameConfig.h"
+#include "TCPSocketControl.h"
 using namespace std;
 
 DefaultListerner1::DefaultListerner1()
@@ -30,6 +31,8 @@ DefaultListerner1::~DefaultListerner1()
 
 void DefaultListerner1::OnClose(TCPSocket* so, bool fromRemote)
 {
+	//End();
+	TCPSocketControl::sharedTCPSocketControl()->deleteControl();
     CCLog("%s\n","-----111111closed");
 }
 

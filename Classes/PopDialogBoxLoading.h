@@ -10,7 +10,7 @@
 #include "PopDialogBox.h"
 class PopDialogBoxLoading: public PopDialogBox {
 private:
-	UIImageView *imageBg;
+	UIImageView *pWidgetBg;
 public:
 	PopDialogBoxLoading();
 	~PopDialogBoxLoading();

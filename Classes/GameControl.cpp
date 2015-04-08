@@ -76,7 +76,7 @@ void GameControl::menuPause(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-
+		TCPSocketControl::sharedTCPSocketControl()->stopSocket();
 		Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene());
 	}
 		break;

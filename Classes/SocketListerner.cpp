@@ -7,6 +7,7 @@
 
 #include "SocketListerner.h"
 #include "cocos2d.h"
+USING_NS_CC;
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 #pragma comment(lib, "wsock32")
 #pragma comment(lib,"ws2_32.lib")
@@ -29,6 +30,7 @@ SocketListerner::SocketListerner():context(NULL)
 
 SocketListerner::~SocketListerner()
 {
+	CCLog("~SocketListerner");
 }
 
 void SocketListerner::SetContext(TCPSocket* context)
@@ -45,8 +47,8 @@ void SocketListerner::Run()
 		{
 			break;
 		}
-		
 	}
+	CCLog("read----------------------------------------end");
 	this->OnClose(context, true);
 }
 
