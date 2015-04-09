@@ -13,13 +13,12 @@
 #include "PopDialogBoxLoading.h"
 #include "ClassicLobbyScene.h"
 #include "DataModel.h"
-#include "SocketThread.h"
 #include "DefaultListerner.h"
 #include "PopDialogBoxSetUp.h"
 //#include <stdio.h>
 #include "MD5.h"
 #include "TCPSocketControl.h"
-
+/*
 #ifdef WIN32
 #define UTEXT(str) GBKToUTF8(str)
 #else
@@ -107,7 +106,7 @@ const char* gb23122utf8(const char * gb2312)
 	return str;
 }
 #endif
-
+*/
 GameLobbyScene::GameLobbyScene()
 :deleteSocket(false){
 	scheduleUpdate();
@@ -226,12 +225,16 @@ void GameLobbyScene::callbackData(CCObject *obj){
 	deleteSocket=true;
 }
 void GameLobbyScene::update(float dt){
-	/*char *name=DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName;
-    if(strcmp(userName->getStringValue(),"游客")==0&&strcmp(name, "") != 0)
+	char *name=DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName;
+   if(strcmp(userName->getStringValue(),"游客")==0&&strcmp(name, "") != 0)
 	{
-		userName->setText(UTEXT(name));
+		userName->setText(Tools::GBKToUTF8(name));
 		//pLabelGoldCount->setText(CCString::createWithFormat("%ld",DataModel::sharedDataModel()->logonSuccessUserInfo->dwExperience)->getCString());
 		CCLog("333333333333");
+	}
+	/*if (strcmp(name, "") != 0)
+	{
+		CCLog("name:%s",Tools::gbToUtf8(name));
 	}*/
 	if (deleteSocket)
 	{

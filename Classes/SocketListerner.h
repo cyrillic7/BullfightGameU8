@@ -1,8 +1,6 @@
 /* 
- * File:   SocketListerner.h
- * Author: beykery
- *
- * Created on 2013年12月30日, 下午4:00
+ * SocketListerner.h
+ * 
  */
 
 #ifndef SOCKETLISTERNER_H

@@ -185,3 +185,81 @@ long Tools::getMicroSeconds(){
 	//inline t= (now.tv_sec * 1000 + now.tv_usec / 1000);
 	return now.tv_sec * 1000 + now.tv_usec;
 }
+#ifdef WIN32
+#include "platform/third_party/win32/iconv/iconv.h"
+static char g_GBKConvUTF8Buf[5000] = {0};
+#else
+#include <dlfcn.h>
+void (*ucnv_convert)(const char *, const char *, char * , int32_t , const char *, int32_t,int32_t*) = 0;
+bool openIcuuc()
+{
+	void* libFile = dlopen("/system/lib/libicuuc.so", RTLD_LAZY);
+	if (libFile)
+	{
+		ucnv_convert = (void (*)(const char *, const char *, char * , int32_t , const char *, int32_t,int32_t*))dlsym(libFile, "ucnv_convert_3_8");
+
+		int index = 0;
+		char fun_name[64];
+		while (ucnv_convert == NULL)
+		{
+			sprintf(fun_name, "ucnv_convert_4%d", index++);
+			ucnv_convert = (void (*)(const char *, const char *, char * , int32_t , const char *, int32_t,int32_t*))dlsym(libFile, fun_name);
+			if (ucnv_convert)
+				return true;
+			if (++index > 11)
+				break;
+		}
+		dlclose(libFile);
+	}
+	return false;
+}
+#endif
+const char * Tools::GBKToUTF8(const char * strChar){
+#ifdef WIN32
+	iconv_t iconvH;
+	iconvH = iconv_open("utf-8","gb2312");
+	if (iconvH == 0)
+	{
+		return NULL;
+	}
+	size_t strLength = strlen(strChar);
+	size_t outLength = strLength<<2;
+	size_t copyLength = outLength;
+	memset(g_GBKConvUTF8Buf, 0, 5000);
+
+	char* outbuf = (char*) malloc(outLength);
+	char* pBuff = outbuf;
+	memset( outbuf, 0, outLength);
+
+	if (-1 == iconv(iconvH, &strChar, &strLength, &outbuf, &outLength))
+	{
+		iconv_close(iconvH);
+		return NULL;
+	}
+	memcpy(g_GBKConvUTF8Buf,pBuff,copyLength);
+	free(pBuff);
+	iconv_close(iconvH);
+	return g_GBKConvUTF8Buf;
+#else
+	if (ucnv_convert == NULL)
+	{
+		openIcuuc();
+	}
+	if (ucnv_convert)
+	{
+		int err_code = 0;
+		int len = strlen(strChar);
+		char* str = new char[len * 2 + 10];
+		memset(str, 0, len * 2 + 10);
+		ucnv_convert("utf-8", "gb2312", str, len * 2 + 10, strChar, len, &err_code);
+		if (err_code == 0)
+		{
+			return str;
+		}
+	}
+	char test[256] = "";
+	char* str = new char[30];
+	strcpy(str, test);
+	return str;
+#endif
+}

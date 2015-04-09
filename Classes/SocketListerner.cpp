@@ -1,8 +1,5 @@
 /* 
- * File:   SocketListerner.cpp
- * Author: beykery
- * 
- * Created on 2013年12月30日, 下午4:00
+ * SocketListerner.cpp
  */
 
 #include "SocketListerner.h"
@@ -48,7 +45,6 @@ void SocketListerner::Run()
 			break;
 		}
 	}
-	CCLog("read----------------------------------------end");
 	this->OnClose(context, true);
 }
 

@@ -18,7 +18,6 @@ public:
 		MODE_1,
 		MODE_2
 	};
-	UILabel *userName;
 private:
 	UILabel *pLabelGoldCount;
 	UIScrollView *scroll;

@@ -9,6 +9,7 @@
 #include "DataModel.h"
 #include "GameConfig.h"
 #include "BaseAttributes.h"
+#include "Tools.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxUserInfo::PopDialogBoxUserInfo()
 :isShowChange(false)
@@ -33,7 +34,7 @@ void PopDialogBoxUserInfo::onEnter(){
 	labelUserID->setText(CCString::createWithFormat("ID:%d",DataModel::sharedDataModel()->logonSuccessUserInfo->dwGameID)->getCString());
 	//昵称输入框
 	pLabelNickName=static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldNickName"));
-	pLabelNickName->setText(DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName);
+	pLabelNickName->setText(Tools::GBKToUTF8(DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName));
 	pLabelNickName->setTouchEnabled(false);
 	//性别选择
 	pcbSexGirl=static_cast<UICheckBox*>(pUILayer->getWidgetByName("CheckBoxSexGirl"));

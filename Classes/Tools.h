@@ -23,16 +23,12 @@ public:
 	//暂停、恢复游戏////////////////////////////////////////////////////////////////////////
 	static void revursivelyPauseAllChildren(CCNode * node);
 	static void revursivelyResumeAllChildren(CCNode * node);
-	/*
-	//改变对象颜色////////////////////////////////////////////////////////////////////////
-	static void changeButtonColor(UIButton *button, bool isShowColor);
-	static std::vector<std::string>  stringToVector(CCString *str);
-	static std::string replace_all(std::string str, const std::string old_value, const std::string new_value);
-	*/
+
 	//音乐////////////////////////////////////////////////////////////////////////
 	static void playMusic(const char *path);
 	static void playSound(const char *path);
-	
+	//GBK转UTF-8////////////////////////////////////////////////////////////////////////
+	static const char * GBKToUTF8(const char *strChar);
 	/*
 	static void stopMusic();
 	

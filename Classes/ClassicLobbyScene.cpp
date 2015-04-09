@@ -17,7 +17,6 @@
 #include "DefaultListerner1.h"
 #include "DataModel.h"
 #include "PopDialogBoxLoading.h"
-#include "SocketThread.h"
 #include "MD5.h"
 ClassicLobbyScene::ClassicLobbyScene()
 :isDeleteList(false)
