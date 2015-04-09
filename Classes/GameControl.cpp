@@ -276,6 +276,7 @@ void GameControl::onAddScore(CCObject *obj){
 
 	DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_BETTING);
 
+	CC_SAFE_DELETE(pQueueStart->pDataBuffer);
 	CC_SAFE_DELETE(pQueueStart);
 }
 void GameControl::onSendCard(CCObject *obj){

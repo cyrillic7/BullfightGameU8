@@ -22,7 +22,8 @@ public:
 	SocketListerner *listerner;
 	bool isRun;
 private:
-	TCPSocket *tcp;
+	TCPSocket *tcpSocket;
+	std::map<std::string , TCPSocket> mTcpSocket;
 public:
 	TCPSocketControl();
 	virtual ~TCPSocketControl();

@@ -15,6 +15,7 @@
 #include "TCPSocketControl.h"
 #include "cocos2d.h"
 #include "MTNotificationQueue.h"
+#include "QueueData.h"
 using namespace std;
 
 
@@ -90,16 +91,29 @@ bool DefaultListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Com
 
 			CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)pDataBuffer;
 
-			DataModel::sharedDataModel()->logonSuccessUserInfo->cbGender=ls->cbGender;
+			/*DataModel::sharedDataModel()->logonSuccessUserInfo->cbGender=ls->cbGender;
 			DataModel::sharedDataModel()->logonSuccessUserInfo->dwExperience=ls->dwExperience;
 			DataModel::sharedDataModel()->logonSuccessUserInfo->dwGameID=ls->dwGameID;
 			DataModel::sharedDataModel()->logonSuccessUserInfo->dwLoveLiness=ls->dwLoveLiness;
 			DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID=ls->dwUserID;
 			strcpy(DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName,ls->szNickName);
-			DataModel::sharedDataModel()->logonSuccessUserInfo->wFaceID=ls->wFaceID;
-			//CCLog("登录成功 %s",gb23122utf8(ls->szNickName));
+			DataModel::sharedDataModel()->logonSuccessUserInfo->wFaceID=ls->wFaceID;*/
+			memcpy(DataModel::sharedDataModel()->logonSuccessUserInfo,ls,sizeof(CMD_MB_LogonSuccess));
+			CCLog("登录成功");
             //tagGameServer *tempTag=new tagGameServer();
-			
+
+
+			//////////////////////////////////////////////////////////////////////////
+			/*CMD_MB_LogonSuccess *tempTag=new CMD_MB_LogonSuccess();
+			///strcpy(tempTag->szNickName,ls->szNickName);
+			memcpy(tempTag,ls,sizeof(CMD_MB_LogonSuccess));
+
+			QueueData *qData=new QueueData();
+			qData->Command=Command;
+			qData->pDataBuffer=tempTag;
+
+
+			MTNotificationQueue::sharedNotificationQueue()->postNotification(LISTENER_LOGON,qData);*/
 		}
 	}
 	//获取列表
@@ -161,7 +175,11 @@ bool DefaultListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Com
 			//gls->userName->setText(DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName);
 			
 			//CCNotificationCenter::sharedNotificationCenter()->postNotification(LISTENER_LOGON,(CCObject*)pDataBuffer);
-			MTNotificationQueue::sharedNotificationQueue()->postNotification(LISTENER_LOGON,(CCObject*)pDataBuffer);
+
+			QueueData *qData=new QueueData();
+			qData->Command=Command;
+			//qData->pDataBuffer=pDataBuffer;
+			MTNotificationQueue::sharedNotificationQueue()->postNotification(LISTENER_LOGON,qData);
 			//TCPSocketControl::sharedTCPSocketControl()->stopSocket();
 			//delete TCPSocketControl::sharedTCPSocketControl();
 			//so->Close();

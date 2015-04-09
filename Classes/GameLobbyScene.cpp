@@ -16,6 +16,7 @@
 #include "DefaultListerner.h"
 #include "PopDialogBoxSetUp.h"
 //#include <stdio.h>
+#include "QueueData.h"
 #include "MD5.h"
 #include "TCPSocketControl.h"
 /*
@@ -214,7 +215,11 @@ void GameLobbyScene::onOpen(CCObject *obj){
 	CCLog("send:%d", isSend);
 }
 void GameLobbyScene::callbackData(CCObject *obj){
+	QueueData *qData=(QueueData*)obj;
+
+	CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)qData->pDataBuffer;
 	//CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)obj;
+	
 	PopDialogBoxLoading *pdb = (PopDialogBoxLoading*)this->getChildByTag(189);
 	pdb->removeFromParentAndCleanup(true);
 	//////////////////////////////////////////////////////////////////////////
@@ -223,6 +228,9 @@ void GameLobbyScene::callbackData(CCObject *obj){
 //	userName->setText(UTEXT(name));
 	
 	deleteSocket=true;
+
+	//CC_SAFE_DELETE(qData->pDataBuffer);
+	CC_SAFE_DELETE(qData);
 }
 void GameLobbyScene::update(float dt){
 	char *name=DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName;

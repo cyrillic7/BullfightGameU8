@@ -14,18 +14,19 @@ pthread_t threadNewwork;
 
 TCPSocketControl::TCPSocketControl()
 :isRun(true)
-,tcp(NULL)
+,tcpSocket(NULL)
 {
 	// TODO Auto-generated constructor stub
+
 }
 
 TCPSocketControl::~TCPSocketControl() {
 	// TODO Auto-generated destructor stub
 	isRun=false;
-	if (tcp)
+	if (tcpSocket)
 	{
-		delete tcp;
-		tcp=NULL;
+		delete tcpSocket;
+		tcpSocket=NULL;
 	}
 }
 TCPSocketControl* TCPSocketControl::sharedTCPSocketControl()
@@ -58,7 +59,7 @@ int TCPSocketControl::startSendThread(){
 		errCode = pthread_create(&threadNewwork, &tAttr, networkThread, this);
 		pthread_detach(threadNewwork);
 	} while (0);
-	return errCode;
+	return errCode; 
 }
 void* TCPSocketControl::networkThread(void* object){
 	TCPSocketControl *app=(TCPSocketControl*)object;
@@ -68,19 +69,19 @@ void* TCPSocketControl::networkThread(void* object){
 void TCPSocketControl::initNetwork(){
 	/*DefaultListerner *df=new DefaultListerner();
 	*///TCPSocket tcp;
-	if (tcp)
+	if (tcpSocket)
 	{
-		delete tcp;
-		tcp=NULL;
+		delete tcpSocket;
+		tcpSocket=NULL;
 	}else
 	{
 		
 	}
-	tcp=new TCPSocket();
-	tcp->Init();
-	tcp->Create(AF_INET, SOCK_STREAM, 0);
-	tcp->SetListerner(listerner);
-	isRun=tcp->Connect(ip, port);
+	tcpSocket=new TCPSocket();
+	tcpSocket->Init();
+	tcpSocket->Create(AF_INET, SOCK_STREAM, 0);
+	tcpSocket->SetListerner(listerner);
+	isRun=tcpSocket->Connect(ip, port);
 	//tcp=NULL;
 	//delete tcp;
 	CCLog("Connect:%d", isRun);
@@ -96,8 +97,8 @@ void TCPSocketControl::deleteControl(){
 }
 void TCPSocketControl::stopSocket(){
 	//tcp->getListerner()->End();
-	tcp->Clean();
-	tcp->Close();
+	tcpSocket->Clean();
+	tcpSocket->Close();
 
 	//delete _sharedTCPSocketControl;
 	//_sharedTCPSocketControl=NULL;
@@ -111,8 +112,8 @@ void TCPSocketControl::stopSocket(){
 	tcps=NULL;*/
 }
 bool TCPSocketControl::SendData(WORD wMainCmdID, WORD wSubCmdID, void * const pData, WORD wDataSize){
-	return tcp->SendData(wMainCmdID,wSubCmdID,pData,wDataSize);
+	return tcpSocket->SendData(wMainCmdID,wSubCmdID,pData,wDataSize);
 }
 bool TCPSocketControl::SendData(WORD wMainCmdID, WORD wSubCmdID){
-	return tcp->SendData(wMainCmdID,wSubCmdID);
+	return tcpSocket->SendData(wMainCmdID,wSubCmdID);
 }

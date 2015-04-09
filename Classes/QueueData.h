@@ -9,6 +9,7 @@
 #define QUEUEDATA_H_
 #include "cocos2d.h"
 #include "Packet.h"
+//#include "cmd_ox.h"
 USING_NS_CC;
 class QueueData:public CCObject {
 public:

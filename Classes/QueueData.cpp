@@ -9,7 +9,7 @@
 
 QueueData::QueueData() {
 	// TODO Auto-generated constructor stub
-
+	//memset(pDataBuffer,0x00,sizeof(pDataBuffer));
 }
 
 QueueData::~QueueData() {

@@ -274,8 +274,20 @@ bool DefaultListerner1::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Co
 
 				QueueData *qData=new QueueData();
 				qData->Command=Command;
-				qData->pDataBuffer=pDataBuffer;
-				//qData->pDataBuffer=memcpy() pDataBuffer;
+
+				CMD_S_GameStart *gs=new CMD_S_GameStart();
+				memcpy(gs,pGameStart,sizeof(CMD_S_GameStart));
+				qData->pDataBuffer=gs;
+				//memcpy(&qData->pDataBuffer, &pGameStart, sizeof(pGameStart));//
+				//qData->pDataBuffer=&pGameStart;
+				//CMD_S_GameStart *pGameStart=(CMD_S_GameStart*)pDataBuffer;
+				//qData->pDataBuffer=pGameStart;
+				//memcpy(qData->pDataBuffer,pGameStart,sizeof(pGameStart));
+				/*BYTE cbDataBuffer[sizeof(pDataBuffer)];
+				
+				qData->pDataBuffer=cbDataBuffer;*/
+				
+				CCLog("copy--");
 				MTNotificationQueue::sharedNotificationQueue()->postNotification(LISTENER_ADD_SCORE,qData);
 			}
 			break;
