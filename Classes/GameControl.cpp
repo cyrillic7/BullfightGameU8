@@ -249,6 +249,7 @@ void GameControl::updateState(){
 //网络消息
 void GameControl::OnEventGameMessage(CCObject *pObj){
 	QueueData *pData=(QueueData*)pObj;
+	CCLog("sub:%d",pData->wSubCmdID);
 	switch (pData->wSubCmdID)
 	{
 	case SUB_S_CALL_BANKER:	//用户叫庄
@@ -307,16 +308,13 @@ void GameControl::OnEventGameMessage(CCObject *pObj){
 		CCLog("--------------------gamt");
 		break;
 	}
-	if (pData)
-	{
-		delete pData;
-		pData=NULL;
-	}
+	
 	//CC_SAFE_DELETE(pData);
 }
 //用户叫庄
 bool GameControl::OnSubCallBanker(const void * pBuffer, WORD wDataSize){
 	//效验数据 
+	CCLog("size:%d",wDataSize);
 	if (wDataSize!=sizeof(CMD_S_CallBanker)) return false;
 	CMD_S_CallBanker * pCallBanker=(CMD_S_CallBanker *)pBuffer;
 	if (pCallBanker->bFirstTimes)

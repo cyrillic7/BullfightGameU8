@@ -12,9 +12,6 @@ QueueData::QueueData()
 :wSubCmdID(0)
 ,wDataSize(0)
 {
-	//pDataBuffer=new void*();
 }
-
 QueueData::~QueueData() {
-	//CC_SAFE_DELETE(pDataBuffer);
 }

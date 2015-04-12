@@ -271,6 +271,7 @@ bool GameListerner::gameEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuff
 	memcpy(pData->pDataBuffer,pDataBuffer,wDataSize);*/
     QueueData queueData;
     queueData.wSubCmdID=wSubCmdID;
+	queueData.wDataSize=wDataSize;
     memcpy(queueData.sendData.sSendData, pDataBuffer, wDataSize);
 
 	//发送消息
