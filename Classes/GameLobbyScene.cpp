@@ -210,7 +210,12 @@ void GameLobbyScene::onOpen(CCObject *obj){
 	CCLog("send:%d", isSend);
 }
 void GameLobbyScene::callbackData(CCObject *obj){
-	QueueData *qData=(QueueData*)obj;
+    QueueData *pData=(QueueData*)obj;
+    CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)pData->sendData.sSendData;
+    //TCP_Command *pCommand = (TCP_Command *)&pData->sendData;
+    CCLog("----%ld  %d %s",ls->dwUserID,pData->wSubCmdID,ls->szNickName);
+    CCLog("00");
+	/*QueueData *qData=(QueueData*)obj;
 
 	CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)qData->pDataBuffer;
 	//CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)obj;
@@ -225,7 +230,7 @@ void GameLobbyScene::callbackData(CCObject *obj){
 	deleteSocket=true;
 
 	//CC_SAFE_DELETE(qData->pDataBuffer);
-	CC_SAFE_DELETE(qData);
+	CC_SAFE_DELETE(qData);*/
 }
 void GameLobbyScene::update(float dt){
 	/*SendData data;

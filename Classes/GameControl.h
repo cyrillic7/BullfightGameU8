@@ -12,6 +12,7 @@
 #include "cocos2d.h"
 #include "cocos-ext.h"
 #include "GameLogic.h"
+#include "TCPSocket.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;

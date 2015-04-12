@@ -97,16 +97,28 @@ bool LogonListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Comma
 			strcpy(DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName,ls->szNickName);
 			DataModel::sharedDataModel()->logonSuccessUserInfo->wFaceID=ls->wFaceID;*/
 			memcpy(DataModel::sharedDataModel()->logonSuccessUserInfo,ls,sizeof(CMD_MB_LogonSuccess));
-			CCLog("登录成功");
+			CCLog("登录成功 %ld %s",ls->dwUserID,ls->szNickName);
 
-
+            QueueData queueData;
+            /*int nHeadLen = sizeof(TCP_Command);
+            memcmp(queueData.sendData.sSendData,&Command, nHeadLen);
+            memcpy(queueData.sendData.sSendData+nHeadLen, pDataBuffer, wDataSize < MAX_TCP_LEN-nHeadLen? wDataSize: MAX_TCP_LEN-1-nHeadLen );
+            queueData.sendData.dwDataLen = wDataSize;*/
+            queueData.wSubCmdID=Command.wSubCmdID;
+            memcpy(queueData.sendData.sSendData, pDataBuffer, wDataSize);
+            MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_LOGON,&queueData);
+            
+            CMD_MB_LogonSuccess *lss = (CMD_MB_LogonSuccess*)queueData.sendData.sSendData;
+            CCLog("lss:%ld",lss->dwUserID);
+           
+           // CCLog("%d =====%d",pCommand.wMainCmdID,pCommand.wSubCmdID);
 			/*SendData data;
 			int nHeadLen = sizeof(TCP_Command);
 			memcpy(data.sSendData, &Command, nHeadLen);
 			memcpy(data.sSendData+nHeadLen, pDataBuffer, wDataSize < MAX_TCP_LEN-nHeadLen? wDataSize: MAX_TCP_LEN-1-nHeadLen );
 			data.dwDataLen = wDataSize;*/
 
-			SendData data;
+			/*SendData data;
 			int nHeadLen = sizeof(TCP_Command);
 			memcpy(data.sSendData, &Command, nHeadLen);
 			memcpy(data.sSendData+nHeadLen, pDataBuffer, wDataSize < MAX_TCP_LEN-nHeadLen? wDataSize: MAX_TCP_LEN-1-nHeadLen );
@@ -124,7 +136,7 @@ bool LogonListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Comma
 				CMD_MB_LogonSuccess *ss=(CMD_MB_LogonSuccess*)data1.sSendData+sizeof(TCP_Command);
 				CCLog("111");
 				//OnTCPSocketRead(0, *pCommand, data.sSendData+sizeof(TCP_Command), data.dwDataLen);	
-			}
+			}*/
 
 
 
@@ -214,8 +226,8 @@ bool LogonListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Comma
 			
 			//CCNotificationCenter::sharedNotificationCenter()->postNotification(LISTENER_LOGON,(CCObject*)pDataBuffer);
 
-			QueueData *qData=new QueueData();
-			MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_LOGON,qData);
+			//QueueData *qData=new QueueData();
+			//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_LOGON,qData);
 		}
 	}
 	return true;
