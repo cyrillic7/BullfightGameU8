@@ -254,37 +254,37 @@ void GameControl::OnEventGameMessage(CCObject *pObj){
 	case SUB_S_CALL_BANKER:	//用户叫庄
 		{
 			//消息处理
-			OnSubCallBanker(pData->pDataBuffer,pData->wDataSize);
+			OnSubCallBanker(pData->sendData.sSendData,pData->wDataSize);
 		}
 		break;
 	case SUB_S_GAME_START:	//游戏开始
 		{
 			//消息处理
-			OnSubGameStart(pData->pDataBuffer,pData->wDataSize);
+			OnSubGameStart(pData->sendData.sSendData,pData->wDataSize);
 		}
 		break;
 	case SUB_S_ADD_SCORE:	//用户下注
 		{
 			//消息处理
-			OnSubAddScore(pData->pDataBuffer,pData->wDataSize);
+			OnSubAddScore(pData->sendData.sSendData,pData->wDataSize);
 		}
 		break;
 	case SUB_S_SEND_CARD:	//发牌消息
 		{
 			//消息处理
-			OnSubSendCard(pData->pDataBuffer,pData->wDataSize);
+			OnSubSendCard(pData->sendData.sSendData,pData->wDataSize);
 		}
 		break;
 	case SUB_S_OPEN_CARD:	//用户摊牌
 		{
 			//消息处理
-			OnSubOpenCard(pData->pDataBuffer,pData->wDataSize);
+			OnSubOpenCard(pData->sendData.sSendData,pData->wDataSize);
 		}
 		break;
 	case SUB_S_PLAYER_EXIT:	//用户强退
 		{
 			//消息处理
-			OnSubPlayerExit(pData->pDataBuffer,pData->wDataSize);
+			OnSubPlayerExit(pData->sendData.sSendData,pData->wDataSize);
 		}
 		break;
 	case SUB_S_GAME_END:	//游戏结束
@@ -293,7 +293,7 @@ void GameControl::OnEventGameMessage(CCObject *pObj){
 			//m_GameClientView.FinishDispatchCard();
 
 			//消息处理
-			OnSubGameEnd(pData->pDataBuffer,pData->wDataSize);
+			OnSubGameEnd(pData->sendData.sSendData,pData->wDataSize);
 		}
 		break;
 	case 1024:

@@ -8,13 +8,13 @@
 #include "QueueData.h"
 
 QueueData::QueueData()
-:pDataBuffer(NULL) 
-,wSubCmdID(0)
+//:pDataBuffer(NULL)
+:wSubCmdID(0)
 ,wDataSize(0)
 {
-	pDataBuffer=new void*();
+	//pDataBuffer=new void*();
 }
 
 QueueData::~QueueData() {
-	CC_SAFE_DELETE(pDataBuffer);
+	//CC_SAFE_DELETE(pDataBuffer);
 }

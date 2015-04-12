@@ -15,7 +15,7 @@ class QueueData:public CCObject {
 public:
 	TCP_Command command;
 	WORD wSubCmdID;
-	void * pDataBuffer;
+	//void * pDataBuffer;
 	WORD wDataSize;
 
     struct SendData

@@ -264,13 +264,17 @@ bool GameListerner::frameEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuf
 	return true;
 }
 bool GameListerner::gameEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
-	//创建数据
+	/*//创建数据
 	QueueData *pData=new QueueData();
 	pData->wSubCmdID=wSubCmdID;
 	pData->wDataSize=wDataSize;
-	memcpy(pData->pDataBuffer,pDataBuffer,wDataSize);
+	memcpy(pData->pDataBuffer,pDataBuffer,wDataSize);*/
+    QueueData queueData;
+    queueData.wSubCmdID=wSubCmdID;
+    memcpy(queueData.sendData.sSendData, pDataBuffer, wDataSize);
+
 	//发送消息
-	MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_GAME_ING,pData);
+	MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_GAME_ING,&queueData);
 	/*
 	switch (wSubCmdID)
 	{
