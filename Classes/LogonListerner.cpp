@@ -1,14 +1,11 @@
 /* 
- * File:   DefaultListerner.cpp
- * Author: beykery
  * 
- * Created on 2013年12月30日, 下午7:33
  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <iostream>
-#include "DefaultListerner.h"
+#include "LogonListerner.h"
 #include "CMD_LogonServer.h"
 #include "MD5.h"
 #include "DataModel.h"
@@ -16,31 +13,31 @@
 #include "cocos2d.h"
 #include "MTNotificationQueue.h"
 #include "QueueData.h"
+#include "SEvent.h"
+
+
 using namespace std;
-
-
-
-DefaultListerner::DefaultListerner()
+LogonListerner::LogonListerner()
 {
 }
 
-DefaultListerner::~DefaultListerner()
+LogonListerner::~LogonListerner()
 {
 }
 
-void DefaultListerner::OnClose(TCPSocket* so, bool fromRemote)
+void LogonListerner::OnClose(TCPSocket* so, bool fromRemote)
 {
 	TCPSocketControl::sharedTCPSocketControl()->deleteControl();
     CCLog("%s\n","00000000000000---closed");
 	//End();
 }
 
-void DefaultListerner::OnError(TCPSocket* so, const char* e)
+void LogonListerner::OnError(TCPSocket* so, const char* e)
 {
 	CCLog("%s\n","error connection");
 }
 
-void DefaultListerner::OnIdle(TCPSocket* so)
+void LogonListerner::OnIdle(TCPSocket* so)
 {
 	CCLog("%s\n","listerner-- connection idle");
 }
@@ -50,13 +47,12 @@ void DefaultListerner::OnIdle(TCPSocket* so)
  * @param so
  * @param message
  */
-bool DefaultListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Command Command, void * pDataBuffer, unsigned short wDataSize)
+bool LogonListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Command Command, void * pDataBuffer, unsigned short wDataSize)
 {
-	if (Command.wMainCmdID == 1)
+	if (Command.wMainCmdID == MDM_GP_LOGON)
 	{
 		if (Command.wSubCmdID == SUB_MB_UPDATE_NOTIFY)
 		{
-
 			/*//效验参数
 			assert(wDataSize >= sizeof(CMD_GR_UpdateNotify));
 			if (wDataSize < sizeof(CMD_GR_UpdateNotify)) return false;
@@ -89,6 +85,8 @@ bool DefaultListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Com
 			//效验参数
 			if (wDataSize != sizeof(CMD_MB_LogonSuccess)) return false;
 
+			
+
 			CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)pDataBuffer;
 
 			/*DataModel::sharedDataModel()->logonSuccessUserInfo->cbGender=ls->cbGender;
@@ -100,26 +98,66 @@ bool DefaultListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Com
 			DataModel::sharedDataModel()->logonSuccessUserInfo->wFaceID=ls->wFaceID;*/
 			memcpy(DataModel::sharedDataModel()->logonSuccessUserInfo,ls,sizeof(CMD_MB_LogonSuccess));
 			CCLog("登录成功");
+
+
+			/*SendData data;
+			int nHeadLen = sizeof(TCP_Command);
+			memcpy(data.sSendData, &Command, nHeadLen);
+			memcpy(data.sSendData+nHeadLen, pDataBuffer, wDataSize < MAX_TCP_LEN-nHeadLen? wDataSize: MAX_TCP_LEN-1-nHeadLen );
+			data.dwDataLen = wDataSize;*/
+
+			SendData data;
+			int nHeadLen = sizeof(TCP_Command);
+			memcpy(data.sSendData, &Command, nHeadLen);
+			memcpy(data.sSendData+nHeadLen, pDataBuffer, wDataSize < MAX_TCP_LEN-nHeadLen? wDataSize: MAX_TCP_LEN-1-nHeadLen );
+			data.dwDataLen = wDataSize;
+			if (!m_RecvData.Enqueue(&data))
+			{
+				//return false;
+			}
+			//return true;
+				
+			SendData data1;
+			if (m_RecvData.Dequeue(&data1))
+			{
+				TCP_Command *pCommand = (TCP_Command *)&data1;
+				CMD_MB_LogonSuccess *ss=(CMD_MB_LogonSuccess*)data1.sSendData+sizeof(TCP_Command);
+				CCLog("111");
+				//OnTCPSocketRead(0, *pCommand, data.sSendData+sizeof(TCP_Command), data.dwDataLen);	
+			}
+
+
+
+
+
+
+			/*SendData send;
+			send.dwDataLen=wDataSize;
+			//send.sSendData=pDataBuffer;
+			memcpy(send.sSendData,pDataBuffer,wDataSize);
+			m_RecvData.Enqueue(&send);*/
             //tagGameServer *tempTag=new tagGameServer();
+			/*QueueData *pData=new QueueData();
+			pData->command=Command;
+			memcpy(pData->pDataBuffer,pDataBuffer,wDataSize);
+			DataModel::sharedDataModel()->queueData.push_back(pData);*/
 
-
-			//////////////////////////////////////////////////////////////////////////
-			/*CMD_MB_LogonSuccess *tempTag=new CMD_MB_LogonSuccess();
+			/*//////////////////////////////////////////////////////////////////////////
+			void *tempTag=new void*();
 			///strcpy(tempTag->szNickName,ls->szNickName);
 			memcpy(tempTag,ls,sizeof(CMD_MB_LogonSuccess));
 
 			QueueData *qData=new QueueData();
-			qData->Command=Command;
 			qData->pDataBuffer=tempTag;
 
 
-			MTNotificationQueue::sharedNotificationQueue()->postNotification(LISTENER_LOGON,qData);*/
+			MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_LOGON,qData);*/
 		}
 	}
 	//获取列表
-	if (Command.wMainCmdID == 2)
+	if (Command.wMainCmdID == MDM_GP_SERVER_LIST)
 	{
-		if (Command.wSubCmdID == SUB_MB_LIST_SERVER)
+		if (Command.wSubCmdID == SUB_GP_LIST_KIND)
 		{
 			//效验参数
 			if (wDataSize != sizeof(tagGameKind)) return false;
@@ -128,9 +166,9 @@ bool DefaultListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Com
 			CCLog("获取游戏种类");
 		}
 	}
-	if (Command.wMainCmdID==101)
+	if (Command.wMainCmdID==MDM_MB_SERVER_LIST)
 	{
-		if (Command.wSubCmdID==101)
+		if (Command.wSubCmdID==SUB_MB_LIST_SERVER)
 		{
 			int gameServerSize = sizeof(tagGameServer);
 			int serverCount = wDataSize / gameServerSize;
@@ -177,22 +215,15 @@ bool DefaultListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Com
 			//CCNotificationCenter::sharedNotificationCenter()->postNotification(LISTENER_LOGON,(CCObject*)pDataBuffer);
 
 			QueueData *qData=new QueueData();
-			qData->Command=Command;
-			//qData->pDataBuffer=pDataBuffer;
-			MTNotificationQueue::sharedNotificationQueue()->postNotification(LISTENER_LOGON,qData);
-			//TCPSocketControl::sharedTCPSocketControl()->stopSocket();
-			//delete TCPSocketControl::sharedTCPSocketControl();
-			//so->Close();
-			//return 0;
-			//tagGameServer *gs = (tagGameServer*)pDataBuffer;
+			MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_LOGON,qData);
 		}
 	}
 	return true;
 }
 
-void DefaultListerner::OnOpen(TCPSocket* so)
+void LogonListerner::OnOpen(TCPSocket* so)
 {
 	CCLog("open==========================");
-	MTNotificationQueue::sharedNotificationQueue()->postNotification(LISTENER_OPEN,NULL);
+	MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_OPEN,NULL);
 
 }

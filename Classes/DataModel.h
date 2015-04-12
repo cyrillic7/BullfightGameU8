@@ -1,7 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "MainScene.h"
-#include "GameLogic.h"
+//#include "GameLogic.h"
 #include "CMD_LogonServer.h"
 USING_NS_CC;
 class DataModel:public CCObject{
@@ -18,13 +18,11 @@ public:
 	CCSize deviceSize;
 
 	CC_SYNTHESIZE(MainScene *, mainScene, MainScene);
-	
-	GameLogic *gameLogic;
 
 	CCArray *m_aTagGameKind;
 
 	std::vector <tagGameServer *> tagGameServerList;
-
+	//std::list<QueueData *> queueData;
 	CMD_MB_LogonSuccess *logonSuccessUserInfo;
 	long long m_lTurnMaxScore;//最大加注数
 	BYTE card[2][5];

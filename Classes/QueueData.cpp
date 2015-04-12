@@ -7,11 +7,14 @@
 
 #include "QueueData.h"
 
-QueueData::QueueData() {
-	// TODO Auto-generated constructor stub
-	//memset(pDataBuffer,0x00,sizeof(pDataBuffer));
+QueueData::QueueData()
+:pDataBuffer(NULL) 
+,wSubCmdID(0)
+,wDataSize(0)
+{
+	pDataBuffer=new void*();
 }
 
 QueueData::~QueueData() {
-	// TODO Auto-generated destructor stub
+	CC_SAFE_DELETE(pDataBuffer);
 }

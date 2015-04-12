@@ -11,14 +11,15 @@
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
+#include "GameLogic.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
-class GameControl:public CCLayer
+class GameControl:public CCLayer,GameLogic
 {
 private:
-	//准备按键
-	UIButton *bReady;
+	//准备容器
+	UIPanel *pPanelReady;
 	//抢庄容器
 	UIPanel *pFightForBanker;
 	//配置牛牛容器
@@ -36,8 +37,8 @@ public:
 private:
 	//菜单////////////////////////////////////////////////////////////////////////
 	void menuPause(CCObject* pSender, TouchEventType type);
-	//无牛按键
-	void menuCancel(CCObject* pSender, TouchEventType type);
+	//开牌
+	void menuOpenCard(CCObject* pSender, TouchEventType type);
 	//提示按键
 	void menuPrompt(CCObject* pSender, TouchEventType type);
 	//准备按键
@@ -48,10 +49,27 @@ private:
 	void menuFight(CCObject* pSender, TouchEventType type);
 	//投注
 	void menuBetting(CCObject* pSender, TouchEventType type);
-	//////////////////////////////////////////////////////////////////////////
-	void onCallBanker(CCObject *obj);
-	void onAddScore(CCObject *obj);
-	void onSendCard(CCObject *obj);
+
+//////////////////////////////////////////////////////////////////////////
+	//网络消息
+	void OnEventGameMessage(CCObject *pObj);
+	//用户叫庄
+	bool OnSubCallBanker(const void * pBuffer, WORD wDataSize);
+	//游戏开始
+	bool OnSubGameStart(const void * pBuffer, WORD wDataSize);
+	//用户下注
+	bool OnSubAddScore(const void * pBuffer, WORD wDataSize);
+	//发牌消息
+	bool OnSubSendCard(const void * pBuffer, WORD wDataSize);
+	//开牌
+	bool OnSubOpenCard(const void * pBuffer, WORD wDataSize);
+	//用户强退
+	bool OnSubPlayerExit(const void * pBuffer, WORD wDataSize);
+	//游戏结束
+	bool OnSubGameEnd(const void * pBuffer, WORD wDataSize);
+	
+	/*void onAddScore(CCObject *obj);
+	void onSendCard(CCObject *obj);*/
 };
 
 #endif /* defined(__BullfightGame__GameHUD__) */

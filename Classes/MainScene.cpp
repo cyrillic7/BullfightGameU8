@@ -54,19 +54,17 @@ void MainScene::onEnter(){
 	initHUD();
 	initCardLayer();
 	initPlayerLayer();
-	testLogic();
-	
-	//testTcpSocket();
-	
-	threadStart();
 }
 void MainScene::onExit(){
 	CCLayer::onExit();
 }
 void MainScene::addBg(){
-	CCSprite *bg = CCSprite::create("res/room1_n.jpg");
-	this->addChild(bg);
-	bg->setPosition(ccp(SCENE_SIZE.width/2,SCENE_SIZE.height/2));
+	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
+	CCSprite *spriteBg=CCSprite::create("res/room1_n.jpg");
+	this->addChild(spriteBg);
+	spriteBg->setPosition(ccp(deviceSize.width/2,deviceSize.height/2));
+	float scale=deviceSize.height/spriteBg->getContentSize().height;
+	spriteBg->setScale(scale);
 }
 void MainScene::initHUD(){
 	gameControl = GameControl::create();
@@ -91,28 +89,6 @@ void MainScene::onEventSendCardFnish(){
 	
 }
 
-
-
-int MainScene::threadStart(){
-	int errCode = 0;
-	/*do{
-		pthread_attr_t tAttr;
-		errCode = pthread_attr_init(&tAttr);
-
-		CC_BREAK_IF(errCode != 0);
-
-			errCode = pthread_attr_setdetachstate(&tAttr, PTHREAD_CREATE_DETACHED);
-
-		if (errCode != 0) {
-			pthread_attr_destroy(&tAttr);
-			break;
-		}
-
-		errCode = pthread_create(&threadLogon, &tAttr, networkThread, this);
-		pthread_detach(threadLogon);
-	} while (0);*/
-	return errCode;
-}
 
 void MainScene::testTcpSocket(){
 	Init();
@@ -171,11 +147,11 @@ void MainScene::testTcpSocket(){
 		CCLog("read:%d", isReadData);
 	}*/
 }
-void MainScene::testLogic(){
+/*void MainScene::testLogic(){
 	BYTE tempCard[5] = { 2, 2, 3, 8, 6 };
 	bool ox = GetOxCard(tempCard, 5);
 	CCLog("ox:%d", ox);
-	/*BYTE tempCard[5] = {2,2,3,8,6};
+	BYTE tempCard[5] = {2,2,3,8,6};
 	BYTE tempFristCard[5] = { 2, 2, 2, 4, 5 };
 	BYTE tempNextCard[5] = { 2, 2, 2, 4, 6 };
 	GameLogic *logic = new GameLogic();
@@ -190,8 +166,8 @@ void MainScene::testLogic(){
 	bool compare=logic->CompareCard(tempFristCard, tempNextCard, 5);
 	CCLog("--:%d", compare);
 
-	CC_SAFE_DELETE(logic);*/
-}
+	CC_SAFE_DELETE(logic);
+}*/
 void MainScene::setGameStateWithUpdate(GameState gameState){
 	setGameState(gameState);
 	updateGameState();

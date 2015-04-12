@@ -52,4 +52,8 @@
     <Project>UIPopDialogBoxActivity</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxLoadingOther</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

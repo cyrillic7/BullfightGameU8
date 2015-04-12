@@ -3,10 +3,11 @@
 #include "cocos2d.h"
 #include "cocos-ext.h"
 #include "GameConfig.h"
+#include "GameLogic.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
-class CardLayer:public CCLayer {
+class CardLayer:public CCLayer,GameLogic {
 private:
 	//扑克集
 	CCBatchNode *batchCard;

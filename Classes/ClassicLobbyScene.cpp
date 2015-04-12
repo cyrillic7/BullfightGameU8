@@ -14,10 +14,11 @@
 #include "MainScene.h"
 #include "CMD_GameServer.h"
 #include "TCPSocketControl.h"
-#include "DefaultListerner1.h"
+#include "GameListerner.h"
 #include "DataModel.h"
 #include "PopDialogBoxLoading.h"
 #include "MD5.h"
+#include "SEvent.h"
 ClassicLobbyScene::ClassicLobbyScene()
 :isDeleteList(false)
 ,isEnterGame(false)
@@ -68,18 +69,18 @@ void ClassicLobbyScene::onEnter(){
 		button->addTouchEventListener(this, SEL_TouchEvent(&ClassicLobbyScene::menuStar));
 	}
 	//添加监听事件
-	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::callbackData),LISTENER_PLAY,NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::callbackData),S_L_PLAY,NULL);
 
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::callbackData1),"configFinish",NULL);
-	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::onOpen),LISTENER_OPEN,NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::onOpen),S_L_OPEN,NULL);
 
 	initTCPLogon();
 }
 void ClassicLobbyScene::onExit(){
 	//移除监听事件 
-	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, LISTENER_PLAY); 
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_PLAY); 
 	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, "configFinish"); 
-	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, LISTENER_OPEN); 
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_OPEN); 
 
 	BaseLobbyScene::onExit();
 }
@@ -95,7 +96,7 @@ void ClassicLobbyScene::initTCPLogon(){
 	TCPSocketControl *tcp=TCPSocketControl::sharedTCPSocketControl();
 	tcp->ip=DataModel::sharedDataModel()->tagGameServerList[0]->szServerAddr;
 	tcp->port=DataModel::sharedDataModel()->tagGameServerList[0]->wServerPort;
-	tcp->listerner=new DefaultListerner1();
+	tcp->listerner=new GameListerner();
 	tcp->startSendThread();
 }
 void ClassicLobbyScene::menuResetUser(CCObject* pSender, TouchEventType type){

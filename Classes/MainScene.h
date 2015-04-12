@@ -84,11 +84,6 @@ private:
 	void initPlayerLayer();
 	//添加背景
 	void addBg();
-	//测试逻辑
-	void testLogic();
-	//测试网络
-	
-	int threadStart();
 	static void* networkThread(void*);
 //	bool OnEventTCPSocketRead(unsigned short	wSocketID, TCP_Command tCommand, void * pDataBuffer, unsigned short wDataSize);
 	//更新状态

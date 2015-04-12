@@ -20,9 +20,10 @@
     <string>UIPopDialogBoxAuction.json</string>
     <string>UIPopDialogBoxRanking.json</string>
     <string>UIPopDialogBoxActivity.json</string>
+    <string>UIPopDialogBoxLoadingOther.json</string>
   </JsonList>
   <CanvasSize>
-    <Width>1136</Width>
+    <Width>960</Width>
     <Height>640</Height>
   </CanvasSize>
   <filePath>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\ccsprojs\UIPopDialogBox\UIPopDialogBox.xml.ui</filePath>
@@ -171,7 +172,17 @@
     <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
+    <string>UIPanel.png</string>
+    <string>UIButton.png</string>
+    <string>UIUserInfo.png</string>
+    <string>UICheckBox.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIShop.png</string>
+    <string>UIRanking.png</string>
+    <string>UIActivity.png</string>
+    <string>Font.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxShop.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxLoadingOther.json</CurrentUIJson>
 </UIProject>

@@ -20,10 +20,7 @@
     <string>UIUserInfo.plist</string>
     <string>UIGameIng.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>UIUserInfo.png</string>
-    <string>UIGameIng.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>UIPalyer.json</CurrentUIJson>
 </UIProject>

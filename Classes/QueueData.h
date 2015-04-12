@@ -9,12 +9,13 @@
 #define QUEUEDATA_H_
 #include "cocos2d.h"
 #include "Packet.h"
-//#include "cmd_ox.h"
 USING_NS_CC;
 class QueueData:public CCObject {
 public:
-	TCP_Command Command;
+	TCP_Command command;
+	WORD wSubCmdID;
 	void * pDataBuffer;
+	WORD wDataSize;
 public:
 	QueueData();
 	virtual ~QueueData();

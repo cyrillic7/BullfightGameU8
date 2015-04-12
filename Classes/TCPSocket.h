@@ -9,7 +9,7 @@
 #define __cdecl
 #define NTAPI
 #endif
-
+#include "Define.h"
 //如果是android平台需要定义宏
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID||CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
 #define RtlCopyMemory(Destination,Source,Length) memcpy((Destination),(Source),(Length))
@@ -18,27 +18,6 @@ typedef unsigned char       BYTE;
 typedef unsigned short      WORD;
 typedef unsigned long       DWORD;
 typedef char TCHAR, *PTCHAR;
-#endif
-
-#ifdef WIN32
-#include <winsock2.h>
-typedef int				socklen_t;
-#else
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <arpa/inet.h>
-//
-typedef int				SOCKET;
-
-//#pragma region define win32 const variable in linux
-#define INVALID_SOCKET	-1
-#define SOCKET_ERROR	-1
-//#pragma endregion
 #endif
 
 //长度定义

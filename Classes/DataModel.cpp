@@ -19,7 +19,6 @@ DataModel::DataModel()
 	DataModel::isSound = Tools::getBoolByRMS(RMS_IS_SOUND);
 
 	deviceSize = CCDirector::sharedDirector()->getWinSize();
-	gameLogic = new GameLogic();
 	logonSuccessUserInfo=new CMD_MB_LogonSuccess();
 }
 DataModel::~DataModel() {
@@ -27,7 +26,6 @@ DataModel::~DataModel() {
 	m_aTagGameKind->removeAllObjects();
 	m_aTagGameKind->release();
 
-	CC_SAFE_DELETE(gameLogic);
 	CC_SAFE_DELETE(logonSuccessUserInfo);
 
 	for (int i=0;i<tagGameServerList.size();i++)

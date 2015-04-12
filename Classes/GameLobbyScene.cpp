@@ -13,12 +13,13 @@
 #include "PopDialogBoxLoading.h"
 #include "ClassicLobbyScene.h"
 #include "DataModel.h"
-#include "DefaultListerner.h"
+#include "LogonListerner.h"
 #include "PopDialogBoxSetUp.h"
 //#include <stdio.h>
 #include "QueueData.h"
 #include "MD5.h"
 #include "TCPSocketControl.h"
+#include "SEvent.h"
 /*
 #ifdef WIN32
 #define UTEXT(str) GBKToUTF8(str)
@@ -167,25 +168,23 @@ void GameLobbyScene::onEnter(){
 	//金币
 	pLabelGoldCount=static_cast<UILabel*>(m_pWidget->getWidgetByName("LabelGoldCount"));*/
 	//添加监听事件
-	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(GameLobbyScene::callbackData),LISTENER_LOGON,NULL);
-	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(GameLobbyScene::onOpen),LISTENER_OPEN,NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(GameLobbyScene::callbackData),S_L_LOGON,NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(GameLobbyScene::onOpen),S_L_OPEN,NULL);
 	initTCPLogon();
 }
 
 void GameLobbyScene::onExit(){
 	//移除监听事件 
-	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, LISTENER_LOGON); 
-	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, LISTENER_OPEN); 
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_LOGON); 
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_OPEN); 
 
 	BaseLobbyScene::onExit();
 }
 void GameLobbyScene::onOpen(CCObject *obj){
 	CMD_MB_LogonAccounts logonAccounts;
-	//memset(&logonAccounts, 0, sizeof(CMD_MB_LogonAccounts));
+
 	logonAccounts.cbDeviceType = 2;
 	logonAccounts.dwPlazaVersion = 17235969;
-
-
 
 	strcpy(logonAccounts.szAccounts,"z40144322");
 	//strcpy(logonAccounts.szAccounts,"zhangh189");
@@ -194,22 +193,18 @@ void GameLobbyScene::onOpen(CCObject *obj){
 	strcpy(logonAccounts.szMobilePhone,"32");
 	strcpy(logonAccounts.szPassPortID,"12");
 	strcpy(logonAccounts.szPhoneVerifyID,"1");
-	//_tcscpy(logonAccounts.szMachineID, _TEXT("12"));
-	//_tcscpy(logonAccounts.szMobilePhone, _TEXT("32"));
-	//_tcscpy(logonAccounts.szPassPortID, _TEXT("12"));
-	//_tcscpy(logonAccounts.szPhoneVerifyID, _TEXT("1"));
+	
 
 	logonAccounts.wModuleID = 210; //210为二人牛牛标示
 
 
 	MD5 m;
 	MD5::char8 str[] = "z12345678";
-	//MD5::char8 str[] = "z123456789";
+
 	m.ComputMd5(str, sizeof(str)-1);
 	std::string md5PassWord = m.GetMd5();
 
 	strcpy(logonAccounts.szPassword,md5PassWord.c_str());
-	//_tcscpy(logonAccounts.szPassword, _TEXT(md5PassWord.c_str()));
 
 	bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &logonAccounts, sizeof(logonAccounts));
 	CCLog("send:%d", isSend);
@@ -233,6 +228,13 @@ void GameLobbyScene::callbackData(CCObject *obj){
 	CC_SAFE_DELETE(qData);
 }
 void GameLobbyScene::update(float dt){
+	/*SendData data;
+	if (m_RecvData.Dequeue(&data))
+	{
+		TCP_Command *pCommand = (TCP_Command *)&data;
+		//OnTCPSocketRead(0, *pCommand, data.sSendData+sizeof(TCP_Command), data.dwDataLen);	
+	}*/
+
 	char *name=DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName;
    if(strcmp(userName->getStringValue(),"游客")==0&&strcmp(name, "") != 0)
 	{
@@ -307,7 +309,7 @@ void GameLobbyScene::initTCPLogon(){
 	tcp->ip="125.88.145.41";
 	//tcp->ip="192.168.0.104";
 	tcp->port=8100;
-	tcp->listerner=new DefaultListerner();
+	tcp->listerner=new LogonListerner();
 	tcp->startSendThread();
 	//delete tcp->listerner;
 	/*SocketThread *socketThread=SocketThread::GetInstance();

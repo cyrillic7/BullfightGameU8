@@ -120,8 +120,8 @@ void CardLayer::sendFiveCard(int index,int offsetIndex){
 		if (index==2)
 		{
 			//BYTE mCrad[5] =DataModel::sharedDataModel()->card[1];
-			int cardColor = DataModel::sharedDataModel()->gameLogic->GetCardColor(DataModel::sharedDataModel()->card[1][i])/16;
-			int cardValue = DataModel::sharedDataModel()->gameLogic->GetCardValue(DataModel::sharedDataModel()->card[1][i]);
+			int cardColor = GetCardColor(DataModel::sharedDataModel()->card[1][i])/16;
+			int cardValue = GetCardValue(DataModel::sharedDataModel()->card[1][i]);
 			CCLog("Color:%d   values:%d",cardColor,cardValue);
 			cardMove->createCardArmature(batchCard, cardColor, cardValue, 1);
 		}else

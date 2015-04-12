@@ -8,6 +8,9 @@
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
+
+
+
 class GameLobbyScene:public BaseLobbyScene
 {
 public:
@@ -21,6 +24,7 @@ public:
 private:
 	UILabel *pLabelGoldCount;
 	UIScrollView *scroll;
+
 public:
     GameLobbyScene();
     ~GameLobbyScene();
