@@ -11,7 +11,10 @@ PlayerLayer::~PlayerLayer() {
 void PlayerLayer::onEnter(){
 	CCLayer::onEnter();
 	initPlayerInfo();
-	hidePlayer(playerPanel[0]);
+	hidePlayer(playerPanel[1]);
+	hidePlayer(playerPanel[2]);
+	hidePlayer(playerPanel[4]);
+	hidePlayer(playerPanel[5]);
 }
 void PlayerLayer::onExit(){
 

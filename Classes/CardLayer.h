@@ -7,6 +7,7 @@
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
+class Card;
 class CardLayer:public CCLayer,GameLogic {
 private:
 	//扑克集
@@ -23,6 +24,8 @@ private:
 	bool canSendCard[MAX_PLAYER];
 	//发牌计数器
 	short sSendCardCount;
+	//牌
+	Card *pCard[MAX_PLAYER*MAX_COUNT];
 public:
 	CardLayer();
 	~CardLayer();
@@ -35,6 +38,8 @@ public:
 public:
 	//更新状态
 	void updateState();
+	//显示牌
+	void showCard(int index);
 private:
 	//发牌
 	void sendCard();
@@ -50,4 +55,5 @@ private:
 	void onSendCardFinish();
 	//获取当前局总牌数
 	short getCurAllCardCount();
+
 };

@@ -15,7 +15,7 @@
 #define CCS_PATH_SCENE(name) "publish/"#name
 #define CCS_PATH_ANIMATION(name) "publish/animation/"#name
 
-#define MAX_PLAYER							5						 //最大玩家数
+#define MAX_PLAYER							6						 //最大玩家数
 
 //存档////////////////////////////////////////////////////////////////////////
 #define RMS_IS_MUSIC "isMusic"

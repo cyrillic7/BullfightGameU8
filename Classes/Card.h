@@ -21,4 +21,8 @@ public:
 	CREATE_FUNC(Card);
 	//创建扑克动画
 	void createCardArmature(CCBatchNode *cardBatch, short cardColor, short cardValue, int zOrder);
+	//改变牌
+	void changeCard( short cardColor, short cardValue, int zOrder);
+private:
+	void showCard(CCNode *node);
 };

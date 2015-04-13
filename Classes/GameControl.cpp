@@ -218,6 +218,12 @@ void GameControl::menuBetting(CCObject* pSender, TouchEventType type){
 void GameControl::updateState(){
 	switch (DataModel::sharedDataModel()->getMainScene()->getGameState())
 	{
+	case MainScene::STATE_READY:
+		{
+			pPanelReady->setEnabled(true);
+			pOptOx->setEnabled(false);
+		}
+		break;
 	case MainScene::STATE_CALL_BANKER:
 	{
 		pPanelReady->setEnabled(false);
@@ -235,7 +241,7 @@ void GameControl::updateState(){
 		pBetting->setEnabled(true);
 	}
 		break;
-	case MainScene::STATE_SETTLE_ACCOUNFS:
+	case MainScene::STATE_GAME_END:
 	{
 		pOptOx->setEnabled(false);
 	}
@@ -249,7 +255,6 @@ void GameControl::updateState(){
 //网络消息
 void GameControl::OnEventGameMessage(CCObject *pObj){
 	QueueData *pData=(QueueData*)pObj;
-	CCLog("sub:%d",pData->wSubCmdID);
 	switch (pData->wSubCmdID)
 	{
 	case SUB_S_CALL_BANKER:	//用户叫庄
@@ -292,7 +297,6 @@ void GameControl::OnEventGameMessage(CCObject *pObj){
 		{
 			//结束动画
 			//m_GameClientView.FinishDispatchCard();
-
 			//消息处理
 			OnSubGameEnd(pData->sendData.sSendData,pData->wDataSize);
 		}
@@ -305,16 +309,14 @@ void GameControl::OnEventGameMessage(CCObject *pObj){
 		}
 		break;
 	default:
-		CCLog("--------------------gamt");
+		CCLog("--------------------gameIng:%d",pData->wSubCmdID);
 		break;
 	}
-	
-	//CC_SAFE_DELETE(pData);
+	CC_SAFE_DELETE(pData);
 }
 //用户叫庄
 bool GameControl::OnSubCallBanker(const void * pBuffer, WORD wDataSize){
 	//效验数据 
-	CCLog("size:%d",wDataSize);
 	if (wDataSize!=sizeof(CMD_S_CallBanker)) return false;
 	CMD_S_CallBanker * pCallBanker=(CMD_S_CallBanker *)pBuffer;
 	if (pCallBanker->bFirstTimes)
@@ -326,6 +328,7 @@ bool GameControl::OnSubCallBanker(const void * pBuffer, WORD wDataSize){
 		}else
 		{
 			CCLog("首次对方叫庄");
+			//DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_BETTING);
 		}
 	}else
 	{
@@ -336,6 +339,7 @@ bool GameControl::OnSubCallBanker(const void * pBuffer, WORD wDataSize){
 		}else
 		{
 			CCLog("对方叫庄");
+			//DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_BETTING);
 		}
 	}
 	/*//游戏当前处于叫庄状态
@@ -420,13 +424,26 @@ bool GameControl::OnSubGameStart(const void * pBuffer, WORD wDataSize){
 	//效验数据
 	if (wDataSize!=sizeof(CMD_S_GameStart)) return false;
 	CMD_S_GameStart * pGameStart=(CMD_S_GameStart *)pBuffer;
-
+	wBankerUser=pGameStart->wBankerUser;
 	//int size=wDataSize;
 	CCLog("庄家:%d   最大:::%lld",pGameStart->wBankerUser,pGameStart->lTurnMaxScore);
 	//CCLog("游戏开始 ");
 	DataModel::sharedDataModel()->m_lTurnMaxScore=pGameStart->lTurnMaxScore;
-
-	DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_BETTING);
+	//设置筹码
+	for (int i = 0; i < 4; i++)
+	{
+		long long lCurrentScore=0;
+		if(i==0)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore/8,1L);
+		else if(i==1)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore/4,1L);
+		else if(i==2)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore/2,1L);
+		else if(i==3)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore,1L);
+		pbBetting[i]->setTitleText(CCString::createWithFormat("%lld",lCurrentScore)->getCString());
+	} 
+	if (wBankerUser!=1)
+	{
+		DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_BETTING);
+	}
+	//DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_WAIT);
 	return true;
 }
 
@@ -436,17 +453,7 @@ bool GameControl::OnSubAddScore(const void * pBuffer, WORD wDataSize)
 	//效验数据
 	if (wDataSize!=sizeof(CMD_S_AddScore)) return false;
 	CMD_S_AddScore * pAddScore=(CMD_S_AddScore *)pBuffer;
-
-	for (int i = 0; i < 4; i++)
-	{
-		long long lCurrentScore=0;
-		if(i==0)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore/8,1L);
-		else if(i==1)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore/4,1L);
-		else if(i==2)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore/2,1L);
-		else if(i==3)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore,1L);
-		pbBetting[i]->setTitleText(CCString::createWithFormat("%lld",lCurrentScore)->getCString());
-	}
-	DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_BETTING);
+	CCLog("对方下注");
 	/*
 	//变量定义
 	WORD wMeChairID=GetMeChairID();
@@ -483,7 +490,7 @@ bool GameControl::OnSubSendCard(const void * pBuffer, WORD wDataSize)
 	CMD_S_SendCard * pSendCard=(CMD_S_SendCard *)pBuffer;
 	CCLog("发牌");
 	
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < MAX_COUNT; i++)
 	{
 		DataModel::sharedDataModel()->card[1][i]=pSendCard->cbCardData[1][i];
 	}
@@ -592,6 +599,21 @@ bool GameControl::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 	//效验参数
 	if (wDataSize!=sizeof(CMD_S_GameEnd)) return false;
 	CMD_S_GameEnd * pGameEnd=(CMD_S_GameEnd *)pBuffer;
+	/*
+	long long							lGameTax[GAME_PLAYER];				//游戏税收
+	long long							lGameScore[GAME_PLAYER];			//游戏得分
+	// 	BYTE								cbCardData[GAME_PLAYER];			//用户扑克
+	BYTE								cbCardData[GAME_PLAYER][MAX_COUNT];	//用户扑克
+	*/
+	//显示积分
+	for (WORD i=0;i<GAME_PLAYER;i++)
+	{
+		CCLog("%d  %lld",i,pGameEnd->lGameScore[i]);
+		//if(GetTableUserItem(i)!=NULL)m_GameClientView.ShowScore(m_wViewChairID[i],true);
+		//m_GameClientView.SetUserTableScore(m_wViewChairID[i],pGameEnd->lGameScore[i]);
+		//m_GameClientView.SetUserTotalScore(m_wViewChairID[i],pGameEnd->lGameScore[i]);
+	}
+	DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_GAME_END);
 	/*
 	CopyMemory(m_cbHandCardData,pGameEnd->cbCardData,sizeof(m_cbHandCardData));
 

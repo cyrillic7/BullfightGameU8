@@ -9,20 +9,23 @@
 #define BASEATTRIBUTES_H_
 
 #include "cocos2d.h"
+#include "GameConfig.h"
 USING_NS_CC;
 //#define GOODS_COUNT 4
 class BaseAttributes :public CCObject{
 public:
-	std::string sexBoyName;
-	std::string sexGirlName;
-	//物品（油桶、炸药包）////////////////////////////////////////////////////////////////////////
-	//int goodsLife[GOODS_COUNT];
-	//int goodsAttack[GOODS_COUNT];
-	//float goodsAttackRange[GOODS_COUNT];
+	std::string sSexBoyName;
+	std::string sSexGirlName;
+
+	int iCardOffsetX[MAX_PLAYER];
+	int iCardOffsetY[MAX_PLAYER];
+	int iCardOffsetSpace[MAX_PLAYER];
 public:
 	static BaseAttributes * sharedAttributes();
 	virtual ~BaseAttributes();
 	void initBaseAttrobutes();
+	//扑克偏移
+	void initCardOffset();
 private:
 	void initStr();
 };

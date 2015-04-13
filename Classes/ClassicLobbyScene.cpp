@@ -67,24 +67,34 @@ void ClassicLobbyScene::onEnter(){
 	{
 		button = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("ButtonScene%d",i+1)->getCString()));
 		button->addTouchEventListener(this, SEL_TouchEvent(&ClassicLobbyScene::menuStar));
+		//房间描述
+		UILabel *description=static_cast<UILabel*>(m_pWidget->getWidgetByName(CCString::createWithFormat("Label%d",i)->getCString()));
+		description->setText(Tools::GBKToUTF8(DataModel::sharedDataModel()->tagGameServerList[i]->szDescription));
 	}
 	//添加监听事件
-	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::callbackData),S_L_PLAY,NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::onPlay),S_L_PLAY,NULL);
 
-	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::callbackData1),"configFinish",NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::onConfigFinish),S_L_CONFIG_FINISH,NULL);
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::onOpen),S_L_OPEN,NULL);
 
-	initTCPLogon();
+	//initTCPLogon();
 }
 void ClassicLobbyScene::onExit(){
 	//移除监听事件 
 	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_PLAY); 
-	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, "configFinish"); 
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_CONFIG_FINISH); 
 	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_OPEN); 
 
 	BaseLobbyScene::onExit();
 }
-void ClassicLobbyScene::initTCPLogon(){
+void ClassicLobbyScene::initTCPLogon(int index){
+
+	for (int i = 0; i < DataModel::sharedDataModel()->tagGameServerList.size(); i++)
+	{
+		CCLog("%d  %s %d",DataModel::sharedDataModel()->tagGameServerList[i]->wSortID,
+			Tools::GBKToUTF8(DataModel::sharedDataModel()->tagGameServerList[i]->szServerName)
+			,DataModel::sharedDataModel()->tagGameServerList[i]->wServerPort);
+	}
 	/*TCPLogonID *tcpID=TCPLogonID::create();
 	this->addChild(tcpID);
 	tcpID->setTag(999);
@@ -94,8 +104,9 @@ void ClassicLobbyScene::initTCPLogon(){
 	pdb->setTag(189);
 
 	TCPSocketControl *tcp=TCPSocketControl::sharedTCPSocketControl();
-	tcp->ip=DataModel::sharedDataModel()->tagGameServerList[0]->szServerAddr;
-	tcp->port=DataModel::sharedDataModel()->tagGameServerList[0]->wServerPort;
+	tcp->ip=DataModel::sharedDataModel()->tagGameServerList[index]->szServerAddr;
+	tcp->port=DataModel::sharedDataModel()->tagGameServerList[index]->wServerPort;
+	CCLog("%s:%d",tcp->ip,tcp->port);
 	tcp->listerner=new GameListerner();
 	tcp->startSendThread();
 }
@@ -114,14 +125,10 @@ void ClassicLobbyScene::menuStar(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
+		UIButton *button=(UIButton*)pSender;
+		initTCPLogon(button->getTag()-1);
 		//TCPLogonID *tcpID=(TCPLogonID *)this->getChildByTag(999);
-		CMD_GR_UserSitDown sit;
-		sit.wTableID=28;
-		sit.wChairID=1;
-
-		bool isSend=TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GR_USER,SUB_GR_USER_SITDOWN,&sit, sizeof(sit));
-		//bool isSend=tcpID->ts.SendData(MDM_GR_USER,SUB_GR_USER_SITDOWN,&sit, sizeof(sit));
-		CCLog("Classic:%d",isSend);
+		/**/
 		//tcpID->sendData();
 		//enterMainSceneByMode(((UIButton*)pSender)->getTag());
 	}
@@ -151,13 +158,22 @@ void ClassicLobbyScene::update(float delta){
 		enterMainSceneByMode(1);
 	}
 }
-void ClassicLobbyScene::callbackData(CCObject *obj){
+void ClassicLobbyScene::onPlay(CCObject *obj){
 	//enterMainSceneByMode(1);
-	isEnterGame=true;
-}
-void ClassicLobbyScene::callbackData1(CCObject *obj){
 	PopDialogBox *pdb=(PopDialogBoxLoading*)this->getChildByTag(189);
 	pdb->removeFromParentAndCleanup(true);
+
+	isEnterGame=true;
+}
+void ClassicLobbyScene::onConfigFinish(CCObject *obj){
+	//
+	CMD_GR_UserSitDown sit;
+	sit.wTableID=38;
+	sit.wChairID=1;
+
+	bool isSend=TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GR_USER,SUB_GR_USER_SITDOWN,&sit, sizeof(sit));
+	//bool isSend=tcpID->ts.SendData(MDM_GR_USER,SUB_GR_USER_SITDOWN,&sit, sizeof(sit));
+	CCLog("Classic 坐下:%d",isSend);
 }
 void ClassicLobbyScene::onOpen(CCObject *obj){
 	CMD_GR_LogonUserID logonUserID;

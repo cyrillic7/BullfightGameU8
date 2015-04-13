@@ -17,10 +17,13 @@
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <imageFileList>
-    <string>UIUserInfo.plist</string>
     <string>UIGameIng.plist</string>
+    <string>UIUserInfo.plist</string>
   </imageFileList>
-  <imagePngList />
+  <imagePngList>
+    <string>UIGameIng.png</string>
+    <string>UIUserInfo.png</string>
+  </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>UIPalyer.json</CurrentUIJson>
 </UIProject>

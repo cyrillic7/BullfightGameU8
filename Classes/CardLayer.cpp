@@ -4,8 +4,10 @@
 #include "GameConfig.h"
 #include "Card.h"
 #include "DataModel.h"
+#include "BaseAttributes.h"
 #define MAX_CARD_COUNT								5						//最大牌数
 #define SEND_CARD_DELAY_TIME						0.1						//发牌延时时长 
+#define SELF_SEAT									3						//自己的位置
 CardLayer::CardLayer()
 :sendCardState(SEND_STATE_WAIT)
 , sSendCardCount(0)
@@ -88,11 +90,12 @@ void CardLayer::sendCard(){
 		}
 	}*/
 }
+//发牌中
 void CardLayer::sendCardIng(){
 	Card *card = Card::create();
 	card->createCardArmature(batchCard, 5, 0,0);
 	this->addChild(card);
-	card->m_cpArmatureCard->setScale(0.3);
+	card->m_cpArmatureCard->setScale(0.42);
 	card->m_cpArmatureCard->setPosition(ccp(DataModel::sharedDataModel()->deviceSize.width/2, DataModel::sharedDataModel()->deviceSize.height/2));
 	//偏移索引
 	int offsetIndex = 0;
@@ -116,32 +119,34 @@ void CardLayer::sendFiveCard(int index,int offsetIndex){
 	CCPoint cardPos = ccpAdd(playerPos, iPlayerIcon->getPosition());
 	for (int i = 0; i < MAX_CARD_COUNT; i++)
 	{
-		Card *cardMove = Card::create();
-		if (index==2)
+		pCard[i+index*MAX_COUNT] = Card::create();
+		if (index==SELF_SEAT)
 		{
-			//BYTE mCrad[5] =DataModel::sharedDataModel()->card[1];
-			int cardColor = GetCardColor(DataModel::sharedDataModel()->card[1][i])/16;
-			int cardValue = GetCardValue(DataModel::sharedDataModel()->card[1][i]);
-			CCLog("Color:%d   values:%d",cardColor,cardValue);
-			cardMove->createCardArmature(batchCard, cardColor, cardValue, 1);
+			//int cardColor = GetCardColor(DataModel::sharedDataModel()->card[1][i])/16;
+			//int cardValue = GetCardValue(DataModel::sharedDataModel()->card[1][i]);
+			//cardMove->createCardArmature(batchCard, cardColor, cardValue, 1);
+			pCard[i+index*MAX_COUNT]->createCardArmature(batchCard, 5, 0, 1);
 		}else
 		{
-			cardMove->createCardArmature(batchCard, 5, 0, 1);
+			pCard[i+index*MAX_COUNT]->createCardArmature(batchCard, 5, 0, 1);
 		}
-		
-		this->addChild(cardMove);
-		cardMove->m_cpArmatureCard->setScale(0.3);
+		this->addChild(pCard[i+index*MAX_COUNT]);
+		pCard[i+index*MAX_COUNT]->m_cpArmatureCard->setScale(0.42);
 		int offx = rand() % 3;
 		int offy = rand() % 3;
-		cardMove->m_cpArmatureCard->setPosition(ccp(DataModel::sharedDataModel()->deviceSize.width / 2 + offx, DataModel::sharedDataModel()->deviceSize.height / 2 + offy));
-		CCPoint offPos = ccp(60+i*50,0);
-		moveCardAction(cardMove->m_cpArmatureCard, (index-offsetIndex)*SEND_CARD_DELAY_TIME*MAX_CARD_COUNT + i*SEND_CARD_DELAY_TIME, ccpAdd(cardPos, offPos),index);
+		pCard[i+index*MAX_COUNT]->m_cpArmatureCard->setPosition(ccp(DataModel::sharedDataModel()->deviceSize.width / 2 + offx, DataModel::sharedDataModel()->deviceSize.height / 2 + offy));
+		int offsetX=BaseAttributes::sharedAttributes()->iCardOffsetX[index];
+		int offsetY=BaseAttributes::sharedAttributes()->iCardOffsetY[index];
+		int offsetSpace=BaseAttributes::sharedAttributes()->iCardOffsetSpace[index];
+		
+		CCPoint offPos = ccp(offsetX+i*offsetSpace,0);
+		moveCardAction(pCard[i+index*MAX_COUNT]->m_cpArmatureCard, (index-offsetIndex)*SEND_CARD_DELAY_TIME*MAX_CARD_COUNT + i*SEND_CARD_DELAY_TIME, ccpAdd(cardPos, offPos),index);
 	}
 
 }
 //移动单张牌
 void CardLayer::moveCardAction(CCArmature *armature, float fTime, CCPoint targetPos,int index){
-	float moveSpeed=0.2;
+	float moveSpeed=0.1;
 	CCDelayTime *delayTime = CCDelayTime::create(fTime);
 	CCMoveTo *moveTo = CCMoveTo::create(moveSpeed, targetPos);
 	CCScaleTo *scaleTo = CCScaleTo::create(moveSpeed, getCardScale(index));
@@ -157,6 +162,8 @@ void CardLayer::onSendCardFinish(){
 	{
 		DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_OPT_OX);
 		//DataModel::sharedDataModel()->getMainScene()->setServerStateWithUpdate(MainScene::STATE_FIGHT_BANKER);
+		CCLog("CardLayer::onSendCardFinish::show-------------card");
+		showCard(SELF_SEAT);
 	}
 }
 short CardLayer::getCurAllCardCount(){
@@ -183,17 +190,36 @@ void CardLayer::updateState(){
 	}
 }
 void CardLayer::setCanSendCard(){
-	canSendCard[0] = false;
+	canSendCard[0] = true;
+	canSendCard[1] = false;
+	canSendCard[2] = false;
+	canSendCard[3] = true;
+	canSendCard[4] = false;
+	canSendCard[5] = false;
+	
+	/*canSendCard[0] = true;
 	canSendCard[1] = true;
 	canSendCard[2] = true;
 	canSendCard[3] = true;
 	canSendCard[4] = true;
-
+	canSendCard[5] = true;*/
 }
 float CardLayer::getCardScale(int index){
-	if (index==2)
+	if (index==SELF_SEAT)
 	{
-		return 0.5;
+		return 1;
 	}
-	return 0.3;
+	return 0.9;
+}
+//显示牌
+void CardLayer::showCard(int index){
+	int beginCardIndex=index*MAX_COUNT;
+	for (int i = 0; i < MAX_COUNT; i++)
+	{
+		int cardColor = GetCardColor(DataModel::sharedDataModel()->card[1][i])/16;
+		int cardValue = GetCardValue(DataModel::sharedDataModel()->card[1][i]);
+		pCard[beginCardIndex+i]->changeCard(cardColor,cardValue,i);
+
+		
+	}
 }

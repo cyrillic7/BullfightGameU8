@@ -46,7 +46,7 @@ public:
 		STATE_CALL_BANKER,			//抢庄状态
 		STATE_BETTING,				//投注
 		STATE_OPT_OX,				//选牛
-		STATE_SETTLE_ACCOUNFS,		//结算
+		STATE_GAME_END,				//结算
 	};
 	CC_SYNTHESIZE(GameState,gameState,GameState);
 	CC_SYNTHESIZE(GameState,serverState,ServerState);

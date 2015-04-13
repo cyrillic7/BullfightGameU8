@@ -113,53 +113,6 @@ bool LogonListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Comma
 			memcpy(data.sSendData, &Command, nHeadLen);
 			memcpy(data.sSendData+nHeadLen, pDataBuffer, wDataSize < MAX_TCP_LEN-nHeadLen? wDataSize: MAX_TCP_LEN-1-nHeadLen );
 			data.dwDataLen = wDataSize;*/
-
-			/*SendData data;
-			int nHeadLen = sizeof(TCP_Command);
-			memcpy(data.sSendData, &Command, nHeadLen);
-			memcpy(data.sSendData+nHeadLen, pDataBuffer, wDataSize < MAX_TCP_LEN-nHeadLen? wDataSize: MAX_TCP_LEN-1-nHeadLen );
-			data.dwDataLen = wDataSize;
-			if (!m_RecvData.Enqueue(&data))
-			{
-				//return false;
-			}
-			//return true;
-				
-			SendData data1;
-			if (m_RecvData.Dequeue(&data1))
-			{
-				TCP_Command *pCommand = (TCP_Command *)&data1;
-				CMD_MB_LogonSuccess *ss=(CMD_MB_LogonSuccess*)data1.sSendData+sizeof(TCP_Command);
-				CCLog("111");
-				//OnTCPSocketRead(0, *pCommand, data.sSendData+sizeof(TCP_Command), data.dwDataLen);	
-			}*/
-
-
-
-
-
-
-			/*SendData send;
-			send.dwDataLen=wDataSize;
-			//send.sSendData=pDataBuffer;
-			memcpy(send.sSendData,pDataBuffer,wDataSize);
-			m_RecvData.Enqueue(&send);*/
-            //tagGameServer *tempTag=new tagGameServer();
-			/*QueueData *pData=new QueueData();
-			pData->command=Command;
-			memcpy(pData->pDataBuffer,pDataBuffer,wDataSize);
-			DataModel::sharedDataModel()->queueData.push_back(pData);*/
-
-			/*//////////////////////////////////////////////////////////////////////////
-			void *tempTag=new void*();
-			///strcpy(tempTag->szNickName,ls->szNickName);
-			memcpy(tempTag,ls,sizeof(CMD_MB_LogonSuccess));
-
-			QueueData *qData=new QueueData();
-			qData->pDataBuffer=tempTag;
-
-
-			MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_LOGON,qData);*/
 		}
 	}
 	//获取列表
@@ -184,13 +137,14 @@ bool LogonListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Comma
 			//void *pDataBuffer = pDataBuffer + sizeof(tagGameServer);
 			BYTE cbDataBuffer[SOCKET_TCP_PACKET + sizeof(TCP_Head)];
 			CopyMemory(cbDataBuffer, pDataBuffer, wDataSize);
-			
+
+			DataModel::sharedDataModel()->removeTagGameServerList();
 			for (int i = 0; i < serverCount; i++)
 			{
 				void * pDataBuffer = cbDataBuffer + i*sizeof(tagGameServer);
 				tagGameServer *gameServer = (tagGameServer*)pDataBuffer;
 				tagGameServer *tempTag=new tagGameServer();
-				tempTag->dwFullCount=gameServer->dwFullCount;
+				/*tempTag->dwFullCount=gameServer->dwFullCount;
 				tempTag->dwOnLineCount=gameServer->dwOnLineCount;
 				strcpy(tempTag->szDescription,gameServer->szDescription);
 				strcpy(tempTag->szGameLevel,gameServer->szGameLevel);
@@ -201,13 +155,16 @@ bool LogonListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Comma
 				tempTag->wServerID=gameServer->wServerID;
 				tempTag->wServerPort=gameServer->wServerPort;
 				tempTag->wServerType=gameServer->wServerType;
-				tempTag->wSortID=gameServer->wSortID;
+				tempTag->wSortID=gameServer->wSortID;*/
+				memcpy(tempTag,gameServer,sizeof(tagGameServer));
 				//memcoyp(gameServer,0,sizeof(tagGameServer));
 				DataModel::sharedDataModel()->tagGameServerList.push_back(tempTag);
-               // CCLog("%s",tempTag->szServerName);
+
+				//sort(DataModel::sharedDataModel()->tagGameServerList.begin(), DataModel::sharedDataModel()->tagGameServerList.end(), less_second);
+
+                CCLog("-----:%d ",tempTag->wSortID);
 			}
-			//tagGameServer *gameServer = (tagGameServer*)pDataBuffer;
-			//TCPSocket::OnSocketNotifyRead(0, 0);
+			DataModel::sharedDataModel()->sortVector();
 		}
 	}
 	//获取列表完成

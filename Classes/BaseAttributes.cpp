@@ -21,14 +21,27 @@ BaseAttributes::~BaseAttributes(){
 }
 void BaseAttributes::initBaseAttrobutes(){
  	this->initStr();
+	this->initCardOffset();
 }
 void BaseAttributes::initStr(){
 	CCString *tempStr = CCString::createWithFormat("data/str.plist");
 	CCDictionary *mDic=CCDictionary::createWithContentsOfFile(tempStr->getCString());
 	
-	sexBoyName = dynamic_cast<CCString *>(mDic->objectForKey("strSexBoy"))->getCString();
-	sexGirlName=dynamic_cast<CCString *>(mDic->objectForKey("strSexGirl"))->getCString();
+	sSexBoyName = dynamic_cast<CCString *>(mDic->objectForKey("strSexBoy"))->getCString();
+	sSexGirlName=dynamic_cast<CCString *>(mDic->objectForKey("strSexGirl"))->getCString();
 
 	mDic->removeAllObjects();
 	CC_SAFE_RELEASE_NULL(mDic);
+}
+void BaseAttributes::initCardOffset(){
+	CCString *tempStr = CCString::createWithFormat("data/cardOffset.plist");;
+	CCArray *tempArray = CCArray::createWithContentsOfFile(tempStr->getCString());
+	for (int i = 0; i < tempArray->count(); i++) {
+		CCDictionary* mDic = dynamic_cast<CCDictionary *>(tempArray->objectAtIndex(i));
+		iCardOffsetX[i] = dynamic_cast<CCString *>(mDic->objectForKey("offset_x"))->intValue();
+		iCardOffsetY[i] = dynamic_cast<CCString *>(mDic->objectForKey("offset_y"))->intValue();
+		iCardOffsetSpace[i] = dynamic_cast<CCString *>(mDic->objectForKey("offset_space"))->intValue();
+	}
+	tempArray->removeAllObjects();
+	CC_SAFE_RELEASE_NULL(tempArray);
 }

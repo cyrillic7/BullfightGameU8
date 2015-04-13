@@ -28,7 +28,7 @@ public:
 private:
 	void update(float delta);
 	
-	void initTCPLogon();
+	void initTCPLogon(int index);
 	//弹出框
 	void popDialogBox();
 	//菜单设置用户信息
@@ -37,7 +37,7 @@ private:
 
 	void enterMainSceneByMode(int mode);
 
-	void callbackData(CCObject *obj);
-	void callbackData1(CCObject *obj);
+	void onPlay(CCObject *obj);
+	void onConfigFinish(CCObject *obj);
 	void onOpen(CCObject *obj);
 };

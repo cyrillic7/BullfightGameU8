@@ -103,7 +103,7 @@ void PopDialogBoxUserInfo::updateSex(){
 	if (DataModel::sharedDataModel()->logonSuccessUserInfo->cbGender==1)
 	{
 		piSexIcon->loadTexture("u_info_icon_boy.png",UI_TEX_TYPE_PLIST);
-		plSexBoyInfo->setText(BaseAttributes::sharedAttributes()->sexBoyName);
+		plSexBoyInfo->setText(BaseAttributes::sharedAttributes()->sSexBoyName);
 		if (isShowChange)
 		{
 			pcbSexBoy->setSelectedState(true);
@@ -113,7 +113,7 @@ void PopDialogBoxUserInfo::updateSex(){
 	}else
 	{
 		piSexIcon->loadTexture("u_info_icon_girl.png",UI_TEX_TYPE_PLIST);
-		plSexBoyInfo->setText(BaseAttributes::sharedAttributes()->sexGirlName);
+		plSexBoyInfo->setText(BaseAttributes::sharedAttributes()->sSexGirlName);
 		if (isShowChange)
 		{
 			pcbSexBoy->setSelectedState(false);

@@ -20,95 +20,6 @@
 #include "MD5.h"
 #include "TCPSocketControl.h"
 #include "SEvent.h"
-/*
-#ifdef WIN32
-#define UTEXT(str) GBKToUTF8(str)
-#else
-#define UTEXT(str) gb23122utf8(str)
-#endif
-
-#ifdef WIN32
-#include "platform/third_party/win32/iconv/iconv.h"
-
-static char g_GBKConvUTF8Buf[5000] = {0};
-const char* GBKToUTF8(const char *strChar)
-{
-
-	iconv_t iconvH;
-	iconvH = iconv_open("utf-8","gb2312");
-	if (iconvH == 0)
-	{
-		return NULL;
-	}
-	size_t strLength = strlen(strChar);
-	size_t outLength = strLength<<2;
-	size_t copyLength = outLength;
-	memset(g_GBKConvUTF8Buf, 0, 5000);
-
-	char* outbuf = (char*) malloc(outLength);
-	char* pBuff = outbuf;
-	memset( outbuf, 0, outLength);
-
-	if (-1 == iconv(iconvH, &strChar, &strLength, &outbuf, &outLength))
-	{
-		iconv_close(iconvH);
-		return NULL;
-	}
-	memcpy(g_GBKConvUTF8Buf,pBuff,copyLength);
-	free(pBuff);
-	iconv_close(iconvH);
-	return g_GBKConvUTF8Buf;
-}
-#else
-#include <dlfcn.h>
-void (*ucnv_convert)(const char *, const char *, char * , int32_t , const char *, int32_t,int32_t*) = 0;
-bool openIcuuc()
-{
-	void* libFile = dlopen("/system/lib/libicuuc.so", RTLD_LAZY);
-	if (libFile)
-	{
-		ucnv_convert = (void (*)(const char *, const char *, char * , int32_t , const char *, int32_t,int32_t*))dlsym(libFile, "ucnv_convert_3_8");
-
-		int index = 0;
-		char fun_name[64];
-		while (ucnv_convert == NULL)
-		{
-			sprintf(fun_name, "ucnv_convert_4%d", index++);
-			ucnv_convert = (void (*)(const char *, const char *, char * , int32_t , const char *, int32_t,int32_t*))dlsym(libFile, fun_name);
-			if (ucnv_convert)
-				return true;
-			if (++index > 11)
-				break;
-		}
-		dlclose(libFile);
-	}
-	return false;
-}
-const char* gb23122utf8(const char * gb2312)
-{
-	if (ucnv_convert == NULL)
-	{
-		openIcuuc();
-	}
-	if (ucnv_convert)
-	{
-		int err_code = 0;
-		int len = strlen(gb2312);
-		char* str = new char[len * 2 + 10];
-		memset(str, 0, len * 2 + 10);
-		ucnv_convert("utf-8", "gb2312", str, len * 2 + 10, gb2312, len, &err_code);
-		if (err_code == 0)
-		{
-			return str;
-		}
-	}
-	char test[256] = "gb23122utf8 error";
-	char* str = new char[30];
-	strcpy(str, test);
-	return str;
-}
-#endif
-*/
 GameLobbyScene::GameLobbyScene()
 :deleteSocket(false){
 	scheduleUpdate();
@@ -228,29 +139,15 @@ void GameLobbyScene::callbackData(CCObject *obj){
 
 }
 void GameLobbyScene::update(float dt){
-	/*SendData data;
-	if (m_RecvData.Dequeue(&data))
-	{
-		TCP_Command *pCommand = (TCP_Command *)&data;
-		//OnTCPSocketRead(0, *pCommand, data.sSendData+sizeof(TCP_Command), data.dwDataLen);	
-	}*/
-
 	char *name=DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName;
-   if(strcmp(userName->getStringValue(),"游客")==0&&strcmp(name, "") != 0)
+	if(strcmp(userName->getStringValue(),"游客")==0&&strcmp(name, "") != 0)
 	{
 		userName->setText(Tools::GBKToUTF8(name));
-		//pLabelGoldCount->setText(CCString::createWithFormat("%ld",DataModel::sharedDataModel()->logonSuccessUserInfo->dwExperience)->getCString());
-		CCLog("333333333333");
 	}
-	/*if (strcmp(name, "") != 0)
-	{
-		CCLog("name:%s",Tools::gbToUtf8(name));
-	}*/
 	if (deleteSocket)
 	{
 		TCPSocketControl::sharedTCPSocketControl()->stopSocket();
 		deleteSocket=false;
-		CCLog("2222222222222");
 	}
 }
 void GameLobbyScene::menuResetUser(CCObject* pSender, TouchEventType type){

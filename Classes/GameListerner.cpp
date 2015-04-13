@@ -13,7 +13,7 @@
 #include "MD5.h"
 #include "DataModel.h"
 #include "MTNotificationQueue.h"
-//#include "iconv.h"
+#include "Tools.h"
 #include "cmd_ox.h"
 #include "cocos2d.h"
 #include "QueueData.h"
@@ -113,7 +113,7 @@ bool GameListerner::logonEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuf
 		//if (wDataSize < sizeof(CMD_GR_LogonFailure)) return false;
 
 		CMD_GR_LogonFailure *lf = (CMD_GR_LogonFailure*)pDataBuffer;
-		CCLog("登录失败:%s",lf->szDescribeString);
+		CCLog("登录失败:%s",Tools::GBKToUTF8(lf->szDescribeString));
 	}
 	return true;
 }
@@ -152,7 +152,7 @@ bool GameListerner::configEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBu
 		{
 			CCLog("配置完成");
 
-			MTNotificationQueue::sharedNotificationQueue()->postNotification("configFinish",NULL);
+			MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_CONFIG_FINISH,NULL);
 			/*CMD_GR_UserSitDown sit;
 			sit.wTableID=28;
 			sit.wChairID=1;
@@ -178,7 +178,7 @@ bool GameListerner::userEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuff
 			//CCLog("用户进入");
 		}
 		break;
-	case SUB_GR_USER_SCORE:
+	case SUB_GR_USER_SCORE://用户分数
 		{
 			CMD_GR_UserScore *userScore=(CMD_GR_UserScore*)pDataBuffer;
 			//CCLog("用户分数");
@@ -197,20 +197,17 @@ bool GameListerner::userEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuff
 					DataModel::sharedDataModel()->isSit=true;
 					CCLog("坐下:table: %d desk:%d",state.wTableID,state.wChairID);
 					// CCNotificationCenter::sharedNotificationCenter()->postNotification(LISTENER_LOGON,NULL);
-					CCLog("==============dd");
-					// 
-					CMD_GF_GameOption GameOption;
-					//ZeroMemory(&GameOption,sizeof(GameOption));
-
+					
 					//构造数据
+					CMD_GF_GameOption GameOption;
 					GameOption.dwFrameVersion=VERSION_FRAME;
 					GameOption.cbAllowLookon=0;
 					GameOption.dwClientVersion=VERSION_CLIENT;
-
+					//发送
 					bool isSend = pSocket->SendData(MDM_GF_FRAME, SUB_GF_GAME_OPTION, &GameOption, sizeof(GameOption));
-					CCLog("send---:%d", isSend);
 				}else if (state.cbUserStatus==US_PLAYING)
 				{
+					MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_CONFIG_FINISH,NULL);
 					//CMD_S_StatusFree *gameStatue=(CMD_S_StatusFree*)pDataBuffer;
 					CCLog("游戏状态 ");
 				}
@@ -264,57 +261,13 @@ bool GameListerner::frameEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuf
 	return true;
 }
 bool GameListerner::gameEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
-	/*//创建数据
-	QueueData *pData=new QueueData();
-	pData->wSubCmdID=wSubCmdID;
-	pData->wDataSize=wDataSize;
-	memcpy(pData->pDataBuffer,pDataBuffer,wDataSize);*/
-    QueueData queueData;
-    queueData.wSubCmdID=wSubCmdID;
-	queueData.wDataSize=wDataSize;
-    memcpy(queueData.sendData.sSendData, pDataBuffer, wDataSize);
-
+	//创建数据
+    QueueData *queueData=new QueueData();
+    queueData->wSubCmdID=wSubCmdID;
+	queueData->wDataSize=wDataSize;
+    memcpy(queueData->sendData.sSendData, pDataBuffer, wDataSize);
 	//发送消息
-	MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_GAME_ING,&queueData);
-	/*
-	switch (wSubCmdID)
-	{
-	
-	case SUB_S_SEND_CARD:
-		{
-		
-		}
-		break;
-	case SUB_S_OPEN_CARD:
-		{
-			//效验数据
-			if (wDataSize!=sizeof(CMD_S_Open_Card)) return false;
-			CMD_S_Open_Card * pOpenCard=(CMD_S_Open_Card *)pDataBuffer;
-
-			CCLog("开牌 ");
-		}
-		break;
-	case SUB_S_GAME_END:
-		{
-			//效验参数
-			if (wDataSize!=sizeof(CMD_S_GameEnd)) return false;
-			CMD_S_GameEnd * pGameEnd=(CMD_S_GameEnd *)pDataBuffer;
-			for (int i = 0; i < 2; i++)
-			{
-				for (int j = 0; j < 5; j++)
-				{
-					int color=GetCardColor(pGameEnd->cbCardData[i][j]);
-					int value=GetCardValue(pGameEnd->cbCardData[i][j]);
-					CCLog("---------color:%d  value:%d",color,value);
-				}
-			}
-
-			CCLog("游戏结束");
-		}
-		break;
-	default:
-		CCLog("游戏命令:%d",wSubCmdID);
-		break;
-	}*/
+	MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_GAME_ING,queueData);
+	CCLog("gameEvent:%d",wSubCmdID);
 	return true;
 }

@@ -12,16 +12,19 @@
   "textures": [
     "UIGameLobby.plist",
     "UIClassicLobby.plist",
+    "UIPanel.plist",
     "UIMode.plist",
     "UIUserInfo.plist"
   ],
   "texturesPng": [
     "UIGameLobby.png",
     "UIClassicLobby.png",
+    "UIPanel.png",
     "UIMode.png",
     "UIUserInfo.png",
     "UIGameLobby.png",
     "UIClassicLobby.png",
+    "UIPanel.png",
     "UIMode.png",
     "UIUserInfo.png"
   ],

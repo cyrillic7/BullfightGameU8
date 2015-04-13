@@ -29,6 +29,9 @@ private:
 	UIPanel *pBetting;
 	//加注按键
 	UIButton *pbBetting[4];
+
+	//庄家用户
+	BYTE wBankerUser;
 public:
 	virtual void onEnter();
 	virtual void onExit();

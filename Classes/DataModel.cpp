@@ -3,6 +3,7 @@
  *
  *
  */
+#include <algorithm>
 #include "DataModel.h"
 #include "Tools.h"
 #include "GameConfig.h"
@@ -28,11 +29,7 @@ DataModel::~DataModel() {
 
 	CC_SAFE_DELETE(logonSuccessUserInfo);
 
-	for (int i=0;i<tagGameServerList.size();i++)
-	{
-		CC_SAFE_DELETE(tagGameServerList[i]);
-	}
-	tagGameServerList.resize(0);
+	removeTagGameServerList();
 	/*
 	_outputEnemysData->removeAllObjects();
 	_outputEnemysData->release();
@@ -105,4 +102,18 @@ void DataModel::initDataModel(){
 	//
 	//_bulletMagicWands = CCArray::create();
 	//_bulletMagicWands->retain();*/
+}
+bool lessSecond(const tagGameServer * m1, const tagGameServer * m2) {
+	return m1->wSortID < m2->wSortID;
+}
+void DataModel::sortVector(){
+	std::sort(tagGameServerList.begin(),tagGameServerList.end(),lessSecond);
+}
+void DataModel::removeTagGameServerList(){
+	for (int i=0;i<tagGameServerList.size();i++)
+	{
+		CC_SAFE_DELETE(tagGameServerList[i]);
+	}
+	tagGameServerList.clear();
+	tagGameServerList.resize(0);
 }
