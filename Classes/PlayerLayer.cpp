@@ -54,6 +54,13 @@ void PlayerLayer::updateState(){
 }
 void PlayerLayer::showResultAnimation(int iPanelIndex,long long lGameScore){
 	pLResult[iPanelIndex]->setVisible(true);
+	if (lGameScore>0)
+	{
+		pLResult[iPanelIndex]->setColor(ccc3(0,208,29));
+	}else
+	{
+		pLResult[iPanelIndex]->setColor(ccc3(255,0,0));
+	}
 	pLResult[iPanelIndex]->setStringValue(CCString::createWithFormat("%s%lld",lGameScore>0?":":";",abs(lGameScore))->getCString());
 	pLResult[iPanelIndex]->setPositionY(27);
 	//pLResult[iPanelIndex]->setPositionPercent(ccp(0,27));
