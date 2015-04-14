@@ -210,6 +210,9 @@ bool GameListerner::userEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuff
 					MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_CONFIG_FINISH,NULL);
 					//CMD_S_StatusFree *gameStatue=(CMD_S_StatusFree*)pDataBuffer;
 					CCLog("游戏状态 ");
+				}else if(state.cbUserStatus==US_FREE)
+				{
+					CCLog("站立");
 				}
 				CCLog("状态：%d",state.cbUserStatus);
 			}
@@ -268,6 +271,5 @@ bool GameListerner::gameEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuff
     memcpy(queueData->sendData.sSendData, pDataBuffer, wDataSize);
 	//发送消息
 	MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_GAME_ING,queueData);
-	CCLog("gameEvent:%d",wSubCmdID);
 	return true;
 }

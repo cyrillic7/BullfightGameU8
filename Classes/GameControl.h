@@ -13,6 +13,7 @@
 #include "cocos-ext.h"
 #include "GameLogic.h"
 #include "TCPSocket.h"
+#include "GameEndLayer.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
@@ -32,7 +33,11 @@ private:
 
 	//庄家用户
 	BYTE wBankerUser;
+	//游戏结算层
+	GameEndLayer *pEndLayer;
 public:
+	GameControl();
+	~GameControl();
 	virtual void onEnter();
 	virtual void onExit();
     CREATE_FUNC(GameControl);
@@ -53,7 +58,10 @@ private:
 	void menuFight(CCObject* pSender, TouchEventType type);
 	//投注
 	void menuBetting(CCObject* pSender, TouchEventType type);
-
+	//获取我的椅子位置
+	int getMeChairID();
+	//是不是观察者
+	bool IsLookonMode();
 //////////////////////////////////////////////////////////////////////////
 	//网络消息
 	void OnEventGameMessage(CCObject *pObj);

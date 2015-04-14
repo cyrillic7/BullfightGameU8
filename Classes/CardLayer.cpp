@@ -6,7 +6,7 @@
 #include "DataModel.h"
 #include "BaseAttributes.h"
 #define MAX_CARD_COUNT								5						//最大牌数
-#define SEND_CARD_DELAY_TIME						0.1						//发牌延时时长 
+#define SEND_CARD_DELAY_TIME						0.05					//发牌延时时长 
 #define SELF_SEAT									3						//自己的位置
 CardLayer::CardLayer()
 :sendCardState(SEND_STATE_WAIT)
@@ -31,9 +31,10 @@ bool CardLayer::init(){
 }
 void CardLayer::onEnter(){
 	CCLayer::onEnter();
+	initAllCard();
 }
 void CardLayer::onExit(){
-
+	CCLayer::onExit();
 }
 //发牌
 void CardLayer::sendCard(){
@@ -41,6 +42,7 @@ void CardLayer::sendCard(){
 	{
 	case SEND_STATE_WAIT:
 	{
+		resetCard();
 		setSendCardState(SEND_STATE_ING);
 		sendCard();
 	}
@@ -92,11 +94,6 @@ void CardLayer::sendCard(){
 }
 //发牌中
 void CardLayer::sendCardIng(){
-	Card *card = Card::create();
-	card->createCardArmature(batchCard, 5, 0,0);
-	this->addChild(card);
-	card->m_cpArmatureCard->setScale(0.42);
-	card->m_cpArmatureCard->setPosition(ccp(DataModel::sharedDataModel()->deviceSize.width/2, DataModel::sharedDataModel()->deviceSize.height/2));
 	//偏移索引
 	int offsetIndex = 0;
 	for (int i = 0; i < MAX_PLAYER; i++)
@@ -109,7 +106,27 @@ void CardLayer::sendCardIng(){
 			offsetIndex++;
 		}
 	}
-	
+}
+//初始化所有牌
+void CardLayer::initAllCard(){
+	for (int i = 0; i < MAX_PLAYER; i++){
+		for (int j = 0; j < MAX_CARD_COUNT; j++)
+		{
+			pCard[j+i*MAX_CARD_COUNT] = Card::create();
+			this->addChild(pCard[j+i*MAX_CARD_COUNT]);
+			pCard[j+i*MAX_CARD_COUNT]->createCardArmature(batchCard, 5, 0, 1);
+		}
+	}
+}
+//重置牌
+void CardLayer::resetCard(){
+	for (int i = 0; i < MAX_PLAYER; i++){
+		for (int j = 0; j < MAX_CARD_COUNT; j++)
+		{
+			pCard[j+i*MAX_CARD_COUNT]->setScale(0.42);
+			pCard[j+i*MAX_CARD_COUNT]->changeCard(false, 5, 0, 1);
+		}
+	}
 }
 //发5张牌
 void CardLayer::sendFiveCard(int index,int offsetIndex){
@@ -119,18 +136,6 @@ void CardLayer::sendFiveCard(int index,int offsetIndex){
 	CCPoint cardPos = ccpAdd(playerPos, iPlayerIcon->getPosition());
 	for (int i = 0; i < MAX_CARD_COUNT; i++)
 	{
-		pCard[i+index*MAX_COUNT] = Card::create();
-		if (index==SELF_SEAT)
-		{
-			//int cardColor = GetCardColor(DataModel::sharedDataModel()->card[1][i])/16;
-			//int cardValue = GetCardValue(DataModel::sharedDataModel()->card[1][i]);
-			//cardMove->createCardArmature(batchCard, cardColor, cardValue, 1);
-			pCard[i+index*MAX_COUNT]->createCardArmature(batchCard, 5, 0, 1);
-		}else
-		{
-			pCard[i+index*MAX_COUNT]->createCardArmature(batchCard, 5, 0, 1);
-		}
-		this->addChild(pCard[i+index*MAX_COUNT]);
 		pCard[i+index*MAX_COUNT]->m_cpArmatureCard->setScale(0.42);
 		int offx = rand() % 3;
 		int offy = rand() % 3;
@@ -142,11 +147,10 @@ void CardLayer::sendFiveCard(int index,int offsetIndex){
 		CCPoint offPos = ccp(offsetX+i*offsetSpace,0);
 		moveCardAction(pCard[i+index*MAX_COUNT]->m_cpArmatureCard, (index-offsetIndex)*SEND_CARD_DELAY_TIME*MAX_CARD_COUNT + i*SEND_CARD_DELAY_TIME, ccpAdd(cardPos, offPos),index);
 	}
-
 }
 //移动单张牌
 void CardLayer::moveCardAction(CCArmature *armature, float fTime, CCPoint targetPos,int index){
-	float moveSpeed=0.1;
+	float moveSpeed=0.05;
 	CCDelayTime *delayTime = CCDelayTime::create(fTime);
 	CCMoveTo *moveTo = CCMoveTo::create(moveSpeed, targetPos);
 	CCScaleTo *scaleTo = CCScaleTo::create(moveSpeed, getCardScale(index));
@@ -154,16 +158,17 @@ void CardLayer::moveCardAction(CCArmature *armature, float fTime, CCPoint target
 	CCCallFunc *callbackFunc = CCCallFunc::create(this,SEL_CallFunc(&CardLayer::onSendCardFinish));
 	CCSequence *seq = CCSequence::create(delayTime,spawn,callbackFunc,NULL);
 	armature->runAction(seq);
-
 }
 void CardLayer::onSendCardFinish(){
+	setSendCardState(SEND_STATE_WAIT);
 	sSendCardCount++;
 	if (sSendCardCount==getCurAllCardCount()*MAX_CARD_COUNT)
 	{
+		CCLog("CardLayer::onSendCardFinish-->sendFinish");
 		DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_OPT_OX);
 		//DataModel::sharedDataModel()->getMainScene()->setServerStateWithUpdate(MainScene::STATE_FIGHT_BANKER);
-		CCLog("CardLayer::onSendCardFinish::show-------------card");
-		showCard(SELF_SEAT);
+		showCard(SELF_SEAT,1);
+		sSendCardCount=0;
 	}
 }
 short CardLayer::getCurAllCardCount(){
@@ -177,13 +182,30 @@ short CardLayer::getCurAllCardCount(){
 	}
 	return count;
 }
-void CardLayer::updateState(){
+void CardLayer::updateServerState(){
 	switch (DataModel::sharedDataModel()->getMainScene()->getServerState())
 	{
 	case MainScene::STATE_SEND_CARD:
 	{
 		sendCard();
 	}
+		break;
+	default:
+		break;
+	}
+}
+void CardLayer::updateGameState(){
+	switch (DataModel::sharedDataModel()->getMainScene()->getGameState())
+	{
+	case MainScene::STATE_READY:
+		{
+			for (int i = 0; i < MAX_PLAYER; i++){
+				for (int j = 0; j < MAX_CARD_COUNT; j++)
+				{
+					pCard[j+i*MAX_CARD_COUNT]->m_cpArmatureCard->setPosition(ccp(-1000,-1000));
+				}
+			}
+		}
 		break;
 	default:
 		break;
@@ -212,14 +234,12 @@ float CardLayer::getCardScale(int index){
 	return 0.9;
 }
 //显示牌
-void CardLayer::showCard(int index){
+void CardLayer::showCard(int index,int dataIndex){
 	int beginCardIndex=index*MAX_COUNT;
 	for (int i = 0; i < MAX_COUNT; i++)
 	{
-		int cardColor = GetCardColor(DataModel::sharedDataModel()->card[1][i])/16;
-		int cardValue = GetCardValue(DataModel::sharedDataModel()->card[1][i]);
-		pCard[beginCardIndex+i]->changeCard(cardColor,cardValue,i);
-
-		
+		int cardColor = GetCardColor(DataModel::sharedDataModel()->card[dataIndex][i])/16;
+		int cardValue = GetCardValue(DataModel::sharedDataModel()->card[dataIndex][i]);
+		pCard[beginCardIndex+i]->changeCard(true,cardColor,cardValue,i);
 	}
 }

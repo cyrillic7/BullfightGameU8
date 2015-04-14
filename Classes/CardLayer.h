@@ -37,10 +37,16 @@ public:
 	void setCanSendCard();
 public:
 	//更新状态
-	void updateState();
+	void updateServerState();
+	//
+	void updateGameState();
 	//显示牌
-	void showCard(int index);
+	void showCard(int index,int dataIndex);
 private:
+	//初始化所有牌
+	void initAllCard();
+	//重置牌
+	void resetCard();
 	//发牌
 	void sendCard();
 	//发牌中

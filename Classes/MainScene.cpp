@@ -183,8 +183,10 @@ void MainScene::updateGameState(){
 	
 	//玩家信息层更新状态
 	playerLayer->updateState();
+	//更新扑克层状态
+	cardLayer->updateGameState();
 }
 void MainScene::updateServerState(){
 	//更新扑克层状态
-	cardLayer->updateState();
+	cardLayer->updateServerState();
 }

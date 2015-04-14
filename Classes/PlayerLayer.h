@@ -9,6 +9,8 @@ using namespace gui;
 class PlayerLayer:public CCLayer {
 public:
 	UIPanel *playerPanel[MAX_PLAYER];
+	//结算
+	UILabelAtlas *pLResult[MAX_PLAYER];
 public:
 	PlayerLayer();
 	~PlayerLayer();
@@ -17,6 +19,8 @@ public:
 	virtual void onExit();
 	//更新状态
 	void updateState();
+	//显示结算动画
+	void showResultAnimation(int iPanelIndex,long long lGameScore);
 private:
 	//初始化玩家信息
 	void initPlayerInfo();
@@ -24,4 +28,6 @@ private:
 	void getPlayerInfo();
 	//隐藏玩家
 	void hidePlayer(UIPanel *panel);
+	//结算动画结束
+	void resultAnimationFinish();
 };

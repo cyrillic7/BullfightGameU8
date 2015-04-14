@@ -168,7 +168,7 @@ void ClassicLobbyScene::onPlay(CCObject *obj){
 void ClassicLobbyScene::onConfigFinish(CCObject *obj){
 	//
 	CMD_GR_UserSitDown sit;
-	sit.wTableID=38;
+	sit.wTableID=39;
 	sit.wChairID=1;
 
 	bool isSend=TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GR_USER,SUB_GR_USER_SITDOWN,&sit, sizeof(sit));
