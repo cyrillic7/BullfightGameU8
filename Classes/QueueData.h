@@ -24,6 +24,8 @@ public:
 public:
 	QueueData();
 	virtual ~QueueData();
+	virtual bool init(){return true;}
+	CREATE_FUNC(QueueData);
 };
 
 #endif /* QUEUEDATA_H_ */

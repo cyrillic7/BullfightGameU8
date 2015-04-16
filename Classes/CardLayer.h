@@ -61,5 +61,5 @@ private:
 	void onSendCardFinish();
 	//获取当前局总牌数
 	short getCurAllCardCount();
-
+	CCPoint designResolutionToFrame(CCPoint designPos);
 };

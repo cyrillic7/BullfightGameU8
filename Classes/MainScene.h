@@ -11,7 +11,7 @@
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
-#include "GameControl.h"
+#include "GameControlOxTwo.h"
 #include "TCPSocket.h"
 #include "GameLogic.h"
 #include "CardLayer.h"
@@ -51,7 +51,7 @@ public:
 	CC_SYNTHESIZE(GameState,gameState,GameState);
 	CC_SYNTHESIZE(GameState,serverState,ServerState);
 
-	CC_SYNTHESIZE(GameControl *, gameControl, GameControl);
+	CC_SYNTHESIZE(GameControlOxTwo *, gameControl, GameControlOxTwo);
 	//扑克层
 	CardLayer *cardLayer;
 	//玩家信息层

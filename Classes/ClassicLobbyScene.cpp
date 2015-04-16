@@ -60,6 +60,7 @@ void ClassicLobbyScene::onEnter(){
 	UILayout *pWidget = dynamic_cast<UILayout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UIClassicLobby.ExportJson)));
 	m_pWidget->addWidget(pWidget);
 
+	userName->setText(Tools::GBKToUTF8(DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName));
 	/*UIButton* button = static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonUser"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&ClassicLobbyScene::menuResetUser));*/
 	UIButton* button=NULL;
@@ -166,26 +167,25 @@ void ClassicLobbyScene::onPlay(CCObject *obj){
 	isEnterGame=true;
 }
 void ClassicLobbyScene::onConfigFinish(CCObject *obj){
-	//
+#if (DEBUG_TEST==0)
 	CMD_GR_UserSitDown sit;
-	sit.wTableID=39;
+	sit.wTableID=38;
+	//sit.wChairID=abs(rand()%2);
 	sit.wChairID=1;
-
 	bool isSend=TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GR_USER,SUB_GR_USER_SITDOWN,&sit, sizeof(sit));
-	//bool isSend=tcpID->ts.SendData(MDM_GR_USER,SUB_GR_USER_SITDOWN,&sit, sizeof(sit));
 	CCLog("Classic 坐下:%d",isSend);
+#endif
 }
 void ClassicLobbyScene::onOpen(CCObject *obj){
+#if (DEBUG_TEST==0)
 	CMD_GR_LogonUserID logonUserID;
 	memset(&logonUserID, 0, sizeof(CMD_GR_LogonUserID));
-
 	logonUserID.dwFrameVersion=VERSION_FRAME;
 	logonUserID.dwPlazaVersion=VERSION_PLAZA;
 	logonUserID.dwProcessVersion= VERSION_CLIENT;
 	logonUserID.dwUserID=DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID;
 	strcpy(logonUserID.szMachineID,"12");
 	strcpy(logonUserID.szPassPortID,"12");
-
 	MD5 m;
 	MD5::char8 str[] = "z12345678";
 	m.ComputMd5(str, sizeof(str)-1);
@@ -200,10 +200,30 @@ void ClassicLobbyScene::onOpen(CCObject *obj){
 	int luidSize=sizeof(CMD_GR_LogonUserID);
 	bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GR_LOGON, SUB_GR_LOGON_USERID, &logonUserID, sizeof(logonUserID));
 	CCLog("send:%d", isSend);
+#endif
+#if (DEBUG_TEST==1)
+	CMD_GR_LogonMobile logonMobile;
+	memset(&logonMobile, 0, sizeof(CMD_GR_LogonMobile));
 
-	if (!isSend)
-	{
-		//stopTcpSocket();
-		return;
-	}
+	logonMobile.wGameID=210;
+	logonMobile.dwProcessVersion=VERSION_CLIENT;
+
+	logonMobile.cbDeviceType=0;
+	logonMobile.wBehaviorFlags=BEHAVIOR_LOGON_IMMEDIATELY;
+	logonMobile.wPageTableCount=10;
+
+	logonMobile.dwUserID=DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID;
+
+	MD5 m;
+	MD5::char8 str[] = "z12345678";
+	m.ComputMd5(str, sizeof(str)-1);
+	std::string md5PassWord = m.GetMd5();
+	strcpy(logonMobile.szPassword,md5PassWord.c_str());
+
+	strcpy(logonMobile.szMachineID,"123");
+
+	bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GR_LOGON, SUB_GR_LOGON_MOBILE, &logonMobile, sizeof(logonMobile));
+	CCLog("send:%d", isSend);
+#endif
+	
 }

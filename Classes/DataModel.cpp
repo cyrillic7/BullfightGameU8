@@ -20,7 +20,9 @@ DataModel::DataModel()
 	DataModel::isSound = Tools::getBoolByRMS(RMS_IS_SOUND);
 
 	deviceSize = CCDirector::sharedDirector()->getWinSize();
+	
 	logonSuccessUserInfo=new CMD_MB_LogonSuccess();
+	userInfo=new tagUserInfo();
 }
 DataModel::~DataModel() {
 	CCLog("~ <<%s>>",__FUNCTION__);
@@ -28,7 +30,7 @@ DataModel::~DataModel() {
 	m_aTagGameKind->release();
 
 	CC_SAFE_DELETE(logonSuccessUserInfo);
-
+	CC_SAFE_DELETE(userInfo);
 	removeTagGameServerList();
 	/*
 	_outputEnemysData->removeAllObjects();

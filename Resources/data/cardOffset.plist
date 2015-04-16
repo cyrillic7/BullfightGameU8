@@ -4,11 +4,11 @@
 <array>
 	<dict>
 		<key>offset_x</key>
-		<integer>-480</integer>
+		<integer>-550</integer>
 		<key>offset_y</key>
 		<integer>0</integer>
 		<key>offset_space</key><!--间隔-->
-		<integer>90</integer>
+		<integer>105</integer>
 	</dict>
 	<dict>
 		<key>offset_x</key>
@@ -28,11 +28,11 @@
 	</dict>
 	<dict>
 		<key>offset_x</key>
-		<integer>240</integer>
+		<integer>260</integer>
 		<key>offset_y</key>
-		<integer>140</integer>
+		<integer>20</integer>
 		<key>offset_space</key><!--间隔-->
-		<integer>100</integer>
+		<integer>133</integer>
 	</dict>
 	<dict>
 		<key>offset_x</key>

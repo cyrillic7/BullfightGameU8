@@ -11,3 +11,4 @@
 #define S_L_PLAY								"listener_play"					//游戏
 #define S_L_CONFIG_FINISH						"configFinish"					//配置完成
 #define S_L_GAME_ING							"gameIng"						//游戏中
+#define S_L_US_FREE								"userFree"						//用户站立（长时间不操作被服务端强行站立）

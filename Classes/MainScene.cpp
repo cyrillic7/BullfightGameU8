@@ -51,9 +51,9 @@ void* MainScene::networkThread(void*){
 void MainScene::onEnter(){
 	CCLayer::onEnter();
 	addBg();
-	initHUD();
 	initCardLayer();
 	initPlayerLayer();
+	initHUD();
 }
 void MainScene::onExit(){
 	CCLayer::onExit();
@@ -67,7 +67,7 @@ void MainScene::addBg(){
 	spriteBg->setScale(scale);
 }
 void MainScene::initHUD(){
-	gameControl = GameControl::create();
+	gameControl = GameControlOxTwo::create();
 	this->addChild(gameControl, K_Z_ORDER_HUD);
 }
 //

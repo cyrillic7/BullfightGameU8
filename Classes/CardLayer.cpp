@@ -134,6 +134,7 @@ void CardLayer::sendFiveCard(int index,int offsetIndex){
 	UIImageView *iPlayerIcon = (UIImageView*)playerPanel->getChildByName("headPortrait");
 	CCPoint playerPos = playerPanel->getPosition();
 	CCPoint cardPos = ccpAdd(playerPos, iPlayerIcon->getPosition());
+
 	for (int i = 0; i < MAX_CARD_COUNT; i++)
 	{
 		pCard[i+index*MAX_COUNT]->m_cpArmatureCard->setScale(0.42);
@@ -144,7 +145,8 @@ void CardLayer::sendFiveCard(int index,int offsetIndex){
 		int offsetY=BaseAttributes::sharedAttributes()->iCardOffsetY[index];
 		int offsetSpace=BaseAttributes::sharedAttributes()->iCardOffsetSpace[index];
 		
-		CCPoint offPos = ccp(offsetX+i*offsetSpace,0);
+		CCPoint offPos = ccp(offsetX+i*offsetSpace,offsetY);
+		offPos=designResolutionToFrame(offPos);
 		moveCardAction(pCard[i+index*MAX_COUNT]->m_cpArmatureCard, (index-offsetIndex)*SEND_CARD_DELAY_TIME*MAX_CARD_COUNT + i*SEND_CARD_DELAY_TIME, ccpAdd(cardPos, offPos),index);
 	}
 }
@@ -167,7 +169,7 @@ void CardLayer::onSendCardFinish(){
 		CCLog("CardLayer::onSendCardFinish-->sendFinish");
 		DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_OPT_OX);
 		//DataModel::sharedDataModel()->getMainScene()->setServerStateWithUpdate(MainScene::STATE_FIGHT_BANKER);
-		showCard(SELF_SEAT,1);
+		showCard(SELF_SEAT,DataModel::sharedDataModel()->userInfo->wChairID);
 		sSendCardCount=0;
 	}
 }
@@ -229,9 +231,9 @@ void CardLayer::setCanSendCard(){
 float CardLayer::getCardScale(int index){
 	if (index==SELF_SEAT)
 	{
-		return 1;
+		return 0.9-(1-DataModel::sharedDataModel()->deviceSize.height/SCENE_SIZE.height);
 	}
-	return 0.9;
+	return 0.8-(1-DataModel::sharedDataModel()->deviceSize.height/SCENE_SIZE.height);
 }
 //ÏÔÊ¾ÅÆ
 void CardLayer::showCard(int index,int dataIndex){
@@ -242,4 +244,12 @@ void CardLayer::showCard(int index,int dataIndex){
 		int cardValue = GetCardValue(DataModel::sharedDataModel()->card[dataIndex][i]);
 		pCard[beginCardIndex+i]->changeCard(true,cardColor,cardValue,i);
 	}
+}
+CCPoint CardLayer::designResolutionToFrame(CCPoint designPos){
+	CCPoint pos;
+	float posScaleX=designPos.x/SCENE_SIZE.width;
+	pos.x=posScaleX*DataModel::sharedDataModel()->deviceSize.width;
+	float posScaleY=designPos.y/SCENE_SIZE.height;
+	pos.y=posScaleY*DataModel::sharedDataModel()->deviceSize.height;
+	return pos;
 }

@@ -21,6 +21,8 @@ public:
 	long long m_lTurnMaxScore;//最大加注数
 	BYTE card[2][5];
 	//tagGameServer *tagGameServerList[];
+	//变量定义
+	tagUserInfo *userInfo;
 public:
 	DataModel();
 	~DataModel();

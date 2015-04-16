@@ -172,10 +172,7 @@ bool GameListerner::userEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuff
 	{
 	case SUB_GR_USER_ENTER://用户进入
 		{
-			int wSize=wDataSize;
-			int size =sizeof(tagUserInfoHead);
-			tagUserInfoHead *info= (tagUserInfoHead*)pDataBuffer;
-			//CCLog("用户进入");
+			OnSocketSubUserEnter(pSocket,pDataBuffer,wDataSize);
 		}
 		break;
 	case SUB_GR_USER_SCORE://用户分数
@@ -197,7 +194,9 @@ bool GameListerner::userEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuff
 					DataModel::sharedDataModel()->isSit=true;
 					CCLog("坐下:table: %d desk:%d",state.wTableID,state.wChairID);
 					// CCNotificationCenter::sharedNotificationCenter()->postNotification(LISTENER_LOGON,NULL);
-					
+					DataModel::sharedDataModel()->userInfo->wTableID=state.wTableID;
+					DataModel::sharedDataModel()->userInfo->wChairID=state.wChairID;
+
 					//构造数据
 					CMD_GF_GameOption GameOption;
 					GameOption.dwFrameVersion=VERSION_FRAME;
@@ -205,6 +204,7 @@ bool GameListerner::userEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuff
 					GameOption.dwClientVersion=VERSION_CLIENT;
 					//发送
 					bool isSend = pSocket->SendData(MDM_GF_FRAME, SUB_GF_GAME_OPTION, &GameOption, sizeof(GameOption));
+
 				}else if (state.cbUserStatus==US_PLAYING)
 				{
 					MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_CONFIG_FINISH,NULL);
@@ -213,6 +213,8 @@ bool GameListerner::userEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuff
 				}else if(state.cbUserStatus==US_FREE)
 				{
 					CCLog("站立");
+					MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_US_FREE,NULL);
+					//
 				}
 				CCLog("状态：%d",state.cbUserStatus);
 			}
@@ -269,7 +271,26 @@ bool GameListerner::gameEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuff
     queueData->wSubCmdID=wSubCmdID;
 	queueData->wDataSize=wDataSize;
     memcpy(queueData->sendData.sSendData, pDataBuffer, wDataSize);
+	/*QueueData queueData;
+	memset(&queueData,0,sizeof(QueueData));
+	queueData.wSubCmdID=wSubCmdID;
+	queueData.wDataSize=wDataSize;
+	 memcpy(queueData.sendData.sSendData, pDataBuffer, wDataSize);*/
 	//发送消息
 	MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_GAME_ING,queueData);
+	return true;
+}
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//用户进入
+bool GameListerner::OnSocketSubUserEnter(TCPSocket* pSocket,void * pDataBuffer, unsigned short wDataSize){
+	/*//效验参数
+	int size=sizeof(tagUserInfoHead);
+	assert(wDataSize>=sizeof(tagUserInfoHead));
+	if (wDataSize<sizeof(tagUserInfoHead)) return false;
+	//消息处理
+	tagUserInfoHead * pUserInfoHead=(tagUserInfoHead *)pDataBuffer;
+	*/
 	return true;
 }

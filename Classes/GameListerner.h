@@ -33,6 +33,10 @@ private:
 	bool frameEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//游戏命令
 	bool gameEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
+
+	//////////////////////////////////////////////////////////////////////////
+	//用户进入
+	bool OnSocketSubUserEnter(TCPSocket* pSocket,void * pDataBuffer, unsigned short wDataSize);
 };
 
 #endif	/* DefaultListerner1_H */
