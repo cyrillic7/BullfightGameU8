@@ -14,6 +14,8 @@ CardLayer::CardLayer()
 {
 }
 CardLayer::~CardLayer() {
+	CCLog("~ <<%s>>",__FUNCTION__);
+	this->removeAllChildrenWithCleanup(true);
 }
 bool CardLayer::init(){
 	if (!CCLayer::init())
@@ -25,6 +27,7 @@ bool CardLayer::init(){
 	this->addChild(batchCard, 1);
 	//加载扑克动画文件
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationCard.ExportJson));
+	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationOxType.ExportJson));
 
 	setCanSendCard();
 	return true;
@@ -32,9 +35,46 @@ bool CardLayer::init(){
 void CardLayer::onEnter(){
 	CCLayer::onEnter();
 	initAllCard();
+	initOxType();
 }
 void CardLayer::onExit(){
 	CCLayer::onExit();
+}
+//初始化所有牌
+void CardLayer::initAllCard(){
+	for (int i = 0; i < MAX_PLAYER; i++){
+		for (int j = 0; j < MAX_CARD_COUNT; j++)
+		{
+			pCard[j+i*MAX_CARD_COUNT] = Card::create();
+			this->addChild(pCard[j+i*MAX_CARD_COUNT]);
+			pCard[j+i*MAX_CARD_COUNT]->createCardArmature(batchCard, 5, 0, 1);
+		}
+	}
+}
+//初始化牛牛点数动画
+void CardLayer::initOxType(){
+	for (int i = 0; i < MAX_PLAYER; i++)
+	{
+		pAOxType[i] = CCArmature::create("AnimationOxType");
+		pAOxType[i]->setVisible(false);
+		this->addChild(pAOxType[i],100);
+	}
+}
+//重置牌
+void CardLayer::resetCard(){
+	for (int i = 0; i < MAX_PLAYER; i++){
+		for (int j = 0; j < MAX_CARD_COUNT; j++)
+		{
+			pCard[j+i*MAX_CARD_COUNT]->setScale(0.42);
+			pCard[j+i*MAX_CARD_COUNT]->changeCard(false, 5, 0, 1);
+			pCard[j+i*MAX_CARD_COUNT]->m_cpArmatureCard->setColor(ccc3(255,255,255));
+			pCard[j+i*MAX_CARD_COUNT]->m_cpArmatureCard->setPosition(ccp(-1000,-1000));
+		}
+	}
+	for (int i = 0; i < MAX_PLAYER; i++)
+	{
+		pAOxType[i]->setVisible(false);
+	}
 }
 //发牌
 void CardLayer::sendCard(){
@@ -92,6 +132,104 @@ void CardLayer::sendCard(){
 		}
 	}*/
 }
+//提示牛牛
+bool CardLayer::promptOx(int oxIndex){
+	BYTE tempCard[5];
+	memcpy(tempCard, DataModel::sharedDataModel()->card[oxIndex], sizeof(tempCard));
+	bool isOxCard = GetOxCard(tempCard, 5);
+	if (isOxCard)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 5; j++)
+			{
+				if (tempCard[i]==DataModel::sharedDataModel()->card[oxIndex][j])
+				{
+					float originY=pCard[3*MAX_COUNT+j]->m_cpArmatureCard->getPositionY();
+					pCard[3*MAX_COUNT+j]->m_cpArmatureCard->setPositionY(originY+30);
+					break;
+				}
+			}
+		}
+		CCLog("niu:%d",GetCardType(tempCard,5));
+	}
+	return isOxCard;
+}
+//
+//************************************
+// 重排序牛牛牌
+// Parameter: int chairID实际桌子位置
+// Parameter: int showChairiD显示桌子位置
+//************************************
+void CardLayer::sortingOx(int chairID,int showChairiD){
+	UIPanel *playerPanel = DataModel::sharedDataModel()->getMainScene()->playerLayer->playerPanel[showChairiD];
+	UIImageView *iPlayerIcon = (UIImageView*)playerPanel->getChildByName("headPortrait");
+	CCPoint playerPos = playerPanel->getPosition();
+	CCPoint cardPos = ccpAdd(playerPos, iPlayerIcon->getPosition());
+
+	BYTE tempCard[5];
+	memcpy(tempCard, DataModel::sharedDataModel()->card[chairID], sizeof(tempCard));
+	bool isOxCard = GetOxCard(tempCard, 5);
+	if (isOxCard)
+	{
+		//重排牛牛牌顺序
+		for (int i = 0; i < MAX_COUNT; i++)
+		{
+			int cardColor = GetCardColor(tempCard[i])/16;
+			int cardValue = GetCardValue(tempCard[i]);
+			pCard[showChairiD*MAX_COUNT+i]->changeCard(false,cardColor,cardValue,i);
+		}
+		
+	}
+	showOxType(showChairiD,GetCardType(tempCard,5));
+	{
+		int jumpSpace=0;
+		for (int i = 0; i < MAX_COUNT; i++)
+		{
+			int offsetX=BaseAttributes::sharedAttributes()->iCardOffsetX[showChairiD]+120;
+			int offsetY=BaseAttributes::sharedAttributes()->iCardOffsetY[showChairiD];
+			int offsetSpace=BaseAttributes::sharedAttributes()->iCardOffsetSpace[showChairiD]-40;
+		
+			CCArmature *pArmature=pCard[showChairiD*MAX_COUNT+i]->m_cpArmatureCard;
+			if (i>2&&isOxCard)
+			{
+				jumpSpace=0;
+			}else 
+			{
+				pArmature->setColor(ccc3(100,100,100));
+			}
+			CCPoint offPos = ccp(offsetX,offsetY);
+			offPos=designResolutionToFrame(offPos);
+
+			CCPoint movePos = ccp(offsetX+i*offsetSpace+jumpSpace,offsetY);
+			movePos=designResolutionToFrame(movePos);
+
+			//pArmature->setScale(pArmature->getScale()-0.2);
+			pArmature->setPosition(ccpAdd(cardPos,offPos));
+			pArmature->runAction(CCMoveTo::create(0.01+i*0.02,ccpAdd(cardPos,movePos)));
+		}
+	}
+}
+void CardLayer::showOxType(int chairiD,int oxType){
+	float orgCradY=2000;
+	for (int i = 0; i < MAX_COUNT; i++)
+	{
+			orgCradY=MIN(pCard[chairiD*MAX_COUNT+i]->m_cpArmatureCard->getPositionY(),orgCradY);
+	}
+	CCPoint cardPos=ccp(pCard[chairiD*MAX_COUNT+2]->m_cpArmatureCard->getPositionX(),orgCradY);
+
+	pAOxType[chairiD]->setTag(oxType);
+	pAOxType[chairiD]->setPosition(cardPos);
+	CCSequence *seq=CCSequence::create(CCDelayTime::create(0.01+5*0.02),
+	CCCallFuncN::create(this,SEL_CallFuncN(&CardLayer::onPlayOxAnimation)),
+	NULL);
+	pAOxType[chairiD]->runAction(seq);
+}
+void CardLayer::onPlayOxAnimation(CCNode *obj){
+	CCArmature *oxAnimation=(CCArmature*)obj;
+	oxAnimation->setVisible(true);
+	oxAnimation->getAnimation()->play(CCString::createWithFormat("Ox%d",oxAnimation->getTag())->getCString());
+}
 //发牌中
 void CardLayer::sendCardIng(){
 	//偏移索引
@@ -107,27 +245,7 @@ void CardLayer::sendCardIng(){
 		}
 	}
 }
-//初始化所有牌
-void CardLayer::initAllCard(){
-	for (int i = 0; i < MAX_PLAYER; i++){
-		for (int j = 0; j < MAX_CARD_COUNT; j++)
-		{
-			pCard[j+i*MAX_CARD_COUNT] = Card::create();
-			this->addChild(pCard[j+i*MAX_CARD_COUNT]);
-			pCard[j+i*MAX_CARD_COUNT]->createCardArmature(batchCard, 5, 0, 1);
-		}
-	}
-}
-//重置牌
-void CardLayer::resetCard(){
-	for (int i = 0; i < MAX_PLAYER; i++){
-		for (int j = 0; j < MAX_CARD_COUNT; j++)
-		{
-			pCard[j+i*MAX_CARD_COUNT]->setScale(0.42);
-			pCard[j+i*MAX_CARD_COUNT]->changeCard(false, 5, 0, 1);
-		}
-	}
-}
+
 //发5张牌
 void CardLayer::sendFiveCard(int index,int offsetIndex){
 	UIPanel *playerPanel = DataModel::sharedDataModel()->getMainScene()->playerLayer->playerPanel[index];
@@ -161,6 +279,7 @@ void CardLayer::moveCardAction(CCArmature *armature, float fTime, CCPoint target
 	CCSequence *seq = CCSequence::create(delayTime,spawn,callbackFunc,NULL);
 	armature->runAction(seq);
 }
+//单张牌发完回调
 void CardLayer::onSendCardFinish(){
 	setSendCardState(SEND_STATE_WAIT);
 	sSendCardCount++;
@@ -201,12 +320,7 @@ void CardLayer::updateGameState(){
 	{
 	case MainScene::STATE_READY:
 		{
-			for (int i = 0; i < MAX_PLAYER; i++){
-				for (int j = 0; j < MAX_CARD_COUNT; j++)
-				{
-					pCard[j+i*MAX_CARD_COUNT]->m_cpArmatureCard->setPosition(ccp(-1000,-1000));
-				}
-			}
+			resetCard();
 		}
 		break;
 	default:

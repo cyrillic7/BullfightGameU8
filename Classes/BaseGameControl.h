@@ -59,6 +59,8 @@ private:
 	void menuOpenCard(CCObject* pSender, TouchEventType type);
 	//提示按键
 	void menuPrompt(CCObject* pSender, TouchEventType type);
+	//更换桌子
+	void menuChangeChair(CCObject* pSender, TouchEventType type);
 	//准备按键
 	void menuReady(CCObject* pSender, TouchEventType type);
 	//不抢按键

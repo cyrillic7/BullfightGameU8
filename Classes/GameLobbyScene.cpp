@@ -195,7 +195,10 @@ void GameLobbyScene::enterLobbyByMode(int mode){
 	switch (mode)
 	{
 	case MODE_CLASSIC:
-		Tools::setTransitionAnimation(0, 0, ClassicLobbyScene::scene());
+		{
+				Tools::setTransitionAnimation(0, 0, ClassicLobbyScene::scene());
+		}
+	
 		break;
 	default:
 		break;
@@ -204,7 +207,7 @@ void GameLobbyScene::enterLobbyByMode(int mode){
 void GameLobbyScene::initTCPLogon(){
 	TCPSocketControl *tcp=TCPSocketControl::sharedTCPSocketControl();
 	tcp->ip="125.88.145.41";
-	//tcp->ip="192.168.0.104";
+	//tcp->ip="192.168.1.122";
 	tcp->port=8100;
 	tcp->listerner=new LogonListerner();
 	tcp->startSendThread();

@@ -217,7 +217,9 @@ bool openIcuuc()
 const char * Tools::GBKToUTF8(const char * strChar){
 #ifdef WIN32
 	iconv_t iconvH;
+	//iconvH = iconv_open("unicode","ascii");
 	iconvH = iconv_open("utf-8","gb2312");
+	//iconvH = iconv_open("gb2312","utf-8");
 	if (iconvH == 0)
 	{
 		return NULL;
@@ -233,6 +235,7 @@ const char * Tools::GBKToUTF8(const char * strChar){
 
 	if (-1 == iconv(iconvH, &strChar, &strLength, &outbuf, &outLength))
 	{
+		free(pBuff);
 		iconv_close(iconvH);
 		return NULL;
 	}

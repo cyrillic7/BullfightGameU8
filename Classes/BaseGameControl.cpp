@@ -108,6 +108,7 @@ void BaseGameControl::menuOpenCard(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
+		DataModel::sharedDataModel()->getMainScene()->cardLayer->sortingOx(getMeChairID(),3);
 		/*//发送消息
 		CMD_C_OxCard OxCard;
 		OxCard.bOX=(m_GameClientView.m_CardControl[wViewChairID].GetOX())?TRUE:FALSE;
@@ -116,7 +117,7 @@ void BaseGameControl::menuOpenCard(CCObject* pSender, TouchEventType type){
 		showActionPrompt(3);
 		pOptOx->setEnabled(false);		
 		CMD_C_OxCard OxCard;
-		OxCard.bOX=GetOxCard(DataModel::sharedDataModel()->card[1],5);
+		OxCard.bOX=GetOxCard(DataModel::sharedDataModel()->card[getMeChairID()],5);
 		//发送信息
 		bool isSend=TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_GAME,SUB_C_OPEN_CARD,&OxCard,sizeof(OxCard));
 		DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_WAIT);
@@ -131,7 +132,26 @@ void BaseGameControl::menuPrompt(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
 	case TOUCH_EVENT_ENDED:
-		//CCLog("prompt");
+		{
+			bool isOx=DataModel::sharedDataModel()->getMainScene()->cardLayer->promptOx(getMeChairID());
+			if (!isOx)
+			{
+				menuOpenCard(NULL,TOUCH_EVENT_ENDED);
+			}
+		}
+		break;
+	default:
+		break;
+	}
+}
+//更换桌子
+void BaseGameControl::menuChangeChair(CCObject* pSender, TouchEventType type){
+	switch (type)
+	{
+	case TOUCH_EVENT_ENDED:
+		{
+			//SUB_GR_USER_CHAIR_REQ
+		}
 		break;
 	default:
 		break;
@@ -702,6 +722,7 @@ bool BaseGameControl::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 			DataModel::sharedDataModel()->card[i][j]=pGameEnd->cbCardData[i][j];
 		}
 		DataModel::sharedDataModel()->getMainScene()->cardLayer->showCard(getChairIndex(DataModel::sharedDataModel()->userInfo->wChairID,i),i);
+		DataModel::sharedDataModel()->getMainScene()->cardLayer->sortingOx(i,getChairIndex(DataModel::sharedDataModel()->userInfo->wChairID,i));
 	}
 	
 

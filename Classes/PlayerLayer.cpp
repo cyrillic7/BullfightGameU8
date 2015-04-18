@@ -46,6 +46,7 @@ void PlayerLayer::resetPlayerData(){
 	for (int i = 0; i < MAX_PLAYER; i++)
 	{
 		pIBankIcon[i]->setVisible(false);
+		pILight[i]->setVisible(false);
 	}
 }
 void PlayerLayer::getPlayerInfo(){

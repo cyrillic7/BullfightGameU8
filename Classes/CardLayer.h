@@ -25,7 +25,9 @@ private:
 	//发牌计数器
 	short sSendCardCount;
 	//牌
-	Card *pCard[MAX_PLAYER*MAX_COUNT];
+	Card *pCard[MAX_PLAYER*MAX_COUNT]; 
+	//牛牛点数动画
+	CCArmature *pAOxType[MAX_PLAYER];
 public:
 	CardLayer();
 	~CardLayer();
@@ -42,9 +44,15 @@ public:
 	void updateGameState();
 	//显示牌
 	void showCard(int index,int dataIndex);
+	//提示牛牛
+	bool promptOx(int oxIndex);
+	//重排牛牛
+	void sortingOx(int chairID,int showChairiD);
 private:
 	//初始化所有牌
 	void initAllCard();
+	//初始化牛牛点数动画
+	void initOxType();
 	//重置牌
 	void resetCard();
 	//发牌
@@ -61,5 +69,9 @@ private:
 	void onSendCardFinish();
 	//获取当前局总牌数
 	short getCurAllCardCount();
+	//坐标点转换
 	CCPoint designResolutionToFrame(CCPoint designPos);
+	//显示牛牛点数
+	void showOxType(int chairiD,int oxType);
+	void onPlayOxAnimation(CCNode *obj);
 };

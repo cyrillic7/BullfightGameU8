@@ -20,6 +20,7 @@
 #include "GameConfig.h"
 #include "TCPSocketControl.h"
 #include "SEvent.h"
+#include "PacketAide.h"
 using namespace std;
 
 GameListerner::GameListerner()
@@ -186,6 +187,7 @@ bool GameListerner::userEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuff
 			int wSize=wDataSize;
 			int size =sizeof(CMD_GR_UserStatus);
 			CMD_GR_UserStatus *info= (CMD_GR_UserStatus*)pDataBuffer;
+			CCLog("%d <---> %d <<%s>>",info->dwUserID,DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID,__FUNCTION__);
 			if (info->dwUserID==DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID)
 			{
 				tagUserStatus state=info->UserStatus;
@@ -283,14 +285,176 @@ bool GameListerner::gameEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuff
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
+/*//ascii 转 Unicode
+std::wstring Acsi2WideByte(std::string& strascii)
+{
+	int widesize = MultiByteToWideChar (CP_ACP, 0, (char*)strascii.c_str(), -1, NULL, 0);
+	if (widesize == ERROR_NO_UNICODE_TRANSLATION)
+	{
+		throw std::exception("Invalid UTF-8 sequence.");
+	}
+	if (widesize == 0)
+	{
+		throw std::exception("Error in conversion.");
+	}
+	std::vector<wchar_t> resultstring(widesize);
+	int convresult = MultiByteToWideChar (CP_ACP, 0, (char*)strascii.c_str(), -1, &resultstring[0], widesize);
+
+
+	if (convresult != widesize)
+	{
+		throw std::exception("La falla!");
+	}
+
+	return std::wstring(&resultstring[0]);
+}
+//Unicode 转 Utf8
+
+
+std::string Unicode2Utf8(const std::wstring& widestring)
+{
+	int utf8size = ::WideCharToMultiByte(CP_UTF8, 0, widestring.c_str(), -1, NULL, 0, NULL, NULL);
+	if (utf8size == 0)
+	{
+		throw std::exception("Error in conversion.");
+	}
+
+	std::vector<char> resultstring(utf8size);
+
+	int convresult = ::WideCharToMultiByte(CP_UTF8, 0, widestring.c_str(), -1, &resultstring[0], utf8size, NULL, NULL);
+
+	if (convresult != utf8size)
+	{
+		throw std::exception("La falla!");
+	}
+
+	return std::string(&resultstring[0]);
+}
+
+//ascii 转 Utf8 
+std::string ASCII2UTF_8(std::string& strAsciiCode)
+{
+	std::string strRet("");
+	//先把 ascii 转为 unicode
+	std::wstring wstr = Acsi2WideByte(strAsciiCode);
+	//最后把 unicode 转为 utf8
+	strRet = Unicode2Utf8(wstr);
+	return strRet;
+}*/
 //用户进入
 bool GameListerner::OnSocketSubUserEnter(TCPSocket* pSocket,void * pDataBuffer, unsigned short wDataSize){
-	/*//效验参数
-	int size=sizeof(tagUserInfoHead);
+#if (DEBUG_TEST==0)
+	//效验参数
 	assert(wDataSize>=sizeof(tagUserInfoHead));
 	if (wDataSize<sizeof(tagUserInfoHead)) return false;
 	//消息处理
 	tagUserInfoHead * pUserInfoHead=(tagUserInfoHead *)pDataBuffer;
-	*/
-	return true;
+
+	/*if (pUserInfoHead->wTableID==DataModel::sharedDataModel()->userInfo->wTableID)
+	{
+	}*/
+	int wPacketSize=0;
+	//变量定义
+	tagUserInfo UserInfo;
+	BYTE cbDataBuffer[SOCKET_TCP_PACKET + sizeof(TCP_Head)];
+	CopyMemory(cbDataBuffer, pDataBuffer, wDataSize);
+	//CCLog("--------------------------");
+	wPacketSize+=sizeof(tagUserInfoHead);
+	while (true)
+	{
+		void * pDataBuffer1 = cbDataBuffer + wPacketSize;
+		tagDataDescribe *DataDescribe = (tagDataDescribe*)pDataBuffer1;
+		wPacketSize+=sizeof(tagDataDescribe);
+		switch (DataDescribe->wDataDescribe)
+		{
+		case DTP_GR_NICK_NAME:		//用户昵称
+			{
+				CopyMemory(&UserInfo.szNickName, cbDataBuffer + wPacketSize,DataDescribe->wDataSize);
+				UserInfo.szNickName[CountArray(UserInfo.szNickName)-1]=0;
+				//std::string name=UserInfo.szNickName;
+				//CCLog("gameId:%ld nick:%s",pUserInfoHead->dwGameID,Tools::GBKToUTF8(UserInfo.szNickName));
+				//if (strcmp(Tools::GBKToUTF8(UserInfo.szNickName),"(null)")==0)
+				{
+					//CCLog("null"); 
+				}
+			}
+			break;
+		case DTP_GR_GROUP_NAME:
+			{
+				CCLog("社团");
+			}
+			break;
+		case DTP_GR_UNDER_WRITE:
+			{
+				CopyMemory(UserInfo.szUnderWrite,cbDataBuffer + wPacketSize,DataDescribe->wDataSize);
+				UserInfo.szUnderWrite[CountArray(UserInfo.szUnderWrite)-1]=0;
+				CCLog("签名:%s",Tools::GBKToUTF8(UserInfo.szUnderWrite));
+			}
+			break;
+		}
+		wPacketSize+=DataDescribe->wDataSize;
+		if (wPacketSize>=wDataSize)
+		{
+			break;
+		}
+	}
+#endif
+#if (DEBUG_TEST==1)
+	//效验参数
+	assert(wDataSize>=sizeof(tagMobileUserInfoHead));
+	if (wDataSize<sizeof(tagMobileUserInfoHead)) return false;
+	int size=sizeof(tagMobileUserInfoHead);
+	//消息处理
+	tagMobileUserInfoHead * pUserInfoHead=(tagMobileUserInfoHead *)pDataBuffer;
+	int wPacketSize=0;
+	//变量定义
+	tagUserInfo UserInfo;
+	BYTE cbDataBuffer[SOCKET_TCP_PACKET + sizeof(TCP_Head)];
+	CopyMemory(cbDataBuffer, pDataBuffer, wDataSize);
+	CCLog("-------------------------%d",wDataSize);
+	wPacketSize+=sizeof(tagMobileUserInfoHead);
+	while (true)
+	{
+		void * pDataBuffer1 = cbDataBuffer + wPacketSize;
+		tagDataDescribe *DataDescribe = (tagDataDescribe*)pDataBuffer1;
+		wPacketSize+=sizeof(tagDataDescribe);
+		switch (DataDescribe->wDataDescribe)
+		{
+		case DTP_GR_NICK_NAME:		//用户昵称
+			{
+				CopyMemory(&UserInfo.szNickName, cbDataBuffer + wPacketSize,DataDescribe->wDataSize);
+				UserInfo.szNickName[CountArray(UserInfo.szNickName)-1]=0;
+				CCLog("nick:%s  %s",UserInfo.szNickName,Tools::GBKToUTF8(UserInfo.szNickName));
+				//if (strcmp(Tools::GBKToUTF8(UserInfo.szNickName),"(null)")==0)
+				{
+					//CCLog("null"); 
+				}
+			}
+			break;
+		case DTP_GR_GROUP_NAME:
+			{
+				CCLog("社团");
+			}
+			break;
+		case DTP_GR_UNDER_WRITE:
+			{
+				CopyMemory(UserInfo.szUnderWrite,cbDataBuffer + wPacketSize,DataDescribe->wDataSize);
+				UserInfo.szUnderWrite[CountArray(UserInfo.szUnderWrite)-1]=0;
+				CCLog("签名:%s",Tools::GBKToUTF8(UserInfo.szUnderWrite));
+			}
+			break;
+		}
+		wPacketSize+=DataDescribe->wDataSize;
+		if (wPacketSize>=wDataSize)
+		{
+			break;
+		}
+	}
+#endif
+	//
+
+
+	
+	
+ 	return true;
 }

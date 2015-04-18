@@ -134,7 +134,6 @@ bool LogonListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Comma
 			int gameServerSize = sizeof(tagGameServer);
 			int serverCount = wDataSize / gameServerSize;
 
-			//void *pDataBuffer = pDataBuffer + sizeof(tagGameServer);
 			BYTE cbDataBuffer[SOCKET_TCP_PACKET + sizeof(TCP_Head)];
 			CopyMemory(cbDataBuffer, pDataBuffer, wDataSize);
 
@@ -162,7 +161,7 @@ bool LogonListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Comma
 
 				//sort(DataModel::sharedDataModel()->tagGameServerList.begin(), DataModel::sharedDataModel()->tagGameServerList.end(), less_second);
 
-                CCLog("-----:%d ",tempTag->wSortID);
+                CCLog("port-----:%d ",tempTag->wServerPort);
 			}
 			DataModel::sharedDataModel()->sortVector();
 		}

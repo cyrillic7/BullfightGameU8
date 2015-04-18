@@ -64,7 +64,7 @@ void ClassicLobbyScene::onEnter(){
 	/*UIButton* button = static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonUser"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&ClassicLobbyScene::menuResetUser));*/
 	UIButton* button=NULL;
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < DataModel::sharedDataModel()->tagGameServerList.size(); i++)
 	{
 		button = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("ButtonScene%d",i+1)->getCString()));
 		button->addTouchEventListener(this, SEL_TouchEvent(&ClassicLobbyScene::menuStar));
@@ -90,16 +90,13 @@ void ClassicLobbyScene::onExit(){
 }
 void ClassicLobbyScene::initTCPLogon(int index){
 
-	for (int i = 0; i < DataModel::sharedDataModel()->tagGameServerList.size(); i++)
+	/*for (int i = 0; i < DataModel::sharedDataModel()->tagGameServerList.size(); i++)
 	{
 		CCLog("%d  %s %d",DataModel::sharedDataModel()->tagGameServerList[i]->wSortID,
 			Tools::GBKToUTF8(DataModel::sharedDataModel()->tagGameServerList[i]->szServerName)
 			,DataModel::sharedDataModel()->tagGameServerList[i]->wServerPort);
-	}
-	/*TCPLogonID *tcpID=TCPLogonID::create();
-	this->addChild(tcpID);
-	tcpID->setTag(999);
-	tcpID->startSendThread();*/
+	}*/
+
 	PopDialogBox *pdb = PopDialogBoxLoading::create();
 	this->addChild(pdb);
 	pdb->setTag(189);
