@@ -196,7 +196,7 @@ void GameLobbyScene::enterLobbyByMode(int mode){
 	{
 	case MODE_CLASSIC:
 		{
-				Tools::setTransitionAnimation(0, 0, ClassicLobbyScene::scene());
+				Tools::setTransitionAnimation(0, 0, ClassicLobbyScene::scene(true));
 		}
 	
 		break;

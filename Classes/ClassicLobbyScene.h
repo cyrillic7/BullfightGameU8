@@ -17,13 +17,14 @@ private:
 	};
 	bool isDeleteList;
 	bool isEnterGame;
+	bool isCreateSocket;
 public:
     ClassicLobbyScene();
     ~ClassicLobbyScene();
 	virtual void onEnter();
 	virtual void onExit();
 
-    static CCScene* scene();
+    static CCScene* scene(bool isCreateSocket);
     CREATE_FUNC(ClassicLobbyScene);
 private:
 	void update(float delta);

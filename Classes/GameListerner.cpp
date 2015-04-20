@@ -409,9 +409,11 @@ bool GameListerner::OnSocketSubUserEnter(TCPSocket* pSocket,void * pDataBuffer, 
 	int wPacketSize=0;
 	//变量定义
 	tagUserInfo UserInfo;
+	UserInfo.dwUserID=pUserInfoHead->dwUserID;
+	UserInfo.lScore=pUserInfoHead->lScore;
 	BYTE cbDataBuffer[SOCKET_TCP_PACKET + sizeof(TCP_Head)];
 	CopyMemory(cbDataBuffer, pDataBuffer, wDataSize);
-	CCLog("-------------------------%d",wDataSize);
+	//CCLog("-------------------------%d",wDataSize);
 	wPacketSize+=sizeof(tagMobileUserInfoHead);
 	while (true)
 	{
@@ -450,6 +452,11 @@ bool GameListerner::OnSocketSubUserEnter(TCPSocket* pSocket,void * pDataBuffer, 
 			break;
 		}
 	}
+	DataModel::sharedDataModel()->mTagUserInfo.insert(map<long,tagUserInfo>::value_type(pUserInfoHead->dwUserID,UserInfo));
+//	DataModel::sharedDataModel()->vTagUserInfo.push_back(UserInfo);
+	
+	//发送消息
+	MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_US_ENTER,NULL);
 #endif
 	//
 

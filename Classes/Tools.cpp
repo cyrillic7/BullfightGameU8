@@ -266,3 +266,25 @@ const char * Tools::GBKToUTF8(const char * strChar){
 	return str;
 #endif
 }
+int Tools::strLength(const std::string &str)
+{   
+	if (typeid(str) == typeid(std::string) && str.length() > 0) {
+		int len = str.length();
+		std::vector <std::string> dump;
+		int i = 0;
+		while(i < len) {
+			if (~(str.at(i) >> 8) == 0) {
+				dump.push_back(str.substr(i, 3));
+				i = i + 3;
+			} else {
+				dump.push_back(str.substr(i, 1));
+				i = i + 1;
+			}
+		}
+		return dump.size();
+	} else {
+		printf("str is not string\n");
+		return 0;
+	}
+}
+

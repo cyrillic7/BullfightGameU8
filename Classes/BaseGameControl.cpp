@@ -9,7 +9,7 @@
 #include "BaseGameControl.h"
 #include "GameConfig.h"
 #include "DataModel.h"
-#include "GameLobbyScene.h"
+#include "ClassicLobbyScene.h"
 #include "Tools.h"
 #include "TCPSocketControl.h"
 #include "Packet.h"
@@ -20,40 +20,41 @@
 BaseGameControl::BaseGameControl()
 :pEndLayer(NULL){
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationActionPrompt.ExportJson));
+	schedule(SEL_SCHEDULE(&BaseGameControl::updateTimer),1);
 }
 BaseGameControl::~BaseGameControl(){
-
+	unschedule(SEL_SCHEDULE(&BaseGameControl::updateTimer));
 }
 void BaseGameControl::onEnter(){
 	CCLayer::onEnter();
-	UILayer *m_pWidget = UILayer::create();
-	this->addChild(m_pWidget);
+	UILayer *pWidget = UILayer::create();
+	this->addChild(pWidget);
 	//初始化操作者动画
 	initActionPrompt();
 
-	UILayout *pWidget = dynamic_cast<UILayout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UIGameHUD.ExportJson)));
-	m_pWidget->addWidget(pWidget);
+	UILayout *pLayout = dynamic_cast<UILayout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UIGameHUD.ExportJson)));
+	pWidget->addWidget(pLayout);
 	
-	UIButton* button = static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonPause"));
+	UIButton* button = static_cast<UIButton*>(pWidget->getWidgetByName("buttonPause"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseGameControl::menuPause));
 
 	//设置牛牛容器
-	pOptOx = static_cast<UIPanel*>(m_pWidget->getWidgetByName("optOxPanel"));
+	pOptOx = static_cast<UIPanel*>(pWidget->getWidgetByName("optOxPanel"));
 	pOptOx->setEnabled(false);
 
-	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonOx"));
+	button = static_cast<UIButton*>(pWidget->getWidgetByName("buttonOx"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseGameControl::menuOpenCard));
 	
-	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonPrompt"));
+	button = static_cast<UIButton*>(pWidget->getWidgetByName("buttonPrompt"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseGameControl::menuPrompt));
 	
 	//绑定准备按键
-	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonReady"));
+	button = static_cast<UIButton*>(pWidget->getWidgetByName("buttonReady"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseGameControl::menuReady));
 	//准备容器
-	pPanelReady=static_cast<UIPanel*>(m_pWidget->getWidgetByName("PanelReady"));
+	pPanelReady=static_cast<UIPanel*>(pWidget->getWidgetByName("PanelReady"));
 	//抢庄容器
-	pFightForBanker = static_cast<UIPanel*>(m_pWidget->getWidgetByName("fightForBankerPanel"));
+	pFightForBanker = static_cast<UIPanel*>(pWidget->getWidgetByName("fightForBankerPanel"));
 	pFightForBanker->setEnabled(false);
 	//不抢庄
 	button = static_cast<UIButton*>(pFightForBanker->getChildByName("notFightButton"));
@@ -62,8 +63,9 @@ void BaseGameControl::onEnter(){
 	button = static_cast<UIButton*>(pFightForBanker->getChildByName("fightButton"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseGameControl::menuFight));
 	//投注容器
-	pBetting=static_cast<UIPanel*>(m_pWidget->getWidgetByName("bettingPanel"));
+	pBetting=static_cast<UIPanel*>(pWidget->getWidgetByName("bettingPanel"));
 	pBetting->setEnabled(false);
+	//加注按键
 	for (int i = 0; i < 4; i++)
 	{
 		pbBetting[i] = static_cast<UIButton*>(pBetting->getChildByName(CCString::createWithFormat("bettingButton%d",i+1)->getCString()));
@@ -71,15 +73,22 @@ void BaseGameControl::onEnter(){
 	}
 	//设置用户名
 	const char *name=Tools::GBKToUTF8(DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName);
-	DataModel::sharedDataModel()->getMainScene()->playerLayer->setUserName(3,name);
+	//DataModel::sharedDataModel()->getMainScene()->playerLayer->setUserName(3,name);
+	//初始化计时器
+	initTimer(pWidget);
+	resetTimer();
 	//添加监听事件
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(BaseGameControl::OnEventGameMessage),S_L_GAME_ING,NULL);
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(BaseGameControl::OnUserFree),S_L_US_FREE,NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(BaseGameControl::OnUserEnter),S_L_US_ENTER,NULL);
+	//主动调用一次
+	OnUserEnter(NULL);
 }
 void BaseGameControl::onExit(){
 	//移除监听事件 
 	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_GAME_ING); 
 	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_US_FREE); 
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_US_ENTER); 
 	CCLayer::onExit();
 }
 //初始化操作者提示动画
@@ -89,13 +98,77 @@ void BaseGameControl::initActionPrompt(){
 	pArmatureActionPrompt->setPosition(DataModel::sharedDataModel()->deviceSize.width/2,DataModel::sharedDataModel()->deviceSize.height/2);
 	hideActionPrompt();
 }
+void BaseGameControl::initTimer(UILayer *pWidget){
+	pITimer = static_cast<UIImageView*>(pWidget->getWidgetByName("ImageTimer"));
+	pITimer->setVisible(false);
+
+	pLTimerNum=static_cast<UILabelAtlas*>(pWidget->getWidgetByName("AtlasLabelTimer"));
+	iTimerCount=-1;
+}
+void BaseGameControl::resetTimer(){
+	iTimerCount=MAX_TIMER;
+	pLTimerNum->setStringValue(CCString::createWithFormat("%d",iTimerCount)->getCString());
+	pITimer->setVisible(true);
+}
+void BaseGameControl::hideTimer(){
+	pITimer->setVisible(false);
+	iTimerCount=-1;
+}
+void BaseGameControl::updateTimer(float dt){
+	iTimerCount--;
+	if (iTimerCount<0)
+	{
+		return;
+	}
+	if (iTimerCount==0)
+	{
+		delayedAction();
+	}
+	
+	pLTimerNum->setStringValue(CCString::createWithFormat("%d",iTimerCount)->getCString());
+}
+void BaseGameControl::delayedAction(){
+	switch (DataModel::sharedDataModel()->getMainScene()->getGameState())
+	{
+	case MainScene::STATE_READY:
+		{
+
+		}
+		break;
+	case MainScene::STATE_CALL_BANKER:
+		{
+			menuNotFight(NULL,TOUCH_EVENT_ENDED);
+		}
+		break;
+	case MainScene::STATE_BETTING:
+		{
+			UIButton *button=UIButton::create();
+			button->setTag(1);
+			menuBetting(button,TOUCH_EVENT_ENDED);
+		}
+		break;
+	case MainScene::STATE_OPT_OX:
+		{
+			menuOpenCard(NULL,TOUCH_EVENT_ENDED);
+		}
+		break;
+	case MainScene::STATE_GAME_END:
+		{
+
+		}
+		break;
+	default:
+		break;
+	}
+}
 void BaseGameControl::menuPause(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		TCPSocketControl::sharedTCPSocketControl()->stopSocket();
-		Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene());
+		bool isSend=TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_FRAME,SUB_GF_USER_READY);
+		//TCPSocketControl::sharedTCPSocketControl()->stopSocket();
+		Tools::setTransitionAnimation(0, 0, ClassicLobbyScene::scene(false));
 	}
 		break;
 	default:
@@ -108,6 +181,7 @@ void BaseGameControl::menuOpenCard(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
+		hideTimer();
 		DataModel::sharedDataModel()->getMainScene()->cardLayer->sortingOx(getMeChairID(),3);
 		/*//发送消息
 		CMD_C_OxCard OxCard;
@@ -163,6 +237,7 @@ void BaseGameControl::menuReady(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
+		hideTimer();
 		//隐藏准备
 		pPanelReady->setEnabled(false);
 		//发送准备指使
@@ -191,6 +266,7 @@ void BaseGameControl::menuNotFight(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
+			hideTimer();
 		pFightForBanker->setEnabled(false);
 		//DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_BETTING);
 		DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_WAIT);
@@ -211,6 +287,7 @@ void BaseGameControl::menuFight(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
+		hideTimer();
 		pFightForBanker->setEnabled(false);
 		//DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_OPT_OX);
 		DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_WAIT);
@@ -234,6 +311,7 @@ void BaseGameControl::menuBetting(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
+		hideTimer();
 		pBetting->setEnabled(false);
 		UIButton *button=(UIButton*)pSender;
 		int bTemp=button->getTag();
@@ -262,6 +340,7 @@ void BaseGameControl::updateState(){
 	{
 	case MainScene::STATE_READY:
 		{
+			resetTimer();
 			//移除结算层
 			if (pEndLayer)
 			{
@@ -274,23 +353,32 @@ void BaseGameControl::updateState(){
 		break;
 	case MainScene::STATE_CALL_BANKER:
 	{
-		pPanelReady->setEnabled(false);
+		resetTimer();
 		pFightForBanker->setEnabled(true);
+		pPanelReady->setEnabled(false);
 	}
 		break;
 	case MainScene::STATE_OPT_OX:
 	{
-		pFightForBanker->setEnabled(false);
+		resetTimer();
 		pOptOx->setEnabled(true);
+		pFightForBanker->setEnabled(false);
 	}
 		break;
 	case MainScene::STATE_BETTING:
 	{
+		resetTimer();
 		pBetting->setEnabled(true);
 	}
 		break;
+	case MainScene::STATE_SEND_CARD:
+		{
+			//pBetting->setEnabled(false);
+		}
+		break;
 	case MainScene::STATE_GAME_END:
 	{
+		resetTimer();
 		pOptOx->setEnabled(false);
 	}
 		break;
@@ -687,12 +775,7 @@ bool BaseGameControl::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 	CMD_S_GameEnd * pGameEnd=(CMD_S_GameEnd *)pBuffer;
 
 	hideActionPrompt();
-	/*
-	long long							lGameTax[GAME_PLAYER];				//游戏税收
-	long long							lGameScore[GAME_PLAYER];			//游戏得分
-	// 	BYTE								cbCardData[GAME_PLAYER];			//用户扑克
-	BYTE								cbCardData[GAME_PLAYER][MAX_COUNT];	//用户扑克
-	*/
+
 	//显示积分
 	for (WORD i=0;i<GAME_PLAYER;i++)
 	{
@@ -913,4 +996,20 @@ void BaseGameControl::OnUserFree(CCObject *obj){
 	CCMessageBox("长时间不操作，自动退出！","提示");
 	CCLog("退出 ");
 }
-
+void BaseGameControl::OnUserEnter(CCObject *obj){
+	std::map<long,tagUserInfo>::iterator iter;
+	for (iter = DataModel::sharedDataModel()->mTagUserInfo.begin(); iter != DataModel::sharedDataModel()->mTagUserInfo.end(); iter++)
+	{
+		if (iter->second.dwUserID!=DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID)
+		{
+			CCLog("ID:%ld otherID:%ld   name:%s<<%s>>",iter->second.dwUserID,DataModel::sharedDataModel()->userInfo->dwUserID,
+			Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName),__FUNCTION__);
+			DataModel::sharedDataModel()->getMainScene()->playerLayer->setUserInfo(0,iter->second);
+		}else
+		{
+			DataModel::sharedDataModel()->getMainScene()->playerLayer->setUserInfo(3,iter->second);
+		}
+		//CCLog("--mm----------------nick:%s",Tools::GBKToUTF8(iter->second.szNickName));
+	}
+	DataModel::sharedDataModel()->mTagUserInfo.clear();
+}

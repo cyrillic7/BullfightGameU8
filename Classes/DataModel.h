@@ -16,6 +16,8 @@ public:
 	CCArray *m_aTagGameKind;
 
 	std::vector <tagGameServer *> tagGameServerList;
+	//用户信息数组
+	std::map<long ,tagUserInfo>mTagUserInfo;
 	//std::list<QueueData *> queueData;
 	CMD_MB_LogonSuccess *logonSuccessUserInfo;
 	long long m_lTurnMaxScore;//最大加注数

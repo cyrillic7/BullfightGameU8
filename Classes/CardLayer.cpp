@@ -162,7 +162,7 @@ bool CardLayer::promptOx(int oxIndex){
 // Parameter: int showChairiD显示桌子位置
 //************************************
 void CardLayer::sortingOx(int chairID,int showChairiD){
-	UIPanel *playerPanel = DataModel::sharedDataModel()->getMainScene()->playerLayer->playerPanel[showChairiD];
+	UIPanel *playerPanel = DataModel::sharedDataModel()->getMainScene()->playerLayer->pPlayerData[showChairiD]-> pPlayerPanel;
 	UIImageView *iPlayerIcon = (UIImageView*)playerPanel->getChildByName("headPortrait");
 	CCPoint playerPos = playerPanel->getPosition();
 	CCPoint cardPos = ccpAdd(playerPos, iPlayerIcon->getPosition());
@@ -248,7 +248,7 @@ void CardLayer::sendCardIng(){
 
 //发5张牌
 void CardLayer::sendFiveCard(int index,int offsetIndex){
-	UIPanel *playerPanel = DataModel::sharedDataModel()->getMainScene()->playerLayer->playerPanel[index];
+	UIPanel *playerPanel = DataModel::sharedDataModel()->getMainScene()->playerLayer->pPlayerData[index]->pPlayerPanel;
 	UIImageView *iPlayerIcon = (UIImageView*)playerPanel->getChildByName("headPortrait");
 	CCPoint playerPos = playerPanel->getPosition();
 	CCPoint cardPos = ccpAdd(playerPos, iPlayerIcon->getPosition());

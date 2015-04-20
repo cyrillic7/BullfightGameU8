@@ -36,10 +36,11 @@ ClassicLobbyScene::~ClassicLobbyScene(){
 	CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
 	CCTextureCache::sharedTextureCache()->removeUnusedTextures();
 }
-CCScene* ClassicLobbyScene::scene()
+CCScene* ClassicLobbyScene::scene(bool isCreateSocket)
 {
     CCScene *scene = CCScene::create();
     ClassicLobbyScene *layer = ClassicLobbyScene::create();
+	layer->isCreateSocket=isCreateSocket;
     scene->addChild(layer);
     return scene;
 }
@@ -72,13 +73,11 @@ void ClassicLobbyScene::onEnter(){
 		UILabel *description=static_cast<UILabel*>(m_pWidget->getWidgetByName(CCString::createWithFormat("Label%d",i)->getCString()));
 		description->setText(Tools::GBKToUTF8(DataModel::sharedDataModel()->tagGameServerList[i]->szDescription));
 	}
+
 	//添加监听事件
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::onPlay),S_L_PLAY,NULL);
-
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::onConfigFinish),S_L_CONFIG_FINISH,NULL);
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::onOpen),S_L_OPEN,NULL);
-
-	//initTCPLogon();
 }
 void ClassicLobbyScene::onExit(){
 	//移除监听事件 
@@ -89,14 +88,6 @@ void ClassicLobbyScene::onExit(){
 	BaseLobbyScene::onExit();
 }
 void ClassicLobbyScene::initTCPLogon(int index){
-
-	/*for (int i = 0; i < DataModel::sharedDataModel()->tagGameServerList.size(); i++)
-	{
-		CCLog("%d  %s %d",DataModel::sharedDataModel()->tagGameServerList[i]->wSortID,
-			Tools::GBKToUTF8(DataModel::sharedDataModel()->tagGameServerList[i]->szServerName)
-			,DataModel::sharedDataModel()->tagGameServerList[i]->wServerPort);
-	}*/
-
 	PopDialogBox *pdb = PopDialogBoxLoading::create();
 	this->addChild(pdb);
 	pdb->setTag(189);
@@ -124,11 +115,13 @@ void ClassicLobbyScene::menuStar(CCObject* pSender, TouchEventType type){
 	case TOUCH_EVENT_ENDED:
 	{
 		UIButton *button=(UIButton*)pSender;
-		initTCPLogon(button->getTag()-1);
-		//TCPLogonID *tcpID=(TCPLogonID *)this->getChildByTag(999);
-		/**/
-		//tcpID->sendData();
-		//enterMainSceneByMode(((UIButton*)pSender)->getTag());
+		if (isCreateSocket)
+		{
+				initTCPLogon(button->getTag()-1);
+		}else
+		{
+			//onOpen(NULL);
+		}
 	}
 		break;
 	default:
@@ -204,8 +197,8 @@ void ClassicLobbyScene::onOpen(CCObject *obj){
 
 	logonMobile.wGameID=210;
 	logonMobile.dwProcessVersion=VERSION_CLIENT;
-
-	logonMobile.cbDeviceType=0;
+	//设备类型
+	logonMobile.cbDeviceType=DEVICE_TYPE_ANDROID;
 	logonMobile.wBehaviorFlags=BEHAVIOR_LOGON_IMMEDIATELY;
 	logonMobile.wPageTableCount=10;
 
@@ -220,7 +213,6 @@ void ClassicLobbyScene::onOpen(CCObject *obj){
 	strcpy(logonMobile.szMachineID,"123");
 
 	bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GR_LOGON, SUB_GR_LOGON_MOBILE, &logonMobile, sizeof(logonMobile));
-	CCLog("send:%d", isSend);
 #endif
 	
 }

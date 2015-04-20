@@ -17,6 +17,7 @@
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
+#define MAX_TIMER		10		//计时器最大值
 class BaseGameControl:public CCLayer,GameLogic
 {
 private:
@@ -32,7 +33,12 @@ private:
 	UIPanel *pBetting;
 	//加注按键
 	UIButton *pbBetting[4];
-
+	//计时器
+	UIImageView *pITimer;
+	//计时器数字
+	UILabelAtlas *pLTimerNum;
+	//计时变量
+	int iTimerCount;
 	//庄家用户
 	BYTE wBankerUser;
 	//游戏结算层
@@ -52,6 +58,16 @@ public:
 private:
 	//初始化操作者提示动画
 	void initActionPrompt();
+	//初始化计时器
+	void initTimer(UILayer *pWidget);
+	//设置计时器
+	void resetTimer();
+	//隐藏计时器
+	void hideTimer();
+	//更新计时器
+	void updateTimer(float dt);
+	//延时操作
+	void delayedAction();
 private:
 	//菜单////////////////////////////////////////////////////////////////////////
 	void menuPause(CCObject* pSender, TouchEventType type);
@@ -95,6 +111,8 @@ private:
 	
 	//用户站立
 	void OnUserFree(CCObject *obj);
+	//用户进入
+	void OnUserEnter(CCObject *obj);
 	/*void onAddScore(CCObject *obj);
 	void onSendCard(CCObject *obj);*/
 };

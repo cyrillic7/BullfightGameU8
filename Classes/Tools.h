@@ -47,5 +47,7 @@ public:
 	static std::string get_date_now();
 	static int getTime();
 	static long getMicroSeconds();
+	//获取字符串长度（中英混合）
+	static int strLength(const std::string &str);
 };
 
