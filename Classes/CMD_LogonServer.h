@@ -687,7 +687,13 @@ struct CMD_MB_UpdateNotify
 #define SUB_MB_LIST_FINISH			200									//列表完成
 
 //////////////////////////////////////////////////////////////////////////////////
-
+struct ReadData
+{
+	WORD wSubCmdID;
+	WORD wDataSize;
+	char sSendData[1024*5];
+	DWORD dwDataLen;
+};
 #pragma pack()
 
 #endif

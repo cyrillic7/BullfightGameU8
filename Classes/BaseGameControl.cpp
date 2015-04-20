@@ -21,9 +21,11 @@ BaseGameControl::BaseGameControl()
 :pEndLayer(NULL){
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationActionPrompt.ExportJson));
 	schedule(SEL_SCHEDULE(&BaseGameControl::updateTimer),1);
+	scheduleUpdate();
 }
 BaseGameControl::~BaseGameControl(){
 	unschedule(SEL_SCHEDULE(&BaseGameControl::updateTimer));
+	unscheduleUpdate();
 }
 void BaseGameControl::onEnter(){
 	CCLayer::onEnter();
@@ -394,6 +396,14 @@ void BaseGameControl::showActionPrompt(int promptIndex){
 void BaseGameControl::hideActionPrompt(){
 	pArmatureActionPrompt->setVisible(false);
 }
+//获取庄家视图位置
+int BaseGameControl::getBankViewID(){
+	if (getMeChairID()==wBankerUser)
+	{
+		return 3;
+	}
+	return 0;
+}
 //获取我的椅子位置
 int BaseGameControl::getMeChairID(){
 	return DataModel::sharedDataModel()->userInfo->wChairID;
@@ -402,47 +412,58 @@ int BaseGameControl::getMeChairID(){
 bool BaseGameControl::IsLookonMode(){
 	return false;
 }
+void BaseGameControl::update(float delta){
+	OnEventGameMessage(NULL);
+}
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
 //网络消息
 void BaseGameControl::OnEventGameMessage(CCObject *pObj){
-	QueueData *pData=(QueueData*)pObj;
-	switch (pData->wSubCmdID)
+	if (DataModel::sharedDataModel()->readDataList.size()<=0)
+	{
+		return;
+	}
+		//pthread_mutex_lock(&sResponseQueueMutex);
+		std::list<ReadData>::iterator iter;
+		iter=DataModel::sharedDataModel()->readDataList.begin();
+	//ReadData msg = iter->;        
+	//QueueData *pData=(QueueData*)pObj;
+	switch (iter->wSubCmdID)
 	{
 	case SUB_S_CALL_BANKER:	//用户叫庄
 		{
 			//消息处理
-			OnSubCallBanker(pData->sendData.sSendData,pData->wDataSize);
+			OnSubCallBanker(iter->sSendData,iter->wDataSize);
 		}
 		break;
 	case SUB_S_GAME_START:	//游戏开始
 		{
 			//消息处理
-			OnSubGameStart(pData->sendData.sSendData,pData->wDataSize);
+			OnSubGameStart(iter->sSendData,iter->wDataSize);
 		}
 		break;
 	case SUB_S_ADD_SCORE:	//用户下注
 		{
 			//消息处理
-			OnSubAddScore(pData->sendData.sSendData,pData->wDataSize);
+			OnSubAddScore(iter->sSendData,iter->wDataSize);
 		}
 		break;
 	case SUB_S_SEND_CARD:	//发牌消息
 		{
 			//消息处理
-			OnSubSendCard(pData->sendData.sSendData,pData->wDataSize);
+			OnSubSendCard(iter->sSendData,iter->wDataSize);
 		}
 		break;
 	case SUB_S_OPEN_CARD:	//用户摊牌
 		{
 			//消息处理
-			OnSubOpenCard(pData->sendData.sSendData,pData->wDataSize);
+			OnSubOpenCard(iter->sSendData,iter->wDataSize);
 		}
 		break;
 	case SUB_S_PLAYER_EXIT:	//用户强退
 		{
 			//消息处理
-			OnSubPlayerExit(pData->sendData.sSendData,pData->wDataSize);
+			OnSubPlayerExit(iter->sSendData,iter->wDataSize);
 		}
 		break;
 	case SUB_S_GAME_END:	//游戏结束
@@ -450,7 +471,7 @@ void BaseGameControl::OnEventGameMessage(CCObject *pObj){
 			//结束动画
 			//m_GameClientView.FinishDispatchCard();
 			//消息处理
-			OnSubGameEnd(pData->sendData.sSendData,pData->wDataSize);
+			OnSubGameEnd(iter->sSendData,iter->wDataSize);
 		}
 		break;
 	case 1024:
@@ -461,10 +482,12 @@ void BaseGameControl::OnEventGameMessage(CCObject *pObj){
 		}
 		break;
 	default:
-		CCLog("--------------------gameIng:%d",pData->wSubCmdID);
+		CCLog("--------------------gameIng:%d",iter->wSubCmdID);
 		break;
 	}
-	CC_SAFE_DELETE(pData);
+	DataModel::sharedDataModel()->readDataList.pop_front();
+		//pthread_mutex_unlock(&sResponseQueueMutex);
+	//CC_SAFE_DELETE(pData);
 }
 //用户叫庄
 bool BaseGameControl::OnSubCallBanker(const void * pBuffer, WORD wDataSize){

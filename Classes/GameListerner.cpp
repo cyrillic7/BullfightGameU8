@@ -268,18 +268,25 @@ bool GameListerner::frameEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuf
 	return true;
 }
 bool GameListerner::gameEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
-	//创建数据
+	/*//创建数据
     QueueData *queueData=new QueueData();
     queueData->wSubCmdID=wSubCmdID;
 	queueData->wDataSize=wDataSize;
-    memcpy(queueData->sendData.sSendData, pDataBuffer, wDataSize);
+    memcpy(queueData->sendData.sSendData, pDataBuffer, wDataSize);*/
 	/*QueueData queueData;
 	memset(&queueData,0,sizeof(QueueData));
 	queueData.wSubCmdID=wSubCmdID;
 	queueData.wDataSize=wDataSize;
-	 memcpy(queueData.sendData.sSendData, pDataBuffer, wDataSize);*/
+	 memcpy(&queueData.sendData.sSendData, &pDataBuffer, wDataSize);
 	//发送消息
-	MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_GAME_ING,queueData);
+	MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_GAME_ING,&queueData);*/
+	ReadData rData;
+	rData.wSubCmdID=wSubCmdID;
+	rData.wDataSize=wDataSize;
+	memcpy(rData.sSendData, pDataBuffer, wDataSize);
+	//pthread_mutex_lock(&sResponseQueueMutex);
+	DataModel::sharedDataModel()->readDataList.push_back(rData);
+	//pthread_mutex_unlock(&sResponseQueueMutex); 
 	return true;
 }
 //////////////////////////////////////////////////////////////////////////
@@ -452,9 +459,8 @@ bool GameListerner::OnSocketSubUserEnter(TCPSocket* pSocket,void * pDataBuffer, 
 			break;
 		}
 	}
+	//
 	DataModel::sharedDataModel()->mTagUserInfo.insert(map<long,tagUserInfo>::value_type(pUserInfoHead->dwUserID,UserInfo));
-//	DataModel::sharedDataModel()->vTagUserInfo.push_back(UserInfo);
-	
 	//发送消息
 	MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_US_ENTER,NULL);
 #endif

@@ -236,12 +236,16 @@ void CardLayer::sendCardIng(){
 	int offsetIndex = 0;
 	for (int i = 0; i < MAX_PLAYER; i++)
 	{
-		if (canSendCard[i])
+		int bankerUser=DataModel::sharedDataModel()->getMainScene()->getGameControlOxTwo()->getBankViewID();
+		int index=(bankerUser+i)%MAX_PLAYER;
+
+		if (canSendCard[index])
 		{
-			sendFiveCard(i, offsetIndex);
+			offsetIndex++;
+			sendFiveCard(index, offsetIndex);
 		}
 		else{
-			offsetIndex++;
+			
 		}
 	}
 }
@@ -265,7 +269,10 @@ void CardLayer::sendFiveCard(int index,int offsetIndex){
 		
 		CCPoint offPos = ccp(offsetX+i*offsetSpace,offsetY);
 		offPos=designResolutionToFrame(offPos);
-		moveCardAction(pCard[i+index*MAX_COUNT]->m_cpArmatureCard, (index-offsetIndex)*SEND_CARD_DELAY_TIME*MAX_CARD_COUNT + i*SEND_CARD_DELAY_TIME, ccpAdd(cardPos, offPos),index);
+		moveCardAction(pCard[i+index*MAX_COUNT]->m_cpArmatureCard,
+			//(index-offsetIndex)*SEND_CARD_DELAY_TIME*MAX_CARD_COUNT + i*SEND_CARD_DELAY_TIME, 
+			offsetIndex*SEND_CARD_DELAY_TIME*MAX_CARD_COUNT+i*SEND_CARD_DELAY_TIME,
+			ccpAdd(cardPos, offPos),index);
 	}
 }
 //“∆∂Øµ•’≈≈∆

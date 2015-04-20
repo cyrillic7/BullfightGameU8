@@ -23,6 +23,7 @@ DataModel::DataModel()
 	
 	logonSuccessUserInfo=new CMD_MB_LogonSuccess();
 	userInfo=new tagUserInfo();
+	// pthread_mutex_init(&sResponseQueueMutex, NULL);
 }
 DataModel::~DataModel() {
 	CCLog("~ <<%s>>",__FUNCTION__);
@@ -32,6 +33,8 @@ DataModel::~DataModel() {
 	CC_SAFE_DELETE(logonSuccessUserInfo);
 	CC_SAFE_DELETE(userInfo);
 	removeTagGameServerList();
+
+	// pthread_mutex_destroy(&sResponseQueueMutex);
 	/*
 	_outputEnemysData->removeAllObjects();
 	_outputEnemysData->release();

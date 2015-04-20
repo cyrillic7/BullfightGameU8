@@ -4,6 +4,7 @@
 //#include "GameLogic.h"
 #include "CMD_LogonServer.h"
 USING_NS_CC;
+	//static pthread_mutex_t  sResponseQueueMutex;
 class DataModel:public CCObject{
 public:
 	static bool isSound;
@@ -25,6 +26,10 @@ public:
 	//tagGameServer *tagGameServerList[];
 	//变量定义
 	tagUserInfo *userInfo;
+
+	
+
+	std::list<ReadData>readDataList;
 public:
 	DataModel();
 	~DataModel();

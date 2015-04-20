@@ -48,6 +48,8 @@ public:
 	~BaseGameControl();
 	virtual void onEnter();
 	virtual void onExit();
+	//更新消息
+	void update(float delta);
 	//更新状态
 	void updateState();
 public:
@@ -55,6 +57,8 @@ public:
 	void showActionPrompt(int promptIndex);
 	//隐藏提示动画
 	void hideActionPrompt();
+	//获取庄家视图位置
+	int getBankViewID();
 private:
 	//初始化操作者提示动画
 	void initActionPrompt();
