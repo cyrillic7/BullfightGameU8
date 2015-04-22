@@ -47,6 +47,10 @@ void PlayerLayer::initPlayerInfo(){
 		pPlayerData[i]->pILight->setVisible(false);
 		//用户头像
 		pPlayerData[i]->pIPlayerIcon=static_cast<UIImageView*>(pPlayerData[i]->pPlayerPanel->getChildByName("headPortrait"));
+		//行为类型
+		pPlayerData[i]->pIActionTypeBg=static_cast<UIImageView*>(pPlayerData[i]->pPlayerPanel->getChildByName("ImageAction"));
+		//行为内容
+		pPlayerData[i]->pIActionContent=static_cast<UIImageView*>(pPlayerData[i]->pPlayerPanel->getChildByName("ImageAction")->getChildByName("ImageActionContent"));
 		//隐藏用户
 		pPlayerData[i]->hidePlayer();
 	}

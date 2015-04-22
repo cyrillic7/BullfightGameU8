@@ -159,11 +159,9 @@ TCPSocket::~TCPSocket() {
 void TCPSocket::deleteListerner(){
 	if (this->listerner)
 	{
-		CCLog("delete-----");
 		//this->listerner->End();
 		delete this->listerner;
 		this->listerner=NULL;
-		CCLog("delete---1111111111111--");
 	}
 }
 int TCPSocket::Init() {

@@ -14,11 +14,12 @@
 #include "GameLogic.h"
 #include "TCPSocket.h"
 #include "GameEndLayer.h"
+#include "MessageQueue.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
 #define MAX_TIMER		10		//计时器最大值
-class BaseGameControl:public CCLayer,GameLogic
+class BaseGameControl:public CCLayer,GameLogic,public MessageQueue
 {
 private:
 	//操作者提示动画
@@ -98,6 +99,8 @@ private:
 //////////////////////////////////////////////////////////////////////////
 	//网络消息
 	void OnEventGameMessage(CCObject *pObj);
+	//游戏中
+	void onEventGameIng(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//用户叫庄
 	bool OnSubCallBanker(const void * pBuffer, WORD wDataSize);
 	//游戏开始
@@ -117,8 +120,15 @@ private:
 	void OnUserFree(CCObject *obj);
 	//用户进入
 	void OnUserEnter(CCObject *obj);
-	/*void onAddScore(CCObject *obj);
-	void onSendCard(CCObject *obj);*/
+	//用户状态
+	void OnEventUserState(WORD	 wSubCmdID,const void * pBuffer, WORD wDataSize);
+
+	//用户状态
+	void onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
+
+private:
+	void goldJump(int index,CCPoint beginPos,CCPoint endPos);
+	void onGoldJump(CCNode *node);
 };
 
 #endif /* defined(__BullfightGame__GameHUD__) */

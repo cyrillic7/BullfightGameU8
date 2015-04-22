@@ -13,6 +13,7 @@ void PlayerData::hidePlayer(){
 	pIPlayerIcon->setVisible(false);
 	pLUserName->setVisible(false);
 	pLGoldCount->setVisible(false);
+	pIActionTypeBg->setVisible(false);
 }
 //ÉèÖÃÎª×¯¼Ò
 void PlayerData::setBankIcon(){
@@ -29,7 +30,8 @@ void PlayerData::setUserInfo(tagUserInfo userInfo){
 	if (Tools::GBKToUTF8(userInfoPlayer.szNickName))
 	{
 		pLUserName->setVisible(true);
-		pLUserName->setText(Tools::GBKToUTF8(userInfoPlayer.szNickName));
+		std::string nickName=Tools::GBKToUTF8(userInfoPlayer.szNickName);
+		pLUserName->setText(Tools::createStringToLength(nickName,0,4));
 	}
 	pLGoldCount->setVisible(true);
 	pLGoldCount->setText(CCString::createWithFormat("%lld",userInfoPlayer.lScore)->getCString());
@@ -40,7 +42,7 @@ void PlayerData::showResultAnimation(long long lGameScore){
 
 	pLResult->setVisible(true);
 	long long lScore=lGameScore;
-	if (lGameScore>0)
+	if (lGameScore>=0)
 	{
 		pLResult->setColor(ccc3(0,208,29));
 	}else
@@ -67,4 +69,24 @@ void PlayerData::onResultAnimationFinish(){
 void PlayerData::changePlayerGole(long long lGold){
 	userInfoPlayer.lScore+=lGold;
 	pLGoldCount->setText(CCString::createWithFormat("%lld",userInfoPlayer.lScore)->getCString());
+}
+void PlayerData::showActionType(ActionType type){
+	switch (type)
+	{
+	case PlayerData::ACTION_READY:
+		pIActionContent->loadTexture("u_gi_ready.png",UI_TEX_TYPE_PLIST);
+		break;
+	case PlayerData::ACTION_CALL_BANK:
+		pIActionContent->loadTexture("u_gi_call_bank.png",UI_TEX_TYPE_PLIST);
+		break;
+	case PlayerData::ACTION_NOT_CALL:
+		pIActionContent->loadTexture("u_gi_not_call.png",UI_TEX_TYPE_PLIST);
+		break;
+	default:
+		break;
+	}
+	pIActionTypeBg->setVisible(true);
+}
+void PlayerData::hideActionType(){
+	pIActionTypeBg->setVisible(false);
 }

@@ -29,18 +29,17 @@ ClassicLobbyScene::ClassicLobbyScene()
 ClassicLobbyScene::~ClassicLobbyScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
 	//
-	unscheduleUpdate();
+	
 	this->removeAllChildrenWithCleanup(true);
 	GUIReader::purge();
 	CCArmatureDataManager::purge();
 	CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
 	CCTextureCache::sharedTextureCache()->removeUnusedTextures();
 }
-CCScene* ClassicLobbyScene::scene(bool isCreateSocket)
+CCScene* ClassicLobbyScene::scene()
 {
     CCScene *scene = CCScene::create();
     ClassicLobbyScene *layer = ClassicLobbyScene::create();
-	layer->isCreateSocket=isCreateSocket;
     scene->addChild(layer);
     return scene;
 }
@@ -53,6 +52,13 @@ void ClassicLobbyScene::onEnter(){
 	spriteBg->setPosition(ccp(deviceSize.width/2,deviceSize.height/2));
 	float scale=deviceSize.height/spriteBg->getContentSize().height;
 	spriteBg->setScale(scale);*/
+	pBUserInfo->loadTextureNormal("back.png",UI_TEX_TYPE_PLIST);
+	pBUserInfo->loadTexturePressed("back_press.png",UI_TEX_TYPE_PLIST);
+	pBUserInfo->setScale9Enabled(false);
+	pBUserInfo->ignoreContentAdaptWithSize(true);
+	pBUserInfo->setSize(CCSize(51,40));
+	
+	pBUserInfo->getChildByName("Image_23")->setVisible(false);
 
 	UILayer *m_pWidget = UILayer::create();
 	this->addChild(m_pWidget);
@@ -115,13 +121,7 @@ void ClassicLobbyScene::menuStar(CCObject* pSender, TouchEventType type){
 	case TOUCH_EVENT_ENDED:
 	{
 		UIButton *button=(UIButton*)pSender;
-		if (isCreateSocket)
-		{
-				initTCPLogon(button->getTag()-1);
-		}else
-		{
-			//onOpen(NULL);
-		}
+		initTCPLogon(button->getTag()-1);
 	}
 		break;
 	default:
@@ -143,11 +143,12 @@ void ClassicLobbyScene::enterMainSceneByMode(int mode){
 	}
 }
 void ClassicLobbyScene::update(float delta){
-	if (DataModel::sharedDataModel()->isSit)
+	MessageQueue::update(delta);
+	/*if (DataModel::sharedDataModel()->isSit)
 	{
 		DataModel::sharedDataModel()->isSit=false;
 		enterMainSceneByMode(1);
-	}
+	}*/
 }
 void ClassicLobbyScene::onPlay(CCObject *obj){
 	//enterMainSceneByMode(1);
@@ -215,4 +216,101 @@ void ClassicLobbyScene::onOpen(CCObject *obj){
 	bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GR_LOGON, SUB_GR_LOGON_MOBILE, &logonMobile, sizeof(logonMobile));
 #endif
 	
+}
+//登录
+void ClassicLobbyScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
+	switch (wSubCmdID)
+	{
+	case SUB_GR_UPDATE_NOTIFY:
+		{
+			//效验参数
+				assert(wDataSize >= sizeof(CMD_GR_UpdateNotify));
+			if (wDataSize < sizeof(CMD_GR_UpdateNotify)) return;
+
+			CMD_GR_UpdateNotify *lf = (CMD_GR_UpdateNotify*)pDataBuffer;
+			CCLog("升级提示");
+		}
+		break;
+	case SUB_GR_LOGON_SUCCESS:
+		{
+			//效验参数
+			assert(wDataSize >= sizeof(CMD_GR_LogonSuccess));
+			if (wDataSize < sizeof(CMD_GR_LogonSuccess)) return;
+
+			CMD_GR_LogonSuccess *lf = (CMD_GR_LogonSuccess*)pDataBuffer;
+			CCLog("登录成功");
+		}
+		break;
+	case SUB_GR_LOGON_FINISH:{
+			CCLog("登录完成");
+		 }
+		break;
+	case SUB_GR_LOGON_FAILURE:
+		{
+			CMD_GR_LogonFailure *lf = (CMD_GR_LogonFailure*)pDataBuffer;
+			CCLog("登录失败:%s",Tools::GBKToUTF8(lf->szDescribeString));
+		}
+		break;
+	default:
+		break;
+	}
+}
+//用户状态
+void ClassicLobbyScene::onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
+	CMD_GR_UserStatus *info= (CMD_GR_UserStatus*)pDataBuffer;
+	switch (info->UserStatus.cbUserStatus)
+	{
+	case US_SIT://坐下
+		{
+			unscheduleUpdate();
+			CCLog("state==sit-----------%ld<<%s>>",info->dwUserID,__FUNCTION__);
+			if (info->dwUserID==DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID){
+				//DataModel::sharedDataModel()->isSit=true;
+				CCLog("坐下:table: %d desk:%d",info->UserStatus.wTableID,info->UserStatus.wChairID);
+				DataModel::sharedDataModel()->userInfo->wTableID=info->UserStatus.wTableID;
+				DataModel::sharedDataModel()->userInfo->wChairID=info->UserStatus.wChairID;
+				//构造数据
+				CMD_GF_GameOption GameOption;
+				GameOption.dwFrameVersion=VERSION_FRAME;
+				GameOption.cbAllowLookon=0;
+				GameOption.dwClientVersion=VERSION_CLIENT;
+				//发送
+				bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_FRAME, SUB_GF_GAME_OPTION, &GameOption, sizeof(GameOption));
+				if (isSend)
+				{
+					enterMainSceneByMode(1);
+				}
+			}
+		}
+		break;
+	case US_FREE://站立
+		{
+			CCLog("state==free-----------%ld",info->dwUserID);
+			if (info->dwUserID==DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID)
+			{
+				//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_US_FREE,NULL);
+			}else
+			{
+
+			}
+		}
+		break;
+	case US_READY://同意
+		{
+			CCLog("state==ready-----------%ld<<%s>>",info->dwUserID,__FUNCTION__);
+		}
+		break;
+	case US_PLAYING:
+		{
+			if (info->dwUserID==DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID)
+			{
+				//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_CONFIG_FINISH,NULL);
+			}
+			CCLog("state==playing-----------%ld",info->dwUserID);
+		}
+		break;
+	default:
+		CCLog("state==Other userID:%ld 状态：%d",info->dwUserID,info->UserStatus.cbUserStatus);
+		break;
+	}
 }

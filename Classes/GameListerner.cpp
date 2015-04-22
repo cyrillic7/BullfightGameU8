@@ -35,7 +35,7 @@ void GameListerner::OnClose(TCPSocket* so, bool fromRemote)
 {
 	//End();
 	TCPSocketControl::sharedTCPSocketControl()->deleteControl();
-	CCLog("%s\n","-----111111closed");
+	CCLog("%s\n","==================================================GameListernerClose");
 }
 
 void GameListerner::OnError(TCPSocket* so, const char* e)
@@ -58,13 +58,13 @@ bool GameListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Comman
 	switch (Command.wMainCmdID)
 	{
 	case MDM_GR_LOGON://登录
-		return logonEvent(so,Command.wSubCmdID,pDataBuffer,wDataSize);
+		return logonEvent(so,Command,pDataBuffer,wDataSize);
 		break;
 	case MDM_GR_CONFIG://配置
 		return configEvent(so,Command.wSubCmdID,pDataBuffer,wDataSize);
 		break;
 	case MDM_GR_USER://用户信息
-		return userEvent(so,Command.wSubCmdID,pDataBuffer,wDataSize);
+		return userEvent(so,Command,pDataBuffer,wDataSize);
 		break;
 	case MDM_GR_STATUS://状态信息
 		return statusEvent(so,Command.wSubCmdID,pDataBuffer,wDataSize);
@@ -73,10 +73,10 @@ bool GameListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Comman
 		return frameEvent(so,Command.wSubCmdID,pDataBuffer,wDataSize);
 		break;
 	case MDM_GF_GAME://游戏命令
-		return gameEvent(so,Command.wSubCmdID,pDataBuffer,wDataSize);
+		return gameEvent(so,Command,pDataBuffer,wDataSize);
 		break;
 	default:
-		CCLog("other---------- %d    %d",Command.wMainCmdID,Command.wSubCmdID);
+		CCLog("other---------- %d    %d<<%s>>",Command.wMainCmdID,Command.wSubCmdID,__FUNCTION__);
 		break;
 	}
 	return true;
@@ -88,8 +88,14 @@ void GameListerner::OnOpen(TCPSocket* so)
 }
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
-bool GameListerner::logonEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
-	if (wSubCmdID == SUB_GR_UPDATE_NOTIFY)
+bool GameListerner::logonEvent(TCPSocket* pSocket,TCP_Command cmd,void * pDataBuffer, unsigned short wDataSize){
+	ReadData rData;
+	rData.wMainCmdID=cmd.wMainCmdID;
+	rData.wSubCmdID=cmd.wSubCmdID;
+	rData.wDataSize=wDataSize;
+	memcpy(rData.sReadData, pDataBuffer, wDataSize);
+	DataModel::sharedDataModel()->readDataList.push_back(rData);
+	/*if (wSubCmdID == SUB_GR_UPDATE_NOTIFY)
 	{
 		//效验参数
 		assert(wDataSize >= sizeof(CMD_GR_UpdateNotify));
@@ -115,7 +121,7 @@ bool GameListerner::logonEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuf
 
 		CMD_GR_LogonFailure *lf = (CMD_GR_LogonFailure*)pDataBuffer;
 		CCLog("登录失败:%s",Tools::GBKToUTF8(lf->szDescribeString));
-	}
+	}*/
 	return true;
 }
 bool GameListerner::configEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
@@ -168,8 +174,8 @@ bool GameListerner::configEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBu
 	}
 	return true;
 }
-bool GameListerner::userEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
-	switch (wSubCmdID)
+bool GameListerner::userEvent(TCPSocket* pSocket,TCP_Command cmd,void * pDataBuffer, unsigned short wDataSize){
+	switch (cmd.wSubCmdID)
 	{
 	case SUB_GR_USER_ENTER://用户进入
 		{
@@ -184,43 +190,7 @@ bool GameListerner::userEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuff
 		break;
 	case SUB_GR_USER_STATUS://用户状态
 		{
-			int wSize=wDataSize;
-			int size =sizeof(CMD_GR_UserStatus);
-			CMD_GR_UserStatus *info= (CMD_GR_UserStatus*)pDataBuffer;
-			CCLog("%d <---> %d <<%s>>",info->dwUserID,DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID,__FUNCTION__);
-			if (info->dwUserID==DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID)
-			{
-				tagUserStatus state=info->UserStatus;
-				if (state.cbUserStatus==US_SIT)
-				{
-					DataModel::sharedDataModel()->isSit=true;
-					CCLog("坐下:table: %d desk:%d",state.wTableID,state.wChairID);
-					// CCNotificationCenter::sharedNotificationCenter()->postNotification(LISTENER_LOGON,NULL);
-					DataModel::sharedDataModel()->userInfo->wTableID=state.wTableID;
-					DataModel::sharedDataModel()->userInfo->wChairID=state.wChairID;
-
-					//构造数据
-					CMD_GF_GameOption GameOption;
-					GameOption.dwFrameVersion=VERSION_FRAME;
-					GameOption.cbAllowLookon=0;
-					GameOption.dwClientVersion=VERSION_CLIENT;
-					//发送
-					bool isSend = pSocket->SendData(MDM_GF_FRAME, SUB_GF_GAME_OPTION, &GameOption, sizeof(GameOption));
-
-				}else if (state.cbUserStatus==US_PLAYING)
-				{
-					MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_CONFIG_FINISH,NULL);
-					//CMD_S_StatusFree *gameStatue=(CMD_S_StatusFree*)pDataBuffer;
-					CCLog("游戏状态 ");
-				}else if(state.cbUserStatus==US_FREE)
-				{
-					CCLog("站立");
-					MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_US_FREE,NULL);
-					//
-				}
-				CCLog("状态：%d",state.cbUserStatus);
-			}
-			//CCLog("state %d",info->dwUserID);
+			OnSocketSubUserState(pSocket,cmd,pDataBuffer,wDataSize);
 		}
 		break;
 
@@ -267,7 +237,7 @@ bool GameListerner::frameEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuf
 	}
 	return true;
 }
-bool GameListerner::gameEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
+bool GameListerner::gameEvent(TCPSocket* pSocket,TCP_Command cmd,void * pDataBuffer, unsigned short wDataSize){
 	/*//创建数据
     QueueData *queueData=new QueueData();
     queueData->wSubCmdID=wSubCmdID;
@@ -281,9 +251,10 @@ bool GameListerner::gameEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuff
 	//发送消息
 	MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_GAME_ING,&queueData);*/
 	ReadData rData;
-	rData.wSubCmdID=wSubCmdID;
+	rData.wMainCmdID=cmd.wMainCmdID;
+	rData.wSubCmdID=cmd.wSubCmdID;
 	rData.wDataSize=wDataSize;
-	memcpy(rData.sSendData, pDataBuffer, wDataSize);
+	memcpy(rData.sReadData, pDataBuffer, wDataSize);
 	//pthread_mutex_lock(&sResponseQueueMutex);
 	DataModel::sharedDataModel()->readDataList.push_back(rData);
 	//pthread_mutex_unlock(&sResponseQueueMutex); 
@@ -421,6 +392,7 @@ bool GameListerner::OnSocketSubUserEnter(TCPSocket* pSocket,void * pDataBuffer, 
 	BYTE cbDataBuffer[SOCKET_TCP_PACKET + sizeof(TCP_Head)];
 	CopyMemory(cbDataBuffer, pDataBuffer, wDataSize);
 	//CCLog("-------------------------%d",wDataSize);
+	//CCLog("userID:%ld , state:%d <<%s>>",pUserInfoHead->dwUserID,pUserInfoHead->cbUserStatus,__FUNCTION__);
 	wPacketSize+=sizeof(tagMobileUserInfoHead);
 	while (true)
 	{
@@ -470,4 +442,67 @@ bool GameListerner::OnSocketSubUserEnter(TCPSocket* pSocket,void * pDataBuffer, 
 	
 	
  	return true;
+}
+//用户状态
+bool GameListerner::OnSocketSubUserState(TCPSocket *pSocket,TCP_Command cmd,void * pDataBuffer, unsigned short wDataSize){
+	ReadData rData;
+	rData.wMainCmdID=cmd.wMainCmdID;
+	rData.wSubCmdID=cmd.wSubCmdID;
+	rData.wDataSize=wDataSize;
+	memcpy(rData.sReadData, pDataBuffer, wDataSize);
+	DataModel::sharedDataModel()->readDataList.push_back(rData);
+	/*
+	int size =sizeof(CMD_GR_UserStatus);
+	CMD_GR_UserStatus *info= (CMD_GR_UserStatus*)pDataBuffer;
+	switch (info->UserStatus.cbUserStatus)
+	{
+	case US_SIT://坐下
+		{
+			CCLog("state==sit-----------%ld",info->dwUserID);
+			if (info->dwUserID==DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID){
+				DataModel::sharedDataModel()->isSit=true;
+				CCLog("坐下:table: %d desk:%d",info->UserStatus.wTableID,info->UserStatus.wChairID);
+				DataModel::sharedDataModel()->userInfo->wTableID=info->UserStatus.wTableID;
+				DataModel::sharedDataModel()->userInfo->wChairID=info->UserStatus.wChairID;
+				//构造数据
+				CMD_GF_GameOption GameOption;
+				GameOption.dwFrameVersion=VERSION_FRAME;
+				GameOption.cbAllowLookon=0;
+				GameOption.dwClientVersion=VERSION_CLIENT;
+				//发送
+				bool isSend = pSocket->SendData(MDM_GF_FRAME, SUB_GF_GAME_OPTION, &GameOption, sizeof(GameOption));
+			}
+		}
+		break;
+	case US_FREE://站立
+		{
+			CCLog("state==free-----------%ld",info->dwUserID);
+			if (info->dwUserID==DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID)
+			{
+				MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_US_FREE,NULL);
+			}else
+			{
+
+			}
+		}
+		break;
+	case US_READY://同意
+		{
+			CCLog("state==ready-----------%ld",info->dwUserID);
+		}
+		break;
+	case US_PLAYING:
+		{
+			if (info->dwUserID==DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID)
+			{
+				MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_CONFIG_FINISH,NULL);
+			}
+			CCLog("state==playing-----------%ld",info->dwUserID);
+		}
+		break;
+	default:
+		CCLog("state==Other userID:%ld 状态：%d",info->dwUserID,info->UserStatus.cbUserStatus);
+		break;
+	}*/
+	return true;
 }

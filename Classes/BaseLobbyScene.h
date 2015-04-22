@@ -12,6 +12,7 @@ class BaseLobbyScene:public CCLayer
 public:
 	UILabel *userName;
 	UILabel *pLabelGoldCount;
+	UIButton *pBUserInfo;
 private:
 	enum PopType
 	{

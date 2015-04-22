@@ -94,7 +94,7 @@ struct CMD_GP_LobbyIp
 	DWORD							dwServerPort; 
 };
 
-//登录成功
+/*//登录成功
 struct CMD_GP_LogonSuccess
 {
 	//属性资料
@@ -111,6 +111,40 @@ struct CMD_GP_LogonSuccess
 	SCORE                           lUserIngot;                            //元宝
 	SCORE							lUserScore;							//用户金币
 	SCORE							lUserInsure;						//用户银行
+
+	//用户信息
+	BYTE							cbGender;							//用户性别
+	BYTE							cbMoorMachine;						//锁定机器
+	BYTE							cbMoorPassPortID;					//锁定身份证
+	BYTE							cbMoorPhone;						//锁定手机
+	TCHAR							szPassPortID[LEN_PASS_PORT_ID];		//身份证号（身份证绑定使用）
+	TCHAR							szPhoneVerifyID[LEN_MOBILE_PHONE];  //手机号
+
+	TCHAR							szAccounts[LEN_ACCOUNTS];			//登录帐号
+	TCHAR							szNickName[LEN_ACCOUNTS];			//用户昵称
+	TCHAR							szGroupName[LEN_GROUP_NAME];		//社团名字
+	//配置信息
+	BYTE                            cbShowServerStatus;                 //显示服务器状态
+};*/
+//登录成功
+struct CMD_GP_LogonSuccess
+{
+	//属性资料
+	WORD								wFaceID;							//头像标识
+	DWORD							dwUserID;							//用户 I D
+	DWORD							dwGameID;							//游戏 I D
+	DWORD							dwGroupID;							//社团标识
+	DWORD							dwCustomID;							//自定标识
+	DWORD							dwUserMedal;						//用户奖牌
+	DWORD							dwExperience;						//经验数值
+	DWORD							dwLoveLiness;						//用户魅力
+	DWORD                           dwVipLevel;							//金币等级
+
+	//用户成绩
+	SCORE                           lIngot;                            //元宝
+	SCORE							lUserScore;							//用户金币
+	SCORE							lUserInsure;						//用户银行
+	SCORE							lIngotScore;						//元宝
 
 	//用户信息
 	BYTE							cbGender;							//用户性别
@@ -687,12 +721,13 @@ struct CMD_MB_UpdateNotify
 #define SUB_MB_LIST_FINISH			200									//列表完成
 
 //////////////////////////////////////////////////////////////////////////////////
+#define MAX_TCP_LENGTH 1024*5
 struct ReadData
 {
+	WORD wMainCmdID;
 	WORD wSubCmdID;
-	WORD wDataSize;
-	char sSendData[1024*5];
-	DWORD dwDataLen;
+	DWORD wDataSize;
+	char sReadData[MAX_TCP_LENGTH];
 };
 #pragma pack()
 

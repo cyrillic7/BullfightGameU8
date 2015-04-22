@@ -181,7 +181,18 @@ void CardLayer::sortingOx(int chairID,int showChairiD){
 		}
 		
 	}
-	showOxType(showChairiD,GetCardType(tempCard,5));
+
+	//ÏÔÊ¾µãÊý
+	/*BYTE bValue=GetCardLogicValue(tempCard[3])+GetCardLogicValue(tempCard[4]);
+	if(bValue>10)bValue-=10;
+	if(bValue>=10)bValue=10;
+	showOxType(showChairiD,bValue);*/
+	int iValue=GetCardType(tempCard,5);
+	if (iValue>10)
+	{
+		iValue=10;
+	}
+	showOxType(showChairiD,iValue);
 	{
 		int jumpSpace=0;
 		for (int i = 0; i < MAX_COUNT; i++)

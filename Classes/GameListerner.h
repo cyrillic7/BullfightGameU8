@@ -22,21 +22,23 @@ public:
     void OnOpen(TCPSocket* so);
 private:
 	//登录
-	bool logonEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
+	bool logonEvent(TCPSocket* pSocket,TCP_Command cmd,void * pDataBuffer, unsigned short wDataSize);
 	//配置
 	bool configEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//用户信息
-	bool userEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
+	bool userEvent(TCPSocket* pSocket,TCP_Command cmd,void * pDataBuffer, unsigned short wDataSize);
 	//状态信息
 	bool statusEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//框架命令
 	bool frameEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//游戏命令
-	bool gameEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
+	bool gameEvent(TCPSocket* pSocket,TCP_Command cmd,void * pDataBuffer, unsigned short wDataSize);
 
 	//////////////////////////////////////////////////////////////////////////
 	//用户进入
 	bool OnSocketSubUserEnter(TCPSocket* pSocket,void * pDataBuffer, unsigned short wDataSize);
+	//用户状态
+	bool OnSocketSubUserState(TCPSocket *pSocket,TCP_Command cmd,void * pDataBuffer, unsigned short wDataSize);
 };
 
 #endif	/* DefaultListerner1_H */

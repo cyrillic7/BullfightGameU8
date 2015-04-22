@@ -9,7 +9,7 @@
 #include "BaseGameControl.h"
 #include "GameConfig.h"
 #include "DataModel.h"
-#include "ClassicLobbyScene.h"
+#include "GameLobbyScene.h"
 #include "Tools.h"
 #include "TCPSocketControl.h"
 #include "Packet.h"
@@ -168,9 +168,8 @@ void BaseGameControl::menuPause(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		bool isSend=TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_FRAME,SUB_GF_USER_READY);
 		//TCPSocketControl::sharedTCPSocketControl()->stopSocket();
-		Tools::setTransitionAnimation(0, 0, ClassicLobbyScene::scene(false));
+		Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene());
 	}
 		break;
 	default:
@@ -226,6 +225,7 @@ void BaseGameControl::menuChangeChair(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 		{
+			//CCStringMake 
 			//SUB_GR_USER_CHAIR_REQ
 		}
 		break;
@@ -382,6 +382,9 @@ void BaseGameControl::updateState(){
 	{
 		resetTimer();
 		pOptOx->setEnabled(false);
+		pPanelReady->setEnabled(false);
+		pFightForBanker->setEnabled(false);
+		pBetting->setEnabled(false);
 	}
 		break;
 	default:
@@ -413,7 +416,8 @@ bool BaseGameControl::IsLookonMode(){
 	return false;
 }
 void BaseGameControl::update(float delta){
-	OnEventGameMessage(NULL);
+	MessageQueue::update(delta);
+	//OnEventGameMessage(NULL);
 }
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
@@ -423,47 +427,59 @@ void BaseGameControl::OnEventGameMessage(CCObject *pObj){
 	{
 		return;
 	}
-		//pthread_mutex_lock(&sResponseQueueMutex);
-		std::list<ReadData>::iterator iter;
-		iter=DataModel::sharedDataModel()->readDataList.begin();
-	//ReadData msg = iter->;        
-	//QueueData *pData=(QueueData*)pObj;
-	switch (iter->wSubCmdID)
+	std::list<ReadData>::iterator iter;
+	iter=DataModel::sharedDataModel()->readDataList.begin();
+	switch (iter->wMainCmdID)
+	{
+		case MDM_GF_GAME://游戏命令
+			//OnEventGameIng(iter->wSubCmdID,iter->sReadData,iter->wDataSize);
+			break;
+		case SUB_GR_USER_STATUS://用户状态
+			OnEventUserState(iter->wSubCmdID,iter->sReadData,iter->wDataSize);
+			break;
+	default:
+		break;
+	}
+	DataModel::sharedDataModel()->readDataList.pop_front();
+}
+//游戏中
+void BaseGameControl::onEventGameIng(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
+	switch (wSubCmdID)
 	{
 	case SUB_S_CALL_BANKER:	//用户叫庄
 		{
 			//消息处理
-			OnSubCallBanker(iter->sSendData,iter->wDataSize);
+			OnSubCallBanker(pDataBuffer,wDataSize);
 		}
 		break;
 	case SUB_S_GAME_START:	//游戏开始
 		{
 			//消息处理
-			OnSubGameStart(iter->sSendData,iter->wDataSize);
+			OnSubGameStart(pDataBuffer,wDataSize);
 		}
 		break;
 	case SUB_S_ADD_SCORE:	//用户下注
 		{
 			//消息处理
-			OnSubAddScore(iter->sSendData,iter->wDataSize);
+			OnSubAddScore(pDataBuffer,wDataSize);
 		}
 		break;
 	case SUB_S_SEND_CARD:	//发牌消息
 		{
 			//消息处理
-			OnSubSendCard(iter->sSendData,iter->wDataSize);
+			OnSubSendCard(pDataBuffer,wDataSize);
 		}
 		break;
 	case SUB_S_OPEN_CARD:	//用户摊牌
 		{
 			//消息处理
-			OnSubOpenCard(iter->sSendData,iter->wDataSize);
+			OnSubOpenCard(pDataBuffer,wDataSize);
 		}
 		break;
 	case SUB_S_PLAYER_EXIT:	//用户强退
 		{
 			//消息处理
-			OnSubPlayerExit(iter->sSendData,iter->wDataSize);
+			OnSubPlayerExit(pDataBuffer,wDataSize);
 		}
 		break;
 	case SUB_S_GAME_END:	//游戏结束
@@ -471,7 +487,7 @@ void BaseGameControl::OnEventGameMessage(CCObject *pObj){
 			//结束动画
 			//m_GameClientView.FinishDispatchCard();
 			//消息处理
-			OnSubGameEnd(iter->sSendData,iter->wDataSize);
+			OnSubGameEnd(pDataBuffer,wDataSize);
 		}
 		break;
 	case 1024:
@@ -482,12 +498,9 @@ void BaseGameControl::OnEventGameMessage(CCObject *pObj){
 		}
 		break;
 	default:
-		CCLog("--------------------gameIng:%d",iter->wSubCmdID);
+		CCLog("--------------------gameIng:%d",wSubCmdID);
 		break;
 	}
-	DataModel::sharedDataModel()->readDataList.pop_front();
-		//pthread_mutex_unlock(&sResponseQueueMutex);
-	//CC_SAFE_DELETE(pData);
 }
 //用户叫庄
 bool BaseGameControl::OnSubCallBanker(const void * pBuffer, WORD wDataSize){
@@ -507,30 +520,10 @@ bool BaseGameControl::OnSubCallBanker(const void * pBuffer, WORD wDataSize){
 	{
 		showActionPrompt(1);
 	}
-	/*if (pCallBanker->bFirstTimes)
+	for (int i = 0; i < MAX_PLAYER; i++)
 	{
-		if (pCallBanker->wCallBanker==getMeChairID())
-		{
-			CCLog("首次自己叫庄");
-			DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_CALL_BANKER);
-		}else
-		{
-			CCLog("首次对方叫庄");
-			showActionPrompt(1);
-		}
-	}else
-	{
-		if (pCallBanker->wCallBanker==getMeChairID())
-		{
-			CCLog("自己叫庄");
-			DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_CALL_BANKER);
-		}else
-		{
-			CCLog("对方叫庄");
-			showActionPrompt(1);
-		}
-	}*/
-
+		DataModel::sharedDataModel()->getMainScene()->playerLayer->pPlayerData[i]->hideActionType();
+	}
 	/*//游戏当前处于叫庄状态
 	//SetGameStatus(GS_TK_CALL);
 	if(!pCallBanker->bFirstTimes && pCallBanker->wCallBanker==GetMeChairID())
@@ -614,9 +607,7 @@ bool BaseGameControl::OnSubGameStart(const void * pBuffer, WORD wDataSize){
 	if (wDataSize!=sizeof(CMD_S_GameStart)) return false;
 	CMD_S_GameStart * pGameStart=(CMD_S_GameStart *)pBuffer;
 	wBankerUser=pGameStart->wBankerUser;
-	//int size=wDataSize;
-	CCLog("庄家:%d   最大:::%lld",pGameStart->wBankerUser,pGameStart->lTurnMaxScore);
-	//CCLog("游戏开始 ");
+	CCLog("开始游戏--庄家:%d   最大:::%lld",pGameStart->wBankerUser,pGameStart->lTurnMaxScore);
 	DataModel::sharedDataModel()->m_lTurnMaxScore=pGameStart->lTurnMaxScore;
 	//设置筹码
 	for (int i = 0; i < 4; i++)
@@ -771,6 +762,7 @@ bool BaseGameControl::OnSubPlayerExit(const void * pBuffer, WORD wDataSize)
 	//效验数据
 	if (wDataSize!=sizeof(CMD_S_PlayerExit)) return false;
 	CMD_S_PlayerExit * pPlayerExit=(CMD_S_PlayerExit *)pBuffer;
+	CCLog("用户强退<<%s>>",__FUNCTION__);
 	/*
 	WORD wID=pPlayerExit->wPlayerID;
 
@@ -809,6 +801,39 @@ bool BaseGameControl::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 		long long lGameScore=pGameEnd->lGameScore[i];
 		if(i==getMeChairID()){
 			DataModel::sharedDataModel()->getMainScene()->playerLayer->showResultAnimation(3,lGameScore);
+			if (lGameScore!=0){
+				UIPanel *pPlayer0=DataModel::sharedDataModel()->getMainScene()->playerLayer->pPlayerData[0]->pPlayerPanel;
+				UIPanel *pPlayer3=DataModel::sharedDataModel()->getMainScene()->playerLayer->pPlayerData[3]->pPlayerPanel;
+				for (int i = 0; i < 60; i++)
+				{
+					if (lGameScore>0)
+					{
+						CCPoint begingPos=ccpAdd(pPlayer0->getPosition(),ccp(pPlayer0->getContentSize().width/2,pPlayer0->getContentSize().height/2));
+						CCPoint endPos=ccpAdd(pPlayer3->getPosition(),ccp(pPlayer3->getContentSize().width/2,pPlayer3->getContentSize().height/2));
+
+						goldJump(i,begingPos,endPos);
+					}else
+					{
+						CCPoint endPos=ccpAdd(pPlayer0->getPosition(),ccp(pPlayer0->getContentSize().width/2,pPlayer0->getContentSize().height/2));
+						CCPoint begingPos=ccpAdd(pPlayer3->getPosition(),ccp(pPlayer3->getContentSize().width/2,pPlayer3->getContentSize().height/2));
+
+						goldJump(i,begingPos,endPos);
+					}
+				}
+			}
+			
+			/*if (lGameScore>0)
+			{
+				for (int i = 0; i < 10; i++)
+				{
+					CCSprite *gold=CCSprite::create("res/g_gold.png");
+					gold->runAction(CCJumpTo::create(0.1,ccp(20,30),4,1));
+				}
+			}else
+			{
+				CCSprite *gold=CCSprite::create("res/g_gold.png");
+				gold->runAction(CCJumpTo::create(0.1,ccp(20,30),4,1));
+			}*/
 		}else
 		{
 			DataModel::sharedDataModel()->getMainScene()->playerLayer->showResultAnimation(0,lGameScore);
@@ -823,18 +848,27 @@ bool BaseGameControl::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 		//WORD wViewChairID=m_wViewChairID[i];
 		if(i==getMeChairID() && !IsLookonMode())
 			continue;
+		bool isCardError=false;
 		for (int j = 0; j < MAX_COUNT; j++)
 		{
 			DataModel::sharedDataModel()->card[i][j]=pGameEnd->cbCardData[i][j];
+			if (pGameEnd->cbCardData[i][j]==0)
+			{
+				isCardError=true;
+				break;
+			}
 		}
-		DataModel::sharedDataModel()->getMainScene()->cardLayer->showCard(getChairIndex(DataModel::sharedDataModel()->userInfo->wChairID,i),i);
-		DataModel::sharedDataModel()->getMainScene()->cardLayer->sortingOx(i,getChairIndex(DataModel::sharedDataModel()->userInfo->wChairID,i));
+		if (!isCardError)
+		{
+			DataModel::sharedDataModel()->getMainScene()->cardLayer->showCard(getChairIndex(DataModel::sharedDataModel()->userInfo->wChairID,i),i);
+			DataModel::sharedDataModel()->getMainScene()->cardLayer->sortingOx(i,getChairIndex(DataModel::sharedDataModel()->userInfo->wChairID,i));
+		}
 	}
 	
 
 	pEndLayer=GameEndLayer::create();
 	this->addChild(pEndLayer);
-	pEndLayer->showEnd(pGameEnd->lGameScore[getMeChairID()]>0);
+	pEndLayer->showEnd(pGameEnd->lGameScore[getMeChairID()]>=0);
 	DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_GAME_END);
 	/*
 	CopyMemory(m_cbHandCardData,pGameEnd->cbCardData,sizeof(m_cbHandCardData));
@@ -1017,6 +1051,7 @@ bool BaseGameControl::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 
 void BaseGameControl::OnUserFree(CCObject *obj){
 	CCMessageBox("长时间不操作，自动退出！","提示");
+	Tools::setTransitionAnimation(0,0,GameLobbyScene::scene());
 	CCLog("退出 ");
 }
 void BaseGameControl::OnUserEnter(CCObject *obj){
@@ -1035,4 +1070,81 @@ void BaseGameControl::OnUserEnter(CCObject *obj){
 		//CCLog("--mm----------------nick:%s",Tools::GBKToUTF8(iter->second.szNickName));
 	}
 	DataModel::sharedDataModel()->mTagUserInfo.clear();
+}
+void BaseGameControl::OnEventUserState(WORD wSubCmdID,const void * pBuffer, WORD wDataSize){
+
+}
+void BaseGameControl::onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
+	CMD_GR_UserStatus *info= (CMD_GR_UserStatus*)pDataBuffer;
+	switch (info->UserStatus.cbUserStatus)
+	{
+	case US_SIT://坐下
+		{
+			CCLog("state==sit-----------%ld",info->dwUserID);
+		}
+		break;
+	case US_FREE://站立
+		{
+			CCLog("state==free-----------%ld",info->dwUserID);
+			if (info->dwUserID==DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID)
+			{
+				OnUserFree(NULL);
+			}else
+			{
+				DataModel::sharedDataModel()->getMainScene()->playerLayer->pPlayerData[0]->hidePlayer();
+			}
+		}
+		break;
+	case US_READY://同意
+		{
+			if (info->dwUserID==DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID)
+			{
+				DataModel::sharedDataModel()->getMainScene()->playerLayer->pPlayerData[3]->showActionType(PlayerData::ACTION_READY);
+			}else
+			{
+				DataModel::sharedDataModel()->getMainScene()->playerLayer->pPlayerData[0]->showActionType(PlayerData::ACTION_READY);
+			}
+			CCLog("state==ready-----------%ld",info->dwUserID);
+		}
+		break;
+	case US_PLAYING:
+		{
+			if (info->dwUserID==DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID)
+			{
+			
+				//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_CONFIG_FINISH,NULL);
+			}
+			CCLog("state==playing-----------%ld",info->dwUserID);
+		}
+		break;
+	default:
+		CCLog("state==Other userID:%ld 状态：%d",info->dwUserID,info->UserStatus.cbUserStatus);
+		break;
+	}
+}
+
+void BaseGameControl::goldJump(int index,CCPoint beginPos,CCPoint endPos){
+	beginPos=ccpAdd(beginPos,ccp(rand()%140,rand()%80));
+	
+	endPos=ccpAdd(endPos,ccp(rand()%30,rand()%30));
+	
+	float fTime=0.5+0.1*(rand()%5);
+	float fHeight=100+rand()%30;
+	CCSprite *gold=CCSprite::create("res/g_gold.png");
+	this->addChild(gold,200);
+	gold->setPosition(beginPos);
+	gold->setScale(0.6);
+	//CCEaseOut *eOut=CCEaseOut::create(CCMoveTo::create(fTime,endPos),0.1);
+	CCSpawn *spa=CCSpawn::create(
+		//CCJumpTo::create(fTime,endPos,fHeight,1),
+		CCMoveTo::create(fTime,endPos),
+		//CCScaleTo::create(fTime,1.4),
+		NULL);
+	gold->runAction(CCSequence::create(
+		spa,
+		CCCallFuncN::create(this,SEL_CallFuncN(&BaseGameControl::onGoldJump))
+		,NULL));
+}
+void BaseGameControl::onGoldJump(CCNode *node){
+	node->removeFromParentAndCleanup(true);
 }

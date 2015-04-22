@@ -1,7 +1,7 @@
 #ifndef PACKET_HEAD_FILE
 #define PACKET_HEAD_FILE
 
-//Èç¹ûÊÇandroidÆ½Ì¨ĞèÒª¶¨Òåºê
+//å¦‚æœæ˜¯androidå¹³å°éœ€è¦å®šä¹‰å®
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID||CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
 #define RtlCopyMemory(Destination,Source,Length) memcpy((Destination),(Source),(Length))
 #define CopyMemory RtlCopyMemory
@@ -14,30 +14,30 @@ typedef char TCHAR, *PTCHAR;
 #pragma pack(1)
 
 //////////////////////////////////////////////////////////////////////////////////
-//¶Ë¿Ú¶¨Òå
+//ç«¯å£å®šä¹‰
 
-#define MAX_CONTENT					512									//²¢·¢ÈİÁ¿
-#define PORT_AUTO_SELECT			INVALID_WORD						//×Ô¶¯¶Ë¿Ú
+#define MAX_CONTENT					512									//å¹¶å‘å®¹é‡
+#define PORT_AUTO_SELECT			INVALID_WORD						//è‡ªåŠ¨ç«¯å£
 
-#define PORT_LOGON					8100								//µÇÂ½¶Ë¿Ú
-#define PORT_CENTER					8310								//Ğ­µ÷¶Ë¿Ú
-#define PORT_MANAGER				8320								//¹ÜÀí¶Ë¿Ú
+#define PORT_LOGON					8100								//ç™»é™†ç«¯å£
+#define PORT_CENTER					8310								//åè°ƒç«¯å£
+#define PORT_MANAGER				8320								//ç®¡ç†ç«¯å£
 
 //////////////////////////////////////////////////////////////////////////////////
-//ÍøÂç¶¨Òå
+//ç½‘ç»œå®šä¹‰
 
-//Êı¾İÀàĞÍ
-#define DK_MAPPED					0x01								//Ó³ÉäÀàĞÍ
-#define DK_ENCRYPT					0x02								//¼ÓÃÜÀàĞÍ
-#define DK_COMPRESS					0x04								//Ñ¹ËõÀàĞÍ
+//æ•°æ®ç±»å‹
+#define DK_MAPPED					0x01								//æ˜ å°„ç±»å‹
+#define DK_ENCRYPT					0x02								//åŠ å¯†ç±»å‹
+#define DK_COMPRESS					0x04								//å‹ç¼©ç±»å‹
 
-//³¤¶È¶¨Òå
-#define SOCKET_TCP_BUFFER			16384								//ÍøÂç»º³å
-#define SOCKET_TCP_PACKET			(SOCKET_TCP_BUFFER-sizeof(TCP_Head))//ÍøÂç»º³å
+//é•¿åº¦å®šä¹‰
+#define SOCKET_TCP_BUFFER			16384								//ç½‘ç»œç¼“å†²
+#define SOCKET_TCP_PACKET			(SOCKET_TCP_BUFFER-sizeof(TCP_Head))//ç½‘ç»œç¼“å†²
 
-//³¤¶È¶¨Òå
-#define SOCKET_UDP_BUFFER			16384								//ÍøÂç»º³å
-#define SOCKET_UDP_PACKET			(SOCKET_UDP_BUFFER-sizeof(UDP_Head))//ÍøÂç»º³å
+//é•¿åº¦å®šä¹‰
+#define SOCKET_UDP_BUFFER			16384								//ç½‘ç»œç¼“å†²
+#define SOCKET_UDP_PACKET			(SOCKET_UDP_BUFFER-sizeof(UDP_Head))//ç½‘ç»œç¼“å†²
 
 //////////////////////////////////////////////////////////////////////////
 #define	LEN_MD5						33
@@ -47,119 +47,119 @@ typedef char TCHAR, *PTCHAR;
 #define LEN_PASS_PORT_ID			19
 #define LEN_PHONE_VERIFY_ID			7
 
-#define LEN_NICKNAME				32 									//êÇ³Æ³¤¶È
+#define LEN_NICKNAME				32 									//æ˜µç§°é•¿åº¦
 #define LEN_SERVER					32 
 #define LEN_KIND					32 
 #define LEN_PROCESS					32 
 
 
 //////////////////////////////////////////////////////////////////////////////////
-//½á¹¹¶¨Òå
+//ç»“æ„å®šä¹‰
 
-//ÍøÂçÄÚºË
+//ç½‘ç»œå†…æ ¸
 struct TCP_Info
 {
-	BYTE							cbDataKind;							//Êı¾İÀàĞÍ
-	BYTE							cbCheckCode;						//Ğ§Ñé×Ö¶Î
-	WORD							wPacketSize;						//Êı¾İ´óĞ¡
+	BYTE							cbDataKind;							//æ•°æ®ç±»å‹
+	BYTE							cbCheckCode;						//æ•ˆéªŒå­—æ®µ
+	WORD							wPacketSize;						//æ•°æ®å¤§å°
 };
 
-//ÍøÂçÃüÁî
+//ç½‘ç»œå‘½ä»¤
 struct TCP_Command
 {
-	WORD							wMainCmdID;							//Ö÷ÃüÁîÂë
-	WORD							wSubCmdID;							//×ÓÃüÁîÂë
+	WORD							wMainCmdID;							//ä¸»å‘½ä»¤ç 
+	WORD							wSubCmdID;							//å­å‘½ä»¤ç 
 };
 
-//ÍøÂç°üÍ·
+//ç½‘ç»œåŒ…å¤´
 struct TCP_Head
 {
-	TCP_Info						TCPInfo;							//»ù´¡½á¹¹
-	TCP_Command						CommandInfo;						//ÃüÁîĞÅÏ¢
+	TCP_Info						TCPInfo;							//åŸºç¡€ç»“æ„
+	TCP_Command						CommandInfo;						//å‘½ä»¤ä¿¡æ¯
 };
 
-//ÍøÂç¼ì²é
+//ç½‘ç»œæ£€æŸ¥
 struct TCP_Validate
 {
-	TCHAR							szValidateKey[64];					//ÑéÖ¤×Ö·û
+	TCHAR							szValidateKey[64];					//éªŒè¯å­—ç¬¦
 };
 
-//ÍøÂç»º³å
+//ç½‘ç»œç¼“å†²
 struct TCP_Buffer
 {
-	TCP_Head						Head;								//Êı¾İ°üÍ·
-	BYTE							cbBuffer[SOCKET_TCP_PACKET];		//Êı¾İ»º³å
+	TCP_Head						Head;								//æ•°æ®åŒ…å¤´
+	BYTE							cbBuffer[SOCKET_TCP_PACKET];		//æ•°æ®ç¼“å†²
 };
 
 //////////////////////////////////////////////////////////////////////////////////
 
-//ÍøÂçÄÚºË
+//ç½‘ç»œå†…æ ¸
 struct UDP_Info
 {
-	BYTE							cbDataKind;							//Êı¾İÀàĞÍ
-	BYTE							cbCheckCode;						//Ğ§Ñé×Ö¶Î
-	WORD							wPacketSize;						//Êı¾İ´óĞ¡
-	WORD							wPacketIndex;						//Êı¾İĞòÁĞ
-	WORD							wConnectIndex;						//Á¬½ÓË÷Òı
+	BYTE							cbDataKind;							//æ•°æ®ç±»å‹
+	BYTE							cbCheckCode;						//æ•ˆéªŒå­—æ®µ
+	WORD							wPacketSize;						//æ•°æ®å¤§å°
+	WORD							wPacketIndex;						//æ•°æ®åºåˆ—
+	WORD							wConnectIndex;						//è¿æ¥ç´¢å¼•
 };
 
 
-//ÍøÂçÃüÁî
+//ç½‘ç»œå‘½ä»¤
 struct UDP_Command
 {
-	WORD							wMainCmdID;							//Ö÷ÃüÁîÂë
-	WORD							wSubCmdID;							//×ÓÃüÁîÂë
+	WORD							wMainCmdID;							//ä¸»å‘½ä»¤ç 
+	WORD							wSubCmdID;							//å­å‘½ä»¤ç 
 };
 
 
-//ÍøÂç°üÍ·
+//ç½‘ç»œåŒ…å¤´
 struct UDP_Head
 {
-	UDP_Info						UDPInfo;							//»ù´¡½á¹¹
-	UDP_Command						CommandInfo;						//ÃüÁîĞÅÏ¢
+	UDP_Info						UDPInfo;							//åŸºç¡€ç»“æ„
+	UDP_Command						CommandInfo;						//å‘½ä»¤ä¿¡æ¯
 };
 
-//ÍøÂç»º³å
+//ç½‘ç»œç¼“å†²
 struct UDP_Buffer
 {
-	UDP_Head						Head;								//Êı¾İ°üÍ·
-	BYTE							cbBuffer[SOCKET_UDP_PACKET];		//Êı¾İ»º³å
+	UDP_Head						Head;								//æ•°æ®åŒ…å¤´
+	BYTE							cbBuffer[SOCKET_UDP_PACKET];		//æ•°æ®ç¼“å†²
 };
 
 //////////////////////////////////////////////////////////////////////////////////
 
-//ÄÚºËÃüÁî
-#define MDM_KN_COMMAND				0									//ÄÚºËÃüÁî
-#define SUB_KN_DETECT_SOCKET		1									//¼ì²âÃüÁî
-#define SUB_KN_VALIDATE_SOCKET		2									//ÑéÖ¤ÃüÁî
+//å†…æ ¸å‘½ä»¤
+#define MDM_KN_COMMAND				0									//å†…æ ¸å‘½ä»¤
+#define SUB_KN_DETECT_SOCKET		1									//æ£€æµ‹å‘½ä»¤
+#define SUB_KN_VALIDATE_SOCKET		2									//éªŒè¯å‘½ä»¤
 
 //////////////////////////////////////////////////////////////////////////////////
-//´«ÊäÊı¾İ
+//ä¼ è¾“æ•°æ®
 
-#define IPC_VER						1									//°æ±¾±êÊ¶
-#define IPC_PACKET					(10240-sizeof(IPC_Head))			//×î´ó°ü³¤
-#define IPC_BUFFER					(sizeof(IPC_Head)+IPC_PACKET)		//»º³å³¤¶È
+#define IPC_VER						1									//ç‰ˆæœ¬æ ‡è¯†
+#define IPC_PACKET					(10240-sizeof(IPC_Head))			//æœ€å¤§åŒ…é•¿
+#define IPC_BUFFER					(sizeof(IPC_Head)+IPC_PACKET)		//ç¼“å†²é•¿åº¦
 
-//Êı¾İ°üÍ·
+//æ•°æ®åŒ…å¤´
 struct IPC_Head
 {
-	WORD							wVersion;							//°æ±¾±êÊ¶
-	WORD							wPacketSize;						//Êı¾İ´óĞ¡
-	WORD							wMainCmdID;							//Ö÷ÃüÁîÂë
-	WORD							wSubCmdID;							//×ÓÃüÁîÂë
+	WORD							wVersion;							//ç‰ˆæœ¬æ ‡è¯†
+	WORD							wPacketSize;						//æ•°æ®å¤§å°
+	WORD							wMainCmdID;							//ä¸»å‘½ä»¤ç 
+	WORD							wSubCmdID;							//å­å‘½ä»¤ç 
 };
 
-//IPC °ü½á¹¹
+//IPC åŒ…ç»“æ„
 struct IPC_Buffer
 {
-	IPC_Head						Head;								//Êı¾İ°üÍ·
-	BYTE							cbBuffer[IPC_PACKET];				//Êı¾İ»º³å
+	IPC_Head						Head;								//æ•°æ®åŒ…å¤´
+	BYTE							cbBuffer[IPC_PACKET];				//æ•°æ®ç¼“å†²
 };
 
 //////////////////////////////////////////////////////////////////////////////////
-//Êı¾İ¶¨Òå
+//æ•°æ®å®šä¹‰
 
-//¼ÓÃÜÃÜÔ¿
+//åŠ å¯†å¯†é’¥
 const DWORD g_dwPacketKey=0xC39AC594A;
 const BYTE g_SendByteMap[256]=
 {
@@ -181,7 +181,7 @@ const BYTE g_SendByteMap[256]=
 	0xD0,0xBB,0xD2,0xC8,0xD1,0x73,0xF4,0x48,0x2D,0xC7,0xAE,0x96,0x35,0xA2,0x08,0xF3
 };
 
-//½ÓÊÕÓ³Éä
+//æ¥æ”¶æ˜ å°„
 const BYTE g_RecvByteMap[256]=
 {
 	0x3A,0xAA,0x97,0xD9,0xB7,0x6C,0xB5,0x06,0xFE,0x53,0x76,0xBC,0x9C,0xB9,0x81,0x28,

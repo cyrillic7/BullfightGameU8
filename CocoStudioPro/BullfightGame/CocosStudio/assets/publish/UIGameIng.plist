@@ -56,6 +56,19 @@
                 <key>sourceSize</key>
                 <string>{78,35}</string>
             </dict>
+            <key>u_gi_call_bank.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,725},{74,37}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{74,37}}</string>
+                <key>sourceSize</key>
+                <string>{74,37}</string>
+            </dict>
             <key>u_gi_give_up.png</key>
             <dict>
                 <key>frame</key>
@@ -95,6 +108,19 @@
                 <key>sourceSize</key>
                 <string>{174,150}</string>
             </dict>
+            <key>u_gi_not_call.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{102,543},{74,37}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{74,37}}</string>
+                <key>sourceSize</key>
+                <string>{74,37}</string>
+            </dict>
             <key>u_gi_open_card.png</key>
             <dict>
                 <key>frame</key>
@@ -107,6 +133,19 @@
                 <string>{{1,0},{76,35}}</string>
                 <key>sourceSize</key>
                 <string>{78,35}</string>
+            </dict>
+            <key>u_gi_paopao.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,408},{101,88}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{101,88}}</string>
+                <key>sourceSize</key>
+                <string>{101,88}</string>
             </dict>
             <key>u_gi_prompt.png</key>
             <dict>
@@ -211,45 +250,6 @@
                 <string>{{0,0},{27,26}}</string>
                 <key>sourceSize</key>
                 <string>{27,26}</string>
-            </dict>
-            <key>抢庄背景.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,408},{101,88}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{101,88}}</string>
-                <key>sourceSize</key>
-                <string>{101,88}</string>
-            </dict>
-            <key>提示叫庄.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,725},{74,37}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{74,37}}</string>
-                <key>sourceSize</key>
-                <string>{74,37}</string>
-            </dict>
-            <key>提示放弃.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{102,543},{74,37}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{74,37}}</string>
-                <key>sourceSize</key>
-                <string>{74,37}</string>
             </dict>
             <key>游戏中会话.png</key>
             <dict>
@@ -365,7 +365,7 @@
             <key>size</key>
             <string>{154,841}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:ab1338226862b24d3715e07755b30b10:f1d9e17eb3e0921fb2e4b3ea1f48eeae:ca83526fc713a10942f5ff4e6a514509$</string>
+            <string>$TexturePacker:SmartUpdate:419f193cc86e99c490f112aba105218b:f3b425b240585584c8fa2634f75f1ce6:ca83526fc713a10942f5ff4e6a514509$</string>
             <key>textureFileName</key>
             <string>UIGameIng.png</string>
         </dict>

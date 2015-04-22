@@ -51,10 +51,10 @@ void GameEndLayer::onAnimationEventOver(CCArmature *pArmature, MovementEventType
 	}
 }
 void GameEndLayer::onAnimationEventFrame(CCBone *bone, const char *evt, int originFrameIndex, int currentFrameIndex){
-	if (strcmp(evt, "bomb1") == 0)
+	/*if (strcmp(evt, "bomb1") == 0)
 	{
 
-	}
+	}*/
 }
 void GameEndLayer::showEnd(bool isWin){
 	if (isWin)

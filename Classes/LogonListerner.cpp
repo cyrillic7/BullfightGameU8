@@ -28,7 +28,7 @@ LogonListerner::~LogonListerner()
 void LogonListerner::OnClose(TCPSocket* so, bool fromRemote)
 {
 	TCPSocketControl::sharedTCPSocketControl()->deleteControl();
-    CCLog("%s\n","00000000000000---closed");
+	CCLog("close<<%s>>",__FUNCTION__);
 	//End();
 }
 

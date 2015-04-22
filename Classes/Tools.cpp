@@ -255,6 +255,7 @@ const char * Tools::GBKToUTF8(const char * strChar){
 		char* str = new char[len * 2 + 10];
 		memset(str, 0, len * 2 + 10);
 		ucnv_convert("utf-8", "gb2312", str, len * 2 + 10, strChar, len, &err_code);
+		//ucnv_convert("gb2312","utf-8", str, len * 2 + 10, strChar, len, &err_code);
 		if (err_code == 0)
 		{
 			return str;
@@ -287,4 +288,37 @@ int Tools::strLength(const std::string &str)
 		return 0;
 	}
 }
-
+std::string Tools::createStringToLength(const std::string &str,int begin,int length)
+{
+	if (typeid(str) == typeid(std::string) && str.length() > 0) {
+		int len = str.length();
+		std::vector <std::string> dump;
+		int i = 0;
+		while(i < len) {
+			if (~(str.at(i) >> 8) == 0) {
+				dump.push_back(str.substr(i, 3));
+				i = i + 3;
+			} else {
+				dump.push_back(str.substr(i, 1));
+				i = i + 1;
+			}
+		}
+		CCString *str=ccs("");
+		for (int i = begin; i < begin+length; i++)
+		{
+			if (i>=dump.size())
+			{
+				continue;
+			}
+			str=CCString::createWithFormat("%s%s",str->getCString(),dump[i].c_str());
+		}
+		if (dump.size()>length)
+		{
+			str=CCString::createWithFormat("%s...",str->getCString());
+		}
+		return str->getCString();
+	} else {
+		printf("str is not string\n");
+		return "";
+	}
+}

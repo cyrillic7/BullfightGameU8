@@ -12,7 +12,7 @@
 #include "BaseAttributes.h"
 #include "TCPSocket.h"
 #include "CMD_LogonServer.h"
-
+#include "TCPSocketControl.h"
 //#include <tchar.h>
 #include "MD5.h"
 
@@ -24,6 +24,7 @@ MainScene::MainScene()
 }
 MainScene::~MainScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
+	TCPSocketControl::sharedTCPSocketControl()->stopSocket();
 
 	GUIReader::purge();
 	CCArmatureDataManager::purge();

@@ -53,7 +53,6 @@ void GameLobbyScene::onEnter(){
 	spriteBg->setPosition(ccp(deviceSize.width/2,deviceSize.height/2));
 	float scale=deviceSize.height/spriteBg->getContentSize().height;
 	spriteBg->setScale(scale);*/
-	
 	UILayer *m_pWidget = UILayer::create();
 	this->addChild(m_pWidget);
 
@@ -196,7 +195,7 @@ void GameLobbyScene::enterLobbyByMode(int mode){
 	{
 	case MODE_CLASSIC:
 		{
-				Tools::setTransitionAnimation(0, 0, ClassicLobbyScene::scene(true));
+				Tools::setTransitionAnimation(0, 0, ClassicLobbyScene::scene());
 		}
 	
 		break;

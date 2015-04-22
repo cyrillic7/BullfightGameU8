@@ -39,12 +39,12 @@ void BaseLobbyScene::onEnter(){
 	//加载UI层
 	UILayout *pWidget = dynamic_cast<UILayout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UIBaseLobby.ExportJson)));
 	m_pWidget->addWidget(pWidget);
-	//绑定用户信息按键
-	UIButton* button = static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonUser"));
-	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::menuResetUser));
 	//绑定设置按键
-	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonSetUp"));
+	UIButton* button  = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonSetUp"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
+	//绑定用户信息按键
+	pBUserInfo= static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonUser"));
+	pBUserInfo->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::menuResetUser));
 	//绑定更多按键
 	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonMore"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
