@@ -721,14 +721,7 @@ struct CMD_MB_UpdateNotify
 #define SUB_MB_LIST_FINISH			200									//列表完成
 
 //////////////////////////////////////////////////////////////////////////////////
-#define MAX_TCP_LENGTH 1024*5
-struct ReadData
-{
-	WORD wMainCmdID;
-	WORD wSubCmdID;
-	DWORD wDataSize;
-	char sReadData[MAX_TCP_LENGTH];
-};
+
 #pragma pack()
 
 #endif

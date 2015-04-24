@@ -1,17 +1,22 @@
 #pragma once
 #include "cocos2d.h"
 #include "MainScene.h"
-//#include "GameLogic.h"
 #include "CMD_LogonServer.h"
 USING_NS_CC;
-	//static pthread_mutex_t  sResponseQueueMutex;
 class DataModel:public CCObject{
 public:
+	//音效开关
 	static bool isSound;
+	//音乐开关
 	static bool isMusic;
+	//是否坐下
 	bool isSit;
 	CCSize deviceSize;
-
+	//登录帐号
+	std::string sLogonAccount;
+	//登录密码
+	std::string sLogonPassword;
+	//主场景对象
 	CC_SYNTHESIZE(MainScene *, mainScene, MainScene);
 
 	CCArray *m_aTagGameKind;
@@ -19,26 +24,25 @@ public:
 	std::vector <tagGameServer *> tagGameServerList;
 	//用户信息数组
 	std::map<long ,tagUserInfo>mTagUserInfo;
-	//std::list<QueueData *> queueData;
-	CMD_MB_LogonSuccess *logonSuccessUserInfo;
-	long long m_lTurnMaxScore;//最大加注数
+	//登录成功信息
+	//CMD_MB_LogonSuccess *logonSuccessUserInfo;
+	//最大加注数
+	long long m_lTurnMaxScore;
+	//牌数组
 	BYTE card[2][5];
-	//tagGameServer *tagGameServerList[];
 	//变量定义
 	tagUserInfo *userInfo;
-
-	
-
-	std::list<ReadData>readDataList;
+	//消息队列
+	std::queue<ReadData>readDataQueue;
 public:
 	DataModel();
 	~DataModel();
 	static DataModel* sharedDataModel();
 private:
 	void initDataModel();
-	//bool less_second(const tagGameServer & m1, const tagGameServer & m2);
 public:
 	//排序vector
 	void sortVector();
+	//移除服务列表
 	void removeTagGameServerList();
 };

@@ -31,10 +31,10 @@ void PopDialogBoxUserInfo::onEnter(){
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));
 	//设置游戏ID
 	UILabel *labelUserID=static_cast<UILabel*>(pUILayer->getWidgetByName("LabelUserID"));
-	labelUserID->setText(CCString::createWithFormat("ID:%d",DataModel::sharedDataModel()->logonSuccessUserInfo->dwGameID)->getCString());
+	labelUserID->setText(CCString::createWithFormat("ID:%d",DataModel::sharedDataModel()->userInfo->dwGameID)->getCString());
 	//昵称输入框
 	pLabelNickName=static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldNickName"));
-	pLabelNickName->setText(Tools::GBKToUTF8(DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName));
+	pLabelNickName->setText(Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName));
 	pLabelNickName->setTouchEnabled(false);
 	//性别选择
 	pcbSexGirl=static_cast<UICheckBox*>(pUILayer->getWidgetByName("CheckBoxSexGirl"));
@@ -68,7 +68,7 @@ void PopDialogBoxUserInfo::menuChange(CCObject *object, TouchEventType type){
 		isShowChange=!isShowChange;
 		if (!isShowChange)
 		{
-			DataModel::sharedDataModel()->logonSuccessUserInfo->cbGender=pcbSexBoy->getSelectedState()?1:2;
+			DataModel::sharedDataModel()->userInfo->cbGender=pcbSexBoy->getSelectedState()?1:2;
 		}
 		setShowChangeView();
 	}
@@ -100,7 +100,7 @@ void PopDialogBoxUserInfo::setShowChangeView(){
 	updateSex();
 }
 void PopDialogBoxUserInfo::updateSex(){
-	if (DataModel::sharedDataModel()->logonSuccessUserInfo->cbGender==1)
+	if (DataModel::sharedDataModel()->userInfo->cbGender==1)
 	{
 		piSexIcon->loadTexture("u_info_icon_boy.png",UI_TEX_TYPE_PLIST);
 		plSexBoyInfo->setText(BaseAttributes::sharedAttributes()->sSexBoyName);

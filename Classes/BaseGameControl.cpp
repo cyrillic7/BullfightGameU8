@@ -74,7 +74,7 @@ void BaseGameControl::onEnter(){
 		pbBetting[i]->addTouchEventListener(this, SEL_TouchEvent(&BaseGameControl::menuBetting));
 	}
 	//设置用户名
-	const char *name=Tools::GBKToUTF8(DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName);
+	const char *name=Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName);
 	//DataModel::sharedDataModel()->getMainScene()->playerLayer->setUserName(3,name);
 	//初始化计时器
 	initTimer(pWidget);
@@ -423,24 +423,25 @@ void BaseGameControl::update(float delta){
 //////////////////////////////////////////////////////////////////////////
 //网络消息
 void BaseGameControl::OnEventGameMessage(CCObject *pObj){
-	if (DataModel::sharedDataModel()->readDataList.size()<=0)
+	if (DataModel::sharedDataModel()->readDataQueue.size()<=0)
 	{
 		return;
 	}
-	std::list<ReadData>::iterator iter;
-	iter=DataModel::sharedDataModel()->readDataList.begin();
-	switch (iter->wMainCmdID)
+	//std::list<ReadData>::iterator iter;
+	//iter=DataModel::sharedDataModel()->readDataList.begin();
+	ReadData iter=DataModel::sharedDataModel()->readDataQueue.front();
+	switch (iter.wMainCmdID)
 	{
 		case MDM_GF_GAME://游戏命令
 			//OnEventGameIng(iter->wSubCmdID,iter->sReadData,iter->wDataSize);
 			break;
 		case SUB_GR_USER_STATUS://用户状态
-			OnEventUserState(iter->wSubCmdID,iter->sReadData,iter->wDataSize);
+			OnEventUserState(iter.wSubCmdID,iter.sReadData,iter.wDataSize);
 			break;
 	default:
 		break;
 	}
-	DataModel::sharedDataModel()->readDataList.pop_front();
+	DataModel::sharedDataModel()->readDataQueue.pop();
 }
 //游戏中
 void BaseGameControl::onEventGameIng(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
@@ -1058,7 +1059,7 @@ void BaseGameControl::OnUserEnter(CCObject *obj){
 	std::map<long,tagUserInfo>::iterator iter;
 	for (iter = DataModel::sharedDataModel()->mTagUserInfo.begin(); iter != DataModel::sharedDataModel()->mTagUserInfo.end(); iter++)
 	{
-		if (iter->second.dwUserID!=DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID)
+		if (iter->second.dwUserID!=DataModel::sharedDataModel()->userInfo->dwUserID)
 		{
 			CCLog("ID:%ld otherID:%ld   name:%s<<%s>>",iter->second.dwUserID,DataModel::sharedDataModel()->userInfo->dwUserID,
 			Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName),__FUNCTION__);
@@ -1086,7 +1087,7 @@ void BaseGameControl::onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned
 	case US_FREE://站立
 		{
 			CCLog("state==free-----------%ld",info->dwUserID);
-			if (info->dwUserID==DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID)
+			if (info->dwUserID==DataModel::sharedDataModel()->userInfo->dwUserID)
 			{
 				OnUserFree(NULL);
 			}else
@@ -1097,7 +1098,7 @@ void BaseGameControl::onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned
 		break;
 	case US_READY://同意
 		{
-			if (info->dwUserID==DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID)
+			if (info->dwUserID==DataModel::sharedDataModel()->userInfo->dwUserID)
 			{
 				DataModel::sharedDataModel()->getMainScene()->playerLayer->pPlayerData[3]->showActionType(PlayerData::ACTION_READY);
 			}else
@@ -1109,7 +1110,7 @@ void BaseGameControl::onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned
 		break;
 	case US_PLAYING:
 		{
-			if (info->dwUserID==DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID)
+			if (info->dwUserID==DataModel::sharedDataModel()->userInfo->dwUserID)
 			{
 			
 				//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_CONFIG_FINISH,NULL);

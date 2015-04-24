@@ -77,7 +77,7 @@ public:
 	void setServerStateWithUpdate(GameState serverState);
 private:
 	//初始化
-	void initHUD();
+	void initGameControl();
 	//初始化扑克层
 	void initCardLayer();
 	//初始化玩家信息层

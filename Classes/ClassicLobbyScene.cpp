@@ -67,7 +67,7 @@ void ClassicLobbyScene::onEnter(){
 	UILayout *pWidget = dynamic_cast<UILayout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UIClassicLobby.ExportJson)));
 	m_pWidget->addWidget(pWidget);
 
-	userName->setText(Tools::GBKToUTF8(DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName));
+	userName->setText(Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName));
 	/*UIButton* button = static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonUser"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&ClassicLobbyScene::menuResetUser));*/
 	UIButton* button=NULL;
@@ -203,11 +203,11 @@ void ClassicLobbyScene::onOpen(CCObject *obj){
 	logonMobile.wBehaviorFlags=BEHAVIOR_LOGON_IMMEDIATELY;
 	logonMobile.wPageTableCount=10;
 
-	logonMobile.dwUserID=DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID;
+	logonMobile.dwUserID=DataModel::sharedDataModel()->userInfo->dwUserID;
 
 	MD5 m;
-	MD5::char8 str[] = "z12345678";
-	m.ComputMd5(str, sizeof(str)-1);
+	//MD5::char8 str[] = "z12345678";
+	m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(),DataModel::sharedDataModel()->sLogonPassword.length());
 	std::string md5PassWord = m.GetMd5();
 	strcpy(logonMobile.szPassword,md5PassWord.c_str());
 
@@ -264,7 +264,7 @@ void ClassicLobbyScene::onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsign
 		{
 			unscheduleUpdate();
 			CCLog("state==sit-----------%ld<<%s>>",info->dwUserID,__FUNCTION__);
-			if (info->dwUserID==DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID){
+			if (info->dwUserID==DataModel::sharedDataModel()->userInfo->dwUserID){
 				//DataModel::sharedDataModel()->isSit=true;
 				CCLog("坐下:table: %d desk:%d",info->UserStatus.wTableID,info->UserStatus.wChairID);
 				DataModel::sharedDataModel()->userInfo->wTableID=info->UserStatus.wTableID;
@@ -286,7 +286,7 @@ void ClassicLobbyScene::onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsign
 	case US_FREE://站立
 		{
 			CCLog("state==free-----------%ld",info->dwUserID);
-			if (info->dwUserID==DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID)
+			if (info->dwUserID==DataModel::sharedDataModel()->userInfo->dwUserID)
 			{
 				//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_US_FREE,NULL);
 			}else
@@ -302,7 +302,7 @@ void ClassicLobbyScene::onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsign
 		break;
 	case US_PLAYING:
 		{
-			if (info->dwUserID==DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID)
+			if (info->dwUserID==DataModel::sharedDataModel()->userInfo->dwUserID)
 			{
 				//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_CONFIG_FINISH,NULL);
 			}

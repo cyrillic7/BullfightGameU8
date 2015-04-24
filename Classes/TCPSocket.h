@@ -140,6 +140,9 @@ protected:
 	//发送数据
 	DWORD SendDataBuffer(void * pBuffer, WORD wSendSize);
 
+private:
+	const char* ip;
+	unsigned short port;
 	//消息函数
 public:
 	//网络读取
@@ -149,4 +152,9 @@ public:
 	void SetListerner(SocketListerner* listerner);
 	SocketListerner *getListerner();
 	void deleteListerner();
+
+	void createSocket(const char* ip,unsigned short port,SocketListerner *listerner);
+	int startSendThread();
+	static void* socketNetworkThread(void* object);
+	void initNetwork();
 };

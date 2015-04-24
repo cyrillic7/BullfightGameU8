@@ -1,6 +1,6 @@
 #include "AppDelegate.h"
 #include "GameConfig.h"
-#include "GameLobbyScene.h"
+#include "LogonScene.h"
 #include "BaseAttributes.h"
 #include "DataModel.h"
 #include "TCPSocketControl.h"
@@ -20,6 +20,7 @@ AppDelegate::~AppDelegate()
 	BaseAttributes *base=BaseAttributes::sharedAttributes();
 	CC_SAFE_DELETE(base);
 	TCPSocketControl *tcp=TCPSocketControl::sharedTCPSocketControl();
+	tcp->removeTCPSocket(SOCKET_LOGON_GAME);
 	CC_SAFE_DELETE(tcp);
 	MTNotificationQueue *mtQueue=MTNotificationQueue::sharedNotificationQueue();
 	CC_SAFE_DELETE(mtQueue);
@@ -43,7 +44,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
     // create a scene. it's an autorelease object
-	CCScene *pScene = GameLobbyScene::scene();
+	CCScene *pScene = LogonScene::scene();
 
     // run
     pDirector->runWithScene(pScene);

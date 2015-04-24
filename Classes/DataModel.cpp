@@ -18,10 +18,12 @@ DataModel::DataModel()
 {
 	DataModel::isMusic = Tools::getBoolByRMS(RMS_IS_MUSIC);
 	DataModel::isSound = Tools::getBoolByRMS(RMS_IS_SOUND);
+	sLogonAccount=Tools::getStringByRMS(RMS_LOGON_ACCOUNT);
+	sLogonPassword=Tools::getStringByRMS(RMS_LOGON_PASSWORD);
 
 	deviceSize = CCDirector::sharedDirector()->getWinSize();
 	
-	logonSuccessUserInfo=new CMD_MB_LogonSuccess();
+//	logonSuccessUserInfo=new CMD_MB_LogonSuccess();
 	userInfo=new tagUserInfo();
 	// pthread_mutex_init(&sResponseQueueMutex, NULL);
 }
@@ -30,7 +32,7 @@ DataModel::~DataModel() {
 	m_aTagGameKind->removeAllObjects();
 	m_aTagGameKind->release();
 
-	CC_SAFE_DELETE(logonSuccessUserInfo);
+	//CC_SAFE_DELETE(logonSuccessUserInfo);
 	CC_SAFE_DELETE(userInfo);
 	removeTagGameServerList();
 

@@ -54,7 +54,7 @@ void MainScene::onEnter(){
 	addBg();
 	initCardLayer();
 	initPlayerLayer();
-	initHUD();
+	initGameControl();
 }
 void MainScene::onExit(){
 	CCLayer::onExit();
@@ -67,7 +67,7 @@ void MainScene::addBg(){
 	float scale=deviceSize.height/spriteBg->getContentSize().height;
 	spriteBg->setScale(scale);
 }
-void MainScene::initHUD(){
+void MainScene::initGameControl(){
 	gameControl = GameControlOxTwo::create();
 	this->addChild(gameControl, K_Z_ORDER_HUD);
 }

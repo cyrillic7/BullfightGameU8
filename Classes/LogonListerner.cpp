@@ -96,7 +96,7 @@ bool LogonListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Comma
 			DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID=ls->dwUserID;
 			strcpy(DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName,ls->szNickName);
 			DataModel::sharedDataModel()->logonSuccessUserInfo->wFaceID=ls->wFaceID;*/
-			memcpy(DataModel::sharedDataModel()->logonSuccessUserInfo,ls,sizeof(CMD_MB_LogonSuccess));
+		//	memcpy(DataModel::sharedDataModel()->logonSuccessUserInfo,ls,sizeof(CMD_MB_LogonSuccess));
 			CCLog("登录成功 %ld %s",ls->dwUserID,ls->szNickName);
 
            /* QueueData queueData;

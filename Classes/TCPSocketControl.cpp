@@ -67,15 +67,10 @@ void* TCPSocketControl::networkThread(void* object){
 	return 0;
 }
 void TCPSocketControl::initNetwork(){
-	/*DefaultListerner *df=new DefaultListerner();
-	*///TCPSocket tcp;
 	if (tcpSocket)
 	{
 		delete tcpSocket;
 		tcpSocket=NULL;
-	}else
-	{
-		
 	}
 	tcpSocket=new TCPSocket();
 	tcpSocket->Init();
@@ -85,35 +80,34 @@ void TCPSocketControl::initNetwork(){
 	//tcp=NULL;
 	//delete tcp;
 	CCLog("Connect:%d", isRun);
-	/*while(isRun){
-
-	}
-	tcp.Close();
-	CCLog("close----------------------------");
-	isRun=true;*/
 }
 void TCPSocketControl::deleteControl(){
 	
 }
 void TCPSocketControl::stopSocket(){
-	//tcp->getListerner()->End();
 	tcpSocket->Clean();
 	tcpSocket->Close();
-
-	//delete _sharedTCPSocketControl;
-	//_sharedTCPSocketControl=NULL;
-
-	//thread_
-	//delete tcp;
-	//tcp=NULL;
-	//tcp->deleteListerner();
-	/*delete tcp->getListerner();
-	SocketListerner *tcps=tcp->getListerner();
-	tcps=NULL;*/
 }
 bool TCPSocketControl::SendData(WORD wMainCmdID, WORD wSubCmdID, void * const pData, WORD wDataSize){
 	return tcpSocket->SendData(wMainCmdID,wSubCmdID,pData,wDataSize);
 }
 bool TCPSocketControl::SendData(WORD wMainCmdID, WORD wSubCmdID){
 	return tcpSocket->SendData(wMainCmdID,wSubCmdID);
+}
+TCPSocket *TCPSocketControl::getTCPSocket(std::string key){
+	std::map<std::string,TCPSocket*>::iterator iter;
+	iter=mTcpSocket.find(key);
+	if (iter==mTcpSocket.end())
+	{
+		TCPSocket *tcp=new TCPSocket();
+		mTcpSocket.insert(std::map<std::string,TCPSocket*>::value_type(key,tcp));
+		return tcp;
+	}
+	return iter->second;
+}
+void TCPSocketControl::removeTCPSocket(std::string key){
+	getTCPSocket(key)->Clean();
+	getTCPSocket(key)->Close();
+	delete getTCPSocket(key);
+	mTcpSocket.erase(key);
 }

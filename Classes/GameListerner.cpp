@@ -94,7 +94,7 @@ bool GameListerner::logonEvent(TCPSocket* pSocket,TCP_Command cmd,void * pDataBu
 	rData.wSubCmdID=cmd.wSubCmdID;
 	rData.wDataSize=wDataSize;
 	memcpy(rData.sReadData, pDataBuffer, wDataSize);
-	DataModel::sharedDataModel()->readDataList.push_back(rData);
+	DataModel::sharedDataModel()->readDataQueue.push(rData);
 	/*if (wSubCmdID == SUB_GR_UPDATE_NOTIFY)
 	{
 		//效验参数
@@ -256,7 +256,7 @@ bool GameListerner::gameEvent(TCPSocket* pSocket,TCP_Command cmd,void * pDataBuf
 	rData.wDataSize=wDataSize;
 	memcpy(rData.sReadData, pDataBuffer, wDataSize);
 	//pthread_mutex_lock(&sResponseQueueMutex);
-	DataModel::sharedDataModel()->readDataList.push_back(rData);
+	DataModel::sharedDataModel()->readDataQueue.push(rData);
 	//pthread_mutex_unlock(&sResponseQueueMutex); 
 	return true;
 }
@@ -450,7 +450,7 @@ bool GameListerner::OnSocketSubUserState(TCPSocket *pSocket,TCP_Command cmd,void
 	rData.wSubCmdID=cmd.wSubCmdID;
 	rData.wDataSize=wDataSize;
 	memcpy(rData.sReadData, pDataBuffer, wDataSize);
-	DataModel::sharedDataModel()->readDataList.push_back(rData);
+	DataModel::sharedDataModel()->readDataQueue.push(rData);
 	/*
 	int size =sizeof(CMD_GR_UserStatus);
 	CMD_GR_UserStatus *info= (CMD_GR_UserStatus*)pDataBuffer;

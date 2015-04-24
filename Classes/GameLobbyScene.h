@@ -16,8 +16,8 @@ class GameLobbyScene:public BaseLobbyScene
 public:
 	enum ModeType
 	{
-		MODE_CLASSIC=1,//经典模式
-		MODE_,
+		MODE_CLASSIC=1,					//经典模式
+		MODE_Hundred,						//百人场
 		MODE_1,
 		MODE_2
 	};

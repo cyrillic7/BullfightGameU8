@@ -1,7 +1,7 @@
 #ifndef DEFINE_HEAD_FILE
 #define DEFINE_HEAD_FILE
 //////////////////////////////////////////////////////////////////////////
-//��ƽ̨����
+//跨平台定义
 #ifdef WIN32
 #include <winsock2.h>
 typedef int				socklen_t;
@@ -19,255 +19,265 @@ typedef int				SOCKET;
 #define SOCKET_ERROR	-1
 #endif
 
+//如果是android平台需要定义宏
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID||CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
+#define RtlCopyMemory(Destination,Source,Length) memcpy((Destination),(Source),(Length))
+#define CopyMemory RtlCopyMemory
+typedef unsigned char       BYTE;
+typedef unsigned short      WORD;
+typedef unsigned long       DWORD;
+typedef char TCHAR, *PTCHAR;
+#endif
+
 #define  SCORE						long long
 
 //////////////////////////////////////////////////////////////////////////////////
-//��ֵ����
+//数值定义
 
-#define TIMING_BG_COLOR                 RGB(5,81,120)				        //������ɫ
-#define MAX_TIME_LEN					32								//ʱ�䳤��
-#define MAX_REWARD_LEN					32								//ʱ�䳤��
-//ͷ���С
-#define FACE_CX						48									//ͷ�����
-#define FACE_CY						48									//ͷ��߶�
+#define TIMING_BG_COLOR                 RGB(5,81,120)				        //背景颜色
+#define MAX_TIME_LEN					32								//时间长度
+#define MAX_REWARD_LEN					32								//时间长度
+//头像大小
+#define FACE_CX						48									//头像宽度
+#define FACE_CY						48									//头像高度
 
-//���ȶ���
-#define LEN_LESS_ACCOUNTS			6									//����ʺ�
-#define LEN_LESS_NICKNAME			6									//����ǳ�
-#define LEN_LESS_REALNAME			4									//�����ʵ����
-#define LEN_LESS_PASSWORD			8									//�������
+//长度定义
+#define LEN_LESS_ACCOUNTS			6									//最短帐号
+#define LEN_LESS_NICKNAME			6									//最短昵称
+#define LEN_LESS_REALNAME			4									//最短真实名字
+#define LEN_LESS_PASSWORD			8									//最短密码
 
-//��������
-#define MAX_CHAIR					100									//�������
-#define MAX_TABLE					512									//�������
-#define MAX_COLUMN					32									//����б�
-#define MAX_ANDROID					256									//������
-#define MAX_PROPERTY				128									//������
-#define MAX_WHISPER_USER			16									//���˽��
+//人数定义
+#define MAX_CHAIR					100									//最大椅子
+#define MAX_TABLE					512									//最大桌子
+#define MAX_COLUMN					32									//最大列表
+#define MAX_ANDROID					256									//最大机器
+#define MAX_PROPERTY				128									//最大道具
+#define MAX_WHISPER_USER			16									//最大私聊
 
 
-//�б�����
-#define MAX_KIND					128									//�������
-#define MAX_SERVER					1024								//��󷿼�
+//列表定义
+#define MAX_KIND					128									//最大类型
+#define MAX_SERVER					1024								//最大房间
 
-//��������
-#define INVALID_CHAIR				0xFFFF								//��Ч����
-#define INVALID_TABLE				0xFFFF								//��Ч����
+//参数定义
+#define INVALID_CHAIR				0xFFFF								//无效椅子
+#define INVALID_TABLE				0xFFFF								//无效桌子
 
-//˰�ն���
-#define REVENUE_BENCHMARK			0L								    //˰�����
-#define REVENUE_DENOMINATOR			1000L								//˰�շ�ĸ
-
-//////////////////////////////////////////////////////////////////////////////////
-//ϵͳ����
-
-//��������
-#define SCORE_STRING				TEXT("%I64d")						//��������
-
-//��Ϸ״̬
-#define GAME_STATUS_FREE			0									//����״̬
-#define GAME_STATUS_PLAY			100									//��Ϸ״̬
-#define GAME_STATUS_WAIT			200									//�ȴ�״̬
-
-//�滭ģʽ
-#define DRAW_MODE_SPREAD			0									//ƽ��ģʽ
-#define DRAW_MODE_CENTENT			1									//����ģʽ
-#define DRAW_MODE_ELONGGATE			2									//����ģʽ
-
-//ϵͳ����
-#define LEN_USER_CHAT				128									//���쳤��
-#define TIME_USER_CHAT				1L									//������
-#define TRUMPET_MAX_CHAR            128									//���ȳ���
+//税收定义
+#define REVENUE_BENCHMARK			0L								    //税收起点
+#define REVENUE_DENOMINATOR			1000L								//税收分母
 
 //////////////////////////////////////////////////////////////////////////////////
-//��������
+//系统参数
 
-//�б�����
-#define PRIME_TYPE					11L									//������Ŀ
-#define PRIME_KIND					53L									//������Ŀ
-#define PRIME_NODE					101L								//�ڵ���Ŀ
-#define PRIME_PAGE					53L									//�Զ���Ŀ
-#define PRIME_SERVER				1009L								//������Ŀ
+//积分类型
+#define SCORE_STRING				TEXT("%I64d")						//积分类型
 
-//��������
-#define PRIME_SERVER_USER			503L								//��������
-#define PRIME_ANDROID_USER			503L								//��������
-#define PRIME_PLATFORM_USER			100003L								//ƽ̨����
+//游戏状态
+#define GAME_STATUS_FREE			0									//空闲状态
+#define GAME_STATUS_PLAY			100									//游戏状态
+#define GAME_STATUS_WAIT			200									//等待状态
+
+//绘画模式
+#define DRAW_MODE_SPREAD			0									//平铺模式
+#define DRAW_MODE_CENTENT			1									//居中模式
+#define DRAW_MODE_ELONGGATE			2									//拉伸模式
+
+//系统参数
+#define LEN_USER_CHAT				128									//聊天长度
+#define TIME_USER_CHAT				1L									//聊天间隔
+#define TRUMPET_MAX_CHAR            128									//喇叭长度
 
 //////////////////////////////////////////////////////////////////////////////////
-//���ݳ���
+//索引质数
 
-//��������
-#define LEN_MD5						33									//��������
-#define LEN_USERNOTE				32									//��ע����
-#define LEN_ACCOUNTS				32									//�ʺų���
-#define LEN_NICKNAME				32									//�ǳƳ���
-#define LEN_PASSWORD				33									//���볤��
-#define LEN_GROUP_NAME				32									//��������
-#define LEN_UNDER_WRITE				32									//����ǩ��
+//列表质数
+#define PRIME_TYPE					11L									//种类数目
+#define PRIME_KIND					53L									//类型数目
+#define PRIME_NODE					101L								//节点数目
+#define PRIME_PAGE					53L									//自定数目
+#define PRIME_SERVER				1009L								//房间数目
 
-//���ݳ���
+//人数质数
+#define PRIME_SERVER_USER			503L								//房间人数
+#define PRIME_ANDROID_USER			503L								//机器人数
+#define PRIME_PLATFORM_USER			100003L								//平台人数
+
+//////////////////////////////////////////////////////////////////////////////////
+//数据长度
+
+//资料数据
+#define LEN_MD5						33									//加密密码
+#define LEN_USERNOTE				32									//备注长度
+#define LEN_ACCOUNTS				32									//帐号长度
+#define LEN_NICKNAME				32									//昵称长度
+#define LEN_PASSWORD				33									//密码长度
+#define LEN_GROUP_NAME				32									//社团名字
+#define LEN_UNDER_WRITE				32									//个性签名
+
+//数据长度
 #define  LEN_ADDR				    16
-#define LEN_QQ						16									//Q Q ����
-#define LEN_EMAIL					33									//�����ʼ�
-#define LEN_USER_NOTE				256									//�û���ע
-#define LEN_SEAT_PHONE				33									//�̶��绰
-#define LEN_MOBILE_PHONE			12									//�ƶ��绰
-#define LEN_PASS_PORT_ID			19									//֤������
-#define LEN_COMPELLATION			16									//��ʵ����
-#define LEN_DWELLING_PLACE			128									//��ϵ��ַ
-#define LEN_PHONE_VERIFY_ID			7									//�ֻ���֤��
+#define LEN_QQ						16									//Q Q 号码
+#define LEN_EMAIL					33									//电子邮件
+#define LEN_USER_NOTE				256									//用户备注
+#define LEN_SEAT_PHONE				33									//固定电话
+#define LEN_MOBILE_PHONE			12									//移动电话
+#define LEN_PASS_PORT_ID			19									//证件号码
+#define LEN_COMPELLATION			16									//真实名字
+#define LEN_DWELLING_PLACE			128									//联系地址
+#define LEN_PHONE_VERIFY_ID			7									//手机验证号
 
-//������ʶ
-#define LEN_NETWORK_ID				13									//��������
-#define LEN_MACHINE_ID				33									//���г���
+//机器标识
+#define LEN_NETWORK_ID				13									//网卡长度
+#define LEN_MACHINE_ID				33									//序列长度
 
-//�б�����
-#define LEN_TYPE					32									//���೤��
-#define LEN_KIND					32									//���ͳ���
-#define LEN_NODE					32									//�ڵ㳤��
-#define LEN_PAGE					32									//���Ƴ���
-#define LEN_SERVER					32									//���䳤��
-#define LEN_PROCESS					32									//���̳���
-#define LEN_URL						128									//URL����
-
-//////////////////////////////////////////////////////////////////////////////////
-
-//�û���ϵ
-#define	CP_NORMAL					0									//δ֪��ϵ
-#define	CP_FRIEND					1									//���ѹ�ϵ
-#define	CP_DETEST					2									//����ϵ
-#define CP_SHIELD					3									//��������
+//列表数据
+#define LEN_TYPE					32									//种类长度
+#define LEN_KIND					32									//类型长度
+#define LEN_NODE					32									//节点长度
+#define LEN_PAGE					32									//定制长度
+#define LEN_SERVER					32									//房间长度
+#define LEN_PROCESS					32									//进程长度
+#define LEN_URL						128									//URL长度
 
 //////////////////////////////////////////////////////////////////////////////////
 
-//�Ա���
-#define GENDER_FEMALE				0									//Ů���Ա�
-#define GENDER_MANKIND				1									//�����Ա�
+//用户关系
+#define	CP_NORMAL					0									//未知关系
+#define	CP_FRIEND					1									//好友关系
+#define	CP_DETEST					2									//厌恶关系
+#define CP_SHIELD					3									//屏蔽聊天
 
 //////////////////////////////////////////////////////////////////////////////////
 
-//��Ϸģʽ
-#define GAME_GENRE_GOLD				0x0001								//�������
-#define GAME_GENRE_SCORE			0x0002								//��ֵ����
-#define GAME_GENRE_MATCH			0x0004								//��������
-#define GAME_GENRE_EDUCATE			0x0008								//ѵ������
-
-//����ģʽ
-#define SCORE_GENRE_NORMAL			0x0100								//��ͨģʽ
-#define SCORE_GENRE_POSITIVE		0x0200								//�Ǹ�ģʽ
+//性别定义
+#define GENDER_FEMALE				0									//女性性别
+#define GENDER_MANKIND				1									//男性性别
 
 //////////////////////////////////////////////////////////////////////////////////
 
-//�û�״̬
-#define US_NULL						0x00								//û��״̬
-#define US_FREE						0x01								//վ��״̬
-#define US_SIT						0x02								//����״̬
-#define US_READY					0x03								//ͬ��״̬
-#define US_LOOKON					0x04								//�Թ�״̬
-#define US_PLAYING					0x05								//��Ϸ״̬
-#define US_OFFLINE					0x06								//����״̬
+//游戏模式
+#define GAME_GENRE_GOLD				0x0001								//金币类型
+#define GAME_GENRE_SCORE			0x0002								//点值类型
+#define GAME_GENRE_MATCH			0x0004								//比赛类型
+#define GAME_GENRE_EDUCATE			0x0008								//训练类型
+
+//分数模式
+#define SCORE_GENRE_NORMAL			0x0100								//普通模式
+#define SCORE_GENRE_POSITIVE		0x0200								//非负模式
 
 //////////////////////////////////////////////////////////////////////////////////
 
-//����״̬
-#define MS_NULL						0x00								//û��״̬
-#define MS_SIGNUP					0x01								//����״̬
-#define MS_MATCHING					0x02								//����״̬
-#define MS_OUT						0x03								//��̭״̬
-#define MS_LEAVE					0x04								//����״̬
-#define MS_WIN					    0x05								//ʤ��״̬
-#define MS_OFFLINE					0x06								//����״̬
+//用户状态
+#define US_NULL						0x00								//没有状态
+#define US_FREE						0x01								//站立状态
+#define US_SIT						0x02								//坐下状态
+#define US_READY					0x03								//同意状态
+#define US_LOOKON					0x04								//旁观状态
+#define US_PLAYING					0x05								//游戏状态
+#define US_OFFLINE					0x06								//断线状态
 
 //////////////////////////////////////////////////////////////////////////////////
 
-//�������
-#define SRL_LOOKON					0x00000001							//�Թ۱�־
-#define SRL_OFFLINE					0x00000002							//���߱�־
-#define SRL_SAME_IP					0x00000004							//ͬ����־
-
-//�������
-#define SRL_ROOM_CHAT				0x00000100							//�����־
-#define SRL_GAME_CHAT				0x00000200							//�����־
-#define SRL_WISPER_CHAT				0x00000400							//˽�ı�־
-#define SRL_HIDE_USER_INFO			0x00000800							//���ر�־
+//比赛状态
+#define MS_NULL						0x00								//没有状态
+#define MS_SIGNUP					0x01								//报名状态
+#define MS_MATCHING					0x02								//比赛状态
+#define MS_OUT						0x03								//淘汰状态
+#define MS_LEAVE					0x04								//退赛状态
+#define MS_WIN					    0x05								//胜出状态
+#define MS_OFFLINE					0x06								//离线状态
 
 //////////////////////////////////////////////////////////////////////////////////
-//�б�����
 
-//��Ч����
-#define UD_NULL						0									//��Ч����
-#define UD_IMAGE					100									//ͼ������
-#define UD_CUSTOM					200									//�Զ�����
+//房间规则
+#define SRL_LOOKON					0x00000001							//旁观标志
+#define SRL_OFFLINE					0x00000002							//断线标志
+#define SRL_SAME_IP					0x00000004							//同网标志
 
-//��������
-#define UD_GAME_ID					1									//��Ϸ��ʶ
-#define UD_USER_ID					2									//�û���ʶ
-#define	UD_NICKNAME					3									//�û��ǳ�
-#define	UD_RANK					    22									//�û�����
-
-//��չ����
-#define UD_GENDER					10									//�û��Ա�
-#define UD_GROUP_NAME				11									//��������
-#define UD_UNDER_WRITE				12									//����ǩ��
-
-//״̬��Ϣ
-#define UD_TABLE					20									//��Ϸ����
-#define UD_CHAIR					21									//���Ӻ���
-
-//������Ϣ
-#define UD_SCORE					30									//�û�����
-#define UD_GRADE					31									//�û��ɼ�
-#define UD_USER_MEDAL				32									//�û�����
-#define UD_EXPERIENCE				33									//�û�����
-#define UD_LOVELINESS				34									//�û�����
-#define UD_WIN_COUNT				35									//ʤ������
-#define UD_LOST_COUNT				36									//�������
-#define UD_DRAW_COUNT				37									//�;�����
-#define UD_FLEE_COUNT				38									//�Ӿ�����
-#define UD_PLAY_COUNT				39									//�ܾ�����
-
-//���ֱ���
-#define UD_WIN_RATE					40									//�û�ʤ��
-#define UD_LOST_RATE				41									//�û�����
-#define UD_DRAW_RATE				42									//�û�����
-#define UD_FLEE_RATE				43									//�û�����
-#define UD_GAME_LEVEL				44									//��Ϸ�ȼ�
-
-//��չ��Ϣ
-#define UD_NOTE_INFO				50									//�û���ע
-#define UD_LOOKON_USER				51									//�Թ��û�
-
-//ͼ���б�
-#define UD_IMAGE_FLAG				(UD_IMAGE+1)						//�û���־
-#define UD_IMAGE_GENDER				(UD_IMAGE+2)						//�û��Ա�
-#define UD_IMAGE_STATUS				(UD_IMAGE+3)						//�û�״̬
+//房间规则
+#define SRL_ROOM_CHAT				0x00000100							//聊天标志
+#define SRL_GAME_CHAT				0x00000200							//聊天标志
+#define SRL_WISPER_CHAT				0x00000400							//私聊标志
+#define SRL_HIDE_USER_INFO			0x00000800							//隐藏标志
 
 //////////////////////////////////////////////////////////////////////////////////
-//���ݿⶨ��
+//列表数据
 
-#define DB_ERROR 					-1  								//����ʧ��
-#define DB_SUCCESS 					0  									//�����ɹ�
-#define DB_NEEDMB 					18 									//����ʧ��
+//无效属性
+#define UD_NULL						0									//无效子项
+#define UD_IMAGE					100									//图形子项
+#define UD_CUSTOM					200									//自定子项
+
+//基本属性
+#define UD_GAME_ID					1									//游戏标识
+#define UD_USER_ID					2									//用户标识
+#define	UD_NICKNAME					3									//用户昵称
+#define	UD_RANK					    22									//用户名次
+
+//扩展属性
+#define UD_GENDER					10									//用户性别
+#define UD_GROUP_NAME				11									//社团名字
+#define UD_UNDER_WRITE				12									//个性签名
+
+//状态信息
+#define UD_TABLE					20									//游戏桌号
+#define UD_CHAIR					21									//椅子号码
+
+//积分信息
+#define UD_SCORE					30									//用户分数
+#define UD_GRADE					31									//用户成绩
+#define UD_USER_MEDAL				32									//用户经验
+#define UD_EXPERIENCE				33									//用户经验
+#define UD_LOVELINESS				34									//用户魅力
+#define UD_WIN_COUNT				35									//胜局盘数
+#define UD_LOST_COUNT				36									//输局盘数
+#define UD_DRAW_COUNT				37									//和局盘数
+#define UD_FLEE_COUNT				38									//逃局盘数
+#define UD_PLAY_COUNT				39									//总局盘数
+
+//积分比率
+#define UD_WIN_RATE					40									//用户胜率
+#define UD_LOST_RATE				41									//用户输率
+#define UD_DRAW_RATE				42									//用户和率
+#define UD_FLEE_RATE				43									//用户逃率
+#define UD_GAME_LEVEL				44									//游戏等级
+
+//扩展信息
+#define UD_NOTE_INFO				50									//用户备注
+#define UD_LOOKON_USER				51									//旁观用户
+
+//图像列表
+#define UD_IMAGE_FLAG				(UD_IMAGE+1)						//用户标志
+#define UD_IMAGE_GENDER				(UD_IMAGE+2)						//用户性别
+#define UD_IMAGE_STATUS				(UD_IMAGE+3)						//用户状态
 
 //////////////////////////////////////////////////////////////////////////////////
-//���߱�ʾ
-#define PT_USE_MARK_DOUBLE_SCORE    0x0001								//˫������
-#define PT_USE_MARK_FOURE_SCORE     0x0002								//�ı�����
-#define PT_USE_MARK_GUARDKICK_CARD  0x0010								//���ߵ���
-#define PT_USE_MARK_POSSESS         0x0020								//�������� 
+//数据库定义
 
-#define MAX_PT_MARK                 4                                   //��ʶ��Ŀ
-
-//��Ч��Χ
-#define VALID_TIME_DOUBLE_SCORE     3600                                //��Чʱ��
-#define VALID_TIME_FOUR_SCORE       3600                                //��Чʱ��
-#define VALID_TIME_GUARDKICK_CARD   3600                                //����ʱ��
-#define VALID_TIME_POSSESS          3600                                //����ʱ��
-#define VALID_TIME_KICK_BY_MANAGER  3600                                //��Ϸʱ�� 
+#define DB_ERROR 					-1  								//处理失败
+#define DB_SUCCESS 					0  									//处理成功
+#define DB_NEEDMB 					18 									//处理失败
 
 //////////////////////////////////////////////////////////////////////////////////
-//�豸����
+//道具标示
+#define PT_USE_MARK_DOUBLE_SCORE    0x0001								//双倍积分
+#define PT_USE_MARK_FOURE_SCORE     0x0002								//四倍积分
+#define PT_USE_MARK_GUARDKICK_CARD  0x0010								//防踢道具
+#define PT_USE_MARK_POSSESS         0x0020								//附身道具 
+
+#define MAX_PT_MARK                 4                                   //标识数目
+
+//有效范围
+#define VALID_TIME_DOUBLE_SCORE     3600                                //有效时间
+#define VALID_TIME_FOUR_SCORE       3600                                //有效时间
+#define VALID_TIME_GUARDKICK_CARD   3600                                //防踢时间
+#define VALID_TIME_POSSESS          3600                                //附身时间
+#define VALID_TIME_KICK_BY_MANAGER  3600                                //游戏时间 
+
+//////////////////////////////////////////////////////////////////////////////////
+//设备类型
 #define DEVICE_TYPE_PC              0x00                                //PC
 #define DEVICE_TYPE_ANDROID         0x10                                //Android
 #define DEVICE_TYPE_ITOUCH          0x20                                //iTouch
@@ -275,45 +285,56 @@ typedef int				SOCKET;
 #define DEVICE_TYPE_IPAD            0x80                                //iPad
 
 /////////////////////////////////////////////////////////////////////////////////
-//�ֻ�����
+//手机定义
 
-//��ͼģʽ
-#define	VIEW_MODE_ALL				0x0001								//ȫ������
-#define	VIEW_MODE_PART				0x0002								//���ֿ���
+//视图模式
+#define	VIEW_MODE_ALL				0x0001								//全部可视
+#define	VIEW_MODE_PART				0x0002								//部分可视
 
-//��Ϣģʽ
-#define VIEW_INFO_LEVEL_1			0x0010								//������Ϣ
-#define VIEW_INFO_LEVEL_2			0x0020								//������Ϣ
-#define VIEW_INFO_LEVEL_3			0x0040								//������Ϣ
-#define VIEW_INFO_LEVEL_4			0x0080								//������Ϣ
+//信息模式
+#define VIEW_INFO_LEVEL_1			0x0010								//部分信息
+#define VIEW_INFO_LEVEL_2			0x0020								//部分信息
+#define VIEW_INFO_LEVEL_3			0x0040								//部分信息
+#define VIEW_INFO_LEVEL_4			0x0080								//部分信息
 
-//��������
-#define RECVICE_GAME_CHAT			0x0100								//��������
-#define RECVICE_ROOM_CHAT			0x0200								//��������
-#define RECVICE_ROOM_WHISPER		0x0400								//����˽��
+//其他配置
+#define RECVICE_GAME_CHAT			0x0100								//接收聊天
+#define RECVICE_ROOM_CHAT			0x0200								//接收聊天
+#define RECVICE_ROOM_WHISPER		0x0400								//接收私聊
 
-//��Ϊ��ʶ
-#define BEHAVIOR_LOGON_NORMAL       0x0000                              //��ͨ��¼
-#define BEHAVIOR_LOGON_IMMEDIATELY  0x1000                              //������¼
-
-/////////////////////////////////////////////////////////////////////////////////
-//�������
-#define RESULT_ERROR 					-1  								//��������
-#define RESULT_SUCCESS 					0  									//�����ɹ�
-#define RESULT_FAIL 					1  									//����ʧ��
+//行为标识
+#define BEHAVIOR_LOGON_NORMAL       0x0000                              //普通登录
+#define BEHAVIOR_LOGON_IMMEDIATELY  0x1000                              //立即登录
 
 /////////////////////////////////////////////////////////////////////////////////
-//�仯ԭ��
-#define SCORE_REASON_WRITE              0                                   //д�ֱ仯
-#define SCORE_REASON_INSURE             1                                   //���б仯
-#define SCORE_REASON_PROPERTY           2                                   //���߱仯
-#define SCORE_REASON_MATCH_FEE          3                                   //��������
-#define SCORE_REASON_MATCH_QUIT         4                                   //��������
+//处理结果
+#define RESULT_ERROR 					-1  								//处理错误
+#define RESULT_SUCCESS 					0  									//处理成功
+#define RESULT_FAIL 					1  									//处理失败
+
+/////////////////////////////////////////////////////////////////////////////////
+//变化原因
+#define SCORE_REASON_WRITE              0                                   //写分变化
+#define SCORE_REASON_INSURE             1                                   //银行变化
+#define SCORE_REASON_PROPERTY           2                                   //道具变化
+#define SCORE_REASON_MATCH_FEE          3                                   //比赛报名
+#define SCORE_REASON_MATCH_QUIT         4                                   //比赛退赛
 
 /////////////////////////////////////////////////////////////////////////////////
 
-//��¼����ʧ��ԭ��
-#define LOGON_FAIL_SERVER_INVALIDATION  200                                 //����ʧЧ
+//登录房间失败原因
+#define LOGON_FAIL_SERVER_INVALIDATION  200                                 //房间失效
 
-////////////////////////////////////////////////////////////////////////////////
+//自定义//////////////////////////////////////////////////////////////////////////////
+#define MAX_TCP_LENGTH 1024*5
+struct ReadData
+{
+	WORD wMainCmdID;
+	WORD wSubCmdID;
+	DWORD wDataSize;
+	char sReadData[MAX_TCP_LENGTH];
+};
+#define MDM_GP_SOCKET						9999					//socket			
+#define SUB_GP_SOCKET_OPEN			1							//连接成功
+//////////////////////////////////////////////////////////////////////////
 #endif

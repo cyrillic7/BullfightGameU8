@@ -12,6 +12,7 @@
 #include "PopDialogBoxUserInfo.h"
 #include "PopDialogBoxLoading.h"
 #include "ClassicLobbyScene.h"
+#include "GameControlOxHundred.h"
 #include "DataModel.h"
 #include "LogonListerner.h"
 #include "PopDialogBoxSetUp.h"
@@ -73,6 +74,8 @@ void GameLobbyScene::onEnter(){
 	}
 	scroll=static_cast<UIScrollView*>(m_pWidget->getWidgetByName("ScrollView"));
 	scroll->setInnerContainerSize(scroll->getContentSize());
+
+	userName->setText(Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName));
 	/*//用户名
 	userName=static_cast<UILabel*>(m_pWidget->getWidgetByName("labelUserName"));
 	//金币
@@ -94,9 +97,8 @@ void GameLobbyScene::onOpen(CCObject *obj){
 	CMD_MB_LogonAccounts logonAccounts;
 
 	logonAccounts.cbDeviceType = 2;
-	logonAccounts.dwPlazaVersion = 17235969;
-
-	strcpy(logonAccounts.szAccounts,"z40144322");
+	logonAccounts.dwPlazaVersion=VERSION_PLAZA;
+	strcpy(logonAccounts.szAccounts,DataModel::sharedDataModel()->sLogonAccount.c_str());
 	//strcpy(logonAccounts.szAccounts,"zhangh189");
 
 	strcpy(logonAccounts.szMachineID,"12");
@@ -109,9 +111,9 @@ void GameLobbyScene::onOpen(CCObject *obj){
 
 
 	MD5 m;
-	MD5::char8 str[] = "z12345678";
+	//MD5::char8 str[] = "z12345678";
 
-	m.ComputMd5(str, sizeof(str)-1);
+	m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(),DataModel::sharedDataModel()->sLogonPassword.length());
 	std::string md5PassWord = m.GetMd5();
 
 	strcpy(logonAccounts.szPassword,md5PassWord.c_str());
@@ -131,18 +133,18 @@ void GameLobbyScene::callbackData(CCObject *obj){
 	pdb->removeFromParentAndCleanup(true);
 	//////////////////////////////////////////////////////////////////////////
 	//设置用户名
-	char *name=DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName;
+	//char *name=DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName;
 //	userName->setText(UTEXT(name));
 	
 	deleteSocket=true;
 
 }
 void GameLobbyScene::update(float dt){
-	char *name=DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName;
+	/*char *name=DataModel::sharedDataModel()->userInfo->szNickName;
 	if(strcmp(userName->getStringValue(),"游客")==0&&strcmp(name, "") != 0)
 	{
 		userName->setText(Tools::GBKToUTF8(name));
-	}
+	}*/
 	if (deleteSocket)
 	{
 		TCPSocketControl::sharedTCPSocketControl()->stopSocket();
@@ -197,7 +199,11 @@ void GameLobbyScene::enterLobbyByMode(int mode){
 		{
 				Tools::setTransitionAnimation(0, 0, ClassicLobbyScene::scene());
 		}
-	
+		break;
+	case MODE_Hundred:
+		{
+				Tools::setTransitionAnimation(0, 0, MainScene::scene());
+		}
 		break;
 	default:
 		break;

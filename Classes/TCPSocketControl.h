@@ -23,7 +23,7 @@ public:
 	bool isRun;
 private:
 	TCPSocket *tcpSocket;
-	std::map<std::string , TCPSocket> mTcpSocket;
+	std::map<std::string , TCPSocket*> mTcpSocket;
 public:
 	TCPSocketControl();
 	virtual ~TCPSocketControl();
@@ -37,6 +37,9 @@ public:
 	void deleteControl();
 	bool SendData(WORD wMainCmdID, WORD wSubCmdID, void * const pData, WORD wDataSize);
 	bool SendData(WORD wMainCmdID, WORD wSubCmdID);
+
+	TCPSocket* getTCPSocket(std::string key);
+	void removeTCPSocket(std::string key);
 };
 
 #endif /* TCPSOCKETCONTROL_H_ */

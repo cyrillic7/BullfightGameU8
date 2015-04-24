@@ -8,7 +8,7 @@
   },
   "dataScale": 1,
   "designHeight": 640,
-  "designWidth": 960,
+  "designWidth": 1136,
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
@@ -19,7 +19,8 @@
     "UIShop.plist",
     "UIRanking.plist",
     "UIActivity.plist",
-    "Font.plist"
+    "Font.plist",
+    "UILogon.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
@@ -32,6 +33,7 @@
     "UIRanking.png",
     "UIActivity.png",
     "Font.png",
+    "UILogon.png",
     "UIPanel.png",
     "UIButton.png",
     "UIUserInfo.png",
@@ -42,6 +44,7 @@
     "UIRanking.png",
     "UIActivity.png",
     "Font.png",
+    "UILogon.png",
     "UIPanel.png",
     "UIButton.png",
     "UIUserInfo.png",
@@ -52,6 +55,7 @@
     "UIRanking.png",
     "UIActivity.png",
     "Font.png",
+    "UILogon.png",
     "UIPanel.png",
     "UIButton.png",
     "UIUserInfo.png",
@@ -61,7 +65,8 @@
     "UIShop.png",
     "UIRanking.png",
     "UIActivity.png",
-    "Font.png"
+    "Font.png",
+    "UILogon.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

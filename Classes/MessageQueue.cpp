@@ -9,23 +9,22 @@ MessageQueue::MessageQueue()
 MessageQueue::~MessageQueue() {
 }
 void MessageQueue::update(float dt){
-	if (DataModel::sharedDataModel()->readDataList.size()<=0)
+	if (DataModel::sharedDataModel()->readDataQueue.size()<=0)
 	{
 		return;
 	}
-	//CCLog("size::%d<<%s>>",DataModel::sharedDataModel()->readDataList.size(),__FUNCTION__);
-	std::list<ReadData>::iterator iter;
-	iter=DataModel::sharedDataModel()->readDataList.begin();
-	switch (iter->wMainCmdID)
+	ReadData iter =DataModel::sharedDataModel()->readDataQueue.front();
+	switch (iter.wMainCmdID)
 	{
 	case MDM_GR_LOGON://登录
-		onEventLogon(iter->wSubCmdID,iter->sReadData,iter->wDataSize);
+	//case MDM_GP_LOGON:
+		onEventLogon(iter.wSubCmdID,iter.sReadData,iter.wDataSize);
 		break;
 	case MDM_GR_CONFIG://配置
 		//return configEvent(so,Command.wSubCmdID,pDataBuffer,wDataSize);
 		break;
 	case MDM_GR_USER://用户信息
-		onSubUserState(iter->wSubCmdID,iter->sReadData,iter->wDataSize);
+		onSubUserState(iter.wSubCmdID,iter.sReadData,iter.wDataSize);
 		break;
 	case MDM_GR_STATUS://状态信息
 			break;
@@ -33,11 +32,14 @@ void MessageQueue::update(float dt){
 		//return frameEvent(so,Command.wSubCmdID,pDataBuffer,wDataSize);
 		break;
 	case MDM_GF_GAME://游戏命令
-		onEventGameIng(iter->wSubCmdID,iter->sReadData,iter->wDataSize);
+		onEventGameIng(iter.wSubCmdID,iter.sReadData,iter.wDataSize);
+		break;
+	case MDM_GP_SOCKET://socket消息
+		onEventSokcet(iter.wSubCmdID,iter.sReadData,iter.wDataSize);
 		break;
 	default:
-		CCLog("other---------- %d    %d<<%s>>",iter->wMainCmdID,iter->wSubCmdID,__FUNCTION__);
+		CCLog("other---------- %d    %d<<%s>>",iter.wMainCmdID,iter.wSubCmdID,__FUNCTION__);
 		break;
 	}
-	DataModel::sharedDataModel()->readDataList.pop_front();
+	DataModel::sharedDataModel()->readDataQueue.pop();
 }

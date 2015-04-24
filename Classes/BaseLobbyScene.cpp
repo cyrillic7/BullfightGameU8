@@ -70,6 +70,7 @@ void BaseLobbyScene::onEnter(){
 	userName=static_cast<UILabel*>(m_pWidget->getWidgetByName("labelUserName"));
 	//金币
 	pLabelGoldCount=static_cast<UILabel*>(m_pWidget->getWidgetByName("LabelGoldCount"));
+	pLabelGoldCount->setText(CCString::createWithFormat("%lld",DataModel::sharedDataModel()->userInfo->lScore)->getCString());
 }
 //退出场景
 void BaseLobbyScene::onExit(){

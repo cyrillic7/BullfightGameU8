@@ -670,3 +670,44 @@ void TCPSocket::SetListerner(SocketListerner* listerner)
 SocketListerner* TCPSocket::getListerner(){
 	return this->listerner;
 }
+
+void TCPSocket::createSocket(const char* ip,unsigned short port,SocketListerner *listerner){
+	this->ip=ip;
+	this->port=port;
+	
+	SetListerner(listerner);
+	
+	
+	startSendThread();
+}
+pthread_t pThreadNewwork;
+int TCPSocket::startSendThread(){
+	int errCode = 0;
+	do{
+		pthread_attr_t tAttr;
+		errCode = pthread_attr_init(&tAttr);
+
+		CC_BREAK_IF(errCode != 0);
+
+		errCode = pthread_attr_setdetachstate(&tAttr, PTHREAD_CREATE_DETACHED);
+
+		if (errCode != 0) {
+			pthread_attr_destroy(&tAttr);
+			break;
+		}
+
+		errCode = pthread_create(&pThreadNewwork, &tAttr, socketNetworkThread, this);
+		pthread_detach(pThreadNewwork);
+	} while (0);
+	return errCode; 
+}
+void* TCPSocket::socketNetworkThread(void* object){
+	TCPSocket *app=(TCPSocket*)object;
+	app->initNetwork();
+	return 0;
+}
+void TCPSocket::initNetwork(){
+	Init();
+	Create(AF_INET, SOCK_STREAM, 0);
+	Connect(ip, port);
+}
