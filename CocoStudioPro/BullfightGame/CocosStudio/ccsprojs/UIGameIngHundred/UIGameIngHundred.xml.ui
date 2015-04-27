@@ -19,9 +19,7 @@
   <imageFileList>
     <string>UIGameIngHundred.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>UIGameIngHundred.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIGameIngHundred.json</CurrentUIJson>
+  <CurrentUIJson />
 </UIProject>

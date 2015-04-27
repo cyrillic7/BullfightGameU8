@@ -56,8 +56,8 @@ void MainSceneOxHundred::addBg(){
 	spriteBg->setScaleY(scaleY);
 }
 void MainSceneOxHundred::initGameControl(){
-	//gameControl = GameControlOxHundred::create();
-	//this->addChild(gameControl, K_Z_ORDER_HUD);
+	gameControl = GameControlOxHundred::create();
+	this->addChild(gameControl, K_Z_ORDER_HUD);
 }
 //
 void MainSceneOxHundred::initCardLayer(){

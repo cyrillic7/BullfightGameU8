@@ -20,10 +20,7 @@
     <string>UIGameIng.plist</string>
     <string>UIButton.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>UIGameIng.png</string>
-    <string>UIButton.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIGameHUD.json</CurrentUIJson>
+  <CurrentUIJson />
 </UIProject>

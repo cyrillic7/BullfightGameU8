@@ -36,7 +36,7 @@ public:
 	CC_SYNTHESIZE(GameState,gameState,GameState);
 	CC_SYNTHESIZE(GameState,serverState,ServerState);
 
-	//CC_SYNTHESIZE(GameControlOxTwo *, gameControl, GameControlOxTwo);
+	CC_SYNTHESIZE(GameControlOxHundred *, gameControl, GameControlOxHundred);
 	//扑克层
 	CardLayer *cardLayer;
 	//玩家信息层

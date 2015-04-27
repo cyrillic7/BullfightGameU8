@@ -13,4 +13,6 @@ public:
     CREATE_FUNC(GameControlOxHundred);
 private:
 	int getChairIndex(int meChairID,int chairID);
+	//²Ëµ¥////////////////////////////////////////////////////////////////////////
+	void onMenuBack(CCObject* pSender, TouchEventType type);
 };
