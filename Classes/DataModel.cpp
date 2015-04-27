@@ -34,7 +34,8 @@ DataModel::~DataModel() {
 
 	//CC_SAFE_DELETE(logonSuccessUserInfo);
 	CC_SAFE_DELETE(userInfo);
-	removeTagGameServerList();
+	removeTagGameServerList(tagGameServerListOxTwo);
+	removeTagGameServerList(tagGameServerListOxHundred);
 
 	// pthread_mutex_destroy(&sResponseQueueMutex);
 	/*
@@ -113,14 +114,14 @@ void DataModel::initDataModel(){
 bool lessSecond(const tagGameServer * m1, const tagGameServer * m2) {
 	return m1->wSortID < m2->wSortID;
 }
-void DataModel::sortVector(){
-	std::sort(tagGameServerList.begin(),tagGameServerList.end(),lessSecond);
+void DataModel::sortVector(std::vector <tagGameServer *> vTagGameServer){
+	std::sort(vTagGameServer.begin(),vTagGameServer.end(),lessSecond);
 }
-void DataModel::removeTagGameServerList(){
-	for (int i=0;i<tagGameServerList.size();i++)
+void DataModel::removeTagGameServerList(std::vector <tagGameServer *> vTagGameServer){
+	for (int i=0;i<vTagGameServer.size();i++)
 	{
-		CC_SAFE_DELETE(tagGameServerList[i]);
+		CC_SAFE_DELETE(vTagGameServer[i]);
 	}
-	tagGameServerList.clear();
-	tagGameServerList.resize(0);
+	vTagGameServer.clear();
+	vTagGameServer.resize(0);
 }

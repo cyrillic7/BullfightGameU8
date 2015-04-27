@@ -34,7 +34,6 @@ GameListerner::~GameListerner()
 void GameListerner::OnClose(TCPSocket* so, bool fromRemote)
 {
 	//End();
-	TCPSocketControl::sharedTCPSocketControl()->deleteControl();
 	CCLog("%s\n","==================================================GameListernerClose");
 }
 

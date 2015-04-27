@@ -28,7 +28,7 @@ void LogonGameListerner::OnClose(TCPSocket* so, bool fromRemote)
 
 void LogonGameListerner::OnError(TCPSocket* so, const char* e)
 {
-	CCLog("%s\n","error connection");
+	CCLog("error--------------------<<%s>>",__FUNCTION__);
 }
 
 void LogonGameListerner::OnIdle(TCPSocket* so)
@@ -54,7 +54,7 @@ bool LogonGameListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_C
 void LogonGameListerner::OnOpen(TCPSocket* so)
 {
 	ReadData rData;
-	rData.wMainCmdID=MDM_GP_SOCKET;
+	rData.wMainCmdID=MDM_MB_SOCKET;
 	rData.wSubCmdID=SUB_GP_SOCKET_OPEN;
 	rData.wDataSize=0;
 	memset(rData.sReadData,0,0);

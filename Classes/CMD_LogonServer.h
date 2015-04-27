@@ -645,8 +645,8 @@ struct CMD_MB_LogonGameID
 struct CMD_MB_LogonAccounts
 {
 	//系统信息
-	WORD							wModuleID;							//模块标识
-	DWORD							dwPlazaVersion;						//广场版本
+	WORD							wModuleID[10];						//模块标识
+	DWORD						dwPlazaVersion;						//广场版本
 	BYTE                            cbDeviceType;                       //设备类型
 
 	//登录信息
@@ -665,7 +665,7 @@ struct CMD_MB_RegisterAccounts
 {
 	//系统信息
 	WORD							wModuleID;							//模块标识
-	DWORD							dwPlazaVersion;						//广场版本
+	DWORD						dwPlazaVersion;						//广场版本
 	BYTE                            cbDeviceType;                       //设备类型
 
 	//密码变量
@@ -683,7 +683,7 @@ struct CMD_MB_RegisterAccounts
 	TCHAR							szMobilePhone[LEN_MOBILE_PHONE];	//电话号码
 };
 
-//登录成功
+/*//登录成功
 struct CMD_MB_LogonSuccess
 {
 	WORD							wFaceID;							//头像标识
@@ -693,13 +693,32 @@ struct CMD_MB_LogonSuccess
 	DWORD							dwExperience;						//经验数值
 	DWORD							dwLoveLiness;						//用户魅力
 	TCHAR							szNickName[LEN_NICKNAME];			//用户昵称
+};*/
+//登录成功
+struct CMD_MB_LogonSuccess
+{
+	WORD								wFaceID;							//头像标识
+	BYTE								cbGender;							//用户性别
+	DWORD							dwUserID;							//用户 I D
+	DWORD							dwGameID;							//游戏 I D
+	DWORD							dwExperience;						//经验数值
+	DWORD							dwLoveLiness;						//用户魅力
+
+	DWORD                           dwVipLevel;							//金币等级
+	SCORE								lIngot;								//元宝
+	SCORE								lUserScore;							//用户游戏币
+	SCORE								lIngotScore;						//元宝
+	SCORE								lUserInsure;						//用户银行
+
+	TCHAR							szNickName[LEN_NICKNAME];			//用户昵称
 };
+
 
 //登录失败
 struct CMD_MB_LogonFailure
 {
-	long							lResultCode;						//错误代码
-	TCHAR							szDescribeString[128];				//描述消息
+	long							lResultCode;								 //错误代码
+	TCHAR						szDescribeString[128];				//描述消息
 };
 
 //升级提示

@@ -19,6 +19,7 @@
 #include "PopDialogBoxLoading.h"
 #include "MD5.h"
 #include "SEvent.h"
+#include "cmd_ox.h"
 ClassicLobbyScene::ClassicLobbyScene()
 :isDeleteList(false)
 ,isEnterGame(false)
@@ -71,13 +72,13 @@ void ClassicLobbyScene::onEnter(){
 	/*UIButton* button = static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonUser"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&ClassicLobbyScene::menuResetUser));*/
 	UIButton* button=NULL;
-	for (int i = 0; i < DataModel::sharedDataModel()->tagGameServerList.size(); i++)
+	for (int i = 0; i < DataModel::sharedDataModel()->tagGameServerListOxTwo.size(); i++)
 	{
 		button = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("ButtonScene%d",i+1)->getCString()));
 		button->addTouchEventListener(this, SEL_TouchEvent(&ClassicLobbyScene::menuStar));
 		//房间描述
 		UILabel *description=static_cast<UILabel*>(m_pWidget->getWidgetByName(CCString::createWithFormat("Label%d",i)->getCString()));
-		description->setText(Tools::GBKToUTF8(DataModel::sharedDataModel()->tagGameServerList[i]->szDescription));
+		description->setText(Tools::GBKToUTF8(DataModel::sharedDataModel()->tagGameServerListOxTwo[i]->szDescription));
 	}
 
 	//添加监听事件
@@ -96,12 +97,12 @@ void ClassicLobbyScene::onExit(){
 void ClassicLobbyScene::initTCPLogon(int index){
 	PopDialogBox *pdb = PopDialogBoxLoading::create();
 	this->addChild(pdb);
-	pdb->setTag(189);
+	pdb->setTag(TAG_POP_DIALOG_BOX);
 
 	TCPSocketControl *tcp=TCPSocketControl::sharedTCPSocketControl();
-	tcp->ip=DataModel::sharedDataModel()->tagGameServerList[index]->szServerAddr;
-	tcp->port=DataModel::sharedDataModel()->tagGameServerList[index]->wServerPort;
-	CCLog("%s:%d",tcp->ip,tcp->port);
+	tcp->ip=DataModel::sharedDataModel()->tagGameServerListOxTwo[index]->szServerAddr;
+	tcp->port=DataModel::sharedDataModel()->tagGameServerListOxTwo[index]->wServerPort;
+	CCLog("-----------ip:%s     port:%d<<%s>>",tcp->ip,tcp->port,__FUNCTION__);
 	tcp->listerner=new GameListerner();
 	tcp->startSendThread();
 }
@@ -129,7 +130,10 @@ void ClassicLobbyScene::menuStar(CCObject* pSender, TouchEventType type){
 	}
 }
 void ClassicLobbyScene::popDialogBox(){
-	TCPSocketControl::sharedTCPSocketControl()->stopSocket();
+	if (TCPSocketControl::sharedTCPSocketControl()->listerner)
+	{
+		TCPSocketControl::sharedTCPSocketControl()->stopSocket();
+	}
 	Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene());
 }
 void ClassicLobbyScene::enterMainSceneByMode(int mode){
@@ -152,7 +156,7 @@ void ClassicLobbyScene::update(float delta){
 }
 void ClassicLobbyScene::onPlay(CCObject *obj){
 	//enterMainSceneByMode(1);
-	PopDialogBox *pdb=(PopDialogBoxLoading*)this->getChildByTag(189);
+	PopDialogBox *pdb=(PopDialogBoxLoading*)this->getChildByTag(TAG_POP_DIALOG_BOX);
 	pdb->removeFromParentAndCleanup(true);
 
 	isEnterGame=true;
@@ -184,9 +188,9 @@ void ClassicLobbyScene::onOpen(CCObject *obj){
 	strcpy(logonUserID.szPassword,md5PassWord.c_str());
 
 	strcpy(logonUserID.szPhoneVerifyID,"1");
-	logonUserID.wKindID=DataModel::sharedDataModel()->tagGameServerList[0]->wKindID;
+	logonUserID.wKindID=DataModel::sharedDataModel()->tagGameServerListOxTwo[0]->wKindID;
 
-	CCLog("房间名:%d",DataModel::sharedDataModel()->tagGameServerList[0]->wServerPort);
+	CCLog("房间名:%d",DataModel::sharedDataModel()->tagGameServerListOxTwo[0]->wServerPort);
 
 	int luidSize=sizeof(CMD_GR_LogonUserID);
 	bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GR_LOGON, SUB_GR_LOGON_USERID, &logonUserID, sizeof(logonUserID));
@@ -196,7 +200,7 @@ void ClassicLobbyScene::onOpen(CCObject *obj){
 	CMD_GR_LogonMobile logonMobile;
 	memset(&logonMobile, 0, sizeof(CMD_GR_LogonMobile));
 
-	logonMobile.wGameID=210;
+	logonMobile.wGameID=KIND_ID;
 	logonMobile.dwProcessVersion=VERSION_CLIENT;
 	//设备类型
 	logonMobile.cbDeviceType=DEVICE_TYPE_ANDROID;
@@ -207,6 +211,7 @@ void ClassicLobbyScene::onOpen(CCObject *obj){
 
 	MD5 m;
 	//MD5::char8 str[] = "z12345678";
+	//m.ComputMd5(str,sizeof(str)-1);
 	m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(),DataModel::sharedDataModel()->sLogonPassword.length());
 	std::string md5PassWord = m.GetMd5();
 	strcpy(logonMobile.szPassword,md5PassWord.c_str());
@@ -216,6 +221,19 @@ void ClassicLobbyScene::onOpen(CCObject *obj){
 	bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GR_LOGON, SUB_GR_LOGON_MOBILE, &logonMobile, sizeof(logonMobile));
 #endif
 	
+}
+void ClassicLobbyScene::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
+	switch (wMainCmdID)
+	{
+	case MDM_GR_LOGON:
+		onEventLogon(wSubCmdID,pDataBuffer,wDataSize);
+		break;
+	case MDM_GR_USER:
+		onSubUserState(wSubCmdID,pDataBuffer,wDataSize);
+		break;
+	default:
+		break;
+	}
 }
 //登录
 void ClassicLobbyScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){

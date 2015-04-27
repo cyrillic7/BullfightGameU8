@@ -98,7 +98,9 @@ private:
 	virtual int getChairIndex(int meChairID,int chairID)=0;
 //////////////////////////////////////////////////////////////////////////
 	//网络消息
-	void OnEventGameMessage(CCObject *pObj);
+	//void OnEventGameMessage(CCObject *pObj);
+
+	void onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//游戏中
 	void onEventGameIng(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//用户叫庄

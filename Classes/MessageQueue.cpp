@@ -14,12 +14,13 @@ void MessageQueue::update(float dt){
 		return;
 	}
 	ReadData iter =DataModel::sharedDataModel()->readDataQueue.front();
-	switch (iter.wMainCmdID)
+	onEventReadMessage(iter.wMainCmdID,iter.wSubCmdID,iter.sReadData,iter.wDataSize);
+	/*switch (iter.wMainCmdID)
 	{
-	case MDM_GR_LOGON://登录
+//	case MDM_MB_LOGON://登录
 	//case MDM_GP_LOGON:
-		onEventLogon(iter.wSubCmdID,iter.sReadData,iter.wDataSize);
-		break;
+	//	onEventLogon(iter.wSubCmdID,iter.sReadData,iter.wDataSize);
+	//	break;
 	case MDM_GR_CONFIG://配置
 		//return configEvent(so,Command.wSubCmdID,pDataBuffer,wDataSize);
 		break;
@@ -34,12 +35,10 @@ void MessageQueue::update(float dt){
 	case MDM_GF_GAME://游戏命令
 		onEventGameIng(iter.wSubCmdID,iter.sReadData,iter.wDataSize);
 		break;
-	case MDM_GP_SOCKET://socket消息
-		onEventSokcet(iter.wSubCmdID,iter.sReadData,iter.wDataSize);
-		break;
+	
 	default:
 		CCLog("other---------- %d    %d<<%s>>",iter.wMainCmdID,iter.wSubCmdID,__FUNCTION__);
 		break;
-	}
+	}*/
 	DataModel::sharedDataModel()->readDataQueue.pop();
 }

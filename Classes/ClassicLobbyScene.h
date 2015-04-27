@@ -42,6 +42,7 @@ private:
 	void onConfigFinish(CCObject *obj);
 	void onOpen(CCObject *obj);
 	
+	void onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//登录
 	void onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//用户状态

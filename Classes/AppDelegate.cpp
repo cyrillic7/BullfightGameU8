@@ -5,6 +5,8 @@
 #include "DataModel.h"
 #include "TCPSocketControl.h"
 #include "MTNotificationQueue.h"
+#include "MainSceneOxHundred.h"
+#include "GameLobbyScene.h"
 USING_NS_CC;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include "vld.h"
@@ -45,8 +47,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     pDirector->setAnimationInterval(1.0 / 60);
     // create a scene. it's an autorelease object
 	CCScene *pScene = LogonScene::scene();
-
-    // run
+	//CCScene *pScene=MainSceneOxHundred::scene();
+    //run
     pDirector->runWithScene(pScene);
 
 	CCDirector::sharedDirector()->getScheduler()->scheduleSelector(  
@@ -54,14 +56,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
 		MTNotificationQueue::sharedNotificationQueue(),  
 		1.0 / 60.0,  
 		false);
-
-
-
-	/*CCDirector::sharedDirector()->getScheduler()->scheduleSelector(
-		  schedule_selector(MTNotificationQueue::postNotifications),
-		  MTNotificationQueue::sharedNotificationQueue(),
-		  1.0 / 60.0,
-		  false);*/
     return true;
 }
 

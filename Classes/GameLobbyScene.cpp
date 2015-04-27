@@ -5,7 +5,6 @@
 //  Created by 张 恒 on 15/3/16.
 //
 //
-
 #include "GameLobbyScene.h"
 #include "Tools.h"
 #include "GameConfig.h"
@@ -14,21 +13,13 @@
 #include "ClassicLobbyScene.h"
 #include "GameControlOxHundred.h"
 #include "DataModel.h"
-#include "LogonListerner.h"
 #include "PopDialogBoxSetUp.h"
-//#include <stdio.h>
-#include "QueueData.h"
-#include "MD5.h"
-#include "TCPSocketControl.h"
-#include "SEvent.h"
+#include "MainSceneOxHundred.h"
 GameLobbyScene::GameLobbyScene()
-:deleteSocket(false){
-	scheduleUpdate();
+{
 }
 GameLobbyScene::~GameLobbyScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
-	unscheduleUpdate();
-	
 	//移除对象
 	this->removeAllChildrenWithCleanup(true);
 	//清理数据
@@ -80,76 +71,10 @@ void GameLobbyScene::onEnter(){
 	userName=static_cast<UILabel*>(m_pWidget->getWidgetByName("labelUserName"));
 	//金币
 	pLabelGoldCount=static_cast<UILabel*>(m_pWidget->getWidgetByName("LabelGoldCount"));*/
-	//添加监听事件
-	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(GameLobbyScene::callbackData),S_L_LOGON,NULL);
-	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(GameLobbyScene::onOpen),S_L_OPEN,NULL);
-	initTCPLogon();
 }
 
 void GameLobbyScene::onExit(){
-	//移除监听事件 
-	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_LOGON); 
-	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_OPEN); 
-
 	BaseLobbyScene::onExit();
-}
-void GameLobbyScene::onOpen(CCObject *obj){
-	CMD_MB_LogonAccounts logonAccounts;
-
-	logonAccounts.cbDeviceType = 2;
-	logonAccounts.dwPlazaVersion=VERSION_PLAZA;
-	strcpy(logonAccounts.szAccounts,DataModel::sharedDataModel()->sLogonAccount.c_str());
-	//strcpy(logonAccounts.szAccounts,"zhangh189");
-
-	strcpy(logonAccounts.szMachineID,"12");
-	strcpy(logonAccounts.szMobilePhone,"32");
-	strcpy(logonAccounts.szPassPortID,"12");
-	strcpy(logonAccounts.szPhoneVerifyID,"1");
-	
-
-	logonAccounts.wModuleID = 210; //210为二人牛牛标示
-
-
-	MD5 m;
-	//MD5::char8 str[] = "z12345678";
-
-	m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(),DataModel::sharedDataModel()->sLogonPassword.length());
-	std::string md5PassWord = m.GetMd5();
-
-	strcpy(logonAccounts.szPassword,md5PassWord.c_str());
-
-	bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &logonAccounts, sizeof(logonAccounts));
-	CCLog("send:%d", isSend);
-}
-void GameLobbyScene::callbackData(CCObject *obj){
-    QueueData *pData=(QueueData*)obj;
-    CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)pData->sendData.sSendData;
-    
-	
-	//CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)qData->pDataBuffer;
-	//CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)obj;
-	
-	PopDialogBoxLoading *pdb = (PopDialogBoxLoading*)this->getChildByTag(189);
-	pdb->removeFromParentAndCleanup(true);
-	//////////////////////////////////////////////////////////////////////////
-	//设置用户名
-	//char *name=DataModel::sharedDataModel()->logonSuccessUserInfo->szNickName;
-//	userName->setText(UTEXT(name));
-	
-	deleteSocket=true;
-
-}
-void GameLobbyScene::update(float dt){
-	/*char *name=DataModel::sharedDataModel()->userInfo->szNickName;
-	if(strcmp(userName->getStringValue(),"游客")==0&&strcmp(name, "") != 0)
-	{
-		userName->setText(Tools::GBKToUTF8(name));
-	}*/
-	if (deleteSocket)
-	{
-		TCPSocketControl::sharedTCPSocketControl()->stopSocket();
-		deleteSocket=false;
-	}
 }
 void GameLobbyScene::menuResetUser(CCObject* pSender, TouchEventType type){
 	switch (type)
@@ -202,30 +127,10 @@ void GameLobbyScene::enterLobbyByMode(int mode){
 		break;
 	case MODE_Hundred:
 		{
-				Tools::setTransitionAnimation(0, 0, MainScene::scene());
+			Tools::setTransitionAnimation(0, 0, MainSceneOxHundred::scene());
 		}
 		break;
 	default:
 		break;
 	}
 }
-void GameLobbyScene::initTCPLogon(){
-	TCPSocketControl *tcp=TCPSocketControl::sharedTCPSocketControl();
-	tcp->ip="125.88.145.41";
-	//tcp->ip="192.168.1.122";
-	tcp->port=8100;
-	tcp->listerner=new LogonListerner();
-	tcp->startSendThread();
-	//delete tcp->listerner;
-	/*SocketThread *socketThread=SocketThread::GetInstance();
-	//SocketThread::GetInstance()->getSocket().SetListerner(new DefaultListerner());
-	socketThread->start();
-	*/
-	PopDialogBox *pdb = PopDialogBoxLoading::create();
-	this->addChild(pdb);
-	pdb->setTag(189);
-}
-/*bool GameLobbyScene::OnEventTCPSocketRead(unsigned short wSocketID, TCP_Command tCommand, void * pDataBuffer, unsigned short wDataSize){
-	CCLog("========================");
-	return 1;
-}*/

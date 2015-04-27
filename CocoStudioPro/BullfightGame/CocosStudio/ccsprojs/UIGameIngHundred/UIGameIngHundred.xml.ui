@@ -16,7 +16,12 @@
   <filePath>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\ccsprojs\UIGameIngHundred\UIGameIngHundred.xml.ui</filePath>
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
-  <imagePngList />
+  <imageFileList>
+    <string>UIGameIngHundred.plist</string>
+  </imageFileList>
+  <imagePngList>
+    <string>UIGameIngHundred.png</string>
+  </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>UIGameIngHundred.json</CurrentUIJson>
 </UIProject>

@@ -334,7 +334,7 @@ struct ReadData
 	DWORD wDataSize;
 	char sReadData[MAX_TCP_LENGTH];
 };
-#define MDM_GP_SOCKET						9999					//socket			
+#define MDM_MB_SOCKET						9999					//socket			
 #define SUB_GP_SOCKET_OPEN			1							//连接成功
 //////////////////////////////////////////////////////////////////////////
 #endif

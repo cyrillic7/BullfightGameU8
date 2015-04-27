@@ -34,11 +34,11 @@ public:
 	static void* networkThread(void* object);
 	void initNetwork();
 	void stopSocket();
-	void deleteControl();
 	bool SendData(WORD wMainCmdID, WORD wSubCmdID, void * const pData, WORD wDataSize);
 	bool SendData(WORD wMainCmdID, WORD wSubCmdID);
 
 	TCPSocket* getTCPSocket(std::string key);
+	void stopSocket(std::string key);
 	void removeTCPSocket(std::string key);
 };
 

@@ -14,6 +14,7 @@ pthread_t threadNewwork;
 
 TCPSocketControl::TCPSocketControl()
 :isRun(true)
+,listerner(NULL)
 ,tcpSocket(NULL)
 {
 	// TODO Auto-generated constructor stub
@@ -81,9 +82,6 @@ void TCPSocketControl::initNetwork(){
 	//delete tcp;
 	CCLog("Connect:%d", isRun);
 }
-void TCPSocketControl::deleteControl(){
-	
-}
 void TCPSocketControl::stopSocket(){
 	tcpSocket->Clean();
 	tcpSocket->Close();
@@ -105,9 +103,11 @@ TCPSocket *TCPSocketControl::getTCPSocket(std::string key){
 	}
 	return iter->second;
 }
-void TCPSocketControl::removeTCPSocket(std::string key){
+void TCPSocketControl::stopSocket(std::string key){
 	getTCPSocket(key)->Clean();
 	getTCPSocket(key)->Close();
+}
+void TCPSocketControl::removeTCPSocket(std::string key){
 	delete getTCPSocket(key);
 	mTcpSocket.erase(key);
 }

@@ -21,7 +21,8 @@ public:
 
 	CCArray *m_aTagGameKind;
 
-	std::vector <tagGameServer *> tagGameServerList;
+	std::vector <tagGameServer *> tagGameServerListOxTwo;
+	std::vector <tagGameServer *> tagGameServerListOxHundred;
 	//用户信息数组
 	std::map<long ,tagUserInfo>mTagUserInfo;
 	//登录成功信息
@@ -42,7 +43,7 @@ private:
 	void initDataModel();
 public:
 	//排序vector
-	void sortVector();
+	void sortVector(std::vector <tagGameServer *> vTagGameServer);
 	//移除服务列表
-	void removeTagGameServerList();
+	void removeTagGameServerList(std::vector <tagGameServer *> vTagGameServer);
 };

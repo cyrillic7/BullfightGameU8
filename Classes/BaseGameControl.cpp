@@ -80,7 +80,7 @@ void BaseGameControl::onEnter(){
 	initTimer(pWidget);
 	resetTimer();
 	//添加监听事件
-	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(BaseGameControl::OnEventGameMessage),S_L_GAME_ING,NULL);
+	//CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(BaseGameControl::OnEventGameMessage),S_L_GAME_ING,NULL);
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(BaseGameControl::OnUserFree),S_L_US_FREE,NULL);
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(BaseGameControl::OnUserEnter),S_L_US_ENTER,NULL);
 	//主动调用一次
@@ -88,7 +88,7 @@ void BaseGameControl::onEnter(){
 }
 void BaseGameControl::onExit(){
 	//移除监听事件 
-	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_GAME_ING); 
+	//CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_GAME_ING); 
 	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_US_FREE); 
 	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_US_ENTER); 
 	CCLayer::onExit();
@@ -421,7 +421,7 @@ void BaseGameControl::update(float delta){
 }
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
-//网络消息
+/*//网络消息
 void BaseGameControl::OnEventGameMessage(CCObject *pObj){
 	if (DataModel::sharedDataModel()->readDataQueue.size()<=0)
 	{
@@ -442,6 +442,19 @@ void BaseGameControl::OnEventGameMessage(CCObject *pObj){
 		break;
 	}
 	DataModel::sharedDataModel()->readDataQueue.pop();
+}*/
+void BaseGameControl::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
+	switch (wMainCmdID)
+	{
+	case MDM_GF_GAME:
+		onEventGameIng(wSubCmdID,pDataBuffer,wDataSize);
+		break;
+	case MDM_GR_USER://用户信息
+		onSubUserState(wSubCmdID,pDataBuffer,wDataSize);
+		break;
+	default:
+		break;
+	}
 }
 //游戏中
 void BaseGameControl::onEventGameIng(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){

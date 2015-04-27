@@ -44,8 +44,14 @@ public:
 	void logonGameByAccount();
 private:
 	//网络回调////////////////////////////////////////////////////////////////////////
-	void onEventSokcet(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
+	void onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
+	//socket连接成功
+	void onEventConnect(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
+	//登录回调
 	void onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
+	//获取列表
+	void onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
+
 	//存档
 	void readRMS();
 	void initRSM();

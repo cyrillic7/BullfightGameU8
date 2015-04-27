@@ -13,18 +13,20 @@
 #include "GameLobbyScene.h"
 #include "LogonGameListerner.h"
 #include "MD5.h"
+#include "cmd_ox.h"
 LogonScene::LogonScene(){
 	readRMS();
 	scheduleUpdate();
 }
 LogonScene::~LogonScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
-	//“∆≥˝∂‘œÛ
+	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_GAME);
+	//ÁßªÈô§ÂØπË±°
 	this->removeAllChildrenWithCleanup(true);
-	//«Â¿Ì ˝æ›
+	//Ê∏ÖÁêÜÊï∞ÊçÆ
 	GUIReader::purge();
 	CCArmatureDataManager::purge();
-	//«Â¿ÌŒ∆¿Ì
+	//Ê∏ÖÁêÜÁ∫πÁêÜ 
 	CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
 	CCTextureCache::sharedTextureCache()->removeUnusedTextures();
 }
@@ -37,7 +39,7 @@ CCScene* LogonScene::scene()
 }
 void LogonScene::onEnter(){
 	CCLayer::onEnter();
-	//ÃÌº”±≥æ∞
+	//Ê∑ªÂä†ËÉåÊôØ
 	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
 	CCSprite *spriteBg=CCSprite::create("res/logon.jpg");
 	this->addChild(spriteBg);
@@ -45,13 +47,13 @@ void LogonScene::onEnter(){
 	float scale=deviceSize.height/spriteBg->getContentSize().height;
 	spriteBg->setScale(scale);
 	//////////////////////////////////////////////////////////////////////////
-	//¥¥Ω®UI≤„
+	//ÂàõÂª∫UIÂ±Ç
 	UILayer *m_pWidget = UILayer::create();
 	this->addChild(m_pWidget);
-	//º”‘ÿUI≤„
+	//Âä†ËΩΩUIÂ±Ç
 	UILayout *pWidget = dynamic_cast<UILayout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UILogon.ExportJson)));
 	m_pWidget->addWidget(pWidget);
-	//∞Û∂®∞¥º¸
+	//ÁªëÂÆöÊåâÈîÆ
 	UIButton* button;
 	for (int i = 0; i < 4; i++)
 	{
@@ -79,7 +81,7 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 				break;
 			case LOGON_QQ:
 				{
-					TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_GAME);
+					//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_GAME);
 				}
 				break;
 			default:
@@ -95,91 +97,182 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 void LogonScene::update(float delta){
 	MessageQueue::update(delta);
 }
-//µ«¬º”Œœ∑////////////////////////////////////////////////////////////////////////
+//ÁôªÂΩïÊ∏∏Êàè////////////////////////////////////////////////////////////////////////
 void LogonScene::logonGameByAccount(){
 	PopDialogBox *box=PopDialogBoxLoading::create();
 	this->addChild(box,10,TAG_LOADING);
 	TCPSocket *tcp=getSocket();
 	if (tcp)
 	{
-		tcp->createSocket("125.88.145.41",8100,new LogonGameListerner());
+		tcp->createSocket("125.88.145.41",PORT_LOGON,new LogonGameListerner());
 	}
 }
-//¡¨Ω”≥…π¶
-void LogonScene::onEventSokcet(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
+//ËØªÂèñÁΩëÁªúÊ∂àÊÅØÂõûË∞É
+void LogonScene::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
+	switch (wMainCmdID)
+	{
+		case MDM_MB_SOCKET://socketËøûÊé•ÊàêÂäü
+			onEventConnect(wSubCmdID,pDataBuffer,wDataSize);
+			break;
+		case MDM_MB_LOGON://ÁôªÂΩï 
+			onEventLogon(wSubCmdID,pDataBuffer,wDataSize);
+			break;
+		case MDM_MB_SERVER_LIST://ÂàóË°®‰ø°ÊÅØ
+			onEventServerList(wSubCmdID,pDataBuffer,wDataSize);
+			break;
+	default:
+		CCLog("other:%d   %d<<%s>>",wMainCmdID,wSubCmdID,__FUNCTION__);
+		break;
+	}
+}
+//ËøûÊé•ÊàêÂäü
+void LogonScene::onEventConnect(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
 	switch (wSubCmdID)
 	{
 	case SUB_GP_SOCKET_OPEN:
 		{
-			CMD_GP_LogonAccounts lAccounts;
-			lAccounts.dwPlazaVersion=VERSION_PLAZA;
+			CMD_MB_LogonAccounts logonAccounts;
+			logonAccounts.cbDeviceType = 2;
+			logonAccounts.dwPlazaVersion=VERSION_PLAZA;
+			strcpy(logonAccounts.szAccounts,DataModel::sharedDataModel()->sLogonAccount.c_str());
+			//strcpy(logonAccounts.szAccounts,"zhangh189");
+			strcpy(logonAccounts.szMachineID,"12");
+			strcpy(logonAccounts.szMobilePhone,"32");
+			strcpy(logonAccounts.szPassPortID,"12");
+			strcpy(logonAccounts.szPhoneVerifyID,"1");
+			//Ê∏∏ÊàèÊ†áËØÜ
+			for (int i = 0; i < 10; i++)
+			{
+				logonAccounts.wModuleID[i] =0;
+			}
+			logonAccounts.wModuleID[0] = 210; //210‰∏∫‰∫å‰∫∫ÁâõÁâõÊ†áÁ§∫
+			logonAccounts.wModuleID[1] = 30; //30‰∏∫Áôæ‰∫∫ÁâõÁâõÊ†áÁ§∫
+
 			MD5 m;
 			m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(),DataModel::sharedDataModel()->sLogonPassword.length());
 			std::string md5PassWord = m.GetMd5();
-			strcpy(lAccounts.szPassword,md5PassWord.c_str());
-			strcpy(lAccounts.szAccounts,DataModel::sharedDataModel()->sLogonAccount.c_str());
-			bool isSend=getSocket()->SendData(MDM_GP_LOGON,SUB_GP_LOGON_ACCOUNTS,&lAccounts,sizeof(CMD_GP_LogonAccounts));
-			CCLog("send:%d<<%s>>",isSend,__FUNCTION__);
+			strcpy(logonAccounts.szPassword,md5PassWord.c_str());
+			bool isSend =getSocket()->SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &logonAccounts, sizeof(logonAccounts));
+			CCLog("Logon:send:%d", isSend);
 		}
 		break;
 	default:
 		break;
 	}
 }
+//ÁôªÂΩïÊ∂àÊÅØ
 void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
 	switch (wSubCmdID)
 	{
-	case SUB_GP_LOGON_SUCCESS:
+	case SUB_MB_LOGON_SUCCESS:
 		{
-			//–ß—È≤Œ ˝
-			assert(wDataSize >= sizeof(CMD_GP_LogonSuccess));
-			if (wDataSize < sizeof(CMD_GP_LogonSuccess)) return;
-			CMD_GP_LogonSuccess *ls = (CMD_GP_LogonSuccess*)pDataBuffer;
-			//øΩ±¥ ˝æ›
-			DataModel::sharedDataModel()->userInfo->dwUserID=ls->dwUserID;
-			DataModel::sharedDataModel()->userInfo->dwGameID=ls->dwGameID;
-			DataModel::sharedDataModel()->userInfo->lScore=ls->lUserScore;
-			DataModel::sharedDataModel()->userInfo->cbGender=ls->cbGender;
+			//ÊïàÈ™åÂèÇÊï∞
+			if (wDataSize != sizeof(CMD_MB_LogonSuccess)) return ;
+			CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)pDataBuffer;
+			CCLog("ÁôªÂΩïÊàêÂäü %ld %s",ls->dwUserID,ls->szNickName);
+			//ËµãÂÄº
 			strcpy(DataModel::sharedDataModel()->userInfo->szNickName,ls->szNickName);
-			
+			DataModel::sharedDataModel()->userInfo->lScore=ls->lUserScore;
+			DataModel::sharedDataModel()->userInfo->dwGameID=ls->dwGameID;
+			DataModel::sharedDataModel()->userInfo->dwUserID=ls->dwUserID;
+			DataModel::sharedDataModel()->userInfo->cbGender=ls->cbGender;
+			DataModel::sharedDataModel()->userInfo->wFaceID=ls->wFaceID;
+
 			Tools::saveStringByRMS(RMS_LOGON_ACCOUNT,DataModel::sharedDataModel()->sLogonAccount);
 			Tools::saveStringByRMS(RMS_LOGON_PASSWORD,DataModel::sharedDataModel()->sLogonPassword);
-			
-			
 		}
 		break;
-	case SUB_GP_LOGON_FAILURE:
+	case SUB_MB_LOGON_FAILURE:
 		{
-			//–ß—È≤Œ ˝
-			assert(wDataSize >= sizeof(CMD_MB_LogonSuccess));
-			if (wDataSize < sizeof(CMD_MB_LogonSuccess)) return;
-
+			//ÊïàÈ™åÂèÇÊï∞
+			//assert(wDataSize >= sizeof(CMD_MB_LogonFailure));
+			//if (wDataSize < sizeof(CMD_MB_LogonFailure)) return;
 			CMD_MB_LogonFailure *lf = (CMD_MB_LogonFailure*)pDataBuffer;
 			long code = lf->lResultCode;
 			char *describeStr = lf->szDescribeString;
-			//CCLog("%s", describeStr);
 			this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
-			CCLog("µ«¬º ß∞‹:%s",Tools::GBKToUTF8(describeStr));
+			CCLog("ÁôªÂΩïÂ§±Ë¥•:%s",Tools::GBKToUTF8(describeStr));
 		}
 		break;
-	case SUB_GP_LOGON_FINISH:
+	case SUB_MB_UPDATE_NOTIFY:
 		{
-			TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_GAME);
+			assert(wDataSize >= sizeof(CMD_MB_UpdateNotify));
+			if (wDataSize < sizeof(CMD_MB_UpdateNotify)) return;
+			CMD_MB_UpdateNotify *lf = (CMD_MB_UpdateNotify*)pDataBuffer;
+			CCLog("ÂçáÁ∫ßÊèêÁ§∫");
+		}
+		break;
+	default:
+		break;
+	}
+}
+//Ëé∑ÂèñÂàóË°®
+void LogonScene::onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
+	switch (wSubCmdID)
+	{
+	case SUB_MB_LIST_KIND:
+		{
+			//ÊïàÈ™åÂèÇÊï∞
+			//if (wDataSize != sizeof(tagGameKind)) return false;
+			int size=sizeof(tagGameKind);
+			int count=wDataSize/sizeof(tagGameKind);
+			BYTE cbDataBuffer[SOCKET_TCP_PACKET + sizeof(TCP_Head)];
+			CopyMemory(cbDataBuffer, pDataBuffer, wDataSize);
+
+			for (int i = 0; i < count; i++)
+			{
+				tagGameKind *gs = (tagGameKind*)(cbDataBuffer + i*sizeof(tagGameKind));
+				CCLog("---<<%s>>",__FUNCTION__);
+			}
+			CCLog("Ëé∑ÂèñÊ∏∏ÊàèÁßçÁ±ª");
+		}
+		break;
+	case SUB_MB_LIST_SERVER://ÊàøÈó¥ÂàóË°®
+		{
+			int gameServerSize = sizeof(tagGameServer);
+			int serverCount = wDataSize / gameServerSize;
+
+			BYTE cbDataBuffer[SOCKET_TCP_PACKET + sizeof(TCP_Head)];
+			CopyMemory(cbDataBuffer, pDataBuffer, wDataSize);
+
+			DataModel::sharedDataModel()->removeTagGameServerList(DataModel::sharedDataModel()->tagGameServerListOxTwo);
+			DataModel::sharedDataModel()->removeTagGameServerList(DataModel::sharedDataModel()->tagGameServerListOxHundred);
+			for (int i = 0; i < serverCount; i++)
+			{
+				void * pDataBuffer = cbDataBuffer + i*sizeof(tagGameServer);
+				tagGameServer *gameServer = (tagGameServer*)pDataBuffer;
+				tagGameServer *tempTag=new tagGameServer();
+				memcpy(tempTag,gameServer,sizeof(tagGameServer));
+				//memcoyp(gameServer,0,sizeof(tagGameServer));
+				if (tempTag->wKindID==KIND_ID)
+				{
+					DataModel::sharedDataModel()->tagGameServerListOxTwo.push_back(tempTag);
+				}else if(tempTag->wKindID==30)
+				{
+					DataModel::sharedDataModel()->tagGameServerListOxHundred.push_back(tempTag);
+				}
+				
+				//sort(DataModel::sharedDataModel()->tagGameServerList.begin(), DataModel::sharedDataModel()->tagGameServerList.end(), less_second);
+
+                CCLog("port-----:%d ",tempTag->wServerPort);
+			}
+			DataModel::sharedDataModel()->sortVector(DataModel::sharedDataModel()->tagGameServerListOxTwo);
+			DataModel::sharedDataModel()->sortVector(DataModel::sharedDataModel()->tagGameServerListOxHundred);
+		}
+		break;
+	case SUB_MB_LIST_FINISH:
+		{
+			TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_GAME);
 			Tools::setTransitionAnimation(0,0,GameLobbyScene::scene());
 		}
 		break;
-	case SUB_GP_VALIDATE_MBCARD:
-		CCLog("validate_mbcard<<%s>>",__FUNCTION__);
-		break;
-	case SUB_GP_UPDATE_NOTIFY:
-		CCLog("update_notify<<%s>>",__FUNCTION__);
-		break;
 	default:
+		CCLog("other:%d<<%s>>",wSubCmdID,__FUNCTION__);
 		break;
 	}
 }
 /************************************************************************/
-/* ¥Êµµ                                                                     */
+/* Â≠òÊ°£                                                                     */
 /************************************************************************/
 void LogonScene::readRMS(){
 	if (isHaveSaveFile()) {

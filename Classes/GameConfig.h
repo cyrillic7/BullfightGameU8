@@ -31,7 +31,8 @@
 #define K_Z_ORDER_POP 3//弹出层
 
 //标识////////////////////////////////////////////////////////////////////////
-#define TAG_LOADING 1000 //加载中
+#define TAG_LOADING									1000							//加载中
+#define TAG_POP_DIALOG_BOX						1001							//弹出框
 
 
 
