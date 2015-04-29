@@ -19,7 +19,7 @@ USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
 #define MAX_TIMER		10		//计时器最大值
-class BaseGameControl:public CCLayer,GameLogic,public MessageQueue
+class GameControlBase:public CCLayer,GameLogic,public MessageQueue
 {
 private:
 	//操作者提示动画
@@ -34,23 +34,26 @@ private:
 	UIPanel *pBetting;
 	//加注按键
 	UIButton *pbBetting[4];
-	//计时器
-	UIImageView *pITimer;
-	//计时器数字
-	UILabelAtlas *pLTimerNum;
-	//计时变量
-	int iTimerCount;
 	//庄家用户
 	BYTE wBankerUser;
 	//游戏结算层
 	GameEndLayer *pEndLayer;
 public:
-	BaseGameControl();
-	~BaseGameControl();
+	//计时器
+	UIImageView *pITimer;
+	//计时器数字
+	UILabelAtlas *pLTimerNum;
+	//计时器提示内容
+	UILabel *pLTimerPromptContent;
+	//计时变量
+	int iTimerCount;
+public:
+	GameControlBase();
+	~GameControlBase();
 	virtual void onEnter();
 	virtual void onExit();
 	//更新消息
-	void update(float delta);
+	virtual void update(float delta);
 	//更新状态
 	void updateState();
 public:
@@ -60,19 +63,19 @@ public:
 	void hideActionPrompt();
 	//获取庄家视图位置
 	int getBankViewID();
+	//设置计时器
+	void resetTimer(float time,const char * promptContent);
+	//隐藏计时器
+	void hideTimer();
 private:
 	//初始化操作者提示动画
 	void initActionPrompt();
 	//初始化计时器
 	void initTimer(UILayer *pWidget);
-	//设置计时器
-	void resetTimer();
-	//隐藏计时器
-	void hideTimer();
 	//更新计时器
 	void updateTimer(float dt);
 	//延时操作
-	void delayedAction();
+	virtual void delayedAction();
 private:
 	//菜单////////////////////////////////////////////////////////////////////////
 	void menuPause(CCObject* pSender, TouchEventType type);
@@ -100,7 +103,7 @@ private:
 	//网络消息
 	//void OnEventGameMessage(CCObject *pObj);
 
-	void onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
+	virtual void onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//游戏中
 	void onEventGameIng(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//用户叫庄
@@ -126,7 +129,7 @@ private:
 	void OnEventUserState(WORD	 wSubCmdID,const void * pBuffer, WORD wDataSize);
 
 	//用户状态
-	void onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
+	virtual void onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 
 private:
 	void goldJump(int index,CCPoint beginPos,CCPoint endPos);

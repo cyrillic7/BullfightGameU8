@@ -31,7 +31,7 @@ void PopDialogBoxUserInfo::onEnter(){
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));
 	//设置游戏ID
 	UILabel *labelUserID=static_cast<UILabel*>(pUILayer->getWidgetByName("LabelUserID"));
-	labelUserID->setText(CCString::createWithFormat("ID:%d",DataModel::sharedDataModel()->userInfo->dwGameID)->getCString());
+	labelUserID->setText(CCString::createWithFormat("ID:%ld",DataModel::sharedDataModel()->userInfo->dwGameID)->getCString());
 	//昵称输入框
 	pLabelNickName=static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldNickName"));
 	pLabelNickName->setText(Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName));

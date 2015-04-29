@@ -15,6 +15,10 @@ USING_NS_CC;
 #include "pthread/pthread.h"
 #endif
 
+//Socket名字////////////////////////////////////////////////////////////////////////
+#define SOCKET_LOGON_GAME						"socketLogonGame"				//登录游戏
+#define SOCKET_LOGON_ROOM						"socketLogonRoom"				//登录房间
+
 class TCPSocketControl {
 public:
 	const char* ip;

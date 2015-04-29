@@ -14,6 +14,7 @@
 #include "MTNotificationQueue.h"
 #include "QueueData.h"
 #include "SEvent.h"
+//#include "MessageQueue.cpp"
 using namespace std;
 LogonGameListerner::LogonGameListerner()
 {
@@ -42,15 +43,15 @@ void LogonGameListerner::OnIdle(TCPSocket* so)
  */
 bool LogonGameListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Command Command, void * pDataBuffer, unsigned short wDataSize)
 {
+	//LifeCircleMutexLock1(&sharedNotificationQueueLock1); 
 	ReadData rData;
 	rData.wMainCmdID=Command.wMainCmdID;
 	rData.wSubCmdID=Command.wSubCmdID;
 	rData.wDataSize=wDataSize;
-	memcpy(rData.sReadData,pDataBuffer,wDataSize);
-	DataModel::sharedDataModel()->readDataQueue.push(rData);
+	memmove(rData.sReadData,pDataBuffer,wDataSize);
+	MessageQueue::pushQueue(rData);
 	return true;
 }
-
 void LogonGameListerner::OnOpen(TCPSocket* so)
 {
 	ReadData rData;
@@ -58,5 +59,5 @@ void LogonGameListerner::OnOpen(TCPSocket* so)
 	rData.wSubCmdID=SUB_GP_SOCKET_OPEN;
 	rData.wDataSize=0;
 	memset(rData.sReadData,0,0);
-	DataModel::sharedDataModel()->readDataQueue.push(rData);
+	MessageQueue::pushQueue(rData);
 }

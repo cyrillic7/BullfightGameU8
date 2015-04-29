@@ -6,7 +6,7 @@
 //
 //
 
-#include "BaseGameControl.h"
+#include "GameControlBase.h"
 #include "GameConfig.h"
 #include "DataModel.h"
 #include "GameLobbyScene.h"
@@ -17,17 +17,18 @@
 #include "cmd_ox.h"
 #include "QueueData.h"
 #include "SEvent.h"
-BaseGameControl::BaseGameControl()
-:pEndLayer(NULL){
+GameControlBase::GameControlBase()
+:pEndLayer(NULL)
+,pLTimerPromptContent(NULL){
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationActionPrompt.ExportJson));
-	schedule(SEL_SCHEDULE(&BaseGameControl::updateTimer),1);
+	schedule(SEL_SCHEDULE(&GameControlBase::updateTimer),1);
 	scheduleUpdate();
 }
-BaseGameControl::~BaseGameControl(){
-	unschedule(SEL_SCHEDULE(&BaseGameControl::updateTimer));
+GameControlBase::~GameControlBase(){
+	unschedule(SEL_SCHEDULE(&GameControlBase::updateTimer));
 	unscheduleUpdate();
 }
-void BaseGameControl::onEnter(){
+void GameControlBase::onEnter(){
 	CCLayer::onEnter();
 	UILayer *pWidget = UILayer::create();
 	this->addChild(pWidget);
@@ -38,21 +39,21 @@ void BaseGameControl::onEnter(){
 	pWidget->addWidget(pLayout);
 	
 	UIButton* button = static_cast<UIButton*>(pWidget->getWidgetByName("buttonPause"));
-	button->addTouchEventListener(this, SEL_TouchEvent(&BaseGameControl::menuPause));
+	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuPause));
 
 	//设置牛牛容器
 	pOptOx = static_cast<UIPanel*>(pWidget->getWidgetByName("optOxPanel"));
 	pOptOx->setEnabled(false);
 
 	button = static_cast<UIButton*>(pWidget->getWidgetByName("buttonOx"));
-	button->addTouchEventListener(this, SEL_TouchEvent(&BaseGameControl::menuOpenCard));
+	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuOpenCard));
 	
 	button = static_cast<UIButton*>(pWidget->getWidgetByName("buttonPrompt"));
-	button->addTouchEventListener(this, SEL_TouchEvent(&BaseGameControl::menuPrompt));
+	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuPrompt));
 	
 	//绑定准备按键
 	button = static_cast<UIButton*>(pWidget->getWidgetByName("buttonReady"));
-	button->addTouchEventListener(this, SEL_TouchEvent(&BaseGameControl::menuReady));
+	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuReady));
 	//准备容器
 	pPanelReady=static_cast<UIPanel*>(pWidget->getWidgetByName("PanelReady"));
 	//抢庄容器
@@ -60,10 +61,10 @@ void BaseGameControl::onEnter(){
 	pFightForBanker->setEnabled(false);
 	//不抢庄
 	button = static_cast<UIButton*>(pFightForBanker->getChildByName("notFightButton"));
-	button->addTouchEventListener(this, SEL_TouchEvent(&BaseGameControl::menuNotFight));
+	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuNotFight));
 	//抢庄
 	button = static_cast<UIButton*>(pFightForBanker->getChildByName("fightButton"));
-	button->addTouchEventListener(this, SEL_TouchEvent(&BaseGameControl::menuFight));
+	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuFight));
 	//投注容器
 	pBetting=static_cast<UIPanel*>(pWidget->getWidgetByName("bettingPanel"));
 	pBetting->setEnabled(false);
@@ -71,22 +72,22 @@ void BaseGameControl::onEnter(){
 	for (int i = 0; i < 4; i++)
 	{
 		pbBetting[i] = static_cast<UIButton*>(pBetting->getChildByName(CCString::createWithFormat("bettingButton%d",i+1)->getCString()));
-		pbBetting[i]->addTouchEventListener(this, SEL_TouchEvent(&BaseGameControl::menuBetting));
+		pbBetting[i]->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuBetting));
 	}
 	//设置用户名
 	const char *name=Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName);
 	//DataModel::sharedDataModel()->getMainScene()->playerLayer->setUserName(3,name);
 	//初始化计时器
 	initTimer(pWidget);
-	resetTimer();
+	resetTimer(MAX_TIMER,NULL);
 	//添加监听事件
 	//CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(BaseGameControl::OnEventGameMessage),S_L_GAME_ING,NULL);
-	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(BaseGameControl::OnUserFree),S_L_US_FREE,NULL);
-	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(BaseGameControl::OnUserEnter),S_L_US_ENTER,NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(GameControlBase::OnUserFree),S_L_US_FREE,NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(GameControlBase::OnUserEnter),S_L_US_ENTER,NULL);
 	//主动调用一次
 	OnUserEnter(NULL);
 }
-void BaseGameControl::onExit(){
+void GameControlBase::onExit(){
 	//移除监听事件 
 	//CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_GAME_ING); 
 	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_US_FREE); 
@@ -94,29 +95,34 @@ void BaseGameControl::onExit(){
 	CCLayer::onExit();
 }
 //初始化操作者提示动画
-void BaseGameControl::initActionPrompt(){
+void GameControlBase::initActionPrompt(){
 	pArmatureActionPrompt = CCArmature::create("AnimationActionPrompt");
 	this->addChild(pArmatureActionPrompt,2);
 	pArmatureActionPrompt->setPosition(DataModel::sharedDataModel()->deviceSize.width/2,DataModel::sharedDataModel()->deviceSize.height/2);
 	hideActionPrompt();
 }
-void BaseGameControl::initTimer(UILayer *pWidget){
+void GameControlBase::initTimer(UILayer *pWidget){
 	pITimer = static_cast<UIImageView*>(pWidget->getWidgetByName("ImageTimer"));
 	pITimer->setVisible(false);
 
 	pLTimerNum=static_cast<UILabelAtlas*>(pWidget->getWidgetByName("AtlasLabelTimer"));
 	iTimerCount=-1;
 }
-void BaseGameControl::resetTimer(){
-	iTimerCount=MAX_TIMER;
+void GameControlBase::resetTimer(float time,const char * promptContent){
+	iTimerCount=time;
 	pLTimerNum->setStringValue(CCString::createWithFormat("%d",iTimerCount)->getCString());
 	pITimer->setVisible(true);
+	if (pLTimerPromptContent)
+	{
+		pLTimerPromptContent->setText(promptContent);
+		//pITimer->setContentSize(CCSize(pLTimerPromptContent->getContentSize().width,pITimer->getContentSize().height));
+	}
 }
-void BaseGameControl::hideTimer(){
+void GameControlBase::hideTimer(){
 	pITimer->setVisible(false);
 	iTimerCount=-1;
 }
-void BaseGameControl::updateTimer(float dt){
+void GameControlBase::updateTimer(float dt){
 	iTimerCount--;
 	if (iTimerCount<0)
 	{
@@ -129,7 +135,7 @@ void BaseGameControl::updateTimer(float dt){
 	
 	pLTimerNum->setStringValue(CCString::createWithFormat("%d",iTimerCount)->getCString());
 }
-void BaseGameControl::delayedAction(){
+void GameControlBase::delayedAction(){
 	switch (DataModel::sharedDataModel()->getMainScene()->getGameState())
 	{
 	case MainScene::STATE_READY:
@@ -163,7 +169,7 @@ void BaseGameControl::delayedAction(){
 		break;
 	}
 }
-void BaseGameControl::menuPause(CCObject* pSender, TouchEventType type){
+void GameControlBase::menuPause(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
 	case TOUCH_EVENT_ENDED:
@@ -177,7 +183,7 @@ void BaseGameControl::menuPause(CCObject* pSender, TouchEventType type){
 	}
 }
 //开牌
-void BaseGameControl::menuOpenCard(CCObject* pSender, TouchEventType type){
+void GameControlBase::menuOpenCard(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
 	case TOUCH_EVENT_ENDED:
@@ -203,7 +209,7 @@ void BaseGameControl::menuOpenCard(CCObject* pSender, TouchEventType type){
 	}
 }
 //提示
-void BaseGameControl::menuPrompt(CCObject* pSender, TouchEventType type){
+void GameControlBase::menuPrompt(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
 	case TOUCH_EVENT_ENDED:
@@ -220,7 +226,7 @@ void BaseGameControl::menuPrompt(CCObject* pSender, TouchEventType type){
 	}
 }
 //更换桌子
-void BaseGameControl::menuChangeChair(CCObject* pSender, TouchEventType type){
+void GameControlBase::menuChangeChair(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
 	case TOUCH_EVENT_ENDED:
@@ -234,7 +240,7 @@ void BaseGameControl::menuChangeChair(CCObject* pSender, TouchEventType type){
 	}
 }
 //准备按键
-void BaseGameControl::menuReady(CCObject* pSender, TouchEventType type){
+void GameControlBase::menuReady(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
 	case TOUCH_EVENT_ENDED:
@@ -263,7 +269,7 @@ void BaseGameControl::menuReady(CCObject* pSender, TouchEventType type){
 	}
 }
 //不抢庄
-void BaseGameControl::menuNotFight(CCObject* pSender, TouchEventType type){
+void GameControlBase::menuNotFight(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
 	case TOUCH_EVENT_ENDED:
@@ -284,7 +290,7 @@ void BaseGameControl::menuNotFight(CCObject* pSender, TouchEventType type){
 	}
 }
 //抢庄
-void BaseGameControl::menuFight(CCObject* pSender, TouchEventType type){
+void GameControlBase::menuFight(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
 	case TOUCH_EVENT_ENDED:
@@ -308,7 +314,7 @@ void BaseGameControl::menuFight(CCObject* pSender, TouchEventType type){
 	}
 }
 //投注
-void BaseGameControl::menuBetting(CCObject* pSender, TouchEventType type){
+void GameControlBase::menuBetting(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
 	case TOUCH_EVENT_ENDED:
@@ -337,12 +343,12 @@ void BaseGameControl::menuBetting(CCObject* pSender, TouchEventType type){
 		break;
 	}
 }
-void BaseGameControl::updateState(){
+void GameControlBase::updateState(){
 	switch (DataModel::sharedDataModel()->getMainScene()->getGameState())
 	{
 	case MainScene::STATE_READY:
 		{
-			resetTimer();
+			resetTimer(MAX_TIMER,NULL);
 			//移除结算层
 			if (pEndLayer)
 			{
@@ -355,21 +361,21 @@ void BaseGameControl::updateState(){
 		break;
 	case MainScene::STATE_CALL_BANKER:
 	{
-		resetTimer();
+		resetTimer(MAX_TIMER,NULL);
 		pFightForBanker->setEnabled(true);
 		pPanelReady->setEnabled(false);
 	}
 		break;
 	case MainScene::STATE_OPT_OX:
 	{
-		resetTimer();
+		resetTimer(MAX_TIMER,NULL);
 		pOptOx->setEnabled(true);
 		pFightForBanker->setEnabled(false);
 	}
 		break;
 	case MainScene::STATE_BETTING:
 	{
-		resetTimer();
+		resetTimer(MAX_TIMER,NULL);
 		pBetting->setEnabled(true);
 	}
 		break;
@@ -380,7 +386,7 @@ void BaseGameControl::updateState(){
 		break;
 	case MainScene::STATE_GAME_END:
 	{
-		resetTimer();
+		resetTimer(MAX_TIMER,NULL);
 		pOptOx->setEnabled(false);
 		pPanelReady->setEnabled(false);
 		pFightForBanker->setEnabled(false);
@@ -392,15 +398,15 @@ void BaseGameControl::updateState(){
 	}
 }
 //显示指定索引提示动画
-void BaseGameControl::showActionPrompt(int promptIndex){
+void GameControlBase::showActionPrompt(int promptIndex){
 	pArmatureActionPrompt->setVisible(true);
 	pArmatureActionPrompt->getAnimation()->play(CCString::createWithFormat("Animation%d",promptIndex)->getCString());
 }
-void BaseGameControl::hideActionPrompt(){
+void GameControlBase::hideActionPrompt(){
 	pArmatureActionPrompt->setVisible(false);
 }
 //获取庄家视图位置
-int BaseGameControl::getBankViewID(){
+int GameControlBase::getBankViewID(){
 	if (getMeChairID()==wBankerUser)
 	{
 		return 3;
@@ -408,14 +414,14 @@ int BaseGameControl::getBankViewID(){
 	return 0;
 }
 //获取我的椅子位置
-int BaseGameControl::getMeChairID(){
+int GameControlBase::getMeChairID(){
 	return DataModel::sharedDataModel()->userInfo->wChairID;
 }
 //是不是观察者
-bool BaseGameControl::IsLookonMode(){
+bool GameControlBase::IsLookonMode(){
 	return false;
 }
-void BaseGameControl::update(float delta){
+void GameControlBase::update(float delta){
 	MessageQueue::update(delta);
 	//OnEventGameMessage(NULL);
 }
@@ -443,7 +449,7 @@ void BaseGameControl::OnEventGameMessage(CCObject *pObj){
 	}
 	DataModel::sharedDataModel()->readDataQueue.pop();
 }*/
-void BaseGameControl::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
+void GameControlBase::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
 	switch (wMainCmdID)
 	{
 	case MDM_GF_GAME:
@@ -457,7 +463,7 @@ void BaseGameControl::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * p
 	}
 }
 //游戏中
-void BaseGameControl::onEventGameIng(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
+void GameControlBase::onEventGameIng(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
 	switch (wSubCmdID)
 	{
 	case SUB_S_CALL_BANKER:	//用户叫庄
@@ -512,12 +518,12 @@ void BaseGameControl::onEventGameIng(WORD wSubCmdID,void * pDataBuffer, unsigned
 		}
 		break;
 	default:
-		CCLog("--------------------gameIng:%d",wSubCmdID);
+		CCLog("--------------------gameIng:%d<<%s>>",wSubCmdID,__FUNCTION__);
 		break;
 	}
 }
 //用户叫庄
-bool BaseGameControl::OnSubCallBanker(const void * pBuffer, WORD wDataSize){
+bool GameControlBase::OnSubCallBanker(const void * pBuffer, WORD wDataSize){
 	//效验数据 
 	if (wDataSize!=sizeof(CMD_S_CallBanker)) return false;
 	CMD_S_CallBanker * pCallBanker=(CMD_S_CallBanker *)pBuffer;
@@ -616,7 +622,7 @@ bool BaseGameControl::OnSubCallBanker(const void * pBuffer, WORD wDataSize){
 	return true;
 }
 //游戏开始
-bool BaseGameControl::OnSubGameStart(const void * pBuffer, WORD wDataSize){
+bool GameControlBase::OnSubGameStart(const void * pBuffer, WORD wDataSize){
 	//效验数据
 	if (wDataSize!=sizeof(CMD_S_GameStart)) return false;
 	CMD_S_GameStart * pGameStart=(CMD_S_GameStart *)pBuffer;
@@ -647,7 +653,7 @@ bool BaseGameControl::OnSubGameStart(const void * pBuffer, WORD wDataSize){
 }
 
 //用户下注
-bool BaseGameControl::OnSubAddScore(const void * pBuffer, WORD wDataSize)
+bool GameControlBase::OnSubAddScore(const void * pBuffer, WORD wDataSize)
 {
 	//效验数据
 	if (wDataSize!=sizeof(CMD_S_AddScore)) return false;
@@ -683,7 +689,7 @@ bool BaseGameControl::OnSubAddScore(const void * pBuffer, WORD wDataSize)
 }
 
 //发牌消息
-bool BaseGameControl::OnSubSendCard(const void * pBuffer, WORD wDataSize)
+bool GameControlBase::OnSubSendCard(const void * pBuffer, WORD wDataSize)
 {
 	//效验数据
 	if (wDataSize!=sizeof(CMD_S_SendCard)) return false;
@@ -745,7 +751,7 @@ bool BaseGameControl::OnSubSendCard(const void * pBuffer, WORD wDataSize)
 }
 
 //用户摊牌
-bool BaseGameControl::OnSubOpenCard(const void * pBuffer, WORD wDataSize)
+bool GameControlBase::OnSubOpenCard(const void * pBuffer, WORD wDataSize)
 {
 	//效验数据
 	if (wDataSize!=sizeof(CMD_S_Open_Card)) return false;
@@ -771,7 +777,7 @@ bool BaseGameControl::OnSubOpenCard(const void * pBuffer, WORD wDataSize)
 }
 
 //用户强退
-bool BaseGameControl::OnSubPlayerExit(const void * pBuffer, WORD wDataSize)
+bool GameControlBase::OnSubPlayerExit(const void * pBuffer, WORD wDataSize)
 {
 	//效验数据
 	if (wDataSize!=sizeof(CMD_S_PlayerExit)) return false;
@@ -797,7 +803,7 @@ bool BaseGameControl::OnSubPlayerExit(const void * pBuffer, WORD wDataSize)
 }
 
 //游戏结束
-bool BaseGameControl::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
+bool GameControlBase::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 {
 	//效验参数
 	if (wDataSize!=sizeof(CMD_S_GameEnd)) return false;
@@ -1063,12 +1069,12 @@ bool BaseGameControl::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 	return true;
 }
 
-void BaseGameControl::OnUserFree(CCObject *obj){
+void GameControlBase::OnUserFree(CCObject *obj){
 	CCMessageBox("长时间不操作，自动退出！","提示");
 	Tools::setTransitionAnimation(0,0,GameLobbyScene::scene());
 	CCLog("退出 ");
 }
-void BaseGameControl::OnUserEnter(CCObject *obj){
+void GameControlBase::OnUserEnter(CCObject *obj){
 	std::map<long,tagUserInfo>::iterator iter;
 	for (iter = DataModel::sharedDataModel()->mTagUserInfo.begin(); iter != DataModel::sharedDataModel()->mTagUserInfo.end(); iter++)
 	{
@@ -1085,10 +1091,10 @@ void BaseGameControl::OnUserEnter(CCObject *obj){
 	}
 	DataModel::sharedDataModel()->mTagUserInfo.clear();
 }
-void BaseGameControl::OnEventUserState(WORD wSubCmdID,const void * pBuffer, WORD wDataSize){
+void GameControlBase::OnEventUserState(WORD wSubCmdID,const void * pBuffer, WORD wDataSize){
 
 }
-void BaseGameControl::onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
+void GameControlBase::onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
 	CMD_GR_UserStatus *info= (CMD_GR_UserStatus*)pDataBuffer;
 	switch (info->UserStatus.cbUserStatus)
 	{
@@ -1137,7 +1143,7 @@ void BaseGameControl::onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned
 	}
 }
 
-void BaseGameControl::goldJump(int index,CCPoint beginPos,CCPoint endPos){
+void GameControlBase::goldJump(int index,CCPoint beginPos,CCPoint endPos){
 	beginPos=ccpAdd(beginPos,ccp(rand()%140,rand()%80));
 	
 	endPos=ccpAdd(endPos,ccp(rand()%30,rand()%30));
@@ -1156,9 +1162,9 @@ void BaseGameControl::goldJump(int index,CCPoint beginPos,CCPoint endPos){
 		NULL);
 	gold->runAction(CCSequence::create(
 		spa,
-		CCCallFuncN::create(this,SEL_CallFuncN(&BaseGameControl::onGoldJump))
+		CCCallFuncN::create(this,SEL_CallFuncN(&GameControlBase::onGoldJump))
 		,NULL));
 }
-void BaseGameControl::onGoldJump(CCNode *node){
+void GameControlBase::onGoldJump(CCNode *node){
 	node->removeFromParentAndCleanup(true);
 }

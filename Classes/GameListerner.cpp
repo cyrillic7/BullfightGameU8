@@ -92,8 +92,8 @@ bool GameListerner::logonEvent(TCPSocket* pSocket,TCP_Command cmd,void * pDataBu
 	rData.wMainCmdID=cmd.wMainCmdID;
 	rData.wSubCmdID=cmd.wSubCmdID;
 	rData.wDataSize=wDataSize;
-	memcpy(rData.sReadData, pDataBuffer, wDataSize);
-	DataModel::sharedDataModel()->readDataQueue.push(rData);
+	memmove(&rData.sReadData, &pDataBuffer, wDataSize);
+	MessageQueue::pushQueue(rData);
 	/*if (wSubCmdID == SUB_GR_UPDATE_NOTIFY)
 	{
 		//效验参数
@@ -157,8 +157,18 @@ bool GameListerner::configEvent(TCPSocket* pSocket,WORD wSubCmdID,void * pDataBu
 	case SUB_GR_CONFIG_FINISH:
 		{
 			CCLog("配置完成");
-
-			MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_CONFIG_FINISH,NULL);
+			//构造数据
+			CMD_GF_GameOption GameOption;
+			GameOption.dwFrameVersion=VERSION_FRAME;
+			GameOption.cbAllowLookon=0;
+			GameOption.dwClientVersion=VERSION_CLIENT;
+			//发送
+			bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_FRAME, SUB_GF_GAME_OPTION, &GameOption, sizeof(GameOption));
+			if (isSend)
+			{
+					MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_CONFIG_FINISH,NULL);
+			}
+		
 			/*CMD_GR_UserSitDown sit;
 			sit.wTableID=28;
 			sit.wChairID=1;
@@ -253,10 +263,8 @@ bool GameListerner::gameEvent(TCPSocket* pSocket,TCP_Command cmd,void * pDataBuf
 	rData.wMainCmdID=cmd.wMainCmdID;
 	rData.wSubCmdID=cmd.wSubCmdID;
 	rData.wDataSize=wDataSize;
-	memcpy(rData.sReadData, pDataBuffer, wDataSize);
-	//pthread_mutex_lock(&sResponseQueueMutex);
-	DataModel::sharedDataModel()->readDataQueue.push(rData);
-	//pthread_mutex_unlock(&sResponseQueueMutex); 
+	memmove(&rData.sReadData, &pDataBuffer, wDataSize);
+	MessageQueue::pushQueue(rData);
 	return true;
 }
 //////////////////////////////////////////////////////////////////////////
@@ -448,8 +456,8 @@ bool GameListerner::OnSocketSubUserState(TCPSocket *pSocket,TCP_Command cmd,void
 	rData.wMainCmdID=cmd.wMainCmdID;
 	rData.wSubCmdID=cmd.wSubCmdID;
 	rData.wDataSize=wDataSize;
-	memcpy(rData.sReadData, pDataBuffer, wDataSize);
-	DataModel::sharedDataModel()->readDataQueue.push(rData);
+	memmove(&rData.sReadData, &pDataBuffer, wDataSize);
+	MessageQueue::pushQueue(rData);
 	/*
 	int size =sizeof(CMD_GR_UserStatus);
 	CMD_GR_UserStatus *info= (CMD_GR_UserStatus*)pDataBuffer;

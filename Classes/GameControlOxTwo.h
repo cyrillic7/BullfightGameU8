@@ -6,8 +6,8 @@
 //
 //
 #pragma once
-#include "BaseGameControl.h"
-class GameControlOxTwo:public BaseGameControl
+#include "GameControlBase.h"
+class GameControlOxTwo:public GameControlBase
 {
 public:
 	GameControlOxTwo();

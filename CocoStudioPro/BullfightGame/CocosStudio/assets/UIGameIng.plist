@@ -82,6 +82,19 @@
                 <key>sourceSize</key>
                 <string>{78,35}</string>
             </dict>
+            <key>u_gi_gold_bg.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{118,774},{33,25}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{33,25}}</string>
+                <key>sourceSize</key>
+                <string>{33,25}</string>
+            </dict>
             <key>u_gi_lobby_type0.png</key>
             <dict>
                 <key>frame</key>
@@ -238,19 +251,6 @@
                 <key>sourceSize</key>
                 <string>{98,77}</string>
             </dict>
-            <key>图标金币.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{118,801},{27,26}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{27,26}}</string>
-                <key>sourceSize</key>
-                <string>{27,26}</string>
-            </dict>
             <key>游戏中会话.png</key>
             <dict>
                 <key>frame</key>
@@ -342,19 +342,6 @@
                 <key>sourceSize</key>
                 <string>{27,26}</string>
             </dict>
-            <key>金币背景.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{118,774},{33,25}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{33,25}}</string>
-                <key>sourceSize</key>
-                <string>{33,25}</string>
-            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -365,7 +352,7 @@
             <key>size</key>
             <string>{154,841}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:419f193cc86e99c490f112aba105218b:f3b425b240585584c8fa2634f75f1ce6:ca83526fc713a10942f5ff4e6a514509$</string>
+            <string>$TexturePacker:SmartUpdate:92a35d36e62a1ba39005470564e61799:b118a907837b0745cb804c34ef189f09:ca83526fc713a10942f5ff4e6a514509$</string>
             <key>textureFileName</key>
             <string>UIGameIng.png</string>
         </dict>

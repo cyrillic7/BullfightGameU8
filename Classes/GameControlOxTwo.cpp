@@ -15,10 +15,10 @@ GameControlOxTwo::~GameControlOxTwo(){
 
 }
 void GameControlOxTwo::onEnter(){
-	BaseGameControl::onEnter();
+	GameControlBase::onEnter();
 }
 void GameControlOxTwo::onExit(){
-	BaseGameControl::onExit();
+	GameControlBase::onExit();
 }
 int GameControlOxTwo::getChairIndex(int meChairID,int chairID){
 	if (meChairID==0)

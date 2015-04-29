@@ -3,6 +3,39 @@
 #include "MessageQueue.h"
 #include "DataModel.h"
 #include "CMD_GameServer.h"
+//////////////////////////////////////////////////////////////////////////
+#include <pthread.h>
+pthread_mutex_t sharedNotificationQueueLock1;
+
+class LifeManager_PThreadMutex1  
+{  
+	pthread_mutex_t* mutex;  
+public:  
+	LifeManager_PThreadMutex1(pthread_mutex_t* mut) : mutex(mut)  
+	{  
+		pthread_mutex_init(mutex, NULL);  
+	}  
+	~LifeManager_PThreadMutex1()  
+	{  
+		pthread_mutex_destroy(mutex);  
+	}  
+}__LifeManager_sharedNotificationQueueLock1(&sharedNotificationQueueLock1);
+class LifeCircleMutexLocker1
+{  
+	pthread_mutex_t* mutex1;  
+
+public:  
+	LifeCircleMutexLocker1(pthread_mutex_t* aMutex) : mutex1(aMutex)  
+	{  
+		pthread_mutex_lock(mutex1);  
+	}  
+	~LifeCircleMutexLocker1(){  
+		pthread_mutex_unlock(mutex1);  
+	}  
+};  
+
+#define LifeCircleMutexLock1(mutex) LifeCircleMutexLocker1 __locker__(mutex) 
+//////////////////////////////////////////////////////////////////////////
 MessageQueue::MessageQueue()
 {
 }
@@ -13,7 +46,13 @@ void MessageQueue::update(float dt){
 	{
 		return;
 	}
-	ReadData iter =DataModel::sharedDataModel()->readDataQueue.front();
+	if (DataModel::sharedDataModel()->readDataQueue.empty())
+	{
+		return;
+	}
+	LifeCircleMutexLock1(&sharedNotificationQueueLock1); 
+
+ 	ReadData iter =DataModel::sharedDataModel()->readDataQueue.front();
 	onEventReadMessage(iter.wMainCmdID,iter.wSubCmdID,iter.sReadData,iter.wDataSize);
 	/*switch (iter.wMainCmdID)
 	{
@@ -41,4 +80,8 @@ void MessageQueue::update(float dt){
 		break;
 	}*/
 	DataModel::sharedDataModel()->readDataQueue.pop();
+}
+void MessageQueue::pushQueue(ReadData rData){
+	LifeCircleMutexLock1(&sharedNotificationQueueLock1); 
+	DataModel::sharedDataModel()->readDataQueue.push(rData);
 }

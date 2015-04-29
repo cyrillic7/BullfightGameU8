@@ -9,6 +9,7 @@ public:
 	~MessageQueue();
 	void update(float dt);
 	virtual void onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize)=0;
+	static void pushQueue(ReadData rData);
 	/*//登录
 	virtual void onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){}
 	//用户状态

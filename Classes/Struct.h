@@ -416,7 +416,7 @@ struct tagMobileUserInfoHead
 	WORD							wTableID;							//桌子索引
 	WORD							wChairID;							//椅子索引
 	BYTE							cbUserStatus;						//用户状态
-
+	//DWORD						dwUserRank;						//比赛用
 	//积分信息
 	SCORE							lScore;								//用户分数
 

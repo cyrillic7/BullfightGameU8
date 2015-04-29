@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "MainScene.h"
+#include "MainSceneOxHundred.h"
 #include "CMD_LogonServer.h"
 USING_NS_CC;
 class DataModel:public CCObject{
@@ -18,6 +19,7 @@ public:
 	std::string sLogonPassword;
 	//主场景对象
 	CC_SYNTHESIZE(MainScene *, mainScene, MainScene);
+	CC_SYNTHESIZE(MainSceneOxHundred *, mainSceneOxHundred, MainSceneOxHundred);
 
 	CCArray *m_aTagGameKind;
 

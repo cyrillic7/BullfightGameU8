@@ -12,7 +12,7 @@
 #include "BaseAttributes.h"
 #include "TCPSocketControl.h"
 MainSceneOxHundred::MainSceneOxHundred()
-:gameState(STATE_OBSERVER)
+:gameState(STATE_GAME_FREE)
 {
 }
 MainSceneOxHundred::~MainSceneOxHundred(){
@@ -32,7 +32,7 @@ CCScene* MainSceneOxHundred::scene()
     CCScene *scene = CCScene::create();
     MainSceneOxHundred *layer = MainSceneOxHundred::create();
     scene->addChild(layer);
-	//DataModel::sharedDataModel()->setMainScene(layer);
+	DataModel::sharedDataModel()->setMainSceneOxHundred(layer);
     return scene;
 }
 void MainSceneOxHundred::onEnter(){

@@ -13,10 +13,7 @@
     "UIGameIng.plist",
     "UIButton.plist"
   ],
-  "texturesPng": [
-    "UIGameIng.png",
-    "UIButton.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",

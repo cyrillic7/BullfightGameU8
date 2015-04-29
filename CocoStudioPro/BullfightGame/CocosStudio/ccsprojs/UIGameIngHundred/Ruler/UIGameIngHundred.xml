@@ -2,6 +2,11 @@
 <ArrayOfGuidesProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <GuidesProject>
     <Project>UIGameIngHundred</Project>
-    <GuidesList />
+    <GuidesList>
+      <GuidesInfo>
+        <GuidesName>VThumb</GuidesName>
+        <GuidesPosition>589.27758026123047</GuidesPosition>
+      </GuidesInfo>
+    </GuidesList>
   </GuidesProject>
 </ArrayOfGuidesProject>

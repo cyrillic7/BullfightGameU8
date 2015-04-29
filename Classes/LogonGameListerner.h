@@ -2,8 +2,7 @@
  * File:   DefaultListerner.h
  * 
  */
-#ifndef DEFAULTLISTERNER_H
-#define	DEFAULTLISTERNER_H
+#pragma once
 #include "SocketListerner.h"
 #include "cocos2d.h"
 USING_NS_CC;
@@ -16,9 +15,5 @@ public:
     void OnIdle(TCPSocket* so);
     bool OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Command tCommand, void * pDataBuffer, unsigned short wDataSize);
     void OnOpen(TCPSocket* so);
-private:
-	//CConcurQueue <SendData >m_RecvData;
 };
-
-#endif	/* DEFAULTLISTERNER_H */
 

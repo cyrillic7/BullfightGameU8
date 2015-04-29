@@ -232,6 +232,7 @@ void ClassicLobbyScene::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void *
 		onSubUserState(wSubCmdID,pDataBuffer,wDataSize);
 		break;
 	default:
+		CCLog("main:%d  sub:%d<<%s>>",wMainCmdID,wSubCmdID,__FUNCTION__);
 		break;
 	}
 }
@@ -280,14 +281,16 @@ void ClassicLobbyScene::onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsign
 	{
 	case US_SIT://坐下
 		{
-			unscheduleUpdate();
-			CCLog("state==sit-----------%ld<<%s>>",info->dwUserID,__FUNCTION__);
+			//CCLog("state==sit-----------%ld<<%s>>",info->dwUserID,__FUNCTION__);
 			if (info->dwUserID==DataModel::sharedDataModel()->userInfo->dwUserID){
+				unscheduleUpdate();
 				//DataModel::sharedDataModel()->isSit=true;
 				CCLog("坐下:table: %d desk:%d",info->UserStatus.wTableID,info->UserStatus.wChairID);
 				DataModel::sharedDataModel()->userInfo->wTableID=info->UserStatus.wTableID;
 				DataModel::sharedDataModel()->userInfo->wChairID=info->UserStatus.wChairID;
-				//构造数据
+
+				enterMainSceneByMode(1);
+			/*	//构造数据
 				CMD_GF_GameOption GameOption;
 				GameOption.dwFrameVersion=VERSION_FRAME;
 				GameOption.cbAllowLookon=0;
@@ -297,7 +300,7 @@ void ClassicLobbyScene::onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsign
 				if (isSend)
 				{
 					enterMainSceneByMode(1);
-				}
+				}*/
 			}
 		}
 		break;
