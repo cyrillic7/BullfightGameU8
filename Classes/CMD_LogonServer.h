@@ -702,7 +702,7 @@ struct CMD_MB_LogonSuccess
 	DWORD							dwUserID;							//用户 I D
 	DWORD							dwGameID;							//游戏 I D
 	DWORD							dwExperience;						//经验数值
-	DWORD							dwLoveLiness;						//用户魅力
+	SCORE								dwLoveLiness;						//用户魅力
 
 	DWORD                           dwVipLevel;							//金币等级
 	SCORE								lIngot;								//元宝

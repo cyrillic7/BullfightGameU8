@@ -48,7 +48,7 @@ bool LogonGameListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_C
 	rData.wMainCmdID=Command.wMainCmdID;
 	rData.wSubCmdID=Command.wSubCmdID;
 	rData.wDataSize=wDataSize;
-	memmove(rData.sReadData,pDataBuffer,wDataSize);
+	memcpy(rData.sReadData,pDataBuffer,wDataSize);
 	MessageQueue::pushQueue(rData);
 	return true;
 }
@@ -58,6 +58,6 @@ void LogonGameListerner::OnOpen(TCPSocket* so)
 	rData.wMainCmdID=MDM_MB_SOCKET;
 	rData.wSubCmdID=SUB_GP_SOCKET_OPEN;
 	rData.wDataSize=0;
-	memset(rData.sReadData,0,0);
+	memcpy(rData.sReadData,0,0);
 	MessageQueue::pushQueue(rData);
 }

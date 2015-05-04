@@ -1,8 +1,9 @@
 #pragma once
 #include "cocos2d.h"
-#include "MainScene.h"
+#include "MainSceneOxTwo.h"
 #include "MainSceneOxHundred.h"
 #include "CMD_LogonServer.h"
+#include "JettonNode.h"
 USING_NS_CC;
 class DataModel:public CCObject{
 public:
@@ -18,7 +19,7 @@ public:
 	//登录密码
 	std::string sLogonPassword;
 	//主场景对象
-	CC_SYNTHESIZE(MainScene *, mainScene, MainScene);
+	CC_SYNTHESIZE(MainSceneOxTwo *, mainSceneOxTwo, MainSceneOxTwo);
 	CC_SYNTHESIZE(MainSceneOxHundred *, mainSceneOxHundred, MainSceneOxHundred);
 
 	CCArray *m_aTagGameKind;
@@ -37,6 +38,8 @@ public:
 	tagUserInfo *userInfo;
 	//消息队列
 	std::queue<ReadData>readDataQueue;
+	//筹码
+	std::vector<JettonNode *>vecJettonNode;
 public:
 	DataModel();
 	~DataModel();

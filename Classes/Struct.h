@@ -239,7 +239,8 @@ struct tagUserInfo
 	DWORD							dwFleeCount;						//逃跑盘数
 	DWORD							dwUserMedal;						//用户奖牌
 	DWORD							dwExperience;						//用户经验
-	long							lLoveLiness;						//用户魅力
+	DWORD                           dwUserRank;                         //用户名次
+	SCORE							lLoveLiness;						//用户魅力
 
 	//时间信息
 	tagTimeInfo						TimerInfo;							//时间信息
@@ -248,7 +249,7 @@ struct tagUserInfo
 	BYTE							cbEnlistStatus;						//报名状态
 
 	//扩展标识
-	long							lExpand;
+	LONG							lExpand;
 	DWORD							dwExpand;
 };
 
@@ -274,6 +275,10 @@ struct tagUserInfoHead
 	WORD							wChairID;							//椅子索引
 	BYTE							cbUserStatus;						//用户状态
 
+	DWORD                           dwUserRank;                         //用户名次
+	////比赛信息
+	//BYTE							cbEnlistStatus;						//报名状态
+
 	//积分信息
 	SCORE							lScore;								//用户分数
 	SCORE							lGrade;								//用户成绩
@@ -286,7 +291,7 @@ struct tagUserInfoHead
 	DWORD							dwFleeCount;						//逃跑盘数
 	DWORD							dwUserMedal;						//用户奖牌
 	DWORD							dwExperience;						//用户经验
-	long							lLoveLiness;						//用户魅力
+	SCORE							lLoveLiness;						//用户魅力
 };
 
 //头像信息

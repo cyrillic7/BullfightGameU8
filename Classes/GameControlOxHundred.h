@@ -4,11 +4,13 @@
 #pragma once
 #include "GameControlBase.h"
 #include "SeatData.h"
+#include "JettonNode.h"
 #define MAX_SEAT_COUNT 4
 class GameControlOxHundred:public GameControlBase
 {
 private:
 	SeatData *pSeatData[MAX_SEAT_COUNT];
+	UIButton *pBOnline ;
 public:
 	GameControlOxHundred();
 	~GameControlOxHundred();
@@ -20,6 +22,8 @@ private:
 	void initTimer(UILayer *pWidget);
 	//初始化座位
 	void initSeatData(UILayer *pWidget);
+	//获取筹码对象
+	JettonNode *getJettonNode();
 private:
 	 int getChairIndex(int meChairID,int chairID);
 	//菜单////////////////////////////////////////////////////////////////////////

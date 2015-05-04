@@ -38,7 +38,7 @@ CCScene* MainSceneOxHundred::scene()
 void MainSceneOxHundred::onEnter(){
 	CCLayer::onEnter();
 	addBg();
-	//initCardLayer();
+	initCardLayer();
 	//initPlayerLayer();
 	initGameControl();
 }
@@ -61,8 +61,8 @@ void MainSceneOxHundred::initGameControl(){
 }
 //
 void MainSceneOxHundred::initCardLayer(){
-	cardLayer = CardLayer::create();
-	this->addChild(cardLayer);
+	cardLayerHundred = CardLayerHundred::create();
+	this->addChild(cardLayerHundred);
 }
 void MainSceneOxHundred::initPlayerLayer(){
 	playerLayer = PlayerLayer::create();
@@ -82,11 +82,11 @@ void MainSceneOxHundred::updateGameState(){
 	//gameControl->updateState();
 	
 	//玩家信息层更新状态
-	playerLayer->updateState();
+	//playerLayer->updateState();
 	//更新扑克层状态
-	cardLayer->updateGameState();
+	cardLayerHundred->updateGameState();
 }
 void MainSceneOxHundred::updateServerState(){
 	//更新扑克层状态
-	cardLayer->updateServerState();
+	cardLayerHundred->updateServerState();
 }

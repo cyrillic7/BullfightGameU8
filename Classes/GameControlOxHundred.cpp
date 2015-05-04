@@ -27,6 +27,8 @@ void GameControlOxHundred::onEnter(){
 
 	UIButton* button = static_cast<UIButton*>(pWidget->getWidgetByName("ButtonBack"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxHundred::onMenuBack));
+
+	pBOnline= static_cast<UIButton*>(pWidget->getWidgetByName("ButtonOnline"));
 	initTimer(pWidget);
 	initSeatData(pWidget);
 }
@@ -63,6 +65,22 @@ void GameControlOxHundred::initSeatData(UILayer *pWidget){
 
 		pSeatData[i]->resetData();
 	}
+}
+//获得筹码对象
+JettonNode *GameControlOxHundred::getJettonNode(){
+	for (int i = 0; i < DataModel::sharedDataModel()->vecJettonNode.size(); i++)
+	{
+		JettonNode *tempJetton=DataModel::sharedDataModel()->vecJettonNode[i];
+		if (tempJetton->isReuse)
+		{
+			tempJetton->resetData();
+			return tempJetton;
+		}
+	}
+	JettonNode *pJetton=JettonNode::create();
+	this->addChild(pJetton,1000);
+	DataModel::sharedDataModel()->vecJettonNode.push_back(pJetton);
+	return pJetton;
 }
 int GameControlOxHundred::getChairIndex(int meChairID,int chairID){
 	if (meChairID==0)
@@ -191,7 +209,9 @@ void GameControlOxHundred::onSubGameStart(const void * pBuffer, WORD wDataSize){
 
 	//消息处理
 	CMD_S_GameStart * pGameStart=(CMD_S_GameStart *)pBuffer;
-	CCLog("time--:%d<<%s>>",pGameStart->cbTimeLeave,__FUNCTION__);
+	CCLog("gameStart=time--:%d<<%s>>",pGameStart->cbTimeLeave,__FUNCTION__);
+	//设置时间
+	resetTimer(pGameStart->cbTimeLeave,Tools::GBKToUTF8("请下注"));
 }
 //用户下注
 void GameControlOxHundred::onSubPlaceJetton(const void * pBuffer, WORD wDataSize,bool bGameMes){
@@ -203,19 +223,23 @@ void GameControlOxHundred::onSubPlaceJetton(const void * pBuffer, WORD wDataSize
 	CMD_S_PlaceJetton * pPlaceJetton=(CMD_S_PlaceJetton *)pBuffer;
 
 	pSeatData[pPlaceJetton->cbJettonArea-1]->setAllJettonByAdd(pPlaceJetton->lJettonScore);
-	//CCSprite *jetton=CCSprite::createWithTexture(CCTextureCache::sharedTextureCache()->textureForKey("u_gih_jetton0.png"));
-	UIImageView *jetton=UIImageView::create();
-	jetton->loadTexture("u_gih_jetton0.png",UI_TEX_TYPE_PLIST);
-	this->addChild(jetton,1000);
-	int fWidth=pSeatData[pPlaceJetton->cbJettonArea-1]->seatSize.width;
-	int fHeight=pSeatData[pPlaceJetton->cbJettonArea-1]->seatSize.height;
+	//////////////////////////////////////////////////////////////////////////
+	
+
+	//int fWidth=pSeatData[pPlaceJetton->cbJettonArea-1]->seatSize.width-jetton->getContentSize().width/2;
+	//int fHeight=pSeatData[pPlaceJetton->cbJettonArea-1]->seatSize.height-jetton->getContentSize().height/2-70;
+	int fWidth=pSeatData[pPlaceJetton->cbJettonArea-1]->seatSize.width-31;
+	int fHeight=pSeatData[pPlaceJetton->cbJettonArea-1]->seatSize.height-70-31;
+
 	int offsetX=rand()%fWidth;
 	int offsetY=rand()%fHeight;
 	CCPoint randPos=ccp(offsetX,offsetY);
 	CCPoint pos=pSeatData[pPlaceJetton->cbJettonArea-1]->posCenter;
 	pos=ccpAdd(pos,randPos);
 	pos=ccpSub(pos,ccp(fWidth/2,fHeight/2));
-	jetton->setPosition(pos);
+
+	JettonNode *pJetton=getJettonNode();
+	pJetton->setJettonTypeWithMove(pPlaceJetton->lJettonScore,pBOnline->getPosition(),pos);
 	CCLog("chair:%d jettonScore: %lld<<%s>>",pPlaceJetton->wChairID,pPlaceJetton->lJettonScore,__FUNCTION__);
 }
 //游戏结束
@@ -223,10 +247,28 @@ void GameControlOxHundred::onSubGameEnd(const void * pBuffer, WORD wDataSize){
 	//效验数据
 	assert(wDataSize==sizeof(CMD_S_GameEnd));
 	if (wDataSize!=sizeof(CMD_S_GameEnd)) return;
-
 	//消息处理
 	CMD_S_GameEnd * pGameEnd=(CMD_S_GameEnd *)pBuffer;
 	CCLog("end:%lld<<%s>>",pGameEnd->lBankerScore,__FUNCTION__);
+	//设置时间
+	resetTimer(pGameEnd->cbTimeLeave,Tools::GBKToUTF8("休息一下..."));
+	//隐藏所有筹码
+	for (int i = 0; i < DataModel::sharedDataModel()->vecJettonNode.size(); i++)
+	{
+		DataModel::sharedDataModel()->vecJettonNode[i]->hideJetton();
+	}
+	/*for (int i = 0; i < 5; i++)
+	{
+		CCLog("------------------------------<<%s>>",__FUNCTION__);
+		for (int j = 0; j < 5; j++)
+		{
+			BYTE valueOx=pGameEnd->cbTableCardArray[i][j]&LOGIC_MASK_VALUE;
+			
+			CCLog("%d<<%s>>",valueOx,__FUNCTION__);
+		}
+		CCLog("-----------------------<<%s>>",__FUNCTION__);
+	}*/
+	DataModel::sharedDataModel()->getMainSceneOxHundred()->setGameStateWithUpdate(MainSceneOxHundred::STATE_SEND_CARD);
 }
 //////////////////////////////////////////////////////////////////////////
 //用户状态

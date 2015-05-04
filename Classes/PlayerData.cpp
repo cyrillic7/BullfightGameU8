@@ -61,8 +61,8 @@ void PlayerData::showResultAnimation(long long lGameScore){
 	pLResult->runAction(seq);
 }
 void PlayerData::onResultAnimationFinish(){
-	if(DataModel::sharedDataModel()->getMainScene()->getGameState()==MainScene::STATE_GAME_END){
-		DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_READY);
+	if(DataModel::sharedDataModel()->getMainSceneOxTwo()->getGameState()==MainSceneOxTwo::STATE_GAME_END){
+		DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainSceneOxTwo::STATE_READY);
 	}
 }
 //设置用户金币

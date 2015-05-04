@@ -7,6 +7,7 @@
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
+class MainSceneBase;
 class PlayerLayer:public CCLayer {
 public:
 	PlayerData *pPlayerData[MAX_PLAYER];
@@ -27,6 +28,7 @@ public:
 	//设置庄家
 	void setBankIcon(int bankIndex);
 private:
+	MainSceneBase*getMainScene();
 	//初始化玩家信息
 	void initPlayerInfo();
 	//重置数据

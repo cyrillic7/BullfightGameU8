@@ -4,6 +4,7 @@
 #include "GameConfig.h"
 #include "DataModel.h"
 #include "Tools.h"
+#include "MainSceneBase.h"
 PlayerLayer::PlayerLayer()
 {
 }
@@ -53,6 +54,12 @@ void PlayerLayer::initPlayerInfo(){
 		pPlayerData[i]->pIActionContent=static_cast<UIImageView*>(pPlayerData[i]->pPlayerPanel->getChildByName("ImageAction")->getChildByName("ImageActionContent"));
 		//Òþ²ØÓÃ»§
 		pPlayerData[i]->hidePlayer();
+
+		UIPanel *playerPanel = pPlayerData[i]->pPlayerPanel;
+		UIImageView *iPlayerIcon = (UIImageView*)playerPanel->getChildByName("headPortrait");
+		CCPoint playerPos = playerPanel->getPosition();
+		CCPoint cardPos = ccpAdd(playerPos, iPlayerIcon->getPosition());
+		getMainScene()->posChair[i]=cardPos;
 	}
 }
 void PlayerLayer::resetPlayerData(){
@@ -66,9 +73,9 @@ void PlayerLayer::hidePlayer(UIPanel *panel){
 	panel->setVisible(false);
 }
 void PlayerLayer::updateState(){
-	switch (DataModel::sharedDataModel()->getMainScene()->getGameState())
+	switch (DataModel::sharedDataModel()->getMainSceneOxTwo()->getGameState())
 	{
-	case MainScene::STATE_READY:
+	case MainSceneOxTwo::STATE_READY:
 		{
 			resetPlayerData();
 		}
@@ -105,4 +112,7 @@ void PlayerLayer::setBankIcon(int bankIndex){
 	setBankLight(bankIndex);
 
 	pPlayerData[bankIndex]->setBankIcon();
+}
+MainSceneBase*PlayerLayer::getMainScene(){
+	return (MainSceneBase*)this->getParent();
 }

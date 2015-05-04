@@ -8,6 +8,7 @@ USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
 class Card;
+class MainSceneBase;
 class CardLayer:public CCLayer,GameLogic {
 private:
 	//扑克集
@@ -28,6 +29,7 @@ private:
 	Card *pCard[MAX_PLAYER*MAX_COUNT]; 
 	//牛牛点数动画
 	CCArmature *pAOxType[MAX_PLAYER];
+	MainSceneBase*getMainScene();
 public:
 	CardLayer();
 	~CardLayer();
@@ -39,15 +41,18 @@ public:
 	void setCanSendCard();
 public:
 	//更新状态
-	void updateServerState();
+	virtual void updateServerState();
 	//
-	void updateGameState();
+	virtual void updateGameState();
 	//显示牌
 	void showCard(int index,int dataIndex);
 	//提示牛牛
 	bool promptOx(int oxIndex);
 	//重排牛牛
 	void sortingOx(int chairID,int showChairiD);
+
+	//发牌
+	void sendCard();
 private:
 	//初始化所有牌
 	void initAllCard();
@@ -55,12 +60,11 @@ private:
 	void initOxType();
 	//重置牌
 	void resetCard();
-	//发牌
-	void sendCard();
+
 	//发牌中
-	void sendCardIng();
+	virtual void sendCardIng();
 	//发5张牌
-	void sendFiveCard(int index, int offsetIndex);
+	virtual void sendFiveCard(int index, int offsetIndex);
 	//移动扑克
 	void moveCardAction(CCArmature *armature, float fTime, CCPoint targetPos,int index);
 	//获取牌放大倍数

@@ -10,28 +10,29 @@
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
+#include "MainSceneBase.h"
 #include "GameControlOxHundred.h"
 #include "TCPSocket.h"
-#include "GameLogic.h"
-#include "CardLayer.h"
+#include "CardLayerHundred.h"
 #include "PlayerLayer.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
-class MainSceneOxHundred:public CCLayer,public TCPSocket,public GameLogic
+class MainSceneOxHundred:public TCPSocket,public MainSceneBase
 {
 public:
 	//游戏状态
 	enum GameState
 	{
 		STATE_GAME_FREE=0,			//空闲状态
+		STATE_SEND_CARD,				//发牌
 	};
 	CC_SYNTHESIZE(GameState,gameState,GameState);
 	CC_SYNTHESIZE(GameState,serverState,ServerState);
 
 	CC_SYNTHESIZE(GameControlOxHundred *, gameControl, GameControlOxHundred);
 	//扑克层
-	CardLayer *cardLayer;
+	CardLayerHundred *cardLayerHundred;
 	//玩家信息层
 	PlayerLayer *playerLayer;
 private:
@@ -41,7 +42,7 @@ public:
 	virtual void onEnter();
 	virtual void onExit();
     static CCScene* scene();
-    
+   // virtual bool init();
     CREATE_FUNC(MainSceneOxHundred);
 	
 

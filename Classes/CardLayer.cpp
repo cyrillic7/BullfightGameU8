@@ -5,6 +5,7 @@
 #include "Card.h"
 #include "DataModel.h"
 #include "BaseAttributes.h"
+#include "MainSceneBase.h"
 #define MAX_CARD_COUNT								5						//最大牌数
 #define SEND_CARD_DELAY_TIME						0.05					//发牌延时时长 
 #define SELF_SEAT									3						//自己的位置
@@ -162,7 +163,7 @@ bool CardLayer::promptOx(int oxIndex){
 // Parameter: int showChairiD显示桌子位置
 //************************************
 void CardLayer::sortingOx(int chairID,int showChairiD){
-	UIPanel *playerPanel = DataModel::sharedDataModel()->getMainScene()->playerLayer->pPlayerData[showChairiD]-> pPlayerPanel;
+	UIPanel *playerPanel = DataModel::sharedDataModel()->getMainSceneOxTwo()->playerLayer->pPlayerData[showChairiD]-> pPlayerPanel;
 	UIImageView *iPlayerIcon = (UIImageView*)playerPanel->getChildByName("headPortrait");
 	CCPoint playerPos = playerPanel->getPosition();
 	CCPoint cardPos = ccpAdd(playerPos, iPlayerIcon->getPosition());
@@ -247,7 +248,7 @@ void CardLayer::sendCardIng(){
 	int offsetIndex = 0;
 	for (int i = 0; i < MAX_PLAYER; i++)
 	{
-		int bankerUser=DataModel::sharedDataModel()->getMainScene()->getGameControlOxTwo()->getBankViewID();
+		int bankerUser=DataModel::sharedDataModel()->getMainSceneOxTwo()->getGameControlOxTwo()->getBankViewID();
 		int index=(bankerUser+i)%MAX_PLAYER;
 
 		if (canSendCard[index])
@@ -263,10 +264,11 @@ void CardLayer::sendCardIng(){
 
 //发5张牌
 void CardLayer::sendFiveCard(int index,int offsetIndex){
-	UIPanel *playerPanel = DataModel::sharedDataModel()->getMainScene()->playerLayer->pPlayerData[index]->pPlayerPanel;
+	/*UIPanel *playerPanel = DataModel::sharedDataModel()->getMainSceneOxTwo()->playerLayer->pPlayerData[index]->pPlayerPanel;
 	UIImageView *iPlayerIcon = (UIImageView*)playerPanel->getChildByName("headPortrait");
 	CCPoint playerPos = playerPanel->getPosition();
-	CCPoint cardPos = ccpAdd(playerPos, iPlayerIcon->getPosition());
+	CCPoint cardPos = ccpAdd(playerPos, iPlayerIcon->getPosition());*/
+	CCPoint cardPos = getMainScene()->posChair[index];
 
 	for (int i = 0; i < MAX_CARD_COUNT; i++)
 	{
@@ -304,8 +306,8 @@ void CardLayer::onSendCardFinish(){
 	if (sSendCardCount==getCurAllCardCount()*MAX_CARD_COUNT)
 	{
 		CCLog("CardLayer::onSendCardFinish-->sendFinish");
-		DataModel::sharedDataModel()->getMainScene()->setGameStateWithUpdate(MainScene::STATE_OPT_OX);
-		//DataModel::sharedDataModel()->getMainScene()->setServerStateWithUpdate(MainScene::STATE_FIGHT_BANKER);
+		DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainSceneOxTwo::STATE_OPT_OX);
+		//DataModel::sharedDataModel()->getMainSceneOxTwo()->setServerStateWithUpdate(MainScene::STATE_FIGHT_BANKER);
 		showCard(SELF_SEAT,DataModel::sharedDataModel()->userInfo->wChairID);
 		sSendCardCount=0;
 	}
@@ -322,9 +324,9 @@ short CardLayer::getCurAllCardCount(){
 	return count;
 }
 void CardLayer::updateServerState(){
-	switch (DataModel::sharedDataModel()->getMainScene()->getServerState())
+	switch (DataModel::sharedDataModel()->getMainSceneOxTwo()->getServerState())
 	{
-	case MainScene::STATE_SEND_CARD:
+	case MainSceneOxTwo::STATE_SEND_CARD:
 	{
 		sendCard();
 	}
@@ -334,9 +336,9 @@ void CardLayer::updateServerState(){
 	}
 }
 void CardLayer::updateGameState(){
-	switch (DataModel::sharedDataModel()->getMainScene()->getGameState())
+	switch (DataModel::sharedDataModel()->getMainSceneOxTwo()->getGameState())
 	{
-	case MainScene::STATE_READY:
+	case MainSceneOxTwo::STATE_READY:
 		{
 			resetCard();
 		}
@@ -384,4 +386,7 @@ CCPoint CardLayer::designResolutionToFrame(CCPoint designPos){
 	float posScaleY=designPos.y/SCENE_SIZE.height;
 	pos.y=posScaleY*DataModel::sharedDataModel()->deviceSize.height;
 	return pos;
+}
+MainSceneBase*CardLayer::getMainScene(){
+	return (MainSceneBase*)this->getParent();
 }
