@@ -15,6 +15,10 @@ public:
 	//
 	virtual void updateGameState();
 private:
-	virtual void sendCardIng(){}
-	virtual void sendFiveCard(int index, int offsetIndex){}
+	//设置发牌区域
+	virtual void setCanSendCard();
+	virtual void sendCardIng();
+	//移动单张牌
+	virtual void moveCardAction(CCArmature *armature, float fTime, CCPoint targetPos,int index);
+	//virtual void sendFiveCard(int index, int offsetIndex){}
 };

@@ -38,7 +38,7 @@ public:
 	virtual void onEnter();
 	virtual void onExit();
 
-	void setCanSendCard();
+	virtual void setCanSendCard();
 public:
 	//更新状态
 	virtual void updateServerState();
@@ -53,6 +53,10 @@ public:
 
 	//发牌
 	void sendCard();
+	//发5张牌
+	virtual void sendFiveCard(int index, int offsetIndex);
+	//获取牌放大倍数
+	float getCardScale(int index);
 private:
 	//初始化所有牌
 	void initAllCard();
@@ -60,15 +64,10 @@ private:
 	void initOxType();
 	//重置牌
 	void resetCard();
-
 	//发牌中
 	virtual void sendCardIng();
-	//发5张牌
-	virtual void sendFiveCard(int index, int offsetIndex);
 	//移动扑克
-	void moveCardAction(CCArmature *armature, float fTime, CCPoint targetPos,int index);
-	//获取牌放大倍数
-	float getCardScale(int index);
+	virtual void moveCardAction(CCArmature *armature, float fTime, CCPoint targetPos,int index);
 	//单张牌发完回调
 	void onSendCardFinish();
 	//获取当前局总牌数

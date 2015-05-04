@@ -9,6 +9,7 @@
 #include "GameLobbyScene.h"
 #include "DataModel.h"
 #include "cmd_game.h"
+#include "MainSceneBase.h"
 GameControlOxHundred::GameControlOxHundred()
 {
 
@@ -29,11 +30,18 @@ void GameControlOxHundred::onEnter(){
 	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxHundred::onMenuBack));
 
 	pBOnline= static_cast<UIButton*>(pWidget->getWidgetByName("ButtonOnline"));
+	//庄家牌背景
+	UIImageView *pIBankCardBg=static_cast<UIImageView*>(pWidget->getWidgetByName("ImageBankCardBg"));
+	getMainScene()->posChair[0]=pIBankCardBg->getPosition();
+
 	initTimer(pWidget);
 	initSeatData(pWidget);
 }
 void GameControlOxHundred::onExit(){
 	CCLayer::onExit();
+}
+MainSceneBase*GameControlOxHundred::getMainScene(){
+	return (MainSceneBase*)this->getParent();
 }
 //初始化计时器
 void GameControlOxHundred::initTimer(UILayer *pWidget){
@@ -54,6 +62,7 @@ void GameControlOxHundred::initSeatData(UILayer *pWidget){
 		UIImageView *bg=static_cast<UIImageView*>(pWidget->getWidgetByName(CCString::createWithFormat("ImageSeatBg%d",i)->getCString()));
 		//设置中心点
 		pSeatData[i]->posCenter=bg->getPosition();
+		getMainScene()->posChair[i+1]=bg->getPosition();
 		//设置座位大小
 		pSeatData[i]->seatSize=bg->getContentSize();
 		//所有筹码

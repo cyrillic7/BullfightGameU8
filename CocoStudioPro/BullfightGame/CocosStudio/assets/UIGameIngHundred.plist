@@ -108,6 +108,19 @@
                 <key>sourceSize</key>
                 <string>{65,56}</string>
             </dict>
+            <key>u_gih_bank_card_bg.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,703},{197,91}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{197,91}}</string>
+                <key>sourceSize</key>
+                <string>{197,91}</string>
+            </dict>
             <key>u_gih_btn_online.png</key>
             <dict>
                 <key>frame</key>
@@ -406,19 +419,6 @@
                 <string>{{0,0},{72,88}}</string>
                 <key>sourceSize</key>
                 <string>{72,88}</string>
-            </dict>
-            <key>庄家牌背景.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,703},{197,91}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{197,91}}</string>
-                <key>sourceSize</key>
-                <string>{197,91}</string>
             </dict>
             <key>数字总注万.png</key>
             <dict>
@@ -976,7 +976,7 @@
             <key>size</key>
             <string>{509,1019}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:7760bf1129b89149c6e8dec064d50372:00fd18fe90748e81606c828a62a90778:eeb12a001d7e28ce0d9d82b9f16fdaeb$</string>
+            <string>$TexturePacker:SmartUpdate:f78e1a18b8bc8ab1637ef024e314a095:59e5c7280220408b418c9a57700b5fa3:eeb12a001d7e28ce0d9d82b9f16fdaeb$</string>
             <key>textureFileName</key>
             <string>UIGameIngHundred.png</string>
         </dict>

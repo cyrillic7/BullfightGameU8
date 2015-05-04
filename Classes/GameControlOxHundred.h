@@ -5,6 +5,7 @@
 #include "GameControlBase.h"
 #include "SeatData.h"
 #include "JettonNode.h"
+class MainSceneBase;
 #define MAX_SEAT_COUNT 4
 class GameControlOxHundred:public GameControlBase
 {
@@ -18,6 +19,7 @@ public:
 	virtual void onExit();
     CREATE_FUNC(GameControlOxHundred);
 private:
+	MainSceneBase*getMainScene();
 	//初始化计时器
 	void initTimer(UILayer *pWidget);
 	//初始化座位

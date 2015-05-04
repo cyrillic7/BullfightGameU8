@@ -264,12 +264,7 @@ void CardLayer::sendCardIng(){
 
 //·¢5ÕÅÅÆ
 void CardLayer::sendFiveCard(int index,int offsetIndex){
-	/*UIPanel *playerPanel = DataModel::sharedDataModel()->getMainSceneOxTwo()->playerLayer->pPlayerData[index]->pPlayerPanel;
-	UIImageView *iPlayerIcon = (UIImageView*)playerPanel->getChildByName("headPortrait");
-	CCPoint playerPos = playerPanel->getPosition();
-	CCPoint cardPos = ccpAdd(playerPos, iPlayerIcon->getPosition());*/
 	CCPoint cardPos = getMainScene()->posChair[index];
-
 	for (int i = 0; i < MAX_CARD_COUNT; i++)
 	{
 		pCard[i+index*MAX_COUNT]->m_cpArmatureCard->setScale(0.42);
