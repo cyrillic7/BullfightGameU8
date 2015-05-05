@@ -32,7 +32,7 @@ void GameControlOxHundred::onEnter(){
 	pBOnline= static_cast<UIButton*>(pWidget->getWidgetByName("ButtonOnline"));
 	//庄家牌背景
 	UIImageView *pIBankCardBg=static_cast<UIImageView*>(pWidget->getWidgetByName("ImageBankCardBg"));
-	getMainScene()->posChair[0]=pIBankCardBg->getPosition();
+	getMainScene()->posChair[0]=ccpAdd(pIBankCardBg->getPosition(),ccp(0,-pIBankCardBg->getContentSize().height/2));
 
 	initTimer(pWidget);
 	initSeatData(pWidget);
@@ -62,7 +62,7 @@ void GameControlOxHundred::initSeatData(UILayer *pWidget){
 		UIImageView *bg=static_cast<UIImageView*>(pWidget->getWidgetByName(CCString::createWithFormat("ImageSeatBg%d",i)->getCString()));
 		//设置中心点
 		pSeatData[i]->posCenter=bg->getPosition();
-		getMainScene()->posChair[i+1]=bg->getPosition();
+		getMainScene()->posChair[i+1]=ccpAdd(bg->getPosition(),ccp(0,-bg->getContentSize().height/2-50));
 		//设置座位大小
 		pSeatData[i]->seatSize=bg->getContentSize();
 		//所有筹码
@@ -266,17 +266,15 @@ void GameControlOxHundred::onSubGameEnd(const void * pBuffer, WORD wDataSize){
 	{
 		DataModel::sharedDataModel()->vecJettonNode[i]->hideJetton();
 	}
-	/*for (int i = 0; i < 5; i++)
+	//设置牌数据
+	for (int i = 0; i < sizeof(pGameEnd->cbTableCardArray)/sizeof(pGameEnd->cbTableCardArray[0]); i++)
 	{
-		CCLog("------------------------------<<%s>>",__FUNCTION__);
-		for (int j = 0; j < 5; j++)
+		for (int j = 0; j < sizeof(pGameEnd->cbTableCardArray[0]); j++)
 		{
-			BYTE valueOx=pGameEnd->cbTableCardArray[i][j]&LOGIC_MASK_VALUE;
-			
-			CCLog("%d<<%s>>",valueOx,__FUNCTION__);
+			getMainScene()->cardLayer->card[i][j]=pGameEnd->cbTableCardArray[i][j];
 		}
-		CCLog("-----------------------<<%s>>",__FUNCTION__);
-	}*/
+	}
+	//设置发牌状态
 	DataModel::sharedDataModel()->getMainSceneOxHundred()->setGameStateWithUpdate(MainSceneOxHundred::STATE_SEND_CARD);
 }
 //////////////////////////////////////////////////////////////////////////

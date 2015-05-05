@@ -13,7 +13,6 @@
 #include "MainSceneBase.h"
 #include "GameControlOxHundred.h"
 #include "TCPSocket.h"
-#include "CardLayerHundred.h"
 #include "PlayerLayer.h"
 
 USING_NS_CC;
@@ -31,8 +30,6 @@ public:
 	CC_SYNTHESIZE(GameState,serverState,ServerState);
 
 	CC_SYNTHESIZE(GameControlOxHundred *, gameControl, GameControlOxHundred);
-	//扑克层
-	CardLayerHundred *cardLayerHundred;
 	//玩家信息层
 	PlayerLayer *playerLayer;
 private:

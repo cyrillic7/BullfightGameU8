@@ -15,7 +15,7 @@ void Card::createCardArmature(CCBatchNode *cardBatch, short cardColor, short car
 	m_cpArmatureCard->setScaleX(-1);
 	m_cpArmatureCard->setPosition(ccp(-1000,-1000));
 }
-void Card::changeCard(bool isAction,short cardColor, short cardValue, int zOrder){
+void Card::changeCard(bool isAction,short cardColor, short cardValue, int zOrder,float fScale){
 	iCardColor=cardColor;
 	iCardValue=cardValue;
 	iZOrder=zOrder;
@@ -25,9 +25,9 @@ void Card::changeCard(bool isAction,short cardColor, short cardValue, int zOrder
 	}else
 	{
 		CCSequence *seq = CCSequence::create(
-			CCScaleTo::create(0.1,0,1),
+			CCScaleTo::create(0.1,0,fScale),
 			CCCallFunc::create(this,SEL_CallFunc(&Card::showCard)),
-			CCScaleTo::create(0.1,1,1),
+			CCScaleTo::create(0.1,fScale,fScale),
 			NULL);
 		m_cpArmatureCard->runAction(seq);
 	}

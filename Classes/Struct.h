@@ -249,7 +249,7 @@ struct tagUserInfo
 	BYTE							cbEnlistStatus;						//报名状态
 
 	//扩展标识
-	LONG							lExpand;
+	long							lExpand;
 	DWORD							dwExpand;
 };
 

@@ -1,7 +1,8 @@
 
 #pragma once
-#include "CardLayer.h"
-class CardLayerHundred:public CardLayer {
+#include "CardLayerBase.h"
+#include "GameLogic/GameLogicHundred.h"
+class CardLayerHundred:public CardLayerBase,GameLogicHundred {
 public:
 	CardLayerHundred();
 	~CardLayerHundred();
@@ -20,5 +21,19 @@ private:
 	virtual void sendCardIng();
 	//移动单张牌
 	virtual void moveCardAction(CCArmature *armature, float fTime, CCPoint targetPos,int index);
-	//virtual void sendFiveCard(int index, int offsetIndex){}
+	//发5张牌
+	virtual void sendFiveCard(int index, int offsetIndex);
+	//获取牌缩放比例
+	virtual float getCardScale(int index);
+	//显示牛牛点数
+	virtual void showOxType(int chairiD,int oxType);
+private:
+	//单张牌发完回调
+	void onSendCardFinish();
+	//显示牌
+	void showCard();
+	//获取牛牛类型点数
+	int getOxTypeWithValue(int iType);
+	
+	void onPlayOxAnimation(CCNode *obj);
 };

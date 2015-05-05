@@ -11,6 +11,7 @@
 #include "DataModel.h"
 #include "BaseAttributes.h"
 #include "TCPSocketControl.h"
+#include "CardLayerHundred.h"
 MainSceneOxHundred::MainSceneOxHundred()
 :gameState(STATE_GAME_FREE)
 {
@@ -61,8 +62,8 @@ void MainSceneOxHundred::initGameControl(){
 }
 //
 void MainSceneOxHundred::initCardLayer(){
-	cardLayerHundred = CardLayerHundred::create();
-	this->addChild(cardLayerHundred);
+	cardLayer = CardLayerHundred::create();
+	this->addChild(cardLayer,K_Z_ORDER_CARD);
 }
 void MainSceneOxHundred::initPlayerLayer(){
 	playerLayer = PlayerLayer::create();
@@ -84,9 +85,9 @@ void MainSceneOxHundred::updateGameState(){
 	//玩家信息层更新状态
 	//playerLayer->updateState();
 	//更新扑克层状态
-	cardLayerHundred->updateGameState();
+	cardLayer->updateGameState();
 }
 void MainSceneOxHundred::updateServerState(){
 	//更新扑克层状态
-	cardLayerHundred->updateServerState();
+	cardLayer->updateServerState();
 }

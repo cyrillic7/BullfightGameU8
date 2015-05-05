@@ -11,7 +11,7 @@
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
-#include "GameLogic.h"
+#include "GameLogic\GameLogic.h"
 #include "TCPSocket.h"
 #include "GameEndLayer.h"
 #include "MessageQueue.h"

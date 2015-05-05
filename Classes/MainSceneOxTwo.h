@@ -14,8 +14,7 @@
 #include "MainSceneBase.h"
 #include "GameControlOxTwo.h"
 #include "TCPSocket.h"
-#include "GameLogic.h"
-#include "CardLayer.h"
+#include "GameLogic\GameLogic.h"
 #include "PlayerLayer.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
@@ -53,8 +52,7 @@ public:
 	CC_SYNTHESIZE(GameState,serverState,ServerState);
 
 	CC_SYNTHESIZE(GameControlOxTwo *, gameControl, GameControlOxTwo);
-	//扑克层
-	CardLayer *cardLayer;
+
 	//玩家信息层
 	PlayerLayer *playerLayer;
 private:

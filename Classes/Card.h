@@ -26,7 +26,7 @@ public:
 	//创建扑克动画
 	void createCardArmature(CCBatchNode *cardBatch, short cardColor, short cardValue, int zOrder);
 	//改变牌
-	void changeCard(bool isAction,short cardColor, short cardValue, int zOrder);
+	void changeCard(bool isAction,short cardColor, short cardValue, int zOrder,float fScale);
 private:
 	void showCard();
 };

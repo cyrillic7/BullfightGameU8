@@ -9,7 +9,7 @@
         {
           "name": "cardType1",
           "parent": "",
-          "dI": 0,
+          "dI": -1,
           "x": -38.0,
           "y": 23.67333984375,
           "z": 4,
@@ -111,7 +111,7 @@
         {
           "name": "cardType",
           "parent": "",
-          "dI": 0,
+          "dI": 11,
           "x": 16.0,
           "y": -36.0,
           "z": 3,
@@ -297,7 +297,7 @@
         {
           "name": "cardNum",
           "parent": "",
-          "dI": 0,
+          "dI": 28,
           "x": -38.0,
           "y": 56.67333984375,
           "z": 2,
@@ -987,7 +987,7 @@
         },
         {
           "name": "card_0_3",
-          "dr": 0,
+          "dr": 1,
           "lp": false,
           "to": 0,
           "drTW": 0,
@@ -2127,7 +2127,7 @@
         },
         {
           "name": "card_1_2",
-          "dr": 0,
+          "dr": 1,
           "lp": false,
           "to": 0,
           "drTW": 0,
@@ -2412,7 +2412,7 @@
         },
         {
           "name": "card_1_5",
-          "dr": 0,
+          "dr": 1,
           "lp": false,
           "to": 0,
           "drTW": 0,
@@ -3647,7 +3647,7 @@
         },
         {
           "name": "card_2_5",
-          "dr": 0,
+          "dr": 1,
           "lp": false,
           "to": 0,
           "drTW": 0,
@@ -5072,7 +5072,7 @@
         },
         {
           "name": "card_3_7",
-          "dr": 0,
+          "dr": 1,
           "lp": false,
           "to": 0,
           "drTW": 0,
@@ -5737,7 +5737,7 @@
         },
         {
           "name": "card_5_0",
-          "dr": 0,
+          "dr": 1,
           "lp": false,
           "to": 0,
           "drTW": 0,
@@ -5769,7 +5769,7 @@
         },
         {
           "name": "card_4_14",
-          "dr": 0,
+          "dr": 1,
           "lp": false,
           "to": 0,
           "drTW": 0,
@@ -5843,7 +5843,155 @@
         },
         {
           "name": "card_4_15",
-          "dr": 0,
+          "dr": 1,
+          "lp": false,
+          "to": 0,
+          "drTW": 0,
+          "twE": 0,
+          "sc": 1.0,
+          "mov_bone_data": [
+            {
+              "name": "cardType",
+              "dl": 0.0,
+              "frame_data": [
+                {
+                  "dI": 11,
+                  "x": -59.0,
+                  "y": 47.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 0,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                }
+              ]
+            },
+            {
+              "name": "cardNum",
+              "dl": 0.0,
+              "frame_data": [
+                {
+                  "dI": 28,
+                  "x": 51.0,
+                  "y": -59.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 0,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                }
+              ]
+            },
+            {
+              "name": "bg",
+              "dl": 0.0,
+              "frame_data": [
+                {
+                  "dI": 0,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 0,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "card_4_1",
+          "dr": 1,
+          "lp": false,
+          "to": 0,
+          "drTW": 0,
+          "twE": 0,
+          "sc": 1.0,
+          "mov_bone_data": [
+            {
+              "name": "cardType",
+              "dl": 0.0,
+              "frame_data": [
+                {
+                  "dI": 10,
+                  "x": -59.285717010498047,
+                  "y": 47.857154846191406,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 0,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                }
+              ]
+            },
+            {
+              "name": "cardNum",
+              "dl": 0.0,
+              "frame_data": [
+                {
+                  "dI": 27,
+                  "x": 51.714298248291016,
+                  "y": -59.857162475585938,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 0,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                }
+              ]
+            },
+            {
+              "name": "bg",
+              "dl": 0.0,
+              "frame_data": [
+                {
+                  "dI": 0,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 0,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "card_4_2",
+          "dr": 1,
           "lp": false,
           "to": 0,
           "drTW": 0,

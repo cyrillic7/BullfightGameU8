@@ -13,6 +13,7 @@
 //#include "TCPSocket.h"
 //#include "CMD_LogonServer.h"
 #include "TCPSocketControl.h"
+#include "CardLayerTwo.h"
 //#include <tchar.h>
 //#include "MD5.h"
 
@@ -75,7 +76,7 @@ void MainSceneOxTwo::initGameControl(){
 }
 //
 void MainSceneOxTwo::initCardLayer(){
-	cardLayer = CardLayer::create();
+	cardLayer = CardLayerTwo::create();
 	this->addChild(cardLayer);
 }
 void MainSceneOxTwo::initPlayerLayer(){

@@ -10,6 +10,5 @@ MainSceneBase::MainSceneBase()
 {
 }
 MainSceneBase::~MainSceneBase(){
-	
 }
 
