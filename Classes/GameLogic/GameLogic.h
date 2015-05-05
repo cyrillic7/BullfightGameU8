@@ -12,7 +12,6 @@ USING_NS_CC_EXT;
 #define RtlCopyMemory(Destination,Source,Length) memcpy((Destination),(Source),(Length))
 #define CopyMemory RtlCopyMemory
 typedef unsigned char       BYTE;
-
 #endif
 //宏定义
 

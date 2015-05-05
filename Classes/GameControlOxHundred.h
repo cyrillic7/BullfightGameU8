@@ -5,10 +5,15 @@
 #include "GameControlBase.h"
 #include "SeatData.h"
 #include "JettonNode.h"
+//#include "cmd_game.h"
 class MainSceneBase;
 #define MAX_SEAT_COUNT 4
 class GameControlOxHundred:public GameControlBase
 {
+	//下注信息
+//protected:
+	//long long						m_lUserJettonScore[AREA_COUNT+1];	//个人总注
+	//long long						m_lAllJettonScore[AREA_COUNT+1];	//全体总注
 private:
 	SeatData *pSeatData[MAX_SEAT_COUNT];
 	UIButton *pBOnline ;
@@ -49,4 +54,7 @@ private:
 	void onSubPlaceJetton(const void * pBuffer, WORD wDataSize,bool bGameMes);
 	//游戏结束
 	void onSubGameEnd(const void * pBuffer, WORD wDataSize);
+private:
+	//加注按键
+	void onMenuPlaceJetton(CCObject* pSender, TouchEventType type);
 };

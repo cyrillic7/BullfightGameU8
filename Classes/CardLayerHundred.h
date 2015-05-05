@@ -32,6 +32,8 @@ private:
 	void onSendCardFinish();
 	//显示牌
 	void showCard();
+	void updateShowCardOneByOne(float delta);  
+
 	//获取牛牛类型点数
 	int getOxTypeWithValue(int iType);
 	

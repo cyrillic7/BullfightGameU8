@@ -54,7 +54,7 @@ void CardLayerHundred::sendFiveCard(int index,int offsetIndex){
 		pCard[i+index*MAX_COUNT]->m_cpArmatureCard->setScale(0.42);
 		int offx = rand() % 3;
 		int offy = rand() % 3;
-	    pCard[i+index*MAX_COUNT]->m_cpArmatureCard->setPosition(ccp(DataModel::sharedDataModel()->deviceSize.width / 2 + offx, DataModel::sharedDataModel()->deviceSize.height / 2 + offy));
+	    pCard[i+index*MAX_COUNT]->m_cpArmatureCard->setPosition(ccp(DataModel::sharedDataModel()->deviceSize.width / 2 + offx, DataModel::sharedDataModel()->deviceSize.height / 2 +100+ offy));
 			/*int offsetX=BaseAttributes::sharedAttributes()->iCardOffsetX[index];
 		int offsetY=BaseAttributes::sharedAttributes()->iCardOffsetY[index];
 		int offsetSpace=BaseAttributes::sharedAttributes()->iCardOffsetSpace[index];
@@ -91,10 +91,6 @@ void CardLayerHundred::onSendCardFinish(){
 	sSendCardCount++;
 	if (sSendCardCount==getCurAllCardCount()*MAX_CARD_COUNT)
 	{
-		//CCLog("CardLayer::onSendCardFinish-->sendFinish");
-		//DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainSceneOxTwo::STATE_OPT_OX);
-		//DataModel::sharedDataModel()->getMainSceneOxTwo()->setServerStateWithUpdate(MainScene::STATE_FIGHT_BANKER);
-		//showCard(0,DataModel::sharedDataModel()->userInfo->wChairID);
 		showCard();
 		sSendCardCount=0;
 	}
@@ -104,17 +100,10 @@ float CardLayerHundred::getCardScale(int index){
 }
 //显示牌
 void CardLayerHundred::showCard(){
-	for (int i = 0; i <MAX_COUNT; i++)
+	schedule(SEL_SCHEDULE(&CardLayerHundred::updateShowCardOneByOne),1,4,0);
+	/*for (int i = 0; i <MAX_COUNT; i++)
 	{
 		int beginCardIndex=i*MAX_COUNT;
-		/*bool isOxCard = GetOxCard(card[i], 5);
-		//CCLog("niu:%d",GetCardType(card[i],5));
-		int iValue=GetCardType(card[i],5);
-		if (iValue>10)
-		{
-			iValue=10;
-		}
-		showOxType(i,iValue);*/
 		BYTE bcTmp[5];
 		int iType = GetCardType(card[i],5,bcTmp);
 		if(iType==CT_POINT||iType==CT_SPECIAL_BOMEBOME)
@@ -136,7 +125,37 @@ void CardLayerHundred::showCard(){
 			int cardValue = GetCardValue(card[i][j]);
 			pCard[beginCardIndex+j]->changeCard(true,cardColor,cardValue,beginCardIndex+j,getCardScale(0));
 		}
-	}
+	}*/
+}
+void CardLayerHundred::updateShowCardOneByOne(float delta){
+		static int  i=0;
+		int beginCardIndex=i*MAX_COUNT;
+		BYTE bcTmp[5];
+		int iType = GetCardType(card[i],5,bcTmp);
+		if(iType==CT_POINT||iType==CT_SPECIAL_BOMEBOME)
+		{
+			CopyMemory(card[i],bcTmp,5);
+		}
+		else
+		{
+			CopyMemory(card[i],bcTmp,3);
+			CopyMemory(card[i]+3,bcTmp+3,2);
+			//CopyMemory(card[i],bcTmp+3,2);
+			//CopyMemory(card[i]+2,bcTmp,3);
+		}
+		showOxType(i,getOxTypeWithValue(iType));
+
+		for (int j = 0; j < sizeof(card[0]); j++)
+		{
+			int cardColor = GetCardColor(card[i][j]);
+			int cardValue = GetCardValue(card[i][j]);
+			pCard[beginCardIndex+j]->changeCard(true,cardColor,cardValue,beginCardIndex+j,getCardScale(0));
+		}
+		i++;
+		if (i==5)
+		{
+			i=0;
+		}
 }
 //获取牛牛类型点数
 int CardLayerHundred::getOxTypeWithValue(int iType){

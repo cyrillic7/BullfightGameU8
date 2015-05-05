@@ -15,7 +15,6 @@ GameControlOxHundred::GameControlOxHundred()
 
 }
 GameControlOxHundred::~GameControlOxHundred(){
-	
 	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
 }
 void GameControlOxHundred::onEnter(){
@@ -115,6 +114,28 @@ void GameControlOxHundred::onMenuBack(CCObject* pSender, TouchEventType type){
 		{
 			TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 			Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene());
+		}
+		break;
+	default:
+		break;
+	}
+}
+//加注菜单
+void GameControlOxHundred::onMenuPlaceJetton(CCObject* pSender, TouchEventType type){
+	switch (type)
+	{
+	case TOUCH_EVENT_ENDED:
+		{
+			//变量定义
+			CMD_C_PlaceJetton PlaceJetton;
+			memset(&PlaceJetton,0,sizeof(PlaceJetton));
+
+			//构造变量
+			//PlaceJetton.cbJettonArea=cbJettonArea;
+			//PlaceJetton.lJettonScore=lJettonScore;
+
+			//发送消息
+			//(SUB_C_PLACE_JETTON,&PlaceJetton,sizeof(PlaceJetton));
 		}
 		break;
 	default:
@@ -261,11 +282,11 @@ void GameControlOxHundred::onSubGameEnd(const void * pBuffer, WORD wDataSize){
 	CCLog("end:%lld<<%s>>",pGameEnd->lBankerScore,__FUNCTION__);
 	//设置时间
 	resetTimer(pGameEnd->cbTimeLeave,Tools::GBKToUTF8("休息一下..."));
-	//隐藏所有筹码
+	/*//隐藏所有筹码
 	for (int i = 0; i < DataModel::sharedDataModel()->vecJettonNode.size(); i++)
 	{
 		DataModel::sharedDataModel()->vecJettonNode[i]->hideJetton();
-	}
+	}*/
 	//设置牌数据
 	for (int i = 0; i < sizeof(pGameEnd->cbTableCardArray)/sizeof(pGameEnd->cbTableCardArray[0]); i++)
 	{
@@ -273,7 +294,7 @@ void GameControlOxHundred::onSubGameEnd(const void * pBuffer, WORD wDataSize){
 		{
 			getMainScene()->cardLayer->card[i][j]=pGameEnd->cbTableCardArray[i][j];
 		}
-	}
+	} 
 	//设置发牌状态
 	DataModel::sharedDataModel()->getMainSceneOxHundred()->setGameStateWithUpdate(MainSceneOxHundred::STATE_SEND_CARD);
 }
