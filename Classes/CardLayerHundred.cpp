@@ -16,8 +16,14 @@ void CardLayerHundred::onExit(){
 	CardLayerBase::onExit();
 }
 void CardLayerHundred::updateGameState(){
-	
-	sendCard();
+	switch (DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameState())
+	{
+	case MainSceneOxHundred::STATE_GAME_SEND_CARD:
+		sendCard();
+		break;
+	default:
+		break;
+	}
 }
 void CardLayerHundred::updateServerState(){
 	
@@ -76,9 +82,10 @@ void CardLayerHundred::sendFiveCard(int index,int offsetIndex){
 }
 //移动单张牌
 void CardLayerHundred::moveCardAction(CCArmature *armature, float fTime, CCPoint targetPos,int index){
-	float moveSpeed=0.05;
+	float moveSpeed=0.35;
 	CCDelayTime *delayTime = CCDelayTime::create(fTime);
-	CCMoveTo *moveTo = CCMoveTo::create(moveSpeed, targetPos);
+	//CCMoveTo *moveTo = CCMoveTo::create(moveSpeed, targetPos);
+	CCJumpTo *moveTo = CCJumpTo::create(moveSpeed, targetPos,100,1);
 	CCScaleTo *scaleTo = CCScaleTo::create(moveSpeed, getCardScale(index));
 	CCSpawn *spawn = CCSpawn::create(moveTo,scaleTo, NULL);
 	CCCallFunc *callbackFunc = CCCallFunc::create(this,SEL_CallFunc(&CardLayerHundred::onSendCardFinish));

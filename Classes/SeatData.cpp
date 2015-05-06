@@ -46,7 +46,13 @@ void SeatData::setUserJetton(long long lValue){
 		pLUserJetton->setPositionX(0);
 		pIUserFontWan->setVisible(false);
 	}
-	pLUserJetton->setVisible(true);
+	if (lValue==0)
+	{
+		pLUserJetton->setVisible(false);
+	}else
+	{
+		pLUserJetton->setVisible(true);
+	}
 }
 //Òş²ØÓÃ»§³ïÂë±êÇ©
 void SeatData::hideUserJettonLabel(){

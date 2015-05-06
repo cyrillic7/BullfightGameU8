@@ -23,8 +23,9 @@ public:
 	//游戏状态
 	enum GameState
 	{
-		STATE_GAME_FREE=0,			//空闲状态
-		STATE_SEND_CARD,				//发牌
+		STATE_GAME_FREE=0,						//空闲状态
+		STATE_GAME_PLACE_JETTON,			//下注
+		STATE_GAME_SEND_CARD,							//发牌
 	};
 	CC_SYNTHESIZE(GameState,gameState,GameState);
 	CC_SYNTHESIZE(GameState,serverState,ServerState);
