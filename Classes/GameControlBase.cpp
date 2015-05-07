@@ -118,10 +118,17 @@ void GameControlBase::resetTimer(float time,const char * promptContent){
 		pITimer->setSize(CCSize(pLTimerPromptContent->getContentSize().width+50,pITimer->getContentSize().height));
 	}
 }
+//显示计时器
+void GameControlBase::showTimer(){
+	pITimer->setVisible(true);
+}
 //隐藏计时器
-void GameControlBase::hideTimer(){
+void GameControlBase::hideTimer(bool bIsReset){
 	pITimer->setVisible(false);
-	iTimerCount=-1;
+	if (bIsReset)
+	{
+		iTimerCount=-1;
+	}
 }
 void GameControlBase::updateTimer(float dt){
 	iTimerCount--;
@@ -189,7 +196,7 @@ void GameControlBase::menuOpenCard(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		hideTimer();
+		hideTimer(true);
 		DataModel::sharedDataModel()->getMainSceneOxTwo()->cardLayer->sortingOx(getMeChairID(),3);
 		/*//发送消息
 		CMD_C_OxCard OxCard;
@@ -246,7 +253,7 @@ void GameControlBase::menuReady(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		hideTimer();
+		hideTimer(true);
 		//隐藏准备
 		pPanelReady->setEnabled(false);
 		//发送准备指使
@@ -275,7 +282,7 @@ void GameControlBase::menuNotFight(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-			hideTimer();
+			hideTimer(true);
 		pFightForBanker->setEnabled(false);
 		//DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainScene::STATE_BETTING);
 		DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
@@ -296,7 +303,7 @@ void GameControlBase::menuFight(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		hideTimer();
+		hideTimer(true);
 		pFightForBanker->setEnabled(false);
 		//DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainScene::STATE_OPT_OX);
 		DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
@@ -320,7 +327,7 @@ void GameControlBase::menuBetting(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		hideTimer();
+		hideTimer(true);
 		pBetting->setEnabled(false);
 		UIButton *button=(UIButton*)pSender;
 		int bTemp=button->getTag();

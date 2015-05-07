@@ -9,7 +9,7 @@
 #define	DefaultListerner1_H
 #include "SocketListerner.h"
 #include "cocos2d.h"
-#include "GameLogic\GameLogic.h"
+#include "GameLogic/GameLogic.h"
 USING_NS_CC;
 class GameListerner : public SocketListerner,public CCNode,GameLogic {
 public:

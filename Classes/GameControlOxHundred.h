@@ -6,10 +6,12 @@
 #include "SeatData.h"
 #include "JettonNode.h"
 //#include "cmd_game.h"
+#include "PlayerDataHundred.h"
 class MainSceneBase;
 #define MAX_SEAT_COUNT 4
 #define MAX_JETTON_BUTTON_COUNT			5			//筹码按键总数
 #define MAX_AREA_COUNT								4			//区域数目
+#define MAX_PLAYER_HUNDRED_COUNT			2			//百人牛牛用户数
 class GameControlOxHundred:public GameControlBase
 {
 	//限制信息
@@ -36,6 +38,10 @@ private:
 	UIImageView *pIJettonSelect;
 	//当前所选筹码索引
 	int iCurSelectJettonIndex;
+	//用户信息
+	PlayerDataHundred *pPlayerData[MAX_PLAYER_HUNDRED_COUNT];
+	//上庄按键
+	UIImageView *pIUpBank;
 	//游戏状态
 protected:
 	bool								m_bAllowLookon;						//允许旁观
@@ -46,6 +52,12 @@ public:
 	virtual void onEnter();
 	virtual void onExit();
     CREATE_FUNC(GameControlOxHundred);
+	//设置座位结算
+	void setSeatResult(int iSeatIndex,int iOXType);
+	//显示总结果
+	void showAllResult();
+	//更新状态
+	virtual void updateState();
 private:
 	MainSceneBase*getMainScene();
 	//初始化计时器
@@ -86,6 +98,8 @@ private:
 	void onMenuPlaceJetton(CCObject* pSender, TouchEventType type);
 	//选择筹码
 	void onMenuSelectJetton(CCObject* pSender, TouchEventType type);
+	//上庄
+	void onMenuUpBank(CCObject* pSender, TouchEventType type);
 	//最大下注
 	long long getUserMaxJetton();
 	//更新控制
@@ -94,4 +108,5 @@ private:
 	void setBankerInfo(unsigned short  wBanker,long long lScore);
 	//重置数据
 	void resetData();
+	
 };

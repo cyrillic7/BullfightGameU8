@@ -9,7 +9,7 @@
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
-#include "GameLogic\GameLogic.h"
+#include "GameLogic/GameLogic.h"
 #include "CardLayerBase.h"
 USING_NS_CC;
 USING_NS_CC_EXT;

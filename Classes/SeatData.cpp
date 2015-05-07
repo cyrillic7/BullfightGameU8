@@ -11,6 +11,8 @@ void SeatData::resetData(){
 	allJettonCount=0;
 	hideAllJettonLabel();
 	hideUserJettonLabel();
+	pINotAddJetton->setVisible(false);
+	pLResult->setVisible(false);
 }
 //设置所有筹码
 void SeatData::setAllJettonByAdd(long long lValue){
@@ -58,4 +60,23 @@ void SeatData::setUserJetton(long long lValue){
 void SeatData::hideUserJettonLabel(){
 	pLUserJetton->setVisible(false);
 	pIUserFontWan->setVisible(false);
+}
+//设置结算
+void SeatData::setResult(long long lResult){
+	if (lResult==0)
+	{
+		pINotAddJetton->setVisible(true);
+	}else
+	{
+		if (lResult>0)
+		{
+			pLResult->setColor(ccc3(255,252,38));
+			pLResult->setStringValue(CCString::createWithFormat(":%lld",lResult)->getCString());
+		}else
+		{
+			pLResult->setColor(ccc3(255,255,255));
+			pLResult->setStringValue(CCString::createWithFormat(";%lld",-lResult)->getCString());
+		}
+		pLResult->setVisible(true);
+	}
 }

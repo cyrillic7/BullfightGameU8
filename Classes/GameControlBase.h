@@ -11,7 +11,7 @@
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
-#include "GameLogic\GameLogic.h"
+#include "GameLogic/GameLogic.h"
 #include "TCPSocket.h"
 #include "GameEndLayer.h"
 #include "MessageQueue.h"
@@ -55,7 +55,7 @@ public:
 	//更新消息
 	virtual void update(float delta);
 	//更新状态
-	void updateState();
+	virtual void updateState();
 public:
 	//显示指定索引提示动画
 	void showActionPrompt(int promptIndex);
@@ -65,8 +65,10 @@ public:
 	int getBankViewID();
 	//设置计时器
 	void resetTimer(float time,const char * promptContent);
+	//显示计时器
+	void showTimer();
 	//隐藏计时器
-	void hideTimer();
+	void hideTimer(bool bIsReset);
 private:
 	//初始化操作者提示动画
 	void initActionPrompt();

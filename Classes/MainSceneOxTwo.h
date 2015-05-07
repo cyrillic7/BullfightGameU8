@@ -14,7 +14,7 @@
 #include "MainSceneBase.h"
 #include "GameControlOxTwo.h"
 #include "TCPSocket.h"
-#include "GameLogic\GameLogic.h"
+#include "GameLogic/GameLogic.h"
 #include "PlayerLayer.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)

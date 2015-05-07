@@ -55,6 +55,33 @@ void GameControlOxHundred::onEnter(){
 	//庄家牌背景
 	UIImageView *pIBankCardBg=static_cast<UIImageView*>(pWidget->getWidgetByName("ImageBankCardBg"));
 	getMainScene()->posChair[0]=ccpAdd(pIBankCardBg->getPosition(),ccp(0,-pIBankCardBg->getContentSize().height/2));
+	//用户数据
+	for (int i = 0; i < MAX_PLAYER_HUNDRED_COUNT; i++)
+	{
+		pPlayerData[i]=PlayerDataHundred::create();
+		this->addChild(pPlayerData[i]);
+		pPlayerData[i]->pIPlayerBg=static_cast<UIImageView*>(pWidget->getWidgetByName(CCString::createWithFormat("ImageIcon%d",i)->getCString()));
+		//结算数字
+		pPlayerData[i]->pLResult=static_cast<UILabelAtlas*>(pPlayerData[i]->pIPlayerBg->getChildByName("AtlasLabelResult"));
+		pPlayerData[i]->pLResult->setVisible(false);
+	}
+	//上庄按键
+	pIUpBank=static_cast<UIImageView*>(pWidget->getWidgetByName("ImageUpBank"));
+	pIUpBank->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxHundred::onMenuUpBank));
+	CCSprite *pSUpBank=CCSprite::create();
+	CCArray *animFrames=CCArray::create();
+
+	CCSpriteFrame *pSFrame=CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("u_gih_add_score.png");
+	animFrames->addObject(pSFrame);
+	CCSpriteFrame *pSFrame1=CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("u_gih_add_score_pre.png");
+	animFrames->addObject(pSFrame1);
+
+	CCAnimation* animation = CCAnimation::createWithSpriteFrames(animFrames,0.1f); 
+	animation->setLoops(-1); 
+	CCAnimate *action=CCAnimate::create(animation); 
+	pSUpBank->runAction(action);
+
+	pIUpBank->addNode(pSUpBank);
 
 	initTimer(pWidget);
 	initSeatData(pWidget);
@@ -142,8 +169,29 @@ void GameControlOxHundred::initSeatData(UILayer *pWidget){
 		//用户筹码
 		pSeatData[i]->pLUserJetton=static_cast<UILabelAtlas*>(bg->getChildByName("ImageB")->getChildByName("AtlasLabelAddScore"));
 		pSeatData[i]->pIUserFontWan=static_cast<UIImageView*>(bg->getChildByName("ImageB")->getChildByName("AtlasLabelAddScore")->getChildByName("ImageFontWan1"));
+		//未下注
+		pSeatData[i]->pINotAddJetton=static_cast<UIImageView*>(bg->getChildByName("ImageNotAdd"));
+		//结算数字
+		pSeatData[i]->pLResult=static_cast<UILabelAtlas*>(bg->getChildByName("AtlasLabelResultNum"));
 
 		pSeatData[i]->resetData();
+	}
+}
+//设置座位结算
+void GameControlOxHundred::setSeatResult(int iSeatIndex,int iOXType){
+	int oxType=iOXType;
+	if (oxType==0)
+	{
+		oxType==1;
+	}
+	long long lMeJetton=m_lUserJettonScore[iSeatIndex]*oxType;
+	pSeatData[iSeatIndex-1]->setResult(lMeJetton);
+}
+//显示总结果
+void GameControlOxHundred::showAllResult(){
+	for (int i = 0; i < MAX_PLAYER_HUNDRED_COUNT; i++)
+	{
+		pPlayerData[i]->showResultAnimation();
 	}
 }
 //获得筹码对象
@@ -242,6 +290,19 @@ void GameControlOxHundred::onMenuSelectJetton(CCObject* pSender, TouchEventType 
 		break;
 	}
 }
+//用户上庄
+void GameControlOxHundred::onMenuUpBank(CCObject* pSender, TouchEventType type){
+	switch (type)
+	{
+	case TOUCH_EVENT_ENDED:
+		{
+			CCLog("upbank---<<%s>>",__FUNCTION__);
+		}
+		break;
+	default:
+		break;
+	}
+}
 void GameControlOxHundred::update(float delta){
 	MessageQueue::update(delta);
 }
@@ -250,7 +311,7 @@ void GameControlOxHundred::delayedAction(){
 	{
 	case MainSceneOxHundred::STATE_GAME_FREE:
 		{
-			hideTimer();
+			hideTimer(true);
 			
 		}
 		break;
@@ -291,13 +352,13 @@ long long GameControlOxHundred::getUserMaxJetton()
 	}
 
 	//庄家限制
-	lMeMaxScore=min(lMeMaxScore,lBankerScore);
+	lMeMaxScore=MIN(lMeMaxScore,lBankerScore);
 
 	lMeMaxScore /= iTimer; 
 
 	//非零限制
 	//ASSERT(lMeMaxScore >= 0);
-	lMeMaxScore = max(lMeMaxScore, 0);
+	lMeMaxScore = MAX(lMeMaxScore, 0);
 	
 	return lMeMaxScore;
 }
@@ -330,6 +391,10 @@ void GameControlOxHundred::updateButtonContron(){
 			pIJettonButton[i]->setTouchEnabled(true);
 			pIJettonButton[0]->setVisible(true);
 		}
+		if (iCurSelectJettonIndex<0)
+		{
+			iCurSelectJettonIndex=0;
+		}
 		pIJettonSelect->setVisible(true);
 		//////////////////////////////////////////////////////////////////////////
 		//计算积分
@@ -341,7 +406,7 @@ void GameControlOxHundred::updateButtonContron(){
 		long long lUserMaxJetton=getUserMaxJetton();
 		CCLog("---最大下注:%lld<<%s>>",lUserMaxJetton,__FUNCTION__);
 		//设置光标
-		lLeaveScore = min((lLeaveScore/10),lUserMaxJetton); //用户可下分 和最大分比较 由于是五倍 
+		lLeaveScore = MIN((lLeaveScore/10),lUserMaxJetton); //用户可下分 和最大分比较 由于是五倍 
 		//CCLog("---lLeaveScore:%lld<<%s>>",lLeaveScore,__FUNCTION__);
 		if (lCurrentJetton>lLeaveScore)
 		{
@@ -360,12 +425,32 @@ void GameControlOxHundred::updateButtonContron(){
 		
 		//控制按钮
 		int iTimer = 1;
-		pIJettonButton[0]->setVisible((lLeaveScore>=1000*iTimer && lUserMaxJetton>=1000*iTimer)?true:false);
+		for (int i = 0; i < MAX_JETTON_BUTTON_COUNT; i++)
+		{
+			if (lLeaveScore<nJetton[i]*iTimer || lUserMaxJetton<nJetton[i]*iTimer)
+			{
+				pIJettonButton[i]->setColor(ccc3(100,100,100));
+				pIJettonButton[i]->setTouchEnabled(false);
+				if (iCurSelectJettonIndex==i)
+				{
+					iCurSelectJettonIndex--;
+					if (iCurSelectJettonIndex>=0)
+					{
+						pIJettonSelect->setPosition(pIJettonButton[iCurSelectJettonIndex]->getPosition());
+					}else
+					{
+						pIJettonSelect->setVisible(false);
+					}
+				}
+			}
+		}
+		/**/
+		/*pIJettonButton[0]->setVisible((lLeaveScore>=100*iTimer && lUserMaxJetton>=100*iTimer)?true:false);
 		pIJettonButton[1]->setVisible((lLeaveScore>=5000*iTimer && lUserMaxJetton>=5000*iTimer)?true:false);
 		pIJettonButton[2]->setVisible((lLeaveScore>=10000*iTimer && lUserMaxJetton>=10000*iTimer)?true:false);
 		pIJettonButton[3]->setVisible((lLeaveScore>=100000*iTimer && lUserMaxJetton>=100000*iTimer)?true:false);
 		pIJettonButton[4]->setVisible((lLeaveScore>=500000*iTimer && lUserMaxJetton>=500000*iTimer)?true:false);
-		CCLog("%lld    %lld<<%s>>",lLeaveScore,lUserMaxJetton,__FUNCTION__);
+		CCLog("%lld    %lld<<%s>>",lLeaveScore,lUserMaxJetton,__FUNCTION__);*/
 		/*m_GameClientView.m_btJetton100.EnableWindow((lLeaveScore>=100*iTimer && lUserMaxJetton>=100*iTimer)?TRUE:FALSE);
 		m_GameClientView.m_btJetton1000.EnableWindow((lLeaveScore>=1000*iTimer && lUserMaxJetton>=1000*iTimer)?TRUE:FALSE);
 		m_GameClientView.m_btJetton10000.EnableWindow((lLeaveScore>=10000*iTimer && lUserMaxJetton>=10000*iTimer)?TRUE:FALSE);
@@ -385,6 +470,37 @@ void GameControlOxHundred::updateButtonContron(){
 			pIJettonButton[i]->setTouchEnabled(false);
 		}
 		pIJettonSelect->setVisible(false);
+	}
+}
+//更新状态
+void GameControlOxHundred::updateState(){
+	switch (DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameState())
+	{
+			case MainSceneOxHundred::STATE_GAME_SHOW_CARE_FINISH:
+			{
+				showAllResult();
+			}
+			break;
+			case MainSceneOxHundred::STATE_GAME_END:
+				{
+					resetData();
+					for (int i = 0; i < MAX_SEAT_COUNT; i++)
+					{
+						pSeatData[i]->resetData();
+					}
+					//隐藏所有筹码
+					for (int i = 0; i < DataModel::sharedDataModel()->vecJettonNode.size(); i++)
+					{
+						DataModel::sharedDataModel()->vecJettonNode[i]->hideJetton();
+					}
+					//隐藏牌
+					getMainScene()->cardLayer->resetCard();
+					showTimer();
+
+				}
+				break;
+	default:
+		break;
 	}
 }
 //设置庄家
@@ -586,7 +702,15 @@ void GameControlOxHundred::onSubPlaceJetton(const void * pBuffer, WORD wDataSize
 	CMD_S_PlaceJetton * pPlaceJetton=(CMD_S_PlaceJetton *)pBuffer;
 
 	pSeatData[pPlaceJetton->cbJettonArea-1]->setAllJettonByAdd(pPlaceJetton->lJettonScore);
-	m_lAllJettonScore[pPlaceJetton->cbJettonArea] += pPlaceJetton->lJettonScore;
+	
+	CCPoint posBegin=pBOnline->getPosition();
+	if (DataModel::sharedDataModel()->userInfo->wChairID!=pPlaceJetton->wChairID)
+	{
+		m_lAllJettonScore[pPlaceJetton->cbJettonArea] += pPlaceJetton->lJettonScore;
+	}else
+	{
+		posBegin=pPlayerData[0]->pIPlayerBg->getPosition();
+	}
 	//////////////////////////////////////////////////////////////////////////
 	
 
@@ -603,7 +727,8 @@ void GameControlOxHundred::onSubPlaceJetton(const void * pBuffer, WORD wDataSize
 	pos=ccpSub(pos,ccp(fWidth/2,fHeight/2));
 
 	JettonNode *pJetton=getJettonNode();
-	pJetton->setJettonTypeWithMove(pPlaceJetton->lJettonScore,pBOnline->getPosition(),pos);
+	
+	pJetton->setJettonTypeWithMove(pPlaceJetton->lJettonScore,posBegin,pos);
 	CCLog("chair:%d jettonScore: %lld<<%s>>",pPlaceJetton->wChairID,pPlaceJetton->lJettonScore,__FUNCTION__);
 	updateButtonContron();
 }
@@ -645,7 +770,11 @@ void GameControlOxHundred::onSubGameEnd(const void * pBuffer, WORD wDataSize){
 	CCLog("end:%lld<<%s>>",pGameEnd->lUserScore,__FUNCTION__);
 	//设置时间
 	resetTimer(pGameEnd->cbTimeLeave,Tools::GBKToUTF8("休息一下..."));
-	
+	hideTimer(false);
+	//设置总结算
+	pPlayerData[0]->lGameScore=pGameEnd->lUserScore;
+	pPlayerData[1]->lGameScore=pGameEnd->lBankerScore;
+
 	//设置牌数据
 	for (int i = 0; i < sizeof(pGameEnd->cbTableCardArray)/sizeof(pGameEnd->cbTableCardArray[0]); i++)
 	{

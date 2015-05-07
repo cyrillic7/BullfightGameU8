@@ -162,6 +162,7 @@ void CardLayerHundred::updateShowCardOneByOne(float delta){
 		if (i==5)
 		{
 			i=0;
+			DataModel::sharedDataModel()->getMainSceneOxHundred()->setGameStateWithUpdate(MainSceneOxHundred::STATE_GAME_SHOW_CARE_FINISH);
 		}
 }
 //获取牛牛类型点数
@@ -218,6 +219,7 @@ void CardLayerHundred::showOxType(int chairiD,int oxType){
 	CCSequence *seq=CCSequence::create(CCDelayTime::create(0.01+5*0.02),
 		CCCallFuncN::create(this,SEL_CallFuncN(&CardLayerHundred::onPlayOxAnimation)),
 		NULL);
+	int result=0;
 	if (chairiD==0)
 	{
 		pAOxType[chairiD]->setColor(ccc3(72,255,253));
@@ -227,12 +229,15 @@ void CardLayerHundred::showOxType(int chairiD,int oxType){
 		int copmare=CompareCard(card[chairiD],5,card[0],5,bMultiple);
 		if (copmare==1)
 		{
+				result=pAOxType[0]->getTag()*-1;
 				pAOxType[chairiD]->setColor(ccc3(255,255,255));
 		}else if (copmare==-1)
 		{
+				result=pAOxType[chairiD]->getTag();
 				pAOxType[chairiD]->setColor(ccc3(246,252,74));
 				pAOxType[chairiD]->setScale(1.1);
 		}
+		DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->setSeatResult(chairiD,result);
 	}
 	pAOxType[chairiD]->runAction(seq);
 }

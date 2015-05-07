@@ -80,7 +80,7 @@ void MainSceneOxHundred::setServerStateWithUpdate(GameState serverState){
 //更新状态
 void MainSceneOxHundred::updateGameState(){
 	//操作层更新状态
-	//gameControl->updateState();
+	gameControl->updateState();
 	
 	//玩家信息层更新状态
 	//playerLayer->updateState();

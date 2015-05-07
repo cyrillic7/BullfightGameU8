@@ -15,6 +15,10 @@ public:
 	UILabelAtlas *pLUserJetton;
 	//用户筹码文字“万”
 	UIImageView *pIUserFontWan;
+	//未下注
+	UIImageView *pINotAddJetton;
+	//结算数字
+	UILabelAtlas *pLResult;
 	//中心点
 	CCPoint posCenter;
 	//座位大小
@@ -37,4 +41,6 @@ public:
 	void setUserJetton(long long lValue);
 	//隐藏用户筹码标签
 	void hideUserJettonLabel();
+	//设置结算
+	void setResult(long long lResult);
 };
