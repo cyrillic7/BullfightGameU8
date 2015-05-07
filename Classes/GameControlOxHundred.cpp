@@ -11,6 +11,7 @@
 #include "cmd_game.h"
 #include "MainSceneBase.h"
 #include "PacketAide.h"
+#include "PopDialogBoxUpBank.h"
 GameControlOxHundred::GameControlOxHundred()
 :iCurSelectJettonIndex(0)
 ,m_lMeMaxScore(0)
@@ -296,6 +297,8 @@ void GameControlOxHundred::onMenuUpBank(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 		{
+			PopDialogBoxUpBank *pDBUpBank=PopDialogBoxUpBank::create();
+			getParent()->addChild(pDBUpBank,K_Z_ORDER_POP);
 			CCLog("upbank---<<%s>>",__FUNCTION__);
 		}
 		break;
@@ -620,6 +623,7 @@ void GameControlOxHundred::onEventGameIng(WORD wSubCmdID,void * pDataBuffer, uns
 		onSubGameEnd(pDataBuffer,wDataSize);
 		break;
 	case SUB_S_APPLY_BANKER://申请庄家
+		onSubUserApplyBanker(pDataBuffer,wDataSize);
 		break;
 	case SUB_S_CHANGE_BANKER://切换庄家
 		break;
@@ -731,6 +735,16 @@ void GameControlOxHundred::onSubPlaceJetton(const void * pBuffer, WORD wDataSize
 	pJetton->setJettonTypeWithMove(pPlaceJetton->lJettonScore,posBegin,pos);
 	CCLog("chair:%d jettonScore: %lld<<%s>>",pPlaceJetton->wChairID,pPlaceJetton->lJettonScore,__FUNCTION__);
 	updateButtonContron();
+}
+//申请庄家
+void GameControlOxHundred::onSubUserApplyBanker(const void * pBuffer, WORD wDataSize){
+	//效验数据
+	assert(wDataSize==sizeof(CMD_S_ApplyBanker));
+	if (wDataSize!=sizeof(CMD_S_ApplyBanker)) return ;
+
+	//消息处理
+	CMD_S_ApplyBanker * pApplyBanker=(CMD_S_ApplyBanker *)pBuffer;
+	CCLog("============================  %d<<%s>>",pApplyBanker->wApplyUser,__FUNCTION__);
 }
 //下注失败
 void GameControlOxHundred::onSubPlaceJettonFail(const void * pBuffer, WORD wDataSize){

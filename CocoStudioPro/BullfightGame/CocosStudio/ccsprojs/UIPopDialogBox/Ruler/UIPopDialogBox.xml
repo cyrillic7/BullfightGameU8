@@ -60,4 +60,8 @@
     <Project>UIPopDialogBoxLogonAccount</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxUpBank</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

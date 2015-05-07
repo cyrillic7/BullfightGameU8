@@ -91,6 +91,8 @@ private:
 	void onSubPlaceJetton(const void * pBuffer, WORD wDataSize,bool bGameMes);
 	//下注失败
 	void onSubPlaceJettonFail(const void * pBuffer, WORD wDataSize);
+	//申请庄家
+	void onSubUserApplyBanker(const void * pBuffer, WORD wDataSize);
 	//游戏结束
 	void onSubGameEnd(const void * pBuffer, WORD wDataSize);
 private:
