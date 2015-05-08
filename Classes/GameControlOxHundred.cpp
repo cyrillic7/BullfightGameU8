@@ -12,6 +12,11 @@
 #include "MainSceneBase.h"
 #include "PacketAide.h"
 #include "PopDialogBoxUpBank.h"
+#include "PopDialogBoxOnLine.h"
+#include "PopDialogBoxTrend.h"
+#include "SEvent.h"
+#include "MTNotificationQueue.h"
+using namespace std;
 GameControlOxHundred::GameControlOxHundred()
 :iCurSelectJettonIndex(0)
 ,m_lMeMaxScore(0)
@@ -25,6 +30,7 @@ GameControlOxHundred::GameControlOxHundred()
 }
 GameControlOxHundred::~GameControlOxHundred(){
 	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
+	DataModel::sharedDataModel()->mTagUserInfo.clear();
 	DataModel::sharedDataModel()->	vecJettonNode.clear();
 }
 void GameControlOxHundred::onEnter(){
@@ -37,8 +43,12 @@ void GameControlOxHundred::onEnter(){
 
 	UIButton* button = static_cast<UIButton*>(pWidget->getWidgetByName("ButtonBack"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxHundred::onMenuBack));
-
+	//趋势图按键
+	button = static_cast<UIButton*>(pWidget->getWidgetByName("ButtonTrend"));
+	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxHundred::onMenuTrend));
+	//在线用户按键
 	pBOnline= static_cast<UIButton*>(pWidget->getWidgetByName("ButtonOnline"));
+	pBOnline->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxHundred::onMenuOnLine));
 	//筹码按钮
 	for (int i = 0; i < MAX_JETTON_BUTTON_COUNT; i++)
 	{
@@ -194,6 +204,8 @@ void GameControlOxHundred::showAllResult(){
 	{
 		pPlayerData[i]->showResultAnimation();
 	}
+	//更新趋势图
+	MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_LIST,NULL);
 }
 //获得筹码对象
 JettonNode *GameControlOxHundred::getJettonNode(){
@@ -291,6 +303,34 @@ void GameControlOxHundred::onMenuSelectJetton(CCObject* pSender, TouchEventType 
 		break;
 	}
 }
+//在线用户
+void GameControlOxHundred::onMenuOnLine(CCObject* pSender, TouchEventType type){
+	switch (type)
+	{
+	case TOUCH_EVENT_ENDED:
+		{
+			PopDialogBoxOnLine *pDBUpBank=PopDialogBoxOnLine::create();
+			getParent()->addChild(pDBUpBank,K_Z_ORDER_POP);
+		}
+		break;
+	default:
+		break;
+	}
+}
+//趋势图
+void GameControlOxHundred::onMenuTrend(CCObject* pSender, TouchEventType type){
+	switch (type)
+	{
+	case TOUCH_EVENT_ENDED:
+		{
+			PopDialogBoxTrend *pDBUpBank=PopDialogBoxTrend::create();
+			getParent()->addChild(pDBUpBank,K_Z_ORDER_POP);
+		}
+		break;
+	default:
+		break;
+	}
+}
 //用户上庄
 void GameControlOxHundred::onMenuUpBank(CCObject* pSender, TouchEventType type){
 	switch (type)
@@ -299,7 +339,6 @@ void GameControlOxHundred::onMenuUpBank(CCObject* pSender, TouchEventType type){
 		{
 			PopDialogBoxUpBank *pDBUpBank=PopDialogBoxUpBank::create();
 			getParent()->addChild(pDBUpBank,K_Z_ORDER_POP);
-			CCLog("upbank---<<%s>>",__FUNCTION__);
 		}
 		break;
 	default:
@@ -335,13 +374,13 @@ long long GameControlOxHundred::getUserMaxJetton()
 	long long lBankerScore=2147483647;
 	//if (m_wBankerUser!=INVALID_CHAIR) 
 	lBankerScore=m_lBankerScore;
-	CCLog("=lBankerScore:%lld    %lld<<%s>>",lBankerScore,m_lBankerScore,__FUNCTION__);
+	//CCLog("=lBankerScore:%lld    %lld<<%s>>",lBankerScore,m_lBankerScore,__FUNCTION__);
 	for (int nAreaIndex=1; nAreaIndex<=AREA_COUNT; ++nAreaIndex)
 	{
 		lBankerScore-=m_lAllJettonScore[nAreaIndex]*iTimer;
-		CCLog("%d ---------%lld          <<%s>>",nAreaIndex,m_lAllJettonScore[nAreaIndex],__FUNCTION__);
+		//CCLog("%d ---------%lld          <<%s>>",nAreaIndex,m_lAllJettonScore[nAreaIndex],__FUNCTION__);
 	}
-	CCLog("===lBankerScore:%lld<<%s>>",lBankerScore,__FUNCTION__);
+	//CCLog("===lBankerScore:%lld<<%s>>",lBankerScore,__FUNCTION__);
 	//区域限制
 	long long lMeMaxScore=0;
 	if((m_lMeMaxScore-lNowJetton)/iTimer>m_lAreaLimitScore)
@@ -524,7 +563,7 @@ void GameControlOxHundred::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,voi
 	switch (wMainCmdID)
 	{
 	case MDM_GR_USER://用户信息
-		onSubUserState(wSubCmdID,pDataBuffer,wDataSize);
+		onSubUserInfo(wSubCmdID,pDataBuffer,wDataSize);
 		break;
 	case MDM_GF_GAME://游戏命令
 		onEventGameIng(wSubCmdID,pDataBuffer,wDataSize);
@@ -630,6 +669,7 @@ void GameControlOxHundred::onEventGameIng(WORD wSubCmdID,void * pDataBuffer, uns
 	case SUB_S_CHANGE_USER_SCORE://更新积分
 		break;
 	case SUB_S_SEND_RECORD://游戏记录
+		onSubGameRecord(pDataBuffer,wDataSize);
 		break;
 	case SUB_S_PLACE_JETTON_FAIL://下注失败
 		onSubPlaceJettonFail(pDataBuffer,wDataSize);
@@ -746,6 +786,44 @@ void GameControlOxHundred::onSubUserApplyBanker(const void * pBuffer, WORD wData
 	CMD_S_ApplyBanker * pApplyBanker=(CMD_S_ApplyBanker *)pBuffer;
 	CCLog("============================  %d<<%s>>",pApplyBanker->wApplyUser,__FUNCTION__);
 }
+//游戏记录
+void GameControlOxHundred::onSubGameRecord(const void * pBuffer, WORD wDataSize){
+	//效验参数
+	assert(wDataSize%sizeof(tagServerGameRecord)==0);
+	if (wDataSize%sizeof(tagServerGameRecord)!=0) return ;
+
+	
+
+	//设置记录
+	WORD wRecordCount=wDataSize/sizeof(tagServerGameRecord);
+	for (WORD wIndex=0;wIndex<wRecordCount;wIndex++) 
+	{
+		tagServerGameRecord * pServerGameRecord=(((tagServerGameRecord *)pBuffer)+wIndex);
+		tagGameRecord tRecord;
+		memcpy(&tRecord,pServerGameRecord,sizeof(tagServerGameRecord));
+		insertGameHistory(tRecord);
+		//CCLog("==--::%d %d %d %d<<%s>>",pServerGameRecord->bWinShunMen, pServerGameRecord->bWinDuiMen, pServerGameRecord->bWinDaoMen,pServerGameRecord->bWinHuang,__FUNCTION__);
+		//m_GameClientView.SetGameHistory(pServerGameRecord->bWinShunMen, pServerGameRecord->bWinDuiMen, pServerGameRecord->bWinDaoMen,pServerGameRecord->bWinHuang);
+	}
+	MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_LIST,NULL);
+}
+//插入历史记录
+void GameControlOxHundred::insertGameHistory(tagGameRecord tagRecord){
+	listGameRecord.push_back(tagRecord);
+	if (listGameRecord.size()>MAX_SCORE_HISTORY)
+	{
+		listGameRecord.pop_front();
+	}
+}
+//推断赢家
+void GameControlOxHundred::deduceWinner(bool &bWinTian, bool &bWinDi, bool &bWinXuan,bool &bWinHuan,BYTE &TianMultiple,BYTE &diMultiple,BYTE &TianXuanltiple,BYTE &HuangMultiple )
+{
+	//大小比较
+	bWinTian=CompareCard(getMainScene()->cardLayer->card[BANKER_INDEX],5,getMainScene()->cardLayer->card[SHUN_MEN_INDEX],5,TianMultiple)==1?true:false;
+	bWinDi=CompareCard(getMainScene()->cardLayer->card[BANKER_INDEX],5,getMainScene()->cardLayer->card[DUI_MEN_INDEX],5,diMultiple)==1?true:false;
+	bWinXuan=CompareCard(getMainScene()->cardLayer->card[BANKER_INDEX],5,getMainScene()->cardLayer->card[DAO_MEN_INDEX],5,TianXuanltiple)==1?true:false;
+	bWinHuan=CompareCard(getMainScene()->cardLayer->card[BANKER_INDEX],5,getMainScene()->cardLayer->card[HUAN_MEN_INDEX],5,HuangMultiple)==1?true:false;
+}
 //下注失败
 void GameControlOxHundred::onSubPlaceJettonFail(const void * pBuffer, WORD wDataSize){
 	CCLog("======================jettonFail------------<<%s>>",__FUNCTION__);
@@ -797,56 +875,334 @@ void GameControlOxHundred::onSubGameEnd(const void * pBuffer, WORD wDataSize){
 			getMainScene()->cardLayer->card[i][j]=pGameEnd->cbTableCardArray[i][j];
 		}
 	} 
+	//推断赢家
+	bool bWinTianMen, bWinDiMen, bWinXuanMen,bWinHuang;
+	BYTE TianMultiple,diMultiple,TianXuanltiple,HuangMultiple;
+	deduceWinner(bWinTianMen, bWinDiMen, bWinXuanMen,bWinHuang,TianMultiple,diMultiple,TianXuanltiple,HuangMultiple);
+	//m_GameClientView.SetGameHistory(pServerGameRecord->bWinShunMen, pServerGameRecord->bWinDuiMen, pServerGameRecord->bWinDaoMen,pServerGameRecord->bWinHuang);
+
+	tagGameRecord tagRecord;
+	tagRecord.bWinShunMen=bWinTianMen;
+	tagRecord.bWinDuiMen=bWinDiMen;
+	tagRecord.bWinDaoMen=bWinXuanMen;
+	tagRecord.bWinHuang=bWinHuang;
+
+	insertGameHistory(tagRecord);
+	
 	//设置发牌状态
 	DataModel::sharedDataModel()->getMainSceneOxHundred()->setGameStateWithUpdate(MainSceneOxHundred::STATE_GAME_SEND_CARD);
 	//操控更新
 	updateButtonContron();
 }
 //////////////////////////////////////////////////////////////////////////
-//用户状态
-void GameControlOxHundred::onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
+//用户信息
+void GameControlOxHundred::onSubUserInfo(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
 	switch (wSubCmdID)
 	{
+	case SUB_GR_USER_ENTER://用户进入
+		onSubUserEnter(pDataBuffer,wDataSize);
+		break;
 	case SUB_GR_USER_STATUS://用户状态
-		{
-			CMD_GR_UserStatus *info= (CMD_GR_UserStatus*)pDataBuffer;
-			switch (info->UserStatus.cbUserStatus)
-			{
-			case US_SIT://坐下
-				{
-					if (info->dwUserID==DataModel::sharedDataModel()->userInfo->dwUserID){
-						DataModel::sharedDataModel()->userInfo->wTableID=info->UserStatus.wTableID;
-						DataModel::sharedDataModel()->userInfo->wChairID=info->UserStatus.wChairID;
-					}
-				}
-				break;
-			case US_FREE://站立
-				{
-					if (info->dwUserID==DataModel::sharedDataModel()->userInfo->dwUserID)
-					{
-						//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_US_FREE,NULL);
-					}else
-					{
-
-					}
-				}
-				break;
-			case US_READY://同意
-				{
-				}
-				break;
-			case US_PLAYING:
-				{
-				}
-				break;
-			default:
-				CCLog("state==Other userID:%ld 状态：%d<<%s>>",info->dwUserID,info->UserStatus.cbUserStatus,__FUNCTION__);
-				break;
-			}
-		}
+		onSubUserState(pDataBuffer,wDataSize);
 		break;
 	default:
 		break;
 	}
-	
+}
+//用户进入
+void GameControlOxHundred::onSubUserEnter(void * pDataBuffer, unsigned short wDataSize){
+	//效验参数
+	assert(wDataSize>=sizeof(tagMobileUserInfoHead));
+	if (wDataSize<sizeof(tagMobileUserInfoHead)) return ;
+	//消息处理
+	tagMobileUserInfoHead * pUserInfoHead=(tagMobileUserInfoHead *)pDataBuffer;
+	int wPacketSize=0;
+	//变量定义
+	tagUserInfo UserInfo;
+	UserInfo.dwUserID=pUserInfoHead->dwUserID;
+	UserInfo.dwGameID=pUserInfoHead->dwGameID;
+	UserInfo.lScore=pUserInfoHead->lScore;
+	UserInfo.wChairID=pUserInfoHead->wChairID;
+	UserInfo.wTableID=pUserInfoHead->wTableID;
+	BYTE cbDataBuffer[SOCKET_TCP_PACKET + sizeof(TCP_Head)];
+	CopyMemory(cbDataBuffer, pDataBuffer, wDataSize);
+
+	wPacketSize+=sizeof(tagMobileUserInfoHead);
+	while (true)
+	{
+		void * pDataBuffer1 = cbDataBuffer + wPacketSize;
+		tagDataDescribe *DataDescribe = (tagDataDescribe*)pDataBuffer1;
+		wPacketSize+=sizeof(tagDataDescribe);
+		switch (DataDescribe->wDataDescribe)
+		{
+		case DTP_GR_NICK_NAME:		//用户昵称
+			{
+				CopyMemory(&UserInfo.szNickName, cbDataBuffer + wPacketSize,DataDescribe->wDataSize);
+				UserInfo.szNickName[CountArray(UserInfo.szNickName)-1]=0;
+				//CCLog("nick:%s<<%s>>",Tools::GBKToUTF8(UserInfo.szNickName),__FUNCTION__);
+			}
+			break;
+		case DTP_GR_GROUP_NAME:
+			{
+				CCLog("社团");
+			}
+			break;
+		case DTP_GR_UNDER_WRITE:
+			{
+				CopyMemory(UserInfo.szUnderWrite,cbDataBuffer + wPacketSize,DataDescribe->wDataSize);
+				UserInfo.szUnderWrite[CountArray(UserInfo.szUnderWrite)-1]=0;
+				CCLog("签名:%s",Tools::GBKToUTF8(UserInfo.szUnderWrite));
+			}
+			break;
+		}
+		wPacketSize+=DataDescribe->wDataSize;
+		if (wPacketSize>=wDataSize)
+		{
+			break;
+		}
+	}
+	//插入数据
+	DataModel::sharedDataModel()->mTagUserInfo.insert(map<long,tagUserInfo>::value_type(pUserInfoHead->dwUserID,UserInfo));
+	/*
+	//效验参数
+	ASSERT(wDataSize>=sizeof(tagUserInfoHead));
+	if (wDataSize<sizeof(tagUserInfoHead)) return false;
+
+	//变量定义
+	tagUserInfo UserInfo;
+	tagCustomFaceInfo CustomFaceInfo;
+	ZeroMemory(&UserInfo,sizeof(UserInfo));
+	ZeroMemory(&CustomFaceInfo,sizeof(CustomFaceInfo));
+
+	//消息处理
+	tagUserInfoHead * pUserInfoHead=(tagUserInfoHead *)pData;
+
+	//变量定义
+	CGlobalUserInfo * pGlobalUserInfo=CGlobalUserInfo::GetInstance();
+	tagGlobalUserData * pGlobalUserData=pGlobalUserInfo->GetGlobalUserData();
+
+	//变量定义
+	bool bHideUserInfo=CServerRule::IsAllowAvertCheatMode(m_dwServerRule);
+	bool bMySelfUserItem=pGlobalUserData->dwUserID==pUserInfoHead->dwUserID;
+	bool bMasterUserOrder=((pUserInfoHead->cbMasterOrder>0)||((m_pIMySelfUserItem!=NULL)&&(m_pIMySelfUserItem->GetMasterOrder()>0)));
+
+	//读取信息
+	if ((bHideUserInfo==false)||(bMySelfUserItem==true)||(bMasterUserOrder==true))
+	{
+	//用户属性
+	UserInfo.wFaceID=pUserInfoHead->wFaceID;
+	UserInfo.dwGameID=pUserInfoHead->dwGameID;
+	UserInfo.dwUserID=pUserInfoHead->dwUserID;
+	UserInfo.dwGroupID=pUserInfoHead->dwGroupID;
+	UserInfo.dwCustomID=pUserInfoHead->dwCustomID;
+
+	//用户状态
+	UserInfo.wTableID=pUserInfoHead->wTableID;
+	UserInfo.wChairID=pUserInfoHead->wChairID;
+	UserInfo.cbUserStatus=pUserInfoHead->cbUserStatus;
+
+	//用户属性
+	UserInfo.cbGender=pUserInfoHead->cbGender;
+	UserInfo.cbMemberOrder=pUserInfoHead->cbMemberOrder;
+	UserInfo.cbMasterOrder=pUserInfoHead->cbMasterOrder;
+
+	//用户积分
+	UserInfo.lScore=pUserInfoHead->lScore;
+	UserInfo.lGrade=pUserInfoHead->lGrade;
+	UserInfo.lInsure=pUserInfoHead->lInsure;
+	UserInfo.dwWinCount=pUserInfoHead->dwWinCount;
+	UserInfo.dwLostCount=pUserInfoHead->dwLostCount;
+	UserInfo.dwDrawCount=pUserInfoHead->dwDrawCount;
+	UserInfo.dwFleeCount=pUserInfoHead->dwFleeCount;
+	UserInfo.dwUserMedal=pUserInfoHead->dwUserMedal;
+	UserInfo.dwExperience=pUserInfoHead->dwExperience;
+	UserInfo.lLoveLiness=pUserInfoHead->lLoveLiness;
+
+	//变量定义
+	VOID * pDataBuffer=NULL;
+	tagDataDescribe DataDescribe;
+	CRecvPacketHelper RecvPacket(pUserInfoHead+1,wDataSize-sizeof(tagUserInfoHead));
+
+	//扩展信息
+	while (true)
+	{
+	pDataBuffer=RecvPacket.GetData(DataDescribe);
+	if (DataDescribe.wDataDescribe==DTP_NULL) break;
+	switch (DataDescribe.wDataDescribe)
+	{
+	case DTP_GR_NICK_NAME:		//用户昵称
+	{
+	ASSERT(pDataBuffer!=NULL);
+	ASSERT(DataDescribe.wDataSize<=sizeof(UserInfo.szNickName));
+	if (DataDescribe.wDataSize<=sizeof(UserInfo.szNickName))
+	{
+	CopyMemory(&UserInfo.szNickName,pDataBuffer,DataDescribe.wDataSize);
+	UserInfo.szNickName[CountArray(UserInfo.szNickName)-1]=0;
+	}
+	break;
+	}
+	case DTP_GR_GROUP_NAME:		//用户社团
+	{
+	ASSERT(pDataBuffer!=NULL);
+	ASSERT(DataDescribe.wDataSize<=sizeof(UserInfo.szGroupName));
+	if (DataDescribe.wDataSize<=sizeof(UserInfo.szGroupName))
+	{
+	CopyMemory(&UserInfo.szGroupName,pDataBuffer,DataDescribe.wDataSize);
+	UserInfo.szGroupName[CountArray(UserInfo.szGroupName)-1]=0;
+	}
+	break;
+	}
+	case DTP_GR_UNDER_WRITE:	//个性签名
+	{
+	ASSERT(pDataBuffer!=NULL);
+	ASSERT(DataDescribe.wDataSize<=sizeof(UserInfo.szUnderWrite));
+	if (DataDescribe.wDataSize<=sizeof(UserInfo.szUnderWrite))
+	{
+	CopyMemory(UserInfo.szUnderWrite,pDataBuffer,DataDescribe.wDataSize);
+	UserInfo.szUnderWrite[CountArray(UserInfo.szUnderWrite)-1]=0;
+	}
+	break;
+	}
+	}
+	}
+
+	//自定头像
+	if (pUserInfoHead->dwCustomID!=0L)
+	{
+	//加载头像
+	CCustomFaceManager * pCustomFaceManager=CCustomFaceManager::GetInstance();
+	bool bSuccess=pCustomFaceManager->LoadUserCustomFace(pUserInfoHead->dwUserID,pUserInfoHead->dwCustomID,CustomFaceInfo);
+
+	//下载头像
+	if (bSuccess==false)
+	{
+	pCustomFaceManager->LoadUserCustomFace(pUserInfoHead->dwUserID,pUserInfoHead->dwCustomID);
+	}
+	}
+	}
+	else
+	{
+	//用户信息
+	UserInfo.dwUserID=pUserInfoHead->dwUserID;
+	lstrcpyn(UserInfo.szNickName,TEXT("游戏玩家"),CountArray(UserInfo.szNickName));
+
+	//用户状态
+	UserInfo.wTableID=pUserInfoHead->wTableID;
+	UserInfo.wChairID=pUserInfoHead->wChairID;
+	UserInfo.cbUserStatus=pUserInfoHead->cbUserStatus;
+
+	//用户属性
+	UserInfo.cbGender=pUserInfoHead->cbGender;
+	UserInfo.cbMemberOrder=pUserInfoHead->cbMemberOrder;
+	UserInfo.cbMasterOrder=pUserInfoHead->cbMasterOrder;
+	}
+	//if (pUserInfoHead->wTableID !=INVALID_TABLE)
+	//{
+	//	CString sUserInfo;
+	//	sUserInfo.Format("%s | %d |  %d",UserInfo.szNickName,pUserInfoHead->wTableID,pUserInfoHead->wChairID);
+	//	m_ChatMessage.InsertSystemString(sUserInfo);
+	//}
+
+	//激活用户
+	IClientUserItem * pIClientUserItem=m_PlazaUserManagerModule->SearchUserByUserID(UserInfo.dwUserID);
+	if (pIClientUserItem==NULL) 
+	{
+	pIClientUserItem=m_PlazaUserManagerModule->ActiveUserItem(UserInfo,CustomFaceInfo);
+	//m_ChatMessage.InsertSystemString(UserInfo.szNickName);
+	}
+	else
+	{		//删除用户
+
+	m_ChatMessage.InsertSystemString(TEXT("ss1111111111111"));
+	m_PlazaUserManagerModule->DeleteUserItem(pIClientUserItem);
+	pIClientUserItem=m_PlazaUserManagerModule->ActiveUserItem(UserInfo,CustomFaceInfo);
+	}
+
+	//获取对象
+	CServerListData * pServerListData=CServerListData::GetInstance();
+
+	//人数更新
+	pServerListData->SetServerOnLineCount(m_GameServer.dwServerID,m_PlazaUserManagerModule->GetActiveUserCount());
+
+	//变量定义
+	ASSERT(CParameterGlobal::GetInstance()!=NULL);
+	CParameterGlobal * pParameterGlobal=CParameterGlobal::GetInstance();
+
+	//好友提示
+	if (((bHideUserInfo==false)&&(bMySelfUserItem==false))||(bMasterUserOrder==true))
+	{
+	if(pParameterGlobal->m_bNotifyFriendCome && pIClientUserItem->GetUserCompanion()==CP_FRIEND)
+	{
+	//提示消息
+	CString strDescribe;
+	strDescribe.Format(TEXT("您的好友 [%s] 进来了！"),pIClientUserItem->GetNickName());
+	m_ChatMessage.InsertSystemString(strDescribe);
+	//m_ChatMessage.InsertUserEnter(pIClientUserItem->GetNickName());//InsertNormalString(strDescribe);	
+	}
+	}
+	*/
+}
+//用户状态
+void GameControlOxHundred::onSubUserState(void * pDataBuffer, unsigned short wDataSize){
+	CMD_GR_UserStatus *info= (CMD_GR_UserStatus*)pDataBuffer;
+	switch (info->UserStatus.cbUserStatus)
+	{
+	case US_SIT://坐下
+		{
+			if (info->dwUserID==DataModel::sharedDataModel()->userInfo->dwUserID){
+				DataModel::sharedDataModel()->userInfo->wTableID=info->UserStatus.wTableID;
+				DataModel::sharedDataModel()->userInfo->wChairID=info->UserStatus.wChairID;
+			}
+		}
+		break;
+	case US_FREE://站立
+		{
+			map<long ,tagUserInfo >::iterator l_it;
+			l_it=DataModel::sharedDataModel()->mTagUserInfo.find(info->dwUserID);
+			if (l_it!=DataModel::sharedDataModel()->mTagUserInfo.end())
+			{
+				DataModel::sharedDataModel()->mTagUserInfo.erase(info->dwUserID);
+			}
+			/*std::vector<long> tVecRemove;
+			std::map<long,tagUserInfo>::iterator iter;
+			for (iter = DataModel::sharedDataModel()->mTagUserInfo.begin(); iter != DataModel::sharedDataModel()->mTagUserInfo.end(); iter++)
+			{
+				if (info->dwUserID==iter->second.dwUserID)
+				{
+					tVecRemove.push_back(info->dwUserID);
+				}
+			}
+			for (int i = 0; i < tVecRemove.size(); i++)
+			{
+				DataModel::sharedDataModel()->mTagUserInfo.erase(tVecRemove[i]);
+			}
+			CCLog("tagSize:%d<<%s>>",DataModel::sharedDataModel()->mTagUserInfo.size(),__FUNCTION__);*/
+			/*if (info->dwUserID==4947)
+			{
+				CCLog("-----------------------<<%s>>",__FUNCTION__);
+			}*/
+			if (info->dwUserID==DataModel::sharedDataModel()->userInfo->dwUserID)
+			{
+				//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_US_FREE,NULL);
+			}else
+			{
+
+			}
+		}
+		break;
+	case US_READY://同意
+		{
+		}
+		break;
+	case US_PLAYING:
+		{
+		}
+		break;
+	default:
+		CCLog("state==Other userID:%ld 状态：%d<<%s>>",info->dwUserID,info->UserStatus.cbUserStatus,__FUNCTION__);
+		break;
+	}
+}
+//用户状态
+void GameControlOxHundred::onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
 }

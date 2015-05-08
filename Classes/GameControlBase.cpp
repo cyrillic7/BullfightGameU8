@@ -192,17 +192,13 @@ void GameControlBase::menuPause(CCObject* pSender, TouchEventType type){
 }
 //开牌
 void GameControlBase::menuOpenCard(CCObject* pSender, TouchEventType type){
-	switch (type)
+	/*switch (type)
 	{
 	case TOUCH_EVENT_ENDED:
 	{
 		hideTimer(true);
 		DataModel::sharedDataModel()->getMainSceneOxTwo()->cardLayer->sortingOx(getMeChairID(),3);
-		/*//发送消息
-		CMD_C_OxCard OxCard;
-		OxCard.bOX=(m_GameClientView.m_CardControl[wViewChairID].GetOX())?TRUE:FALSE;
-		SendSocketData(SUB_C_OPEN_CARD,&OxCard,sizeof(OxCard));
-		//DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainScene::STATE_SETTLE_ACCOUNFS);*/
+	
 		showActionPrompt(3);
 		pOptOx->setEnabled(false);		
 		CMD_C_OxCard OxCard;
@@ -214,7 +210,7 @@ void GameControlBase::menuOpenCard(CCObject* pSender, TouchEventType type){
 		break;
 	default:
 		break;
-	}
+	}*/
 }
 //提示
 void GameControlBase::menuPrompt(CCObject* pSender, TouchEventType type){

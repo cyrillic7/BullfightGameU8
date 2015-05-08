@@ -7,7 +7,8 @@
 //
 #pragma once
 #include "GameControlBase.h"
-class GameControlOxTwo:public GameControlBase
+#include "GameLogic/GameLogic.h"
+class GameControlOxTwo:public GameControlBase,public GameLogic
 {
 public:
 	GameControlOxTwo();
@@ -17,4 +18,6 @@ public:
     CREATE_FUNC(GameControlOxTwo);
 private:
 	int getChairIndex(int meChairID,int chairID);
+	//开牌
+	virtual void menuOpenCard(CCObject* pSender, TouchEventType type);
 };

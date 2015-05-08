@@ -23,6 +23,8 @@
     <string>UIPopDialogBoxLoadingOther.json</string>
     <string>UIPopDialogBoxLogonAccount.json</string>
     <string>UIPopDialogBoxUpBank.json</string>
+    <string>UIPopDialogBoxOnline.json</string>
+    <string>UIPopDialogBoxTrend.json</string>
   </JsonList>
   <CanvasSize>
     <Width>1136</Width>
@@ -44,6 +46,7 @@
     <string>Font.plist</string>
     <string>UILogon.plist</string>
     <string>UIGameIng.plist</string>
+    <string>UIGameIngHundred.plist</string>
   </imageFileList>
   <imagePngList>
     <string>UIPanel.png</string>
@@ -58,6 +61,7 @@
     <string>Font.png</string>
     <string>UILogon.png</string>
     <string>UIGameIng.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
@@ -70,6 +74,7 @@
     <string>Font.png</string>
     <string>UILogon.png</string>
     <string>UIGameIng.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
@@ -82,6 +87,7 @@
     <string>Font.png</string>
     <string>UILogon.png</string>
     <string>UIGameIng.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
@@ -94,6 +100,7 @@
     <string>Font.png</string>
     <string>UILogon.png</string>
     <string>UIGameIng.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
@@ -106,6 +113,7 @@
     <string>Font.png</string>
     <string>UILogon.png</string>
     <string>UIGameIng.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
@@ -118,6 +126,7 @@
     <string>Font.png</string>
     <string>UILogon.png</string>
     <string>UIGameIng.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
@@ -130,6 +139,7 @@
     <string>Font.png</string>
     <string>UILogon.png</string>
     <string>UIGameIng.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
@@ -142,6 +152,7 @@
     <string>Font.png</string>
     <string>UILogon.png</string>
     <string>UIGameIng.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
@@ -154,6 +165,7 @@
     <string>Font.png</string>
     <string>UILogon.png</string>
     <string>UIGameIng.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
@@ -166,6 +178,7 @@
     <string>Font.png</string>
     <string>UILogon.png</string>
     <string>UIGameIng.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
@@ -178,6 +191,7 @@
     <string>Font.png</string>
     <string>UILogon.png</string>
     <string>UIGameIng.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
@@ -190,6 +204,7 @@
     <string>Font.png</string>
     <string>UILogon.png</string>
     <string>UIGameIng.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
@@ -202,6 +217,7 @@
     <string>Font.png</string>
     <string>UILogon.png</string>
     <string>UIGameIng.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
@@ -214,6 +230,7 @@
     <string>Font.png</string>
     <string>UILogon.png</string>
     <string>UIGameIng.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
@@ -226,6 +243,7 @@
     <string>Font.png</string>
     <string>UILogon.png</string>
     <string>UIGameIng.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIUserInfo.png</string>
@@ -238,7 +256,34 @@
     <string>Font.png</string>
     <string>UILogon.png</string>
     <string>UIGameIng.png</string>
+    <string>UIGameIngHundred.png</string>
+    <string>UIPanel.png</string>
+    <string>UIButton.png</string>
+    <string>UIUserInfo.png</string>
+    <string>UICheckBox.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIShop.png</string>
+    <string>UIRanking.png</string>
+    <string>UIActivity.png</string>
+    <string>Font.png</string>
+    <string>UILogon.png</string>
+    <string>UIGameIng.png</string>
+    <string>UIGameIngHundred.png</string>
+    <string>UIPanel.png</string>
+    <string>UIButton.png</string>
+    <string>UIUserInfo.png</string>
+    <string>UICheckBox.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIShop.png</string>
+    <string>UIRanking.png</string>
+    <string>UIActivity.png</string>
+    <string>Font.png</string>
+    <string>UILogon.png</string>
+    <string>UIGameIng.png</string>
+    <string>UIGameIngHundred.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxUpBank.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxTrend.json</CurrentUIJson>
 </UIProject>

@@ -24,7 +24,7 @@ public:
 	//菜单////////////////////////////////////////////////////////////////////////
 	void menuBack(CCObject *object, TouchEventType type);
 
-	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent){ return true; };
+	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent){return true; }
 	//播放放大动画
 	void playAnimation();
 

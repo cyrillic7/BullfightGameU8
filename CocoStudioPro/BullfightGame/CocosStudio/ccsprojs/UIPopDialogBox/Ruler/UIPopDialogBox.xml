@@ -64,4 +64,12 @@
     <Project>UIPopDialogBoxUpBank</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxOnline</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxTrend</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

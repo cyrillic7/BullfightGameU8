@@ -11,7 +11,6 @@
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
-#include "GameLogic/GameLogic.h"
 #include "TCPSocket.h"
 #include "GameEndLayer.h"
 #include "MessageQueue.h"
@@ -19,8 +18,11 @@ USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
 #define MAX_TIMER		10		//计时器最大值
-class GameControlBase:public CCLayer,GameLogic,public MessageQueue
+class GameControlBase:public CCLayer,public MessageQueue
 {
+public:
+	//配置牛牛容器
+	UIPanel *pOptOx;
 private:
 	//操作者提示动画
 	CCArmature *pArmatureActionPrompt;
@@ -28,8 +30,6 @@ private:
 	UIPanel *pPanelReady;
 	//抢庄容器
 	UIPanel *pFightForBanker;
-	//配置牛牛容器
-	UIPanel *pOptOx;
 	//投注容器
 	UIPanel *pBetting;
 	//加注按键
@@ -78,11 +78,14 @@ private:
 	void updateTimer(float dt);
 	//延时操作
 	virtual void delayedAction();
+public:
+	//获取我的椅子位置
+	int getMeChairID();
 private:
 	//菜单////////////////////////////////////////////////////////////////////////
 	void menuPause(CCObject* pSender, TouchEventType type);
 	//开牌
-	void menuOpenCard(CCObject* pSender, TouchEventType type);
+	virtual void menuOpenCard(CCObject* pSender, TouchEventType type);
 	//提示按键
 	void menuPrompt(CCObject* pSender, TouchEventType type);
 	//更换桌子
@@ -95,8 +98,7 @@ private:
 	void menuFight(CCObject* pSender, TouchEventType type);
 	//投注
 	void menuBetting(CCObject* pSender, TouchEventType type);
-	//获取我的椅子位置
-	int getMeChairID();
+	
 	//是不是观察者
 	bool IsLookonMode();
 	//获得椅子索引

@@ -7,108 +7,143 @@
 #include "JettonNode.h"
 //#include "cmd_game.h"
 #include "PlayerDataHundred.h"
+#include "GameLogic/GameLogicHundred.h"
 class MainSceneBase;
+//class cmd_game;
 #define MAX_SEAT_COUNT 4
-#define MAX_JETTON_BUTTON_COUNT			5			//³ïÂë°´¼ü×ÜÊı
-#define MAX_AREA_COUNT								4			//ÇøÓòÊıÄ¿
-#define MAX_PLAYER_HUNDRED_COUNT			2			//°ÙÈËÅ£Å£ÓÃ»§Êı
-class GameControlOxHundred:public GameControlBase
+#define MAX_JETTON_BUTTON_COUNT			5			//ç­¹ç æŒ‰é”®æ€»æ•°
+#define MAX_AREA_COUNT								4			//åŒºåŸŸæ•°ç›®
+#define MAX_PLAYER_HUNDRED_COUNT			2			//ç™¾äººç‰›ç‰›ç”¨æˆ·æ•°
+#define MAX_SCORE_HISTORY							15		//æ¸¸æˆè®°å½•æœ€å¤§æ•°
+#pragma pack(1)
+//è®°å½•ä¿¡æ¯
+struct tagGameRecord
 {
-	//ÏŞÖÆĞÅÏ¢
+	bool							bWinShunMen;						//é¡ºé—¨èƒœåˆ©
+	bool							bWinDuiMen;							//å¯¹é—¨èƒœåˆ©
+	bool							bWinDaoMen;							//å€’é—¨èƒœåˆ©
+	bool							bWinHuang;							//å€’é—¨èƒœåˆ©
+};
+#pragma pack()
+
+class GameControlOxHundred:public GameControlBase,public GameLogicHundred
+{
+public:
+
+public:
+	//tagGameRecord				m_GameRecordArrary[MAX_SCORE_HISTORY];//æ¸¸æˆè®°å½•
+	std::list <tagGameRecord> listGameRecord;
+	//é™åˆ¶ä¿¡æ¯
 protected:
-	//LONGLONG						m_lMeMaxScore;						//×î´óÏÂ×¢
-	long long						m_lAreaLimitScore;					//ÇøÓòÏŞÖÆ
-	//ÏÂ×¢ĞÅÏ¢
+	//LONGLONG						m_lMeMaxScore;						//æœ€å¤§ä¸‹æ³¨
+	long long						m_lAreaLimitScore;					//åŒºåŸŸé™åˆ¶
+	//ä¸‹æ³¨ä¿¡æ¯
 protected:
-	long long						m_lUserJettonScore[MAX_AREA_COUNT+1];	//¸öÈË×Ü×¢
-	long long						m_lAllJettonScore[MAX_AREA_COUNT+1];		//È«Ìå×Ü×¢
-	//×¯¼ÒĞÅÏ¢
+	long long						m_lUserJettonScore[MAX_AREA_COUNT+1];	//ä¸ªäººæ€»æ³¨
+	long long						m_lAllJettonScore[MAX_AREA_COUNT+1];		//å…¨ä½“æ€»æ³¨
+
+	
+	//åº„å®¶ä¿¡æ¯
 protected:	
-	WORD							m_wBankerUser;						//µ±Ç°×¯¼Ò
-	long long						m_lBankerScore;						//×¯¼Ò»ı·Ö
+	WORD							m_wBankerUser;						//å½“å‰åº„å®¶
+	long long						m_lBankerScore;						//åº„å®¶ç§¯åˆ†
 
 private:
-	long long						m_lMeMaxScore;						//×î´óÏÂ×¢
+	long long						m_lMeMaxScore;						//æœ€å¤§ä¸‹æ³¨
 	int nJetton[MAX_JETTON_BUTTON_COUNT];
 	SeatData *pSeatData[MAX_SEAT_COUNT];
 	UIButton *pBOnline ;
-	//³ïÂë°´Å¥
+	//ç­¹ç æŒ‰é’®
 	UIImageView *pIJettonButton[MAX_JETTON_BUTTON_COUNT];
-	//³ïÂëÑ¡Ôñ¹â±ê
+	//ç­¹ç é€‰æ‹©å…‰æ ‡
 	UIImageView *pIJettonSelect;
-	//µ±Ç°ËùÑ¡³ïÂëË÷Òı
+	//å½“å‰æ‰€é€‰ç­¹ç ç´¢å¼•
 	int iCurSelectJettonIndex;
-	//ÓÃ»§ĞÅÏ¢
+	//ç”¨æˆ·ä¿¡æ¯
 	PlayerDataHundred *pPlayerData[MAX_PLAYER_HUNDRED_COUNT];
-	//ÉÏ×¯°´¼ü
+	//ä¸Šåº„æŒ‰é”®
 	UIImageView *pIUpBank;
-	//ÓÎÏ·×´Ì¬
+	//æ¸¸æˆçŠ¶æ€
 protected:
-	bool								m_bAllowLookon;						//ÔÊĞíÅÔ¹Û
-	BYTE							m_cbGameStatus;						//ÓÎÏ·×´Ì¬
+	bool								m_bAllowLookon;						//å…è®¸æ—è§‚
+	BYTE							m_cbGameStatus;						//æ¸¸æˆçŠ¶æ€
 public:
 	GameControlOxHundred();
 	~GameControlOxHundred();
 	virtual void onEnter();
 	virtual void onExit();
     CREATE_FUNC(GameControlOxHundred);
-	//ÉèÖÃ×ùÎ»½áËã
+	//è®¾ç½®åº§ä½ç»“ç®—
 	void setSeatResult(int iSeatIndex,int iOXType);
-	//ÏÔÊ¾×Ü½á¹û
+	//æ˜¾ç¤ºæ€»ç»“æœ
 	void showAllResult();
-	//¸üĞÂ×´Ì¬
+	//æ›´æ–°çŠ¶æ€
 	virtual void updateState();
 private:
 	MainSceneBase*getMainScene();
-	//³õÊ¼»¯¼ÆÊ±Æ÷
+	//åˆå§‹åŒ–è®¡æ—¶å™¨
 	void initTimer(UILayer *pWidget);
-	//³õÊ¼»¯×ùÎ»
+	//åˆå§‹åŒ–åº§ä½
 	void initSeatData(UILayer *pWidget);
-	//»ñÈ¡³ïÂë¶ÔÏó
+	//è·å–ç­¹ç å¯¹è±¡
 	JettonNode *getJettonNode();
 private:
 	 int getChairIndex(int meChairID,int chairID);
-	//²Ëµ¥////////////////////////////////////////////////////////////////////////
-	void onMenuBack(CCObject* pSender, TouchEventType type);
-
 	virtual void update(float delta);
-	//¸üĞÂ¼ÆÊ±Æ÷
+	//æ›´æ–°è®¡æ—¶å™¨
 	virtual void delayedAction();
-	//¶ÁÈ¡ÍøÂçÏûÏ¢»Øµ÷ÊÂ¼ş
+	//è¯»å–ç½‘ç»œæ¶ˆæ¯å›è°ƒäº‹ä»¶
 	virtual void onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
-	//¿ò¼ÜÃüÁî
+	//æ¡†æ¶å‘½ä»¤
 	void onSubGameFrame(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
-	//ÓÎÏ·ÖĞ
+	//æ¸¸æˆä¸­
 	void onEventGameIng(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
-	//ÓÃ»§×´Ì¬
+	//ç”¨æˆ·ä¿¡æ¯
+	void onSubUserInfo(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
+	//ç”¨æˆ·è¿›å…¥
+	void onSubUserEnter(void * pDataBuffer, unsigned short wDataSize);
+	//ç”¨æˆ·çŠ¶æ€
+	void onSubUserState(void * pDataBuffer, unsigned short wDataSize);
+	//ç”¨æˆ·çŠ¶æ€
 	virtual void onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//////////////////////////////////////////////////////////////////////////
-	//ÓÎÏ·¿ÕÏĞ
+	//æ¸¸æˆç©ºé—²
 	void onSubGameFree(const void * pBuffer, WORD wDataSize);
-	//¿ªÊ¼ÓÎÏ·
+	//å¼€å§‹æ¸¸æˆ
 	void onSubGameStart(const void * pBuffer, WORD wDataSize);
-	//ÓÃ»§ÏÂ×¢
+	//ç”¨æˆ·ä¸‹æ³¨
 	void onSubPlaceJetton(const void * pBuffer, WORD wDataSize,bool bGameMes);
-	//ÏÂ×¢Ê§°Ü
+	//ä¸‹æ³¨å¤±è´¥
 	void onSubPlaceJettonFail(const void * pBuffer, WORD wDataSize);
-	//ÉêÇë×¯¼Ò
+	//æ¸¸æˆè®°å½•
+	void onSubGameRecord(const void * pBuffer, WORD wDataSize);
+	//ç”³è¯·åº„å®¶
 	void onSubUserApplyBanker(const void * pBuffer, WORD wDataSize);
-	//ÓÎÏ·½áÊø
+	//æ¸¸æˆç»“æŸ
 	void onSubGameEnd(const void * pBuffer, WORD wDataSize);
 private:
-	//¼Ó×¢ÇøÓò
+	//èœå•è¿”å›////////////////////////////////////////////////////////////////////////
+	void onMenuBack(CCObject* pSender, TouchEventType type);
+	//åœ¨çº¿ç”¨æˆ·
+	void onMenuOnLine(CCObject* pSender, TouchEventType type);
+	//è¶‹åŠ¿å›¾
+	void onMenuTrend(CCObject* pSender, TouchEventType type);
+	//åŠ æ³¨åŒºåŸŸ
 	void onMenuPlaceJetton(CCObject* pSender, TouchEventType type);
-	//Ñ¡Ôñ³ïÂë
+	//é€‰æ‹©ç­¹ç 
 	void onMenuSelectJetton(CCObject* pSender, TouchEventType type);
-	//ÉÏ×¯
+	//ä¸Šåº„
 	void onMenuUpBank(CCObject* pSender, TouchEventType type);
-	//×î´óÏÂ×¢
+	//æœ€å¤§ä¸‹æ³¨
 	long long getUserMaxJetton();
-	//¸üĞÂ¿ØÖÆ
+	//æ›´æ–°æ§åˆ¶
 	void updateButtonContron();
-	//ÉèÖÃ×¯¼Ò
+	//è®¾ç½®åº„å®¶
 	void setBankerInfo(unsigned short  wBanker,long long lScore);
-	//ÖØÖÃÊı¾İ
+	//é‡ç½®æ•°æ®
 	void resetData();
-	
+	//æ’å…¥å†å²è®°å½•
+	void insertGameHistory(tagGameRecord tagRecord);
+	//æ¨æ–­èµ¢å®¶
+	void deduceWinner(bool &bWinTian, bool &bWinDi, bool &bWinXuan,bool &bWinHuan,BYTE &TianMultiple,BYTE &diMultiple,BYTE &TianXuanltiple,BYTE &HuangMultiple );
 };

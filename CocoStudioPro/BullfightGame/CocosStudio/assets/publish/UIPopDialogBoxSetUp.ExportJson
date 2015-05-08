@@ -21,7 +21,8 @@
     "UIActivity.plist",
     "Font.plist",
     "UILogon.plist",
-    "UIGameIng.plist"
+    "UIGameIng.plist",
+    "UIGameIngHundred.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
@@ -36,6 +37,7 @@
     "Font.png",
     "UILogon.png",
     "UIGameIng.png",
+    "UIGameIngHundred.png",
     "UIPanel.png",
     "UIButton.png",
     "UIUserInfo.png",
@@ -48,6 +50,7 @@
     "Font.png",
     "UILogon.png",
     "UIGameIng.png",
+    "UIGameIngHundred.png",
     "UIPanel.png",
     "UIButton.png",
     "UIUserInfo.png",
@@ -59,7 +62,8 @@
     "UIActivity.png",
     "Font.png",
     "UILogon.png",
-    "UIGameIng.png"
+    "UIGameIng.png",
+    "UIGameIngHundred.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
