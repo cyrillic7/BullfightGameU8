@@ -29,12 +29,12 @@ void PopDialogBoxUpBank::onEnter(){
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));
 	//上庄
-	UIButton *pBBank=static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonBankAction"));
-	pBBank->addTouchEventListener(this, toucheventselector(PopDialogBoxUpBank::onMenuApplyBanker));
+	UIButton *pBUpBank=static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonBankAction"));
+	pBUpBank->addTouchEventListener(this, toucheventselector(PopDialogBoxUpBank::onMenuApplyBanker));
 	if (DataModel::sharedDataModel()->userInfo->lScore<1000000||DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->m_bMeApplyBanker)
 	{
-		pBBank->setTouchEnabled(false);
-		pBBank->setColor(ccc3(100,100,100));
+		pBUpBank->setTouchEnabled(false);
+		pBUpBank->setColor(ccc3(100,100,100));
 	}
 	//初始化列表数据
 	initListBank();
@@ -90,7 +90,7 @@ void PopDialogBoxUpBank::insertBank(bool isInsert,int index,tagApplyUser applyUs
 		UILabel *pLName=static_cast<UILabel*>(pLBank->getItem(index)->getChildByName("LabelName"));
 		pLName->setText(Tools::GBKToUTF8(applyUser.strUserName.c_str()));
 	}
-	if (index!=0)
+	//if (index!=0)
 	{
 		pLBank->getItem(index)->getChildByName("ImageBankIcon")->setVisible(false);
 	}
@@ -101,6 +101,9 @@ void PopDialogBoxUpBank::onMenuApplyBanker(CCObject *object, TouchEventType type
 	{
 	case TOUCH_EVENT_ENDED:
 		{
+			UIButton *pBUpBank=(UIButton *)object;
+			pBUpBank->setTouchEnabled(false);
+			pBUpBank->setColor(ccc3(100,100,100));
 			DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->onApplyBanker(true);
 		}
 		break;

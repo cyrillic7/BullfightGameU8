@@ -219,7 +219,7 @@ const char * Tools::GBKToUTF8(const char * strChar){
 	iconv_t iconvH;
 	//iconvH = iconv_open("unicode","ascii");
 	iconvH = iconv_open("utf-8","gb2312");
-	//iconvH = iconv_open("gb2312","utf-8");
+	//iconvH = iconv_open("gbk","utf-8");
 	if (iconvH == 0)
 	{
 		return NULL;

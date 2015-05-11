@@ -60,7 +60,7 @@ void LogonScene::onEnter(){
 		button  = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("ButtonLogon%d",i)->getCString()));
 		button->addTouchEventListener(this, SEL_TouchEvent(&LogonScene::onMenuLogon));
 	}
-	logonGameByAccount();
+	//logonGameByAccount();
 }
 void LogonScene::onExit(){
 	CCLayer::onExit();

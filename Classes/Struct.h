@@ -209,7 +209,7 @@ struct tagUserInfo
 	DWORD							dwUserID;							//用户 I D
 	DWORD							dwGameID;							//游戏 I D
 	DWORD							dwGroupID;							//社团 I D
-	TCHAR							szNickName[LEN_NICKNAME];			//用户昵称
+	char									szNickName[LEN_NICKNAME];			//用户昵称
 	TCHAR							szGroupName[LEN_GROUP_NAME];		//社团名字
 	TCHAR							szUnderWrite[LEN_UNDER_WRITE];		//个性签名
 
