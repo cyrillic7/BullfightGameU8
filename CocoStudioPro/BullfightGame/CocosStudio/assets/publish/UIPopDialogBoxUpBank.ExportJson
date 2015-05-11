@@ -486,7 +486,7 @@
                     "options": {
                       "__type": "ImageViewSurrogate:#EditorCommon.JsonModel.Component.GUI",
                       "classname": "ImageView",
-                      "name": "Image_24",
+                      "name": "ImageUserIcon",
                       "ZOrder": 0,
                       "actiontag": 10466101,
                       "anchorPointX": 0.5,
@@ -540,7 +540,7 @@
                     "options": {
                       "__type": "ImageViewSurrogate:#EditorCommon.JsonModel.Component.GUI",
                       "classname": "ImageView",
-                      "name": "Image_25",
+                      "name": "ImageBankIcon",
                       "ZOrder": 0,
                       "actiontag": 30224372,
                       "anchorPointX": 0.5,
@@ -594,7 +594,7 @@
                     "options": {
                       "__type": "LabelSurrogate:#EditorCommon.JsonModel.Component.GUI",
                       "classname": "Label",
-                      "name": "Label_26",
+                      "name": "LabelName",
                       "ZOrder": 0,
                       "actiontag": 62586932,
                       "anchorPointX": 0,
@@ -644,7 +644,7 @@
                     "options": {
                       "__type": "LabelSurrogate:#EditorCommon.JsonModel.Component.GUI",
                       "classname": "Label",
-                      "name": "Label_27",
+                      "name": "LabelGold",
                       "ZOrder": 0,
                       "actiontag": 44795259,
                       "anchorPointX": 1,
@@ -896,7 +896,7 @@
             "options": {
               "__type": "ButtonSurrogate:#EditorCommon.JsonModel.Component.GUI",
               "classname": "Button",
-              "name": "Button_19",
+              "name": "ButtonBankAction",
               "ZOrder": 0,
               "actiontag": 51160664,
               "anchorPointX": 0.5,

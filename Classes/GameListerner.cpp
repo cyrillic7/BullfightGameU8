@@ -430,8 +430,15 @@ bool GameListerner::OnSocketSubUserEnter(TCPSocket* pSocket,void * pDataBuffer, 
 			break;
 		}
 	}
-	//
-	DataModel::sharedDataModel()->mTagUserInfo.insert(map<long,tagUserInfo>::value_type(pUserInfoHead->dwUserID,UserInfo));
+	map<long ,tagUserInfo >::iterator l_it;
+	l_it=DataModel::sharedDataModel()->mTagUserInfo.find(pUserInfoHead->dwUserID);
+	if (l_it!=DataModel::sharedDataModel()->mTagUserInfo.end())
+	{
+		l_it->second=UserInfo;
+	}else
+	{
+		DataModel::sharedDataModel()->mTagUserInfo.insert(map<long,tagUserInfo>::value_type(pUserInfoHead->dwUserID,UserInfo));
+	}
 	//发送消息
 	MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_US_ENTER,NULL);
 #endif

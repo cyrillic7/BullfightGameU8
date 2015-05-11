@@ -372,9 +372,9 @@ struct CMD_C_PlaceJetton
 //抢庄结构
 struct CMD_S_QiangZhuan
 {
-	WORD				wSwap1;
-	WORD				wSwap2;
-	long long			lMeMoney;
+	WORD				wSwap1;         //抢庄前列表位置
+	WORD				wSwap2;         //抢庄后列表位置
+	long long			lMeMoney;       //抢庄后身上金币
 };
 
 //static CString GetFileDialogPath()

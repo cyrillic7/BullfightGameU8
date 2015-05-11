@@ -81,6 +81,8 @@ private:
 public:
 	//获取我的椅子位置
 	int getMeChairID();
+	//站立并退出
+	virtual void standUpWithExit();
 private:
 	//菜单////////////////////////////////////////////////////////////////////////
 	void menuPause(CCObject* pSender, TouchEventType type);

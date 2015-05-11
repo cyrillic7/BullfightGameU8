@@ -21,6 +21,21 @@
 GameLobbyScene::GameLobbyScene()
 {
 	scheduleUpdate();
+	/*list<int> a;
+	a.push_back( 0 );
+	a.push_back( 1 );
+	a.push_back( 2 );
+	a.push_back( 3 );
+	a.push_back( 4 );
+	a.push_back( 5 );
+	a.push_back( 6 );
+
+for(int nIndex=3;nIndex>1;nIndex--)
+	{
+		list<int>::iterator iterB=a.begin();  advance( iterB, nIndex );
+		list<int>::iterator iter3=a.begin();  advance( iter3, nIndex-1 );
+		iter_swap( iterB, iter3 );
+	}*/
 }
 GameLobbyScene::~GameLobbyScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
@@ -223,8 +238,7 @@ void GameLobbyScene::onSubLogon(WORD wSubCmdID,void * pDataBuffer, unsigned shor
 	case SUB_GR_LOGON_FINISH:
 		{
 			CCLog("登录完成");
-			unscheduleUpdate();
-			Tools::setTransitionAnimation(0,0,MainSceneOxHundred::scene());
+		
 		}
 		break;
 	case SUB_GR_LOGON_FAILURE:
@@ -258,6 +272,7 @@ void GameLobbyScene::onSubConfig(WORD wSubCmdID,void * pDataBuffer, unsigned sho
 	case SUB_GR_CONFIG_FINISH://配置完成
 		{
 			CCLog("配置完成<<%s>>",__FUNCTION__);
+			unscheduleUpdate();
 			//构造数据
 			CMD_GF_GameOption GameOption;
 			GameOption.dwFrameVersion=VERSION_FRAME;
@@ -267,7 +282,8 @@ void GameLobbyScene::onSubConfig(WORD wSubCmdID,void * pDataBuffer, unsigned sho
 			bool isSend = getSocket()->SendData(MDM_GF_FRAME, SUB_GF_GAME_OPTION, &GameOption, sizeof(GameOption));
 			if (isSend)
 			{
-
+				
+				Tools::setTransitionAnimation(0,0,MainSceneOxHundred::scene());
 				//enterMainSceneByMode(1);
 			}
 		}
@@ -362,9 +378,15 @@ void GameLobbyScene::onSubUserEnter(void * pDataBuffer, unsigned short wDataSize
 			break;
 		}
 	}
-	//
-	DataModel::sharedDataModel()->mTagUserInfo.insert(map<long,tagUserInfo>::value_type(pUserInfoHead->dwUserID,UserInfo));
-	
+	map<long ,tagUserInfo >::iterator l_it;
+	l_it=DataModel::sharedDataModel()->mTagUserInfo.find(pUserInfoHead->dwUserID);
+	if (l_it!=DataModel::sharedDataModel()->mTagUserInfo.end())
+	{
+		l_it->second=UserInfo;
+	}else
+	{
+		DataModel::sharedDataModel()->mTagUserInfo.insert(map<long,tagUserInfo>::value_type(pUserInfoHead->dwUserID,UserInfo));
+	}
 	
 	/*//效验参数
 	assert(wDataSize>=sizeof(tagUserInfoHead));

@@ -1174,3 +1174,9 @@ void GameControlBase::goldJump(int index,CCPoint beginPos,CCPoint endPos){
 void GameControlBase::onGoldJump(CCNode *node){
 	node->removeFromParentAndCleanup(true);
 }
+void GameControlBase::standUpWithExit(){
+	
+	//CMD_GR_UserStandUp
+	/*
+	*/
+}

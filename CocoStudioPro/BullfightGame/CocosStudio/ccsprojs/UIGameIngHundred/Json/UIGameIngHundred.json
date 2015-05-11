@@ -16,13 +16,7 @@
     "UIGameLobby.plist",
     "Font.plist"
   ],
-  "texturesPng": [
-    "UIGameIngHundred.png",
-    "UIGameIng.png",
-    "UIUserInfo.png",
-    "UIGameLobby.png",
-    "Font.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",

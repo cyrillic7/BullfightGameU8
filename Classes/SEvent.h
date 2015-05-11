@@ -14,3 +14,4 @@
 #define S_L_US_FREE								"userFree"						//用户站立（长时间不操作被服务端强行站立）
 #define S_L_US_ENTER								"userEnter"						//用户进入
 #define UPDATE_LIST								"updateList"						//刷新百人牛牛趋势列表
+#define UPDATE_BANK_LIST						"updateBankList"				//刷新百人牛牛庄家列表

@@ -15,6 +15,7 @@ class MainSceneBase;
 #define MAX_AREA_COUNT								4			//区域数目
 #define MAX_PLAYER_HUNDRED_COUNT			2			//百人牛牛用户数
 #define MAX_SCORE_HISTORY							15		//游戏记录最大数
+#define MAX_APPLY_DISPLAY							6			//最大申请显示人数
 #pragma pack(1)
 //记录信息
 struct tagGameRecord
@@ -24,6 +25,12 @@ struct tagGameRecord
 	bool							bWinDaoMen;							//倒门胜利
 	bool							bWinHuang;							//倒门胜利
 };
+struct tagApplyUser
+{
+	//玩家信息
+	std::string							strUserName;						//玩家帐号
+	long long							lUserScore;							//玩家金币
+};
 #pragma pack()
 
 class GameControlOxHundred:public GameControlBase,public GameLogicHundred
@@ -32,10 +39,11 @@ public:
 
 public:
 	//tagGameRecord				m_GameRecordArrary[MAX_SCORE_HISTORY];//游戏记录
-	std::list <tagGameRecord> listGameRecord;
+	std::list <tagGameRecord> listGameRecord;//游戏记录
+	std::list <tagApplyUser>     listApplyUser;//申请庄家列表
 	//限制信息
 protected:
-	//LONGLONG						m_lMeMaxScore;						//最大下注
+	long long						m_lMeMaxScore;						//最大下注
 	long long						m_lAreaLimitScore;					//区域限制
 	//下注信息
 protected:
@@ -47,9 +55,10 @@ protected:
 protected:	
 	WORD							m_wBankerUser;						//当前庄家
 	long long						m_lBankerScore;						//庄家积分
-
+public:
+	bool								m_bMeApplyBanker;					//申请标识(自己是不是庄家)
 private:
-	long long						m_lMeMaxScore;						//最大下注
+
 	int nJetton[MAX_JETTON_BUTTON_COUNT];
 	SeatData *pSeatData[MAX_SEAT_COUNT];
 	UIButton *pBOnline ;
@@ -87,6 +96,8 @@ private:
 	void initSeatData(UILayer *pWidget);
 	//获取筹码对象
 	JettonNode *getJettonNode();
+	//获取用户信息通过椅子号
+	tagUserInfo* getUserInfo(int iChair);
 private:
 	 int getChairIndex(int meChairID,int chairID);
 	virtual void update(float delta);
@@ -119,6 +130,12 @@ private:
 	void onSubGameRecord(const void * pBuffer, WORD wDataSize);
 	//申请庄家
 	void onSubUserApplyBanker(const void * pBuffer, WORD wDataSize);
+	//取消做庄
+	void onSubUserCancelBanker(const void * pBuffer, WORD wDataSize);
+	//切换庄家
+	void onSubChangeBanker(const void * pBuffer, WORD wDataSize);
+	//抢庄
+	void onQiangZhuanRet( const void *pBuffer,WORD wDataSize );
 	//游戏结束
 	void onSubGameEnd(const void * pBuffer, WORD wDataSize);
 private:
@@ -146,4 +163,9 @@ private:
 	void insertGameHistory(tagGameRecord tagRecord);
 	//推断赢家
 	void deduceWinner(bool &bWinTian, bool &bWinDi, bool &bWinXuan,bool &bWinHuan,BYTE &TianMultiple,BYTE &diMultiple,BYTE &TianXuanltiple,BYTE &HuangMultiple );
+	//起立并退出
+	void standUpWithExit();
+public:
+	//申请庄家
+	void onApplyBanker(bool bApplyBanker);
 };

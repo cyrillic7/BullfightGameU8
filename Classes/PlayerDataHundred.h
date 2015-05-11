@@ -21,9 +21,11 @@ public:
 	UILabelAtlas *pLResult;
 	//结算成绩
 	long long lGameScore;
-	/*//用户昵称
+	//用户昵称
 	UILabel *pLUserName;
-	//庄家标识
+	//用户金币
+	UILabel *pLGoldCount;
+	/*//庄家标识
 	UIImageView *pIBankIcon;
 	//操作者光标
 	UIImageView *pILight;
@@ -44,9 +46,9 @@ public:
 	/*//隐藏用户
 	void hidePlayer();
 	//设置庄家
-	void setBankIcon();
+	void setBankIcon();*/
 	//设置用户信息
-	void setUserInfo(tagUserInfo userInfo);*/
+	void setUserInfo(tagUserInfo userInfo);
 	//显示结算动画
 	void showResultAnimation();
 	/*
@@ -54,10 +56,11 @@ public:
 	void showActionType(ActionType type);
 	//隐藏行为类型
 	void hideActionType();*/
+	//改变用户金币
+	void changePlayerGole(long long lGold);
 private:
 	//结算动画结束
 	void onResultAnimationFinish();
-	/*
-	//改变用户金币
-	void changePlayerGole(long long lGold);*/
+	
+	
 };

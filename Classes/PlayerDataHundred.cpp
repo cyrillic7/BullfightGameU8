@@ -22,20 +22,20 @@ void PlayerDataHundred::setBankIcon(){
 
 	CCScaleTo *sTo=CCScaleTo::create(0.2,1,1);
 	pIBankIcon->runAction(CCEaseBackOut::create(sTo));
-}
+}*/
 //设置用户信息
 void PlayerDataHundred::setUserInfo(tagUserInfo userInfo){
 	memcpy(&userInfoPlayer,&userInfo,sizeof(tagUserInfo));
-	pIPlayerIcon->setVisible(true);
+	pIPlayerBg->setVisible(true);
 	if (Tools::GBKToUTF8(userInfoPlayer.szNickName))
 	{
 		pLUserName->setVisible(true);
 		std::string nickName=Tools::GBKToUTF8(userInfoPlayer.szNickName);
 		pLUserName->setText(Tools::createStringToLength(nickName,0,4));
 	}
-	pLGoldCount->setVisible(true);
+	//pLGoldCount->setVisible(true);
 	pLGoldCount->setText(CCString::createWithFormat("%lld",userInfoPlayer.lScore)->getCString());
-}*/
+}
 //显示结算动画
 void PlayerDataHundred::showResultAnimation(){
 	//changePlayerGole(lGameScore);
@@ -69,12 +69,13 @@ void PlayerDataHundred::onResultAnimationFinish(){
 		DataModel::sharedDataModel()->getMainSceneOxHundred()->setGameStateWithUpdate(MainSceneOxHundred::STATE_GAME_END);
 	}
 }
-/*
+
 //设置用户金币
 void PlayerDataHundred::changePlayerGole(long long lGold){
-	userInfoPlayer.lScore+=lGold;
-	pLGoldCount->setText(CCString::createWithFormat("%lld",userInfoPlayer.lScore)->getCString());
+	//userInfoPlayer.lScore+=lGold;
+	pLGoldCount->setText(CCString::createWithFormat("%lld",lGold)->getCString());
 }
+/*
 void PlayerDataHundred::showActionType(ActionType type){
 	switch (type)
 	{

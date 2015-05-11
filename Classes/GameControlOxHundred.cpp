@@ -20,13 +20,19 @@ using namespace std;
 GameControlOxHundred::GameControlOxHundred()
 :iCurSelectJettonIndex(0)
 ,m_lMeMaxScore(0)
+,m_bMeApplyBanker(false)
+,m_wBankerUser(-100)
 {
 	nJetton[0]=1000;
 	nJetton[1]=5000;
 	nJetton[2]=10000;
 	nJetton[3]=100000;
 	nJetton[4]=500000;
+	//庄家信息
+	m_wBankerUser=INVALID_CHAIR;	
+
 	resetData();
+	DataModel::sharedDataModel()->userInfo->wChairID=-10;
 }
 GameControlOxHundred::~GameControlOxHundred(){
 	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
@@ -72,10 +78,16 @@ void GameControlOxHundred::onEnter(){
 		pPlayerData[i]=PlayerDataHundred::create();
 		this->addChild(pPlayerData[i]);
 		pPlayerData[i]->pIPlayerBg=static_cast<UIImageView*>(pWidget->getWidgetByName(CCString::createWithFormat("ImageIcon%d",i)->getCString()));
+		pPlayerData[i]->pIPlayerBg->setVisible(false);
 		//结算数字
 		pPlayerData[i]->pLResult=static_cast<UILabelAtlas*>(pPlayerData[i]->pIPlayerBg->getChildByName("AtlasLabelResult"));
 		pPlayerData[i]->pLResult->setVisible(false);
+		//玩家名称
+		pPlayerData[i]->pLUserName=static_cast<UILabel*>(pPlayerData[i]->pIPlayerBg->getChildByName("LabelName"));
+		//玩家金币
+		pPlayerData[i]->pLGoldCount=static_cast<UILabel*>(pPlayerData[i]->pIPlayerBg->getChildByName("LabelGold"));
 	}
+	pPlayerData[0]->setUserInfo(*DataModel::sharedDataModel()->userInfo);
 	//上庄按键
 	pIUpBank=static_cast<UIImageView*>(pWidget->getWidgetByName("ImageUpBank"));
 	pIUpBank->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxHundred::onMenuUpBank));
@@ -105,8 +117,7 @@ void GameControlOxHundred::resetData(){
 	memset(m_lUserJettonScore,0,sizeof(m_lUserJettonScore));
 	//全体下注
 	memset(m_lAllJettonScore,0,sizeof(m_lAllJettonScore));
-	//庄家信息
-	m_wBankerUser=INVALID_CHAIR;		
+	
 	//m_wBankerTime=0;
 	m_lBankerScore=0L;	
 	//m_lBankerWinScore=0L;
@@ -207,6 +218,19 @@ void GameControlOxHundred::showAllResult(){
 	//更新趋势图
 	MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_LIST,NULL);
 }
+//获取用户信息通过椅子号
+tagUserInfo* GameControlOxHundred::getUserInfo(int iChair){
+	map<long,tagUserInfo>::iterator it;
+	for(it=DataModel::sharedDataModel()->mTagUserInfo.begin();it!=DataModel::sharedDataModel()->mTagUserInfo.end();it++)
+	{
+		if (it->second.wChairID==iChair)
+		{
+			return &it->second;
+		}
+	}
+	return NULL;
+}
+
 //获得筹码对象
 JettonNode *GameControlOxHundred::getJettonNode(){
 	for (int i = 0; i < DataModel::sharedDataModel()->vecJettonNode.size(); i++)
@@ -245,8 +269,7 @@ void GameControlOxHundred::onMenuBack(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 		{
-			TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
-			Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene());
+			standUpWithExit();
 		}
 		break;
 	default:
@@ -424,6 +447,10 @@ void GameControlOxHundred::updateButtonContron(){
 	default:
 		break;
 	}
+	if (m_bMeApplyBanker)
+	{
+		return;
+	}
 	//////////////////////////////////////////////////////////////////////////
 	if (bEnablePlaceJetton)
 	{
@@ -446,7 +473,7 @@ void GameControlOxHundred::updateButtonContron(){
 		
 		//最大下注
 		long long lUserMaxJetton=getUserMaxJetton();
-		CCLog("---最大下注:%lld<<%s>>",lUserMaxJetton,__FUNCTION__);
+		//CCLog("---最大下注:%lld<<%s>>",lUserMaxJetton,__FUNCTION__);
 		//设置光标
 		lLeaveScore = MIN((lLeaveScore/10),lUserMaxJetton); //用户可下分 和最大分比较 由于是五倍 
 		//CCLog("---lLeaveScore:%lld<<%s>>",lLeaveScore,__FUNCTION__);
@@ -549,6 +576,31 @@ void GameControlOxHundred::updateState(){
 void GameControlOxHundred::setBankerInfo(unsigned short  wBanker,long long lScore){
 	//庄家椅子号
 	WORD wBankerUser=INVALID_CHAIR;
+
+	//查找椅子号
+	if (0!=wBanker)
+	{
+		map<long,tagUserInfo>::iterator it;
+		for(it=DataModel::sharedDataModel()->mTagUserInfo.begin();it!=DataModel::sharedDataModel()->mTagUserInfo.end();it++)
+		{
+			if (it->second.wChairID==wBanker)
+			{
+					wBankerUser=wBanker;
+			}
+		}
+		/*for (WORD wChairID=0; wChairID<MAX_CHAIR; ++wChairID)
+		{
+			IClientUserItem *pUserItem = GetClientUserItem(wChairID);
+			if(pUserItem == NULL) continue;
+			tagUserInfo  *pUserData=pUserItem->GetUserInfo();
+			if (NULL!=pUserData && dwBankerUserID==pUserData->dwUserID)
+			{
+				wBankerUser=wChairID;
+				break;
+			}
+		}*/
+	}
+
 	//切换判断
 	if (m_wBankerUser!=wBankerUser)
 	{
@@ -559,6 +611,46 @@ void GameControlOxHundred::setBankerInfo(unsigned short  wBanker,long long lScor
 	}
 	m_lBankerScore=lScore;
 }
+//站立并退出
+void GameControlOxHundred::standUpWithExit(){
+
+	//tagUserInfo userInfo=DataModel::sharedDataModel()->mTagUserInfo.find(DataModel::sharedDataModel()->userInfo.dwUserID);
+	CMD_GR_UserStandUp  userStandUp;
+	userStandUp.wTableID=DataModel::sharedDataModel()->userInfo->wTableID;
+	userStandUp.wChairID=DataModel::sharedDataModel()->userInfo->wChairID;
+	userStandUp.cbForceLeave=true;
+	if (userStandUp.wChairID==-10||userStandUp.wChairID>MAX_CHAIR)
+	{
+		TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
+		Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene());
+	}else
+	{
+		CCLog("-------userStandUp.wChairID :%d<<%s>>",userStandUp.wChairID,__FUNCTION__);
+		//发送消息
+		TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM)->SendData(MDM_GR_USER,SUB_GR_USER_STANDUP,&userStandUp,sizeof(userStandUp));
+	}
+}
+//申请庄家
+void GameControlOxHundred::onApplyBanker(bool bApplyBanker){
+	//当前判断
+	if (m_wBankerUser == DataModel::sharedDataModel()->userInfo->wChairID && bApplyBanker){
+		return ;
+	}
+
+	if (bApplyBanker)
+	{
+		//发送消息
+		TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM)->SendData(MDM_GF_GAME,SUB_C_APPLY_BANKER);
+		//m_bMeApplyBanker=true;
+	}else
+	{
+		//发送消息
+		TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM)->SendData(MDM_GF_GAME,SUB_C_CANCEL_BANKER, NULL, 0);
+		m_bMeApplyBanker=false;
+	}
+}
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
 void GameControlOxHundred::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
 	switch (wMainCmdID)
 	{
@@ -665,6 +757,7 @@ void GameControlOxHundred::onEventGameIng(WORD wSubCmdID,void * pDataBuffer, uns
 		onSubUserApplyBanker(pDataBuffer,wDataSize);
 		break;
 	case SUB_S_CHANGE_BANKER://切换庄家
+		onSubChangeBanker(pDataBuffer,wDataSize);
 		break;
 	case SUB_S_CHANGE_USER_SCORE://更新积分
 		break;
@@ -675,12 +768,14 @@ void GameControlOxHundred::onEventGameIng(WORD wSubCmdID,void * pDataBuffer, uns
 		onSubPlaceJettonFail(pDataBuffer,wDataSize);
 		break;
 	case SUB_S_CANCEL_BANKER://取消申请
+		onSubUserCancelBanker(pDataBuffer,wDataSize);
 		break;
 	case SUB_S_SEND_ACCOUNT://发送账号
 		break;
 	case SUB_S_ADMIN_CHEAK://查询账号
 		break;
 	case SUB_S_QIANG_ZHUAN://抢庄
+		onQiangZhuanRet(pDataBuffer,wDataSize);
 		break;
 	case SUB_S_AMDIN_COMMAND://管理员命令
 		break;
@@ -727,6 +822,13 @@ void GameControlOxHundred::onSubGameStart(const void * pBuffer, WORD wDataSize){
 	//消息处理
 	CMD_S_GameStart * pGameStart=(CMD_S_GameStart *)pBuffer;
 	m_lMeMaxScore=pGameStart->lUserMaxScore;
+	//设置用户信息
+	tagUserInfo *uInfo=getUserInfo(pGameStart->wBankerUser); 
+	if (uInfo)
+	{
+		pPlayerData[1]->setUserInfo(*uInfo);
+	}
+	
 	CCLog("gameStart=time--:%d<<%s>>",pGameStart->cbTimeLeave,__FUNCTION__);
 	//设置时间
 	resetTimer(pGameStart->cbTimeLeave,Tools::GBKToUTF8("请下注"));
@@ -773,7 +875,7 @@ void GameControlOxHundred::onSubPlaceJetton(const void * pBuffer, WORD wDataSize
 	JettonNode *pJetton=getJettonNode();
 	
 	pJetton->setJettonTypeWithMove(pPlaceJetton->lJettonScore,posBegin,pos);
-	CCLog("chair:%d jettonScore: %lld<<%s>>",pPlaceJetton->wChairID,pPlaceJetton->lJettonScore,__FUNCTION__);
+	//CCLog("chair:%d jettonScore: %lld<<%s>>",pPlaceJetton->wChairID,pPlaceJetton->lJettonScore,__FUNCTION__);
 	updateButtonContron();
 }
 //申请庄家
@@ -784,7 +886,228 @@ void GameControlOxHundred::onSubUserApplyBanker(const void * pBuffer, WORD wData
 
 	//消息处理
 	CMD_S_ApplyBanker * pApplyBanker=(CMD_S_ApplyBanker *)pBuffer;
-	CCLog("============================  %d<<%s>>",pApplyBanker->wApplyUser,__FUNCTION__);
+	//插入庄家列表
+	if (m_wBankerUser!=pApplyBanker->wApplyUser)
+	{
+		map<long,tagUserInfo>::iterator it;
+		bool isFind=false;
+		for(it=DataModel::sharedDataModel()->mTagUserInfo.begin();it!=DataModel::sharedDataModel()->mTagUserInfo.end();it++)
+		{
+			if (it->second.wChairID==pApplyBanker->wApplyUser)
+			{
+				tagApplyUser ApplyUser;
+				ApplyUser.strUserName=it->second.szNickName;
+				ApplyUser.lUserScore=it->second.lScore;
+				listApplyUser.push_back(ApplyUser);
+				isFind=true;
+			}
+		
+		}
+		if (!isFind)
+		{
+			CCLog("=no %d   %d-----------------------------<<%s>>",pApplyBanker->wApplyUser,DataModel::sharedDataModel()->userInfo->wChairID,__FUNCTION__);
+			CCLog("<<%s>>",__FUNCTION__);
+		}
+
+		MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_BANK_LIST,NULL);
+	}
+	
+
+	//CCLog("11============================  %d<<%s>>",pApplyBanker->wApplyUser,__FUNCTION__);
+	/*
+	IClientUserItem *pUserItem = GetTableUserItem(pApplyBanker->wApplyUser);
+	tagUserInfo		*pUserData = NULL;
+	if(pUserItem != NULL)
+	pUserData = pUserItem->GetUserInfo();
+
+	//插入玩家
+	if (m_wCurrentBanker!=pApplyBanker->wApplyUser && pUserData!=NULL)
+	{
+	tagApplyUser ApplyUser;
+	ApplyUser.strUserName=pUserData->szNickName;
+	ApplyUser.lUserScore=pUserData->lScore;
+	m_GameClientView.m_ApplyUser.InserUser(ApplyUser);
+	m_GameClientView.m_ApplyUser.m_AppyUserList.Invalidate(TRUE);
+
+	if(m_GameClientView.m_ApplyUser.GetItemCount()>MAX_APPLY_DISPLAY) 
+	{
+	m_GameClientView.m_btUp.EnableWindow(true);
+	m_GameClientView.m_btDown.EnableWindow(true);  
+
+	}else
+	{
+	m_GameClientView.m_btUp.EnableWindow(false);
+	m_GameClientView.m_btDown.EnableWindow(false); 
+	}
+	}
+	*/
+	//自己判断
+	if ( DataModel::sharedDataModel()->userInfo->wChairID==pApplyBanker->wApplyUser) {
+		m_bMeApplyBanker=true;
+	}
+	/*
+	//更新控件
+	UpdateButtonContron();
+	m_GameClientView.m_btCancelBanker.EnableWindow(TRUE);
+	*/
+}
+//取消做庄
+void GameControlOxHundred::onSubUserCancelBanker(const void * pBuffer, WORD wDataSize)
+{
+	//效验数据
+	assert(wDataSize==sizeof(CMD_S_CancelBanker));
+	if (wDataSize!=sizeof(CMD_S_CancelBanker)) return ;
+
+	//消息处理
+	CMD_S_CancelBanker * pCancelBanker=(CMD_S_CancelBanker *)pBuffer;
+	tagApplyUser ApplyUser;
+	ApplyUser.strUserName=pCancelBanker->szCancelUser;
+
+	//remove_if(listApplyUser.begin(),listApplyUser.end(),(std::string i){return strcmp(i.c_str(),ApplyUser.strUserName.c_str());});
+	CCLog("%d<<%s>>",listApplyUser.size(),__FUNCTION__);
+	std::list <tagApplyUser> ::iterator iter;
+	for (iter = listApplyUser.begin(); iter != listApplyUser.end();)
+	{
+		if (strcmp(iter->strUserName.c_str(),ApplyUser.strUserName.c_str())==0)
+		{
+			//std::list<tagApplyUser>::iterator iter_e=iter;
+
+			//listApplyUser.remove(ApplyUser);
+			//CCLog("%s<<%s>>",iter->strUserName.c_str(),__FUNCTION__);
+			listApplyUser.erase(iter++);
+		}else
+		{
+			 iter++;
+		}
+	}
+	//发送更新列表通知
+	MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_BANK_LIST,NULL);
+
+	/*tagApplyUser ApplyUser;
+	ApplyUser.strUserName=pCancelBanker->szCancelUser;
+
+
+	ApplyUser.lUserScore=0;
+
+
+	m_GameClientView.m_ApplyUser.DeleteUser(ApplyUser);
+	m_GameClientView.m_ApplyUser.m_AppyUserList.Invalidate(TRUE);
+
+	if(m_GameClientView.m_ApplyUser.GetItemCount()>MAX_APPLY_DISPLAY)
+	{
+		m_GameClientView.m_btUp.EnableWindow(true);
+		m_GameClientView.m_btDown.EnableWindow(true);  
+
+	}else
+	{
+		m_GameClientView.m_btUp.EnableWindow(false);
+		m_GameClientView.m_btDown.EnableWindow(false); 
+	}*/
+
+	//自己判断
+	const tagUserInfo *pMeUserData=DataModel::sharedDataModel()->userInfo;
+	if ( strcmp(pMeUserData->szNickName,pCancelBanker->szCancelUser)==0) 
+		m_bMeApplyBanker=false;
+
+
+
+	//更新控件
+	updateButtonContron();
+	//m_GameClientView.m_btApplyBanker.EnableWindow(TRUE);
+}
+//切换庄家
+void GameControlOxHundred::onSubChangeBanker(const void * pBuffer, WORD wDataSize)
+{
+	//效验数据
+	assert(wDataSize==sizeof(CMD_S_ChangeBanker));
+	if (wDataSize!=sizeof(CMD_S_ChangeBanker)) return ;
+
+	//消息处理
+	CMD_S_ChangeBanker * pChangeBanker=(CMD_S_ChangeBanker *)pBuffer;
+
+	//显示图片
+	//m_GameClientView.ShowChangeBanker(m_wCurrentBanker!=pChangeBanker->wBankerUser);
+
+	//自己判断
+	if (m_wBankerUser==DataModel::sharedDataModel()->userInfo->wChairID&& pChangeBanker->wBankerUser!=DataModel::sharedDataModel()->userInfo->wChairID) 
+	{
+		m_bMeApplyBanker=false;
+	}
+	else if ( pChangeBanker->wBankerUser==DataModel::sharedDataModel()->userInfo->wChairID)
+	{
+		m_bMeApplyBanker=true;
+	}
+
+	//庄家信息
+	setBankerInfo(pChangeBanker->wBankerUser,pChangeBanker->lBankerScore);
+	//m_GameClientView.SetBankerScore(0,0);
+	//设置用户信息
+	tagUserInfo *uInfo=getUserInfo(pChangeBanker->wBankerUser); 
+	if (uInfo)
+	{
+		pPlayerData[1]->setUserInfo(*uInfo);
+	}
+	//删除玩家
+	if (m_wBankerUser!=INVALID_CHAIR)
+	{
+		if (listApplyUser.size()>0)
+		{
+			listApplyUser.pop_front();
+			MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_BANK_LIST,NULL);
+		}
+		/*IClientUserItem *pUserItem = GetTableUserItem(m_wCurrentBanker);
+		tagUserInfo  *pBankerUserData = NULL;
+		if(pUserItem!=NULL)
+			pBankerUserData = pUserItem->GetUserInfo();
+
+		if (pBankerUserData != NULL)
+		{
+			tagApplyUser ApplyUser;
+			ApplyUser.strUserName = pBankerUserData->szNickName;
+			m_GameClientView.m_ApplyUser.DeleteUser(ApplyUser);
+			m_GameClientView.m_ApplyUser.m_AppyUserList.Invalidate(TRUE);
+		}*/
+	}
+
+	//更新界面
+	updateButtonContron();
+	//m_GameClientView.InvalidGameView(0,0,0,0);
+
+}
+//抢庄消息 
+void GameControlOxHundred::onQiangZhuanRet( const void *pBuffer,WORD wDataSize )
+{
+	assert(wDataSize==sizeof(CMD_S_QiangZhuan));
+	if(wDataSize!=sizeof(CMD_S_QiangZhuan)) return ;
+
+	//消息处理
+	CMD_S_QiangZhuan * pCmd=(CMD_S_QiangZhuan *)pBuffer;
+	CCLog("---<<%s>>",__FUNCTION__);
+	for(int nIndex=pCmd->wSwap1;nIndex>pCmd->wSwap2;nIndex--)
+	{
+		list<tagApplyUser>::iterator iterSwap1=listApplyUser.begin();  advance( iterSwap1, nIndex );
+		list<tagApplyUser>::iterator iterSwap2=listApplyUser.begin();  advance( iterSwap2, nIndex-1 );
+		iter_swap( iterSwap1, iterSwap2 );
+	}
+	MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_BANK_LIST,NULL);
+	//TCHAR szNameTemp[31],szScoreTemp[128]=TEXT("");
+	/*tagApplyUser tagAppUser;
+	for(int nIndex=pCmd->wSwap1;nIndex>pCmd->wSwap2;nIndex--)
+	{
+		//tagAppUser=listApplyUser.begin(1);
+		//		crTemp	= m_AppyUserList.GetItemColor(nIndex-1);
+		//m_AppyUserList.GetItemText(nIndex-1,0,szNameTemp,31);
+		//m_AppyUserList.GetItemText(nIndex-1,1,szScoreTemp,128);
+
+		//m_AppyUserList.SetItemText(nIndex,0,szNameTemp);
+		//m_AppyUserList.SetItemText(nIndex,1,szScoreTemp);
+		//m_AppyUserList.SetItemColor(nIndex,crTemp);
+	}*/
+	//_stprintf(szScorePer,_T("%I64d"),lMeMoney);
+	//m_AppyUserList.SetItemText(wCurPos,0,szNamePer);
+	//m_AppyUserList.SetItemText(wCurPos,1,szScorePer);
+
+	//m_GameClientView.m_ApplyUser.ResetItemPos(pCmd->wSwap1,pCmd->wSwap2,pCmd->lMeMoney);
 }
 //游戏记录
 void GameControlOxHundred::onSubGameRecord(const void * pBuffer, WORD wDataSize){
@@ -865,7 +1188,18 @@ void GameControlOxHundred::onSubGameEnd(const void * pBuffer, WORD wDataSize){
 	hideTimer(false);
 	//设置总结算
 	pPlayerData[0]->lGameScore=pGameEnd->lUserScore;
+	DataModel::sharedDataModel()->userInfo->lScore+=pGameEnd->lUserScore;
+	pPlayerData[0]->changePlayerGole(DataModel::sharedDataModel()->userInfo->lScore);
+
+	
 	pPlayerData[1]->lGameScore=pGameEnd->lBankerScore;
+	tagUserInfo *uInfo =getUserInfo(m_wBankerUser);
+	if (uInfo)
+	{
+		uInfo->lScore+=pGameEnd->lBankerScore;
+		pPlayerData[1]->changePlayerGole(uInfo->lScore);
+	}
+	
 
 	//设置牌数据
 	for (int i = 0; i < sizeof(pGameEnd->cbTableCardArray)/sizeof(pGameEnd->cbTableCardArray[0]); i++)
@@ -939,7 +1273,7 @@ void GameControlOxHundred::onSubUserEnter(void * pDataBuffer, unsigned short wDa
 			{
 				CopyMemory(&UserInfo.szNickName, cbDataBuffer + wPacketSize,DataDescribe->wDataSize);
 				UserInfo.szNickName[CountArray(UserInfo.szNickName)-1]=0;
-				//CCLog("nick:%s<<%s>>",Tools::GBKToUTF8(UserInfo.szNickName),__FUNCTION__);
+				//CCLog("nick:%s  ch:%d<<%s>>",Tools::GBKToUTF8(UserInfo.szNickName),UserInfo.wChairID,__FUNCTION__);
 			}
 			break;
 		case DTP_GR_GROUP_NAME:
@@ -961,8 +1295,15 @@ void GameControlOxHundred::onSubUserEnter(void * pDataBuffer, unsigned short wDa
 			break;
 		}
 	}
-	//插入数据
-	DataModel::sharedDataModel()->mTagUserInfo.insert(map<long,tagUserInfo>::value_type(pUserInfoHead->dwUserID,UserInfo));
+	map<long ,tagUserInfo >::iterator l_it;
+	l_it=DataModel::sharedDataModel()->mTagUserInfo.find(pUserInfoHead->dwUserID);
+	if (l_it!=DataModel::sharedDataModel()->mTagUserInfo.end())
+	{
+		l_it->second=UserInfo;
+	}else
+	{
+		DataModel::sharedDataModel()->mTagUserInfo.insert(map<long,tagUserInfo>::value_type(pUserInfoHead->dwUserID,UserInfo));
+	}
 	/*
 	//效验参数
 	ASSERT(wDataSize>=sizeof(tagUserInfoHead));
@@ -1152,6 +1493,7 @@ void GameControlOxHundred::onSubUserState(void * pDataBuffer, unsigned short wDa
 			if (info->dwUserID==DataModel::sharedDataModel()->userInfo->dwUserID){
 				DataModel::sharedDataModel()->userInfo->wTableID=info->UserStatus.wTableID;
 				DataModel::sharedDataModel()->userInfo->wChairID=info->UserStatus.wChairID;
+				CCLog("<<%s>>",__FUNCTION__);
 			}
 		}
 		break;
@@ -1183,6 +1525,8 @@ void GameControlOxHundred::onSubUserState(void * pDataBuffer, unsigned short wDa
 			}*/
 			if (info->dwUserID==DataModel::sharedDataModel()->userInfo->dwUserID)
 			{
+				TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
+				Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene());
 				//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_US_FREE,NULL);
 			}else
 			{
