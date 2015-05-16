@@ -6,8 +6,8 @@
  */
 
 #include "PopDialogBoxBank.h"
-#include "Tools/DataModel.h"
-#include "Tools/GameConfig.h"
+#include "../Tools/DataModel.h"
+#include "../Tools/GameConfig.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxBank::PopDialogBoxBank()
 {

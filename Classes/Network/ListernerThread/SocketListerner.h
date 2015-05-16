@@ -5,9 +5,9 @@
 
 #ifndef SOCKETLISTERNER_H
 #define	SOCKETLISTERNER_H
-#include "Network/TCPSocket/TCPSocket.h"
+#include "../TCPSocket/TCPSocket.h"
 #include "Thread.h"
-#include "Network/CMD_Server/Packet.h"
+#include "../CMD_Server/Packet.h"
 class SocketListerner : public Thread {
 public:
 	SocketListerner();

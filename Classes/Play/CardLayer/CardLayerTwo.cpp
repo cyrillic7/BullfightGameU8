@@ -1,10 +1,10 @@
 
 
 #include "CardLayerTwo.h"
-#include "Tools/GameConfig.h"
+#include "../../Tools/GameConfig.h"
 #include "Card.h"
-#include "Tools/DataModel.h"
-#include "Tools/BaseAttributes.h"
+#include "../../Tools/DataModel.h"
+#include "../../Tools/BaseAttributes.h"
 #define SELF_SEAT									3						//自己的位置
 CardLayerTwo::CardLayerTwo()
 {

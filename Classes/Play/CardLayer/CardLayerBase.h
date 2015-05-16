@@ -2,7 +2,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "cocos-ext.h"
-#include "Tools/GameConfig.h"
+#include "../../Tools/GameConfig.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 //如果是android平台需要定义宏

@@ -1,6 +1,6 @@
 //#include "StdAfx.h"
 #include "GameLogicHundred.h"
-#include "Network/CMD_Server/PacketAide.h"
+#include "../Network/CMD_Server/PacketAide.h"
 //////////////////////////////////////////////////////////////////////////
 
 //扑克数据

@@ -5,8 +5,8 @@
 #pragma once
 #include "cocos-ext.h"
 #include "BaseLobbyScene.h"
-#include "Network/TCPSocket/TCPSocketControl.h"
-#include "MTNotificationQueue/MessageQueue.h"
+#include "../Network/TCPSocket/TCPSocketControl.h"
+#include "../MTNotificationQueue/MessageQueue.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;

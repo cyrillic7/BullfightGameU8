@@ -7,20 +7,20 @@
 //
 
 #include "ClassicLobbyScene.h"
-#include "Tools/Tools.h"
-#include "Tools/GameConfig.h"
-#include "PopDialogBox/PopDialogBoxUserInfo.h"
+#include "../Tools/Tools.h"
+#include "../Tools/GameConfig.h"
+#include "../PopDialogBox/PopDialogBoxUserInfo.h"
 #include "GameLobbyScene.h"
-#include "MainScene/MainSceneOxTwo.h"
-#include "MainScene/MainSceneOxOneByOne.h"
-#include "Network/CMD_Server/CMD_GameServer.h"
-#include "Network/TCPSocket/TCPSocketControl.h"
-#include "Network/ListernerThread/GameListerner.h"
-#include "Tools/DataModel.h"
-#include "PopDialogBox/PopDialogBoxLoading.h"
-#include "Network/MD5/MD5.h"
-#include "Network/SEvent.h"
-#include "Network/CMD_Server/cmd_ox.h"
+#include "../MainScene/MainSceneOxTwo.h"
+#include "../MainScene/MainSceneOxOneByOne.h"
+#include "../Network/CMD_Server/CMD_GameServer.h"
+#include "../Network/TCPSocket/TCPSocketControl.h"
+#include "../Network/ListernerThread/GameListerner.h"
+#include "../Tools/DataModel.h"
+#include "../PopDialogBox/PopDialogBoxLoading.h"
+#include "../Network/MD5/MD5.h"
+#include "../Network/SEvent.h"
+#include "../Network/CMD_Server/cmd_ox.h"
 ClassicLobbyScene::ClassicLobbyScene()
 :isDeleteList(false)
 ,isEnterGame(false)

@@ -1,7 +1,7 @@
 
 #pragma once
 #include "CardLayerBase.h"
-#include "GameLogic/GameLogicHundred.h"
+#include "../../GameLogic/GameLogicHundred.h"
 class CardLayerHundred:public CardLayerBase,GameLogicHundred {
 public:
 	CardLayerHundred();

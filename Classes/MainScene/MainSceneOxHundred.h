@@ -11,9 +11,9 @@
 #include "cocos2d.h"
 #include "cocos-ext.h"
 #include "MainSceneBase.h"
-#include "Play/GameControl/GameControlOxHundred.h"
-#include "Network/TCPSocket/TCPSocket.h"
-#include "Play/PlayerLayer/PlayerLayer.h"
+#include "../Play/GameControl/GameControlOxHundred.h"
+#include "../Network/TCPSocket/TCPSocket.h"
+#include "../Play/PlayerLayer/PlayerLayer.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;

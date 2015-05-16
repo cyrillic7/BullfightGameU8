@@ -9,18 +9,18 @@
 #include <math.h>
 #include <iostream>
 #include "GameListerner.h"
-#include "Network/CMD_Server/CMD_GameServer.h"
-#include "Network/MD5/MD5.h"
-#include "Tools/DataModel.h"
-#include "MTNotificationQueue/MTNotificationQueue.h"
-#include "Tools/Tools.h"
-#include "Network/CMD_Server/cmd_ox.h"
+#include "../CMD_Server/CMD_GameServer.h"
+#include "../MD5/MD5.h"
+#include "../../Tools/DataModel.h"
+#include "../../MTNotificationQueue/MTNotificationQueue.h"
+#include "../../Tools/Tools.h"
+#include "../CMD_Server/cmd_ox.h"
 #include "cocos2d.h"
 //#include "QueueData.h"
-#include "Tools/GameConfig.h"
-#include "Network/TCPSocket/TCPSocketControl.h"
-#include "Network/SEvent.h"
-#include "Network/CMD_Server/PacketAide.h"
+#include "../../Tools/GameConfig.h"
+#include "../TCPSocket/TCPSocketControl.h"
+#include "../SEvent.h"
+#include "../CMD_Server/PacketAide.h"
 using namespace std;
 
 GameListerner::GameListerner()

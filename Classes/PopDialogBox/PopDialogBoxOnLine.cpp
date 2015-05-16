@@ -7,8 +7,8 @@
 
 #include "PopDialogBoxOnLine.h"
 
-#include "Tools/GameConfig.h"
-#include "Tools/Tools.h"
+#include "../Tools/GameConfig.h"
+#include "../Tools/Tools.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxOnLine::PopDialogBoxOnLine()
 {

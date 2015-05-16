@@ -9,9 +9,9 @@
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
-#include "GameLogic/GameLogic.h"
-#include "Play/CardLayer/CardLayerBase.h"
-#include "Play/PlayerLayer/PlayerLayer.h"
+#include "../GameLogic/GameLogic.h"
+#include "../Play/CardLayer/CardLayerBase.h"
+#include "../Play/PlayerLayer/PlayerLayer.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 #define MAX_CHAIR_COUNT        6				//最大椅子数

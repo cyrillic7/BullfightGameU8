@@ -1,10 +1,10 @@
 
 
 #include "PlayerLayer.h"
-#include "Tools/GameConfig.h"
-#include "Tools/DataModel.h"
-#include "Tools/Tools.h"
-#include "MainScene/MainSceneBase.h"
+#include "../../Tools/GameConfig.h"
+#include "../../Tools/DataModel.h"
+#include "../../Tools/Tools.h"
+#include "../../MainScene/MainSceneBase.h"
 PlayerLayer::PlayerLayer()
 {
 }

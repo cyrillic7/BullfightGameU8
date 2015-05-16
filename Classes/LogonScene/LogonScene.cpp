@@ -7,13 +7,13 @@
 //
 
 #include "LogonScene.h"
-#include "Tools/Tools.h"
-#include "PopDialogBox/PopDialogBoxLoading.h"
-#include "PopDialogBox/PopDialogBoxLogonAccount.h"
-#include "GameLobby/GameLobbyScene.h"
-#include "Network/ListernerThread/LogonGameListerner.h"
-#include "Network/MD5/MD5.h"
-#include "Network/CMD_Server/cmd_ox.h"
+#include "../Tools/Tools.h"
+#include "../PopDialogBox/PopDialogBoxLoading.h"
+#include "../PopDialogBox/PopDialogBoxLogonAccount.h"
+#include "../GameLobby/GameLobbyScene.h"
+#include "../Network/ListernerThread/LogonGameListerner.h"
+#include "../Network/MD5/MD5.h"
+#include "../Network/CMD_Server/cmd_ox.h"
 LogonScene::LogonScene(){
 	readRMS();
 	scheduleUpdate();

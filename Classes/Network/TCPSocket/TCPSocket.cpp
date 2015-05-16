@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include "TCPSocket.h"
-#include "Network/CMD_Server/CMD_LogonServer.h"
-#include "Tools/Tools.h"
-#include "Network/CMD_Server/Packet.h"
-#include "Network/ListernerThread/SocketListerner.h"
+#include "../CMD_Server/CMD_LogonServer.h"
+#include "../../Tools/Tools.h"
+#include "../CMD_Server/Packet.h"
+#include "../ListernerThread/SocketListerner.h"
 #include "cocos2d.h"
 USING_NS_CC;
 

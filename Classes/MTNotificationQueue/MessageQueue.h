@@ -1,7 +1,7 @@
 
 #pragma once
 #include "cocos2d.h"
-#include "Network/CMD_Server/CMD_GameServer.h"
+#include "../Network/CMD_Server/CMD_GameServer.h"
 USING_NS_CC;
 class MessageQueue {
 public:

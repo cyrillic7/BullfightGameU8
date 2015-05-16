@@ -7,10 +7,10 @@
 
 #include "PopDialogBoxTrend.h"
 
-#include "Tools/GameConfig.h"
-#include "Tools/Tools.h"
-#include "Play/GameControl/GameControlOxHundred.h"
-#include "Network/SEvent.h"
+#include "../Tools/GameConfig.h"
+#include "../Tools/Tools.h"
+#include "../Play/GameControl/GameControlOxHundred.h"
+#include "../Network/SEvent.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxTrend::PopDialogBoxTrend()
 {

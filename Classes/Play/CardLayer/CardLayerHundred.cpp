@@ -2,8 +2,8 @@
 
 #include "CardLayerHundred.h"
 #include "Card.h"
-#include "MainScene/MainSceneBase.h"
-#include "Tools/DataModel.h"
+#include "../../MainScene/MainSceneBase.h"
+#include "../../Tools/DataModel.h"
 CardLayerHundred::CardLayerHundred()
 {
 }

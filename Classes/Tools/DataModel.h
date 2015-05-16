@@ -1,10 +1,10 @@
 #pragma once
 #include "cocos2d.h"
-#include "MainScene/MainSceneOxTwo.h"
-#include "MainScene/MainSceneOxHundred.h"
-#include "MainScene/MainSceneOxOneByOne.h"
-#include "Network/CMD_Server/CMD_LogonServer.h"
-#include "Play/OxHundred/JettonNode.h"
+#include "../MainScene/MainSceneOxTwo.h"
+#include "../MainScene/MainSceneOxHundred.h"
+#include "../MainScene/MainSceneOxOneByOne.h"
+#include "../Network/CMD_Server/CMD_LogonServer.h"
+#include "../Play/OxHundred/JettonNode.h"
 USING_NS_CC;
 class DataModel:public CCObject{
 public:

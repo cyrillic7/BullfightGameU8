@@ -7,13 +7,13 @@
 //
 
 #include "MainSceneOxTwo.h"
-#include "Tools/GameConfig.h"
-#include "Tools/DataModel.h"
-#include "Tools/BaseAttributes.h"
+#include "../Tools/GameConfig.h"
+#include "../Tools/DataModel.h"
+#include "../Tools/BaseAttributes.h"
 //#include "TCPSocket.h"
 //#include "CMD_LogonServer.h"
-#include "Network/TCPSocket/TCPSocketControl.h"
-#include "Play/CardLayer/CardLayerTwo.h"
+#include "../Network/TCPSocket/TCPSocketControl.h"
+#include "../Play/CardLayer/CardLayerTwo.h"
 //#include <tchar.h>
 //#include "MD5.h"
 

@@ -1,7 +1,7 @@
 
 
 #include "Card.h"
-#include "Tools/DataModel.h"
+#include "../../Tools/DataModel.h"
 Card::Card()
 {
 }

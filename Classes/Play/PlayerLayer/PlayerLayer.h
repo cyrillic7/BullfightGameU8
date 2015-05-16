@@ -2,8 +2,8 @@
 #pragma once
 #include "cocos2d.h"
 #include "cocos-ext.h"
-#include "Tools/GameConfig.h"
-#include "Play/PlayerData.h"
+#include "../../Tools/GameConfig.h"
+#include "../PlayerData.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
