@@ -253,10 +253,16 @@ void LogonScene::onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned s
 				}else if(tempTag->wKindID==30)
 				{
 					DataModel::sharedDataModel()->tagGameServerListOxHundred.push_back(tempTag);
-				}else
+				}
+				else if (tempTag->wKindID == 130)
 				{
 					DataModel::sharedDataModel()->tagGameServerListOxOneByOne.push_back(tempTag);
-					CCLog("port %d  %d  %s<<%s>>",tempTag->wServerPort,tempTag->wSortID,Tools::GBKToUTF8(tempTag->szDescription),__FUNCTION__);
+					CCLog("port %d  %d  %s<<%s>>", tempTag->wServerPort, tempTag->wSortID, Tools::GBKToUTF8(tempTag->szDescription), __FUNCTION__);
+
+				}
+				else
+				{
+					CCLog("port %d  %d  %s<<%s>>", tempTag->wServerPort, tempTag->wSortID, Tools::GBKToUTF8(tempTag->szDescription), __FUNCTION__);
 				}
 				
 				//sort(DataModel::sharedDataModel()->tagGameServerList.begin(), DataModel::sharedDataModel()->tagGameServerList.end(), less_second);
