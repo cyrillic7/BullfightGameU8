@@ -36,6 +36,7 @@ DataModel::~DataModel() {
 	CC_SAFE_DELETE(userInfo);
 	removeTagGameServerList(tagGameServerListOxTwo);
 	removeTagGameServerList(tagGameServerListOxHundred);
+	removeTagGameServerList(tagGameServerListOxOneByOne);
 	vecJettonNode.clear();
 	// pthread_mutex_destroy(&sResponseQueueMutex);
 	/*

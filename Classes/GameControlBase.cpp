@@ -17,6 +17,7 @@
 #include "cmd_ox.h"
 #include "QueueData.h"
 #include "SEvent.h"
+#include "MainSceneBase.h"
 GameControlBase::GameControlBase()
 :pEndLayer(NULL)
 ,pLTimerPromptContent(NULL){
@@ -1179,4 +1180,9 @@ void GameControlBase::standUpWithExit(){
 	//CMD_GR_UserStandUp
 	/*
 	*/
+}
+/*
+*/
+MainSceneBase*GameControlBase::getMainScene(){
+	return (MainSceneBase*)this->getParent();
 }

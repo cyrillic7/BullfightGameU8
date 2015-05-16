@@ -9,7 +9,6 @@
 #include "GameLobbyScene.h"
 #include "DataModel.h"
 #include "cmd_game.h"
-#include "MainSceneBase.h"
 #include "PacketAide.h"
 #include "PopDialogBoxUpBank.h"
 #include "PopDialogBoxOnLine.h"
@@ -159,9 +158,7 @@ void GameControlOxHundred::resetData(){
 	m_lMeStatisticScore=0;
 	*/
 }
-MainSceneBase*GameControlOxHundred::getMainScene(){
-	return (MainSceneBase*)this->getParent();
-}
+
 //初始化计时器
 void GameControlOxHundred::initTimer(UILayer *pWidget){
 	pITimer = static_cast<UIImageView*>(pWidget->getWidgetByName("ImageTimer"));

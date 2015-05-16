@@ -185,37 +185,25 @@ long Tools::getMicroSeconds(){
 	//inline t= (now.tv_sec * 1000 + now.tv_usec / 1000);
 	return now.tv_sec * 1000 + now.tv_usec;
 }
-#ifdef WIN32
-#include "platform/third_party/win32/iconv/iconv.h"
-static char g_GBKConvUTF8Buf[5000] = {0};
+/*#if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#include "iconv\iconv.h"
 #else
-#include <dlfcn.h>
-void (*ucnv_convert)(const char *, const char *, char * , int32_t , const char *, int32_t,int32_t*) = 0;
-bool openIcuuc()
-{
-	void* libFile = dlopen("/system/lib/libicuuc.so", RTLD_LAZY);
-	if (libFile)
-	{
-		ucnv_convert = (void (*)(const char *, const char *, char * , int32_t , const char *, int32_t,int32_t*))dlsym(libFile, "ucnv_convert_3_8");
+#include "../../../../libiconv/include/iconv.h"
+#endif*/
 
-		int index = 0;
-		char fun_name[64];
-		while (ucnv_convert == NULL)
-		{
-			sprintf(fun_name, "ucnv_convert_4%d", index++);
-			ucnv_convert = (void (*)(const char *, const char *, char * , int32_t , const char *, int32_t,int32_t*))dlsym(libFile, fun_name);
-			if (ucnv_convert)
-				return true;
-			if (++index > 11)
-				break;
-		}
-		dlclose(libFile);
-	}
-	return false;
-}
+
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+#include "iconv\iconv.h"
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#include <iconv.h>
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+#include "../../../../libiconv/include/iconv.h"
 #endif
+static char g_GBKConvUTF8Buf[5000] = { 0 };
+
+
 const char * Tools::GBKToUTF8(const char * strChar){
-#ifdef WIN32
+/*#ifdef WIN32*/
 	iconv_t iconvH;
 	//iconvH = iconv_open("unicode","ascii");
 	iconvH = iconv_open("utf-8","gb2312");
@@ -232,18 +220,27 @@ const char * Tools::GBKToUTF8(const char * strChar){
 	char* outbuf = (char*) malloc(outLength);
 	char* pBuff = outbuf;
 	memset( outbuf, 0, outLength);
-
-	if (-1 == iconv(iconvH, &strChar, &strLength, &outbuf, &outLength))
+#if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	if (-1 == iconv(iconvH,&strChar, &strLength, &outbuf, &outLength))
 	{
 		free(pBuff);
 		iconv_close(iconvH);
 		return NULL;
 	}
+#else
+	if (-1 == iconv(iconvH, (char **)&strChar, &strLength, &outbuf, &outLength))
+	{
+		free(pBuff);
+		iconv_close(iconvH);
+		return NULL;
+	}
+#endif
+	
 	memcpy(g_GBKConvUTF8Buf,pBuff,copyLength);
 	free(pBuff);
 	iconv_close(iconvH);
 	return g_GBKConvUTF8Buf;
-#else
+/*#else
 	if (ucnv_convert == NULL)
 	{
 		openIcuuc();
@@ -265,8 +262,9 @@ const char * Tools::GBKToUTF8(const char * strChar){
 	char* str = new char[30];
 	strcpy(str, test);
 	return str;
-#endif
+#endif*/
 }
+/*
 int Tools::strLength(const std::string &str)
 {   
 	if (typeid(str) == typeid(std::string) && str.length() > 0) {
@@ -287,7 +285,7 @@ int Tools::strLength(const std::string &str)
 		printf("str is not string\n");
 		return 0;
 	}
-}
+}*/
 std::string Tools::createStringToLength(const std::string &str,int begin,int length)
 {
 	if (typeid(str) == typeid(std::string) && str.length() > 0) {

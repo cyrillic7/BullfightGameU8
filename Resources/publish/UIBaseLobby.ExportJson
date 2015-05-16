@@ -11,27 +11,17 @@
   "designWidth": 1136,
   "textures": [
     "UIGameLobby.plist",
+    "UIUserInfo.plist",
     "UIClassicLobby.plist",
     "UIPanel.plist",
-    "UIMode.plist",
-    "UIUserInfo.plist"
+    "UIMode.plist"
   ],
   "texturesPng": [
     "UIGameLobby.png",
-    "UIClassicLobby.png",
-    "UIPanel.png",
-    "UIMode.png",
     "UIUserInfo.png",
-    "UIGameLobby.png",
     "UIClassicLobby.png",
     "UIPanel.png",
-    "UIMode.png",
-    "UIUserInfo.png",
-    "UIGameLobby.png",
-    "UIClassicLobby.png",
-    "UIPanel.png",
-    "UIMode.png",
-    "UIUserInfo.png"
+    "UIMode.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -188,7 +178,7 @@
               "useMergedTexture": true,
               "visible": true,
               "width": 80,
-              "x": 866,
+              "x": 865,
               "y": 49,
               "capInsetsHeight": 1,
               "capInsetsWidth": 1,

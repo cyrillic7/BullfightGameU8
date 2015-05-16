@@ -8,7 +8,7 @@
 //#include "cmd_game.h"
 #include "PlayerDataHundred.h"
 #include "GameLogic/GameLogicHundred.h"
-class MainSceneBase;
+
 //class cmd_game;
 #define MAX_SEAT_COUNT 4
 #define MAX_JETTON_BUTTON_COUNT			5			//筹码按键总数
@@ -89,7 +89,7 @@ public:
 	//更新状态
 	virtual void updateState();
 private:
-	MainSceneBase*getMainScene();
+
 	//初始化计时器
 	void initTimer(UILayer *pWidget);
 	//初始化座位

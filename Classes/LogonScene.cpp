@@ -60,7 +60,7 @@ void LogonScene::onEnter(){
 		button  = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("ButtonLogon%d",i)->getCString()));
 		button->addTouchEventListener(this, SEL_TouchEvent(&LogonScene::onMenuLogon));
 	}
-	//logonGameByAccount();
+	logonGameByAccount();
 }
 void LogonScene::onExit(){
 	CCLayer::onExit();
@@ -148,6 +148,7 @@ void LogonScene::onEventConnect(WORD wSubCmdID,void * pDataBuffer, unsigned shor
 			}
 			logonAccounts.wModuleID[0] = 210; //210为二人牛牛标示
 			logonAccounts.wModuleID[1] = 30; //30为百人牛牛标示
+			logonAccounts.wModuleID[2] = 130; //1002为通比牛牛标示
 
 			MD5 m;
 			m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(),DataModel::sharedDataModel()->sLogonPassword.length());
@@ -170,7 +171,7 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			//效验参数
 			if (wDataSize != sizeof(CMD_MB_LogonSuccess)) return ;
 			CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)pDataBuffer;
-			CCLog("登录成功 %ld %s",ls->dwUserID,ls->szNickName);
+			CCLog("登录成功 %ld %s",ls->dwUserID,Tools::GBKToUTF8(ls->szNickName));
 			//赋值
 			strcpy(DataModel::sharedDataModel()->userInfo->szNickName,ls->szNickName);
 			DataModel::sharedDataModel()->userInfo->lScore=ls->lUserScore;
@@ -238,6 +239,7 @@ void LogonScene::onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned s
 
 			DataModel::sharedDataModel()->removeTagGameServerList(DataModel::sharedDataModel()->tagGameServerListOxTwo);
 			DataModel::sharedDataModel()->removeTagGameServerList(DataModel::sharedDataModel()->tagGameServerListOxHundred);
+			DataModel::sharedDataModel()->removeTagGameServerList(DataModel::sharedDataModel()->tagGameServerListOxOneByOne);
 			for (int i = 0; i < serverCount; i++)
 			{
 				void * pDataBuffer = cbDataBuffer + i*sizeof(tagGameServer);
@@ -251,14 +253,19 @@ void LogonScene::onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned s
 				}else if(tempTag->wKindID==30)
 				{
 					DataModel::sharedDataModel()->tagGameServerListOxHundred.push_back(tempTag);
+				}else
+				{
+					DataModel::sharedDataModel()->tagGameServerListOxOneByOne.push_back(tempTag);
+					CCLog("port %d  %d  %s<<%s>>",tempTag->wServerPort,tempTag->wSortID,Tools::GBKToUTF8(tempTag->szDescription),__FUNCTION__);
 				}
 				
 				//sort(DataModel::sharedDataModel()->tagGameServerList.begin(), DataModel::sharedDataModel()->tagGameServerList.end(), less_second);
-
-                CCLog("port-----:%d ",tempTag->wServerPort);
+				
+              //  CCLog("port-----:%d ",tempTag->wServerPort);
 			}
 			DataModel::sharedDataModel()->sortVector(DataModel::sharedDataModel()->tagGameServerListOxTwo);
 			DataModel::sharedDataModel()->sortVector(DataModel::sharedDataModel()->tagGameServerListOxHundred);
+			DataModel::sharedDataModel()->sortVector(DataModel::sharedDataModel()->tagGameServerListOxOneByOne);
 		}
 		break;
 	case SUB_MB_LIST_FINISH:

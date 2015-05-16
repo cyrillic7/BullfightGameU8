@@ -12,6 +12,7 @@
 #include "PopDialogBoxUserInfo.h"
 #include "GameLobbyScene.h"
 #include "MainSceneOxTwo.h"
+#include "MainSceneOxOneByOne.h"
 #include "CMD_GameServer.h"
 #include "TCPSocketControl.h"
 #include "GameListerner.h"
@@ -23,6 +24,7 @@
 ClassicLobbyScene::ClassicLobbyScene()
 :isDeleteList(false)
 ,isEnterGame(false)
+,gameItem(ITEM_0)
 {
 	DataModel::sharedDataModel()->isSit=false;
 	scheduleUpdate();
@@ -71,16 +73,19 @@ void ClassicLobbyScene::onEnter(){
 	userName->setText(Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName));
 	/*UIButton* button = static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonUser"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&ClassicLobbyScene::menuResetUser));*/
-	UIButton* button=NULL;
-	for (int i = 0; i < DataModel::sharedDataModel()->tagGameServerListOxTwo.size(); i++)
+	
+	for (int i = 0; i < MAX_LEVEL_COUNT; i++)
 	{
-		button = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("ButtonScene%d",i+1)->getCString()));
-		button->addTouchEventListener(this, SEL_TouchEvent(&ClassicLobbyScene::menuStar));
-		//房间描述
-		UILabel *description=static_cast<UILabel*>(m_pWidget->getWidgetByName(CCString::createWithFormat("Label%d",i)->getCString()));
-		description->setText(Tools::GBKToUTF8(DataModel::sharedDataModel()->tagGameServerListOxTwo[i]->szDescription));
+		pBLevel[i] = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("ButtonScene%d",i+1)->getCString()));
+		pBLevel[i]->addTouchEventListener(this, SEL_TouchEvent(&ClassicLobbyScene::menuStar));
 	}
-
+	//更新房间列表
+	updateRoomList();
+	//游戏选择卡列表视图
+	pLVItems=static_cast<UIListView*>(m_pWidget->getWidgetByName("ListViewItems"));
+	//初始化游戏选项触摸事件
+	initItemTouchEvent();
+	selectGameItem(0);
 	//添加监听事件
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::onPlay),S_L_PLAY,NULL);
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::onConfigFinish),S_L_CONFIG_FINISH,NULL);
@@ -100,11 +105,93 @@ void ClassicLobbyScene::initTCPLogon(int index){
 	pdb->setTag(TAG_POP_DIALOG_BOX);
 
 	TCPSocketControl *tcp=TCPSocketControl::sharedTCPSocketControl();
-	tcp->ip=DataModel::sharedDataModel()->tagGameServerListOxTwo[index]->szServerAddr;
-	tcp->port=DataModel::sharedDataModel()->tagGameServerListOxTwo[index]->wServerPort;
+	switch (getGameItem())
+	{
+	case ITEM_0:
+		{
+			tcp->ip=DataModel::sharedDataModel()->tagGameServerListOxTwo[index]->szServerAddr;
+			tcp->port=DataModel::sharedDataModel()->tagGameServerListOxTwo[index]->wServerPort;
+		}
+		break;
+	case ITEM_1:
+		{
+			tcp->ip=DataModel::sharedDataModel()->tagGameServerListOxOneByOne[index]->szServerAddr;
+			tcp->port=DataModel::sharedDataModel()->tagGameServerListOxOneByOne[index]->wServerPort;
+		}
+		break;
+	default:
+		break;
+	}
+
 	CCLog("-----------ip:%s     port:%d<<%s>>",tcp->ip,tcp->port,__FUNCTION__);
 	tcp->listerner=new GameListerner();
 	tcp->startSendThread();
+}
+//更新房间列表
+void  ClassicLobbyScene::updateRoomList(){
+	switch (getGameItem())
+	{
+	case ITEM_0://二人牛牛
+		{
+			updateRoom(DataModel::sharedDataModel()->tagGameServerListOxTwo);
+		}
+		break;
+	case ITEM_1://通比牛牛
+		{
+			updateRoom(DataModel::sharedDataModel()->tagGameServerListOxOneByOne);
+		}
+		break;
+	default:
+		break;
+	}
+}
+//更新房间列表
+void  ClassicLobbyScene::updateRoom(std::vector<tagGameServer *> vec){
+	for (int i = 0; i < MAX_LEVEL_COUNT; i++)
+	{
+		if (i<vec.size())
+		{
+			pBLevel[i]->setEnabled(true);
+			//房间描述
+			UILabel *description=static_cast<UILabel*>(pBLevel[i]->getChildByName("ImageLabelBg")->getChildByName("LabelDescription"));
+			description->setText(Tools::GBKToUTF8(vec[i]->szDescription));
+		}else
+		{
+			pBLevel[i]->setEnabled(false);
+		}
+	}
+}
+//初始化游戏选项触摸事件
+void ClassicLobbyScene::initItemTouchEvent(){
+	for (int i = 0; i < pLVItems->getItems()->count(); i++)
+	{
+		UIPanel *pItem=static_cast<UIPanel*>(pLVItems->getItem(i));
+		UICheckBox *pCheckBox=static_cast<UICheckBox*>(pItem->getChildByName("CheckBoxItme"));
+		pCheckBox->addEventListenerCheckBox(this,SEL_SelectedStateEvent(&ClassicLobbyScene::onCheckBoxSelectedStateEvent));
+	}
+}
+//选择游戏项
+void ClassicLobbyScene::selectGameItem(int iItemIndex){
+	for (int i = 0; i < pLVItems->getItems()->count(); i++)
+	{
+		UIPanel *pItem=static_cast<UIPanel*>(pLVItems->getItem(i));
+		UICheckBox *pCheckBox=static_cast<UICheckBox*>(pItem->getChildByName("CheckBoxItme"));
+		UIImageView *pIGameName=static_cast<UIImageView*>(pItem->getChildByName("ImageGameName"));
+		if (i==iItemIndex)
+		{
+			pCheckBox->setSelectedState(true);
+			pCheckBox->setTouchEnabled(false);
+			pIGameName->setColor(ccc3(255,255,255));
+			setGameItem((GameItem)(iItemIndex+1));
+			updateRoomList();
+		}else
+		{
+			pCheckBox->setSelectedState(false);
+			pCheckBox->setTouchEnabled(true);
+			pIGameName->setColor(ccc3(112,54,8));
+		}
+	}
+	
 }
 void ClassicLobbyScene::menuResetUser(CCObject* pSender, TouchEventType type){
 	switch (type)
@@ -141,6 +228,9 @@ void ClassicLobbyScene::enterMainSceneByMode(int mode){
 	{
 	case LEVEL_0:
 		Tools::setTransitionAnimation(0, 0, MainSceneOxTwo::scene());
+		break;
+	case LEVEL_1:
+		Tools::setTransitionAnimation(0, 0, MainSceneOxOneByOne::scene());
 		break;
 	default:
 		break;
@@ -200,8 +290,25 @@ void ClassicLobbyScene::onOpen(CCObject *obj){
 	CMD_GR_LogonMobile logonMobile;
 	memset(&logonMobile, 0, sizeof(CMD_GR_LogonMobile));
 
-	logonMobile.wGameID=KIND_ID;
-	logonMobile.dwProcessVersion=VERSION_CLIENT;
+	switch (getGameItem())
+	{
+	case ITEM_0:
+		{
+			logonMobile.wGameID=KIND_ID;
+			logonMobile.dwProcessVersion=VERSION_CLIENT;
+		}
+		break;
+	case ITEM_1:
+		{
+			logonMobile.wGameID=130;
+			logonMobile.dwProcessVersion=17235969;
+		}
+		break;
+	default:
+		break;
+	}
+	
+	
 	//设备类型
 	logonMobile.cbDeviceType=DEVICE_TYPE_ANDROID;
 	logonMobile.wBehaviorFlags=BEHAVIOR_LOGON_IMMEDIATELY;
@@ -247,7 +354,8 @@ void ClassicLobbyScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned
 			if (wDataSize < sizeof(CMD_GR_UpdateNotify)) return;
 
 			CMD_GR_UpdateNotify *lf = (CMD_GR_UpdateNotify*)pDataBuffer;
-			CCLog("升级提示");
+			//CCLog("升级提示 %d");
+			CCLog("升级提示:%ld  %ld  %ld<<%s>>",lf->dwCurrentClientVersion,lf->dwCurrentFrameVersion,lf->dwCurrentPlazaVersion,__FUNCTION__);
 		}
 		break;
 	case SUB_GR_LOGON_SUCCESS:
@@ -307,7 +415,7 @@ void ClassicLobbyScene::onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsign
 						bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_FRAME, SUB_GF_GAME_OPTION, &GameOption, sizeof(GameOption));
 						if (isSend)
 						{
-							enterMainSceneByMode(1);
+							enterMainSceneByMode(getGameItem());
 						}
 					}
 				}
@@ -348,4 +456,23 @@ void ClassicLobbyScene::onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsign
 		break;
 	}
 	
+}
+//复选框回调（选择游戏）
+void ClassicLobbyScene::onCheckBoxSelectedStateEvent(CCObject *pSender, CheckBoxEventType type){
+	switch (type)
+	{
+	case CHECKBOX_STATE_EVENT_SELECTED:
+		{
+			UICheckBox *checkBox=(UICheckBox*)pSender;
+			selectGameItem(checkBox->getTag()-1);
+		}
+		break;
+	case CHECKBOX_STATE_EVENT_UNSELECTED:
+		{
+
+		}
+		break;
+	default:
+		break;
+	}
 }

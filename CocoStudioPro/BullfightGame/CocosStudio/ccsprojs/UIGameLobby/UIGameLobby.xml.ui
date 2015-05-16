@@ -7,9 +7,9 @@
   <JsonFileName>UIGameLobby.json</JsonFileName>
   <JsonFolder>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\ccsprojs\UIGameLobby\Json</JsonFolder>
   <JsonList>
+    <string>UIBaseLobby.json</string>
     <string>UIClassicLobby.json</string>
     <string>UIGameLobby.json</string>
-    <string>UIBaseLobby.json</string>
   </JsonList>
   <CanvasSize>
     <Width>1136</Width>
@@ -26,5 +26,5 @@
   </imageFileList>
   <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIBaseLobby.json</CurrentUIJson>
+  <CurrentUIJson />
 </UIProject>

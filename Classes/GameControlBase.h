@@ -18,6 +18,7 @@ USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
 #define MAX_TIMER		10		//计时器最大值
+class MainSceneBase;
 class GameControlBase:public CCLayer,public MessageQueue
 {
 public:
@@ -56,6 +57,8 @@ public:
 	virtual void update(float delta);
 	//更新状态
 	virtual void updateState();
+	//获取主场景
+	MainSceneBase*getMainScene();
 public:
 	//显示指定索引提示动画
 	void showActionPrompt(int promptIndex);

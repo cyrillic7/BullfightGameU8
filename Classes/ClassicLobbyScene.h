@@ -9,15 +9,29 @@
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
+#define MAX_LEVEL_COUNT				4					//最大等级数
 class ClassicLobbyScene:public BaseLobbyScene,public MessageQueue
 {
 private:
+	UIButton* pBLevel[MAX_LEVEL_COUNT];
 	enum GameLevel
 	{
-		LEVEL_0=1,//初级
+		LEVEL_0=1,				//初级
+		LEVEL_1,					//中级
+		LEVEL_2,					//高级
+		LEVEL_3,					//大师
 	};
+	enum GameItem
+	{
+		ITEM_0=1,							//二人牛牛
+		ITEM_1,								//通比牛牛
+	};
+	CC_SYNTHESIZE(GameItem,gameItem,GameItem);
+
 	bool isDeleteList;
 	bool isEnterGame;
+	//游戏选择卡列表视图
+	UIListView *pLVItems;
 public:
     ClassicLobbyScene();
     ~ClassicLobbyScene();
@@ -30,6 +44,14 @@ private:
 	void update(float delta);
 	
 	void initTCPLogon(int index);
+	//更新房间列表
+	void updateRoomList();
+	//更新房间列表
+	void updateRoom(std::vector <tagGameServer *> vec);
+	//初始化游戏选项触摸事件
+	void initItemTouchEvent();
+	//选择游戏项
+	void selectGameItem(int iItemIndex);
 	//弹出框
 	void popDialogBox();
 	//菜单设置用户信息
@@ -47,4 +69,6 @@ private:
 	void onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//用户状态
 	void onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
+	//复选框回调（选择游戏）
+	void onCheckBoxSelectedStateEvent(CCObject *pSender, CheckBoxEventType type);
 };

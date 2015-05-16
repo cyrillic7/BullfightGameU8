@@ -45,7 +45,7 @@ public:
 	static int getTime();
 	static long getMicroSeconds();
 	//获取字符串长度（中英混合）
-	static int strLength(const std::string &str);
+	//static int strLength(const std::string &str);
 	//
 	static std::string createStringToLength(const std::string &str,int begin,int length);
 };

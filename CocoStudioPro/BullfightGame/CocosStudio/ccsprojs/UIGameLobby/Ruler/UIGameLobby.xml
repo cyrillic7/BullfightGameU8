@@ -2,14 +2,41 @@
 <ArrayOfGuidesProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <GuidesProject>
     <Project>UIClassicLobby</Project>
-    <GuidesList />
+    <GuidesList>
+      <GuidesInfo>
+        <GuidesName>HThumb</GuidesName>
+        <GuidesPosition>98.673272298177153</GuidesPosition>
+      </GuidesInfo>
+      <GuidesInfo>
+        <GuidesName>HThumb</GuidesName>
+        <GuidesPosition>544.2288278537327</GuidesPosition>
+      </GuidesInfo>
+    </GuidesList>
   </GuidesProject>
   <GuidesProject>
     <Project>UIGameLobby</Project>
-    <GuidesList />
+    <GuidesList>
+      <GuidesInfo>
+        <GuidesName>HThumb</GuidesName>
+        <GuidesPosition>545.550700063554</GuidesPosition>
+      </GuidesInfo>
+      <GuidesInfo>
+        <GuidesName>HThumb</GuidesName>
+        <GuidesPosition>101.67333333333335</GuidesPosition>
+      </GuidesInfo>
+    </GuidesList>
   </GuidesProject>
   <GuidesProject>
     <Project>UIBaseLobby</Project>
-    <GuidesList />
+    <GuidesList>
+      <GuidesInfo>
+        <GuidesName>HThumb</GuidesName>
+        <GuidesPosition>544.4555046929255</GuidesPosition>
+      </GuidesInfo>
+      <GuidesInfo>
+        <GuidesName>HThumb</GuidesName>
+        <GuidesPosition>101.67333333333335</GuidesPosition>
+      </GuidesInfo>
+    </GuidesList>
   </GuidesProject>
 </ArrayOfGuidesProject>

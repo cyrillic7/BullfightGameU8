@@ -17,7 +17,7 @@ public:
 	{
 		MODE_CLASSIC=1,					//经典模式
 		MODE_Hundred,						//百人场
-		MODE_1,
+		MODE_ONE_BY_ONE,				//通比
 		MODE_2
 	};
 private:

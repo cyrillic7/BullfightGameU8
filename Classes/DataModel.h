@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "MainSceneOxTwo.h"
 #include "MainSceneOxHundred.h"
+#include "MainSceneOxOneByOne.h"
 #include "CMD_LogonServer.h"
 #include "JettonNode.h"
 USING_NS_CC;
@@ -21,11 +22,13 @@ public:
 	//主场景对象
 	CC_SYNTHESIZE(MainSceneOxTwo *, mainSceneOxTwo, MainSceneOxTwo);
 	CC_SYNTHESIZE(MainSceneOxHundred *, mainSceneOxHundred, MainSceneOxHundred);
+	CC_SYNTHESIZE(MainSceneOxOneByOne *, mainSceneOxOneByOne, MainSceneOxOneByOne);
 
 	CCArray *m_aTagGameKind;
 
 	std::vector <tagGameServer *> tagGameServerListOxTwo;
 	std::vector <tagGameServer *> tagGameServerListOxHundred;
+	std::vector <tagGameServer *> tagGameServerListOxOneByOne;
 	//用户信息数组
 	std::map<long ,tagUserInfo>mTagUserInfo;
 	//登录成功信息

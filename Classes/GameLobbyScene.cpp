@@ -72,6 +72,9 @@ void GameLobbyScene::onEnter(){
 	scroll=static_cast<UIScrollView*>(m_pWidget->getWidgetByName("ScrollView"));
 	scroll->setInnerContainerSize(scroll->getContentSize());
 
+
+	//Tools::iconv_convert(&DataModel::sharedDataModel()->userInfo->szNickName, sizeof(DataModel::sharedDataModel()->userInfo->szNickName), "GBK", &DataModel::sharedDataModel()->userInfo->szNickName, sizeof(DataModel::sharedDataModel()->userInfo->szNickName), "UTF-8");
+
 	userName->setText(Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName));
 	/*//用户名
 	userName=static_cast<UILabel*>(m_pWidget->getWidgetByName("labelUserName"));
@@ -138,6 +141,14 @@ void GameLobbyScene::enterLobbyByMode(int mode){
 			tagGameServer *tgs=DataModel::sharedDataModel()->tagGameServerListOxHundred[0];
 			getSocket()->createSocket(tgs->szServerAddr,tgs->wServerPort,new LogonGameListerner());
 			//Tools::setTransitionAnimation(0, 0, MainSceneOxHundred::scene());
+		}
+		break;
+	case MODE_ONE_BY_ONE:
+		{
+			PopDialogBox *pLoading = PopDialogBoxLoading::create();
+			this->addChild(pLoading);
+			tagGameServer *tgs=DataModel::sharedDataModel()->tagGameServerListOxOneByOne[0];
+			getSocket()->createSocket(tgs->szServerAddr,tgs->wServerPort,new LogonGameListerner());
 		}
 		break;
 	default:
