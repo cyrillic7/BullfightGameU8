@@ -6,10 +6,10 @@
  */
 
 #include "PopDialogBoxUserInfo.h"
-#include "Tools/DataModel.h"
-#include "Tools/GameConfig.h"
-#include "Tools/BaseAttributes.h"
-#include "Tools/Tools.h"
+#include "../Tools/DataModel.h"
+#include "../Tools/GameConfig.h"
+#include "../Tools/BaseAttributes.h"
+#include "../Tools/Tools.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxUserInfo::PopDialogBoxUserInfo()
 :isShowChange(false)

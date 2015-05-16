@@ -1,7 +1,7 @@
 
 #pragma once
 #include "CardLayerBase.h"
-#include "GameLogic/GameLogic.h"
+#include "../../GameLogic/GameLogic.h"
 using namespace gui;
 class CardLayerTwo:public CardLayerBase,GameLogic {
 private:

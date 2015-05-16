@@ -4,17 +4,17 @@
 //
 
 #include "GameControlOxHundred.h"
-#include "Tools/GameConfig.h"
-#include "Tools/Tools.h"
-#include "GameLobby/GameLobbyScene.h"
-#include "Tools/DataModel.h"
-#include "Network/CMD_Server/cmd_game.h"
-#include "Network/CMD_Server/PacketAide.h"
-#include "PopDialogBox/PopDialogBoxUpBank.h"
-#include "PopDialogBox/PopDialogBoxOnLine.h"
-#include "PopDialogBox/PopDialogBoxTrend.h"
-#include "Network/SEvent.h"
-#include "MTNotificationQueue/MTNotificationQueue.h"
+#include "../../Tools/GameConfig.h"
+#include "../../Tools/Tools.h"
+#include "../../GameLobby/GameLobbyScene.h"
+#include "../../Tools/DataModel.h"
+#include "../../Network/CMD_Server/cmd_game.h"
+#include "../../Network/CMD_Server/PacketAide.h"
+#include "../../PopDialogBox/PopDialogBoxUpBank.h"
+#include "../../PopDialogBox/PopDialogBoxOnLine.h"
+#include "../../PopDialogBox/PopDialogBoxTrend.h"
+#include "../../Network/SEvent.h"
+#include "../../MTNotificationQueue/MTNotificationQueue.h"
 using namespace std;
 GameControlOxHundred::GameControlOxHundred()
 :iCurSelectJettonIndex(0)

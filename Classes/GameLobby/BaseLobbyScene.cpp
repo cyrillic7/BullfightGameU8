@@ -7,17 +7,17 @@
 //
 
 #include "BaseLobbyScene.h"
-#include "Tools/Tools.h"
-#include "PopDialogBox/PopDialogBoxUserInfo.h"
-#include "PopDialogBox/PopDialogBoxSetUp.h"
-#include "PopDialogBox/PopDialogBoxMore.h"
-#include "PopDialogBox/PopDialogBoxActivity.h"
-#include "PopDialogBox/PopDialogBoxTask.h"
-#include "PopDialogBox/PopDialogBoxBank.h"
-#include "PopDialogBox/PopDialogBoxShop.h"
-#include "PopDialogBox/PopDialogBoxAuction.h"
-#include "PopDialogBox/PopDialogBoxRanking.h"
-#include "Tools/DataModel.h"
+#include "../Tools/Tools.h"
+#include "../PopDialogBox/PopDialogBoxUserInfo.h"
+#include "../PopDialogBox/PopDialogBoxSetUp.h"
+#include "../PopDialogBox/PopDialogBoxMore.h"
+#include "../PopDialogBox/PopDialogBoxActivity.h"
+#include "../PopDialogBox/PopDialogBoxTask.h"
+#include "../PopDialogBox/PopDialogBoxBank.h"
+#include "../PopDialogBox/PopDialogBoxShop.h"
+#include "../PopDialogBox/PopDialogBoxAuction.h"
+#include "../PopDialogBox/PopDialogBoxRanking.h"
+#include "../Tools/DataModel.h"
 BaseLobbyScene::BaseLobbyScene(){
 }
 BaseLobbyScene::~BaseLobbyScene(){

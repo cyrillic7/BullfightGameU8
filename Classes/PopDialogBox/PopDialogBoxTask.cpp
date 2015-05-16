@@ -6,8 +6,8 @@
  */
 
 #include "PopDialogBoxTask.h"
-#include "Tools/DataModel.h"
-#include "Tools/GameConfig.h"
+#include "../Tools/DataModel.h"
+#include "../Tools/GameConfig.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxTask::PopDialogBoxTask()
 {

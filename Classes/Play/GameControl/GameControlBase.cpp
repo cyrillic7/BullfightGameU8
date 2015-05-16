@@ -7,17 +7,17 @@
 //
 
 #include "GameControlBase.h"
-#include "Tools/GameConfig.h"
-#include "Tools/DataModel.h"
-#include "GameLobby/GameLobbyScene.h"
-#include "Tools/Tools.h"
-#include "Network/TCPSocket/TCPSocketControl.h"
-#include "Network/CMD_Server/Packet.h"
-#include "Network/CMD_Server/CMD_GameServer.h"
-#include "Network/CMD_Server/cmd_ox.h"
+#include "../../Tools/GameConfig.h"
+#include "../../Tools/DataModel.h"
+#include "../../GameLobby/GameLobbyScene.h"
+#include "../../Tools/Tools.h"
+#include "../../Network/TCPSocket/TCPSocketControl.h"
+#include "../../Network/CMD_Server/Packet.h"
+#include "../../Network/CMD_Server/CMD_GameServer.h"
+#include "../../Network/CMD_Server/cmd_ox.h"
 //#include "QueueData.h"
-#include "Network/SEvent.h"
-#include "MainScene/MainSceneBase.h"
+#include "../../Network/SEvent.h"
+#include "../../MainScene/MainSceneBase.h"
 GameControlBase::GameControlBase()
 :pEndLayer(NULL)
 ,pLTimerPromptContent(NULL){

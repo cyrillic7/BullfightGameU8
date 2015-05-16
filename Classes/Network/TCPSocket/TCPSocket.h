@@ -9,7 +9,7 @@
 #define __cdecl
 #define NTAPI
 #endif
-#include "Network/CMD_Server/Define.h"
+#include "../CMD_Server/Define.h"
 //如果是android平台需要定义宏
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID||CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
 #define RtlCopyMemory(Destination,Source,Length) memcpy((Destination),(Source),(Length))

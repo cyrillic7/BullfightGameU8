@@ -7,7 +7,7 @@
 
 #pragma once
 #include "PopDialogBox.h"
-#include "Tools/DataModel.h"
+#include "../Tools/DataModel.h"
 class PopDialogBoxTrend: public PopDialogBox {
 private:
 	//趋势图

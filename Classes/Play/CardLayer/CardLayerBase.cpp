@@ -2,8 +2,8 @@
 
 #include "CardLayerBase.h"
 #include "Card.h"
-#include "MainScene/MainSceneBase.h"
-#include "Tools/DataModel.h"
+#include "../../MainScene/MainSceneBase.h"
+#include "../../Tools/DataModel.h"
 CardLayerBase::CardLayerBase()
 :sendCardState(SEND_STATE_WAIT)
 ,sSendCardCount(0)

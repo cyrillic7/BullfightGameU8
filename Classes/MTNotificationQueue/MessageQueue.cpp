@@ -1,8 +1,8 @@
 
 
 #include "MessageQueue.h"
-#include "Tools/DataModel.h"
-#include "Network/CMD_Server/CMD_GameServer.h"
+#include "../Tools/DataModel.h"
+#include "../Network/CMD_Server/CMD_GameServer.h"
 //////////////////////////////////////////////////////////////////////////
 #include <pthread.h>
 pthread_mutex_t sharedNotificationQueueLock1;

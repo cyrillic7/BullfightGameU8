@@ -6,8 +6,8 @@
  */
 
 #include "PopDialogBoxRanking.h"
-#include "Tools/DataModel.h"
-#include "Tools/GameConfig.h"
+#include "../Tools/DataModel.h"
+#include "../Tools/GameConfig.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxRanking::PopDialogBoxRanking()
 {

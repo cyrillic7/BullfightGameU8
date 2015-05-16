@@ -6,10 +6,10 @@
  */
 
 #include "PopDialogBoxUpBank.h"
-#include "Tools/DataModel.h"
-#include "Tools/GameConfig.h"
-#include "Network/SEvent.h"
-#include "Tools/Tools.h"
+#include "../Tools/DataModel.h"
+#include "../Tools/GameConfig.h"
+#include "../Network/SEvent.h"
+#include "../Tools/Tools.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxUpBank::PopDialogBoxUpBank()
 {

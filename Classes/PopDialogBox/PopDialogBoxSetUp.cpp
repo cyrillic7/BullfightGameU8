@@ -6,9 +6,9 @@
  */
 
 #include "PopDialogBoxSetUp.h"
-#include "Tools/DataModel.h"
-#include "Tools/GameConfig.h"
-#include "Tools/BaseAttributes.h"
+#include "../Tools/DataModel.h"
+#include "../Tools/GameConfig.h"
+#include "../Tools/BaseAttributes.h"
 #include "PopDialogBoxHelp.h"
 #include "PopDialogBoxFeedback.h"
 #include "PopDialogBoxAbout.h"

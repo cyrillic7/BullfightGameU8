@@ -6,9 +6,9 @@
  */
 
 #include "PopDialogBoxLogonAccount.h"
-#include "Tools/DataModel.h"
-#include "Tools/GameConfig.h"
-#include "LogonScene/LogonScene.h"
+#include "../Tools/DataModel.h"
+#include "../Tools/GameConfig.h"
+#include "../LogonScene/LogonScene.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxLogonAccount::PopDialogBoxLogonAccount()
 {

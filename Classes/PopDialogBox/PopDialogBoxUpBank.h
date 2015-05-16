@@ -8,7 +8,7 @@
 #pragma once
 
 #include "PopDialogBox.h"
-#include "MainScene/MainSceneOxHundred.h"
+#include "../MainScene/MainSceneOxHundred.h"
 class PopDialogBoxUpBank: public PopDialogBox {
 private:
 	//庄家列表

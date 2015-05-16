@@ -3,11 +3,11 @@
 //
 #pragma once
 #include "GameControlBase.h"
-#include "Play/OxHundred/SeatData.h"
-#include "Play/OxHundred/JettonNode.h"
+#include "../OxHundred/SeatData.h"
+#include "../OxHundred/JettonNode.h"
 //#include "cmd_game.h"
-#include "Play/OxHundred/PlayerDataHundred.h"
-#include "GameLogic/GameLogicHundred.h"
+#include "../OxHundred/PlayerDataHundred.h"
+#include "../../GameLogic/GameLogicHundred.h"
 
 //class cmd_game;
 #define MAX_SEAT_COUNT 4

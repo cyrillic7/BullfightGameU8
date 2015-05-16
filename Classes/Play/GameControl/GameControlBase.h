@@ -11,9 +11,9 @@
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
-#include "Network/TCPSocket/TCPSocket.h"
-#include "Play/GameEndLayer.h"
-#include "MTNotificationQueue/MessageQueue.h"
+#include "../../Network/TCPSocket/TCPSocket.h"
+#include "../GameEndLayer.h"
+#include "../../MTNotificationQueue/MessageQueue.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;

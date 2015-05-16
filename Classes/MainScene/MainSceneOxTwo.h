@@ -12,9 +12,9 @@
 #include "cocos2d.h"
 #include "cocos-ext.h"
 #include "MainSceneBase.h"
-#include "Play/GameControl/GameControlOxTwo.h"
-#include "Network/TCPSocket/TCPSocket.h"
-#include "GameLogic/GameLogic.h"
+#include "../Play/GameControl/GameControlOxTwo.h"
+#include "../Network/TCPSocket/TCPSocket.h"
+#include "../GameLogic/GameLogic.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include "pthread/pthread.h"

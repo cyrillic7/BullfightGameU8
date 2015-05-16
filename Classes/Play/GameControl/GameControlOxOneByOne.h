@@ -7,7 +7,7 @@
 //
 #pragma once
 #include "GameControlBase.h"
-#include "GameLogic/GameLogic.h"
+#include "../../GameLogic/GameLogic.h"
 class GameControlOxOneByOne:public GameControlBase,public GameLogic
 {
 public:

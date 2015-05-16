@@ -9,7 +9,7 @@
 #define TCPSOCKETCONTROL_H_
 #include "cocos2d.h"
 #include "TCPSocket.h"
-#include "Network/ListernerThread/SocketListerner.h"
+#include "../ListernerThread/SocketListerner.h"
 USING_NS_CC;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include "pthread/pthread.h"

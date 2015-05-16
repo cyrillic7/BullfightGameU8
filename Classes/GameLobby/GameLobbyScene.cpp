@@ -6,18 +6,18 @@
 //
 //
 #include "GameLobbyScene.h"
-#include "Tools/Tools.h"
-#include "Tools/GameConfig.h"
-#include "PopDialogBox/PopDialogBoxUserInfo.h"
-#include "PopDialogBox/PopDialogBoxLoading.h"
+#include "../Tools/Tools.h"
+#include "../Tools/GameConfig.h"
+#include "../PopDialogBox/PopDialogBoxUserInfo.h"
+#include "../PopDialogBox/PopDialogBoxLoading.h"
 #include "ClassicLobbyScene.h"
-#include "Play/GameControl/GameControlOxHundred.h"
-#include "Tools/DataModel.h"
-#include "PopDialogBox/PopDialogBoxSetUp.h"
-#include "MainScene/MainSceneOxHundred.h"
-#include "Network/ListernerThread/LogonGameListerner.h"
-#include "Network/MD5/MD5.h"
-#include "Network/CMD_Server/PacketAide.h"
+#include "../Play/GameControl/GameControlOxHundred.h"
+#include "../Tools/DataModel.h"
+#include "../PopDialogBox/PopDialogBoxSetUp.h"
+#include "../MainScene/MainSceneOxHundred.h"
+#include "../Network/ListernerThread/LogonGameListerner.h"
+#include "../Network/MD5/MD5.h"
+#include "../Network/CMD_Server/PacketAide.h"
 GameLobbyScene::GameLobbyScene()
 {
 	scheduleUpdate();

@@ -6,14 +6,14 @@
 #include <math.h>
 #include <iostream>
 #include "LogonGameListerner.h"
-#include "Network/CMD_Server/CMD_LogonServer.h"
-#include "Network/MD5/MD5.h"
-#include "Tools/DataModel.h"
-#include "Network/TCPSocket/TCPSocketControl.h"
+#include "../CMD_Server/CMD_LogonServer.h"
+#include "../MD5/MD5.h"
+#include "../../Tools/DataModel.h"
+#include "../TCPSocket/TCPSocketControl.h"
 #include "cocos2d.h"
-#include "MTNotificationQueue/MTNotificationQueue.h"
+#include "../../MTNotificationQueue/MTNotificationQueue.h"
 
-#include "Network/SEvent.h"
+#include "../SEvent.h"
 //#include "MessageQueue.cpp"
 using namespace std;
 LogonGameListerner::LogonGameListerner()

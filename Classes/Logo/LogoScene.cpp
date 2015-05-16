@@ -6,8 +6,8 @@
 //
 //
 #include "LogoScene.h"
-#include "Tools/Tools.h"
-#include "GameLobby/GameLobbyScene.h"
+#include "../Tools/Tools.h"
+#include "../GameLobby/GameLobbyScene.h"
 LogoScene::LogoScene(){
 	//0.5秒后进入MainScene
 	scheduleOnce(SEL_SCHEDULE(&LogoScene::updateToMainScene), 0.5);

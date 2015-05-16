@@ -7,7 +7,7 @@
 
 #pragma once
 #include "PopDialogBox.h"
-#include "Tools/DataModel.h"
+#include "../Tools/DataModel.h"
 class PopDialogBoxOnLine: public PopDialogBox {
 private:
 	//在线列表

@@ -10,9 +10,9 @@
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
-#include "MTNotificationQueue/MessageQueue.h"
-#include "Tools/DataModel.h"
-#include "Network/TCPSocket/TCPSocketControl.h"
+#include "../MTNotificationQueue/MessageQueue.h"
+#include "../Tools/DataModel.h"
+#include "../Network/TCPSocket/TCPSocketControl.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace ui;
