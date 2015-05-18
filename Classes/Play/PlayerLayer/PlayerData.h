@@ -2,7 +2,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "cocos-ext.h"
-#include "../Network/CMD_Server/Struct.h"
+#include "../../Network/CMD_Server/Struct.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
