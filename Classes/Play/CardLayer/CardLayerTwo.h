@@ -42,8 +42,6 @@ private:
 	//单张牌发完回调
 	void onSendCardFinish();
 
-	//坐标点转换
-	CCPoint designResolutionToFrame(CCPoint designPos);
 	//显示牛牛点数
 	void showOxType(int chairiD,int oxType);
 	void onPlayOxAnimation(CCNode *obj);

@@ -3,12 +3,13 @@
 #include "cocos2d.h"
 #include "cocos-ext.h"
 #include "../../Tools/GameConfig.h"
+#include "../../Tools/CMath.h"
 #include "PlayerData.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
 class MainSceneBase;
-class PlayerLayer:public CCLayer {
+class PlayerLayer:public CCLayer,public CMath {
 public:
 	PlayerData *pPlayerData[MAX_PLAYER];
 public:
@@ -27,6 +28,8 @@ public:
 	void setUserGold(int panelIndex,long long goldCount);
 	//设置庄家
 	void setBankIcon(int bankIndex);
+	//隐藏二人牛牛玩家
+	void hideOxTwoPlayer();
 private:
 	MainSceneBase*getMainScene();
 	//初始化玩家信息

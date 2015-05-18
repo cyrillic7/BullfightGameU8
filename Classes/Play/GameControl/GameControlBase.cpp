@@ -169,7 +169,7 @@ void GameControlBase::delayedAction(){
 			menuOpenCard(NULL,TOUCH_EVENT_ENDED);
 		}
 		break;
-	case MainSceneOxTwo::STATE_GAME_END:
+	case MainSceneOxTwo::STATE_END:
 		{
 
 		}
@@ -389,7 +389,7 @@ void GameControlBase::updateState(){
 			//pBetting->setEnabled(false);
 		}
 		break;
-	case MainSceneOxTwo::STATE_GAME_END:
+	case MainSceneOxTwo::STATE_END:
 	{
 		resetTimer(MAX_TIMER,NULL);
 		pOptOx->setEnabled(false);
@@ -894,7 +894,7 @@ bool GameControlBase::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 	pEndLayer=GameEndLayer::create();
 	this->addChild(pEndLayer);
 	pEndLayer->showEnd(pGameEnd->lGameScore[getMeChairID()]>=0);
-	DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainSceneOxTwo::STATE_GAME_END);
+	DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainSceneOxTwo::STATE_END);
 	/*
 	CopyMemory(m_cbHandCardData,pGameEnd->cbCardData,sizeof(m_cbHandCardData));
 

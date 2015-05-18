@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "cocos-ext.h"
 #include "../../Tools/GameConfig.h"
+#include "../../Tools/CMath.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 //如果是android平台需要定义宏
@@ -17,7 +18,7 @@ class  Card;
 #define MAX_CARD_COUNT								5						//最大牌数
 #define SEND_CARD_DELAY_TIME						0.05					//发牌延时时长 
 
-class CardLayerBase:public CCLayer {
+class CardLayerBase:public CCLayer,public CMath {
 public:
 	//牌数据
 	BYTE card[6][5];
@@ -60,6 +61,7 @@ public:
 	virtual void showCard(int index,int dataIndex){}
 	//显示牛牛点数
 	//virtual void showOxType(int chairiD,int oxType){}
+
 public:
 	MainSceneBase*getMainScene();
 	//获取当前局总牌数

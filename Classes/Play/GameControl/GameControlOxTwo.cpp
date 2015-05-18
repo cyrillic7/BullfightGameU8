@@ -1,4 +1,4 @@
-//
+//1
 //  GameHUD.cpp
 //  BullfightGame
 //
@@ -19,6 +19,7 @@ GameControlOxTwo::~GameControlOxTwo(){
 }
 void GameControlOxTwo::onEnter(){
 	GameControlBase::onEnter();
+	getMainScene()->playerLayer->hideOxTwoPlayer();
 }
 void GameControlOxTwo::onExit(){
 	GameControlBase::onExit();

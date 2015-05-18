@@ -254,11 +254,4 @@ void CardLayerTwo::showCard(int index,int dataIndex){
 	}
 }
 
-CCPoint CardLayerTwo::designResolutionToFrame(CCPoint designPos){
-	CCPoint pos;
-	float posScaleX=designPos.x/SCENE_SIZE.width;
-	pos.x=posScaleX*DataModel::sharedDataModel()->deviceSize.width;
-	float posScaleY=designPos.y/SCENE_SIZE.height;
-	pos.y=posScaleY*DataModel::sharedDataModel()->deviceSize.height;
-	return pos;
-}
+

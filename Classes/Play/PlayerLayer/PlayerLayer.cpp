@@ -13,10 +13,6 @@ PlayerLayer::~PlayerLayer() {
 void PlayerLayer::onEnter(){
 	CCLayer::onEnter();
 	initPlayerInfo();
-	hidePlayer(pPlayerData[1]->pPlayerPanel);
-	hidePlayer(pPlayerData[2]->pPlayerPanel);
-	hidePlayer(pPlayerData[4]->pPlayerPanel);
-	hidePlayer(pPlayerData[5]->pPlayerPanel);
 }
 void PlayerLayer::onExit(){
 
@@ -61,6 +57,14 @@ void PlayerLayer::initPlayerInfo(){
 		CCPoint cardPos = ccpAdd(playerPos, iPlayerIcon->getPosition());
 		getMainScene()->posChair[i]=cardPos;
 	}
+}
+void PlayerLayer::hideOxTwoPlayer(){
+	hidePlayer(pPlayerData[1]->pPlayerPanel);
+	hidePlayer(pPlayerData[2]->pPlayerPanel);
+	hidePlayer(pPlayerData[4]->pPlayerPanel);
+	hidePlayer(pPlayerData[5]->pPlayerPanel);
+
+	pPlayerData[1]->pPlayerPanel->setPosition(designResolutionToFrame(ccp(785,506)));
 }
 void PlayerLayer::resetPlayerData(){
 	for (int i = 0; i < MAX_PLAYER; i++)

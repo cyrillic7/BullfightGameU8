@@ -61,7 +61,7 @@ void PlayerData::showResultAnimation(long long lGameScore){
 	pLResult->runAction(seq);
 }
 void PlayerData::onResultAnimationFinish(){
-	if(DataModel::sharedDataModel()->getMainSceneOxTwo()->getGameState()==MainSceneOxTwo::STATE_GAME_END){
+	if(DataModel::sharedDataModel()->getMainSceneOxTwo()->getGameState()==MainSceneOxTwo::STATE_END){
 		DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainSceneOxTwo::STATE_READY);
 	}
 }
