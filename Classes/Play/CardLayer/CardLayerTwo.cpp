@@ -198,7 +198,7 @@ void CardLayerTwo::onSendCardFinish(){
 }
 
 void CardLayerTwo::updateServerState(){
-	switch (DataModel::sharedDataModel()->getMainSceneOxTwo()->getServerState())
+	switch (getMainScene()->getServerState())
 	{
 	case MainSceneOxTwo::STATE_SEND_CARD:
 	{

@@ -35,20 +35,7 @@ USING_NS_CC_EXT;
 class MainSceneOxTwo:public TCPSocket,public MainSceneBase
 {
 public:
-	//游戏状态
-	enum GameState
-	{
-		STATE_OBSERVER=0,			//旁观状态
-		STATE_READY,				//准备状态
-		STATE_WAIT,					//等待服务端响应
-		STATE_SEND_CARD,			//发牌状态
-		STATE_CALL_BANKER,			//抢庄状态
-		STATE_BETTING,				//投注
-		STATE_OPT_OX,				//选牛
-		STATE_END,				//结算
-	};
-	CC_SYNTHESIZE(GameState,gameState,GameState);
-	CC_SYNTHESIZE(GameState,serverState,ServerState);
+
 
 	CC_SYNTHESIZE(GameControlOxTwo *, gameControl, GameControlOxTwo);
 
@@ -62,13 +49,12 @@ public:
     //virtual bool init();
     CREATE_FUNC(MainSceneOxTwo);
 	
-	//收到准备完成回调
-	void onEventReadyFnish();
+
 	//收到发牌完成回调
 	void onEventSendCardFnish();
 	//设置状态并更新
-	void setGameStateWithUpdate(GameState gameState);
-	void setServerStateWithUpdate(GameState serverState);
+	virtual void setGameStateWithUpdate(GameState gameState);
+	virtual void setServerStateWithUpdate(GameState serverState);
 private:
 	//初始化
 	void initGameControl();

@@ -10,17 +10,9 @@
 #include "../Tools/GameConfig.h"
 #include "../Tools/DataModel.h"
 #include "../Tools/BaseAttributes.h"
-//#include "TCPSocket.h"
-//#include "CMD_LogonServer.h"
 #include "../Network/TCPSocket/TCPSocketControl.h"
 #include "../Play/CardLayer/CardLayerTwo.h"
-//#include <tchar.h>
-//#include "MD5.h"
-
-//#include <thread>
-//#include <iostream>
 MainSceneOxTwo::MainSceneOxTwo()
-:gameState(STATE_OBSERVER)
 {
 }
 MainSceneOxTwo::~MainSceneOxTwo(){
@@ -82,11 +74,7 @@ void MainSceneOxTwo::initCardLayer(){
 	this->addChild(cardLayer);
 }
 
-//收到准备完成回调
-void MainSceneOxTwo::onEventReadyFnish(){
-	CCLog("准备完成等待服务端响应.");
-	setServerStateWithUpdate(STATE_WAIT);
-}
+
 //收到发牌完成回调
 void MainSceneOxTwo::onEventSendCardFnish(){
 	

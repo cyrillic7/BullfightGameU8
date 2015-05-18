@@ -10,17 +10,9 @@
 #include "../Tools/GameConfig.h"
 #include "../Tools/DataModel.h"
 #include "../Tools/BaseAttributes.h"
-//#include "TCPSocket.h"
-//#include "CMD_LogonServer.h"
 #include "../Network/TCPSocket/TCPSocketControl.h"
 #include "../Play/CardLayer/CardLayerTwo.h"
-//#include <tchar.h>
-//#include "MD5.h"
-
-//#include <thread>
-//#include <iostream>
 MainSceneOxOneByOne::MainSceneOxOneByOne()
-:gameState(STATE_OBSERVER)
 {
 }
 MainSceneOxOneByOne::~MainSceneOxOneByOne(){
@@ -37,13 +29,6 @@ MainSceneOxOneByOne::~MainSceneOxOneByOne(){
 	CC_SAFE_RELEASE_NULL(b);
 
 }
-/*bool MainScene::init(){
-	if (!CCLayer::init())
-	{
-		return false;
-	}
-	return true;
-}*/
 CCScene* MainSceneOxOneByOne::scene()
 {
     CCScene *scene = CCScene::create();
@@ -91,27 +76,6 @@ void MainSceneOxOneByOne::onEventReadyFnish(){
 void MainSceneOxOneByOne::onEventSendCardFnish(){
 	
 }
-/*void MainScene::testLogic(){
-	BYTE tempCard[5] = { 2, 2, 3, 8, 6 };
-	bool ox = GetOxCard(tempCard, 5);
-	CCLog("ox:%d", ox);
-	BYTE tempCard[5] = {2,2,3,8,6};
-	BYTE tempFristCard[5] = { 2, 2, 2, 4, 5 };
-	BYTE tempNextCard[5] = { 2, 2, 2, 4, 6 };
-	GameLogic *logic = new GameLogic();
-	bool ox=logic->GetOxCard(tempCard, 5);
-
-	for (int i = 0; i < 5; i++)
-	{
-		CCLog("--==:%d", tempCard[i]);
-	}
-	CCLog("%d", ox);
-
-	bool compare=logic->CompareCard(tempFristCard, tempNextCard, 5);
-	CCLog("--:%d", compare);
-
-	CC_SAFE_DELETE(logic);
-}*/
 void MainSceneOxOneByOne::setGameStateWithUpdate(GameState gameState){
 	setGameState(gameState);
 	updateGameState();

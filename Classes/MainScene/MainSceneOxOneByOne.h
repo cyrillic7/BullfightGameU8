@@ -34,7 +34,7 @@ USING_NS_CC_EXT;
 class MainSceneOxOneByOne:public TCPSocket,public MainSceneBase
 {
 public:
-	//游戏状态
+	/*//游戏状态
 	enum GameState
 	{
 		STATE_OBSERVER=0,			//旁观状态
@@ -47,7 +47,7 @@ public:
 		STATE_GAME_END,				//结算
 	};
 	CC_SYNTHESIZE(GameState,gameState,GameState);
-	CC_SYNTHESIZE(GameState,serverState,ServerState);
+	CC_SYNTHESIZE(GameState,serverState,ServerState);*/
 
 	CC_SYNTHESIZE(GameControlOxOneByOne *, gameControl, GameControlOxOneByOne);
 
@@ -66,8 +66,8 @@ public:
 	//收到发牌完成回调
 	void onEventSendCardFnish();
 	//设置状态并更新
-	void setGameStateWithUpdate(GameState gameState);
-	void setServerStateWithUpdate(GameState serverState);
+	virtual void setGameStateWithUpdate(GameState gameState);
+	virtual void setServerStateWithUpdate(GameState serverState);
 private:
 	//初始化
 	void initGameControl();

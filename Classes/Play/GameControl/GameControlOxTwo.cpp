@@ -59,7 +59,7 @@ void GameControlOxTwo::menuOpenCard(CCObject* pSender, TouchEventType type){
 		OxCard.bOX=GetOxCard(DataModel::sharedDataModel()->card[getMeChairID()],5);
 		//发送信息
 		bool isSend=TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_GAME,SUB_C_OPEN_CARD,&OxCard,sizeof(OxCard));
-		DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
+		getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
 	}
 		break;
 	default:

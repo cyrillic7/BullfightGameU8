@@ -64,7 +64,12 @@ void PlayerLayer::hideOxTwoPlayer(){
 	hidePlayer(pPlayerData[4]->pPlayerPanel);
 	hidePlayer(pPlayerData[5]->pPlayerPanel);
 
-	pPlayerData[1]->pPlayerPanel->setPosition(designResolutionToFrame(ccp(785,506)));
+	pPlayerData[0]->pPlayerPanel->setPosition(designResolutionToFrame(ccp(785, 506)));
+	UIPanel *playerPanel = pPlayerData[0]->pPlayerPanel;
+	UIImageView *iPlayerIcon = (UIImageView*)playerPanel->getChildByName("headPortrait");
+	CCPoint playerPos = playerPanel->getPosition();
+	CCPoint cardPos = ccpAdd(playerPos, iPlayerIcon->getPosition());
+	getMainScene()->posChair[0] = cardPos;
 }
 void PlayerLayer::resetPlayerData(){
 	for (int i = 0; i < MAX_PLAYER; i++)
@@ -77,9 +82,9 @@ void PlayerLayer::hidePlayer(UIPanel *panel){
 	panel->setVisible(false);
 }
 void PlayerLayer::updateState(){
-	switch (DataModel::sharedDataModel()->getMainSceneOxTwo()->getGameState())
+	switch (getMainScene()->getGameState())
 	{
-	case MainSceneOxTwo::STATE_READY:
+	case MainSceneBase::STATE_READY:
 		{
 			resetPlayerData();
 		}

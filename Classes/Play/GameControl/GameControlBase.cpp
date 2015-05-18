@@ -77,7 +77,7 @@ void GameControlBase::onEnter(){
 	}
 	//设置用户名
 	const char *name=Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName);
-	//DataModel::sharedDataModel()->getMainSceneOxTwo()->playerLayer->setUserName(3,name);
+	//getMainScene()->playerLayer->setUserName(3,name);
 	//初始化计时器
 	initTimer(pWidget);
 	resetTimer(MAX_TIMER,NULL);
@@ -145,7 +145,7 @@ void GameControlBase::updateTimer(float dt){
 	pLTimerNum->setStringValue(CCString::createWithFormat("%d",iTimerCount)->getCString());
 }
 void GameControlBase::delayedAction(){
-	switch (DataModel::sharedDataModel()->getMainSceneOxTwo()->getGameState())
+	switch (getMainScene()->getGameState())
 	{
 	case MainSceneOxTwo::STATE_READY:
 		{
@@ -198,7 +198,7 @@ void GameControlBase::menuOpenCard(CCObject* pSender, TouchEventType type){
 	case TOUCH_EVENT_ENDED:
 	{
 		hideTimer(true);
-		DataModel::sharedDataModel()->getMainSceneOxTwo()->cardLayer->sortingOx(getMeChairID(),3);
+		getMainScene()->cardLayer->sortingOx(getMeChairID(),3);
 	
 		showActionPrompt(3);
 		pOptOx->setEnabled(false);		
@@ -206,7 +206,7 @@ void GameControlBase::menuOpenCard(CCObject* pSender, TouchEventType type){
 		OxCard.bOX=GetOxCard(DataModel::sharedDataModel()->card[getMeChairID()],5);
 		//发送信息
 		bool isSend=TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_GAME,SUB_C_OPEN_CARD,&OxCard,sizeof(OxCard));
-		DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
+		getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
 	}
 		break;
 	default:
@@ -219,7 +219,7 @@ void GameControlBase::menuPrompt(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 		{
-			bool isOx=DataModel::sharedDataModel()->getMainSceneOxTwo()->cardLayer->promptOx(getMeChairID());
+			bool isOx=getMainScene()->cardLayer->promptOx(getMeChairID());
 			if (!isOx)
 			{
 				menuOpenCard(NULL,TOUCH_EVENT_ENDED);
@@ -256,7 +256,7 @@ void GameControlBase::menuReady(CCObject* pSender, TouchEventType type){
 		//发送准备指使
 		bool isSend=TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_FRAME,SUB_GF_USER_READY);
 		//设置主状态为准备状态
-		DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameState(MainSceneOxTwo::STATE_READY);
+		getMainScene()->setGameState(MainSceneOxTwo::STATE_READY);
 		/*//获取按键子控件并隐藏
 		CCArray *arrayImage = mButton->getChildren();
 		for (int i = 0; i < arrayImage->count(); i++)
@@ -266,13 +266,14 @@ void GameControlBase::menuReady(CCObject* pSender, TouchEventType type){
 		}*/
 
 
-		DataModel::sharedDataModel()->getMainSceneOxTwo()->onEventReadyFnish();
+		getMainScene()->onEventReadyFnish();
 	}
 		break;
 	default:
 		break;
 	}
 }
+
 //不抢庄
 void GameControlBase::menuNotFight(CCObject* pSender, TouchEventType type){
 	switch (type)
@@ -281,8 +282,8 @@ void GameControlBase::menuNotFight(CCObject* pSender, TouchEventType type){
 	{
 			hideTimer(true);
 		pFightForBanker->setEnabled(false);
-		//DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainScene::STATE_BETTING);
-		DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
+		//getMainScene()->setGameStateWithUpdate(MainScene::STATE_BETTING);
+		getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
 		//设置变量
 		CMD_C_CallBanker CallBanker;
 		CallBanker.bBanker = (BYTE)0;
@@ -302,8 +303,8 @@ void GameControlBase::menuFight(CCObject* pSender, TouchEventType type){
 	{
 		hideTimer(true);
 		pFightForBanker->setEnabled(false);
-		//DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainScene::STATE_OPT_OX);
-		DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
+		//getMainScene()->setGameStateWithUpdate(MainScene::STATE_OPT_OX);
+		getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
 
 		//设置变量
 		CMD_C_CallBanker CallBanker;
@@ -334,8 +335,8 @@ void GameControlBase::menuBetting(CCObject* pSender, TouchEventType type){
 		else if(bTemp==3)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore/2,1L);
 		else if(bTemp==4)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore,1L);
 
-		//DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainScene::STATE_OPT_OX);
-		DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
+		//getMainScene()->setGameStateWithUpdate(MainScene::STATE_OPT_OX);
+		getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
 
 		//发送消息
 		CMD_C_AddScore AddScore;
@@ -349,7 +350,7 @@ void GameControlBase::menuBetting(CCObject* pSender, TouchEventType type){
 	}
 }
 void GameControlBase::updateState(){
-	switch (DataModel::sharedDataModel()->getMainSceneOxTwo()->getGameState())
+	switch (getMainScene()->getGameState())
 	{
 	case MainSceneOxTwo::STATE_READY:
 		{
@@ -464,6 +465,7 @@ void GameControlBase::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * p
 		onSubUserState(wSubCmdID,pDataBuffer,wDataSize);
 		break;
 	default:
+		CCLog("---------------- %d  %d <<%s>>",wMainCmdID,wSubCmdID,__FUNCTION__);
 		break;
 	}
 }
@@ -540,14 +542,14 @@ bool GameControlBase::OnSubCallBanker(const void * pBuffer, WORD wDataSize){
 	if(!IsLookonMode() && pCallBanker->wCallBanker==getMeChairID())
 	{
 		hideActionPrompt();
-		DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainSceneOxTwo::STATE_CALL_BANKER);
+		getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_CALL_BANKER);
 	}else
 	{
 		showActionPrompt(1);
 	}
 	for (int i = 0; i < MAX_PLAYER; i++)
 	{
-		DataModel::sharedDataModel()->getMainSceneOxTwo()->playerLayer->pPlayerData[i]->hideActionType();
+		getMainScene()->playerLayer->pPlayerData[i]->hideActionType();
 	}
 	/*//游戏当前处于叫庄状态
 	//SetGameStatus(GS_TK_CALL);
@@ -644,16 +646,16 @@ bool GameControlBase::OnSubGameStart(const void * pBuffer, WORD wDataSize){
 		else if(i==3)lCurrentScore=MAX(DataModel::sharedDataModel()->m_lTurnMaxScore,1L);
 		pbBetting[i]->setTitleText(CCString::createWithFormat("%lld",lCurrentScore)->getCString());
 	} 
-	DataModel::sharedDataModel()->getMainSceneOxTwo()->playerLayer->setBankIcon(getChairIndex(getMeChairID(),wBankerUser));
+	getMainScene()->playerLayer->setBankIcon(getChairIndex(getMeChairID(),wBankerUser));
 	if (wBankerUser!=getMeChairID())
 	{
 		hideActionPrompt();
-		DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainSceneOxTwo::STATE_BETTING);
+		getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_BETTING);
 	}else
 	{
 		showActionPrompt(2);
 	}
-	//DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainScene::STATE_WAIT);
+	
 	return true;
 }
 
@@ -705,7 +707,7 @@ bool GameControlBase::OnSubSendCard(const void * pBuffer, WORD wDataSize)
 	{
 		DataModel::sharedDataModel()->card[getMeChairID()][i]=pSendCard->cbCardData[getMeChairID()][i];
 	}
-	DataModel::sharedDataModel()->getMainSceneOxTwo()->setServerStateWithUpdate(MainSceneOxTwo::STATE_SEND_CARD);
+	getMainScene()->setServerStateWithUpdate(MainSceneOxTwo::STATE_SEND_CARD);
 	/*
 	//删除定时器
 	KillGameClock(IDI_NULLITY);
@@ -825,10 +827,10 @@ bool GameControlBase::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 		//m_GameClientView.SetUserTotalScore(m_wViewChairID[i],pGameEnd->lGameScore[i]);
 		long long lGameScore=pGameEnd->lGameScore[i];
 		if(i==getMeChairID()){
-			DataModel::sharedDataModel()->getMainSceneOxTwo()->playerLayer->showResultAnimation(3,lGameScore);
+			getMainScene()->playerLayer->showResultAnimation(3,lGameScore);
 			if (lGameScore!=0){
-				UIPanel *pPlayer0=DataModel::sharedDataModel()->getMainSceneOxTwo()->playerLayer->pPlayerData[0]->pPlayerPanel;
-				UIPanel *pPlayer3=DataModel::sharedDataModel()->getMainSceneOxTwo()->playerLayer->pPlayerData[3]->pPlayerPanel;
+				UIPanel *pPlayer0=getMainScene()->playerLayer->pPlayerData[0]->pPlayerPanel;
+				UIPanel *pPlayer3=getMainScene()->playerLayer->pPlayerData[3]->pPlayerPanel;
 				for (int i = 0; i < 60; i++)
 				{
 					if (lGameScore>0)
@@ -861,7 +863,7 @@ bool GameControlBase::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 			}*/
 		}else
 		{
-			DataModel::sharedDataModel()->getMainSceneOxTwo()->playerLayer->showResultAnimation(0,lGameScore);
+			getMainScene()->playerLayer->showResultAnimation(0,lGameScore);
 		}
 			
 		
@@ -885,8 +887,8 @@ bool GameControlBase::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 		}
 		if (!isCardError)
 		{
-			DataModel::sharedDataModel()->getMainSceneOxTwo()->cardLayer->showCard(getChairIndex(DataModel::sharedDataModel()->userInfo->wChairID,i),i);
-			DataModel::sharedDataModel()->getMainSceneOxTwo()->cardLayer->sortingOx(i,getChairIndex(DataModel::sharedDataModel()->userInfo->wChairID,i));
+			getMainScene()->cardLayer->showCard(getChairIndex(DataModel::sharedDataModel()->userInfo->wChairID,i),i);
+			getMainScene()->cardLayer->sortingOx(i,getChairIndex(DataModel::sharedDataModel()->userInfo->wChairID,i));
 		}
 	}
 	
@@ -894,7 +896,7 @@ bool GameControlBase::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 	pEndLayer=GameEndLayer::create();
 	this->addChild(pEndLayer);
 	pEndLayer->showEnd(pGameEnd->lGameScore[getMeChairID()]>=0);
-	DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainSceneOxTwo::STATE_END);
+	getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_END);
 	/*
 	CopyMemory(m_cbHandCardData,pGameEnd->cbCardData,sizeof(m_cbHandCardData));
 
@@ -1075,7 +1077,7 @@ bool GameControlBase::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 }
 
 void GameControlBase::OnUserFree(CCObject *obj){
-	CCMessageBox("长时间不操作，自动退出！","提示");
+	CCMessageBox(Tools::GBKToUTF8("长时间不操作，自动退出！"),Tools::GBKToUTF8("提示"));
 	Tools::setTransitionAnimation(0,0,GameLobbyScene::scene());
 	CCLog("退出 ");
 }
@@ -1118,7 +1120,7 @@ void GameControlBase::onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned
 				OnUserFree(NULL);
 			}else
 			{
-				DataModel::sharedDataModel()->getMainSceneOxTwo()->playerLayer->pPlayerData[0]->hidePlayer();
+				getMainScene()->playerLayer->pPlayerData[0]->hidePlayer();
 			}
 		}
 		break;

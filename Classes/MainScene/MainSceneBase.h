@@ -18,6 +18,28 @@ USING_NS_CC_EXT;
 class MainSceneBase:public CCLayer,public GameLogic
 {
 public:
+	//游戏状态
+	enum GameState
+	{
+		//二人牛牛////////////////////////////////////////////////////////////////////////
+		STATE_OBSERVER = 0,			//旁观状态
+		STATE_READY,				//准备状态
+		STATE_WAIT,					//等待服务端响应
+		STATE_SEND_CARD,			//发牌状态
+		STATE_CALL_BANKER,			//抢庄状态
+		STATE_BETTING,				//投注
+		STATE_OPT_OX,				//选牛
+		STATE_END,				//结算
+		//百人牛牛////////////////////////////////////////////////////////////////////////
+		STATE_GAME_FREE ,							//空闲状态
+		STATE_GAME_PLACE_JETTON,				//下注
+		STATE_GAME_SEND_CARD,					//发牌
+		STATE_GAME_SHOW_CARE_FINISH,		//显示牌完成
+		STATE_GAME_END,								//结算
+	};
+	CC_SYNTHESIZE(GameState, gameState, GameState);
+	CC_SYNTHESIZE(GameState, serverState, ServerState);
+
 	//椅子位置
 	CCPoint posChair[MAX_CHAIR_COUNT];
 	//扑克层
@@ -31,4 +53,10 @@ public:
 	virtual void onExit();
 	//初始化玩家信息层
 	void initPlayerLayer();
+	//收到准备完成回调
+	void onEventReadyFnish();
+public:
+	//设置状态并更新
+	virtual void setGameStateWithUpdate(GameState gameState){}
+	virtual void setServerStateWithUpdate(GameState serverState){}
 };

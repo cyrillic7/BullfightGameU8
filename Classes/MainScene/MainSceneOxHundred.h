@@ -20,7 +20,7 @@ USING_NS_CC_EXT;
 class MainSceneOxHundred:public TCPSocket,public MainSceneBase
 {
 public:
-	//游戏状态
+	/*//游戏状态
 	enum GameState
 	{
 		STATE_GAME_FREE=0,							//空闲状态
@@ -28,7 +28,7 @@ public:
 		STATE_GAME_SEND_CARD,					//发牌
 		STATE_GAME_SHOW_CARE_FINISH,		//显示牌完成
 		STATE_GAME_END,								//结算
-	};
+	};*/
 	CC_SYNTHESIZE(GameState,gameState,GameState);
 	CC_SYNTHESIZE(GameState,serverState,ServerState);
 

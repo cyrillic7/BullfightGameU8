@@ -72,6 +72,7 @@ public:
 	void showTimer();
 	//隐藏计时器
 	void hideTimer(bool bIsReset);
+
 private:
 	//初始化操作者提示动画
 	void initActionPrompt();
