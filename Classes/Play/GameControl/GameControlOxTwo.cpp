@@ -66,3 +66,7 @@ void GameControlOxTwo::menuOpenCard(CCObject* pSender, TouchEventType type){
 		break;
 	}
 }
+//隐藏用户
+void GameControlOxTwo::hidePlayer(CMD_GR_UserStatus *userInfo){
+	getMainScene()->playerLayer->pPlayerData[0]->hidePlayer();
+}

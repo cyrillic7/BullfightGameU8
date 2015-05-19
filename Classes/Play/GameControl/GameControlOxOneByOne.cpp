@@ -16,7 +16,7 @@ GameControlOxOneByOne::GameControlOxOneByOne()
 
 }
 GameControlOxOneByOne::~GameControlOxOneByOne(){
-
+	DataModel::sharedDataModel()->mTagUserInfo.clear();
 }
 void GameControlOxOneByOne::onEnter(){
 	GameControlBase::onEnter();
@@ -63,11 +63,28 @@ void GameControlOxOneByOne::menuOpenCard(CCObject* pSender, TouchEventType type)
 }
 //用户进入
 void GameControlOxOneByOne::onUserEnter(){
-	//long userChairID = 0;
-	std::map<long, tagUserInfo>::iterator iterUser= DataModel::sharedDataModel()->mTagUserInfo.find(DataModel::sharedDataModel()->userInfo->dwUserID);
-	if (iterUser!=DataModel::sharedDataModel()->mTagUserInfo.end())
+	//CCLog("<<%s>>",__FUNCTION__);
+	/*std::map<long, tagUserInfo>::iterator iter;
+	for (iter = DataModel::sharedDataModel()->mTagUserInfo.begin(); iter != DataModel::sharedDataModel()->mTagUserInfo.end(); iter++)
 	{
-		if (iterUser->second.wChairID>6||iterUser->second.wChairID<1)
+		if (iter->second.wChairID > 6 || iter->second.wChairID < 1)
+		{
+			continue;
+		}
+		CCLog("server:%d  view位置 :%d   me:%d %s<<%s>>", iter->second.wChairID, getViewChairID(iter->second.wChairID), DataModel::sharedDataModel()->userInfo->wChairID, Tools::GBKToUTF8(iter->second.szNickName), __FUNCTION__);
+		getMainScene()->playerLayer->setUserInfo(getViewChairID(iter->second.wChairID), iter->second);
+
+	}*/
+	//std::map<long, tagUserInfo> tempTagUserInfo;w
+	//memcpy(&tempTagUserInfo, &DataModel::sharedDataModel()->mTagUserInfo, sizeof(DataModel::sharedDataModel()->mTagUserInfo));
+
+	std::map<long, tagUserInfo> tempTagUserInfo = DataModel::sharedDataModel()->mTagUserInfo;
+	//memcpy(&tempTagUserInfo, &DataModel::sharedDataModel()->mTagUserInfo, sizeof(DataModel::sharedDataModel()->mTagUserInfo));
+	
+	std::map<long, tagUserInfo>::iterator iterUser = tempTagUserInfo.find(DataModel::sharedDataModel()->userInfo->dwUserID);
+	if (iterUser!=tempTagUserInfo.end())
+	{
+		if (iterUser->second.wChairID>5||iterUser->second.wChairID<0)
 		{
 			return;
 		}
@@ -76,35 +93,66 @@ void GameControlOxOneByOne::onUserEnter(){
 	}
 
 	std::map<long, tagUserInfo>::iterator iter;
-	for (iter = DataModel::sharedDataModel()->mTagUserInfo.begin(); iter != DataModel::sharedDataModel()->mTagUserInfo.end(); iter++)
+	for (iter = tempTagUserInfo.begin(); iter != tempTagUserInfo.end(); iter++)
 	{
-		/*if (iter->second.dwUserID != DataModel::sharedDataModel()->userInfo->dwUserID)
+		if (iter->second.wChairID > 5 || iter->second.wChairID < 0)
 		{
-			CCLog("ID:%ld otherID:%ld   name:%s<<%s>>", iter->second.dwUserID, DataModel::sharedDataModel()->userInfo->dwUserID,
-				Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName), __FUNCTION__);
-			getMainScene()->playerLayer->setUserInfo(0, iter->second);
-			//DataModel::sharedDataModel()->getMainSceneOxOneByOne()->playerLayer->setUserInfo(0,iter->second);
-		}
-		else
-		{
-			getMainScene()->playerLayer->setUserInfo(3, iter->second);
-		}*/
-		if (iter->second.wChairID > 6 || iter->second.wChairID < 1)
+			CCLog("------------->6 <1 %d<<%s>>",iter->second.wChairID,__FUNCTION__);
+			//tempTagUserInfo.erase(iter++);
 			continue;
-			
+		}
 		CCLog("server:%d  view位置 :%d   me:%d %s<<%s>>",iter->second.wChairID, getViewChairID(iter->second.wChairID),DataModel::sharedDataModel()->userInfo->wChairID,Tools::GBKToUTF8(iter->second.szNickName), __FUNCTION__);
 		getMainScene()->playerLayer->setUserInfo(getViewChairID(iter->second.wChairID), iter->second);
 	}
 	CCLog("=======================================<<%s>>",__FUNCTION__);
 	//DataModel::sharedDataModel()->mTagUserInfo.clear();
 }
+/*void GameControlOxOneByOne::onUserEnterWithUpdate(tagUserInfo *user){
+	tagUserInfo *tempUser=user;
+	//memset(tempUser, 0, sizeof(tagUserInfo));
+	memcpy(tempUser,user,sizeof(tagUserInfo));
+	if (user->wChairID > 5 || user->wChairID < 0) return;
+
+	getMainScene()->playerLayer->setUserInfo(getViewChairID(tempUser->wChairID), *tempUser);
+}*/
 //获取视图位置
 int GameControlOxOneByOne::getViewChairID(int severChairID){
-	int viewChair = 3-DataModel::sharedDataModel()->userInfo->wChairID + severChairID;
-	viewChair %= (MAX_CHAIR_COUNT+1);
-	//转换椅子
-	//int wChairCount = MAX_CHAIR_COUNT;
-	//int wViewChairID = (severChairID + wChairCount * 3 / 2 - m_UserAttribute.wChairID) % wChairCount;
-
+	/*int viewChair = 3-DataModel::sharedDataModel()->userInfo->wChairID + severChairID;
+	viewChair %= MAX_CHAIR_COUNT;
+	if (viewChair<0)
+	{
+		viewChair += MAX_CHAIR_COUNT;
+	}
+	return viewChair;*/
+	int viewChair = 3 - DataModel::sharedDataModel()->userInfo->wChairID;
+	if (viewChair<0)
+	{
+		viewChair += MAX_CHAIR_COUNT;
+	}
+	viewChair += severChairID;
+	viewChair %= MAX_CHAIR_COUNT;
 	return viewChair;
+}
+//用户准备
+void GameControlOxOneByOne::onUserReady(CMD_GR_UserStatus *info){
+	int indexPlayer = getViewChairID(info->UserStatus.wChairID);
+	getMainScene()->playerLayer->pPlayerData[indexPlayer]->showActionType(PlayerData::ACTION_READY);
+	/*if (info->dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID)
+	{
+		getMainScene()->playerLayer->pPlayerData[3]->showActionType(PlayerData::ACTION_READY);
+	}
+	else
+	{
+		getMainScene()->playerLayer->pPlayerData[0]->showActionType(PlayerData::ACTION_READY);
+	}*/
+}
+//隐藏用户
+void GameControlOxOneByOne::hidePlayer(CMD_GR_UserStatus *userInfo){
+	CCLog("<<%s>>",__FUNCTION__);
+	std::map<long, tagUserInfo>::iterator iterUser = DataModel::sharedDataModel()->mTagUserInfo.find(userInfo->dwUserID);
+	if (iterUser != DataModel::sharedDataModel()->mTagUserInfo.end())
+	{
+		getMainScene()->playerLayer->pPlayerData[getViewChairID(iterUser->second.wChairID)]->hidePlayer();
+		//DataModel::sharedDataModel()->mTagUserInfo.erase(userInfo->dwUserID);
+	}
 }

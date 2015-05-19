@@ -21,7 +21,8 @@
 #include "../../Network/CMD_Server/PacketAide.h"
 GameControlBase::GameControlBase()
 :pEndLayer(NULL)
-, pLTimerPromptContent(NULL){
+, pLTimerPromptContent(NULL)
+, isPromptOx(false){
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationActionPrompt.ExportJson));
 	schedule(SEL_SCHEDULE(&GameControlBase::updateTimer), 1);
 	scheduleUpdate();
@@ -87,7 +88,7 @@ void GameControlBase::onEnter(){
 //	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(GameControlBase::OnUserFree), S_L_US_FREE, NULL);
 //	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(GameControlBase::OnUserEnter), S_L_US_ENTER, NULL);
 	//主动调用一次
-	onUserEnter();
+	//onUserEnter();
 }
 void GameControlBase::onExit(){
 	//移除监听事件 
@@ -220,6 +221,11 @@ void GameControlBase::menuPrompt(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
+		if (isPromptOx)
+		{
+			return;
+		}
+		isPromptOx = true;
 		bool isOx = getMainScene()->cardLayer->promptOx(getMeChairID());
 		if (!isOx)
 		{
@@ -355,15 +361,16 @@ void GameControlBase::updateState(){
 	{
 	case MainSceneOxTwo::STATE_READY:
 	{
-										resetTimer(MAX_TIMER, NULL);
-										//移除结算层
-										if (pEndLayer)
-										{
-											pEndLayer->removeFromParentAndCleanup(true);
-											pEndLayer = NULL;
-										}
-										pPanelReady->setEnabled(true);
-										pOptOx->setEnabled(false);
+		isPromptOx = false;
+		resetTimer(MAX_TIMER, NULL);
+		//移除结算层
+		if (pEndLayer)
+		{
+			pEndLayer->removeFromParentAndCleanup(true);
+			pEndLayer = NULL;
+		}
+		pPanelReady->setEnabled(true);
+		pOptOx->setEnabled(false);
 	}
 		break;
 	case MainSceneOxTwo::STATE_CALL_BANKER:
@@ -1151,6 +1158,13 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 		{
 		case US_SIT://坐下
 		{
+			std::map<long, tagUserInfo>::iterator iterUser = DataModel::sharedDataModel()->mTagUserInfo.find(info->dwUserID);
+			if (iterUser != DataModel::sharedDataModel()->mTagUserInfo.end())
+			{
+				iterUser->second.wChairID = info->UserStatus.wChairID;
+				iterUser->second.wTableID = info->UserStatus.wTableID;
+				onUserEnter();
+			}
 			CCLog("state==sit-----------%ld",info->dwUserID);
 			if (info->dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID){
 				//DataModel::sharedDataModel()->isSit=true;
@@ -1171,36 +1185,32 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 					{
 					}
 				}
-				
+			}
+			else
+			{
+
 			}
 		}
 			break;
 		case US_FREE://站立
 		{
-						 DataModel::sharedDataModel()->mTagUserInfo.erase(info->dwUserID);
-						 onUserEnter();
-						 //CCLog("state==free-----------%ld",info->dwUserID);
-						 if (info->dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID)
-						 {
-							 OnUserFree(NULL);
-						 }
-						 else
-						 {
-							 getMainScene()->playerLayer->pPlayerData[0]->hidePlayer();
-						 }
+			//
+			//onUserEnter();
+
+			if (info->dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID)
+			{
+				OnUserFree(NULL);
+			}
+			else
+			{
+				CCLog("up::%d <<%s>>",info->UserStatus.wChairID,__FUNCTION__);
+				hidePlayer(info);
+			}
 		}
 			break;
 		case US_READY://同意
 		{
-						  if (info->dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID)
-						  {
-							  getMainScene()->playerLayer->pPlayerData[3]->showActionType(PlayerData::ACTION_READY);
-						  }
-						  else
-						  {
-							  getMainScene()->playerLayer->pPlayerData[0]->showActionType(PlayerData::ACTION_READY);
-						  }
-						  //CCLog("state==ready-----------%ld",info->dwUserID);
+			onUserReady(info);
 		}
 			break;
 		case US_PLAYING:
@@ -1221,8 +1231,11 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 		break;
 	case SUB_GR_USER_ENTER://用户进入
 	{
+		CCLog("userEnter------<<%s>>",__FUNCTION__);
+		// 
 		onSubUserEnter(pDataBuffer,wDataSize);
 		onUserEnter();
+		//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_US_ENTER, NULL);
 	}
 		break;
 	case SUB_GR_USER_SCORE://用户分数
@@ -1232,6 +1245,18 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 		break;
 	}
 
+}
+//用户准备
+void GameControlBase::onUserReady(CMD_GR_UserStatus *info){
+	if (info->dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID)
+	{
+		getMainScene()->playerLayer->pPlayerData[3]->showActionType(PlayerData::ACTION_READY);
+	}
+	else
+	{
+		getMainScene()->playerLayer->pPlayerData[0]->showActionType(PlayerData::ACTION_READY);
+	}
+	//CCLog("state==ready-----------%ld",info->dwUserID);
 }
 //用户进入
 void GameControlBase::onSubUserEnter(void * pDataBuffer, unsigned short wDataSize){
@@ -1342,9 +1367,12 @@ void GameControlBase::onSubUserEnter(void * pDataBuffer, unsigned short wDataSiz
 			break;
 		}
 	}
+
+	//onUserEnterWithUpdate(&UserInfo);
+
 	std::map<long, tagUserInfo >::iterator l_it;
 	l_it = DataModel::sharedDataModel()->mTagUserInfo.find(pUserInfoHead->dwUserID);
-	if (l_it != DataModel::sharedDataModel()->mTagUserInfo.end())
+	if (DataModel::sharedDataModel()->mTagUserInfo.end()!=l_it)
 	{
 		l_it->second = UserInfo;
 	}
@@ -1354,6 +1382,7 @@ void GameControlBase::onSubUserEnter(void * pDataBuffer, unsigned short wDataSiz
 	}
 #endif
 }
+
 void GameControlBase::goldJump(int index, CCPoint beginPos, CCPoint endPos){
 	beginPos = ccpAdd(beginPos, ccp(rand() % 140, rand() % 80));
 

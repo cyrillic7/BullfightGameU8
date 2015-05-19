@@ -180,7 +180,7 @@ bool GameListerner::userEvent(TCPSocket* pSocket,TCP_Command cmd,void * pDataBuf
 	{
 	case SUB_GR_USER_ENTER://用户进入
 		{
-			OnSocketSubUserEnter(pSocket,pDataBuffer,wDataSize);
+			//OnSocketSubUserEnter(pSocket,pDataBuffer,wDataSize);
 		}
 		break;
 	case SUB_GR_USER_SCORE://用户分数

@@ -5,6 +5,7 @@
 #include "../../Tools/DataModel.h"
 PlayerData::PlayerData()
 {
+	memset(&userInfoPlayer, 0, sizeof(tagUserInfo));
 }
 PlayerData::~PlayerData() {
 }
@@ -25,6 +26,7 @@ void PlayerData::setBankIcon(){
 }
 //设置用户信息
 void PlayerData::setUserInfo(tagUserInfo userInfo){
+	/*//memset(&userInfoPlayer, 0, sizeof(tagUserInfo));
 	memcpy(&userInfoPlayer,&userInfo,sizeof(tagUserInfo));
 	pIPlayerIcon->setVisible(true);
 	if (Tools::GBKToUTF8(userInfoPlayer.szNickName))
@@ -34,7 +36,16 @@ void PlayerData::setUserInfo(tagUserInfo userInfo){
 		pLUserName->setText(Tools::subUTF8(nickName, 0, 4));
 	}
 	pLGoldCount->setVisible(true);
-	pLGoldCount->setText(CCString::createWithFormat("%lld",userInfoPlayer.lScore)->getCString());
+	pLGoldCount->setText(CCString::createWithFormat("%lld",userInfoPlayer.lScore)->getCString());*/
+	pIPlayerIcon->setVisible(true);
+	if (Tools::GBKToUTF8(userInfo.szNickName))
+	{
+		pLUserName->setVisible(true);
+		std::string nickName = Tools::GBKToUTF8(userInfo.szNickName);
+		pLUserName->setText(Tools::subUTF8(nickName, 0, 4));
+	}
+	pLGoldCount->setVisible(true);
+	pLGoldCount->setText(CCString::createWithFormat("%lld", userInfo.lScore)->getCString());
 }
 //显示结算动画
 void PlayerData::showResultAnimation(long long lGameScore){

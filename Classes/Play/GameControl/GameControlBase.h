@@ -39,6 +39,8 @@ private:
 	BYTE wBankerUser;
 	//游戏结算层
 	GameEndLayer *pEndLayer;
+	//是否已提示牛牛
+	bool isPromptOx;
 public:
 	//计时器
 	UIImageView *pITimer;
@@ -111,6 +113,8 @@ private:
 	bool IsLookonMode();
 	//获得椅子索引
 	virtual int getChairIndex(int meChairID,int chairID)=0;
+	//隐藏用户
+	virtual void hidePlayer(CMD_GR_UserStatus *userInfo){}
 //////////////////////////////////////////////////////////////////////////
 	//网络消息
 	//void OnEventGameMessage(CCObject *pObj);
@@ -140,12 +144,14 @@ private:
 	void OnUserFree(CCObject *obj);
 	//用户进入
 	virtual void onUserEnter();
+	//用户准备消息
+	virtual void onUserReady(CMD_GR_UserStatus *info);
+	//virtual void onUserEnterWithUpdate(tagUserInfo *user){}
 	//用户状态
 	void OnEventUserState(WORD	 wSubCmdID,const void * pBuffer, WORD wDataSize);
 
 	//用户状态
 	virtual void onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
-
 private:
 	void goldJump(int index,CCPoint beginPos,CCPoint endPos);
 	void onGoldJump(CCNode *node);

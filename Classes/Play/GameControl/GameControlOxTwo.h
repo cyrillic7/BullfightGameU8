@@ -20,4 +20,7 @@ private:
 	int getChairIndex(int meChairID,int chairID);
 	//开牌
 	virtual void menuOpenCard(CCObject* pSender, TouchEventType type);
+	//隐藏用户
+	virtual void hidePlayer(CMD_GR_UserStatus *userInfo);
+
 };
