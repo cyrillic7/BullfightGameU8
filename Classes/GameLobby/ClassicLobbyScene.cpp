@@ -15,7 +15,7 @@
 #include "../MainScene/MainSceneOxOneByOne.h"
 #include "../Network/CMD_Server/CMD_GameServer.h"
 #include "../Network/TCPSocket/TCPSocketControl.h"
-#include "../Network/ListernerThread/GameListerner.h"
+#include "../Network/ListernerThread/LogonGameListerner.h"
 #include "../Tools/DataModel.h"
 #include "../PopDialogBox/PopDialogBoxLoading.h"
 #include "../Network/MD5/MD5.h"
@@ -89,15 +89,15 @@ void ClassicLobbyScene::onEnter(){
 	initItemTouchEvent();
 	selectGameItem(0);
 	//添加监听事件
-	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::onPlay),S_L_PLAY,NULL);
-	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::onConfigFinish),S_L_CONFIG_FINISH,NULL);
-	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::onOpen),S_L_OPEN,NULL);
+	//CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::onPlay),S_L_PLAY,NULL);
+	//CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::onConfigFinish),S_L_CONFIG_FINISH,NULL);
+	//CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::onOpen),S_L_OPEN,NULL);
 }
 void ClassicLobbyScene::onExit(){
 	//移除监听事件 
-	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_PLAY); 
-	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_CONFIG_FINISH); 
-	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_OPEN); 
+	//CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_PLAY); 
+	//CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_CONFIG_FINISH); 
+	//CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_OPEN); 
 
 	BaseLobbyScene::onExit();
 }
@@ -126,7 +126,8 @@ void ClassicLobbyScene::initTCPLogon(int index){
 	}
 
 	CCLog("-----------ip:%s     port:%d<<%s>>",tcp->ip,tcp->port,__FUNCTION__);
-	tcp->listerner=new GameListerner();
+	//tcp->listerner=new GameListerner();
+	tcp->listerner = new LogonGameListerner();
 	tcp->startSendThread();
 }
 //更新房间列表
@@ -263,85 +264,155 @@ void ClassicLobbyScene::onConfigFinish(CCObject *obj){
 #endif
 //	enterMainSceneByMode(1);
 }
-void ClassicLobbyScene::onOpen(CCObject *obj){
+
+void ClassicLobbyScene::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
+	switch (wMainCmdID)
+	{
+	case MDM_MB_SOCKET://socket连接成功
+		onEventConnect(wSubCmdID, pDataBuffer, wDataSize);
+		break;
+	case MDM_GR_LOGON:
+		onEventLogon(wSubCmdID,pDataBuffer,wDataSize);
+		break;
+	/*case MDM_GR_USER:
+		onSubUserState(wSubCmdID,pDataBuffer,wDataSize);
+		break;*/
+	case MDM_GR_CONFIG://配置
+		return configEvent(wSubCmdID, pDataBuffer, wDataSize);
+		break;
+	default:
+		CCLog("main:%d  sub:%d<<%s>>",wMainCmdID,wSubCmdID,__FUNCTION__);
+		break;
+	}
+}
+//连接成功
+void ClassicLobbyScene::onEventConnect(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
+	switch (wSubCmdID)
+	{
+	case SUB_GP_SOCKET_OPEN:
+	{
 #if (DEBUG_TEST==0)
-	CMD_GR_LogonUserID logonUserID;
-	memset(&logonUserID, 0, sizeof(CMD_GR_LogonUserID));
-	logonUserID.dwFrameVersion=VERSION_FRAME;
-	logonUserID.dwPlazaVersion=VERSION_PLAZA;
-	logonUserID.dwProcessVersion= VERSION_CLIENT;
-	logonUserID.dwUserID=DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID;
-	strcpy(logonUserID.szMachineID,"12");
-	strcpy(logonUserID.szPassPortID,"12");
-	MD5 m;
-	MD5::char8 str[] = "z12345678";
-	m.ComputMd5(str, sizeof(str)-1);
-	std::string md5PassWord = m.GetMd5();
-	strcpy(logonUserID.szPassword,md5PassWord.c_str());
+		CMD_GR_LogonUserID logonUserID;
+							   memset(&logonUserID, 0, sizeof(CMD_GR_LogonUserID));
+							   logonUserID.dwFrameVersion = VERSION_FRAME;
+							   logonUserID.dwPlazaVersion = VERSION_PLAZA;
+							   logonUserID.dwProcessVersion = VERSION_CLIENT;
+							   logonUserID.dwUserID = DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID;
+							   strcpy(logonUserID.szMachineID, "12");
+							   strcpy(logonUserID.szPassPortID, "12");
+							   MD5 m;
+							   MD5::char8 str[] = "z12345678";
+							   m.ComputMd5(str, sizeof(str)-1);
+							   std::string md5PassWord = m.GetMd5();
+							   strcpy(logonUserID.szPassword, md5PassWord.c_str());
 
-	strcpy(logonUserID.szPhoneVerifyID,"1");
-	logonUserID.wKindID=DataModel::sharedDataModel()->tagGameServerListOxTwo[0]->wKindID;
+							   strcpy(logonUserID.szPhoneVerifyID, "1");
+							   logonUserID.wKindID = DataModel::sharedDataModel()->tagGameServerListOxTwo[0]->wKindID;
 
-	CCLog("房间名:%d",DataModel::sharedDataModel()->tagGameServerListOxTwo[0]->wServerPort);
+							   CCLog("房间名:%d", DataModel::sharedDataModel()->tagGameServerListOxTwo[0]->wServerPort);
 
-	int luidSize=sizeof(CMD_GR_LogonUserID);
-	bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GR_LOGON, SUB_GR_LOGON_USERID, &logonUserID, sizeof(logonUserID));
-	CCLog("send:%d", isSend);
+							   int luidSize = sizeof(CMD_GR_LogonUserID);
+							   bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GR_LOGON, SUB_GR_LOGON_USERID, &logonUserID, sizeof(logonUserID));
+							   CCLog("send:%d", isSend);
 #endif
 #if (DEBUG_TEST==1)
-	CMD_GR_LogonMobile logonMobile;
-	memset(&logonMobile, 0, sizeof(CMD_GR_LogonMobile));
+							   CMD_GR_LogonMobile logonMobile;
+							   memset(&logonMobile, 0, sizeof(CMD_GR_LogonMobile));
 
-	switch (getGameItem())
-	{
-	case ITEM_0:
-		{
-			logonMobile.wGameID=KIND_ID;
-			logonMobile.dwProcessVersion=VERSION_CLIENT;
-		}
-		break;
-	case ITEM_1:
-		{
-			logonMobile.wGameID=130;
-			logonMobile.dwProcessVersion=17235969;
-		}
+							   switch (getGameItem())
+							   {
+							   case ITEM_0:
+							   {
+											  logonMobile.wGameID = KIND_ID;
+											  logonMobile.dwProcessVersion = VERSION_CLIENT;
+							   }
+								   break;
+							   case ITEM_1:
+							   {
+											  logonMobile.wGameID = 130;
+											  logonMobile.dwProcessVersion = 17235969;
+							   }
+								   break;
+							   default:
+								   break;
+							   }
+
+
+							   //设备类型
+							   logonMobile.cbDeviceType = DEVICE_TYPE_ANDROID;
+							   logonMobile.wBehaviorFlags = BEHAVIOR_LOGON_IMMEDIATELY;
+							   logonMobile.wPageTableCount = 10;
+
+							   logonMobile.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+
+							   MD5 m;
+							   //MD5::char8 str[] = "z12345678";
+							   //m.ComputMd5(str,sizeof(str)-1);
+							   m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
+							   std::string md5PassWord = m.GetMd5();
+							   strcpy(logonMobile.szPassword, md5PassWord.c_str());
+
+							   strcpy(logonMobile.szMachineID, "123");
+
+							   bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GR_LOGON, SUB_GR_LOGON_MOBILE, &logonMobile, sizeof(logonMobile));
+#endif						 
+	}
 		break;
 	default:
 		break;
 	}
-	
-	
-	//设备类型
-	logonMobile.cbDeviceType=DEVICE_TYPE_ANDROID;
-	logonMobile.wBehaviorFlags=BEHAVIOR_LOGON_IMMEDIATELY;
-	logonMobile.wPageTableCount=10;
-
-	logonMobile.dwUserID=DataModel::sharedDataModel()->userInfo->dwUserID;
-
-	MD5 m;
-	//MD5::char8 str[] = "z12345678";
-	//m.ComputMd5(str,sizeof(str)-1);
-	m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(),DataModel::sharedDataModel()->sLogonPassword.length());
-	std::string md5PassWord = m.GetMd5();
-	strcpy(logonMobile.szPassword,md5PassWord.c_str());
-
-	strcpy(logonMobile.szMachineID,"123");
-
-	bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GR_LOGON, SUB_GR_LOGON_MOBILE, &logonMobile, sizeof(logonMobile));
-#endif
-	
 }
-void ClassicLobbyScene::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
-	switch (wMainCmdID)
+//配置
+void ClassicLobbyScene::configEvent(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
+	switch (wSubCmdID)
 	{
-	case MDM_GR_LOGON:
-		onEventLogon(wSubCmdID,pDataBuffer,wDataSize);
+	case SUB_GR_CONFIG_COLUMN:
+	{
+								 /*int size=sizeof(tagColumnItem);
+								 //效验参数
+								 assert(wDataSize >= sizeof(CMD_GR_ConfigColumn));
+								 if (wDataSize < sizeof(CMD_GR_ConfigColumn)) return false;
+								 */
+								 CMD_GR_ConfigColumn *lf = (CMD_GR_ConfigColumn*)pDataBuffer;
+								 CCLog("列表配置");
+	}
 		break;
-	case MDM_GR_USER:
-		onSubUserState(wSubCmdID,pDataBuffer,wDataSize);
+	case SUB_GR_CONFIG_SERVER:
+	{
+								 int size = sizeof(CMD_GR_ConfigServer);
+								 //效验参数
+								 assert(wDataSize >= sizeof(CMD_GR_ConfigServer));
+								 if (wDataSize < sizeof(CMD_GR_ConfigServer)) return ;
+
+								 CMD_GR_ConfigServer *lf = (CMD_GR_ConfigServer*)pDataBuffer;
+								 CCLog("房间配置");
+	}
+		break;
+	case SUB_GR_CONFIG_PROPERTY:
+	{
+								   CMD_GR_ConfigProperty *lf = (CMD_GR_ConfigProperty*)pDataBuffer;
+								   CCLog("道具配置");
+	}
+		break;
+	case SUB_GR_CONFIG_FINISH:
+	{
+								 CCLog("配置完成");
+								 unscheduleUpdate();
+								 enterMainSceneByMode(getGameItem());
+								 //构造数据
+								 /*CMD_GF_GameOption GameOption;
+								 GameOption.dwFrameVersion=VERSION_FRAME;
+								 GameOption.cbAllowLookon=0;
+								 GameOption.dwClientVersion=VERSION_CLIENT;
+								 //发送
+								 bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_FRAME, SUB_GF_GAME_OPTION, &GameOption, sizeof(GameOption));
+								 if (isSend)
+								 {
+								 MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_CONFIG_FINISH,NULL);
+								 }*/
+	}
 		break;
 	default:
-		CCLog("main:%d  sub:%d<<%s>>",wMainCmdID,wSubCmdID,__FUNCTION__);
 		break;
 	}
 }

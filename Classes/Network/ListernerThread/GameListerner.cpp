@@ -83,7 +83,7 @@ bool GameListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Comman
 
 void GameListerner::OnOpen(TCPSocket* so)
 {
-	MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_OPEN,NULL);
+	//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_OPEN,NULL);
 }
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
@@ -440,7 +440,7 @@ bool GameListerner::OnSocketSubUserEnter(TCPSocket* pSocket,void * pDataBuffer, 
 		DataModel::sharedDataModel()->mTagUserInfo.insert(map<long,tagUserInfo>::value_type(pUserInfoHead->dwUserID,UserInfo));
 	}
 	//发送消息
-	MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_US_ENTER,NULL);
+//	MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_US_ENTER,NULL);
 #endif
 	//
 

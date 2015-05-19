@@ -311,7 +311,7 @@ void GameLobbyScene::onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned 
 		break;
 	case SUB_GR_USER_STATUS://用户状态
 		{
-			CCLog("用户状态<<%s>>",__FUNCTION__);
+			 CCLog("用户状态<<%s>>",__FUNCTION__);
 			onSubUserState(pDataBuffer,wDataSize);
 		}
 		break;

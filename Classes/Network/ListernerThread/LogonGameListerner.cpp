@@ -12,9 +12,7 @@
 #include "../TCPSocket/TCPSocketControl.h"
 #include "cocos2d.h"
 #include "../../MTNotificationQueue/MTNotificationQueue.h"
-
 #include "../SEvent.h"
-//#include "MessageQueue.cpp"
 using namespace std;
 LogonGameListerner::LogonGameListerner()
 {
@@ -43,7 +41,6 @@ void LogonGameListerner::OnIdle(TCPSocket* so)
  */
 bool LogonGameListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Command Command, void * pDataBuffer, unsigned short wDataSize)
 {
-	//LifeCircleMutexLock1(&sharedNotificationQueueLock1); 
 	ReadData rData;
 	rData.wMainCmdID=Command.wMainCmdID;
 	rData.wSubCmdID=Command.wSubCmdID;

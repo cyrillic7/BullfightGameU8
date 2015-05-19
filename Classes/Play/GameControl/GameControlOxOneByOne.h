@@ -20,4 +20,8 @@ private:
 	int getChairIndex(int meChairID,int chairID);
 	//开牌
 	virtual void menuOpenCard(CCObject* pSender, TouchEventType type);
+	//用户进入
+	virtual void onUserEnter();
+	//获取视图位置
+	virtual int getViewChairID(int severChairID);
 };

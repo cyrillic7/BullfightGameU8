@@ -85,6 +85,8 @@ private:
 public:
 	//获取我的椅子位置
 	int getMeChairID();
+	//获取视图位置
+	virtual int getViewChairID(int severChairID){ return -1;}
 	//站立并退出
 	virtual void standUpWithExit();
 private:
@@ -130,11 +132,14 @@ private:
 	bool OnSubPlayerExit(const void * pBuffer, WORD wDataSize);
 	//游戏结束
 	bool OnSubGameEnd(const void * pBuffer, WORD wDataSize);
-	
+	//用户进入
+	void onSubUserEnter(void * pDataBuffer, unsigned short wDataSize);
+	//框架命令
+	void frameEvent(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
 	//用户站立
 	void OnUserFree(CCObject *obj);
 	//用户进入
-	void OnUserEnter(CCObject *obj);
+	virtual void onUserEnter();
 	//用户状态
 	void OnEventUserState(WORD	 wSubCmdID,const void * pBuffer, WORD wDataSize);
 

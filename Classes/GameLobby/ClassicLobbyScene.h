@@ -62,11 +62,15 @@ private:
 
 	void onPlay(CCObject *obj);
 	void onConfigFinish(CCObject *obj);
-	void onOpen(CCObject *obj);
+
 	
 	void onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
+	//socket连接成功
+	void onEventConnect(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
 	//登录
 	void onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
+	//配置
+	void configEvent(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
 	//用户状态
 	void onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//复选框回调（选择游戏）

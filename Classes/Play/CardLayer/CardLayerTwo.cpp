@@ -210,7 +210,7 @@ void CardLayerTwo::updateServerState(){
 	}
 }
 void CardLayerTwo::updateGameState(){
-	switch (DataModel::sharedDataModel()->getMainSceneOxTwo()->getGameState())
+	switch (getMainScene()->getGameState())
 	{
 	case MainSceneOxTwo::STATE_READY:
 		{
