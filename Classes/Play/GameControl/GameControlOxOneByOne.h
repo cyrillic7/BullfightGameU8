@@ -22,6 +22,15 @@ private:
 	virtual void menuOpenCard(CCObject* pSender, TouchEventType type);
 	//用户进入
 	virtual void onUserEnter();
+
+	//////////////////////////////////////////////////////////////////////////
+	//用户下注
+	virtual bool OnSubAddScore(const void * pBuffer, WORD wDataSize);
+	//游戏开始
+	virtual bool OnSubGameStart(const void * pBuffer, WORD wDataSize);
+	//发牌消息
+	virtual bool OnSubSendCard(const void * pBuffer, WORD wDataSize);
+	//////////////////////////////////////////////////////////////////////////
 	//获取视图位置
 	virtual int getViewChairID(int severChairID);
 	//隐藏用户

@@ -11,7 +11,7 @@
 #include "../Tools/DataModel.h"
 #include "../Tools/BaseAttributes.h"
 #include "../Network/TCPSocket/TCPSocketControl.h"
-#include "../Play/CardLayer/CardLayerTwo.h"
+#include "../Play/CardLayer/CardLayerOneByOne.h"
 MainSceneOxOneByOne::MainSceneOxOneByOne()
 {
 }
@@ -63,7 +63,7 @@ void MainSceneOxOneByOne::initGameControl(){
 }
 //
 void MainSceneOxOneByOne::initCardLayer(){
-	cardLayer = CardLayerTwo::create();
+	cardLayer = CardLayerOneByOne::create();
 	this->addChild(cardLayer);
 }
 

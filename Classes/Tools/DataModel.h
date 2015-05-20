@@ -36,7 +36,7 @@ public:
 	//最大加注数
 	long long m_lTurnMaxScore;
 	//牌数组
-	BYTE card[2][5];
+	BYTE card[MAX_PLAYER][5];
 	//变量定义
 	tagUserInfo *userInfo;
 	//消息队列

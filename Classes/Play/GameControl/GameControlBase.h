@@ -125,11 +125,11 @@ private:
 	//用户叫庄
 	bool OnSubCallBanker(const void * pBuffer, WORD wDataSize);
 	//游戏开始
-	bool OnSubGameStart(const void * pBuffer, WORD wDataSize);
+	virtual bool OnSubGameStart(const void * pBuffer, WORD wDataSize);
 	//用户下注
-	bool OnSubAddScore(const void * pBuffer, WORD wDataSize);
+	virtual bool OnSubAddScore(const void * pBuffer, WORD wDataSize);
 	//发牌消息
-	bool OnSubSendCard(const void * pBuffer, WORD wDataSize);
+	virtual bool OnSubSendCard(const void * pBuffer, WORD wDataSize);
 	//开牌
 	bool OnSubOpenCard(const void * pBuffer, WORD wDataSize);
 	//用户强退
