@@ -91,6 +91,8 @@ public:
 	virtual int getViewChairID(int severChairID){ return -1;}
 	//站立并退出
 	virtual void standUpWithExit();
+	//是不是观察者
+	bool IsLookonMode();
 private:
 	//菜单////////////////////////////////////////////////////////////////////////
 	void menuPause(CCObject* pSender, TouchEventType type);
@@ -109,8 +111,7 @@ private:
 	//投注
 	void menuBetting(CCObject* pSender, TouchEventType type);
 	
-	//是不是观察者
-	bool IsLookonMode();
+	
 	//获得椅子索引
 	virtual int getChairIndex(int meChairID,int chairID)=0;
 	//隐藏用户
@@ -131,11 +132,11 @@ private:
 	//发牌消息
 	virtual bool OnSubSendCard(const void * pBuffer, WORD wDataSize);
 	//开牌
-	bool OnSubOpenCard(const void * pBuffer, WORD wDataSize);
+	virtual bool OnSubOpenCard(const void * pBuffer, WORD wDataSize);
 	//用户强退
 	bool OnSubPlayerExit(const void * pBuffer, WORD wDataSize);
 	//游戏结束
-	bool OnSubGameEnd(const void * pBuffer, WORD wDataSize);
+	virtual bool OnSubGameEnd(const void * pBuffer, WORD wDataSize);
 	//用户进入
 	void onSubUserEnter(void * pDataBuffer, unsigned short wDataSize);
 	//框架命令

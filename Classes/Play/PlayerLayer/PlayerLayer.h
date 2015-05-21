@@ -30,8 +30,11 @@ public:
 	void setBankIcon(int bankIndex);
 	//隐藏二人牛牛玩家
 	void hideOxTwoPlayer();
-private:
+	//设置牌位置
+	virtual void doSetCardMovePos(int i);
+	//获取主场景对象
 	MainSceneBase*getMainScene();
+private:
 	//初始化玩家信息
 	void initPlayerInfo();
 	//重置数据

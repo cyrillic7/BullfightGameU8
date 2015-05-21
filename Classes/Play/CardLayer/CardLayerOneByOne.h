@@ -1,9 +1,9 @@
 
 #pragma once
 #include "CardLayerBase.h"
-#include "../../GameLogic/GameLogic.h"
+#include "../../GameLogic/GameLogicOneByOne.h"
 using namespace gui;
-class CardLayerOneByOne:public CardLayerBase,GameLogic {
+class CardLayerOneByOne:public CardLayerBase,GameLogicOneByOne {
 private:
 
 public:

@@ -51,12 +51,16 @@ void PlayerLayer::initPlayerInfo(){
 		//隐藏用户
 		pPlayerData[i]->hidePlayer();
 
-		UIPanel *playerPanel = pPlayerData[i]->pPlayerPanel;
-		UIImageView *iPlayerIcon = (UIImageView*)playerPanel->getChildByName("headPortrait");
-		CCPoint playerPos = playerPanel->getPosition();
-		CCPoint cardPos = ccpAdd(playerPos, iPlayerIcon->getPosition());
-		getMainScene()->posChair[i]=cardPos;
+		doSetCardMovePos(i);
 	}
+}
+//设置牌位置
+void PlayerLayer::doSetCardMovePos(int i){
+	UIPanel *playerPanel = pPlayerData[i]->pPlayerPanel;
+	UIImageView *iPlayerIcon = (UIImageView*)playerPanel->getChildByName("headPortrait");
+	CCPoint playerPos = playerPanel->getPosition();
+	CCPoint cardPos = ccpAdd(playerPos, iPlayerIcon->getPosition());
+	getMainScene()->posChair[i] = cardPos;
 }
 void PlayerLayer::hideOxTwoPlayer(){
 	hidePlayer(pPlayerData[1]->pPlayerPanel);

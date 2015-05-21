@@ -1,160 +1,170 @@
 #pragma once
 
-//////////////////////////////////////////////////////////////////////////
-//¹«¹²ºê¶¨Òå
-
-#define KIND_ID						1002									//ÓÎÏ· I D  (ÊÖ»ú¶ËÎª130)
-#define GAME_PLAYER					6										//ÓÎÏ·ÈËÊı
-#define GAME_NAME					TEXT("Í¨±ÈÅ£Å£")						//ÓÎÏ·Ãû×Ö
-#define VERSION_SERVER				PROCESS_VERSION(6,0,3)					//³ÌĞò°æ±¾
-#define VERSION_CLIENT				PROCESS_VERSION(6,0,3)					//³ÌĞò°æ±¾
-
-#define GAME_GENRE					(GAME_GENRE_GOLD|GAME_GENRE_MATCH)		//ÓÎÏ·ÀàĞÍ
-#define MAXCOUNT					5										//ÆË¿ËÊıÄ¿
-
-//½áÊøÔ­Òò
-#define GER_NO_PLAYER				0x10									//Ã»ÓĞÍæ¼Ò
-
-//ÓÎÏ·×´Ì¬
-#define GS_TK_FREE					GAME_STATUS_FREE                        //µÈ´ı¿ªÊ¼
-#define GS_TK_CALL					GAME_STATUS_PLAY						//½Ğ×¯×´Ì¬
-#define GS_TK_SCORE					GAME_STATUS_PLAY+1						//ÏÂ×¢×´Ì¬
-#define GS_TK_PLAYING				GAME_STATUS_PLAY+2						//ÓÎÏ·½øĞĞ
-
-//ÓÃ»§×´Ì¬
-#define USEX_NULL                   0                                       //ÓÃ»§×´Ì¬
-#define USEX_PLAYING                1                                       //ÓÃ»§×´Ì¬
-#define USEX_DYNAMIC                2                                       //ÓÃ»§×´Ì¬   
+//å¦‚æœæ˜¯androidå¹³å°éœ€è¦å®šä¹‰å®
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID||CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
+#define RtlCopyMemory(Destination,Source,Length) memcpy((Destination),(Source),(Length))
+#define CopyMemory RtlCopyMemory
+typedef unsigned char       BYTE;
+typedef unsigned short      WORD;
+typedef unsigned long       DWORD;
+typedef char TCHAR, *PTCHAR;
+#endif
 
 //////////////////////////////////////////////////////////////////////////
-//·şÎñÆ÷ÃüÁî½á¹¹
+//å…¬å…±å®å®šä¹‰
 
-#define SUB_S_GAME_START				100									//ÓÎÏ·¿ªÊ¼
-#define SUB_S_ADD_SCORE					101									//¼Ó×¢½á¹û
-#define SUB_S_PLAYER_EXIT				102									//ÓÃ»§Ç¿ÍË
-#define SUB_S_SEND_CARD					103									//·¢ÅÆÏûÏ¢
-#define SUB_S_GAME_END					104									//ÓÎÏ·½áÊø
-#define SUB_S_OPEN_CARD					105									//ÓÃ»§Ì¯ÅÆ
-#define SUB_S_CALL_BANKER				106									//ÓÃ»§½Ğ×¯
-#define SUB_S_GAME_BASE					107									//·¢ËÍ»ùÊı
+#define KIND_ID						1002									//æ¸¸æˆ I D  (æ‰‹æœºç«¯ä¸º130)
+#define GAME_PLAYER					6										//æ¸¸æˆäººæ•°
+#define GAME_NAME					TEXT("é€šæ¯”ç‰›ç‰›")						//æ¸¸æˆåå­—
+#define VERSION_SERVER				PROCESS_VERSION(6,0,3)					//ç¨‹åºç‰ˆæœ¬
+#define VERSION_CLIENT				PROCESS_VERSION(6,0,3)					//ç¨‹åºç‰ˆæœ¬
 
-//ÓÎÏ·×´Ì¬
+#define GAME_GENRE					(GAME_GENRE_GOLD|GAME_GENRE_MATCH)		//æ¸¸æˆç±»å‹
+#define MAXCOUNT					5										//æ‰‘å…‹æ•°ç›®
+
+//ç»“æŸåŸå› 
+#define GER_NO_PLAYER				0x10									//æ²¡æœ‰ç©å®¶
+
+//æ¸¸æˆçŠ¶æ€
+#define GS_TK_FREE					GAME_STATUS_FREE                        //ç­‰å¾…å¼€å§‹
+#define GS_TK_CALL					GAME_STATUS_PLAY						//å«åº„çŠ¶æ€
+#define GS_TK_SCORE					GAME_STATUS_PLAY+1						//ä¸‹æ³¨çŠ¶æ€
+#define GS_TK_PLAYING				GAME_STATUS_PLAY+2						//æ¸¸æˆè¿›è¡Œ
+
+//ç”¨æˆ·çŠ¶æ€
+#define USEX_NULL                   0                                       //ç”¨æˆ·çŠ¶æ€
+#define USEX_PLAYING                1                                       //ç”¨æˆ·çŠ¶æ€
+#define USEX_DYNAMIC                2                                       //ç”¨æˆ·çŠ¶æ€   
+
+//////////////////////////////////////////////////////////////////////////
+//æœåŠ¡å™¨å‘½ä»¤ç»“æ„
+
+#define SUB_S_GAME_START				100									//æ¸¸æˆå¼€å§‹
+#define SUB_S_ADD_SCORE					101									//åŠ æ³¨ç»“æœ
+#define SUB_S_PLAYER_EXIT				102									//ç”¨æˆ·å¼ºé€€
+#define SUB_S_SEND_CARD					103									//å‘ç‰Œæ¶ˆæ¯
+#define SUB_S_GAME_END					104									//æ¸¸æˆç»“æŸ
+#define SUB_S_OPEN_CARD					105									//ç”¨æˆ·æ‘Šç‰Œ
+#define SUB_S_CALL_BANKER				106									//ç”¨æˆ·å«åº„
+#define SUB_S_GAME_BASE					107									//å‘é€åŸºæ•°
+
+//æ¸¸æˆçŠ¶æ€
 struct CMD_S_StatusFree
 {
-	long long							lCellScore;							//»ù´¡»ı·Ö
+	long long							lCellScore;							//åŸºç¡€ç§¯åˆ†
 };
-//ÓÎÏ·µ×·Ö
+//æ¸¸æˆåº•åˆ†
 struct CMD_S_GameBase
 {
-	long long							lCellScore;							//»ù´¡»ı·Ö
+	long long							lCellScore;							//åŸºç¡€ç§¯åˆ†
 };
 
-//ÓÎÏ·×´Ì¬
+//æ¸¸æˆçŠ¶æ€
 struct CMD_S_StatusCall
 {
-	WORD							    	wCallBanker;						//½Ğ×¯ÓÃ»§
-	BYTE							        cbPlayStatus[GAME_PLAYER];          //ÓÃ»§×´Ì¬
+	WORD							    	wCallBanker;						//å«åº„ç”¨æˆ·
+	BYTE							        cbPlayStatus[GAME_PLAYER];          //ç”¨æˆ·çŠ¶æ€
 };
 
-//ÓÎÏ·×´Ì¬
+//æ¸¸æˆçŠ¶æ€
 struct CMD_S_StatusScore
 {
-	//ÏÂ×¢ĞÅÏ¢
-	long long								lTurnMaxScore;						//×î´óÏÂ×¢
-	//long long								lTurnLessScore;						//×îĞ¡ÏÂ×¢
-	long long								lTableScore[GAME_PLAYER];			//ÏÂ×¢ÊıÄ¿
-	BYTE								    cbPlayStatus[GAME_PLAYER];          //ÓÃ»§×´Ì¬
-	WORD							    	wBankerUser;						//×¯¼ÒÓÃ»§
+	//ä¸‹æ³¨ä¿¡æ¯
+	long long								lTurnMaxScore;						//æœ€å¤§ä¸‹æ³¨
+	//long long								lTurnLessScore;						//æœ€å°ä¸‹æ³¨
+	long long								lTableScore[GAME_PLAYER];			//ä¸‹æ³¨æ•°ç›®
+	BYTE								    cbPlayStatus[GAME_PLAYER];          //ç”¨æˆ·çŠ¶æ€
+	WORD							    	wBankerUser;						//åº„å®¶ç”¨æˆ·
 };
 
-//ÓÎÏ·×´Ì¬
+//æ¸¸æˆçŠ¶æ€
 struct CMD_S_StatusPlay
 {
-	//×´Ì¬ĞÅÏ¢	
-	BYTE								    cbPlayStatus[GAME_PLAYER];          //ÓÃ»§×´Ì¬
-	long long								lTurnMaxScore;						//×î´óÏÂ×¢
-	//long long								lTurnLessScore;						//×îĞ¡ÏÂ×¢
-	long long								lTableScore[GAME_PLAYER];			//ÏÂ×¢ÊıÄ¿
-	WORD								    wBankerUser;						//×¯¼ÒÓÃ»§
+	//çŠ¶æ€ä¿¡æ¯	
+	BYTE								    cbPlayStatus[GAME_PLAYER];          //ç”¨æˆ·çŠ¶æ€
+	long long								lTurnMaxScore;						//æœ€å¤§ä¸‹æ³¨
+	//long long								lTurnLessScore;						//æœ€å°ä¸‹æ³¨
+	long long								lTableScore[GAME_PLAYER];			//ä¸‹æ³¨æ•°ç›®
+	WORD								    wBankerUser;						//åº„å®¶ç”¨æˆ·
 
-	//ÆË¿ËĞÅÏ¢
-	BYTE							    	cbHandCardData[GAME_PLAYER][MAXCOUNT];//×ÀÃæÆË¿Ë
-	BYTE						      		bOxCard[GAME_PLAYER];				//Å£Å£Êı¾İ
+	//æ‰‘å…‹ä¿¡æ¯
+	BYTE							    	cbHandCardData[GAME_PLAYER][MAXCOUNT];//æ¡Œé¢æ‰‘å…‹
+	BYTE						      		bOxCard[GAME_PLAYER];				//ç‰›ç‰›æ•°æ®
 };
 
-//ÓÃ»§½Ğ×¯
+//ç”¨æˆ·å«åº„
 struct CMD_S_CallBanker
 {
-	WORD							     	wCallBanker;						//½Ğ×¯ÓÃ»§
-	bool							    	bFirstTimes;						//Ê×´Î½Ğ×¯
+	WORD							     	wCallBanker;						//å«åº„ç”¨æˆ·
+	bool							    	bFirstTimes;						//é¦–æ¬¡å«åº„
 };
 
-//ÓÎÏ·¿ªÊ¼
+//æ¸¸æˆå¼€å§‹
 struct CMD_S_GameStart
 {
-	//ÏÂ×¢ĞÅÏ¢
-	long long								lTurnMaxScore;						//×î´óÏÂ×¢
-	WORD							     	wBankerUser;						//×¯¼ÒÓÃ»§
+	//ä¸‹æ³¨ä¿¡æ¯
+	long long								lTurnMaxScore;						//æœ€å¤§ä¸‹æ³¨
+	WORD							     	wBankerUser;						//åº„å®¶ç”¨æˆ·
 };
 
-//ÓÃ»§ÏÂ×¢
+//ç”¨æˆ·ä¸‹æ³¨
 struct CMD_S_AddScore
 {
-	WORD							    	wAddScoreUser;						//¼Ó×¢ÓÃ»§
-	long long								lAddScoreCount;						//¼Ó×¢ÊıÄ¿
+	WORD							    	wAddScoreUser;						//åŠ æ³¨ç”¨æˆ·
+	long long								lAddScoreCount;						//åŠ æ³¨æ•°ç›®
 };
 
-//ÓÎÏ·½áÊø
+//æ¸¸æˆç»“æŸ
 struct CMD_S_GameEnd
 {
-	long long								lGameTax[GAME_PLAYER];				//ÓÎÏ·Ë°ÊÕ
-	long long								lGameScore[GAME_PLAYER];			//ÓÎÏ·µÃ·Ö
-	BYTE							     	cbCardData[GAME_PLAYER][MAXCOUNT];	//ÓÃ»§ÆË¿Ë
-	WORD									wWinUser;							//Ó®µÄÍæ¼Ò
+	long long								lGameTax[GAME_PLAYER];				//æ¸¸æˆç¨æ”¶
+	long long								lGameScore[GAME_PLAYER];			//æ¸¸æˆå¾—åˆ†
+	BYTE							     	cbCardData[GAME_PLAYER][MAXCOUNT];	//ç”¨æˆ·æ‰‘å…‹
+	WORD									wWinUser;							//èµ¢çš„ç©å®¶
 };
 
-//·¢ÅÆÊı¾İ°ü
+//å‘ç‰Œæ•°æ®åŒ…
 struct CMD_S_SendCard
 {
-	BYTE								    cbCardData[GAME_PLAYER][MAXCOUNT];	//ÓÃ»§ÆË¿Ë
+	BYTE								    cbCardData[GAME_PLAYER][MAXCOUNT];	//ç”¨æˆ·æ‰‘å…‹
 
-	BYTE									cbPlayStatus[GAME_PLAYER];			//ÓÎÏ·×´Ì¬///////////////////
+	BYTE									cbPlayStatus[GAME_PLAYER];			//æ¸¸æˆçŠ¶æ€///////////////////
 };
 
-//ÓÃ»§ÍË³ö
+//ç”¨æˆ·é€€å‡º
 struct CMD_S_PlayerExit
 {
-	WORD						      		wPlayerID;							//ÍË³öÓÃ»§
+	WORD						      		wPlayerID;							//é€€å‡ºç”¨æˆ·
 };
 
-//ÓÃ»§Ì¯ÅÆ
+//ç”¨æˆ·æ‘Šç‰Œ
 struct CMD_S_Open_Card
 {
-	WORD							     	wPlayerID;							//Ì¯ÅÆÓÃ»§
-	BYTE							      	bOpen;								//Ì¯ÅÆ±êÖ¾
+	WORD							     	wPlayerID;							//æ‘Šç‰Œç”¨æˆ·
+	BYTE							      	bOpen;								//æ‘Šç‰Œæ ‡å¿—
 };
 //////////////////////////////////////////////////////////////////////////
-//¿Í»§¶ËÃüÁî½á¹¹
-#define SUB_C_CALL_BANKER				1									//ÓÃ»§½Ğ×¯
-#define SUB_C_ADD_SCORE					2									//ÓÃ»§¼Ó×¢
-#define SUB_C_OPEN_CARD					3									//ÓÃ»§Ì¯ÅÆ
+//å®¢æˆ·ç«¯å‘½ä»¤ç»“æ„
+#define SUB_C_CALL_BANKER				1									//ç”¨æˆ·å«åº„
+#define SUB_C_ADD_SCORE					2									//ç”¨æˆ·åŠ æ³¨
+#define SUB_C_OPEN_CARD					3									//ç”¨æˆ·æ‘Šç‰Œ
 
-//ÓÃ»§½Ğ×¯
+//ç”¨æˆ·å«åº„
 struct CMD_C_CallBanker
 {
-	BYTE							    	bBanker;							//×ö×¯±êÖ¾
+	BYTE							    	bBanker;							//åšåº„æ ‡å¿—
 };
 
-//ÓÃ»§¼Ó×¢
+//ç”¨æˆ·åŠ æ³¨
 struct CMD_C_AddScore
 {
-	long long								lScore;								//¼Ó×¢ÊıÄ¿
+	long long								lScore;								//åŠ æ³¨æ•°ç›®
 };
 
-//ÓÃ»§Ì¯ÅÆ
+//ç”¨æˆ·æ‘Šç‰Œ
 struct CMD_C_OxCard
 {
-	BYTE							    	bOX;								//Å£Å£±êÖ¾
+	BYTE							    	bOX;								//ç‰›ç‰›æ ‡å¿—
 };
 
 //////////////////////////////////////////////////////////////////////////

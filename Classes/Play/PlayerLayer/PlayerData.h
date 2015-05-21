@@ -6,6 +6,7 @@
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
+class MainSceneBase;
 class PlayerData:public CCNode {
 public:
 	enum ActionType
@@ -36,6 +37,8 @@ public:
 private:
 	//用户信息
 	tagUserInfo userInfoPlayer;
+	//获取主场景对象
+	MainSceneBase *getMainScene();
 public:
 	PlayerData();
 	~PlayerData();

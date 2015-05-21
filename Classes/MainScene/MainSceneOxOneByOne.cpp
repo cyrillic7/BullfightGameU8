@@ -12,6 +12,7 @@
 #include "../Tools/BaseAttributes.h"
 #include "../Network/TCPSocket/TCPSocketControl.h"
 #include "../Play/CardLayer/CardLayerOneByOne.h"
+#include "../Play/PlayerLayer/PlayerLayerOneByOne.h"
 MainSceneOxOneByOne::MainSceneOxOneByOne()
 {
 }
@@ -66,7 +67,10 @@ void MainSceneOxOneByOne::initCardLayer(){
 	cardLayer = CardLayerOneByOne::create();
 	this->addChild(cardLayer);
 }
-
+void MainSceneOxOneByOne::initPlayerLayer(){
+	playerLayer = PlayerLayerOneByOne::create();
+	this->addChild(playerLayer);
+}
 //收到准备完成回调
 void MainSceneOxOneByOne::onEventReadyFnish(){
 	CCLog("准备完成等待服务端响应.");

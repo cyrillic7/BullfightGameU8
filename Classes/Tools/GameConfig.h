@@ -24,7 +24,7 @@
 #define RMS_LOGON_PASSWORD				"logonPassword"				//登录密码
 
 //层级////////////////////////////////////////////////////////////////////////
-#define K_Z_ORDER_POP				12				//弹出层
+#define K_Z_ORDER_POP				12			//弹出层
 #define K_Z_ORDER_CARD				11			//牌
 #define K_Z_ORDER_HUD				10			//UI层
 

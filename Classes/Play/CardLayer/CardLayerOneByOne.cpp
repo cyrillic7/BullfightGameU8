@@ -52,10 +52,62 @@ bool CardLayerOneByOne::promptOx(int oxIndex){
 // Parameter: int showChairiD显示桌子位置
 //************************************
 void CardLayerOneByOne::sortingOx(int chairID,int showChairiD){
-	UIPanel *playerPanel =getMainScene()->playerLayer->pPlayerData[showChairiD]-> pPlayerPanel;
-	UIImageView *iPlayerIcon = (UIImageView*)playerPanel->getChildByName("headPortrait");
-	CCPoint playerPos = playerPanel->getPosition();
-	CCPoint cardPos = ccpAdd(playerPos, iPlayerIcon->getPosition());
+	//显示牌型
+	bool bOxSound = false;
+	//扑克数据
+	BYTE bCardData[MAX_COUNT];
+	memcpy(bCardData, DataModel::sharedDataModel()->card[chairID], sizeof(bCardData));
+	BYTE bCardValue = GetCardType(bCardData, MAX_COUNT, bCardData);
+	CCLog("====:%d<<%s>>",bCardValue,__FUNCTION__);
+	//assert(bCardValue > 0);
+	//重排牛牛牌顺序
+	for (int i = 0; i < MAX_COUNT; i++)
+	{
+		int cardColor = GetCardColor(bCardData[i]);
+		int cardValue = GetCardValue(bCardData[i]);
+		pCard[showChairiD*MAX_COUNT + i]->changeCard(false, cardColor, cardValue, i, getCardScale(showChairiD));
+	}
+	showOxType(showChairiD, bCardValue);
+	/*bool bOxSound = false;
+	for (WORD i = 0; i<GAME_PLAYER; i++)
+	{
+		WORD wViewChairID = m_wViewChairID[i];
+		if (i == GetMeChairID() && !IsLookonMode())continue;
+		m_GameClientView.m_CardControl[wViewChairID].SetDisplayItem(true);
+
+		//牛牛牌型
+		if (m_cbHandCardData[i][0]>0)
+		{
+			if (m_bUserOxCard[i] == TRUE)
+			{
+				//扑克数据
+				BYTE bCardData[MAX_COUNT];
+				CopyMemory(bCardData, m_cbHandCardData[i], sizeof(bCardData));
+
+				//获取牛牛数据
+				//m_GameLogic.GetOxCard(bCardData,MAX_COUNT);
+
+				BYTE bCardValue = m_GameLogic.GetCardType(bCardData, MAX_COUNT, bCardData);
+				ASSERT(bCardValue > 0);
+
+				//加载数据
+				m_GameClientView.m_CardControl[wViewChairID].SetCardData(bCardData, 3);
+				m_GameClientView.m_CardControlOx[wViewChairID].SetCardData(&bCardData[3], 2);
+
+				//显示点数
+				if (bCardValue >= 10)bOxSound = true;
+				m_GameClientView.SetUserOxValue(wViewChairID, bCardValue);
+			}
+			else
+			{
+				//无牛
+				m_GameClientView.SetUserOxValue(wViewChairID, 0);
+			}
+		}
+	}*/
+
+	/*
+	CCPoint cardPos = getMainScene()->posChair[showChairiD];
 
 	BYTE tempCard[5];
 	memcpy(tempCard, DataModel::sharedDataModel()->card[chairID], sizeof(tempCard));
@@ -65,18 +117,13 @@ void CardLayerOneByOne::sortingOx(int chairID,int showChairiD){
 		//重排牛牛牌顺序
 		for (int i = 0; i < MAX_COUNT; i++)
 		{
-			int cardColor = GetCardColor(tempCard[i])/16;
+			int cardColor = GetCardColor(tempCard[i]);
 			int cardValue = GetCardValue(tempCard[i]);
-			pCard[showChairiD*MAX_COUNT+i]->changeCard(false,cardColor,cardValue,i,1);
+			pCard[showChairiD*MAX_COUNT+i]->changeCard(false,cardColor,cardValue,i,getCardScale(showChairiD));
 		}
 		
 	}
-
 	//显示点数
-	/*BYTE bValue=GetCardLogicValue(tempCard[3])+GetCardLogicValue(tempCard[4]);
-	if(bValue>10)bValue-=10;
-	if(bValue>=10)bValue=10;
-	showOxType(showChairiD,bValue);*/
 	int iValue=GetCardType(tempCard,5);
 	if (iValue>10)
 	{
@@ -109,18 +156,19 @@ void CardLayerOneByOne::sortingOx(int chairID,int showChairiD){
 			pArmature->setPosition(ccpAdd(cardPos,offPos));
 			pArmature->runAction(CCMoveTo::create(0.01+i*0.02,ccpAdd(cardPos,movePos)));
 		}
-	}
+	}*/
 }
 void CardLayerOneByOne::showOxType(int chairiD,int oxType){
 	float orgCradY=2000;
 	for (int i = 0; i < MAX_COUNT; i++)
 	{
-			orgCradY=MIN(pCard[chairiD*MAX_COUNT+i]->m_cpArmatureCard->getPositionY(),orgCradY);
+		orgCradY=MIN(pCard[chairiD*MAX_COUNT+i]->m_cpArmatureCard->getPositionY(),orgCradY);
 	}
-	CCPoint cardPos=ccp(pCard[chairiD*MAX_COUNT+2]->m_cpArmatureCard->getPositionX(),orgCradY);
+	CCPoint cardPos=ccp(pCard[chairiD*MAX_COUNT+2]->m_cpArmatureCard->getPositionX(),orgCradY-20);
 
 	pAOxType[chairiD]->setTag(oxType);
 	pAOxType[chairiD]->setPosition(cardPos);
+	pAOxType[chairiD]->setScale(getCardScale(chairiD));
 	CCSequence *seq=CCSequence::create(CCDelayTime::create(0.01+5*0.02),
 	CCCallFuncN::create(this,SEL_CallFuncN(&CardLayerOneByOne::onPlayOxAnimation)),
 	NULL);
@@ -140,7 +188,6 @@ void CardLayerOneByOne::sendCardIng(){
 //		int bankerUser=DataModel::sharedDataModel()->getMainSceneOxTwo()->getGameControlOxTwo()->getBankViewID();
 		int bankerUser = 0;
 		int index=(bankerUser+i)%MAX_PLAYER;
-		CCLog("index:%d<<%s>>",index,__FUNCTION__);
 		if (canSendCard[index])
 		{
 			offsetIndex++;
@@ -155,33 +202,36 @@ void CardLayerOneByOne::sendCardIng(){
 //发5张牌
 void CardLayerOneByOne::sendFiveCard(int index,int offsetIndex){
 	CCPoint cardPos = getMainScene()->posChair[index];
+	int jg = 25;
+	if (index == 3)
+	{
+		jg = 100;
+	}
 	for (int i = 0; i < MAX_CARD_COUNT; i++)
 	{
-		pCard[i+index*MAX_COUNT]->m_cpArmatureCard->setScale(0.42);
+		
+		pCard[i + index*MAX_COUNT]->m_cpArmatureCard->setScale(0.42);
 		int offx = rand() % 3;
 		int offy = rand() % 3;
-		pCard[i+index*MAX_COUNT]->m_cpArmatureCard->setPosition(ccp(DataModel::sharedDataModel()->deviceSize.width / 2 + offx, DataModel::sharedDataModel()->deviceSize.height / 2 + offy));
-		int offsetX=BaseAttributes::sharedAttributes()->iCardOffsetX[index];
-		int offsetY=BaseAttributes::sharedAttributes()->iCardOffsetY[index];
-		int offsetSpace=BaseAttributes::sharedAttributes()->iCardOffsetSpace[index];
-		
-		CCPoint offPos = ccp(offsetX+i*offsetSpace,offsetY);
-		offPos=designResolutionToFrame(offPos);
-		moveCardAction(pCard[i+index*MAX_COUNT]->m_cpArmatureCard,
+		pCard[i + index*MAX_COUNT]->m_cpArmatureCard->setPosition(ccp(DataModel::sharedDataModel()->deviceSize.width / 2 + offx, SCENE_SIZE.height/2 + offy));
+		float offsetX = i * jg - (4 * jg / 2);
+		CCPoint offPos = ccp(offsetX, 0);
+		moveCardAction(pCard[i + index*MAX_COUNT]->m_cpArmatureCard,
 			//(index-offsetIndex)*SEND_CARD_DELAY_TIME*MAX_CARD_COUNT + i*SEND_CARD_DELAY_TIME, 
-			offsetIndex*SEND_CARD_DELAY_TIME*MAX_CARD_COUNT+i*SEND_CARD_DELAY_TIME,
-			ccpAdd(cardPos, offPos),index);
+			offsetIndex*SEND_CARD_DELAY_TIME*MAX_CARD_COUNT + i*SEND_CARD_DELAY_TIME,
+			ccpAdd(cardPos, offPos), index);
 	}
 }
 //移动单张牌
 void CardLayerOneByOne::moveCardAction(CCArmature *armature, float fTime, CCPoint targetPos,int index){
-	float moveSpeed=0.05;
+	float moveSpeed = 0.35;
 	CCDelayTime *delayTime = CCDelayTime::create(fTime);
-	CCMoveTo *moveTo = CCMoveTo::create(moveSpeed, targetPos);
+	//CCMoveTo *moveTo = CCMoveTo::create(moveSpeed, targetPos);
+	CCJumpTo *moveTo = CCJumpTo::create(moveSpeed, targetPos, 100, 1);
 	CCScaleTo *scaleTo = CCScaleTo::create(moveSpeed, getCardScale(index));
-	CCSpawn *spawn = CCSpawn::create(moveTo,scaleTo, NULL);
-	CCCallFunc *callbackFunc = CCCallFunc::create(this,SEL_CallFunc(&CardLayerOneByOne::onSendCardFinish));
-	CCSequence *seq = CCSequence::create(delayTime,spawn,callbackFunc,NULL);
+	CCSpawn *spawn = CCSpawn::create(moveTo, scaleTo, NULL);
+	CCCallFunc *callbackFunc = CCCallFunc::create(this, SEL_CallFunc(&CardLayerOneByOne::onSendCardFinish));
+	CCSequence *seq = CCSequence::create(delayTime, spawn, callbackFunc, NULL);
 	armature->runAction(seq);
 }
 //单张牌发完回调
@@ -224,35 +274,28 @@ void CardLayerOneByOne::updateGameState(){
 	}
 }
 void CardLayerOneByOne::setCanSendCard(){
-	canSendCard[0] = true;
+	canSendCard[0] = false;
 	canSendCard[1] = false;
 	canSendCard[2] = false;
-	canSendCard[3] = true;
+	canSendCard[3] = false;
 	canSendCard[4] = false;
 	canSendCard[5] = false;
-	
-	/*canSendCard[0] = true;
-	canSendCard[1] = true;
-	canSendCard[2] = true;
-	canSendCard[3] = true;
-	canSendCard[4] = true;
-	canSendCard[5] = true;*/
 }
 float CardLayerOneByOne::getCardScale(int index){
 	if (index==SELF_SEAT)
 	{
-		return 0.9-(1-DataModel::sharedDataModel()->deviceSize.height/SCENE_SIZE.height);
+		return 0.8-(1-DataModel::sharedDataModel()->deviceSize.height/SCENE_SIZE.height);
 	}
-	return 0.8-(1-DataModel::sharedDataModel()->deviceSize.height/SCENE_SIZE.height);
+	return 0.5-(1-DataModel::sharedDataModel()->deviceSize.height/SCENE_SIZE.height);
 }
 //显示牌
 void CardLayerOneByOne::showCard(int index,int dataIndex){
 	int beginCardIndex=index*MAX_COUNT;
 	for (int i = 0; i < MAX_COUNT; i++)
 	{
-		int cardColor = GetCardColor(DataModel::sharedDataModel()->card[dataIndex][i])/16;
+		int cardColor = GetCardColor(DataModel::sharedDataModel()->card[dataIndex][i]);
 		int cardValue = GetCardValue(DataModel::sharedDataModel()->card[dataIndex][i]);
-		pCard[beginCardIndex+i]->changeCard(true,cardColor,cardValue,beginCardIndex+i,1);
+		pCard[beginCardIndex + i]->changeCard(true, cardColor, cardValue, beginCardIndex + i, getCardScale(index));
 	}
 }
 

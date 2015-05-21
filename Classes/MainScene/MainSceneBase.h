@@ -53,7 +53,7 @@ public:
 	virtual void onEnter();
 	virtual void onExit();
 	//初始化玩家信息层
-	void initPlayerLayer();
+	virtual void initPlayerLayer();
 	//收到准备完成回调
 	void onEventReadyFnish();
 public:

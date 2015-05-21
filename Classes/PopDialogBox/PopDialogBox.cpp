@@ -28,7 +28,6 @@ PopDialogBox::~PopDialogBox() {
 	//CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
 	//CCSpriteFrameCache::sharedSpriteFrameCache()->removeSpriteFramesFromFile("ccs/UI/UIAboutHelp/UIAboutHelp0.plist");
 	//CCTextureCache::sharedTextureCache()->removeUnusedTextures();
-	CCLog("");
 }
 
 void PopDialogBox::menuBack(CCObject *object, TouchEventType type){

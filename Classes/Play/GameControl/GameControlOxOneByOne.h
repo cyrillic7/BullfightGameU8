@@ -30,6 +30,10 @@ private:
 	virtual bool OnSubGameStart(const void * pBuffer, WORD wDataSize);
 	//发牌消息
 	virtual bool OnSubSendCard(const void * pBuffer, WORD wDataSize);
+	//开牌
+	virtual bool OnSubOpenCard(const void * pBuffer, WORD wDataSize);
+	//游戏结束
+	virtual bool OnSubGameEnd(const void * pBuffer, WORD wDataSize);
 	//////////////////////////////////////////////////////////////////////////
 	//获取视图位置
 	virtual int getViewChairID(int severChairID);

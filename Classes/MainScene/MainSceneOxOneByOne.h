@@ -73,7 +73,8 @@ private:
 	void initGameControl();
 	//初始化扑克层
 	void initCardLayer();
-
+	//初始化玩家信息层
+	virtual void initPlayerLayer();
 	//添加背景
 	void addBg();
 //	bool OnEventTCPSocketRead(unsigned short	wSocketID, TCP_Command tCommand, void * pDataBuffer, unsigned short wDataSize);

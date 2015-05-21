@@ -3,6 +3,7 @@
 #include "PlayerData.h"
 #include "../../Tools/Tools.h"
 #include "../../Tools/DataModel.h"
+#include "../../MainScene/MainSceneBase.h"
 PlayerData::PlayerData()
 {
 	memset(&userInfoPlayer, 0, sizeof(tagUserInfo));
@@ -71,9 +72,13 @@ void PlayerData::showResultAnimation(long long lGameScore){
 			CCCallFunc::create(this,SEL_CallFunc(&PlayerData::onResultAnimationFinish)),NULL);
 	pLResult->runAction(seq);
 }
+//获取主场景对象
+MainSceneBase *PlayerData::getMainScene(){
+	return (MainSceneBase*)this->getParent()->getParent();
+}
 void PlayerData::onResultAnimationFinish(){
-	if(DataModel::sharedDataModel()->getMainSceneOxTwo()->getGameState()==MainSceneOxTwo::STATE_END){
-		DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainSceneOxTwo::STATE_READY);
+	if(getMainScene()->getGameState()==MainSceneOxTwo::STATE_END){
+		getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_READY);
 	}
 }
 //设置用户金币
