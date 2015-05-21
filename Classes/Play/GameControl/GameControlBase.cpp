@@ -1210,7 +1210,6 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 			}
 			else
 			{
-				CCLog("up::%d <<%s>>",info->UserStatus.wChairID,__FUNCTION__);
 				hidePlayer(info);
 			}
 		}

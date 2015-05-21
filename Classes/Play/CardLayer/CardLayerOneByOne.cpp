@@ -26,8 +26,9 @@ void CardLayerOneByOne::onExit(){
 bool CardLayerOneByOne::promptOx(int oxIndex){
 	BYTE tempCard[5];
 	memcpy(tempCard, DataModel::sharedDataModel()->card[oxIndex], sizeof(tempCard));
-	bool isOxCard = GetOxCard(tempCard, 5);
-	if (isOxCard)
+	//bool isOxCard = GetOxCard(tempCard, 5);
+	BYTE bCardValue = GetCardType(tempCard, MAX_COUNT, tempCard);
+	if (bCardValue>0)
 	{
 		for (int i = 0; i < 3; i++)
 		{
@@ -43,7 +44,7 @@ bool CardLayerOneByOne::promptOx(int oxIndex){
 		}
 		CCLog("niu:%d",GetCardType(tempCard,5));
 	}
-	return isOxCard;
+	return bCardValue>0;
 }
 //
 //************************************
@@ -60,14 +61,55 @@ void CardLayerOneByOne::sortingOx(int chairID,int showChairiD){
 	BYTE bCardValue = GetCardType(bCardData, MAX_COUNT, bCardData);
 	CCLog("====:%d<<%s>>",bCardValue,__FUNCTION__);
 	//assert(bCardValue > 0);
+	float orgCradY = 2000;
 	//重排牛牛牌顺序
 	for (int i = 0; i < MAX_COUNT; i++)
 	{
 		int cardColor = GetCardColor(bCardData[i]);
 		int cardValue = GetCardValue(bCardData[i]);
 		pCard[showChairiD*MAX_COUNT + i]->changeCard(false, cardColor, cardValue, i, getCardScale(showChairiD));
+		
+		orgCradY = MIN(pCard[showChairiD*MAX_COUNT + i]->m_cpArmatureCard->getPositionY(), orgCradY);
 	}
+	//显示牌型点数
 	showOxType(showChairiD, bCardValue);
+	//动画显示玩家自己的牌
+	if (showChairiD==3)
+	{
+		CCPoint cardPos = CCPointZero;
+		for (int i = 0; i < MAX_COUNT; i++)
+		{
+			CCArmature *pArmature = pCard[showChairiD*MAX_COUNT + i]->m_cpArmatureCard;
+			if (i == 0)
+			{
+				cardPos = pArmature->getPosition();
+				cardPos.y = orgCradY;
+			}
+			if (bCardValue == 0)
+			{
+				pArmature->setColor(ccc3(100, 100, 100));
+			}
+			else{
+				if (i < 3)
+				{
+					pArmature->setColor(ccc3(100, 100, 100));
+				}
+			}
+			int offsetSpace = 25;
+			if (showChairiD == 3)
+			{
+				offsetSpace = 100;
+			}
+			CCPoint movePos = ccp(i*offsetSpace, 0);
+			//movePos = designResolutionToFrame(movePos);
+
+			pArmature->setPosition(cardPos);
+			pArmature->runAction(CCMoveTo::create(0.01 + i*0.02, ccpAdd(cardPos, movePos)));
+		}
+	}
+	
+
+	
 	/*bool bOxSound = false;
 	for (WORD i = 0; i<GAME_PLAYER; i++)
 	{
@@ -181,6 +223,7 @@ void CardLayerOneByOne::onPlayOxAnimation(CCNode *obj){
 }
 //发牌中
 void CardLayerOneByOne::sendCardIng(){
+	sSendCardCount = 0;
 	//偏移索引
 	int offsetIndex = 0;
 	for (int i = 0; i < MAX_PLAYER; i++)
@@ -197,6 +240,8 @@ void CardLayerOneByOne::sendCardIng(){
 			
 		}
 	}
+
+	
 }
 
 //发5张牌

@@ -133,12 +133,11 @@ void GameControlOxOneByOne::onUserReady(CMD_GR_UserStatus *info){
 }
 //隐藏用户
 void GameControlOxOneByOne::hidePlayer(CMD_GR_UserStatus *userInfo){
-	CCLog("<<%s>>",__FUNCTION__);
 	std::map<long, tagUserInfo>::iterator iterUser = DataModel::sharedDataModel()->mTagUserInfo.find(userInfo->dwUserID);
 	if (iterUser != DataModel::sharedDataModel()->mTagUserInfo.end())
 	{
 		getMainScene()->playerLayer->pPlayerData[getViewChairID(iterUser->second.wChairID)]->hidePlayer();
-		//DataModel::sharedDataModel()->mTagUserInfo.erase(userInfo->dwUserID);
+		DataModel::sharedDataModel()->mTagUserInfo.erase(userInfo->dwUserID);
 	}
 }
 //用户下注
@@ -174,7 +173,13 @@ bool GameControlOxOneByOne::OnSubGameStart(const void * pBuffer, WORD wDataSize)
 	//效验数据
 	if (wDataSize != sizeof(CMD_S_GameStart)) return false;
 	CMD_S_GameStart * pGameStart = (CMD_S_GameStart *)pBuffer;
-	CCLog("max: %lld<<%s>>", pGameStart->lTurnMaxScore, __FUNCTION__);
+	//隐藏行为类型显示语
+	for (int i = 0; i < MAX_PLAYER; i++)
+	{
+		getMainScene()->playerLayer->pPlayerData[i]->hideActionType();
+	}
+
+
 	/*//用户信息
 	for (WORD i = 0; i<GAME_PLAYER; i++)
 	{
@@ -286,7 +291,6 @@ bool GameControlOxOneByOne::OnSubSendCard(const void * pBuffer, WORD wDataSize)
 	CCLog("-----------------------------------发牌");
 	for (int i = 0; i < MAX_PLAYER; i++)
 	{
-		//
 		int viewChair = getViewChairID(i);
 		for (int j = 0; j < MAX_COUNT; j++)
 		{
@@ -298,7 +302,6 @@ bool GameControlOxOneByOne::OnSubSendCard(const void * pBuffer, WORD wDataSize)
 			{
 				getMainScene()->cardLayer->canSendCard[viewChair] = false;
 			}
-			CCLog("card:%d<<%s>>", pSendCard->cbCardData[i][j], __FUNCTION__);
 		}
 		CCLog("----------static %d<<%s>>", pSendCard->cbPlayStatus[i], __FUNCTION__);
 	}
@@ -433,7 +436,15 @@ bool GameControlOxOneByOne::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 	CMD_S_GameEnd * pGameEnd = (CMD_S_GameEnd *)pBuffer;
 	hideActionPrompt();
 	//显示积分
-	for (WORD i = 0; i < GAME_PLAYER; i++)
+	for (int i = 0; i < GAME_PLAYER; i++)
+	{
+		long long lGameScore = pGameEnd->lGameScore[i];
+		if (getMainScene()->cardLayer->canSendCard[getViewChairID(i)])
+		{
+			getMainScene()->playerLayer->showResultAnimation(getViewChairID(i), lGameScore);
+		}
+	}
+	/*for (WORD i = 0; i < GAME_PLAYER; i++)
 	{
 		long long lGameScore = pGameEnd->lGameScore[i];
 		if (i == getMeChairID()){
@@ -462,9 +473,9 @@ bool GameControlOxOneByOne::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 		}
 		else
 		{
-			getMainScene()->playerLayer->showResultAnimation(0, lGameScore);
+			getMainScene()->playerLayer->showResultAnimation(i, lGameScore);
 		}
-	}
+	}*/
 	//显示牌型
 	bool bOxSound = false;
 	for (int i = 0; i < GAME_PLAYER; i++)
