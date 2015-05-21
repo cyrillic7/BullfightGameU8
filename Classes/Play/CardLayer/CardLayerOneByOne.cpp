@@ -109,7 +109,7 @@ void CardLayerOneByOne::sortingOx(int chairID,int showChairiD){
 	}
 	
 
-	
+	 
 	/*bool bOxSound = false;
 	for (WORD i = 0; i<GAME_PLAYER; i++)
 	{
