@@ -107,6 +107,8 @@ private:
 	virtual void onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//框架命令
 	void onSubGameFrame(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
+	//系统消息
+	virtual void onSocketSubSystemMessage(void * pData, unsigned short wDataSize);
 	//游戏中
 	void onEventGameIng(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//用户信息

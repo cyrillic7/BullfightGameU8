@@ -64,7 +64,7 @@ void GameLobbyScene::onEnter(){
 	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonSetUp"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&GameLobbyScene::menuSetUp));*/
 	UIButton* button=NULL;
-	for (int i = 0; i < 3;i++)
+	for (int i = 0; i < 4;i++)
 	{
 		button = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("buttonMode%d",i+1)->getCString()));
 		button->addTouchEventListener(this, SEL_TouchEvent(&GameLobbyScene::menuSelectMode));
@@ -115,7 +115,14 @@ void GameLobbyScene::menuSelectMode(CCObject* pSender, TouchEventType type){
 	case TOUCH_EVENT_ENDED:
 	{
 		UIButton *button = (UIButton*)pSender;
-		enterLobbyByMode(button->getTag());
+		if (button->getTag()<3)
+		{
+			enterLobbyByMode(button->getTag());
+		}
+		else
+		{
+			CCLog("敬请期待<<%s>>",__FUNCTION__);
+		}
 	}
 		break;
 	default:

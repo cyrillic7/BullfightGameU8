@@ -10,6 +10,7 @@
 #include "../../Tools/DataModel.h"
 #include "../../Network/CMD_Server/cmd_game.h"
 #include "../../Network/CMD_Server/PacketAide.h"
+#include "../../Network/CMD_Server/CMD_Commom.h"
 #include "../../PopDialogBox/PopDialogBoxUpBank.h"
 #include "../../PopDialogBox/PopDialogBoxOnLine.h"
 #include "../../PopDialogBox/PopDialogBoxTrend.h"
@@ -728,11 +729,73 @@ void GameControlOxHundred::onSubGameFrame(WORD wSubCmdID,void * pDataBuffer, uns
 		}
 		break;
 	case SUB_GF_SYSTEM_MESSAGE://系统消息
-		CCLog("SUB_GF_SYSTEM_MESSAGE<<%s>>",__FUNCTION__);
+	{
+		onSocketSubSystemMessage(pDataBuffer, wDataSize);
+	}
 		break;
 	default:
 		CCLog("-:%d<<%s>>",wSubCmdID,__FUNCTION__);
 		break;
+	}
+}
+//系统消息
+void GameControlOxHundred::onSocketSubSystemMessage(void * pData, unsigned short wDataSize){
+	//变量定义
+	CMD_CM_SystemMessage * pSystemMessage = (CMD_CM_SystemMessage *)pData;
+	WORD wHeadSize = sizeof(CMD_CM_SystemMessage) - sizeof(pSystemMessage->szString);
+	
+	
+	//效验参数
+	assert((wDataSize > wHeadSize) && (wDataSize == (wHeadSize + pSystemMessage->wLength*sizeof(TCHAR))));
+	if ((wDataSize <= wHeadSize) || (wDataSize != (wHeadSize + pSystemMessage->wLength*sizeof(TCHAR)))) return ;
+	
+	//关闭处理
+	if ((pSystemMessage->wType&SMT_CLOSE_GAME) != 0)
+	{
+		/*//设置变量
+		m_bService = false;
+
+		//删除时间
+		KillGameClock(0);
+
+		//中断连接
+		IntermitConnect();*/
+		CCLog("%s<<%s>>",Tools::GBKToUTF8("关闭处理"),__FUNCTION__);
+	}
+	//显示消息
+	if ((pSystemMessage->wType&SMT_CHAT))
+	//if ((pSystemMessage->wType&SMT_CHAT) && (m_pIStringMessage != NULL))
+	{
+		CCLog("%s<<%s>>",Tools::GBKToUTF8(pSystemMessage->szString),__FUNCTION__);
+		//m_pIStringMessage->InsertSystemString(pSystemMessage->szString);
+	}
+	
+	//弹出消息
+	if (pSystemMessage->wType&SMT_EJECT)
+	{
+		CCLog("----%s<<%s>>",Tools::GBKToUTF8("弹出消息"),__FUNCTION__);
+		/*CString sErrorMsg = pSystemMessage->szString;
+		CInformation Information(AfxGetMainWnd());
+		if (pSystemMessage->wType&SMT_NOGOLD)
+		{
+			if (Information.ShowMessageBox(pSystemMessage->szString, MB_ICONINFORMATION, 30L, 1) == IDOK)
+			{
+				//构造地址
+				CGlobalServer * pGlobalServer = CGlobalServer::GetInstance();
+				ShellExecute(NULL, TEXT("OPEN"), pGlobalServer->GetPlatformServer(6), NULL, NULL, SW_NORMAL);
+			}
+		}
+		else
+		{
+			Information.ShowMessageBox(pSystemMessage->szString, MB_ICONINFORMATION, 0);
+		}*/
+	}
+	
+	//关闭房间
+	if (pSystemMessage->wType&SMT_CLOSE_GAME)
+	{
+		CCLog("----%s<<%s>>",Tools::GBKToUTF8("关闭房间"), __FUNCTION__);
+		//m_pIClientKernelSink->CloseGameClient();
 	}
 }
 void GameControlOxHundred::onEventGameIng(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){

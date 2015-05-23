@@ -20,28 +20,11 @@
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <imageFileList>
     <string>UIGameLobby.plist</string>
-    <string>UIUserInfo.plist</string>
     <string>UIClassicLobby.plist</string>
-    <string>UIPanel.plist</string>
     <string>UIMode.plist</string>
+    <string>UIUserInfo.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>UIGameLobby.png</string>
-    <string>UIUserInfo.png</string>
-    <string>UIClassicLobby.png</string>
-    <string>UIPanel.png</string>
-    <string>UIMode.png</string>
-    <string>UIGameLobby.png</string>
-    <string>UIUserInfo.png</string>
-    <string>UIClassicLobby.png</string>
-    <string>UIPanel.png</string>
-    <string>UIMode.png</string>
-    <string>UIGameLobby.png</string>
-    <string>UIUserInfo.png</string>
-    <string>UIClassicLobby.png</string>
-    <string>UIPanel.png</string>
-    <string>UIMode.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIClassicLobby.json</CurrentUIJson>
+  <CurrentUIJson />
 </UIProject>
