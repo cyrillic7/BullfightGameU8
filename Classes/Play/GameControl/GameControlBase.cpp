@@ -485,17 +485,17 @@ void GameControlBase::frameEvent(WORD wSubCmdID, void * pDataBuffer, unsigned sh
 	{
 	case SUB_GF_GAME_STATUS:
 	{
-							   CCLog("游戏状态 ");
+		CCLog("游戏状态<<%s>>",__FUNCTION__);
 	}
 		break;
 	case SUB_GF_SYSTEM_MESSAGE:
 	{
-								  CCLog("系统消息");
+		CCLog("系统消息<<%s>>", __FUNCTION__);
 	}
 		break;
 	case SUB_GF_GAME_SCENE:
 	{
-							  CCLog("游戏场景");
+		CCLog("游戏场景<<%s>>", __FUNCTION__);
 	}
 		break;
 	default:
@@ -516,46 +516,46 @@ void GameControlBase::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, unsigne
 		break;
 	case SUB_S_GAME_START:	//游戏开始
 	{
-								//消息处理
-								OnSubGameStart(pDataBuffer, wDataSize);
-								CCLog("游戏开始<<%s>>", __FUNCTION__);
+		//消息处理
+		OnSubGameStart(pDataBuffer, wDataSize);
+		CCLog("游戏开始<<%s>>", __FUNCTION__);
 	}
 		break;
 	case SUB_S_ADD_SCORE:	//用户下注
 	{
-								//消息处理
-								OnSubAddScore(pDataBuffer, wDataSize);
-								CCLog("用户下注<<%s>>", __FUNCTION__);
+		//消息处理
+		OnSubAddScore(pDataBuffer, wDataSize);
+		CCLog("用户下注<<%s>>", __FUNCTION__);
 	}
 		break;
 	case SUB_S_SEND_CARD:	//发牌消息
 	{
-								//消息处理
-								OnSubSendCard(pDataBuffer, wDataSize);
-								CCLog("发牌消息<<%s>>", __FUNCTION__);
+		//消息处理
+		OnSubSendCard(pDataBuffer, wDataSize);
+		CCLog("发牌消息<<%s>>", __FUNCTION__);
 	}
 		break;
 	case SUB_S_OPEN_CARD:	//用户摊牌
 	{
-								//消息处理
-								OnSubOpenCard(pDataBuffer, wDataSize);
-								CCLog("用户摊牌<<%s>>", __FUNCTION__);
+		//消息处理
+		OnSubOpenCard(pDataBuffer, wDataSize);
+		CCLog("用户摊牌<<%s>>", __FUNCTION__);
 	}
 		break;
 	case SUB_S_PLAYER_EXIT:	//用户强退
 	{
-								//消息处理
-								OnSubPlayerExit(pDataBuffer, wDataSize);
-								CCLog("用户强退<<%s>>", __FUNCTION__);
+		//消息处理
+		OnSubPlayerExit(pDataBuffer, wDataSize);
+		CCLog("用户强退<<%s>>", __FUNCTION__);
 	}
 		break;
 	case SUB_S_GAME_END:	//游戏结束
 	{
-								//结束动画
-								//m_GameClientView.FinishDispatchCard();
-								//消息处理
-								OnSubGameEnd(pDataBuffer, wDataSize);
-								CCLog("游戏结束<<%s>>", __FUNCTION__);
+		//结束动画
+		//m_GameClientView.FinishDispatchCard();
+		//消息处理
+		OnSubGameEnd(pDataBuffer, wDataSize);
+		CCLog("游戏结束<<%s>>", __FUNCTION__);
 	}
 		break;
 		/*case SUB_S_GAME_BASE:
@@ -1175,7 +1175,7 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 			CCLog("state==sit-----------%ld",info->dwUserID);
 			if (info->dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID){
 				//DataModel::sharedDataModel()->isSit=true;
-				CCLog("坐下:table: %d desk:%d", info->UserStatus.wTableID, info->UserStatus.wChairID);
+				CCLog("======================坐下:table: %d desk:%d", info->UserStatus.wTableID, info->UserStatus.wChairID);
 				DataModel::sharedDataModel()->userInfo->wTableID = info->UserStatus.wTableID;
 				DataModel::sharedDataModel()->userInfo->wChairID = info->UserStatus.wChairID;
 				if (getMainScene()->getGameState()==MainSceneBase::STATE_OBSERVER)

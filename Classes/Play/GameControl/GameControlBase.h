@@ -117,12 +117,13 @@ private:
 	//隐藏用户
 	virtual void hidePlayer(CMD_GR_UserStatus *userInfo){}
 //////////////////////////////////////////////////////////////////////////
+public:
 	//网络消息
 	//void OnEventGameMessage(CCObject *pObj);
 
 	virtual void onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//游戏中
-	void onEventGameIng(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
+	virtual void onEventGameIng(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//用户叫庄
 	bool OnSubCallBanker(const void * pBuffer, WORD wDataSize);
 	//游戏开始

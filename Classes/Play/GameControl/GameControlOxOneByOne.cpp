@@ -126,6 +126,74 @@ int GameControlOxOneByOne::getViewChairID(int severChairID){
 	viewChair %= MAX_CHAIR_COUNT;
 	return viewChair;
 }
+//游戏中
+void GameControlOxOneByOne::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
+	switch (wSubCmdID)
+	{
+	case SUB_S_CALL_BANKER:	//用户叫庄
+	{
+		//消息处理
+		OnSubCallBanker(pDataBuffer, wDataSize);
+	}
+		break;
+	case SUB_S_GAME_START:	//游戏开始
+	{
+		//消息处理
+		OnSubGameStart(pDataBuffer, wDataSize);
+	}
+		break;
+	case SUB_S_ADD_SCORE:	//用户下注
+	{
+		//消息处理
+		OnSubAddScore(pDataBuffer, wDataSize);
+	}
+		break;
+	case SUB_S_SEND_CARD:	//发牌消息
+	{
+		//消息处理
+		OnSubSendCard(pDataBuffer, wDataSize);
+	}
+		break;
+	case SUB_S_OPEN_CARD:	//用户摊牌
+	{
+		//消息处理
+		OnSubOpenCard(pDataBuffer, wDataSize);
+	}
+		break;
+	case SUB_S_PLAYER_EXIT:	//用户强退
+	{
+		//消息处理
+		OnSubPlayerExit(pDataBuffer, wDataSize);
+	}
+		break;
+	case SUB_S_GAME_END:	//游戏结束
+	{
+								//结束动画
+								//m_GameClientView.FinishDispatchCard();
+		//消息处理
+		OnSubGameEnd(pDataBuffer, wDataSize);
+	}
+		break;
+	case SUB_S_GAME_BASE:
+	{
+		OnSubGameBase(pDataBuffer, wDataSize);
+	}
+		break;
+	default:
+		CCLog("--------------------gameIng:%d<<%s>>", wSubCmdID, __FUNCTION__);
+		break;
+	}
+}
+//设置基数
+bool GameControlOxOneByOne::OnSubGameBase(const void * pBuffer, WORD wDataSize)
+{
+	//效验数据
+	if (wDataSize != sizeof(CMD_S_GameBase)) return false;
+	CMD_S_GameBase * pGameBase = (CMD_S_GameBase *)pBuffer;
+
+	//m_GameClientView.lCellScore = pGameBase->lCellScore;
+	return true;
+}
 //用户准备
 void GameControlOxOneByOne::onUserReady(CMD_GR_UserStatus *info){
 	int indexPlayer = getViewChairID(info->UserStatus.wChairID);

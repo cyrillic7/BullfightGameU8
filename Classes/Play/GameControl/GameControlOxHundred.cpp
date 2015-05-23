@@ -1490,7 +1490,7 @@ void GameControlOxHundred::onSubUserState(void * pDataBuffer, unsigned short wDa
 			if (info->dwUserID==DataModel::sharedDataModel()->userInfo->dwUserID){
 				DataModel::sharedDataModel()->userInfo->wTableID=info->UserStatus.wTableID;
 				DataModel::sharedDataModel()->userInfo->wChairID=info->UserStatus.wChairID;
-				CCLog("<<%s>>",__FUNCTION__);
+				CCLog("--%s------------------<<%s>>",Tools::GBKToUTF8("╟ыхкеёеёвЬоб"),__FUNCTION__);
 			}
 		}
 		break;
