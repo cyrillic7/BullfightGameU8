@@ -170,4 +170,10 @@ private:
 public:
 	//申请庄家
 	void onApplyBanker(bool bApplyBanker);
+
+	//开始下注效果动画
+	void beginAddScoreEffect();
+	void onAnimationEventOver(CCArmature *pArmature, MovementEventType movementType, const char *movementID);
+	void onAnimationEventFrame(CCBone *bone, const char *evt, int originFrameIndex, int currentFrameIndex);
+
 };

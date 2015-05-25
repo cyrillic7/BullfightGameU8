@@ -20,10 +20,11 @@
 #include "../../MainScene/MainSceneBase.h"
 #include "../../Network/CMD_Server/PacketAide.h"
 GameControlBase::GameControlBase()
-:pEndLayer(NULL)
-, pLTimerPromptContent(NULL)
-, isPromptOx(false){
+	:pEndLayer(NULL)
+	, pLTimerPromptContent(NULL)
+	, isPromptOx(false){
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationActionPrompt.ExportJson));
+	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationGameIng.ExportJson));
 	schedule(SEL_SCHEDULE(&GameControlBase::updateTimer), 1);
 	scheduleUpdate();
 }
@@ -85,8 +86,8 @@ void GameControlBase::onEnter(){
 	resetTimer(MAX_TIMER, NULL);
 	//添加监听事件
 	//CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(BaseGameControl::OnEventGameMessage),S_L_GAME_ING,NULL);
-//	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(GameControlBase::OnUserFree), S_L_US_FREE, NULL);
-//	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(GameControlBase::OnUserEnter), S_L_US_ENTER, NULL);
+	//	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(GameControlBase::OnUserFree), S_L_US_FREE, NULL);
+	//	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(GameControlBase::OnUserEnter), S_L_US_ENTER, NULL);
 	//主动调用一次
 	//onUserEnter();
 }
@@ -153,29 +154,29 @@ void GameControlBase::delayedAction(){
 	{
 
 	}
-		break;
+	break;
 	case MainSceneOxTwo::STATE_CALL_BANKER:
 	{
 		menuNotFight(NULL, TOUCH_EVENT_ENDED);
 	}
-		break;
+	break;
 	case MainSceneOxTwo::STATE_BETTING:
 	{
 		UIButton *button = UIButton::create();
 		button->setTag(1);
 		menuBetting(button, TOUCH_EVENT_ENDED);
 	}
-		break;
+	break;
 	case MainSceneOxTwo::STATE_OPT_OX:
 	{
 		menuOpenCard(NULL, TOUCH_EVENT_ENDED);
 	}
-		break;
+	break;
 	case MainSceneOxTwo::STATE_END:
 	{
 
 	}
-		break;
+	break;
 	default:
 		break;
 	}
@@ -188,7 +189,7 @@ void GameControlBase::menuPause(CCObject* pSender, TouchEventType type){
 		//TCPSocketControl::sharedTCPSocketControl()->stopSocket();
 		Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene());
 	}
-		break;
+	break;
 	default:
 		break;
 	}
@@ -232,7 +233,7 @@ void GameControlBase::menuPrompt(CCObject* pSender, TouchEventType type){
 			menuOpenCard(NULL, TOUCH_EVENT_ENDED);
 		}
 	}
-		break;
+	break;
 	default:
 		break;
 	}
@@ -243,10 +244,10 @@ void GameControlBase::menuChangeChair(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-							  //CCStringMake 
-							  //SUB_GR_USER_CHAIR_REQ
+		//CCStringMake 
+		//SUB_GR_USER_CHAIR_REQ
 	}
-		break;
+	break;
 	default:
 		break;
 	}
@@ -257,25 +258,25 @@ void GameControlBase::menuReady(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-							  hideTimer(true);
-							  //隐藏准备
-							  pPanelReady->setEnabled(false);
-							  //发送准备指使
-							  bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_FRAME, SUB_GF_USER_READY);
-							  //设置主状态为准备状态
-							  getMainScene()->setGameState(MainSceneOxTwo::STATE_READY);
-							  /*//获取按键子控件并隐藏
-							  CCArray *arrayImage = mButton->getChildren();
-							  for (int i = 0; i < arrayImage->count(); i++)
-							  {
-							  CCNode *image = (CCNode *)arrayImage->objectAtIndex(i);
-							  image->setVisible(false);
-							  }*/
+		hideTimer(true);
+		//隐藏准备
+		pPanelReady->setEnabled(false);
+		//发送准备指使
+		bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_FRAME, SUB_GF_USER_READY);
+		//设置主状态为准备状态
+		getMainScene()->setGameState(MainSceneOxTwo::STATE_READY);
+		/*//获取按键子控件并隐藏
+		CCArray *arrayImage = mButton->getChildren();
+		for (int i = 0; i < arrayImage->count(); i++)
+		{
+		CCNode *image = (CCNode *)arrayImage->objectAtIndex(i);
+		image->setVisible(false);
+		}*/
 
 
-							  getMainScene()->onEventReadyFnish();
+		getMainScene()->onEventReadyFnish();
 	}
-		break;
+	break;
 	default:
 		break;
 	}
@@ -287,17 +288,17 @@ void GameControlBase::menuNotFight(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-							  hideTimer(true);
-							  pFightForBanker->setEnabled(false);
-							  //getMainScene()->setGameStateWithUpdate(MainScene::STATE_BETTING);
-							  getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
-							  //设置变量
-							  CMD_C_CallBanker CallBanker;
-							  CallBanker.bBanker = (BYTE)0;
-							  //发送信息
-							  TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_GAME, SUB_C_CALL_BANKER, &CallBanker, sizeof(CallBanker));
+		hideTimer(true);
+		pFightForBanker->setEnabled(false);
+		//getMainScene()->setGameStateWithUpdate(MainScene::STATE_BETTING);
+		getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
+		//设置变量
+		CMD_C_CallBanker CallBanker;
+		CallBanker.bBanker = (BYTE)0;
+		//发送信息
+		TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_GAME, SUB_C_CALL_BANKER, &CallBanker, sizeof(CallBanker));
 	}
-		break;
+	break;
 	default:
 		break;
 	}
@@ -308,20 +309,20 @@ void GameControlBase::menuFight(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-							  hideTimer(true);
-							  pFightForBanker->setEnabled(false);
-							  //getMainScene()->setGameStateWithUpdate(MainScene::STATE_OPT_OX);
-							  getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
+		hideTimer(true);
+		pFightForBanker->setEnabled(false);
+		//getMainScene()->setGameStateWithUpdate(MainScene::STATE_OPT_OX);
+		getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
 
-							  //设置变量
-							  CMD_C_CallBanker CallBanker;
-							  CallBanker.bBanker = (BYTE)1;
+		//设置变量
+		CMD_C_CallBanker CallBanker;
+		CallBanker.bBanker = (BYTE)1;
 
-							  //发送信息
-							  TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_GAME, SUB_C_CALL_BANKER, &CallBanker, sizeof(CallBanker));
-							  //SendSocketData(SUB_C_CALL_BANKER,&CallBanker,sizeof(CallBanker));
+		//发送信息
+		TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_GAME, SUB_C_CALL_BANKER, &CallBanker, sizeof(CallBanker));
+		//SendSocketData(SUB_C_CALL_BANKER,&CallBanker,sizeof(CallBanker));
 	}
-		break;
+	break;
 	default:
 		break;
 	}
@@ -332,26 +333,26 @@ void GameControlBase::menuBetting(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-							  hideTimer(true);
-							  pBetting->setEnabled(false);
-							  UIButton *button = (UIButton*)pSender;
-							  int bTemp = button->getTag();
-							  long long lCurrentScore = 0;
-							  if (bTemp == 1)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 8, 1L);
-							  else if (bTemp == 2)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 4, 1L);
-							  else if (bTemp == 3)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 2, 1L);
-							  else if (bTemp == 4)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore, 1L);
+		hideTimer(true);
+		pBetting->setEnabled(false);
+		UIButton *button = (UIButton*)pSender;
+		int bTemp = button->getTag();
+		long long lCurrentScore = 0;
+		if (bTemp == 1)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 8, 1L);
+		else if (bTemp == 2)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 4, 1L);
+		else if (bTemp == 3)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 2, 1L);
+		else if (bTemp == 4)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore, 1L);
 
-							  //getMainScene()->setGameStateWithUpdate(MainScene::STATE_OPT_OX);
-							  getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
+		//getMainScene()->setGameStateWithUpdate(MainScene::STATE_OPT_OX);
+		getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
 
-							  //发送消息
-							  CMD_C_AddScore AddScore;
-							  AddScore.lScore = lCurrentScore;
-							  //发送信息
-							  TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_GAME, SUB_C_ADD_SCORE, &AddScore, sizeof(AddScore));
+		//发送消息
+		CMD_C_AddScore AddScore;
+		AddScore.lScore = lCurrentScore;
+		//发送信息
+		TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_GAME, SUB_C_ADD_SCORE, &AddScore, sizeof(AddScore));
 	}
-		break;
+	break;
 	default:
 		break;
 	}
@@ -372,41 +373,41 @@ void GameControlBase::updateState(){
 		pPanelReady->setEnabled(true);
 		pOptOx->setEnabled(false);
 	}
-		break;
+	break;
 	case MainSceneOxTwo::STATE_CALL_BANKER:
 	{
-											  resetTimer(MAX_TIMER, NULL);
-											  pFightForBanker->setEnabled(true);
-											  pPanelReady->setEnabled(false);
+		resetTimer(MAX_TIMER, NULL);
+		pFightForBanker->setEnabled(true);
+		pPanelReady->setEnabled(false);
 	}
-		break;
+	break;
 	case MainSceneOxTwo::STATE_OPT_OX:
 	{
-										 resetTimer(MAX_TIMER, NULL);
-										 pOptOx->setEnabled(true);
-										 pFightForBanker->setEnabled(false);
+		resetTimer(MAX_TIMER, NULL);
+		pOptOx->setEnabled(true);
+		pFightForBanker->setEnabled(false);
 	}
-		break;
+	break;
 	case MainSceneOxTwo::STATE_BETTING:
 	{
-										  resetTimer(MAX_TIMER, NULL);
-										  pBetting->setEnabled(true);
+		resetTimer(MAX_TIMER, NULL);
+		pBetting->setEnabled(true);
 	}
-		break;
+	break;
 	case MainSceneOxTwo::STATE_SEND_CARD:
 	{
-											//pBetting->setEnabled(false);
+		//pBetting->setEnabled(false);
 	}
-		break;
+	break;
 	case MainSceneOxTwo::STATE_END:
 	{
-									  resetTimer(MAX_TIMER, NULL);
-									  pOptOx->setEnabled(false);
-									  pPanelReady->setEnabled(false);
-									  pFightForBanker->setEnabled(false);
-									  pBetting->setEnabled(false);
+		resetTimer(MAX_TIMER, NULL);
+		pOptOx->setEnabled(false);
+		pPanelReady->setEnabled(false);
+		pFightForBanker->setEnabled(false);
+		pBetting->setEnabled(false);
 	}
-		break;
+	break;
 	default:
 		break;
 	}
@@ -485,21 +486,21 @@ void GameControlBase::frameEvent(WORD wSubCmdID, void * pDataBuffer, unsigned sh
 	{
 	case SUB_GF_GAME_STATUS:
 	{
-		CCLog("游戏状态<<%s>>",__FUNCTION__);
+		CCLog("游戏状态<<%s>>", __FUNCTION__);
 	}
-		break;
+	break;
 	case SUB_GF_SYSTEM_MESSAGE:
 	{
 		CCLog("系统消息<<%s>>", __FUNCTION__);
 	}
-		break;
+	break;
 	case SUB_GF_GAME_SCENE:
 	{
 		CCLog("游戏场景<<%s>>", __FUNCTION__);
 	}
-		break;
+	break;
 	default:
-		CCLog("----------------sub:%d<<%s>>",wSubCmdID,__FUNCTION__);
+		CCLog("----------------sub:%d<<%s>>", wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -511,44 +512,44 @@ void GameControlBase::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, unsigne
 	{
 		//消息处理
 		OnSubCallBanker(pDataBuffer, wDataSize);
-		CCLog("用户叫庄<<%s>>",__FUNCTION__);
+		CCLog("用户叫庄<<%s>>", __FUNCTION__);
 	}
-		break;
+	break;
 	case SUB_S_GAME_START:	//游戏开始
 	{
 		//消息处理
 		OnSubGameStart(pDataBuffer, wDataSize);
 		CCLog("游戏开始<<%s>>", __FUNCTION__);
 	}
-		break;
+	break;
 	case SUB_S_ADD_SCORE:	//用户下注
 	{
 		//消息处理
 		OnSubAddScore(pDataBuffer, wDataSize);
 		CCLog("用户下注<<%s>>", __FUNCTION__);
 	}
-		break;
+	break;
 	case SUB_S_SEND_CARD:	//发牌消息
 	{
 		//消息处理
 		OnSubSendCard(pDataBuffer, wDataSize);
 		CCLog("发牌消息<<%s>>", __FUNCTION__);
 	}
-		break;
+	break;
 	case SUB_S_OPEN_CARD:	//用户摊牌
 	{
 		//消息处理
 		OnSubOpenCard(pDataBuffer, wDataSize);
 		CCLog("用户摊牌<<%s>>", __FUNCTION__);
 	}
-		break;
+	break;
 	case SUB_S_PLAYER_EXIT:	//用户强退
 	{
 		//消息处理
 		OnSubPlayerExit(pDataBuffer, wDataSize);
 		CCLog("用户强退<<%s>>", __FUNCTION__);
 	}
-		break;
+	break;
 	case SUB_S_GAME_END:	//游戏结束
 	{
 		//结束动画
@@ -557,19 +558,19 @@ void GameControlBase::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, unsigne
 		OnSubGameEnd(pDataBuffer, wDataSize);
 		CCLog("游戏结束<<%s>>", __FUNCTION__);
 	}
-		break;
-		/*case SUB_S_GAME_BASE:
-		{
-		OnSubGameBase(pData, wDataSize);
-		}
-		break;*/
+	break;
+	/*case SUB_S_GAME_BASE:
+	{
+	OnSubGameBase(pData, wDataSize);
+	}
+	break;*/
 	case 1024:
 	{
-				CCLog("1024-----------------------<<%s>>",__FUNCTION__);
-				 //m_GameClientView.OnLockGame(pData->pDataBuffer,pData->wDataSize);
-				 //return true;
+		CCLog("1024-----------------------<<%s>>", __FUNCTION__);
+		//m_GameClientView.OnLockGame(pData->pDataBuffer,pData->wDataSize);
+		//return true;
 	}
-		break;
+	break;
 	default:
 		CCLog("--------------------gameIng:%d<<%s>>", wSubCmdID, __FUNCTION__);
 		break;
@@ -578,6 +579,7 @@ void GameControlBase::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, unsigne
 //用户叫庄
 bool GameControlBase::OnSubCallBanker(const void * pBuffer, WORD wDataSize){
 	//效验数据 
+	int size = sizeof(CMD_S_CallBanker);
 	if (wDataSize != sizeof(CMD_S_CallBanker)) return false;
 	CMD_S_CallBanker * pCallBanker = (CMD_S_CallBanker *)pBuffer;
 	/*if(!pCallBanker->bFirstTimes && pCallBanker->wCallBanker==getMeChairID())
@@ -691,7 +693,10 @@ bool GameControlBase::OnSubGameStart(const void * pBuffer, WORD wDataSize){
 		else if (i == 1)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 4, 1L);
 		else if (i == 2)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 2, 1L);
 		else if (i == 3)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore, 1L);
-		pbBetting[i]->setTitleText(CCString::createWithFormat("%lld", lCurrentScore)->getCString());
+		//pbBetting[i]->setTitleText(CCString::createWithFormat("%lld", lCurrentScore)->getCString());
+		UILabel *label = static_cast<UILabel*>(pbBetting[i]->getChildByName("LabelGold"));
+		std::string sJetton = formatNumber(CCString::createWithFormat("%lld", lCurrentScore)->getCString());
+		label->setText(Tools::GBKToUTF8(sJetton.c_str()));
 	}
 	getMainScene()->playerLayer->setBankIcon(getChairIndex(getMeChairID(), wBankerUser));
 	if (wBankerUser != getMeChairID())
@@ -881,7 +886,7 @@ bool GameControlBase::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 				UIPanel *pPlayer3 = getMainScene()->playerLayer->pPlayerData[3]->pPlayerPanel;
 				for (int i = 0; i < 60; i++)
 				{
-					if (lGameScore>0)
+					if (lGameScore > 0)
 					{
 						CCPoint begingPos = ccpAdd(pPlayer0->getPosition(), ccp(pPlayer0->getContentSize().width / 2, pPlayer0->getContentSize().height / 2));
 						CCPoint endPos = ccpAdd(pPlayer3->getPosition(), ccp(pPlayer3->getContentSize().width / 2, pPlayer3->getContentSize().height / 2));
@@ -1172,13 +1177,13 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 				iterUser->second.wTableID = info->UserStatus.wTableID;
 				onUserEnter();
 			}
-			CCLog("state==sit-----------%ld",info->dwUserID);
+			CCLog("state==sit-----------%ld", info->dwUserID);
 			if (info->dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID){
 				//DataModel::sharedDataModel()->isSit=true;
 				CCLog("======================坐下:table: %d desk:%d", info->UserStatus.wTableID, info->UserStatus.wChairID);
 				DataModel::sharedDataModel()->userInfo->wTableID = info->UserStatus.wTableID;
 				DataModel::sharedDataModel()->userInfo->wChairID = info->UserStatus.wChairID;
-				if (getMainScene()->getGameState()==MainSceneBase::STATE_OBSERVER)
+				if (getMainScene()->getGameState() == MainSceneBase::STATE_OBSERVER)
 				{
 					getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_DOWN);
 					//构造数据
@@ -1198,7 +1203,7 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 
 			}
 		}
-			break;
+		break;
 		case US_FREE://站立
 		{
 			//
@@ -1213,37 +1218,37 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 				hidePlayer(info);
 			}
 		}
-			break;
+		break;
 		case US_READY://同意
 		{
 			onUserReady(info);
 		}
-			break;
+		break;
 		case US_PLAYING:
 		{
-						   if (info->dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID)
-						   {
+			if (info->dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID)
+			{
 
-							   //MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_CONFIG_FINISH,NULL);
-						   }
-						   //CCLog("state==playing-----------%ld",info->dwUserID);
+				//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_CONFIG_FINISH,NULL);
+			}
+			//CCLog("state==playing-----------%ld",info->dwUserID);
 		}
-			break;
+		break;
 		default:
 			CCLog("state==Other userID:%ld 状态：%d", info->dwUserID, info->UserStatus.cbUserStatus);
 			break;
 		}
 	}
-		break;
+	break;
 	case SUB_GR_USER_ENTER://用户进入
 	{
-		CCLog("userEnter------<<%s>>",__FUNCTION__);
+		CCLog("userEnter------<<%s>>", __FUNCTION__);
 		// 
-		onSubUserEnter(pDataBuffer,wDataSize);
+		onSubUserEnter(pDataBuffer, wDataSize);
 		onUserEnter();
 		//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_US_ENTER, NULL);
 	}
-		break;
+	break;
 	case SUB_GR_USER_SCORE://用户分数
 		break;
 	default:
@@ -1269,7 +1274,7 @@ void GameControlBase::onSubUserEnter(void * pDataBuffer, unsigned short wDataSiz
 #if (DEBUG_TEST==0)
 	//效验参数
 	assert(wDataSize >= sizeof(tagUserInfoHead));
-	if (wDataSize<sizeof(tagUserInfoHead)) return false;
+	if (wDataSize < sizeof(tagUserInfoHead)) return false;
 	//消息处理
 	tagUserInfoHead * pUserInfoHead = (tagUserInfoHead *)pDataBuffer;
 
@@ -1292,28 +1297,28 @@ void GameControlBase::onSubUserEnter(void * pDataBuffer, unsigned short wDataSiz
 		{
 		case DTP_GR_NICK_NAME:		//用户昵称
 		{
-										CopyMemory(&UserInfo.szNickName, cbDataBuffer + wPacketSize, DataDescribe->wDataSize);
-										UserInfo.szNickName[CountArray(UserInfo.szNickName) - 1] = 0;
-										//std::string name=UserInfo.szNickName;
-										//CCLog("gameId:%ld nick:%s",pUserInfoHead->dwGameID,Tools::GBKToUTF8(UserInfo.szNickName));
-										//if (strcmp(Tools::GBKToUTF8(UserInfo.szNickName),"(null)")==0)
-										{
-											//CCLog("null"); 
-										}
+			CopyMemory(&UserInfo.szNickName, cbDataBuffer + wPacketSize, DataDescribe->wDataSize);
+			UserInfo.szNickName[CountArray(UserInfo.szNickName) - 1] = 0;
+			//std::string name=UserInfo.szNickName;
+			//CCLog("gameId:%ld nick:%s",pUserInfoHead->dwGameID,Tools::GBKToUTF8(UserInfo.szNickName));
+			//if (strcmp(Tools::GBKToUTF8(UserInfo.szNickName),"(null)")==0)
+			{
+				//CCLog("null"); 
+			}
 		}
-			break;
+		break;
 		case DTP_GR_GROUP_NAME:
 		{
-								  CCLog("社团");
+			CCLog("社团");
 		}
-			break;
+		break;
 		case DTP_GR_UNDER_WRITE:
 		{
-								   CopyMemory(UserInfo.szUnderWrite, cbDataBuffer + wPacketSize, DataDescribe->wDataSize);
-								   UserInfo.szUnderWrite[CountArray(UserInfo.szUnderWrite) - 1] = 0;
-								   CCLog("签名:%s", Tools::GBKToUTF8(UserInfo.szUnderWrite));
+			CopyMemory(UserInfo.szUnderWrite, cbDataBuffer + wPacketSize, DataDescribe->wDataSize);
+			UserInfo.szUnderWrite[CountArray(UserInfo.szUnderWrite) - 1] = 0;
+			CCLog("签名:%s", Tools::GBKToUTF8(UserInfo.szUnderWrite));
 		}
-			break;
+		break;
 		}
 		wPacketSize += DataDescribe->wDataSize;
 		if (wPacketSize >= wDataSize)
@@ -1325,7 +1330,7 @@ void GameControlBase::onSubUserEnter(void * pDataBuffer, unsigned short wDataSiz
 #if (DEBUG_TEST==1)
 	//效验参数
 	assert(wDataSize >= sizeof(tagMobileUserInfoHead));
-	if (wDataSize<sizeof(tagMobileUserInfoHead)) return ;
+	if (wDataSize < sizeof(tagMobileUserInfoHead)) return;
 	int size = sizeof(tagMobileUserInfoHead);
 	//消息处理
 	tagMobileUserInfoHead * pUserInfoHead = (tagMobileUserInfoHead *)pDataBuffer;
@@ -1353,19 +1358,19 @@ void GameControlBase::onSubUserEnter(void * pDataBuffer, unsigned short wDataSiz
 			CopyMemory(&UserInfo.szNickName, cbDataBuffer + wPacketSize, DataDescribe->wDataSize);
 			UserInfo.szNickName[CountArray(UserInfo.szNickName) - 1] = 0;
 		}
-			break;
+		break;
 		case DTP_GR_GROUP_NAME:
 		{
 			CCLog("社团");
 		}
-			break;
+		break;
 		case DTP_GR_UNDER_WRITE:
 		{
 			CopyMemory(UserInfo.szUnderWrite, cbDataBuffer + wPacketSize, DataDescribe->wDataSize);
 			UserInfo.szUnderWrite[CountArray(UserInfo.szUnderWrite) - 1] = 0;
 			CCLog("签名:%s", Tools::GBKToUTF8(UserInfo.szUnderWrite));
 		}
-			break;
+		break;
 		}
 		wPacketSize += DataDescribe->wDataSize;
 		if (wPacketSize >= wDataSize)
@@ -1378,7 +1383,7 @@ void GameControlBase::onSubUserEnter(void * pDataBuffer, unsigned short wDataSiz
 
 	std::map<long, tagUserInfo >::iterator l_it;
 	l_it = DataModel::sharedDataModel()->mTagUserInfo.find(pUserInfoHead->dwUserID);
-	if (DataModel::sharedDataModel()->mTagUserInfo.end()!=l_it)
+	if (DataModel::sharedDataModel()->mTagUserInfo.end() != l_it)
 	{
 		l_it->second = UserInfo;
 	}

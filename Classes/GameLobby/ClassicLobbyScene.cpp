@@ -13,6 +13,7 @@
 #include "GameLobbyScene.h"
 #include "../MainScene/MainSceneOxTwo.h"
 #include "../MainScene/MainSceneOxOneByOne.h"
+#include "../MainScene/MainSceneOxSixSwap.h"
 #include "../Network/CMD_Server/CMD_GameServer.h"
 #include "../Network/TCPSocket/TCPSocketControl.h"
 #include "../Network/ListernerThread/LogonGameListerner.h"
@@ -121,6 +122,12 @@ void ClassicLobbyScene::initTCPLogon(int index){
 			tcp->port=DataModel::sharedDataModel()->tagGameServerListOxOneByOne[index]->wServerPort;
 		}
 		break;
+	case ITEM_2:
+	{
+		tcp->ip = DataModel::sharedDataModel()->tagGameServerListSixSwap[index]->szServerAddr;
+		tcp->port = DataModel::sharedDataModel()->tagGameServerListSixSwap[index]->wServerPort;
+	}
+	break;
 	default:
 		break;
 	}
@@ -144,6 +151,11 @@ void  ClassicLobbyScene::updateRoomList(){
 			updateRoom(DataModel::sharedDataModel()->tagGameServerListOxOneByOne);
 		}
 		break;
+	case ITEM_2://六人换牌
+	{
+		updateRoom(DataModel::sharedDataModel()->tagGameServerListSixSwap);
+	}
+	break;
 	default:
 		break;
 	}
@@ -234,6 +246,9 @@ void ClassicLobbyScene::enterMainSceneByMode(int mode){
 		break;
 	case LEVEL_1:
 		Tools::setTransitionAnimation(0, 0, MainSceneOxOneByOne::scene());
+		break;
+	case LEVEL_2:
+		Tools::setTransitionAnimation(0, 0, MainSceneOxSixSwap::scene());
 		break;
 	default:
 		break;
@@ -333,6 +348,12 @@ void ClassicLobbyScene::onEventConnect(WORD wSubCmdID, void * pDataBuffer, unsig
 											  logonMobile.dwProcessVersion = 17235969;
 							   }
 								   break;
+							   case ITEM_2:
+							   {
+								   logonMobile.wGameID = 430;
+								   logonMobile.dwProcessVersion = 17235969;
+							   }
+							   break;
 							   default:
 								   break;
 							   }

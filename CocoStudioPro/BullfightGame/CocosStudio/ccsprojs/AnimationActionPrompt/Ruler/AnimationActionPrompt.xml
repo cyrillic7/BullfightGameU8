@@ -2,6 +2,15 @@
 <ArrayOfGuidesProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <GuidesProject>
     <Project>AnimationActionPrompt</Project>
-    <GuidesList />
+    <GuidesList>
+      <GuidesInfo>
+        <GuidesName>HThumb</GuidesName>
+        <GuidesPosition>22.864475433914748</GuidesPosition>
+      </GuidesInfo>
+      <GuidesInfo>
+        <GuidesName>HThumb</GuidesName>
+        <GuidesPosition>-21.357726304796003</GuidesPosition>
+      </GuidesInfo>
+    </GuidesList>
   </GuidesProject>
 </ArrayOfGuidesProject>

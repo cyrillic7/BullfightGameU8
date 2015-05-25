@@ -44,4 +44,11 @@ private:
 
 	//设置光标
 	void setBankLight(int userIndex);
+
+
+	//用户进入效果动画
+	void userEnterEffect(CCPoint pos,int tag);
+	void onAnimationEventOver(CCArmature *pArmature, MovementEventType movementType, const char *movementID);
+	void onAnimationEventFrame(CCBone *bone, const char *evt, int originFrameIndex, int currentFrameIndex);
+
 };

@@ -30,7 +30,8 @@ public:
 		STATE_CALL_BANKER,			//抢庄状态
 		STATE_BETTING,				//投注
 		STATE_OPT_OX,				//选牛
-		STATE_END,				//结算
+		STATE_END,					//结算
+		STATE_SWAP_CARD,			//换牌
 		//百人牛牛////////////////////////////////////////////////////////////////////////
 		STATE_GAME_FREE ,							//空闲状态
 		STATE_GAME_PLACE_JETTON,				//下注

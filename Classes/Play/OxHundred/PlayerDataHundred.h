@@ -62,5 +62,8 @@ private:
 	//结算动画结束
 	void onResultAnimationFinish();
 	
-	
+	//用户进入效果动画
+	void userEnterEffect(CCPoint pos, int tag);
+	void onAnimationEventOver(CCArmature *pArmature, MovementEventType movementType, const char *movementID);
+	void onAnimationEventFrame(CCBone *bone, const char *evt, int originFrameIndex, int currentFrameIndex);
 };

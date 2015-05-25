@@ -146,19 +146,27 @@ void GameLobbyScene::enterLobbyByMode(int mode){
 		{
 			PopDialogBox *pLoading = PopDialogBoxLoading::create();
 			this->addChild(pLoading);
-			tagGameServer *tgs=DataModel::sharedDataModel()->tagGameServerListOxHundred[0];
+			tagGameServer *tgs = DataModel::sharedDataModel()->tagGameServerListOxHundred[0];
 			getSocket()->createSocket(tgs->szServerAddr,tgs->wServerPort,new LogonGameListerner());
 			//Tools::setTransitionAnimation(0, 0, MainSceneOxHundred::scene());
 		}
 		break;
-	case MODE_ONE_BY_ONE:
+	/*case MODE_ONE_BY_ONE:
 		{
 			PopDialogBox *pLoading = PopDialogBoxLoading::create();
 			this->addChild(pLoading);
-			tagGameServer *tgs=DataModel::sharedDataModel()->tagGameServerListOxOneByOne[0];
+			tagGameServer *tgs = DataModel::sharedDataModel()->tagGameServerListOxOneByOne[0];
 			getSocket()->createSocket(tgs->szServerAddr,tgs->wServerPort,new LogonGameListerner());
 		}
 		break;
+	case MODE_SIX_SWAP:
+	{
+		PopDialogBox *pLoading = PopDialogBoxLoading::create();
+		this->addChild(pLoading);
+		tagGameServer *tgs = DataModel::sharedDataModel()->tagGameServerListSixSwap[0];
+		getSocket()->createSocket(tgs->szServerAddr, tgs->wServerPort, new LogonGameListerner());
+	}
+		break;*/
 	default:
 		break;
 	}

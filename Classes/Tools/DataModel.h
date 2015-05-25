@@ -29,6 +29,7 @@ public:
 	std::vector <tagGameServer *> tagGameServerListOxTwo;
 	std::vector <tagGameServer *> tagGameServerListOxHundred;
 	std::vector <tagGameServer *> tagGameServerListOxOneByOne;
+	std::vector <tagGameServer *> tagGameServerListSixSwap;
 	//用户信息数组
 	std::map<long ,tagUserInfo>mTagUserInfo;
 	//登录成功信息

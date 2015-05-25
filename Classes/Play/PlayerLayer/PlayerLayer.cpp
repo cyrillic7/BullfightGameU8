@@ -104,6 +104,10 @@ void PlayerLayer::showResultAnimation(int iPanelIndex,long long lGameScore){
 
 //设置用户信息
 void PlayerLayer::setUserInfo(int panelIndex,tagUserInfo tagUser){
+	if (!pPlayerData[panelIndex]->pIPlayerIcon->isVisible())
+	{
+		userEnterEffect(pPlayerData[panelIndex]->pIPlayerIcon->getWorldPosition(), panelIndex);
+	}
 	pPlayerData[panelIndex]->setUserInfo(tagUser);
 }
 void PlayerLayer::setUserGold(int panelIndex,long long goldCount){
@@ -128,4 +132,38 @@ void PlayerLayer::setBankIcon(int bankIndex){
 }
 MainSceneBase*PlayerLayer::getMainScene(){
 	return (MainSceneBase*)this->getParent();
+}
+
+//用户进入效果动画
+void PlayerLayer::userEnterEffect(CCPoint pos,int tag){
+	CCArmature *pAnimate = CCArmature::create("AnimationGameIng");
+	this->addChild(pAnimate,100);
+	
+	pAnimate->setPosition(pos);
+	pAnimate->setTag(tag);
+
+	pAnimate->getAnimation()->setMovementEventCallFunc(this, movementEvent_selector(PlayerLayer::onAnimationEventOver));//动画播完回调用
+	pAnimate->getAnimation()->setFrameEventCallFunc(this, frameEvent_selector(PlayerLayer::onAnimationEventFrame));
+
+	pAnimate->getAnimation()->play("enterChair");
+}
+void PlayerLayer::onAnimationEventOver(CCArmature *pArmature, MovementEventType movementType, const char *movementID){
+	switch (movementType)
+	{
+	case cocos2d::extension::COMPLETE:
+	case cocos2d::extension::LOOP_COMPLETE:
+	{
+		pArmature->removeFromParentAndCleanup(true);
+	}
+	break;
+	default:
+		break;
+	}
+}
+void PlayerLayer::onAnimationEventFrame(CCBone *bone, const char *evt, int originFrameIndex, int currentFrameIndex){
+	if (strcmp(evt, "userEnter") == 0)
+	{
+		
+		//pPlayerData[bone->getArmature()->getTag()]->pIPlayerIcon->setVisible(true);
+	}
 }

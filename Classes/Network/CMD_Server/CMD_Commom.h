@@ -5,92 +5,92 @@
 
 //////////////////////////////////////////////////////////////////////////////////
 
-#define MDM_CM_SYSTEM				1000								//系统命令
+#define MDM_CM_SYSTEM				1000								//绯荤粺鍛戒护
 
-#define SUB_CM_SYSTEM_MESSAGE		1									//系统消息
-#define SUB_CM_ACTION_MESSAGE		2									//动作消息
-#define SUB_CM_DOWN_LOAD_MODULE		3									//下载消息
+#define SUB_CM_SYSTEM_MESSAGE		1									//绯荤粺娑堟伅
+#define SUB_CM_ACTION_MESSAGE		2									//鍔ㄤ綔娑堟伅
+#define SUB_CM_DOWN_LOAD_MODULE		3									//涓嬭浇娑堟伅
 
 //////////////////////////////////////////////////////////////////////////////////
 
-//类型掩码
-#define SMT_CHAT					0x0001								//聊天消息
-#define SMT_EJECT					0x0002								//弹出消息
-#define SMT_GLOBAL					0x0004								//全局消息
-#define SMT_PROMPT					0x0008								//提示消息
-#define SMT_TABLE_ROLL				0x0010								//滚动消息
-#define SMT_NOGOLD                  0x0020								//金币不足             
+//绫诲瀷鎺╃爜
+#define SMT_CHAT					0x0001								//鑱婂ぉ娑堟伅
+#define SMT_EJECT					0x0002								//寮瑰嚭娑堟伅
+#define SMT_GLOBAL					0x0004								//鍏ㄥ眬娑堟伅
+#define SMT_PROMPT					0x0008								//鎻愮ず娑堟伅
+#define SMT_TABLE_ROLL				0x0010								//婊氬姩娑堟伅
+#define SMT_NOGOLD                  0x0020								//閲戝竵涓嶈冻             
 
-//控制掩码
-#define SMT_CLOSE_ROOM				0x0100								//关闭房间
-#define SMT_CLOSE_GAME				0x0200								//关闭游戏
-#define SMT_CLOSE_LINK				0x0400								//中断连接
-#define SMT_CLOSE_HALL				0x0800								//中断连接
+//鎺у埗鎺╃爜
+#define SMT_CLOSE_ROOM				0x0100								//鍏抽棴鎴块棿
+#define SMT_CLOSE_GAME				0x0200								//鍏抽棴娓告垙
+#define SMT_CLOSE_LINK				0x0400								//涓柇杩炴帴
+#define SMT_CLOSE_HALL				0x0800								//涓柇杩炴帴
 
-//系统消息
+//绯荤粺娑堟伅
 struct CMD_CM_SystemMessage
 {
-	WORD							wType;								//消息类型
-	WORD							wLength;							//消息长度
-	TCHAR							szString[1024];						//消息内容
+	WORD							wType;								//娑堟伅绫诲瀷
+	WORD							wLength;							//娑堟伅闀垮害
+	TCHAR							szString[1024];						//娑堟伅鍐呭
 };
 
 //////////////////////////////////////////////////////////////////////////////////
 
-//动作类型
-#define ACT_BROWSE					1									//浏览动作
-#define ACT_DOWN_LOAD				2									//下载动作
+//鍔ㄤ綔绫诲瀷
+#define ACT_BROWSE					1									//娴忚鍔ㄤ綔
+#define ACT_DOWN_LOAD				2									//涓嬭浇鍔ㄤ綔
 
-//动作信息
+//鍔ㄤ綔淇℃伅
 struct tagActionHead
 {
-	UINT							uResponseID;						//响应标识
-	WORD							wAppendSize;						//附加大小
-	BYTE							cbActionType;						//动作类型
+	unsigned int					uResponseID;						//鍝嶅簲鏍囪瘑
+	WORD							wAppendSize;						//闄勫姞澶у皬
+	BYTE							cbActionType;						//鍔ㄤ綔绫诲瀷
 };
 
-//浏览类型
-#define BRT_IE						0x01								//I E 浏览
-#define BRT_PLAZA					0x02								//大厅浏览
-#define BRT_WINDOWS					0x04								//窗口浏览
+//娴忚绫诲瀷
+#define BRT_IE						0x01								//I E 娴忚
+#define BRT_PLAZA					0x02								//澶у巺娴忚
+#define BRT_WINDOWS					0x04								//绐楀彛娴忚
 
-//浏览动作
+//娴忚鍔ㄤ綔
 struct tagActionBrowse
 {
-	BYTE							cbBrowseType;						//浏览类型
-	TCHAR							szBrowseUrl[256];					//浏览地址
+	BYTE							cbBrowseType;						//娴忚绫诲瀷
+	TCHAR							szBrowseUrl[256];					//娴忚鍦板潃
 };
 
-//下载类型
-#define DLT_IE						1									//I E 下载
-#define DLT_MODULE					2									//下载模块
+//涓嬭浇绫诲瀷
+#define DLT_IE						1									//I E 涓嬭浇
+#define DLT_MODULE					2									//涓嬭浇妯″潡
 
-//下载动作
+//涓嬭浇鍔ㄤ綔
 struct tagActionDownLoad
 {
-	BYTE							cbDownLoadMode;						//下载方式
-	TCHAR							szDownLoadUrl[256];					//下载地址
+	BYTE							cbDownLoadMode;						//涓嬭浇鏂瑰紡
+	TCHAR							szDownLoadUrl[256];					//涓嬭浇鍦板潃
 };
 
-//动作消息
+//鍔ㄤ綔娑堟伅
 struct CMD_CM_ActionMessage
 {
-	WORD							wType;								//消息类型
-	WORD							wLength;							//消息长度
-	UINT							nButtonType;						//按钮类型
-	TCHAR							szString[1024];						//消息内容
+	WORD							wType;								//娑堟伅绫诲瀷
+	WORD							wLength;							//娑堟伅闀垮害
+	unsigned int				nButtonType;						//鎸夐挳绫诲瀷
+	TCHAR							szString[1024];						//娑堟伅鍐呭
 };
 
 //////////////////////////////////////////////////////////////////////////////////
 
-//下载信息
+//涓嬭浇淇℃伅
 struct CMD_CM_DownLoadModule
 {
-	BYTE							cbShowUI;							//显示界面
-	BYTE							cbAutoInstall;						//自动安装
-	WORD							wFileNameSize;						//名字长度
-	WORD							wDescribeSize;						//描述长度
-	WORD							wDownLoadUrlSize;					//地址长度
+	BYTE							cbShowUI;							//鏄剧ず鐣岄潰
+	BYTE							cbAutoInstall;						//鑷姩瀹夎
+	WORD							wFileNameSize;						//鍚嶅瓧闀垮害
+	WORD							wDescribeSize;						//鎻忚堪闀垮害
+	WORD							wDownLoadUrlSize;					//鍦板潃闀垮害
 };
 
 //////////////////////////////////////////////////////////////////////////////////

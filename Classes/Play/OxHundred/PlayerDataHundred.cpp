@@ -26,6 +26,12 @@ void PlayerDataHundred::setBankIcon(){
 //设置用户信息
 void PlayerDataHundred::setUserInfo(tagUserInfo userInfo){
 	memcpy(&userInfoPlayer,&userInfo,sizeof(tagUserInfo));
+
+	if (!pIPlayerBg->isVisible())
+	{
+		userEnterEffect(pIPlayerBg->getWorldPosition(), 0);
+	}
+
 	pIPlayerBg->setVisible(true);
 	if (Tools::GBKToUTF8(userInfoPlayer.szNickName))
 	{
@@ -96,3 +102,36 @@ void PlayerDataHundred::showActionType(ActionType type){
 void PlayerDataHundred::hideActionType(){
 	pIActionTypeBg->setVisible(false);
 }*/
+//用户进入效果动画
+void PlayerDataHundred::userEnterEffect(CCPoint pos, int tag){
+	CCArmature *pAnimate = CCArmature::create("AnimationGameIng");
+	this->addChild(pAnimate, 100);
+
+	pAnimate->setPosition(pos);
+	pAnimate->setTag(tag);
+
+	pAnimate->getAnimation()->setMovementEventCallFunc(this, movementEvent_selector(PlayerDataHundred::onAnimationEventOver));//动画播完回调用
+	pAnimate->getAnimation()->setFrameEventCallFunc(this, frameEvent_selector(PlayerDataHundred::onAnimationEventFrame));
+
+	pAnimate->getAnimation()->play("enterChair");
+}
+void PlayerDataHundred::onAnimationEventOver(CCArmature *pArmature, MovementEventType movementType, const char *movementID){
+	switch (movementType)
+	{
+	case cocos2d::extension::COMPLETE:
+	case cocos2d::extension::LOOP_COMPLETE:
+	{
+		pArmature->removeFromParentAndCleanup(true);
+	}
+	break;
+	default:
+		break;
+	}
+}
+void PlayerDataHundred::onAnimationEventFrame(CCBone *bone, const char *evt, int originFrameIndex, int currentFrameIndex){
+	if (strcmp(evt, "userEnter") == 0)
+	{
+
+		//pPlayerData[bone->getArmature()->getTag()]->pIPlayerIcon->setVisible(true);
+	}
+}

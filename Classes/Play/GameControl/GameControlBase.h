@@ -14,16 +14,21 @@
 #include "../../Network/TCPSocket/TCPSocket.h"
 #include "../GameEndLayer.h"
 #include "../../MTNotificationQueue/MessageQueue.h"
+#include "../../Tools/CMath.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
 #define MAX_TIMER		10		//计时器最大值
 class MainSceneBase;
-class GameControlBase:public CCLayer,public MessageQueue
+class GameControlBase:public CCLayer,public MessageQueue,public CMath
 {
 public:
 	//配置牛牛容器
 	UIPanel *pOptOx;
+	//庄家用户
+	BYTE wBankerUser;
+	//加注按键
+	UIButton *pbBetting[4];
 private:
 	//操作者提示动画
 	CCArmature *pArmatureActionPrompt;
@@ -33,10 +38,8 @@ private:
 	UIPanel *pFightForBanker;
 	//投注容器
 	UIPanel *pBetting;
-	//加注按键
-	UIButton *pbBetting[4];
-	//庄家用户
-	BYTE wBankerUser;
+
+	
 	//游戏结算层
 	GameEndLayer *pEndLayer;
 	//是否已提示牛牛
@@ -125,7 +128,7 @@ public:
 	//游戏中
 	virtual void onEventGameIng(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//用户叫庄
-	bool OnSubCallBanker(const void * pBuffer, WORD wDataSize);
+	virtual bool OnSubCallBanker(const void * pBuffer, WORD wDataSize);
 	//游戏开始
 	virtual bool OnSubGameStart(const void * pBuffer, WORD wDataSize);
 	//用户下注

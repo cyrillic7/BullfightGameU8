@@ -16,7 +16,7 @@ private:
 	UIButton* pBLevel[MAX_LEVEL_COUNT];
 	enum GameLevel
 	{
-		LEVEL_0=1,				//初级
+		LEVEL_0=1,					//初级
 		LEVEL_1,					//中级
 		LEVEL_2,					//高级
 		LEVEL_3,					//大师
@@ -25,6 +25,7 @@ private:
 	{
 		ITEM_0=1,							//二人牛牛
 		ITEM_1,								//通比牛牛
+		ITEM_2,								//六人换牌
 	};
 	CC_SYNTHESIZE(GameItem,gameItem,GameItem);
 

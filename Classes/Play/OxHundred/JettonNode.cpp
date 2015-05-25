@@ -52,7 +52,9 @@ void JettonNode::setJettonTypeWithMove(long long lJettonValue,CCPoint posBegin,C
 	float fTime=fDistance/fMoveSpeed;
 	//CCEaseQuarticActionOut *out=CCEaseQuarticActionOut::create(CCMoveTo::create(fTime,posEnd),0.2);
 	//CCEaseOut *out=CCEaseOut::create(CCMoveTo::create(fTime,posEnd),0.8);
-	CCEaseExponentialOut  *out=CCEaseExponentialOut ::create(CCMoveTo::create(fTime,posEnd));
+	int angle = abs(rand() % 2160);
+	CCSpawn *pSpawn = CCSpawn::create(CCMoveTo::create(fTime, posEnd),CCRotateBy::create(fTime,angle),NULL);
+	CCEaseExponentialOut  *out=CCEaseExponentialOut ::create(pSpawn);
 	this->runAction(out);
 	
 	/*UUIImageView *jetton=IImageView::create();
