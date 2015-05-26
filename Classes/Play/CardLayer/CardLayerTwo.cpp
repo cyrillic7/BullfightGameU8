@@ -29,6 +29,14 @@ bool CardLayerTwo::promptOx(int oxIndex){
 	bool isOxCard = GetOxCard(tempCard, 5);
 	if (isOxCard)
 	{
+		for (int i = 0; i < MAX_COUNT; i++)
+		{
+			if (pCard[3 * MAX_COUNT + i]->getIsUpCard())
+			{
+				pCard[3 * MAX_COUNT + i]->upCard(true);
+			}
+		}
+
 		for (int i = 0; i < 3; i++)
 		{
 			for (int j = 0; j < 5; j++)
@@ -36,7 +44,11 @@ bool CardLayerTwo::promptOx(int oxIndex){
 				if (tempCard[i]==DataModel::sharedDataModel()->card[oxIndex][j])
 				{
 					float originY=pCard[3*MAX_COUNT+j]->m_cpArmatureCard->getPositionY();
-					pCard[3*MAX_COUNT+j]->m_cpArmatureCard->setPositionY(originY+30);
+					if (!pCard[3 * MAX_COUNT + j]->getIsUpCard())
+					{
+						pCard[3 * MAX_COUNT + j]->upCard(true);
+					}
+					//pCard[3*MAX_COUNT+j]->m_cpArmatureCard->setPositionY(originY+30);
 					break;
 				}
 			}
@@ -112,12 +124,16 @@ void CardLayerTwo::sortingOx(int chairID,int showChairiD){
 	}
 }
 void CardLayerTwo::showOxType(int chairiD,int oxType){
-	float orgCradY=2000;
+	//float orgCradY=2000;
 	for (int i = 0; i < MAX_COUNT; i++)
 	{
-			orgCradY=MIN(pCard[chairiD*MAX_COUNT+i]->m_cpArmatureCard->getPositionY(),orgCradY);
+		if (pCard[chairiD*MAX_COUNT + i]->getIsUpCard())
+		{
+			pCard[chairiD*MAX_COUNT + i]->upCard(true);
+		}
+			//orgCradY=MIN(pCard[chairiD*MAX_COUNT+i]->m_cpArmatureCard->getPositionY(),orgCradY);
 	}
-	CCPoint cardPos=ccp(pCard[chairiD*MAX_COUNT+2]->m_cpArmatureCard->getPositionX(),orgCradY);
+	CCPoint cardPos = ccp(pCard[chairiD*MAX_COUNT + 2]->m_cpArmatureCard->getPositionX(), pCard[chairiD*MAX_COUNT + 2]->m_cpArmatureCard->getPositionY());
 
 	pAOxType[chairiD]->setTag(oxType);
 	pAOxType[chairiD]->setPosition(cardPos);
@@ -239,9 +255,9 @@ void CardLayerTwo::setCanSendCard(){
 float CardLayerTwo::getCardScale(int index){
 	if (index==SELF_SEAT)
 	{
-		return 0.9-(1-DataModel::sharedDataModel()->deviceSize.height/SCENE_SIZE.height);
+		return 0.8-(1-DataModel::sharedDataModel()->deviceSize.height/SCENE_SIZE.height);
 	}
-	return 0.8-(1-DataModel::sharedDataModel()->deviceSize.height/SCENE_SIZE.height);
+	return 0.7-(1-DataModel::sharedDataModel()->deviceSize.height/SCENE_SIZE.height);
 }
 //ÏÔÊ¾ÅÆ
 void CardLayerTwo::showCard(int index,int dataIndex){
@@ -253,5 +269,3 @@ void CardLayerTwo::showCard(int index,int dataIndex){
 		pCard[beginCardIndex+i]->changeCard(true,cardColor,cardValue,beginCardIndex+i,1);
 	}
 }
-
-

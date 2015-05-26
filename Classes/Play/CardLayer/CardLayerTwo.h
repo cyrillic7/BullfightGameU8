@@ -45,4 +45,7 @@ private:
 	//显示牛牛点数
 	void showOxType(int chairiD,int oxType);
 	void onPlayOxAnimation(CCNode *obj);
+
+
+
 };

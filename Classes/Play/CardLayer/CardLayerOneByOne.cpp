@@ -30,6 +30,14 @@ bool CardLayerOneByOne::promptOx(int oxIndex){
 	BYTE bCardValue = GetCardType(tempCard, MAX_COUNT, tempCard);
 	if (bCardValue>0)
 	{
+		for (int i = 0; i < MAX_COUNT; i++)
+		{
+			if (pCard[3 * MAX_COUNT + i]->getIsUpCard())
+			{
+				pCard[3 * MAX_COUNT + i]->upCard(true);
+			}
+		}
+
 		for (int i = 0; i < 3; i++)
 		{
 			for (int j = 0; j < 5; j++)
@@ -37,7 +45,11 @@ bool CardLayerOneByOne::promptOx(int oxIndex){
 				if (tempCard[i]==DataModel::sharedDataModel()->card[oxIndex][j])
 				{
 					float originY=pCard[3*MAX_COUNT+j]->m_cpArmatureCard->getPositionY();
-					pCard[3*MAX_COUNT+j]->m_cpArmatureCard->setPositionY(originY+30);
+					//pCard[3*MAX_COUNT+j]->m_cpArmatureCard->setPositionY(originY+30);
+					if (!pCard[3 * MAX_COUNT + j]->getIsUpCard())
+					{
+						pCard[3 * MAX_COUNT + j]->upCard(true);
+					}
 					break;
 				}
 			}
@@ -61,7 +73,7 @@ void CardLayerOneByOne::sortingOx(int chairID,int showChairiD){
 	BYTE bCardValue = GetCardType(bCardData, MAX_COUNT, bCardData);
 	CCLog("====:%d<<%s>>",bCardValue,__FUNCTION__);
 	//assert(bCardValue > 0);
-	float orgCradY = 2000;
+	//float orgCradY = 2000;
 	//÷ÿ≈≈≈£≈£≈∆À≥–Ú
 	for (int i = 0; i < MAX_COUNT; i++)
 	{
@@ -69,7 +81,11 @@ void CardLayerOneByOne::sortingOx(int chairID,int showChairiD){
 		int cardValue = GetCardValue(bCardData[i]);
 		pCard[showChairiD*MAX_COUNT + i]->changeCard(false, cardColor, cardValue, i, getCardScale(showChairiD));
 		
-		orgCradY = MIN(pCard[showChairiD*MAX_COUNT + i]->m_cpArmatureCard->getPositionY(), orgCradY);
+		if (pCard[showChairiD*MAX_COUNT + i]->getIsUpCard())
+		{
+			pCard[showChairiD*MAX_COUNT + i]->upCard(true);
+		}
+		//orgCradY = MIN(pCard[showChairiD*MAX_COUNT + i]->m_cpArmatureCard->getPositionY(), orgCradY);
 	}
 	//œ‘ æ≈∆–Õµ„ ˝
 	showOxType(showChairiD, bCardValue);
@@ -83,7 +99,7 @@ void CardLayerOneByOne::sortingOx(int chairID,int showChairiD){
 			if (i == 0)
 			{
 				cardPos = pArmature->getPosition();
-				cardPos.y = orgCradY;
+				//cardPos.y = orgCradY;
 			}
 			if (bCardValue == 0)
 			{

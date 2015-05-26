@@ -49,4 +49,6 @@ private:
 	//用户准备
 	virtual void onUserReady(CMD_GR_UserStatus *info);
 	//virtual void onUserEnterWithUpdate(tagUserInfo *user);
+	//换牌消息
+	virtual void onUserChangeCard(int wParam, long lParam);
 };

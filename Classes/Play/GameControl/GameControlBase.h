@@ -29,6 +29,8 @@ public:
 	BYTE wBankerUser;
 	//加注按键
 	UIButton *pbBetting[4];
+	//换牌操作容器
+	UIPanel *pPanelSwapCard;
 private:
 	//操作者提示动画
 	CCArmature *pArmatureActionPrompt;
@@ -79,6 +81,7 @@ public:
 	void hideTimer(bool bIsReset);
 
 private:
+	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
 	//初始化操作者提示动画
 	void initActionPrompt();
 	//初始化计时器
@@ -91,7 +94,7 @@ public:
 	//获取我的椅子位置
 	int getMeChairID();
 	//获取视图位置
-	virtual int getViewChairID(int severChairID){ return -1;}
+	virtual int getViewChairID(int severChairID);
 	//站立并退出
 	virtual void standUpWithExit();
 	//是不是观察者
@@ -113,7 +116,12 @@ private:
 	void menuFight(CCObject* pSender, TouchEventType type);
 	//投注
 	void menuBetting(CCObject* pSender, TouchEventType type);
-	
+	//换牌
+	void menuSwapCard(CCObject* pSender, TouchEventType type);
+	//不换牌
+	void menuDontSwapCard(CCObject* pSender, TouchEventType type);
+	//换牌消息
+	virtual void onUserChangeCard(int wParam, long lParam){}
 	
 	//获得椅子索引
 	virtual int getChairIndex(int meChairID,int chairID)=0;

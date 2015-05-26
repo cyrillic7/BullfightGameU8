@@ -168,3 +168,53 @@ short CardLayerBase::getCurAllCardCount(){
 	}
 	return count;
 }
+//触摸牌
+void CardLayerBase::touchCard(unsigned short beginPos, CCPoint pos){
+	bool isAction = true;;
+	if (getAllUpCardCount(beginPos)>2)
+	{
+		isAction = false;
+	}
+	for (int i = beginPos*MAX_CARD_COUNT; i < beginPos*MAX_CARD_COUNT + MAX_CARD_COUNT; i++)
+	{
+		pCard[i]->touchCard(pos, isAction);
+	}
+}
+int CardLayerBase::getAllUpCardCount(unsigned short beginPos){
+	int count = 0;
+	for (int i = beginPos*MAX_CARD_COUNT; i < beginPos*MAX_CARD_COUNT + MAX_CARD_COUNT; i++)
+	{
+		if (pCard[i]->getIsUpCard())
+		{
+			count++;
+		}
+	}
+	return count;
+}
+
+/*void CardLayerBase::draw(){
+	CCNode::draw();
+	CHECK_GL_ERROR_DEBUG();
+	glLineWidth(1.0f);
+
+	ccDrawColor4B(255, 0, 0, 255);
+	for (int i = 0; i < MAX_COUNT * 6; i++)
+	{
+
+		CCArmature *pArmature = pCard[i]->m_cpArmatureCard;
+
+		CCRect eRect = CCRect(
+			pArmature->getPositionX() - pArmature->getContentSize().width / 2*pArmature->getScaleX(),
+			pArmature->getPositionY() - pArmature->getContentSize().height / 2*pArmature->getScaleY(),
+			pArmature->getContentSize().width*pArmature->getScaleX(),
+			pArmature->getContentSize().height*pArmature->getScaleY());
+
+		CCPoint vertices[4] = { ccp(eRect.origin.x, eRect.origin.y),
+			ccp(eRect.origin.x + eRect.size.width, eRect.origin.y),
+			ccp(eRect.origin.x + eRect.size.width, eRect.origin.y + eRect.size.height),
+			ccp(eRect.origin.x, eRect.origin.y + eRect.size.height) };
+		ccDrawPoly(vertices, 4, true);
+	}
+
+
+}*/

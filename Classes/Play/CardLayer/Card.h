@@ -19,6 +19,8 @@ private:
 	short iCardColor;
 	short iCardValue;
 	int iZOrder;
+	//是否抬起牌
+	bool isUpCard;
 public:
 	Card();
 	~Card();
@@ -27,6 +29,12 @@ public:
 	void createCardArmature(CCBatchNode *cardBatch, short cardColor, short cardValue, int zOrder);
 	//改变牌
 	void changeCard(bool isAction,short cardColor, short cardValue, int zOrder,float fScale);
+	//触摸牌
+	void touchCard(CCPoint pos,bool isAction);
+	//抬起牌
+	void upCard(bool isAction);
+	//获取牌是否抬起
+	bool getIsUpCard();
 private:
 	void showCard();
 };

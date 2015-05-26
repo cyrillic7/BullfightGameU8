@@ -40,41 +40,43 @@ int GameControlOxSixSwap::getChairIndex(int meChairID,int chairID){
 	}
 	return 0;
 }
-/*
 //换牌消息
-LRESULT CGameClientEngine::OnUserChangeCard(WPARAM wParam, LPARAM lParam)
+void GameControlOxSixSwap::onUserChangeCard(int wParam, long lParam)
 {
-BYTE bChange = (BYTE)wParam;
+	BYTE bChange = (BYTE)wParam;
 
-WORD wMeChairID = GetMeChairID();
-WORD wViewChairID = m_wViewChairID[wMeChairID];
-BYTE bMyShootCard[MAX_COUNT];
-ZeroMemory(bMyShootCard,sizeof(bMyShootCard));
-CMD_C_ChangeCard ChangeCard;
-ChangeCard.bChange=bChange;
-ChangeCard.wPlayer=wMeChairID;
-if (bChange)
-{
-DWORD ShootCount=m_GameClientView.m_CardControl[wViewChairID].GetShootCard(bMyShootCard,true);
-if (ShootCount!=1)
-{
+	WORD wMeChairID = DataModel::sharedDataModel()->userInfo->wChairID;
+	WORD wViewChairID = getViewChairID(wMeChairID);
+	BYTE bMyShootCard[MAX_COUNT];
+	ZeroMemory(bMyShootCard, sizeof(bMyShootCard));
+	CMD_C_ChangeCard ChangeCard;
+	ChangeCard.bChange = bChange;
+	ChangeCard.wPlayer = wMeChairID;
 
-m_GameClientView.OnChangeTip(true);
-return FALSE;
+	if (bChange)
+	{
+		/*DWORD ShootCount = m_GameClientView.m_CardControl[wViewChairID].GetShootCard(bMyShootCard, true);
+		if (ShootCount != 1)
+		{
+
+			m_GameClientView.OnChangeTip(true);
+			return FALSE;
 		}
-else
-m_GameClientView.OnChangeTip(false);
-
-ChangeCard.cbChangeCard = bMyShootCard[0];
+		else
+			m_GameClientView.OnChangeTip(false);
+			*/
+		ChangeCard.cbChangeCard = bMyShootCard[0];
 	}
 
-	m_GameClientView.m_btChange.ShowWindow(SW_HIDE);
-	m_GameClientView.m_btNoChange.ShowWindow(SW_HIDE);
-	SendSocketData(SUB_C_CHANGE_CARD, &ChangeCard, sizeof(ChangeCard));
-
-	return TRUE;
+	//m_GameClientView.m_btChange.ShowWindow(SW_HIDE);
+	//m_GameClientView.m_btNoChange.ShowWindow(SW_HIDE);
+	bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_GAME,SUB_C_CHANGE_CARD, &ChangeCard, sizeof(ChangeCard));
+	if (isSend)
+	{
+		getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_OPT_OX);
+	}
 }
-*/
+
 //开牌
 void GameControlOxSixSwap::menuOpenCard(CCObject* pSender, TouchEventType type){
 	switch (type)

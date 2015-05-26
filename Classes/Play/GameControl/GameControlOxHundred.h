@@ -99,7 +99,7 @@ private:
 	//获取用户信息通过椅子号
 	tagUserInfo* getUserInfo(int iChair);
 private:
-	 int getChairIndex(int meChairID,int chairID);
+	int getChairIndex(int meChairID,int chairID);
 	virtual void update(float delta);
 	//更新计时器
 	virtual void delayedAction();

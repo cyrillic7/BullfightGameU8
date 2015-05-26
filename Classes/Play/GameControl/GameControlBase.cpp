@@ -60,6 +60,13 @@ void GameControlBase::onEnter(){
 	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuReady));
 	//准备容器
 	pPanelReady = static_cast<UIPanel*>(pWidget->getWidgetByName("PanelReady"));
+	//换牌容器
+	pPanelSwapCard = static_cast<UIPanel*>(pWidget->getWidgetByName("PanelSwapCard"));
+	button = static_cast<UIButton*>(pWidget->getWidgetByName("ButtonSwapCard"));
+	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuSwapCard));
+	button = static_cast<UIButton*>(pWidget->getWidgetByName("ButtonDontSwapCard"));
+	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuDontSwapCard));
+	pPanelSwapCard->setEnabled(false);
 	//抢庄容器
 	pFightForBanker = static_cast<UIPanel*>(pWidget->getWidgetByName("fightForBankerPanel"));
 	pFightForBanker->setEnabled(false);
@@ -90,6 +97,10 @@ void GameControlBase::onEnter(){
 	//	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(GameControlBase::OnUserEnter), S_L_US_ENTER, NULL);
 	//主动调用一次
 	//onUserEnter();
+
+	this->setTouchEnabled(true);
+	this->setTouchPriority(1);
+	this->setTouchMode(kCCTouchesOneByOne);
 }
 void GameControlBase::onExit(){
 	//移除监听事件 
@@ -111,6 +122,25 @@ void GameControlBase::initTimer(UILayer *pWidget){
 
 	pLTimerNum = static_cast<UILabelAtlas*>(pWidget->getWidgetByName("AtlasLabelTimer"));
 	iTimerCount = -1;
+}
+//触摸
+bool GameControlBase::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent){
+	CCPoint touchPoint = this->convertTouchToNodeSpace(pTouch);
+	CCLog("meChiarID:%d <<%s>>", DataModel::sharedDataModel()->userInfo->wChairID, __FUNCTION__);
+	unsigned short beginPos = getViewChairID(DataModel::sharedDataModel()->userInfo->wChairID);
+	getMainScene()->cardLayer->touchCard(beginPos,touchPoint);
+	return true;
+}
+//获取视图位置
+int GameControlBase::getViewChairID(int severChairID){
+	int viewChair = 3 - DataModel::sharedDataModel()->userInfo->wChairID;
+	if (viewChair < 0)
+	{
+		viewChair += MAX_CHAIR_COUNT;
+	}
+	viewChair += severChairID;
+	viewChair %= MAX_CHAIR_COUNT;
+	return viewChair;
 }
 void GameControlBase::resetTimer(float time, const char * promptContent){
 	iTimerCount = time;
@@ -177,6 +207,11 @@ void GameControlBase::delayedAction(){
 
 	}
 	break;
+	case MainSceneBase::STATE_SWAP_CARD:
+	{
+		onUserChangeCard(0, 0);
+	}
+		break;
 	default:
 		break;
 	}
@@ -357,6 +392,32 @@ void GameControlBase::menuBetting(CCObject* pSender, TouchEventType type){
 		break;
 	}
 }
+//换牌
+void GameControlBase::menuSwapCard(CCObject* pSender, TouchEventType type){
+	switch (type)
+	{
+	case TOUCH_EVENT_ENDED:
+	{
+		CCLog("swapCard------------- <<%s>>", __FUNCTION__);
+	}
+	break;
+	default:
+		break;
+	}
+}
+//不换牌
+void GameControlBase::menuDontSwapCard(CCObject* pSender, TouchEventType type){
+	switch (type)
+	{
+	case TOUCH_EVENT_ENDED:
+	{
+		onUserChangeCard(0,0);
+	}
+	break;
+	default:
+		break;
+	}
+}
 void GameControlBase::updateState(){
 	switch (getMainScene()->getGameState())
 	{
@@ -385,6 +446,7 @@ void GameControlBase::updateState(){
 	{
 		resetTimer(MAX_TIMER, NULL);
 		pOptOx->setEnabled(true);
+		pPanelSwapCard->setEnabled(false);
 		pFightForBanker->setEnabled(false);
 	}
 	break;
@@ -406,8 +468,15 @@ void GameControlBase::updateState(){
 		pPanelReady->setEnabled(false);
 		pFightForBanker->setEnabled(false);
 		pBetting->setEnabled(false);
+		pPanelSwapCard->setEnabled(false);
 	}
 	break;
+	case MainSceneBase::STATE_SWAP_CARD://换牌
+	{
+		resetTimer(MAX_TIMER, NULL);
+		pPanelSwapCard->setEnabled(true);
+	}
+		break;
 	default:
 		break;
 	}

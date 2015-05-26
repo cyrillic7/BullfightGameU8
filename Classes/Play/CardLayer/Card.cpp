@@ -3,6 +3,7 @@
 #include "Card.h"
 #include "../../Tools/DataModel.h"
 Card::Card()
+:isUpCard(false)
 {
 }
 Card::~Card() {
@@ -35,4 +36,37 @@ void Card::changeCard(bool isAction,short cardColor, short cardValue, int zOrder
 void Card::showCard(){
 	m_cpArmatureCard->getAnimation()->play(CCString::createWithFormat("card_%d_%d",iCardColor,iCardValue)->getCString());
 	m_cpArmatureCard->getParent()->reorderChild(m_cpArmatureCard,iZOrder);
+}
+//´¥ÃþÅÆ
+void Card::touchCard(CCPoint pos,bool isAction){
+	CCRect rect = CCRect(
+		m_cpArmatureCard->getPositionX() - m_cpArmatureCard->getContentSize().width / 2 * m_cpArmatureCard->getScaleX(),
+		m_cpArmatureCard->getPositionY() - m_cpArmatureCard->getContentSize().height / 2 * m_cpArmatureCard->getScaleY(),
+		m_cpArmatureCard->getContentSize().width*m_cpArmatureCard->getScaleX(),
+		m_cpArmatureCard->getContentSize().height*m_cpArmatureCard->getScaleY());
+
+	if (rect.containsPoint(pos))
+	{
+		upCard(isAction);
+	}
+}
+//Ì§ÆðÅÆ
+void Card::upCard(bool isAction){
+	
+		if (!isUpCard)
+		{
+			if (isAction)
+			{
+				isUpCard = true;
+				m_cpArmatureCard->setPositionY(m_cpArmatureCard->getPositionY() + 30);
+			}
+		}
+		else
+		{
+			isUpCard = false;
+			m_cpArmatureCard->setPositionY(m_cpArmatureCard->getPositionY() - 30);
+		}
+}
+bool Card::getIsUpCard(){
+	return isUpCard;
 }
