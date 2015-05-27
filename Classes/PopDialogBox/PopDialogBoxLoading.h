@@ -11,6 +11,9 @@
 class PopDialogBoxLoading: public PopDialogBox {
 private:
 	UIImageView *pWidgetBg;
+	UILabel *pLLoading;
+	int timerIndex;
+	std::string sLoading[3];
 public:
 	PopDialogBoxLoading();
 	~PopDialogBoxLoading();
@@ -20,4 +23,6 @@ private:
 	virtual void onExit();
 
 	virtual void playAnimation();
+	//更新加载文字动画
+	void updateLoadingLabel(float dt);
 };

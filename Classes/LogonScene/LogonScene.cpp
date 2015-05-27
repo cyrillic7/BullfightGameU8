@@ -105,7 +105,7 @@ void LogonScene::logonGameByAccount(){
 	TCPSocket *tcp=getSocket();
 	if (tcp)
 	{
-		tcp->createSocket("125.88.145.41",PORT_LOGON,new LogonGameListerner());
+		tcp->createSocket(GAME_IP, PORT_LOGON, new LogonGameListerner());
 	}
 }
 //读取网络消息回调

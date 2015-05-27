@@ -27,6 +27,6 @@ private:
 	void readHelpText();
 	//更新内容
 	void updateContent(int index);
-	//复选框回调（选择性别）
+	//复选框回调
 	void onCheckBoxSelectedStateEvent(CCObject *pSender, CheckBoxEventType type);
 };

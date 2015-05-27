@@ -255,7 +255,10 @@ void ClassicLobbyScene::enterMainSceneByMode(int mode){
 	}
 }
 void ClassicLobbyScene::update(float delta){
-	MessageQueue::update(delta);
+	if (isReadMessage)
+	{
+		MessageQueue::update(delta);
+	}
 	/*if (DataModel::sharedDataModel()->isSit)
 	{
 		DataModel::sharedDataModel()->isSit=false;

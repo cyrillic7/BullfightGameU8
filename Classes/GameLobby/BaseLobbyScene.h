@@ -13,6 +13,7 @@ public:
 	UILabel *userName;
 	UILabel *pLabelGoldCount;
 	UIButton *pBUserInfo;
+	bool isReadMessage;
 private:
 	enum PopType
 	{

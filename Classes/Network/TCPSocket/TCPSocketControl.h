@@ -18,6 +18,7 @@ USING_NS_CC;
 //Socket名字////////////////////////////////////////////////////////////////////////
 #define SOCKET_LOGON_GAME						"socketLogonGame"				//登录游戏
 #define SOCKET_LOGON_ROOM						"socketLogonRoom"				//登录房间
+#define SOCKET_SHOP								"socketShop"					//商店
 
 class TCPSocketControl {
 public:

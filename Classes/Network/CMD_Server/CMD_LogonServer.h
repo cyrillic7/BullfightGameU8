@@ -273,6 +273,9 @@ struct CMD_GP_ServerOnline
 #define SUB_GP_MODIFY_UNDER_WRITE	103									//修改签名
 #define SUB_GP_MODIFY_PASSPORT_ID	104	                                //身份证绑定
 #define SUB_GP_VERIFY_INSURE_PASS	105	                                //验证保险柜密码
+
+#define SUB_GP_GIFT 				108									//礼品包
+#define SUB_GP_PROPERTY				109									//道具
 //修改头像
 #define SUB_GP_USER_FACE_INFO		200									//头像信息
 #define SUB_GP_SYSTEM_FACE_INFO		201									//系统头像

@@ -126,13 +126,13 @@
                 <key>frame</key>
                 <string>{{231,324},{171,39}}</string>
                 <key>offset</key>
-                <string>{0,0}</string>
+                <string>{0,-8}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{171,39}}</string>
+                <string>{{0,16},{171,39}}</string>
                 <key>sourceSize</key>
-                <string>{171,39}</string>
+                <string>{171,55}</string>
             </dict>
             <key>u_shop_titel.png</key>
             <dict>
@@ -152,13 +152,13 @@
                 <key>frame</key>
                 <string>{{231,497},{143,33}}</string>
                 <key>offset</key>
-                <string>{0,0}</string>
+                <string>{0,-8}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{14,3},{143,33}}</string>
+                <string>{{14,19},{143,33}}</string>
                 <key>sourceSize</key>
-                <string>{171,39}</string>
+                <string>{171,55}</string>
             </dict>
             <key>u_shop_vip_icon.png</key>
             <dict>
@@ -183,7 +183,7 @@
             <key>size</key>
             <string>{275,1014}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:3c90732170b40babc1b6ec2a6c9296f3:f8f8c4bcf10b38df4473a90e8df410a6:5dff9365c6c14675677185d52acaa034$</string>
+            <string>$TexturePacker:SmartUpdate:82127e9b7ec15523401b15cf2cfa9551:01452090a24197f23a198bb8da4e211e:5dff9365c6c14675677185d52acaa034$</string>
             <key>textureFileName</key>
             <string>UIShop.png</string>
         </dict>

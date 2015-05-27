@@ -172,7 +172,10 @@ void GameLobbyScene::enterLobbyByMode(int mode){
 	}
 }
 void GameLobbyScene::update(float delta){
-	MessageQueue::update(delta);
+	if (isReadMessage)
+	{
+		MessageQueue::update(delta);
+	}
 }
 void GameLobbyScene::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
 	switch (wMainCmdID)

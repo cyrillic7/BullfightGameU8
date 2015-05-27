@@ -18,7 +18,8 @@
 #include "../PopDialogBox/PopDialogBoxAuction.h"
 #include "../PopDialogBox/PopDialogBoxRanking.h"
 #include "../Tools/DataModel.h"
-BaseLobbyScene::BaseLobbyScene(){
+BaseLobbyScene::BaseLobbyScene()
+	:isReadMessage(true){
 }
 BaseLobbyScene::~BaseLobbyScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
@@ -100,7 +101,7 @@ void BaseLobbyScene::popDialogBox(PopType type){
 		pdb=PopDialogBoxBank::create();
 		break;
 	case BaseLobbyScene::POP_SHOP:
-		pdb=PopDialogBoxShop::create();
+		pdb = PopDialogBoxShop::create();
 		break;
 	case BaseLobbyScene::POP_AUCTION:
 		pdb=PopDialogBoxAuction::create();
