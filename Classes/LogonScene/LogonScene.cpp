@@ -102,6 +102,7 @@ void LogonScene::update(float delta){
 void LogonScene::logonGameByAccount(){
 	PopDialogBox *box=PopDialogBoxLoading::create();
 	this->addChild(box,10,TAG_LOADING);
+	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_GAME);
 	TCPSocket *tcp=getSocket();
 	if (tcp)
 	{
@@ -149,7 +150,7 @@ void LogonScene::onEventConnect(WORD wSubCmdID,void * pDataBuffer, unsigned shor
 			logonAccounts.wModuleID[0] = 210; //210为二人牛牛标示
 			logonAccounts.wModuleID[1] = 30; //30为百人牛牛标示
 			logonAccounts.wModuleID[2] = 130; //1002为通比牛牛标示
-			logonAccounts.wModuleID[3] = 430; //六人换牌
+			//logonAccounts.wModuleID[3] = 430; //六人换牌
 			CCLog("passWord:%s <<%s>>",DataModel::sharedDataModel()->sLogonPassword.c_str(), __FUNCTION__);
 			MD5 m;
 			//std::string passWord = Tools::GBKToUTF8(DataModel::sharedDataModel()->sLogonPassword.c_str());
@@ -157,7 +158,7 @@ void LogonScene::onEventConnect(WORD wSubCmdID,void * pDataBuffer, unsigned shor
 			m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
 			std::string md5PassWord = m.GetMd5();
 			strcpy(logonAccounts.szPassword,md5PassWord.c_str());
-			CCLog("%s  --  :%s <<%s>>",logonAccounts.szAccounts,logonAccounts.szPassword, __FUNCTION__);
+			CCLog("%s  --  :%s   %d<<%s>>", logonAccounts.szAccounts, logonAccounts.szPassword, sizeof(logonAccounts), __FUNCTION__);
 			bool isSend =getSocket()->SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &logonAccounts, sizeof(logonAccounts));
 			CCLog("Logon:send:%d", isSend);
 		}
@@ -184,6 +185,7 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			DataModel::sharedDataModel()->userInfo->dwUserID=ls->dwUserID;
 			DataModel::sharedDataModel()->userInfo->cbGender=ls->cbGender;
 			DataModel::sharedDataModel()->userInfo->wFaceID=ls->wFaceID;
+			DataModel::sharedDataModel()->cbInsurePwd=ls->cbInsurePwd;
 
 			Tools::saveStringByRMS(RMS_LOGON_ACCOUNT,DataModel::sharedDataModel()->sLogonAccount);
 			Tools::saveStringByRMS(RMS_LOGON_PASSWORD,DataModel::sharedDataModel()->sLogonPassword);
@@ -359,6 +361,8 @@ ShowStatusWindow(TEXT("正在获取游戏列表..."));
 			char *describeStr = lf->szDescribeString;
 			this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 			CCLog("登录失败:%s",Tools::GBKToUTF8(describeStr));
+			TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_GAME);
+			//
 		}
 		break;
 	case SUB_MB_UPDATE_NOTIFY:

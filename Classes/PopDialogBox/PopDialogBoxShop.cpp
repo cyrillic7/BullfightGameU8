@@ -248,6 +248,11 @@ void PopDialogBoxShop::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void 
 		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_GIFT);
 	}
 		break;
+	case MDM_GP_USER_SERVICE:
+	{
+
+	}
+		break;
 	default:
 		CCLog("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
 		break;

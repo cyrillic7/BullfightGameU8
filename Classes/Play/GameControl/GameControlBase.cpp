@@ -833,7 +833,8 @@ bool GameControlBase::OnSubGameStart(const void * pBuffer, WORD wDataSize){
 		//pbBetting[i]->setTitleText(CCString::createWithFormat("%lld", lCurrentScore)->getCString());
 		UILabel *label = static_cast<UILabel*>(pbBetting[i]->getChildByName("LabelGold"));
 		std::string sJetton = formatNumber(CCString::createWithFormat("%lld", lCurrentScore)->getCString());
-		label->setText(Tools::GBKToUTF8(sJetton.c_str()));
+		//label->setText(Tools::GBKToUTF8(sJetton.c_str()));
+		label->setText(sJetton.c_str());
 	}
 	getMainScene()->playerLayer->setBankIcon(getChairIndex(getMeChairID(), wBankerUser));
 	if (wBankerUser != getMeChairID())

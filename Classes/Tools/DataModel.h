@@ -38,6 +38,8 @@ public:
 	long long m_lTurnMaxScore;
 	//牌数组
 	BYTE card[MAX_PLAYER][5];
+	//是否设置过银行密码
+	BYTE cbInsurePwd;
 	//变量定义
 	tagUserInfo *userInfo;
 	//消息队列
