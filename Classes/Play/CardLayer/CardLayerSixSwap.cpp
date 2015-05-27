@@ -30,6 +30,14 @@ bool CardLayerSixSwap::promptOx(int oxIndex){
 	BYTE bCardValue = GetCardType(tempCard, MAX_COUNT, tempCard);
 	if (bCardValue>0)
 	{
+		for (int i = 0; i < MAX_COUNT; i++)
+		{
+			if (pCard[3 * MAX_COUNT + i]->getIsUpCard())
+			{
+				pCard[3 * MAX_COUNT + i]->upCard(true);
+			}
+		}
+
 		for (int i = 0; i < 3; i++)
 		{
 			for (int j = 0; j < 5; j++)
@@ -37,7 +45,11 @@ bool CardLayerSixSwap::promptOx(int oxIndex){
 				if (tempCard[i]==DataModel::sharedDataModel()->card[oxIndex][j])
 				{
 					float originY=pCard[3*MAX_COUNT+j]->m_cpArmatureCard->getPositionY();
-					pCard[3*MAX_COUNT+j]->m_cpArmatureCard->setPositionY(originY+30);
+					//pCard[3*MAX_COUNT+j]->m_cpArmatureCard->setPositionY(originY+30);
+					if (!pCard[3 * MAX_COUNT + j]->getIsUpCard())
+					{
+						pCard[3 * MAX_COUNT + j]->upCard(true);
+					}
 					break;
 				}
 			}
@@ -61,7 +73,7 @@ void CardLayerSixSwap::sortingOx(int chairID,int showChairiD){
 	BYTE bCardValue = GetCardType(bCardData, MAX_COUNT, bCardData);
 	CCLog("====:%d<<%s>>",bCardValue,__FUNCTION__);
 	//assert(bCardValue > 0);
-	float orgCradY = 2000;
+	//float orgCradY = 2000;
 	//÷ÿ≈≈≈£≈£≈∆À≥–Ú
 	for (int i = 0; i < MAX_COUNT; i++)
 	{
@@ -69,7 +81,11 @@ void CardLayerSixSwap::sortingOx(int chairID,int showChairiD){
 		int cardValue = GetCardValue(bCardData[i]);
 		pCard[showChairiD*MAX_COUNT + i]->changeCard(false, cardColor, cardValue, i, getCardScale(showChairiD));
 		
-		orgCradY = MIN(pCard[showChairiD*MAX_COUNT + i]->m_cpArmatureCard->getPositionY(), orgCradY);
+		if (pCard[showChairiD*MAX_COUNT + i]->getIsUpCard())
+		{
+			pCard[showChairiD*MAX_COUNT + i]->upCard(true);
+		}
+		//orgCradY = MIN(pCard[showChairiD*MAX_COUNT + i]->m_cpArmatureCard->getPositionY(), orgCradY);
 	}
 	//œ‘ æ≈∆–Õµ„ ˝
 	showOxType(showChairiD, bCardValue);
@@ -83,7 +99,7 @@ void CardLayerSixSwap::sortingOx(int chairID,int showChairiD){
 			if (i == 0)
 			{
 				cardPos = pArmature->getPosition();
-				cardPos.y = orgCradY;
+				//cardPos.y = orgCradY;
 			}
 			if (bCardValue == 0)
 			{
@@ -201,12 +217,16 @@ void CardLayerSixSwap::sortingOx(int chairID,int showChairiD){
 	}*/
 }
 void CardLayerSixSwap::showOxType(int chairiD,int oxType){
-	float orgCradY=2000;
+	//float orgCradY=2000;
 	for (int i = 0; i < MAX_COUNT; i++)
 	{
-		orgCradY=MIN(pCard[chairiD*MAX_COUNT+i]->m_cpArmatureCard->getPositionY(),orgCradY);
+		if (pCard[chairiD*MAX_COUNT + i]->getIsUpCard())
+		{
+			pCard[chairiD*MAX_COUNT + i]->upCard(true);
+		}
+		//orgCradY=MIN(pCard[chairiD*MAX_COUNT+i]->m_cpArmatureCard->getPositionY(),orgCradY);
 	}
-	CCPoint cardPos=ccp(pCard[chairiD*MAX_COUNT+2]->m_cpArmatureCard->getPositionX(),orgCradY-20);
+	CCPoint cardPos = ccp(pCard[chairiD*MAX_COUNT + 2]->m_cpArmatureCard->getPositionX(), pCard[chairiD*MAX_COUNT + 2]->m_cpArmatureCard->getPositionY() - 20);
 
 	pAOxType[chairiD]->setTag(oxType);
 	pAOxType[chairiD]->setPosition(cardPos);
@@ -343,5 +363,22 @@ void CardLayerSixSwap::showCard(int index,int dataIndex){
 		pCard[beginCardIndex + i]->changeCard(true, cardColor, cardValue, beginCardIndex + i, getCardScale(index));
 	}
 }
-
+//¥•√˛≈∆
+void CardLayerSixSwap::touchCard(unsigned short beginPos, CCPoint pos){
+	bool isAction = true;
+	int limitCount = 0;
+	if (getMainScene()->getGameState()==MainSceneBase::STATE_OPT_OX)
+	{
+		limitCount = 2;
+	}
+	
+	if (getAllUpCardCount(beginPos)>limitCount)
+	{
+		isAction = false;
+	}
+	for (int i = beginPos*MAX_CARD_COUNT; i < beginPos*MAX_CARD_COUNT + MAX_CARD_COUNT; i++)
+	{
+		pCard[i]->touchCard(pos, isAction);
+	}
+}
 

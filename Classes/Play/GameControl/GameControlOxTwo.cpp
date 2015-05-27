@@ -53,7 +53,7 @@ void GameControlOxTwo::menuOpenCard(CCObject* pSender, TouchEventType type){
 		OxCard.bOX=(m_GameClientView.m_CardControl[wViewChairID].GetOX())?TRUE:FALSE;
 		SendSocketData(SUB_C_OPEN_CARD,&OxCard,sizeof(OxCard));
 		//DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainScene::STATE_SETTLE_ACCOUNFS);*/
-		showActionPrompt(3);
+		showActionPrompt(3, CCPointZero);
 		pOptOx->setEnabled(false);		
 		CMD_C_OxCard OxCard;
 		OxCard.bOX=GetOxCard(DataModel::sharedDataModel()->card[getMeChairID()],5);

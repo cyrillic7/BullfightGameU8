@@ -62,7 +62,7 @@ public:
 	//显示牛牛点数
 	//virtual void showOxType(int chairiD,int oxType){}
 	//触摸牌
-	void touchCard(unsigned short beginPos, CCPoint pos);
+	virtual void touchCard(unsigned short beginPos, CCPoint pos);
 public:
 	MainSceneBase*getMainScene();
 	//获取当前局总牌数
@@ -91,6 +91,7 @@ private:
 	void onSendCardFinish();
 
 	//void draw();
+public:
 	//获取抬起牌总数
 	int getAllUpCardCount(unsigned short beginPos);
 };

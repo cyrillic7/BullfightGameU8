@@ -60,7 +60,7 @@ void LogonScene::onEnter(){
 		button  = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("ButtonLogon%d",i)->getCString()));
 		button->addTouchEventListener(this, SEL_TouchEvent(&LogonScene::onMenuLogon));
 	}
-	logonGameByAccount();
+	//logonGameByAccount();
 }
 void LogonScene::onExit(){
 	CCLayer::onExit();
@@ -150,11 +150,14 @@ void LogonScene::onEventConnect(WORD wSubCmdID,void * pDataBuffer, unsigned shor
 			logonAccounts.wModuleID[1] = 30; //30为百人牛牛标示
 			logonAccounts.wModuleID[2] = 130; //1002为通比牛牛标示
 			logonAccounts.wModuleID[3] = 430; //六人换牌
-
+			CCLog("passWord:%s <<%s>>",DataModel::sharedDataModel()->sLogonPassword.c_str(), __FUNCTION__);
 			MD5 m;
-			m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(),DataModel::sharedDataModel()->sLogonPassword.length());
+			//std::string passWord = Tools::GBKToUTF8(DataModel::sharedDataModel()->sLogonPassword.c_str());
+			//m.ComputMd5(passWord.c_str(), passWord.length());
+			m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
 			std::string md5PassWord = m.GetMd5();
 			strcpy(logonAccounts.szPassword,md5PassWord.c_str());
+			CCLog("%s  --  :%s <<%s>>",logonAccounts.szAccounts,logonAccounts.szPassword, __FUNCTION__);
 			bool isSend =getSocket()->SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &logonAccounts, sizeof(logonAccounts));
 			CCLog("Logon:send:%d", isSend);
 		}

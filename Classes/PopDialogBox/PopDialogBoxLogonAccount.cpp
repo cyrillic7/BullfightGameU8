@@ -51,7 +51,9 @@ void PopDialogBoxLogonAccount::onTextFieldAccount(CCObject* obj, TextFiledEventT
 	case TEXTFIELD_EVENT_ATTACH_WITH_IME:
 		//CCLog("attach<<%s>>",__FUNCTION__);
 		break;
+	case TEXTFIELD_EVENT_INSERT_TEXT:
 	case TEXTFIELD_EVENT_DETACH_WITH_IME:
+	case TEXTFIELD_EVENT_DELETE_BACKWARD:
 		{
 			UITextField *pTF=(UITextField*)obj;
 			if (strcmp(pTF->getName(),"TextFieldAccount")==0)
@@ -62,13 +64,7 @@ void PopDialogBoxLogonAccount::onTextFieldAccount(CCObject* obj, TextFiledEventT
 				DataModel::sharedDataModel()->sLogonPassword=pTF->getStringValue();
 			}
 		}
-		//CCLog("detach<<%s>>",__FUNCTION__);
-		break;
-	case TEXTFIELD_EVENT_INSERT_TEXT:
-		//CCLog("insert<<%s>>",__FUNCTION__);
-		break;
-	case TEXTFIELD_EVENT_DELETE_BACKWARD:
-		//CCLog("delete<<%s>>",__FUNCTION__);
+		CCLog("detach<<%s>>",__FUNCTION__);
 		break;
 	default:
 		break;

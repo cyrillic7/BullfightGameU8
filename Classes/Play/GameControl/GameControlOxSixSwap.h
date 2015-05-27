@@ -23,6 +23,10 @@ private:
 	//用户进入
 	virtual void onUserEnter();
 
+	//游戏状态
+	virtual bool OnSocketSubGameStatus(void * pData, WORD wDataSize);
+	//游戏场景
+	virtual bool OnEventSceneMessage(void * pData, WORD wDataSize);
 	//////////////////////////////////////////////////////////////////////////
 	//游戏中
 	virtual void onEventGameIng(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
@@ -38,6 +42,8 @@ private:
 	virtual bool OnSubOpenCard(const void * pBuffer, WORD wDataSize);
 	//设置基数
 	bool OnSubGameBase(const void * pBuffer, WORD wDataSize);
+	//用户换牌
+	bool OnSubChangeCard(const void * pBuffer, WORD wDataSize);
 	//游戏结束
 	virtual bool OnSubGameEnd(const void * pBuffer, WORD wDataSize);
 	//////////////////////////////////////////////////////////////////////////

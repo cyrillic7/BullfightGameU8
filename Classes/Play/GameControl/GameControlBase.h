@@ -44,8 +44,10 @@ private:
 	
 	//游戏结算层
 	GameEndLayer *pEndLayer;
-	//是否已提示牛牛
-	bool isPromptOx;
+	//游戏状态
+protected:
+	bool							m_bAllowLookon;						//允许旁观
+	BYTE							m_cbGameStatus;						//游戏状态
 public:
 	//计时器
 	UIImageView *pITimer;
@@ -68,7 +70,7 @@ public:
 	MainSceneBase*getMainScene();
 public:
 	//显示指定索引提示动画
-	void showActionPrompt(int promptIndex);
+	void showActionPrompt(int promptIndex, CCPoint offsetPos);
 	//隐藏提示动画
 	void hideActionPrompt();
 	//获取庄家视图位置
@@ -153,6 +155,10 @@ public:
 	void onSubUserEnter(void * pDataBuffer, unsigned short wDataSize);
 	//框架命令
 	void frameEvent(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
+	//游戏状态
+	virtual bool OnSocketSubGameStatus(void * pData, WORD wDataSize);
+	//游戏场景
+	virtual bool OnEventSceneMessage(void * pData, WORD wDataSize);
 	//用户站立
 	void OnUserFree(CCObject *obj);
 	//用户进入
@@ -165,9 +171,12 @@ public:
 
 	//用户状态
 	virtual void onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
+	//隐藏所有操作按键
+	void hideAllActionPanel();
 private:
 	void goldJump(int index,CCPoint beginPos,CCPoint endPos);
 	void onGoldJump(CCNode *node);
+	
 };
 
 #endif /* defined(__BullfightGame__GameHUD__) */

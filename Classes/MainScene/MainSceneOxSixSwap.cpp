@@ -12,7 +12,7 @@
 #include "../Tools/BaseAttributes.h"
 #include "../Network/TCPSocket/TCPSocketControl.h"
 #include "../Play/CardLayer/CardLayerSixSwap.h"
-#include "../Play/PlayerLayer/PlayerLayerOneByOne.h"
+#include "../Play/PlayerLayer/PlayerLayerSixSwap.h"
 MainSceneOxSixSwap::MainSceneOxSixSwap()
 {
 }
@@ -68,7 +68,7 @@ void MainSceneOxSixSwap::initCardLayer(){
 	this->addChild(cardLayer);
 }
 void MainSceneOxSixSwap::initPlayerLayer(){
-	playerLayer = PlayerLayerOneByOne::create();
+	playerLayer = PlayerLayerSixSwap::create();
 	this->addChild(playerLayer);
 }
 //收到准备完成回调

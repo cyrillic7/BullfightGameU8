@@ -1,4 +1,4 @@
-//
+﻿//
 //  GameHUD.cpp
 //  BullfightGame
 //
@@ -11,6 +11,7 @@
 #include "../../Network/CMD_Server/CMD_Ox_SixSwap.h"
 #include "../../Network/TCPSocket/TCPSocketControl.h"
 #include "../../Tools/Tools.h"
+#include "../../Network/CMD_Server/PacketAide.h"
 GameControlOxSixSwap::GameControlOxSixSwap()
 {
 
@@ -20,6 +21,8 @@ GameControlOxSixSwap::~GameControlOxSixSwap(){
 }
 void GameControlOxSixSwap::onEnter(){
 	GameControlBase::onEnter();
+
+	pITimer->setPosition(ccp(DataModel::sharedDataModel()->deviceSize.width - 50, 40));
 }
 void GameControlOxSixSwap::onExit(){
 	GameControlBase::onExit();
@@ -48,7 +51,8 @@ void GameControlOxSixSwap::onUserChangeCard(int wParam, long lParam)
 	WORD wMeChairID = DataModel::sharedDataModel()->userInfo->wChairID;
 	WORD wViewChairID = getViewChairID(wMeChairID);
 	BYTE bMyShootCard[MAX_COUNT];
-	ZeroMemory(bMyShootCard, sizeof(bMyShootCard));
+
+	//ZeroMemory(bMyShootCard, sizeof(bMyShootCard));
 	CMD_C_ChangeCard ChangeCard;
 	ChangeCard.bChange = bChange;
 	ChangeCard.wPlayer = wMeChairID;
@@ -85,7 +89,7 @@ void GameControlOxSixSwap::menuOpenCard(CCObject* pSender, TouchEventType type){
 	{
 		hideTimer(true);
 		getMainScene()->cardLayer->sortingOx(getMeChairID(),3);
-		showActionPrompt(3);
+		showActionPrompt(3, CCPointZero);
 		pOptOx->setEnabled(false);		
 		CMD_C_OxCard OxCard;
 		OxCard.bOX=GetOxCard(DataModel::sharedDataModel()->card[getMeChairID()],5);
@@ -134,14 +138,11 @@ void GameControlOxSixSwap::onUserEnter(){
 	{
 		if (iter->second.wChairID > 5 || iter->second.wChairID < 0)
 		{
-			CCLog("------------->6 <1 %d<<%s>>",iter->second.wChairID,__FUNCTION__);
 			//tempTagUserInfo.erase(iter++);
 			continue;
 		}
-		CCLog("server:%d  view位置 :%d   me:%d %s<<%s>>",iter->second.wChairID, getViewChairID(iter->second.wChairID),DataModel::sharedDataModel()->userInfo->wChairID,Tools::GBKToUTF8(iter->second.szNickName), __FUNCTION__);
 		getMainScene()->playerLayer->setUserInfo(getViewChairID(iter->second.wChairID), iter->second);
 	}
-	CCLog("=======================================<<%s>>",__FUNCTION__);
 	//DataModel::sharedDataModel()->mTagUserInfo.clear();
 }
 /*void GameControlOxSixSwap::onUserEnterWithUpdate(tagUserInfo *user){
@@ -162,6 +163,290 @@ int GameControlOxSixSwap::getViewChairID(int severChairID){
 	viewChair += severChairID;
 	viewChair %= MAX_CHAIR_COUNT;
 	return viewChair;
+}
+//游戏状态
+bool GameControlOxSixSwap::OnSocketSubGameStatus(void * pData, WORD wDataSize)
+{
+	//效验参数
+	assert(wDataSize == sizeof(CMD_GF_GameStatus));
+	if (wDataSize != sizeof(CMD_GF_GameStatus)) return false;
+
+	//消息处理
+	CMD_GF_GameStatus * pGameStatus = (CMD_GF_GameStatus *)pData;
+
+	//设置变量
+	m_cbGameStatus = pGameStatus->cbGameStatus;
+	m_bAllowLookon = pGameStatus->cbAllowLookon ? true : false;
+	//US_LOOKON
+	return true;
+}
+//游戏场景
+bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
+	switch (m_cbGameStatus)
+	{
+	case GAME_STATUS_FREE:		//空闲状态
+	{
+		//效验数据
+		int size = sizeof(CMD_S_StatusFree);
+		if (wDataSize != sizeof(CMD_S_StatusFree)) return false;
+		CMD_S_StatusFree * pStatusFree = (CMD_S_StatusFree *)pData;
+		CCLog("%s <<%s>>",Tools::GBKToUTF8("空闲状态"), __FUNCTION__);
+		//hideAllActionPanel();
+		/*//设置控件
+		if (IsLookonMode() == false && GetMeUserItem()->GetUserStatus() != US_READY)
+		{
+		SetGameClock(GetMeChairID(), IDI_START_GAME, TIME_USER_START_GAME);
+		m_GameClientView.m_btStart.ShowWindow(SW_SHOW);
+		//m_GameClientView.m_btStart.SetFocus();
+		}
+		m_GameClientView.lCellScore = pStatusFree->lCellScore;*/
+		return true;
+	}
+	break;
+	case GS_TK_CALL:	// 叫庄状态
+	{
+		//效验数据
+		int size = sizeof(CMD_S_StatusCall);
+		if (wDataSize != sizeof(CMD_S_StatusCall)) return false;
+		CMD_S_StatusCall * pStatusCall = (CMD_S_StatusCall *)pData;
+		CCLog("%s <<%s>>", Tools::GBKToUTF8("叫庄状态"), __FUNCTION__);
+		hideAllActionPanel();
+		getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_CALL_BANKER);
+		/*//游戏信息
+		memcpy(m_cbPlayStatus, pStatusCall->cbPlayStatus, sizeof(m_cbPlayStatus));
+
+		//用户信息
+		for (WORD i = 0; i < GAME_PLAYER; i++)
+		{
+		//视图位置
+		m_wViewChairID[i] = SwitchViewChairID(i);
+		m_GameClientView.SetUserPlayingStatus(m_wViewChairID[i], m_cbPlayStatus[i]);
+
+		//桌面筹码
+		if (m_lTableScore[i]>0L)m_GameClientView.SetUserTableScore(m_wViewChairID[i], m_lTableScore[i]);
+
+		//获取用户
+		IClientUserItem * pUserData = GetTableUserItem(i);
+		if (pUserData == NULL) continue;
+
+		//用户名字
+		lstrcpyn(m_szNickNames[i], pUserData->GetNickName(), CountArray(m_szNickNames[i]));
+		}
+
+		//始叫用户
+		if (!IsLookonMode() && pStatusCall->wCallBanker == GetMeChairID())
+		{
+		//控件显示
+		//ActiveGameFrame();
+		m_GameClientView.m_btBanker.ShowWindow(SW_SHOW);
+		m_GameClientView.m_btIdler.ShowWindow(SW_SHOW);
+		}
+
+		//等待标志
+		WORD wViewID = m_wViewChairID[pStatusCall->wCallBanker];
+		m_GameClientView.SetWaitCall((BYTE)wViewID);
+
+
+		//实际定时器
+		if (pStatusCall->wCallBanker == GetMeChairID())
+		{
+		SetGameClock(pStatusCall->wCallBanker, IDI_CALL_BANKER, TIME_USER_CALL_BANKER);
+		}
+		else
+		{
+		SetGameClock(pStatusCall->wCallBanker, IDI_NULLITY, TIME_USER_CALL_BANKER);
+		}
+		*/
+		return true;
+	}
+	break;
+	case GS_TK_SCORE:	//下注状态
+	{
+		//效验数据
+		int size = sizeof(CMD_S_StatusScore);
+		if (wDataSize != sizeof(CMD_S_StatusScore)) return false;
+		CMD_S_StatusScore * pStatusScore = (CMD_S_StatusScore *)pData;
+		hideAllActionPanel();
+		CCLog("%s <<%s>>", Tools::GBKToUTF8("下注状态"), __FUNCTION__);
+		getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_BETTING);
+		/*//设置变量
+		m_lTurnMaxScore = pStatusScore->lTurnMaxScore;
+		m_wBankerUser = pStatusScore->wBankerUser;
+		CopyMemory(m_lTableScore, pStatusScore->lTableScore, sizeof(m_lTableScore));
+		CopyMemory(m_cbPlayStatus, pStatusScore->cbPlayStatus, sizeof(m_cbPlayStatus));
+
+		for (WORD i = 0; i < GAME_PLAYER; i++)
+		{
+		//视图位置
+		m_wViewChairID[i] = SwitchViewChairID(i);
+		m_GameClientView.SetUserPlayingStatus(m_wViewChairID[i], m_cbPlayStatus[i]);
+
+		//桌面筹码
+		if (m_lTableScore[i]>0L)m_GameClientView.SetUserTableScore(m_wViewChairID[i], m_lTableScore[i]);
+
+		//获取用户
+		IClientUserItem * pUserData = GetTableUserItem(i);
+		if (pUserData == NULL) continue;
+
+
+		//用户名字
+		lstrcpyn(m_szNickNames[i], pUserData->GetNickName(), CountArray(m_szNickNames[i]));
+		}
+
+		//设置筹码
+		if (!IsLookonMode() && pStatusScore->lTurnMaxScore > 0L && m_lTableScore[GetMeChairID()] == 0L)
+		{
+		LONGLONG lUserMaxScore[GAME_PLAYER];
+		ZeroMemory(lUserMaxScore, sizeof(lUserMaxScore));
+		LONGLONG lTemp = m_lTurnMaxScore;
+		for (WORD i = 0; i < GAME_PLAYER; i++)
+		{
+		if (i>0)lTemp /= 2;
+		lUserMaxScore[i] = __max(lTemp, 1L);
+		}
+
+		//更新控件
+		UpdateScoreControl(lUserMaxScore, SW_HIDE);
+
+		//实际定时器
+		SetTimer(IDI_TIME_USER_ADD_SCORE, (TIME_USER_ADD_SCORE)* 1000, NULL);
+		}
+
+		//庄家标志
+		WORD wID = m_wViewChairID[m_wBankerUser];
+		m_GameClientView.SetBankerUser(wID);
+
+		//等待标志
+		m_GameClientView.SetWaitInvest(true);
+
+
+		//辅助显示中心时钟
+		SetGameClock(GetMeChairID(), IDI_NULLITY, TIME_USER_ADD_SCORE);
+		*/
+		return true;
+	}
+	break;
+	case GS_TK_PLAYING:	//游戏状态
+	{
+		//效验数据
+		int size = sizeof(CMD_S_StatusPlay);
+		if (wDataSize != sizeof(CMD_S_StatusPlay)) return false;
+		CMD_S_StatusPlay * pStatusPlay = (CMD_S_StatusPlay *)pData;
+		hideAllActionPanel();
+		CCLog("%s <<%s>>", Tools::GBKToUTF8("游戏状态"), __FUNCTION__);
+		getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_GAME_END);
+		/*
+		//设置变量
+		m_lTurnMaxScore = pStatusPlay->lTurnMaxScore;
+		m_wBankerUser = pStatusPlay->wBankerUser;
+		CopyMemory(m_lTableScore, pStatusPlay->lTableScore, sizeof(m_lTableScore));
+		CopyMemory(m_bUserOxCard, pStatusPlay->bOxCard, sizeof(m_bUserOxCard));
+		CopyMemory(m_cbPlayStatus, pStatusPlay->cbPlayStatus, sizeof(m_cbPlayStatus));
+
+		for (WORD i = 0; i < GAME_PLAYER; i++)
+		{
+		//视图位置
+		m_wViewChairID[i] = SwitchViewChairID(i);
+		m_GameClientView.SetUserPlayingStatus(m_wViewChairID[i], m_cbPlayStatus[i]);
+
+		//桌面筹码
+		if (m_lTableScore[i]>0L)m_GameClientView.SetUserTableScore(m_wViewChairID[i], m_lTableScore[i]);
+
+		//获取用户
+		IClientUserItem * pUserData = GetTableUserItem(i);
+		if (pUserData == NULL) continue;
+
+		//扑克数据
+		CopyMemory(m_cbHandCardData[i], pStatusPlay->cbHandCardData[i], MAX_COUNT);
+
+		//用户名字
+		lstrcpyn(m_szNickNames[i], pUserData->GetNickName(), CountArray(m_szNickNames[i]));
+		}
+
+		//庄家标志
+		WORD wID = m_wViewChairID[m_wBankerUser];
+		m_GameClientView.SetBankerUser(wID);
+
+		//左上信息
+		//m_GameClientView.SetScoreInfo(m_lTurnMaxScore,0);
+
+		//设置界面
+		LONGLONG lTableScore = 0L;
+		for (WORD i = 0; i < GAME_PLAYER; i++)
+		{
+		//设置位置
+		WORD wViewChairID = m_wViewChairID[i];
+
+		//设置扑克
+		if (m_cbPlayStatus[i] == USEX_PLAYING)
+		{
+		m_GameClientView.m_CardControl[wViewChairID].SetCardData(pStatusPlay->cbHandCardData[i], MAX_COUNT);
+		}
+		}
+
+		WORD wMeChiarID = GetMeChairID();
+		WORD wViewChairID = m_wViewChairID[wMeChiarID];
+		if (!IsLookonMode())m_GameClientView.m_CardControl[wViewChairID].SetPositively(true);
+		if (IsAllowLookon() || !IsLookonMode())
+		{
+		m_GameClientView.m_CardControl[wViewChairID].SetDisplayItem(true);
+		}
+
+		//摊牌标志
+		for (WORD i = 0; i < GAME_PLAYER; i++)
+		{
+		if (m_cbPlayStatus[i] != USEX_PLAYING) continue;
+		if (m_bUserOxCard[i] != 0xff)
+		{
+		m_GameClientView.ShowOpenCard(m_wViewChairID[i]);
+		}
+		}
+
+		//控件处理
+		if (!IsLookonMode() && m_cbPlayStatus[wMeChiarID] == GS_TK_PLAYING)
+		{
+		//显示控件
+		if (m_bUserOxCard[wMeChiarID] == 0xff)
+		{
+		OnSendCardFinish(0, 0);
+		}
+		else
+		{
+		m_GameClientView.m_CardControl[wViewChairID].SetPositively(false);
+		if (m_bUserOxCard[wMeChiarID] == TRUE)//牛牌分类
+		{
+		//设置变量
+		BYTE bTemp[MAX_COUNT];
+		CopyMemory(bTemp, m_cbHandCardData[wMeChiarID], sizeof(bTemp));
+
+		//获取牛牌
+		//m_GameLogic.GetOxCard(bTemp,MAX_COUNT);
+
+		BYTE bCardValue = m_GameLogic.GetCardType(bTemp, MAX_COUNT, bTemp);
+		ASSERT(bCardValue > 0);
+
+		//设置控件
+		m_GameClientView.m_CardControl[wViewChairID].SetCardData(bTemp, 3);
+		m_GameClientView.m_CardControlOx[wViewChairID].SetCardData(&bTemp[3], 2);
+
+		//显示点数
+		m_GameClientView.SetUserOxValue(wViewChairID, bCardValue);
+		}
+		else
+		{
+		//无牛
+		m_GameClientView.SetUserOxValue(wViewChairID, 0);
+		}
+		}
+		}*/
+		return true;
+	}
+	break;
+	default:
+		CCLog("%s %d<<%s>>", Tools::GBKToUTF8("其它状态"),m_cbGameStatus, __FUNCTION__);
+		break;
+	}
+	return true;
 }
 //游戏中
 void GameControlOxSixSwap::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
@@ -216,10 +501,56 @@ void GameControlOxSixSwap::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, un
 		OnSubGameBase(pDataBuffer, wDataSize);
 	}
 		break;
+	case SUB_S_CHANGE_CARD://用户换牌
+	{
+		OnSubChangeCard(pDataBuffer,wDataSize);
+	}
+		break;
+	case SUB_S_CHANGE_OPEN://开牌
+	{
+		//getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_END);
+		CCLog("%s <<%s>>",Tools::GBKToUTF8("开牌"), __FUNCTION__);
+	}
+			break;
 	default:
 		CCLog("--------------------gameIng:%d<<%s>>", wSubCmdID, __FUNCTION__);
 		break;
 	}
+}
+//用户换牌
+bool GameControlOxSixSwap::OnSubChangeCard(const void * pBuffer, WORD wDataSize)
+{
+	//效验数据
+	if (wDataSize != sizeof(CMD_S_ChangeCard)) return false;
+	CMD_S_ChangeCard * pChangeCard = (CMD_S_ChangeCard *)pBuffer;
+
+	/*WORD wMeChairID = GetMeChairID();
+	WORD wViewChairID = SwitchViewChairID(wMeChairID);
+	WORD wChangeID = pChangeCard->wPlayerID;
+	BYTE bChangeData = pChangeCard->cbCardData;
+	BYTE bOldCardData = pChangeCard->cbOldCardData;
+
+	if (wMeChairID == wChangeID)
+	{
+		if (pChangeCard->bChange)
+		{
+			for (int i = 0; i < MAX_COUNT; i++)
+			{
+				if (m_cbHandCardData[wMeChairID][i] == bOldCardData)
+				{
+					m_cbHandCardData[wMeChairID][i] = bChangeData;
+				}
+			}
+
+			m_GameClientView.m_CardControl[wViewChairID].OnChangeCard(bOldCardData, bChangeData);
+		}
+
+		m_GameClientView.m_btChange.ShowWindow(SW_HIDE);
+		m_GameClientView.m_btNoChange.ShowWindow(SW_HIDE);
+
+		m_GameClientView.OnChangeTip(false);
+	}*/
+	return true;
 }
 //设置基数
 bool GameControlOxSixSwap::OnSubGameBase(const void * pBuffer, WORD wDataSize)
@@ -263,7 +594,7 @@ bool GameControlOxSixSwap::OnSubCallBanker(const void * pBuffer, WORD wDataSize)
 	}
 	else
 	{
-		showActionPrompt(1);
+		showActionPrompt(1, CCPointZero);
 	}
 	for (int i = 0; i < MAX_PLAYER; i++)
 	{
@@ -352,7 +683,7 @@ bool GameControlOxSixSwap::OnSubAddScore(const void * pBuffer, WORD wDataSize)
 	//效验数据
 	if (wDataSize != sizeof(CMD_S_AddScore)) return false;
 	CMD_S_AddScore * pAddScore = (CMD_S_AddScore *)pBuffer;
-	CCLog("userScore : %lld<<%s>>",pAddScore->lAddScoreCount,__FUNCTION__);
+	hideActionPrompt();
 	/*//删除定时器/控制按钮
 	if (IsCurrentUser(pAddScore->wAddScoreUser) && m_GameClientView.m_btOneScore.IsWindowVisible() == TRUE)
 	{
@@ -403,7 +734,7 @@ bool GameControlOxSixSwap::OnSubGameStart(const void * pBuffer, WORD wDataSize){
 	}
 	else
 	{
-		showActionPrompt(2);
+		showActionPrompt(2, CCPointZero);
 	}
 	return true;
 }
@@ -501,7 +832,6 @@ bool GameControlOxSixSwap::OnSubOpenCard(const void * pBuffer, WORD wDataSize)
 	//效验数据
 	if (wDataSize != sizeof(CMD_S_Open_Card)) return false;
 	CMD_S_Open_Card * pOpenCard = (CMD_S_Open_Card *)pBuffer;
-	CCLog("openCardID:%d  bOpen:%d", pOpenCard->wPlayerID, pOpenCard->bOpen);
 	/*
 	//设置变量
 	WORD wMeChairID=GetMeChairID();

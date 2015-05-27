@@ -48,7 +48,7 @@ void GameControlOxOneByOne::menuOpenCard(CCObject* pSender, TouchEventType type)
 	{
 		hideTimer(true);
 		getMainScene()->cardLayer->sortingOx(getMeChairID(),3);
-		showActionPrompt(3);
+		showActionPrompt(3, CCPointZero);
 		pOptOx->setEnabled(false);		
 		CMD_C_OxCard OxCard;
 		OxCard.bOX=GetOxCard(DataModel::sharedDataModel()->card[getMeChairID()],5);

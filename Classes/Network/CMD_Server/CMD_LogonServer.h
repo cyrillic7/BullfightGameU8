@@ -699,6 +699,7 @@ struct CMD_MB_LogonSuccess
 {
 	WORD								wFaceID;							//头像标识
 	BYTE								cbGender;							//用户性别
+	BYTE							cbInsurePwd;						//重设密码
 	DWORD							dwUserID;							//用户 I D
 	DWORD							dwGameID;							//游戏 I D
 	DWORD							dwExperience;						//经验数值

@@ -22,7 +22,7 @@
 GameControlBase::GameControlBase()
 	:pEndLayer(NULL)
 	, pLTimerPromptContent(NULL)
-	, isPromptOx(false){
+	{
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationActionPrompt.ExportJson));
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationGameIng.ExportJson));
 	schedule(SEL_SCHEDULE(&GameControlBase::updateTimer), 1);
@@ -113,7 +113,6 @@ void GameControlBase::onExit(){
 void GameControlBase::initActionPrompt(){
 	pArmatureActionPrompt = CCArmature::create("AnimationActionPrompt");
 	this->addChild(pArmatureActionPrompt, 2);
-	pArmatureActionPrompt->setPosition(DataModel::sharedDataModel()->deviceSize.width / 2, DataModel::sharedDataModel()->deviceSize.height / 2);
 	hideActionPrompt();
 }
 void GameControlBase::initTimer(UILayer *pWidget){
@@ -209,7 +208,7 @@ void GameControlBase::delayedAction(){
 	break;
 	case MainSceneBase::STATE_SWAP_CARD:
 	{
-		onUserChangeCard(0, 0);
+		menuDontSwapCard(NULL, TOUCH_EVENT_ENDED);
 	}
 		break;
 	default:
@@ -257,11 +256,7 @@ void GameControlBase::menuPrompt(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		if (isPromptOx)
-		{
-			return;
-		}
-		isPromptOx = true;
+
 		bool isOx = getMainScene()->cardLayer->promptOx(getMeChairID());
 		if (!isOx)
 		{
@@ -398,7 +393,9 @@ void GameControlBase::menuSwapCard(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		CCLog("swapCard------------- <<%s>>", __FUNCTION__);
+		showActionPrompt(4, ccp(0, -DataModel::sharedDataModel()->deviceSize.height / 2 + 50));
+		//CCLog("swapCard------------- <<%s>>", __FUNCTION__);
+		//hideActionPrompt();
 	}
 	break;
 	default:
@@ -412,19 +409,33 @@ void GameControlBase::menuDontSwapCard(CCObject* pSender, TouchEventType type){
 	case TOUCH_EVENT_ENDED:
 	{
 		onUserChangeCard(0,0);
+		hideActionPrompt();
 	}
 	break;
 	default:
 		break;
 	}
 }
+//隐藏所有操作按键
+void GameControlBase::hideAllActionPanel(){
+	pOptOx->setEnabled(false);
+	pPanelReady->setEnabled(false);
+	pFightForBanker->setEnabled(false);
+	pBetting->setEnabled(false);
+	pPanelSwapCard->setEnabled(false);
+}
 void GameControlBase::updateState(){
 	switch (getMainScene()->getGameState())
 	{
 	case MainSceneOxTwo::STATE_READY:
 	{
-		isPromptOx = false;
+		
 		resetTimer(MAX_TIMER, NULL);
+		if (IsLookonMode())
+		{
+			hideAllActionPanel();
+			return;
+		}
 		//移除结算层
 		if (pEndLayer)
 		{
@@ -438,6 +449,11 @@ void GameControlBase::updateState(){
 	case MainSceneOxTwo::STATE_CALL_BANKER:
 	{
 		resetTimer(MAX_TIMER, NULL);
+		if (IsLookonMode())
+		{
+			hideAllActionPanel();
+			return;
+		}
 		pFightForBanker->setEnabled(true);
 		pPanelReady->setEnabled(false);
 	}
@@ -445,6 +461,11 @@ void GameControlBase::updateState(){
 	case MainSceneOxTwo::STATE_OPT_OX:
 	{
 		resetTimer(MAX_TIMER, NULL);
+		if (IsLookonMode())
+		{
+			hideAllActionPanel();
+			return;
+		}
 		pOptOx->setEnabled(true);
 		pPanelSwapCard->setEnabled(false);
 		pFightForBanker->setEnabled(false);
@@ -453,6 +474,11 @@ void GameControlBase::updateState(){
 	case MainSceneOxTwo::STATE_BETTING:
 	{
 		resetTimer(MAX_TIMER, NULL);
+		if (IsLookonMode())
+		{
+			hideAllActionPanel();
+			return;
+		}
 		pBetting->setEnabled(true);
 	}
 	break;
@@ -464,6 +490,11 @@ void GameControlBase::updateState(){
 	case MainSceneOxTwo::STATE_END:
 	{
 		resetTimer(MAX_TIMER, NULL);
+// 		if (IsLookonMode())
+// 		{
+// 			hideAllActionPanel();
+// 			return;
+// 		}
 		pOptOx->setEnabled(false);
 		pPanelReady->setEnabled(false);
 		pFightForBanker->setEnabled(false);
@@ -474,6 +505,11 @@ void GameControlBase::updateState(){
 	case MainSceneBase::STATE_SWAP_CARD://换牌
 	{
 		resetTimer(MAX_TIMER, NULL);
+		if (IsLookonMode())
+		{
+			hideAllActionPanel();
+			return;
+		}
 		pPanelSwapCard->setEnabled(true);
 	}
 		break;
@@ -482,7 +518,11 @@ void GameControlBase::updateState(){
 	}
 }
 //显示指定索引提示动画
-void GameControlBase::showActionPrompt(int promptIndex){
+void GameControlBase::showActionPrompt(int promptIndex,CCPoint offsetPos){
+	CCPoint displayPos = ccp(DataModel::sharedDataModel()->deviceSize.width / 2, DataModel::sharedDataModel()->deviceSize.height / 2);
+	CCPoint armaturePos = ccpAdd(displayPos,offsetPos);
+	pArmatureActionPrompt->setPosition(armaturePos);
+
 	pArmatureActionPrompt->setVisible(true);
 	pArmatureActionPrompt->getAnimation()->play(CCString::createWithFormat("Animation%d", promptIndex)->getCString());
 }
@@ -501,10 +541,8 @@ int GameControlBase::getBankViewID(){
 int GameControlBase::getMeChairID(){
 	return DataModel::sharedDataModel()->userInfo->wChairID;
 }
-//是不是观察者
-bool GameControlBase::IsLookonMode(){
-	return false;
-}
+
+
 void GameControlBase::update(float delta){
 	MessageQueue::update(delta);
 	//OnEventGameMessage(NULL);
@@ -555,7 +593,8 @@ void GameControlBase::frameEvent(WORD wSubCmdID, void * pDataBuffer, unsigned sh
 	{
 	case SUB_GF_GAME_STATUS:
 	{
-		CCLog("游戏状态<<%s>>", __FUNCTION__);
+		OnSocketSubGameStatus(pDataBuffer,wDataSize);
+		//CCLog("游戏状态<<%s>>", __FUNCTION__);
 	}
 	break;
 	case SUB_GF_SYSTEM_MESSAGE:
@@ -565,13 +604,42 @@ void GameControlBase::frameEvent(WORD wSubCmdID, void * pDataBuffer, unsigned sh
 	break;
 	case SUB_GF_GAME_SCENE:
 	{
-		CCLog("游戏场景<<%s>>", __FUNCTION__);
+		OnEventSceneMessage(pDataBuffer, wDataSize);
+		//CCLog("游戏场景<<%s>>", __FUNCTION__);
 	}
 	break;
 	default:
 		CCLog("----------------sub:%d<<%s>>", wSubCmdID, __FUNCTION__);
 		break;
 	}
+}
+//游戏状态
+bool GameControlBase::OnSocketSubGameStatus(void * pData, WORD wDataSize)
+{
+	//效验参数
+	assert(wDataSize == sizeof(CMD_GF_GameStatus));
+	if (wDataSize != sizeof(CMD_GF_GameStatus)) return false;
+
+	//消息处理
+	CMD_GF_GameStatus * pGameStatus = (CMD_GF_GameStatus *)pData;
+
+	//设置变量
+	m_cbGameStatus = pGameStatus->cbGameStatus;
+	m_bAllowLookon = pGameStatus->cbAllowLookon ? true : false;
+	//US_LOOKON
+	
+	return true;
+}
+//游戏场景
+bool GameControlBase::OnEventSceneMessage(void * pData, WORD wDataSize){
+	return true;
+}
+//是不是观察者
+bool GameControlBase::IsLookonMode()
+{
+	//if (m_pIMySelfUserItem == NULL) return true;
+	//return (m_pIMySelfUserItem->GetUserStatus() == US_LOOKON);
+	return m_cbGameStatus == US_LOOKON;
 }
 //游戏中
 void GameControlBase::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
@@ -663,7 +731,7 @@ bool GameControlBase::OnSubCallBanker(const void * pBuffer, WORD wDataSize){
 	}
 	else
 	{
-		showActionPrompt(1);
+		showActionPrompt(1,CCPointZero);
 	}
 	for (int i = 0; i < MAX_PLAYER; i++)
 	{
@@ -775,7 +843,7 @@ bool GameControlBase::OnSubGameStart(const void * pBuffer, WORD wDataSize){
 	}
 	else
 	{
-		showActionPrompt(2);
+		showActionPrompt(2, CCPointZero);
 	}
 
 	return true;
@@ -1246,10 +1314,10 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 				iterUser->second.wTableID = info->UserStatus.wTableID;
 				onUserEnter();
 			}
-			CCLog("state==sit-----------%ld", info->dwUserID);
+			//CCLog("state==sit-----------%ld", info->dwUserID);
 			if (info->dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID){
 				//DataModel::sharedDataModel()->isSit=true;
-				CCLog("======================坐下:table: %d desk:%d", info->UserStatus.wTableID, info->UserStatus.wChairID);
+				//CCLog("======================坐下:table: %d desk:%d", info->UserStatus.wTableID, info->UserStatus.wChairID);
 				DataModel::sharedDataModel()->userInfo->wTableID = info->UserStatus.wTableID;
 				DataModel::sharedDataModel()->userInfo->wChairID = info->UserStatus.wChairID;
 				if (getMainScene()->getGameState() == MainSceneBase::STATE_OBSERVER)
@@ -1311,8 +1379,6 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 	break;
 	case SUB_GR_USER_ENTER://用户进入
 	{
-		CCLog("userEnter------<<%s>>", __FUNCTION__);
-		// 
 		onSubUserEnter(pDataBuffer, wDataSize);
 		onUserEnter();
 		//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_US_ENTER, NULL);

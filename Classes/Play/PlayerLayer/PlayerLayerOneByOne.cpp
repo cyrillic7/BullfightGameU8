@@ -49,6 +49,5 @@ void PlayerLayerOneByOne::doSetCardMovePos(int i){
 	default:
 		break;
 	}
-	
 	getMainScene()->posChair[i] = cardPos;
 }

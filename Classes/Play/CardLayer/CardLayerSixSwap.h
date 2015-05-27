@@ -45,4 +45,6 @@ private:
 	//显示牛牛点数
 	void showOxType(int chairiD,int oxType);
 	void onPlayOxAnimation(CCNode *obj);
+	//触摸牌
+	virtual void touchCard(unsigned short beginPos, CCPoint pos);
 };
