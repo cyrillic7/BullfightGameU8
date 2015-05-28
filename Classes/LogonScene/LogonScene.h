@@ -12,11 +12,12 @@
 #include "cocos-ext.h"
 #include "../MTNotificationQueue/MessageQueue.h"
 #include "../Tools/DataModel.h"
+#include "../Tools/CStringAide.h"
 #include "../Network/TCPSocket/TCPSocketControl.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace ui;
-class LogonScene:public CCLayer,public MessageQueue
+class LogonScene:public CCLayer,public MessageQueue,public CStringAide
 {
 private:
 	enum LogonType

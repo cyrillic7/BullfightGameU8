@@ -153,7 +153,7 @@ void LogonScene::onEventConnect(WORD wSubCmdID,void * pDataBuffer, unsigned shor
 			//logonAccounts.wModuleID[3] = 430; //六人换牌
 			CCLog("passWord:%s <<%s>>",DataModel::sharedDataModel()->sLogonPassword.c_str(), __FUNCTION__);
 			MD5 m;
-			//std::string passWord = Tools::GBKToUTF8(DataModel::sharedDataModel()->sLogonPassword.c_str());
+			//std::string passWord = GBKToUTF8(DataModel::sharedDataModel()->sLogonPassword.c_str());
 			//m.ComputMd5(passWord.c_str(), passWord.length());
 			m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
 			std::string md5PassWord = m.GetMd5();
@@ -177,7 +177,7 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			//if (wDataSize != sizeof(CMD_MB_LogonSuccess)) return ;
 			if (wDataSize < sizeof(CMD_MB_LogonSuccess)) return;
 			CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)pDataBuffer;
-			CCLog("登录成功 %ld %s",ls->dwUserID,Tools::GBKToUTF8(ls->szNickName));
+			CCLog("登录成功 %ld %s",ls->dwUserID,GBKToUTF8(ls->szNickName));
 			//赋值
 			strcpy(DataModel::sharedDataModel()->userInfo->szNickName,ls->szNickName);
 			DataModel::sharedDataModel()->userInfo->lScore=ls->lUserScore;
@@ -360,7 +360,7 @@ ShowStatusWindow(TEXT("正在获取游戏列表..."));
 			long code = lf->lResultCode;
 			char *describeStr = lf->szDescribeString;
 			this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
-			CCLog("登录失败:%s",Tools::GBKToUTF8(describeStr));
+			CCLog("登录失败:%s",GBKToUTF8(describeStr));
 			TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_GAME);
 			//
 		}
@@ -428,18 +428,18 @@ void LogonScene::onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned s
 				else if (tempTag->wKindID == 130)
 				{
 					DataModel::sharedDataModel()->tagGameServerListOxOneByOne.push_back(tempTag);
-					CCLog("port %d  %d  %s<<%s>>", tempTag->wServerPort, tempTag->wSortID, Tools::GBKToUTF8(tempTag->szDescription), __FUNCTION__);
+					CCLog("port %d  %d  %s<<%s>>", tempTag->wServerPort, tempTag->wSortID, GBKToUTF8(tempTag->szDescription), __FUNCTION__);
 
 				}
 				else if (tempTag->wKindID == 430)
 				{
 					DataModel::sharedDataModel()->tagGameServerListSixSwap.push_back(tempTag);
-					CCLog("port %d  %d  six swap %s<<%s>>", tempTag->wServerPort, tempTag->wSortID, Tools::GBKToUTF8(tempTag->szDescription), __FUNCTION__);
+					CCLog("port %d  %d  six swap %s<<%s>>", tempTag->wServerPort, tempTag->wSortID, GBKToUTF8(tempTag->szDescription), __FUNCTION__);
 
 				}
 				else
 				{
-					CCLog("port %d  %d  %s<<%s>>", tempTag->wServerPort, tempTag->wSortID, Tools::GBKToUTF8(tempTag->szDescription), __FUNCTION__);
+					CCLog("port %d  %d  %s<<%s>>", tempTag->wServerPort, tempTag->wSortID, GBKToUTF8(tempTag->szDescription), __FUNCTION__);
 				}
 				
 				//sort(DataModel::sharedDataModel()->tagGameServerList.begin(), DataModel::sharedDataModel()->tagGameServerList.end(), less_second);

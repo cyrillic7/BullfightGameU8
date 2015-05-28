@@ -1,4 +1,4 @@
-﻿#include "CMath.h"
+#include "CMath.h"
 #include "DataModel.h"
 #include "GameConfig.h"
 CMath::CMath()
@@ -31,7 +31,7 @@ std::string CMath::formatNumber(std::string strNum) {
 	else if (strLen > 4){  //大于10K才行
 		formatString = strNum.substr(0, strLen - 1);
 		formatString.insert(formatString.length() - 2, ".");
-		formatString.append("万");
+		formatString.append("千 ");
 	}
 	else {
 		formatString = strNum;

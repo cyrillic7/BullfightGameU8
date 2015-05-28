@@ -225,14 +225,14 @@ const char * Tools::GBKToUTF8(const char * strChar){
 	{
 		free(pBuff);
 		iconv_close(iconvH);
-		return NULL;
+		return "";
 	}
 #else
 	if (-1 == iconv(iconvH, (char **)&strChar, &strLength, &outbuf, &outLength))
 	{
 		free(pBuff);
 		iconv_close(iconvH);
-		return NULL;
+		return "";
 	}
 #endif
 	

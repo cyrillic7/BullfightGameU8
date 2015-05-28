@@ -10,10 +10,11 @@
 #include "cocos2d.h"
 #include "cocos-ext.h"
 #include "../Tools/GameConfig.h"
+#include "../Tools/CStringAide.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace ui;
-class PopDialogBox: public CCLayer {
+class PopDialogBox: public CCLayer,public CStringAide {
 public:
 	UILayer * pUILayer;
 	UIImageView *pWidgetBg;

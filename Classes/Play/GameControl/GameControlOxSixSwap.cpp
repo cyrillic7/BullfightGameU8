@@ -716,10 +716,10 @@ bool GameControlOxSixSwap::OnSubGameStart(const void * pBuffer, WORD wDataSize){
 	for (int i = 0; i < 4; i++)
 	{
 		long long lCurrentScore = 0;
-		if (i == 0)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 8, 1L);
-		else if (i == 1)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 4, 1L);
-		else if (i == 2)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 2, 1L);
-		else if (i == 3)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore, 1L);
+		if (i == 3)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 8, 1L);
+		else if (i == 2)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 4, 1L);
+		else if (i == 1)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 2, 1L);
+		else if (i == 0)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore, 1L);
 		
 		UILabel *label = static_cast<UILabel*>(pbBetting[i]->getChildByName("LabelGold"));
 		std::string sJetton = formatNumber(CCString::createWithFormat("%lld", lCurrentScore)->getCString());

@@ -368,10 +368,10 @@ void GameControlBase::menuBetting(CCObject* pSender, TouchEventType type){
 		UIButton *button = (UIButton*)pSender;
 		int bTemp = button->getTag();
 		long long lCurrentScore = 0;
-		if (bTemp == 1)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 8, 1L);
-		else if (bTemp == 2)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 4, 1L);
-		else if (bTemp == 3)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 2, 1L);
-		else if (bTemp == 4)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore, 1L);
+		if (bTemp == 4)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 8, 1L);
+		else if (bTemp == 3)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 4, 1L);
+		else if (bTemp == 2)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 2, 1L);
+		else if (bTemp == 1)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore, 1L);
 
 		//getMainScene()->setGameStateWithUpdate(MainScene::STATE_OPT_OX);
 		getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
@@ -826,10 +826,10 @@ bool GameControlBase::OnSubGameStart(const void * pBuffer, WORD wDataSize){
 	for (int i = 0; i < 4; i++)
 	{
 		long long lCurrentScore = 0;
-		if (i == 0)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 8, 1L);
-		else if (i == 1)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 4, 1L);
-		else if (i == 2)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 2, 1L);
-		else if (i == 3)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore, 1L);
+		if (i == 3)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 8, 1L);
+		else if (i == 2)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 4, 1L);
+		else if (i == 1)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore / 2, 1L);
+		else if (i == 0)lCurrentScore = MAX(DataModel::sharedDataModel()->m_lTurnMaxScore, 1L);
 		//pbBetting[i]->setTitleText(CCString::createWithFormat("%lld", lCurrentScore)->getCString());
 		UILabel *label = static_cast<UILabel*>(pbBetting[i]->getChildByName("LabelGold"));
 		std::string sJetton = formatNumber(CCString::createWithFormat("%lld", lCurrentScore)->getCString());

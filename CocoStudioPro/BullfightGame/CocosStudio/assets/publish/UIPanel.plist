@@ -20,7 +20,7 @@
             <key>u_u_info_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{721,73},{49,49}}</string>
+                <string>{{721,77},{49,49}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +46,7 @@
             <key>u_u_info_title1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{437,73},{282,69}}</string>
+                <string>{{437,77},{282,69}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -55,6 +55,19 @@
                 <string>{{0,0},{282,69}}</string>
                 <key>sourceSize</key>
                 <string>{282,69}</string>
+            </dict>
+            <key>u_u_knapsack_bg.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{736,53},{34,22}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{34,22}}</string>
+                <key>sourceSize</key>
+                <string>{34,22}</string>
             </dict>
             <key>ui_pop_user_info_bg.png</key>
             <dict>
@@ -79,7 +92,7 @@
             <key>size</key>
             <string>{775,159}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:39080d10d00ac8e2e6a3747c68251617:b0a5e0efddd7403da628a79d5260d012:32c497890652a868b1bc601216ad4c61$</string>
+            <string>$TexturePacker:SmartUpdate:31662ae53cedd38978565696ba517c66:2f3593ff2923cb8877c55e95461d97b9:32c497890652a868b1bc601216ad4c61$</string>
             <key>textureFileName</key>
             <string>UIPanel.png</string>
         </dict>

@@ -25,6 +25,7 @@
     <string>UIPopDialogBoxUpBank.json</string>
     <string>UIPopDialogBoxOnline.json</string>
     <string>UIPopDialogBoxTrend.json</string>
+    <string>UIPopDialogBoxKnapsack.json</string>
   </JsonList>
   <CanvasSize>
     <Width>1136</Width>
@@ -40,11 +41,11 @@
     <string>UICheckBox.plist</string>
     <string>UITask.plist</string>
     <string>UILoadingBar.plist</string>
+    <string>UILogon.plist</string>
     <string>UIShop.plist</string>
     <string>UIRanking.plist</string>
     <string>UIActivity.plist</string>
     <string>Font.plist</string>
-    <string>UILogon.plist</string>
     <string>UIGameIng.plist</string>
     <string>UIGameIngHundred.plist</string>
   </imageFileList>
@@ -55,11 +56,11 @@
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UILogon.png</string>
     <string>UIShop.png</string>
     <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UILogon.png</string>
     <string>UIGameIng.png</string>
     <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
@@ -68,11 +69,11 @@
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UILogon.png</string>
     <string>UIShop.png</string>
     <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UILogon.png</string>
     <string>UIGameIng.png</string>
     <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
@@ -81,11 +82,11 @@
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UILogon.png</string>
     <string>UIShop.png</string>
     <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UILogon.png</string>
     <string>UIGameIng.png</string>
     <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
@@ -94,11 +95,11 @@
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UILogon.png</string>
     <string>UIShop.png</string>
     <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UILogon.png</string>
     <string>UIGameIng.png</string>
     <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
@@ -107,11 +108,11 @@
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UILogon.png</string>
     <string>UIShop.png</string>
     <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UILogon.png</string>
     <string>UIGameIng.png</string>
     <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
@@ -120,11 +121,11 @@
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UILogon.png</string>
     <string>UIShop.png</string>
     <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UILogon.png</string>
     <string>UIGameIng.png</string>
     <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
@@ -133,11 +134,11 @@
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UILogon.png</string>
     <string>UIShop.png</string>
     <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UILogon.png</string>
     <string>UIGameIng.png</string>
     <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
@@ -146,11 +147,11 @@
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UILogon.png</string>
     <string>UIShop.png</string>
     <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UILogon.png</string>
     <string>UIGameIng.png</string>
     <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
@@ -159,11 +160,11 @@
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UILogon.png</string>
     <string>UIShop.png</string>
     <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UILogon.png</string>
     <string>UIGameIng.png</string>
     <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
@@ -172,11 +173,11 @@
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UILogon.png</string>
     <string>UIShop.png</string>
     <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UILogon.png</string>
     <string>UIGameIng.png</string>
     <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
@@ -185,11 +186,11 @@
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UILogon.png</string>
     <string>UIShop.png</string>
     <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UILogon.png</string>
     <string>UIGameIng.png</string>
     <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
@@ -198,11 +199,11 @@
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UILogon.png</string>
     <string>UIShop.png</string>
     <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UILogon.png</string>
     <string>UIGameIng.png</string>
     <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
@@ -211,11 +212,11 @@
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UILogon.png</string>
     <string>UIShop.png</string>
     <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UILogon.png</string>
     <string>UIGameIng.png</string>
     <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
@@ -224,11 +225,11 @@
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UILogon.png</string>
     <string>UIShop.png</string>
     <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UILogon.png</string>
     <string>UIGameIng.png</string>
     <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
@@ -237,11 +238,11 @@
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UILogon.png</string>
     <string>UIShop.png</string>
     <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UILogon.png</string>
     <string>UIGameIng.png</string>
     <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
@@ -250,11 +251,11 @@
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UILogon.png</string>
     <string>UIShop.png</string>
     <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UILogon.png</string>
     <string>UIGameIng.png</string>
     <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
@@ -263,11 +264,11 @@
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UILogon.png</string>
     <string>UIShop.png</string>
     <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UILogon.png</string>
     <string>UIGameIng.png</string>
     <string>UIGameIngHundred.png</string>
     <string>UIPanel.png</string>
@@ -276,14 +277,27 @@
     <string>UICheckBox.png</string>
     <string>UITask.png</string>
     <string>UILoadingBar.png</string>
+    <string>UILogon.png</string>
     <string>UIShop.png</string>
     <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
+    <string>UIGameIng.png</string>
+    <string>UIGameIngHundred.png</string>
+    <string>UIPanel.png</string>
+    <string>UIButton.png</string>
+    <string>UIUserInfo.png</string>
+    <string>UICheckBox.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
     <string>UILogon.png</string>
+    <string>UIShop.png</string>
+    <string>UIRanking.png</string>
+    <string>UIActivity.png</string>
+    <string>Font.png</string>
     <string>UIGameIng.png</string>
     <string>UIGameIngHundred.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxLoading.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxKnapsack.json</CurrentUIJson>
 </UIProject>

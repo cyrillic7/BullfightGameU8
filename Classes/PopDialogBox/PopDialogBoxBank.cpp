@@ -27,8 +27,23 @@ void PopDialogBoxBank::onEnter(){
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));
 	
+	pLTitle0 = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelTitle0"));
+	pLTitle1 = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelTitle1"));
+	if (DataModel::sharedDataModel()->cbInsurePwd)
+	{
+		setTitle("创建银行密码");
+	}
+	else
+	{
+		setTitle("输入银行密码");
+	}
 	playAnimation();
 }
 void PopDialogBoxBank::onExit(){
 	CCLayer::onExit();
+}
+//设置标题
+void PopDialogBoxBank::setTitle(const char * sTitle){
+	pLTitle0->setText((sTitle));
+	pLTitle1->setText((sTitle));
 }

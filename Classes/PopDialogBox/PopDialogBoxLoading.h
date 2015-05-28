@@ -1,4 +1,4 @@
-/*
+﻿/*
  * PopDialogBoxLoading.h
  *
  *  Created on: 2015年3月17日
@@ -13,7 +13,6 @@ private:
 	UIImageView *pWidgetBg;
 	UILabel *pLLoading;
 	int timerIndex;
-	std::string sLoading[3];
 public:
 	PopDialogBoxLoading();
 	~PopDialogBoxLoading();

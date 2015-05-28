@@ -17,23 +17,20 @@ PopDialogBoxLoading::~PopDialogBoxLoading() {
 }
 void PopDialogBoxLoading::onEnter(){
 	CCLayer::onEnter();
-	//CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationLoading.ExportJson));
-	//CCArmature *pArmature= CCArmature::create("AnimationLoading");
-	//this->addChild(pArmature);
-	//CCPoint pos = ccp(DataModel::sharedDataModel()->deviceSize.width/2,DataModel::sharedDataModel()->deviceSize.height/2);
-	//pArmature->setPosition(pos);
-	//pArmature->getAnimation()->play("AnimationLoading");
+	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationLoading.ExportJson));
+	CCArmature *pArmature= CCArmature::create("AnimationLoading");
+	this->addChild(pArmature);
+	CCPoint pos = ccp(DataModel::sharedDataModel()->deviceSize.width/2,DataModel::sharedDataModel()->deviceSize.height/2+15);
+	pArmature->setPosition(pos);
+	pArmature->getAnimation()->play("AnimationLoading");
 
 	Layout* layoutPauseUI = static_cast<Layout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UIPopDialogBoxLoading.ExportJson)));
 	pUILayer->addWidget(layoutPauseUI);
 
 	pLLoading = static_cast<UILabel *>(pUILayer->getWidgetByName("LabelLoading"));
-	//pLLoading->setPositionY(pArmature->getPositionY()-pArmature->getContentSize().height/2-30);
-
-	//sLoading[0] = Tools::GBKToUTF8("正在载入.");
-	//sLoading[1] = Tools::GBKToUTF8("正在载入..");
-	//sLoading[2] = Tools::GBKToUTF8("正在载入...");
-
+	pLLoading->setPositionY(pArmature->getPositionY()-pArmature->getContentSize().height/2-30);
+	
+	//pLLoading->setText("正在转入.");
 	//schedule(SEL_SCHEDULE(&PopDialogBoxLoading::updateLoadingLabel),0.5);
 }
 void PopDialogBoxLoading::onExit(){
@@ -45,24 +42,21 @@ void PopDialogBoxLoading::playAnimation(){
 }
 //更新加载文字动画
 void PopDialogBoxLoading::updateLoadingLabel(float dt){
-	
-
-	
-	/*if (timerIndex <1)
+	if (timerIndex <1)
 	{
-		pLLoading->setText(sLoading[0].c_str());
+		pLLoading->setText("正在转入.");
 	}
 	else if (timerIndex <2)
 	{
-		pLLoading->setText(sLoading[1].c_str());
+		pLLoading->setText("正在转入..");
 	}
 	else if (timerIndex < 3){
-		pLLoading->setText(sLoading[2].c_str());
+		pLLoading->setText("正在转入...");
 	}
 	else if (timerIndex < 4){
 		timerIndex = 0;
 		return;
 	}
 	
-	timerIndex++;*/
+	timerIndex++;
 }

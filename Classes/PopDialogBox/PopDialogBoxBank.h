@@ -10,7 +10,9 @@
 #include "PopDialogBox.h"
 class PopDialogBoxBank: public PopDialogBox {
 private:
-
+	//标题
+	UILabel *pLTitle0;
+	UILabel *pLTitle1;
 public:
 	PopDialogBoxBank();
 	~PopDialogBoxBank();
@@ -18,4 +20,6 @@ public:
 private:
 	virtual void onEnter();
 	virtual void onExit();
+	//设置标题
+	void setTitle(const char * sTitle);
 };

@@ -72,4 +72,8 @@
     <Project>UIPopDialogBoxTrend</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxKnapsack</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

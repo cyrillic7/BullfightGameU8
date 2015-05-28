@@ -276,6 +276,10 @@ struct CMD_GP_ServerOnline
 
 #define SUB_GP_GIFT 				108									//礼品包
 #define SUB_GP_PROPERTY				109									//道具
+#define SUB_GP_BUYGIFT				110									//购买礼品包,道具
+#define SUB_GP_KNAPSACK				111									//背包
+#define SUB_GP_KNAPSACKLOG			112									//背包错误提示
+#define SUB_GP_USE_KNAPSACKLOG		113									//使用背包
 //修改头像
 #define SUB_GP_USER_FACE_INFO		200									//头像信息
 #define SUB_GP_SYSTEM_FACE_INFO		201									//系统头像
@@ -302,6 +306,127 @@ struct CMD_GP_ServerOnline
 //操作结果
 #define SUB_GP_OPERATE_SUCCESS		900									//操作成功
 #define SUB_GP_OPERATE_FAILURE		901									//操作失败
+//////////////////////////////////////////////////////////////////////////
+#define  GIFT_NAME_LEN		16
+#define  GIFT_IMGNAME		32
+#define  NAME_LEN			16
+#define  BUY_PRICE_COUNT	3
+#define  AWARD_COUNT		6
+#define	 DESPICT_LEN		32
+#define  GIFT_COUNT			30
+#define  NOTE_LEN			64
+
+//商店////////////////////////////////////////礼品/////////////////////////////
+//通过什么途径购买
+struct CMD_GP_Buy_Price
+{
+	CMD_GP_Buy_Price()
+	{
+		memset(this, 0, sizeof(CMD_GP_Buy_Price));
+	}
+	DWORD	dwCount;
+	TCHAR   szName[NAME_LEN];
+};
+//礼品
+struct CMD_GP_Gift
+{
+	CMD_GP_Gift()
+	{
+		memset(this, 0, sizeof(CMD_GP_Gift));
+	}
+	DWORD				dwID;
+	TCHAR				szName[GIFT_NAME_LEN];
+	TCHAR				szImgName[GIFT_IMGNAME];
+	CMD_GP_Buy_Price	price[BUY_PRICE_COUNT];
+	DWORD				dwDiscount;								//vip折扣（1-9）
+	TCHAR				szOpenDespict[DESPICT_LEN * 2];			//包含的物品描述
+	TCHAR				szDespict[DESPICT_LEN];					//描述 
+
+};
+struct CMD_GP_BuyGift
+{
+	CMD_GP_BuyGift()
+	{
+		memset(this, 0, sizeof(CMD_GP_BuyGift));
+	}
+	DWORD			    dwUserID;								//id
+	DWORD				dwOpTerminal;							//操作终端（1：pc, 2：手机）
+	TCHAR				szLogonPass[LEN_MD5];					//登录密码
+	DWORD				dwType;									//类别1:礼包，2:道具
+	DWORD				dwID;									//礼包或道具id
+	DWORD				dwNum;									//数量
+	TCHAR				szMachineID[LEN_MACHINE_ID];			//机器序列
+};
+
+struct CMD_GP_BuyGiftLog
+{
+	CMD_GP_BuyGiftLog()
+	{
+		memset(this, 0, sizeof(CMD_GP_BuyGiftLog));
+	}
+	DWORD							dwRet;								//0：成功，1：失败
+	TCHAR							szDescribeString[128];				//描述消息
+};
+///////////////////////////////////////礼品///////////////////////////////////////
+//查询信息
+struct CMD_GP_UserID
+{
+	CMD_GP_UserID()
+	{
+		memset(this, 0, sizeof(CMD_GP_UserID));
+	}
+	DWORD							dwUserID;							//用户 I D
+	TCHAR							szPassword[LEN_PASSWORD];			//用户密码
+};
+struct CMD_GP_Knapsack
+{
+	CMD_GP_Knapsack()
+	{
+		memset(this, 0, sizeof(CMD_GP_Knapsack));
+	}
+	DWORD				dwID;
+	DWORD				dwPackType;								//类别1:礼包，2:道具
+	DWORD				dwPropID;								//礼包或道具id
+	DWORD				dwNum;									//数量
+	DWORD				dwSortID;								//顺序
+	TCHAR				szName[GIFT_NAME_LEN];					//名称
+	TCHAR				szImgName[GIFT_IMGNAME];				//图片
+};
+struct CMD_GP_KnapsackLog
+{
+	CMD_GP_KnapsackLog()
+	{
+		memset(this, 0, sizeof(CMD_GP_KnapsackLog));
+	}
+	DWORD							dwRet;								//0：成功，1：失败
+	TCHAR							szDescribeString[128];				//描述消息
+};
+//使用背包
+struct CMD_GP_UseKnapsack
+{
+	CMD_GP_UseKnapsack()
+	{
+		memset(this, 0, sizeof(CMD_GP_UseKnapsack));
+	}
+	DWORD							dwUserID;							//用户 I D
+	DWORD							dwOpTerminal;						//操作终端（1：pc, 2：手机）
+	TCHAR							szPassword[LEN_PASSWORD];			//用户密码
+	DWORD							dwID;								//背包id
+	DWORD							dwNum;								//数量
+	TCHAR							szNote[NOTE_LEN];					//描述消息
+	TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
+};
+struct CMD_GP_UseKnapsackLog
+{
+	CMD_GP_UseKnapsackLog()
+	{
+		memset(this, 0, sizeof(CMD_GP_UseKnapsackLog));
+	}
+	DWORD							dwRet;								//0：成功，1：失败
+	DWORD							dwID;								//背包id
+	DWORD							dwNum;								//使用的数量
+	TCHAR							szDescribeString[128];				//描述消息
+};
 
 //////////////////////////////////////////////////////////////////////////////////
 
