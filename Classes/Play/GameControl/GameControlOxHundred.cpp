@@ -6,6 +6,7 @@
 #include "GameControlOxHundred.h"
 #include "../../Tools/GameConfig.h"
 #include "../../Tools/Tools.h"
+#include "../../Tools/BaseAttributes.h"
 #include "../../GameLobby/GameLobbyScene.h"
 #include "../../Tools/DataModel.h"
 #include "../../Network/CMD_Server/cmd_game.h"
@@ -867,7 +868,7 @@ void GameControlOxHundred::onSubGameFree(const void * pBuffer, WORD wDataSize)
 	//消息处理
 	CMD_S_GameFree * pGameFree = (CMD_S_GameFree *)pBuffer;
 	//设置时间
-	resetTimer(pGameFree->cbTimeLeave, Tools::GBKToUTF8("本轮即将开始 "));
+	resetTimer(pGameFree->cbTimeLeave, BaseAttributes::sharedAttributes()->sGameFree.c_str());
 	CCLog("time:%d   count:%lld<<%s>>", pGameFree->cbTimeLeave, pGameFree->nListUserCount, __FUNCTION__);
 	resetData();
 	for (int i = 0; i < MAX_SEAT_COUNT; i++)
@@ -904,7 +905,7 @@ void GameControlOxHundred::onSubGameStart(const void * pBuffer, WORD wDataSize){
 
 	CCLog("gameStart=time--:%d<<%s>>", pGameStart->cbTimeLeave, __FUNCTION__);
 	//设置时间
-	resetTimer(pGameStart->cbTimeLeave, Tools::GBKToUTF8("请下注 "));
+	resetTimer(pGameStart->cbTimeLeave, BaseAttributes::sharedAttributes()->sGameStart.c_str());
 	hideTimer(false);
 	//设置下注状态
 	DataModel::sharedDataModel()->getMainSceneOxHundred()->setGameStateWithUpdate(MainSceneOxHundred::STATE_GAME_PLACE_JETTON);
@@ -1260,7 +1261,7 @@ void GameControlOxHundred::onSubGameEnd(const void * pBuffer, WORD wDataSize){
 	CMD_S_GameEnd * pGameEnd = (CMD_S_GameEnd *)pBuffer;
 	CCLog("end:%lld<<%s>>", pGameEnd->lUserScore, __FUNCTION__);
 	//设置时间
-	resetTimer(pGameEnd->cbTimeLeave, Tools::GBKToUTF8("休息一下..."));
+	resetTimer(pGameEnd->cbTimeLeave, BaseAttributes::sharedAttributes()->sGameEnd.c_str());
 	hideTimer(false);
 	//设置总结算
 	pPlayerData[0]->lGameScore = pGameEnd->lUserScore;

@@ -16,6 +16,9 @@ class BaseAttributes :public CCObject{
 public:
 	std::string sSexBoyName;
 	std::string sSexGirlName;
+	std::string sGameFree;
+	std::string sGameStart;
+	std::string sGameEnd;
 
 	int iCardOffsetX[MAX_PLAYER];
 	int iCardOffsetY[MAX_PLAYER];

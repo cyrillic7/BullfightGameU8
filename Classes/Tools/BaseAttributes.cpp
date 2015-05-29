@@ -29,6 +29,9 @@ void BaseAttributes::initStr(){
 	
 	sSexBoyName = dynamic_cast<CCString *>(mDic->objectForKey("strSexBoy"))->getCString();
 	sSexGirlName=dynamic_cast<CCString *>(mDic->objectForKey("strSexGirl"))->getCString();
+	sGameFree = dynamic_cast<CCString *>(mDic->objectForKey("strGameFree"))->getCString();
+	sGameStart = dynamic_cast<CCString *>(mDic->objectForKey("strGameStart"))->getCString();
+ 	sGameEnd = dynamic_cast<CCString *>(mDic->objectForKey("strGameEnd"))->getCString();
 
 	mDic->removeAllObjects();
 	CC_SAFE_RELEASE_NULL(mDic);
