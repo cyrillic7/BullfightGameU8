@@ -73,8 +73,10 @@ public:
     
     operator SOCKET ();
     
+public:
+	SOCKET m_sock;
 protected:
-    SOCKET m_sock;
+   
     fd_set  fdR;
 
 //////////////////////////////////////////////////////////////////////////

@@ -39,11 +39,19 @@ void SocketListerner::Run()
 {
 	while (true)
 	{
-		bool isRead=context->OnSocketNotifyRead(0,0);
-		if (!isRead)
+		if (context->m_sock  != INVALID_SOCKET)
+		{
+			bool isRead = context->OnSocketNotifyRead(0, 0);
+			if (!isRead)
+			{
+				break;
+			}
+		}
+		else
 		{
 			break;
 		}
+		
 	}
 	this->OnClose(context, true);
 }

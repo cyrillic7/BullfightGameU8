@@ -317,6 +317,7 @@ int TCPSocket::Close() {
 	shutdown(m_sock,SHUT_RDWR);//避免延时
     return (close(m_sock));
 #endif
+	m_sock = INVALID_SOCKET;
 }
 
 int TCPSocket::GetError() {
