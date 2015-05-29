@@ -1,4 +1,4 @@
-//
+ï»¿//
 //
 //
 //
@@ -28,7 +28,7 @@ GameControlOxHundred::GameControlOxHundred()
 	nJetton[2] = 10000;
 	nJetton[3] = 100000;
 	nJetton[4] = 500000;
-	//×¯¼ÒĞÅÏ¢
+	//åº„å®¶ä¿¡æ¯
 	m_wBankerUser = INVALID_CHAIR;
 
 	resetData();
@@ -49,46 +49,46 @@ void GameControlOxHundred::onEnter(){
 
 	UIButton* button = static_cast<UIButton*>(pWidget->getWidgetByName("ButtonBack"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxHundred::onMenuBack));
-	//Ç÷ÊÆÍ¼°´¼ü
+	//è¶‹åŠ¿å›¾æŒ‰é”®
 	button = static_cast<UIButton*>(pWidget->getWidgetByName("ButtonTrend"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxHundred::onMenuTrend));
-	//ÔÚÏßÓÃ»§°´¼ü
+	//åœ¨çº¿ç”¨æˆ·æŒ‰é”®
 	pBOnline = static_cast<UIButton*>(pWidget->getWidgetByName("ButtonOnline"));
 	pBOnline->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxHundred::onMenuOnLine));
-	//³ïÂë°´Å¥
+	//ç­¹ç æŒ‰é’®
 	for (int i = 0; i < MAX_JETTON_BUTTON_COUNT; i++)
 	{
 		pIJettonButton[i] = static_cast<UIImageView*>(pWidget->getWidgetByName(CCString::createWithFormat("ImageJetton%d", i)->getCString()));
 		pIJettonButton[i]->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxHundred::onMenuSelectJetton));
-		//Òş²Ø
+		//éšè—
 		pIJettonButton[i]->setColor(ccc3(100, 100, 100));
 		pIJettonButton[i]->setTouchEnabled(false);
 	}
-	//³ïÂëÑ¡Ôñ¹â±ê
+	//ç­¹ç é€‰æ‹©å…‰æ ‡
 	pIJettonSelect = static_cast<UIImageView*>(pWidget->getWidgetByName("ImageSelectJetton"));
 	pIJettonSelect->getChildByName("ImageSelectJettonBg")->runAction(CCRepeatForever::create(CCRotateBy::create(0.8, 360)));
 	pIJettonSelect->setVisible(false);
 
-	//×¯¼ÒÅÆ±³¾°
+	//åº„å®¶ç‰ŒèƒŒæ™¯
 	UIImageView *pIBankCardBg = static_cast<UIImageView*>(pWidget->getWidgetByName("ImageBankCardBg"));
 	getMainScene()->posChair[0] = ccpAdd(pIBankCardBg->getPosition(), ccp(0, -pIBankCardBg->getContentSize().height / 2));
-	//ÓÃ»§Êı¾İ
+	//ç”¨æˆ·æ•°æ®
 	for (int i = 0; i < MAX_PLAYER_HUNDRED_COUNT; i++)
 	{
 		pPlayerData[i] = PlayerDataHundred::create();
 		this->addChild(pPlayerData[i]);
 		pPlayerData[i]->pIPlayerBg = static_cast<UIImageView*>(pWidget->getWidgetByName(CCString::createWithFormat("ImageIcon%d", i)->getCString()));
 		pPlayerData[i]->pIPlayerBg->setVisible(false);
-		//½áËãÊı×Ö
+		//ç»“ç®—æ•°å­—
 		pPlayerData[i]->pLResult = static_cast<UILabelAtlas*>(pPlayerData[i]->pIPlayerBg->getChildByName("AtlasLabelResult"));
 		pPlayerData[i]->pLResult->setVisible(false);
-		//Íæ¼ÒÃû³Æ
+		//ç©å®¶åç§°
 		pPlayerData[i]->pLUserName = static_cast<UILabel*>(pPlayerData[i]->pIPlayerBg->getChildByName("LabelName"));
-		//Íæ¼Ò½ğ±Ò
+		//ç©å®¶é‡‘å¸
 		pPlayerData[i]->pLGoldCount = static_cast<UILabel*>(pPlayerData[i]->pIPlayerBg->getChildByName("LabelGold"));
 	}
 	pPlayerData[0]->setUserInfo(*DataModel::sharedDataModel()->userInfo);
-	//ÉÏ×¯°´¼ü
+	//ä¸Šåº„æŒ‰é”®
 	pIUpBank = static_cast<UIImageView*>(pWidget->getWidgetByName("ImageUpBank"));
 	pIUpBank->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxHundred::onMenuUpBank));
 	CCSprite *pSUpBank = CCSprite::create();
@@ -113,9 +113,9 @@ void GameControlOxHundred::onExit(){
 	CCLayer::onExit();
 }
 void GameControlOxHundred::resetData(){
-	//¸öÈËÏÂ×¢
+	//ä¸ªäººä¸‹æ³¨
 	memset(m_lUserJettonScore, 0, sizeof(m_lUserJettonScore));
-	//È«ÌåÏÂ×¢
+	//å…¨ä½“ä¸‹æ³¨
 	memset(m_lAllJettonScore, 0, sizeof(m_lAllJettonScore));
 
 	//m_wBankerTime=0;
@@ -124,13 +124,13 @@ void GameControlOxHundred::resetData(){
 	//m_lTmpBankerWinScore=0;
 	//m_blCanStore=false;
 	/*
-	//µ±¾Ö³É¼¨
+	//å½“å±€æˆç»©
 	m_lMeCurGameScore=0L;
 	m_lMeCurGameReturnScore=0L;
 	m_lBankerCurGameScore=0L;
 	m_lGameRevenue=0L;
 
-	//×´Ì¬ĞÅÏ¢
+	//çŠ¶æ€ä¿¡æ¯
 	m_lCurrentJetton=0L;
 	m_cbAreaFlash=0xFF;
 	m_wMeChairID=INVALID_CHAIR;
@@ -150,17 +150,17 @@ void GameControlOxHundred::resetData(){
 	*/
 	//m_lAreaLimitScore=0L;	
 	/*
-	//Î»ÖÃĞÅÏ¢
+	//ä½ç½®ä¿¡æ¯
 	m_nScoreHead = 0;
 	m_nRecordFirst= 0;
 	m_nRecordLast= 0;
 
-	//ÀúÊ·³É¼¨
+	//å†å²æˆç»©
 	m_lMeStatisticScore=0;
 	*/
 }
 
-//³õÊ¼»¯¼ÆÊ±Æ÷
+//åˆå§‹åŒ–è®¡æ—¶å™¨
 void GameControlOxHundred::initTimer(UILayer *pWidget){
 	pITimer = static_cast<UIImageView*>(pWidget->getWidgetByName("ImageTimer"));
 	pITimer->setVisible(false);
@@ -170,7 +170,7 @@ void GameControlOxHundred::initTimer(UILayer *pWidget){
 
 	pLTimerPromptContent = static_cast<UILabel*>(pWidget->getWidgetByName("LabelPromptContent"));
 }
-//³õÊ¼»¯×ùÎ»
+//åˆå§‹åŒ–åº§ä½
 void GameControlOxHundred::initSeatData(UILayer *pWidget){
 	for (int i = 0; i < MAX_SEAT_COUNT; i++)
 	{
@@ -178,26 +178,26 @@ void GameControlOxHundred::initSeatData(UILayer *pWidget){
 		this->addChild(pSeatData[i]);
 		UIImageView *bg = static_cast<UIImageView*>(pWidget->getWidgetByName(CCString::createWithFormat("ImageSeatBg%d", i)->getCString()));
 		bg->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxHundred::onMenuPlaceJetton));
-		//ÉèÖÃÖĞĞÄµã
+		//è®¾ç½®ä¸­å¿ƒç‚¹
 		pSeatData[i]->posCenter = bg->getPosition();
 		getMainScene()->posChair[i + 1] = ccpAdd(bg->getPosition(), ccp(0, -bg->getContentSize().height / 2 - 50));
-		//ÉèÖÃ×ùÎ»´óĞ¡
+		//è®¾ç½®åº§ä½å¤§å°
 		pSeatData[i]->seatSize = bg->getContentSize();
-		//ËùÓĞ³ïÂë
+		//æ‰€æœ‰ç­¹ç 
 		pSeatData[i]->pLAllJetton = static_cast<UILabelAtlas*>(bg->getChildByName("AtlasLabelAllScore"));
 		pSeatData[i]->pIFontWan = static_cast<UIImageView*>(bg->getChildByName("AtlasLabelAllScore")->getChildByName("ImageFontWan"));
-		//ÓÃ»§³ïÂë
+		//ç”¨æˆ·ç­¹ç 
 		pSeatData[i]->pLUserJetton = static_cast<UILabelAtlas*>(bg->getChildByName("ImageB")->getChildByName("AtlasLabelAddScore"));
 		pSeatData[i]->pIUserFontWan = static_cast<UIImageView*>(bg->getChildByName("ImageB")->getChildByName("AtlasLabelAddScore")->getChildByName("ImageFontWan1"));
-		//Î´ÏÂ×¢
+		//æœªä¸‹æ³¨
 		pSeatData[i]->pINotAddJetton = static_cast<UIImageView*>(bg->getChildByName("ImageNotAdd"));
-		//½áËãÊı×Ö
+		//ç»“ç®—æ•°å­—
 		pSeatData[i]->pLResult = static_cast<UILabelAtlas*>(bg->getChildByName("AtlasLabelResultNum"));
 
 		pSeatData[i]->resetData();
 	}
 }
-//ÉèÖÃ×ùÎ»½áËã
+//è®¾ç½®åº§ä½ç»“ç®—
 void GameControlOxHundred::setSeatResult(int iSeatIndex, int iOXType){
 	int oxType = iOXType;
 	if (oxType == 0)
@@ -207,16 +207,16 @@ void GameControlOxHundred::setSeatResult(int iSeatIndex, int iOXType){
 	long long lMeJetton = m_lUserJettonScore[iSeatIndex] * oxType;
 	pSeatData[iSeatIndex - 1]->setResult(lMeJetton);
 }
-//ÏÔÊ¾×Ü½á¹û
+//æ˜¾ç¤ºæ€»ç»“æœ
 void GameControlOxHundred::showAllResult(){
 	for (int i = 0; i < MAX_PLAYER_HUNDRED_COUNT; i++)
 	{
 		pPlayerData[i]->showResultAnimation();
 	}
-	//¸üĞÂÇ÷ÊÆÍ¼
+	//æ›´æ–°è¶‹åŠ¿å›¾
 	MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_LIST, NULL);
 }
-//»ñÈ¡ÓÃ»§ĞÅÏ¢Í¨¹ıÒÎ×ÓºÅ
+//è·å–ç”¨æˆ·ä¿¡æ¯é€šè¿‡æ¤…å­å·
 tagUserInfo* GameControlOxHundred::getUserInfo(int iChair){
 	map<long, tagUserInfo>::iterator it;
 	for (it = DataModel::sharedDataModel()->mTagUserInfo.begin(); it != DataModel::sharedDataModel()->mTagUserInfo.end(); it++)
@@ -229,7 +229,7 @@ tagUserInfo* GameControlOxHundred::getUserInfo(int iChair){
 	return NULL;
 }
 
-//»ñµÃ³ïÂë¶ÔÏó
+//è·å¾—ç­¹ç å¯¹è±¡
 JettonNode *GameControlOxHundred::getJettonNode(){
 	for (int i = 0; i < DataModel::sharedDataModel()->vecJettonNode.size(); i++)
 	{
@@ -262,7 +262,7 @@ int GameControlOxHundred::getChairIndex(int meChairID, int chairID){
 	}
 	return 0;
 }
-//²Ëµ¥»Øµ÷£¨·µ»Ø£©
+//èœå•å›è°ƒï¼ˆè¿”å›ï¼‰
 void GameControlOxHundred::onMenuBack(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
@@ -275,7 +275,7 @@ void GameControlOxHundred::onMenuBack(CCObject* pSender, TouchEventType type){
 		break;
 	}
 }
-//¼Ó×¢ÇøÓò
+//åŠ æ³¨åŒºåŸŸ
 void GameControlOxHundred::onMenuPlaceJetton(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
@@ -288,20 +288,20 @@ void GameControlOxHundred::onMenuPlaceJetton(CCObject* pSender, TouchEventType t
 			return;
 		}
 		UIImageView *pIButton = (UIImageView*)pSender;
-		//±äÁ¿¶¨Òå
+		//å˜é‡å®šä¹‰
 		CMD_C_PlaceJetton PlaceJetton;
 		memset(&PlaceJetton, 0, sizeof(PlaceJetton));
-		//¹¹Ôì±äÁ¿
+		//æ„é€ å˜é‡
 		PlaceJetton.cbJettonArea = pIButton->getTag();
 		PlaceJetton.lJettonScore = nJetton[iCurSelectJettonIndex];
-		//¸öÈËÏÂ×¢
+		//ä¸ªäººä¸‹æ³¨
 		m_lUserJettonScore[PlaceJetton.cbJettonArea] += PlaceJetton.lJettonScore;
 		m_lAllJettonScore[PlaceJetton.cbJettonArea] += PlaceJetton.lJettonScore;
 
 		pSeatData[PlaceJetton.cbJettonArea - 1]->setUserJetton(m_lUserJettonScore[PlaceJetton.cbJettonArea]);
 
 
-		//·¢ËÍÏûÏ¢
+		//å‘é€æ¶ˆæ¯
 		TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM)->SendData(MDM_GF_GAME, SUB_C_PLACE_JETTON, &PlaceJetton, sizeof(PlaceJetton));
 
 	}
@@ -310,7 +310,7 @@ void GameControlOxHundred::onMenuPlaceJetton(CCObject* pSender, TouchEventType t
 		break;
 	}
 }
-//Ñ¡Ôñ³ïÂë
+//é€‰æ‹©ç­¹ç 
 void GameControlOxHundred::onMenuSelectJetton(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
@@ -325,7 +325,7 @@ void GameControlOxHundred::onMenuSelectJetton(CCObject* pSender, TouchEventType 
 		break;
 	}
 }
-//ÔÚÏßÓÃ»§
+//åœ¨çº¿ç”¨æˆ·
 void GameControlOxHundred::onMenuOnLine(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
@@ -339,7 +339,7 @@ void GameControlOxHundred::onMenuOnLine(CCObject* pSender, TouchEventType type){
 		break;
 	}
 }
-//Ç÷ÊÆÍ¼
+//è¶‹åŠ¿å›¾
 void GameControlOxHundred::onMenuTrend(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
@@ -353,7 +353,7 @@ void GameControlOxHundred::onMenuTrend(CCObject* pSender, TouchEventType type){
 		break;
 	}
 }
-//ÓÃ»§ÉÏ×¯
+//ç”¨æˆ·ä¸Šåº„
 void GameControlOxHundred::onMenuUpBank(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
@@ -383,16 +383,16 @@ void GameControlOxHundred::delayedAction(){
 		break;
 	}
 }
-//×î´óÏÂ×¢
+//æœ€å¤§ä¸‹æ³¨
 long long GameControlOxHundred::getUserMaxJetton()
 {
 	int iTimer = 10;
-	//ÒÑÏÂ×¢¶î
+	//å·²ä¸‹æ³¨é¢
 	long long lNowJetton = 0;
 	assert(AREA_COUNT <= CountArray(m_lUserJettonScore));
 	for (int nAreaIndex = 1; nAreaIndex <= AREA_COUNT; ++nAreaIndex)lNowJetton += m_lUserJettonScore[nAreaIndex] * iTimer;
 
-	//×¯¼Ò½ğ±Ò
+	//åº„å®¶é‡‘å¸
 	long long lBankerScore = 2147483647;
 	//if (m_wBankerUser!=INVALID_CHAIR) 
 	lBankerScore = m_lBankerScore;
@@ -403,7 +403,7 @@ long long GameControlOxHundred::getUserMaxJetton()
 		//CCLog("%d ---------%lld          <<%s>>",nAreaIndex,m_lAllJettonScore[nAreaIndex],__FUNCTION__);
 	}
 	//CCLog("===lBankerScore:%lld<<%s>>",lBankerScore,__FUNCTION__);
-	//ÇøÓòÏŞÖÆ
+	//åŒºåŸŸé™åˆ¶
 	long long lMeMaxScore = 0;
 	if ((m_lMeMaxScore - lNowJetton) / iTimer > m_lAreaLimitScore)
 	{
@@ -416,18 +416,18 @@ long long GameControlOxHundred::getUserMaxJetton()
 		lMeMaxScore = lMeMaxScore;
 	}
 
-	//×¯¼ÒÏŞÖÆ
+	//åº„å®¶é™åˆ¶
 	lMeMaxScore = MIN(lMeMaxScore, lBankerScore);
 
 	lMeMaxScore /= iTimer;
 
-	//·ÇÁãÏŞÖÆ
+	//éé›¶é™åˆ¶
 	//ASSERT(lMeMaxScore >= 0);
 	lMeMaxScore = MAX(lMeMaxScore, 0);
 
 	return lMeMaxScore;
 }
-//¸üĞÂ¿ØÖÆ
+//æ›´æ–°æ§åˆ¶
 void GameControlOxHundred::updateButtonContron(){
 	bool bEnablePlaceJetton = true;
 	switch (DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameState())
@@ -466,16 +466,16 @@ void GameControlOxHundred::updateButtonContron(){
 		}
 		pIJettonSelect->setVisible(true);
 		//////////////////////////////////////////////////////////////////////////
-		//¼ÆËã»ı·Ö
-		long long lCurrentJetton = nJetton[iCurSelectJettonIndex];//µ±Ç°³ïÂë
-		long long lLeaveScore = m_lMeMaxScore;//ÎÒµÄ½ğ±Ò
+		//è®¡ç®—ç§¯åˆ†
+		long long lCurrentJetton = nJetton[iCurSelectJettonIndex];//å½“å‰ç­¹ç 
+		long long lLeaveScore = m_lMeMaxScore;//æˆ‘çš„é‡‘å¸
 		for (int nAreaIndex = 1; nAreaIndex <= MAX_AREA_COUNT; ++nAreaIndex) lLeaveScore -= m_lUserJettonScore[nAreaIndex];
 
-		//×î´óÏÂ×¢
+		//æœ€å¤§ä¸‹æ³¨
 		long long lUserMaxJetton = getUserMaxJetton();
-		//CCLog("---×î´óÏÂ×¢:%lld<<%s>>",lUserMaxJetton,__FUNCTION__);
-		//ÉèÖÃ¹â±ê
-		lLeaveScore = MIN((lLeaveScore / 10), lUserMaxJetton); //ÓÃ»§¿ÉÏÂ·Ö ºÍ×î´ó·Ö±È½Ï ÓÉÓÚÊÇÎå±¶ 
+		//CCLog("---æœ€å¤§ä¸‹æ³¨:%lld<<%s>>",lUserMaxJetton,__FUNCTION__);
+		//è®¾ç½®å…‰æ ‡
+		lLeaveScore = MIN((lLeaveScore / 10), lUserMaxJetton); //ç”¨æˆ·å¯ä¸‹åˆ† å’Œæœ€å¤§åˆ†æ¯”è¾ƒ ç”±äºæ˜¯äº”å€ 
 		//CCLog("---lLeaveScore:%lld<<%s>>",lLeaveScore,__FUNCTION__);
 		if (lCurrentJetton > lLeaveScore)
 		{
@@ -492,7 +492,7 @@ void GameControlOxHundred::updateButtonContron(){
 		}
 
 
-		//¿ØÖÆ°´Å¥
+		//æ§åˆ¶æŒ‰é’®
 		int iTimer = 1;
 		for (int i = 0; i < MAX_JETTON_BUTTON_COUNT; i++)
 		{
@@ -543,7 +543,7 @@ void GameControlOxHundred::updateButtonContron(){
 		pIJettonSelect->setVisible(false);
 	}
 }
-//¸üĞÂ×´Ì¬
+//æ›´æ–°çŠ¶æ€
 void GameControlOxHundred::updateState(){
 	switch (DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameState())
 	{
@@ -566,12 +566,12 @@ void GameControlOxHundred::updateState(){
 		{
 			pSeatData[i]->resetData();
 		}
-		//Òş²ØËùÓĞ³ïÂë
+		//éšè—æ‰€æœ‰ç­¹ç 
 		for (int i = 0; i < DataModel::sharedDataModel()->vecJettonNode.size(); i++)
 		{
 			DataModel::sharedDataModel()->vecJettonNode[i]->hideJetton();
 		}
-		//Òş²ØÅÆ
+		//éšè—ç‰Œ
 		getMainScene()->cardLayer->resetCard();
 		showTimer();
 
@@ -581,12 +581,12 @@ void GameControlOxHundred::updateState(){
 		break;
 	}
 }
-//ÉèÖÃ×¯¼Ò
+//è®¾ç½®åº„å®¶
 void GameControlOxHundred::setBankerInfo(unsigned short  wBanker, long long lScore){
-	//×¯¼ÒÒÎ×ÓºÅ
+	//åº„å®¶æ¤…å­å·
 	WORD wBankerUser = INVALID_CHAIR;
 
-	//²éÕÒÒÎ×ÓºÅ
+	//æŸ¥æ‰¾æ¤…å­å·
 	if (0 != wBanker)
 	{
 		map<long, tagUserInfo>::iterator it;
@@ -610,7 +610,7 @@ void GameControlOxHundred::setBankerInfo(unsigned short  wBanker, long long lSco
 		}*/
 	}
 
-	//ÇĞ»»ÅĞ¶Ï
+	//åˆ‡æ¢åˆ¤æ–­
 	if (m_wBankerUser != wBankerUser)
 	{
 		m_wBankerUser = wBankerUser;
@@ -620,7 +620,7 @@ void GameControlOxHundred::setBankerInfo(unsigned short  wBanker, long long lSco
 	}
 	m_lBankerScore = lScore;
 }
-//Õ¾Á¢²¢ÍË³ö
+//ç«™ç«‹å¹¶é€€å‡º
 void GameControlOxHundred::standUpWithExit(){
 
 	//tagUserInfo userInfo=DataModel::sharedDataModel()->mTagUserInfo.find(DataModel::sharedDataModel()->userInfo.dwUserID);
@@ -636,26 +636,26 @@ void GameControlOxHundred::standUpWithExit(){
 	else
 	{
 		CCLog("-------userStandUp.wChairID :%d<<%s>>", userStandUp.wChairID, __FUNCTION__);
-		//·¢ËÍÏûÏ¢
+		//å‘é€æ¶ˆæ¯
 		TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM)->SendData(MDM_GR_USER, SUB_GR_USER_STANDUP, &userStandUp, sizeof(userStandUp));
 	}
 }
-//ÉêÇë×¯¼Ò
+//ç”³è¯·åº„å®¶
 void GameControlOxHundred::onApplyBanker(bool bApplyBanker){
-	//µ±Ç°ÅĞ¶Ï
+	//å½“å‰åˆ¤æ–­
 	if (m_wBankerUser == DataModel::sharedDataModel()->userInfo->wChairID && bApplyBanker){
 		return;
 	}
 
 	if (bApplyBanker)
 	{
-		//·¢ËÍÏûÏ¢
+		//å‘é€æ¶ˆæ¯
 		TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM)->SendData(MDM_GF_GAME, SUB_C_APPLY_BANKER);
 		//m_bMeApplyBanker=true;
 	}
 	else
 	{
-		//·¢ËÍÏûÏ¢
+		//å‘é€æ¶ˆæ¯
 		TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM)->SendData(MDM_GF_GAME, SUB_C_CANCEL_BANKER, NULL, 0);
 		m_bMeApplyBanker = false;
 	}
@@ -665,13 +665,13 @@ void GameControlOxHundred::onApplyBanker(bool bApplyBanker){
 void GameControlOxHundred::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
 	switch (wMainCmdID)
 	{
-	case MDM_GR_USER://ÓÃ»§ĞÅÏ¢
+	case MDM_GR_USER://ç”¨æˆ·ä¿¡æ¯
 		onSubUserInfo(wSubCmdID, pDataBuffer, wDataSize);
 		break;
-	case MDM_GF_GAME://ÓÎÏ·ÃüÁî
+	case MDM_GF_GAME://æ¸¸æˆå‘½ä»¤
 		onEventGameIng(wSubCmdID, pDataBuffer, wDataSize);
 		break;
-	case MDM_GF_FRAME://¿ò¼ÜÃüÁî
+	case MDM_GF_FRAME://æ¡†æ¶å‘½ä»¤
 		onSubGameFrame(wSubCmdID, pDataBuffer, wDataSize);
 		break;
 	default:
@@ -679,50 +679,50 @@ void GameControlOxHundred::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, v
 		break;
 	}
 }
-//¿ò¼ÜÃüÁî
+//æ¡†æ¶å‘½ä»¤
 void GameControlOxHundred::onSubGameFrame(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
 	switch (wSubCmdID)
 	{
-	case SUB_GF_GAME_STATUS://ÓÎÏ·×´Ì¬
+	case SUB_GF_GAME_STATUS://æ¸¸æˆçŠ¶æ€
 	{
-		//Ğ§Ñé²ÎÊı
+		//æ•ˆéªŒå‚æ•°
 		assert(wDataSize == sizeof(CMD_GF_GameStatus));
 		if (wDataSize != sizeof(CMD_GF_GameStatus)) return;
-		//ÏûÏ¢´¦Àí
+		//æ¶ˆæ¯å¤„ç†
 		CMD_GF_GameStatus * pGameStatus = (CMD_GF_GameStatus *)pDataBuffer;
-		//ÉèÖÃ±äÁ¿
+		//è®¾ç½®å˜é‡
 		m_cbGameStatus = pGameStatus->cbGameStatus;
 		m_bAllowLookon = pGameStatus->cbAllowLookon ? true : false;
 	}
 	break;
-	case SUB_GF_GAME_SCENE://ÓÎÏ·³¡¾°
+	case SUB_GF_GAME_SCENE://æ¸¸æˆåœºæ™¯
 	{
 		switch (m_cbGameStatus)
 		{
 		case GAME_SCENE_FREE:
 		{
 			int ss = sizeof(CMD_S_StatusFree);
-			//Ğ§ÑéÊı¾İ
+			//æ•ˆéªŒæ•°æ®
 			assert(wDataSize == sizeof(CMD_S_StatusFree));
 			if (wDataSize != sizeof(CMD_S_StatusFree)) return;
 
-			//ÏûÏ¢´¦Àí
+			//æ¶ˆæ¯å¤„ç†
 			CMD_S_StatusFree * pStatusFree = (CMD_S_StatusFree *)pDataBuffer;
 			CCLog("GAME_SCENE_FREE<<%s>>", __FUNCTION__);
 			m_lAreaLimitScore = pStatusFree->lAreaLimitScore;
 		}
 		break;
-		case GAME_SCENE_PLACE_JETTON:		//ÓÎÏ·×´Ì¬
-		case GAME_SCENE_GAME_END:		//½áÊø×´Ì¬
+		case GAME_SCENE_PLACE_JETTON:		//æ¸¸æˆçŠ¶æ€
+		case GAME_SCENE_GAME_END:		//ç»“æŸçŠ¶æ€
 		{
-			//Ğ§ÑéÊı¾İ
+			//æ•ˆéªŒæ•°æ®
 			assert(wDataSize == sizeof(CMD_S_StatusPlay));
 			if (wDataSize != sizeof(CMD_S_StatusPlay)) return;
 
-			//ÏûÏ¢´¦Àí
+			//æ¶ˆæ¯å¤„ç†
 			CMD_S_StatusPlay * pStatusPlay = (CMD_S_StatusPlay *)pDataBuffer;
 			m_lAreaLimitScore = pStatusPlay->lAreaLimitScore;
-			//ÏÂ×¢ĞÅÏ¢
+			//ä¸‹æ³¨ä¿¡æ¯
 			for (int nAreaIndex = 1; nAreaIndex <= AREA_COUNT; ++nAreaIndex)
 			{
 				m_lAllJettonScore[nAreaIndex] += pStatusPlay->lAllJettonScore[nAreaIndex];
@@ -741,7 +741,7 @@ void GameControlOxHundred::onSubGameFrame(WORD wSubCmdID, void * pDataBuffer, un
 
 	}
 	break;
-	case SUB_GF_SYSTEM_MESSAGE://ÏµÍ³ÏûÏ¢
+	case SUB_GF_SYSTEM_MESSAGE://ç³»ç»Ÿæ¶ˆæ¯
 	{
 		onSocketSubSystemMessage(pDataBuffer, wDataSize);
 	}
@@ -751,31 +751,31 @@ void GameControlOxHundred::onSubGameFrame(WORD wSubCmdID, void * pDataBuffer, un
 		break;
 	}
 }
-//ÏµÍ³ÏûÏ¢
+//ç³»ç»Ÿæ¶ˆæ¯
 void GameControlOxHundred::onSocketSubSystemMessage(void * pData, unsigned short wDataSize){
-	//±äÁ¿¶¨Òå
+	//å˜é‡å®šä¹‰
 	CMD_CM_SystemMessage * pSystemMessage = (CMD_CM_SystemMessage *)pData;
 	WORD wHeadSize = sizeof(CMD_CM_SystemMessage) - sizeof(pSystemMessage->szString);
 
 
-	//Ğ§Ñé²ÎÊı
+	//æ•ˆéªŒå‚æ•°
 	assert((wDataSize > wHeadSize) && (wDataSize == (wHeadSize + pSystemMessage->wLength*sizeof(TCHAR))));
 	if ((wDataSize <= wHeadSize) || (wDataSize != (wHeadSize + pSystemMessage->wLength*sizeof(TCHAR)))) return;
 
-	//¹Ø±Õ´¦Àí
+	//å…³é—­å¤„ç†
 	if ((pSystemMessage->wType&SMT_CLOSE_GAME) != 0)
 	{
-		/*//ÉèÖÃ±äÁ¿
+		/*//è®¾ç½®å˜é‡
 		m_bService = false;
 
-		//É¾³ıÊ±¼ä
+		//åˆ é™¤æ—¶é—´
 		KillGameClock(0);
 
-		//ÖĞ¶ÏÁ¬½Ó
+		//ä¸­æ–­è¿æ¥
 		IntermitConnect();*/
-		CCLog("%s<<%s>>", Tools::GBKToUTF8("¹Ø±Õ´¦Àí"), __FUNCTION__);
+		CCLog("%s<<%s>>", Tools::GBKToUTF8("å…³é—­å¤„ç†"), __FUNCTION__);
 	}
-	//ÏÔÊ¾ÏûÏ¢
+	//æ˜¾ç¤ºæ¶ˆæ¯
 	if ((pSystemMessage->wType&SMT_CHAT))
 		//if ((pSystemMessage->wType&SMT_CHAT) && (m_pIStringMessage != NULL))
 	{
@@ -783,17 +783,17 @@ void GameControlOxHundred::onSocketSubSystemMessage(void * pData, unsigned short
 		//m_pIStringMessage->InsertSystemString(pSystemMessage->szString);
 	}
 
-	//µ¯³öÏûÏ¢
+	//å¼¹å‡ºæ¶ˆæ¯
 	if (pSystemMessage->wType&SMT_EJECT)
 	{
-		CCLog("----%s<<%s>>", Tools::GBKToUTF8("µ¯³öÏûÏ¢"), __FUNCTION__);
+		CCLog("----%s<<%s>>", Tools::GBKToUTF8("å¼¹å‡ºæ¶ˆæ¯"), __FUNCTION__);
 		/*CString sErrorMsg = pSystemMessage->szString;
 		CInformation Information(AfxGetMainWnd());
 		if (pSystemMessage->wType&SMT_NOGOLD)
 		{
 		if (Information.ShowMessageBox(pSystemMessage->szString, MB_ICONINFORMATION, 30L, 1) == IDOK)
 		{
-		//¹¹ÔìµØÖ·
+		//æ„é€ åœ°å€
 		CGlobalServer * pGlobalServer = CGlobalServer::GetInstance();
 		ShellExecute(NULL, TEXT("OPEN"), pGlobalServer->GetPlatformServer(6), NULL, NULL, SW_NORMAL);
 		}
@@ -804,53 +804,53 @@ void GameControlOxHundred::onSocketSubSystemMessage(void * pData, unsigned short
 		}*/
 	}
 
-	//¹Ø±Õ·¿¼ä
+	//å…³é—­æˆ¿é—´
 	if (pSystemMessage->wType&SMT_CLOSE_GAME)
 	{
-		CCLog("----%s<<%s>>", Tools::GBKToUTF8("¹Ø±Õ·¿¼ä"), __FUNCTION__);
+		CCLog("----%s<<%s>>", Tools::GBKToUTF8("å…³é—­æˆ¿é—´"), __FUNCTION__);
 		//m_pIClientKernelSink->CloseGameClient();
 	}
 }
 void GameControlOxHundred::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
 	switch (wSubCmdID)
 	{
-	case SUB_S_GAME_FREE://ÓÎÏ·¿ÕÏĞ
+	case SUB_S_GAME_FREE://æ¸¸æˆç©ºé—²
 		onSubGameFree(pDataBuffer, wDataSize);
 		break;
-	case SUB_S_GAME_START://ÓÎÏ·¿ªÊ¼
+	case SUB_S_GAME_START://æ¸¸æˆå¼€å§‹
 		onSubGameStart(pDataBuffer, wDataSize);
 		break;
-	case SUB_S_PLACE_JETTON://ÓÃ»§ÏÂ×¢
+	case SUB_S_PLACE_JETTON://ç”¨æˆ·ä¸‹æ³¨
 		onSubPlaceJetton(pDataBuffer, wDataSize, true);
 		break;
-	case SUB_S_GAME_END://ÓÎÏ·½áÊø
+	case SUB_S_GAME_END://æ¸¸æˆç»“æŸ
 		onSubGameEnd(pDataBuffer, wDataSize);
 		break;
-	case SUB_S_APPLY_BANKER://ÉêÇë×¯¼Ò
+	case SUB_S_APPLY_BANKER://ç”³è¯·åº„å®¶
 		onSubUserApplyBanker(pDataBuffer, wDataSize);
 		break;
-	case SUB_S_CHANGE_BANKER://ÇĞ»»×¯¼Ò
+	case SUB_S_CHANGE_BANKER://åˆ‡æ¢åº„å®¶
 		onSubChangeBanker(pDataBuffer, wDataSize);
 		break;
-	case SUB_S_CHANGE_USER_SCORE://¸üĞÂ»ı·Ö
+	case SUB_S_CHANGE_USER_SCORE://æ›´æ–°ç§¯åˆ†
 		break;
-	case SUB_S_SEND_RECORD://ÓÎÏ·¼ÇÂ¼
+	case SUB_S_SEND_RECORD://æ¸¸æˆè®°å½•
 		onSubGameRecord(pDataBuffer, wDataSize);
 		break;
-	case SUB_S_PLACE_JETTON_FAIL://ÏÂ×¢Ê§°Ü
+	case SUB_S_PLACE_JETTON_FAIL://ä¸‹æ³¨å¤±è´¥
 		onSubPlaceJettonFail(pDataBuffer, wDataSize);
 		break;
-	case SUB_S_CANCEL_BANKER://È¡ÏûÉêÇë
+	case SUB_S_CANCEL_BANKER://å–æ¶ˆç”³è¯·
 		onSubUserCancelBanker(pDataBuffer, wDataSize);
 		break;
-	case SUB_S_SEND_ACCOUNT://·¢ËÍÕËºÅ
+	case SUB_S_SEND_ACCOUNT://å‘é€è´¦å·
 		break;
-	case SUB_S_ADMIN_CHEAK://²éÑ¯ÕËºÅ
+	case SUB_S_ADMIN_CHEAK://æŸ¥è¯¢è´¦å·
 		break;
-	case SUB_S_QIANG_ZHUAN://ÇÀ×¯
+	case SUB_S_QIANG_ZHUAN://æŠ¢åº„
 		onQiangZhuanRet(pDataBuffer, wDataSize);
 		break;
-	case SUB_S_AMDIN_COMMAND://¹ÜÀíÔ±ÃüÁî
+	case SUB_S_AMDIN_COMMAND://ç®¡ç†å‘˜å‘½ä»¤
 		break;
 	default:
 		CCLog("===========sub:%d<<%s>>", wSubCmdID, __FUNCTION__);
@@ -858,44 +858,44 @@ void GameControlOxHundred::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, un
 	}
 }
 //////////////////////////////////////////////////////////////////////////
-//ÓÎÏ·¿ÕÏĞ
+//æ¸¸æˆç©ºé—²
 void GameControlOxHundred::onSubGameFree(const void * pBuffer, WORD wDataSize)
 {
-	//Ğ§ÑéÊı¾İ
+	//æ•ˆéªŒæ•°æ®
 	assert(wDataSize == sizeof(CMD_S_GameFree));
 	if (wDataSize != sizeof(CMD_S_GameFree)) return;
-	//ÏûÏ¢´¦Àí
+	//æ¶ˆæ¯å¤„ç†
 	CMD_S_GameFree * pGameFree = (CMD_S_GameFree *)pBuffer;
-	//ÉèÖÃÊ±¼ä
-	resetTimer(pGameFree->cbTimeLeave, Tools::GBKToUTF8("±¾ÂÖ¼´½«¿ªÊ¼"));
+	//è®¾ç½®æ—¶é—´
+	resetTimer(pGameFree->cbTimeLeave, Tools::GBKToUTF8("æœ¬è½®å³å°†å¼€å§‹"));
 	CCLog("time:%d   count:%lld<<%s>>", pGameFree->cbTimeLeave, pGameFree->nListUserCount, __FUNCTION__);
 	resetData();
 	for (int i = 0; i < MAX_SEAT_COUNT; i++)
 	{
 		pSeatData[i]->resetData();
 	}
-	//Òş²ØËùÓĞ³ïÂë
+	//éšè—æ‰€æœ‰ç­¹ç 
 	for (int i = 0; i < DataModel::sharedDataModel()->vecJettonNode.size(); i++)
 	{
 		DataModel::sharedDataModel()->vecJettonNode[i]->hideJetton();
 	}
-	//Òş²ØÅÆ
+	//éšè—ç‰Œ
 	getMainScene()->cardLayer->resetCard();
-	//ÉèÖÃ¿ÕÏĞ×´Ì¬
+	//è®¾ç½®ç©ºé—²çŠ¶æ€
 	DataModel::sharedDataModel()->getMainSceneOxHundred()->setGameStateWithUpdate(MainSceneOxHundred::STATE_GAME_FREE);
-	//²Ù¿Ø¸üĞÂ
+	//æ“æ§æ›´æ–°
 	updateButtonContron();
 }
-//ÓÎÏ·¿ªÊ¼
+//æ¸¸æˆå¼€å§‹
 void GameControlOxHundred::onSubGameStart(const void * pBuffer, WORD wDataSize){
-	//Ğ§ÑéÊı¾İ
+	//æ•ˆéªŒæ•°æ®
 	assert(wDataSize == sizeof(CMD_S_GameStart));
 	if (wDataSize != sizeof(CMD_S_GameStart)) return;
 
-	//ÏûÏ¢´¦Àí
+	//æ¶ˆæ¯å¤„ç†
 	CMD_S_GameStart * pGameStart = (CMD_S_GameStart *)pBuffer;
 	m_lMeMaxScore = pGameStart->lUserMaxScore;
-	//ÉèÖÃÓÃ»§ĞÅÏ¢
+	//è®¾ç½®ç”¨æˆ·ä¿¡æ¯
 	tagUserInfo *uInfo = getUserInfo(pGameStart->wBankerUser);
 	if (uInfo)
 	{
@@ -903,22 +903,22 @@ void GameControlOxHundred::onSubGameStart(const void * pBuffer, WORD wDataSize){
 	}
 
 	CCLog("gameStart=time--:%d<<%s>>", pGameStart->cbTimeLeave, __FUNCTION__);
-	//ÉèÖÃÊ±¼ä
-	resetTimer(pGameStart->cbTimeLeave, Tools::GBKToUTF8("ÇëÏÂ×¢"));
+	//è®¾ç½®æ—¶é—´
+	resetTimer(pGameStart->cbTimeLeave, Tools::GBKToUTF8("è¯·ä¸‹æ³¨"));
 	hideTimer(false);
-	//ÉèÖÃÏÂ×¢×´Ì¬
+	//è®¾ç½®ä¸‹æ³¨çŠ¶æ€
 	DataModel::sharedDataModel()->getMainSceneOxHundred()->setGameStateWithUpdate(MainSceneOxHundred::STATE_GAME_PLACE_JETTON);
 	setBankerInfo(pGameStart->wBankerUser, pGameStart->lBankerScore);
-	//²Ù¿Ø¸üĞÂ
+	//æ“æ§æ›´æ–°
 	updateButtonContron();
 }
-//ÓÃ»§ÏÂ×¢
+//ç”¨æˆ·ä¸‹æ³¨
 void GameControlOxHundred::onSubPlaceJetton(const void * pBuffer, WORD wDataSize, bool bGameMes){
-	//Ğ§ÑéÊı¾İ
+	//æ•ˆéªŒæ•°æ®
 	assert(wDataSize == sizeof(CMD_S_PlaceJetton));
 	if (wDataSize != sizeof(CMD_S_PlaceJetton)) return;
 
-	//ÏûÏ¢´¦Àí
+	//æ¶ˆæ¯å¤„ç†
 	CMD_S_PlaceJetton * pPlaceJetton = (CMD_S_PlaceJetton *)pBuffer;
 
 	pSeatData[pPlaceJetton->cbJettonArea - 1]->setAllJettonByAdd(pPlaceJetton->lJettonScore);
@@ -953,15 +953,15 @@ void GameControlOxHundred::onSubPlaceJetton(const void * pBuffer, WORD wDataSize
 	//CCLog("chair:%d jettonScore: %lld<<%s>>",pPlaceJetton->wChairID,pPlaceJetton->lJettonScore,__FUNCTION__);
 	updateButtonContron();
 }
-//ÉêÇë×¯¼Ò
+//ç”³è¯·åº„å®¶
 void GameControlOxHundred::onSubUserApplyBanker(const void * pBuffer, WORD wDataSize){
-	//Ğ§ÑéÊı¾İ
+	//æ•ˆéªŒæ•°æ®
 	assert(wDataSize == sizeof(CMD_S_ApplyBanker));
 	if (wDataSize != sizeof(CMD_S_ApplyBanker)) return;
 
-	//ÏûÏ¢´¦Àí
+	//æ¶ˆæ¯å¤„ç†
 	CMD_S_ApplyBanker * pApplyBanker = (CMD_S_ApplyBanker *)pBuffer;
-	//²åÈë×¯¼ÒÁĞ±í
+	//æ’å…¥åº„å®¶åˆ—è¡¨
 	if (m_wBankerUser != pApplyBanker->wApplyUser)
 	{
 		map<long, tagUserInfo>::iterator it;
@@ -995,7 +995,7 @@ void GameControlOxHundred::onSubUserApplyBanker(const void * pBuffer, WORD wData
 	if(pUserItem != NULL)
 	pUserData = pUserItem->GetUserInfo();
 
-	//²åÈëÍæ¼Ò
+	//æ’å…¥ç©å®¶
 	if (m_wCurrentBanker!=pApplyBanker->wApplyUser && pUserData!=NULL)
 	{
 	tagApplyUser ApplyUser;
@@ -1016,24 +1016,24 @@ void GameControlOxHundred::onSubUserApplyBanker(const void * pBuffer, WORD wData
 	}
 	}
 	*/
-	//×Ô¼ºÅĞ¶Ï
+	//è‡ªå·±åˆ¤æ–­
 	if (DataModel::sharedDataModel()->userInfo->wChairID == pApplyBanker->wApplyUser) {
 		m_bMeApplyBanker = true;
 	}
 	/*
-	//¸üĞÂ¿Ø¼ş
+	//æ›´æ–°æ§ä»¶
 	UpdateButtonContron();
 	m_GameClientView.m_btCancelBanker.EnableWindow(TRUE);
 	*/
 }
-//È¡Ïû×ö×¯
+//å–æ¶ˆåšåº„
 void GameControlOxHundred::onSubUserCancelBanker(const void * pBuffer, WORD wDataSize)
 {
-	//Ğ§ÑéÊı¾İ
+	//æ•ˆéªŒæ•°æ®
 	assert(wDataSize == sizeof(CMD_S_CancelBanker));
 	if (wDataSize != sizeof(CMD_S_CancelBanker)) return;
 
-	//ÏûÏ¢´¦Àí
+	//æ¶ˆæ¯å¤„ç†
 	CMD_S_CancelBanker * pCancelBanker = (CMD_S_CancelBanker *)pBuffer;
 	tagApplyUser ApplyUser;
 	ApplyUser.strUserName = pCancelBanker->szCancelUser;
@@ -1056,7 +1056,7 @@ void GameControlOxHundred::onSubUserCancelBanker(const void * pBuffer, WORD wDat
 			iter++;
 		}
 	}
-	//·¢ËÍ¸üĞÂÁĞ±íÍ¨Öª
+	//å‘é€æ›´æ–°åˆ—è¡¨é€šçŸ¥
 	MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_BANK_LIST, NULL);
 
 	/*tagApplyUser ApplyUser;
@@ -1080,31 +1080,31 @@ void GameControlOxHundred::onSubUserCancelBanker(const void * pBuffer, WORD wDat
 	m_GameClientView.m_btDown.EnableWindow(false);
 	}*/
 
-	//×Ô¼ºÅĞ¶Ï
+	//è‡ªå·±åˆ¤æ–­
 	const tagUserInfo *pMeUserData = DataModel::sharedDataModel()->userInfo;
 	if (strcmp(pMeUserData->szNickName, pCancelBanker->szCancelUser) == 0)
 		m_bMeApplyBanker = false;
 
 
 
-	//¸üĞÂ¿Ø¼ş
+	//æ›´æ–°æ§ä»¶
 	updateButtonContron();
 	//m_GameClientView.m_btApplyBanker.EnableWindow(TRUE);
 }
-//ÇĞ»»×¯¼Ò
+//åˆ‡æ¢åº„å®¶
 void GameControlOxHundred::onSubChangeBanker(const void * pBuffer, WORD wDataSize)
 {
-	//Ğ§ÑéÊı¾İ
+	//æ•ˆéªŒæ•°æ®
 	assert(wDataSize == sizeof(CMD_S_ChangeBanker));
 	if (wDataSize != sizeof(CMD_S_ChangeBanker)) return;
 
-	//ÏûÏ¢´¦Àí
+	//æ¶ˆæ¯å¤„ç†
 	CMD_S_ChangeBanker * pChangeBanker = (CMD_S_ChangeBanker *)pBuffer;
 
-	//ÏÔÊ¾Í¼Æ¬
+	//æ˜¾ç¤ºå›¾ç‰‡
 	//m_GameClientView.ShowChangeBanker(m_wCurrentBanker!=pChangeBanker->wBankerUser);
 
-	//×Ô¼ºÅĞ¶Ï
+	//è‡ªå·±åˆ¤æ–­
 	if (m_wBankerUser == DataModel::sharedDataModel()->userInfo->wChairID&& pChangeBanker->wBankerUser != DataModel::sharedDataModel()->userInfo->wChairID)
 	{
 		m_bMeApplyBanker = false;
@@ -1114,16 +1114,16 @@ void GameControlOxHundred::onSubChangeBanker(const void * pBuffer, WORD wDataSiz
 		m_bMeApplyBanker = true;
 	}
 
-	//×¯¼ÒĞÅÏ¢
+	//åº„å®¶ä¿¡æ¯
 	setBankerInfo(pChangeBanker->wBankerUser, pChangeBanker->lBankerScore);
 	//m_GameClientView.SetBankerScore(0,0);
-	//ÉèÖÃÓÃ»§ĞÅÏ¢
+	//è®¾ç½®ç”¨æˆ·ä¿¡æ¯
 	tagUserInfo *uInfo = getUserInfo(pChangeBanker->wBankerUser);
 	if (uInfo)
 	{
 		pPlayerData[1]->setUserInfo(*uInfo);
 	}
-	//É¾³ıÍæ¼Ò
+	//åˆ é™¤ç©å®¶
 	if (m_wBankerUser != INVALID_CHAIR)
 	{
 		if (listApplyUser.size() > 0)
@@ -1145,18 +1145,18 @@ void GameControlOxHundred::onSubChangeBanker(const void * pBuffer, WORD wDataSiz
 		}*/
 	}
 
-	//¸üĞÂ½çÃæ
+	//æ›´æ–°ç•Œé¢
 	updateButtonContron();
 	//m_GameClientView.InvalidGameView(0,0,0,0);
 
 }
-//ÇÀ×¯ÏûÏ¢ 
+//æŠ¢åº„æ¶ˆæ¯ 
 void GameControlOxHundred::onQiangZhuanRet(const void *pBuffer, WORD wDataSize)
 {
 	assert(wDataSize == sizeof(CMD_S_QiangZhuan));
 	if (wDataSize != sizeof(CMD_S_QiangZhuan)) return;
 
-	//ÏûÏ¢´¦Àí
+	//æ¶ˆæ¯å¤„ç†
 	CMD_S_QiangZhuan * pCmd = (CMD_S_QiangZhuan *)pBuffer;
 	CCLog("---<<%s>>", __FUNCTION__);
 	for (int nIndex = pCmd->wSwap1; nIndex > pCmd->wSwap2; nIndex--)
@@ -1185,15 +1185,15 @@ void GameControlOxHundred::onQiangZhuanRet(const void *pBuffer, WORD wDataSize)
 
 	//m_GameClientView.m_ApplyUser.ResetItemPos(pCmd->wSwap1,pCmd->wSwap2,pCmd->lMeMoney);
 }
-//ÓÎÏ·¼ÇÂ¼
+//æ¸¸æˆè®°å½•
 void GameControlOxHundred::onSubGameRecord(const void * pBuffer, WORD wDataSize){
-	//Ğ§Ñé²ÎÊı
+	//æ•ˆéªŒå‚æ•°
 	assert(wDataSize%sizeof(tagServerGameRecord) == 0);
 	if (wDataSize%sizeof(tagServerGameRecord) != 0) return;
 
 
 
-	//ÉèÖÃ¼ÇÂ¼
+	//è®¾ç½®è®°å½•
 	WORD wRecordCount = wDataSize / sizeof(tagServerGameRecord);
 	for (WORD wIndex = 0; wIndex<wRecordCount; wIndex++)
 	{
@@ -1206,7 +1206,7 @@ void GameControlOxHundred::onSubGameRecord(const void * pBuffer, WORD wDataSize)
 	}
 	MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_LIST, NULL);
 }
-//²åÈëÀúÊ·¼ÇÂ¼
+//æ’å…¥å†å²è®°å½•
 void GameControlOxHundred::insertGameHistory(tagGameRecord tagRecord){
 	listGameRecord.push_back(tagRecord);
 	if (listGameRecord.size()>MAX_SCORE_HISTORY)
@@ -1214,55 +1214,55 @@ void GameControlOxHundred::insertGameHistory(tagGameRecord tagRecord){
 		listGameRecord.pop_front();
 	}
 }
-//ÍÆ¶ÏÓ®¼Ò
+//æ¨æ–­èµ¢å®¶
 void GameControlOxHundred::deduceWinner(bool &bWinTian, bool &bWinDi, bool &bWinXuan, bool &bWinHuan, BYTE &TianMultiple, BYTE &diMultiple, BYTE &TianXuanltiple, BYTE &HuangMultiple)
 {
-	//´óĞ¡±È½Ï
+	//å¤§å°æ¯”è¾ƒ
 	bWinTian = CompareCard(getMainScene()->cardLayer->card[BANKER_INDEX], 5, getMainScene()->cardLayer->card[SHUN_MEN_INDEX], 5, TianMultiple) == 1 ? true : false;
 	bWinDi = CompareCard(getMainScene()->cardLayer->card[BANKER_INDEX], 5, getMainScene()->cardLayer->card[DUI_MEN_INDEX], 5, diMultiple) == 1 ? true : false;
 	bWinXuan = CompareCard(getMainScene()->cardLayer->card[BANKER_INDEX], 5, getMainScene()->cardLayer->card[DAO_MEN_INDEX], 5, TianXuanltiple) == 1 ? true : false;
 	bWinHuan = CompareCard(getMainScene()->cardLayer->card[BANKER_INDEX], 5, getMainScene()->cardLayer->card[HUAN_MEN_INDEX], 5, HuangMultiple) == 1 ? true : false;
 }
-//ÏÂ×¢Ê§°Ü
+//ä¸‹æ³¨å¤±è´¥
 void GameControlOxHundred::onSubPlaceJettonFail(const void * pBuffer, WORD wDataSize){
 	CCLog("======================jettonFail------------<<%s>>", __FUNCTION__);
-	//Ğ§ÑéÊı¾İ
+	//æ•ˆéªŒæ•°æ®
 	assert(wDataSize == sizeof(CMD_S_PlaceJettonFail));
 	if (wDataSize != sizeof(CMD_S_PlaceJettonFail)) return;
 
-	//ÏûÏ¢´¦Àí
+	//æ¶ˆæ¯å¤„ç†
 	CMD_S_PlaceJettonFail * pPlaceJettonFail = (CMD_S_PlaceJettonFail *)pBuffer;
 	CCLog("%d<<%s>>", pPlaceJettonFail->wPlaceUser, __FUNCTION__);
 	m_lAllJettonScore[pPlaceJettonFail->lJettonArea] -= pPlaceJettonFail->lPlaceScore;
-	//×Ô¼ºÅĞ¶Ï
+	//è‡ªå·±åˆ¤æ–­
 	if (DataModel::sharedDataModel()->userInfo->wChairID == pPlaceJettonFail->wPlaceUser
 		//&& false==IsLookonMode()
 		)
 	{
-		//Ğ§Ñé²ÎÊı
+		//æ•ˆéªŒå‚æ•°
 		BYTE cbViewIndex = pPlaceJettonFail->lJettonArea;
 		long long lJettonCount = pPlaceJettonFail->lPlaceScore;
-		//ºÏ·¨Ğ£Ñé
+		//åˆæ³•æ ¡éªŒ
 		assert(m_lUserJettonScore[cbViewIndex] >= lJettonCount);
 		if (lJettonCount > m_lUserJettonScore[cbViewIndex]) return;
 
-		//ÉèÖÃÏÂ×¢
+		//è®¾ç½®ä¸‹æ³¨
 		m_lUserJettonScore[cbViewIndex] -= lJettonCount;
 		pSeatData[cbViewIndex - 1]->setUserJetton(m_lUserJettonScore[cbViewIndex]);
 	}
 }
-//ÓÎÏ·½áÊø
+//æ¸¸æˆç»“æŸ
 void GameControlOxHundred::onSubGameEnd(const void * pBuffer, WORD wDataSize){
-	//Ğ§ÑéÊı¾İ
+	//æ•ˆéªŒæ•°æ®
 	assert(wDataSize == sizeof(CMD_S_GameEnd));
 	if (wDataSize != sizeof(CMD_S_GameEnd)) return;
-	//ÏûÏ¢´¦Àí
+	//æ¶ˆæ¯å¤„ç†
 	CMD_S_GameEnd * pGameEnd = (CMD_S_GameEnd *)pBuffer;
 	CCLog("end:%lld<<%s>>", pGameEnd->lUserScore, __FUNCTION__);
-	//ÉèÖÃÊ±¼ä
-	resetTimer(pGameEnd->cbTimeLeave, Tools::GBKToUTF8("ĞİÏ¢Ò»ÏÂ..."));
+	//è®¾ç½®æ—¶é—´
+	resetTimer(pGameEnd->cbTimeLeave, Tools::GBKToUTF8("ä¼‘æ¯ä¸€ä¸‹..."));
 	hideTimer(false);
-	//ÉèÖÃ×Ü½áËã
+	//è®¾ç½®æ€»ç»“ç®—
 	pPlayerData[0]->lGameScore = pGameEnd->lUserScore;
 	DataModel::sharedDataModel()->userInfo->lScore += pGameEnd->lUserScore;
 	pPlayerData[0]->changePlayerGole(DataModel::sharedDataModel()->userInfo->lScore);
@@ -1277,7 +1277,7 @@ void GameControlOxHundred::onSubGameEnd(const void * pBuffer, WORD wDataSize){
 	}
 
 
-	//ÉèÖÃÅÆÊı¾İ
+	//è®¾ç½®ç‰Œæ•°æ®
 	for (int i = 0; i < sizeof(pGameEnd->cbTableCardArray) / sizeof(pGameEnd->cbTableCardArray[0]); i++)
 	{
 		for (int j = 0; j < sizeof(pGameEnd->cbTableCardArray[0]); j++)
@@ -1285,7 +1285,7 @@ void GameControlOxHundred::onSubGameEnd(const void * pBuffer, WORD wDataSize){
 			getMainScene()->cardLayer->card[i][j] = pGameEnd->cbTableCardArray[i][j];
 		}
 	}
-	//ÍÆ¶ÏÓ®¼Ò
+	//æ¨æ–­èµ¢å®¶
 	bool bWinTianMen, bWinDiMen, bWinXuanMen, bWinHuang;
 	BYTE TianMultiple, diMultiple, TianXuanltiple, HuangMultiple;
 	deduceWinner(bWinTianMen, bWinDiMen, bWinXuanMen, bWinHuang, TianMultiple, diMultiple, TianXuanltiple, HuangMultiple);
@@ -1299,35 +1299,35 @@ void GameControlOxHundred::onSubGameEnd(const void * pBuffer, WORD wDataSize){
 
 	insertGameHistory(tagRecord);
 
-	//ÉèÖÃ·¢ÅÆ×´Ì¬
+	//è®¾ç½®å‘ç‰ŒçŠ¶æ€
 	DataModel::sharedDataModel()->getMainSceneOxHundred()->setGameStateWithUpdate(MainSceneOxHundred::STATE_GAME_SEND_CARD);
-	//²Ù¿Ø¸üĞÂ
+	//æ“æ§æ›´æ–°
 	updateButtonContron();
 }
 //////////////////////////////////////////////////////////////////////////
-//ÓÃ»§ĞÅÏ¢
+//ç”¨æˆ·ä¿¡æ¯
 void GameControlOxHundred::onSubUserInfo(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
 	switch (wSubCmdID)
 	{
-	case SUB_GR_USER_ENTER://ÓÃ»§½øÈë
+	case SUB_GR_USER_ENTER://ç”¨æˆ·è¿›å…¥
 		onSubUserEnter(pDataBuffer, wDataSize);
 		break;
-	case SUB_GR_USER_STATUS://ÓÃ»§×´Ì¬
+	case SUB_GR_USER_STATUS://ç”¨æˆ·çŠ¶æ€
 		onSubUserState(pDataBuffer, wDataSize);
 		break;
 	default:
 		break;
 	}
 }
-//ÓÃ»§½øÈë
+//ç”¨æˆ·è¿›å…¥
 void GameControlOxHundred::onSubUserEnter(void * pDataBuffer, unsigned short wDataSize){
-	//Ğ§Ñé²ÎÊı
+	//æ•ˆéªŒå‚æ•°
 	assert(wDataSize >= sizeof(tagMobileUserInfoHead));
 	if (wDataSize < sizeof(tagMobileUserInfoHead)) return;
-	//ÏûÏ¢´¦Àí
+	//æ¶ˆæ¯å¤„ç†
 	tagMobileUserInfoHead * pUserInfoHead = (tagMobileUserInfoHead *)pDataBuffer;
 	int wPacketSize = 0;
-	//±äÁ¿¶¨Òå
+	//å˜é‡å®šä¹‰
 	tagUserInfo UserInfo;
 	UserInfo.dwUserID = pUserInfoHead->dwUserID;
 	UserInfo.dwGameID = pUserInfoHead->dwGameID;
@@ -1345,7 +1345,7 @@ void GameControlOxHundred::onSubUserEnter(void * pDataBuffer, unsigned short wDa
 		wPacketSize += sizeof(tagDataDescribe);
 		switch (DataDescribe->wDataDescribe)
 		{
-		case DTP_GR_NICK_NAME:		//ÓÃ»§êÇ³Æ
+		case DTP_GR_NICK_NAME:		//ç”¨æˆ·æ˜µç§°
 		{
 			CopyMemory(&UserInfo.szNickName, cbDataBuffer + wPacketSize, DataDescribe->wDataSize);
 			UserInfo.szNickName[CountArray(UserInfo.szNickName) - 1] = 0;
@@ -1354,14 +1354,14 @@ void GameControlOxHundred::onSubUserEnter(void * pDataBuffer, unsigned short wDa
 		break;
 		case DTP_GR_GROUP_NAME:
 		{
-			CCLog("ÉçÍÅ");
+			CCLog("ç¤¾å›¢");
 		}
 		break;
 		case DTP_GR_UNDER_WRITE:
 		{
 			CopyMemory(UserInfo.szUnderWrite, cbDataBuffer + wPacketSize, DataDescribe->wDataSize);
 			UserInfo.szUnderWrite[CountArray(UserInfo.szUnderWrite) - 1] = 0;
-			CCLog("Ç©Ãû:%s", Tools::GBKToUTF8(UserInfo.szUnderWrite));
+			CCLog("ç­¾å:%s", Tools::GBKToUTF8(UserInfo.szUnderWrite));
 		}
 		break;
 		}
@@ -1382,49 +1382,49 @@ void GameControlOxHundred::onSubUserEnter(void * pDataBuffer, unsigned short wDa
 		DataModel::sharedDataModel()->mTagUserInfo.insert(map<long, tagUserInfo>::value_type(pUserInfoHead->dwUserID, UserInfo));
 	}
 	/*
-	//Ğ§Ñé²ÎÊı
+	//æ•ˆéªŒå‚æ•°
 	ASSERT(wDataSize>=sizeof(tagUserInfoHead));
 	if (wDataSize<sizeof(tagUserInfoHead)) return false;
 
-	//±äÁ¿¶¨Òå
+	//å˜é‡å®šä¹‰
 	tagUserInfo UserInfo;
 	tagCustomFaceInfo CustomFaceInfo;
 	ZeroMemory(&UserInfo,sizeof(UserInfo));
 	ZeroMemory(&CustomFaceInfo,sizeof(CustomFaceInfo));
 
-	//ÏûÏ¢´¦Àí
+	//æ¶ˆæ¯å¤„ç†
 	tagUserInfoHead * pUserInfoHead=(tagUserInfoHead *)pData;
 
-	//±äÁ¿¶¨Òå
+	//å˜é‡å®šä¹‰
 	CGlobalUserInfo * pGlobalUserInfo=CGlobalUserInfo::GetInstance();
 	tagGlobalUserData * pGlobalUserData=pGlobalUserInfo->GetGlobalUserData();
 
-	//±äÁ¿¶¨Òå
+	//å˜é‡å®šä¹‰
 	bool bHideUserInfo=CServerRule::IsAllowAvertCheatMode(m_dwServerRule);
 	bool bMySelfUserItem=pGlobalUserData->dwUserID==pUserInfoHead->dwUserID;
 	bool bMasterUserOrder=((pUserInfoHead->cbMasterOrder>0)||((m_pIMySelfUserItem!=NULL)&&(m_pIMySelfUserItem->GetMasterOrder()>0)));
 
-	//¶ÁÈ¡ĞÅÏ¢
+	//è¯»å–ä¿¡æ¯
 	if ((bHideUserInfo==false)||(bMySelfUserItem==true)||(bMasterUserOrder==true))
 	{
-	//ÓÃ»§ÊôĞÔ
+	//ç”¨æˆ·å±æ€§
 	UserInfo.wFaceID=pUserInfoHead->wFaceID;
 	UserInfo.dwGameID=pUserInfoHead->dwGameID;
 	UserInfo.dwUserID=pUserInfoHead->dwUserID;
 	UserInfo.dwGroupID=pUserInfoHead->dwGroupID;
 	UserInfo.dwCustomID=pUserInfoHead->dwCustomID;
 
-	//ÓÃ»§×´Ì¬
+	//ç”¨æˆ·çŠ¶æ€
 	UserInfo.wTableID=pUserInfoHead->wTableID;
 	UserInfo.wChairID=pUserInfoHead->wChairID;
 	UserInfo.cbUserStatus=pUserInfoHead->cbUserStatus;
 
-	//ÓÃ»§ÊôĞÔ
+	//ç”¨æˆ·å±æ€§
 	UserInfo.cbGender=pUserInfoHead->cbGender;
 	UserInfo.cbMemberOrder=pUserInfoHead->cbMemberOrder;
 	UserInfo.cbMasterOrder=pUserInfoHead->cbMasterOrder;
 
-	//ÓÃ»§»ı·Ö
+	//ç”¨æˆ·ç§¯åˆ†
 	UserInfo.lScore=pUserInfoHead->lScore;
 	UserInfo.lGrade=pUserInfoHead->lGrade;
 	UserInfo.lInsure=pUserInfoHead->lInsure;
@@ -1436,19 +1436,19 @@ void GameControlOxHundred::onSubUserEnter(void * pDataBuffer, unsigned short wDa
 	UserInfo.dwExperience=pUserInfoHead->dwExperience;
 	UserInfo.lLoveLiness=pUserInfoHead->lLoveLiness;
 
-	//±äÁ¿¶¨Òå
+	//å˜é‡å®šä¹‰
 	VOID * pDataBuffer=NULL;
 	tagDataDescribe DataDescribe;
 	CRecvPacketHelper RecvPacket(pUserInfoHead+1,wDataSize-sizeof(tagUserInfoHead));
 
-	//À©Õ¹ĞÅÏ¢
+	//æ‰©å±•ä¿¡æ¯
 	while (true)
 	{
 	pDataBuffer=RecvPacket.GetData(DataDescribe);
 	if (DataDescribe.wDataDescribe==DTP_NULL) break;
 	switch (DataDescribe.wDataDescribe)
 	{
-	case DTP_GR_NICK_NAME:		//ÓÃ»§êÇ³Æ
+	case DTP_GR_NICK_NAME:		//ç”¨æˆ·æ˜µç§°
 	{
 	ASSERT(pDataBuffer!=NULL);
 	ASSERT(DataDescribe.wDataSize<=sizeof(UserInfo.szNickName));
@@ -1459,7 +1459,7 @@ void GameControlOxHundred::onSubUserEnter(void * pDataBuffer, unsigned short wDa
 	}
 	break;
 	}
-	case DTP_GR_GROUP_NAME:		//ÓÃ»§ÉçÍÅ
+	case DTP_GR_GROUP_NAME:		//ç”¨æˆ·ç¤¾å›¢
 	{
 	ASSERT(pDataBuffer!=NULL);
 	ASSERT(DataDescribe.wDataSize<=sizeof(UserInfo.szGroupName));
@@ -1470,7 +1470,7 @@ void GameControlOxHundred::onSubUserEnter(void * pDataBuffer, unsigned short wDa
 	}
 	break;
 	}
-	case DTP_GR_UNDER_WRITE:	//¸öĞÔÇ©Ãû
+	case DTP_GR_UNDER_WRITE:	//ä¸ªæ€§ç­¾å
 	{
 	ASSERT(pDataBuffer!=NULL);
 	ASSERT(DataDescribe.wDataSize<=sizeof(UserInfo.szUnderWrite));
@@ -1484,14 +1484,14 @@ void GameControlOxHundred::onSubUserEnter(void * pDataBuffer, unsigned short wDa
 	}
 	}
 
-	//×Ô¶¨Í·Ïñ
+	//è‡ªå®šå¤´åƒ
 	if (pUserInfoHead->dwCustomID!=0L)
 	{
-	//¼ÓÔØÍ·Ïñ
+	//åŠ è½½å¤´åƒ
 	CCustomFaceManager * pCustomFaceManager=CCustomFaceManager::GetInstance();
 	bool bSuccess=pCustomFaceManager->LoadUserCustomFace(pUserInfoHead->dwUserID,pUserInfoHead->dwCustomID,CustomFaceInfo);
 
-	//ÏÂÔØÍ·Ïñ
+	//ä¸‹è½½å¤´åƒ
 	if (bSuccess==false)
 	{
 	pCustomFaceManager->LoadUserCustomFace(pUserInfoHead->dwUserID,pUserInfoHead->dwCustomID);
@@ -1500,16 +1500,16 @@ void GameControlOxHundred::onSubUserEnter(void * pDataBuffer, unsigned short wDa
 	}
 	else
 	{
-	//ÓÃ»§ĞÅÏ¢
+	//ç”¨æˆ·ä¿¡æ¯
 	UserInfo.dwUserID=pUserInfoHead->dwUserID;
-	lstrcpyn(UserInfo.szNickName,TEXT("ÓÎÏ·Íæ¼Ò"),CountArray(UserInfo.szNickName));
+	lstrcpyn(UserInfo.szNickName,TEXT("æ¸¸æˆç©å®¶"),CountArray(UserInfo.szNickName));
 
-	//ÓÃ»§×´Ì¬
+	//ç”¨æˆ·çŠ¶æ€
 	UserInfo.wTableID=pUserInfoHead->wTableID;
 	UserInfo.wChairID=pUserInfoHead->wChairID;
 	UserInfo.cbUserStatus=pUserInfoHead->cbUserStatus;
 
-	//ÓÃ»§ÊôĞÔ
+	//ç”¨æˆ·å±æ€§
 	UserInfo.cbGender=pUserInfoHead->cbGender;
 	UserInfo.cbMemberOrder=pUserInfoHead->cbMemberOrder;
 	UserInfo.cbMasterOrder=pUserInfoHead->cbMasterOrder;
@@ -1521,7 +1521,7 @@ void GameControlOxHundred::onSubUserEnter(void * pDataBuffer, unsigned short wDa
 	//	m_ChatMessage.InsertSystemString(sUserInfo);
 	//}
 
-	//¼¤»îÓÃ»§
+	//æ¿€æ´»ç”¨æˆ·
 	IClientUserItem * pIClientUserItem=m_PlazaUserManagerModule->SearchUserByUserID(UserInfo.dwUserID);
 	if (pIClientUserItem==NULL)
 	{
@@ -1529,52 +1529,52 @@ void GameControlOxHundred::onSubUserEnter(void * pDataBuffer, unsigned short wDa
 	//m_ChatMessage.InsertSystemString(UserInfo.szNickName);
 	}
 	else
-	{		//É¾³ıÓÃ»§
+	{		//åˆ é™¤ç”¨æˆ·
 
 	m_ChatMessage.InsertSystemString(TEXT("ss1111111111111"));
 	m_PlazaUserManagerModule->DeleteUserItem(pIClientUserItem);
 	pIClientUserItem=m_PlazaUserManagerModule->ActiveUserItem(UserInfo,CustomFaceInfo);
 	}
 
-	//»ñÈ¡¶ÔÏó
+	//è·å–å¯¹è±¡
 	CServerListData * pServerListData=CServerListData::GetInstance();
 
-	//ÈËÊı¸üĞÂ
+	//äººæ•°æ›´æ–°
 	pServerListData->SetServerOnLineCount(m_GameServer.dwServerID,m_PlazaUserManagerModule->GetActiveUserCount());
 
-	//±äÁ¿¶¨Òå
+	//å˜é‡å®šä¹‰
 	ASSERT(CParameterGlobal::GetInstance()!=NULL);
 	CParameterGlobal * pParameterGlobal=CParameterGlobal::GetInstance();
 
-	//ºÃÓÑÌáÊ¾
+	//å¥½å‹æç¤º
 	if (((bHideUserInfo==false)&&(bMySelfUserItem==false))||(bMasterUserOrder==true))
 	{
 	if(pParameterGlobal->m_bNotifyFriendCome && pIClientUserItem->GetUserCompanion()==CP_FRIEND)
 	{
-	//ÌáÊ¾ÏûÏ¢
+	//æç¤ºæ¶ˆæ¯
 	CString strDescribe;
-	strDescribe.Format(TEXT("ÄúµÄºÃÓÑ [%s] ½øÀ´ÁË£¡"),pIClientUserItem->GetNickName());
+	strDescribe.Format(TEXT("æ‚¨çš„å¥½å‹ [%s] è¿›æ¥äº†ï¼"),pIClientUserItem->GetNickName());
 	m_ChatMessage.InsertSystemString(strDescribe);
 	//m_ChatMessage.InsertUserEnter(pIClientUserItem->GetNickName());//InsertNormalString(strDescribe);
 	}
 	}
 	*/
 }
-//ÓÃ»§×´Ì¬
+//ç”¨æˆ·çŠ¶æ€
 void GameControlOxHundred::onSubUserState(void * pDataBuffer, unsigned short wDataSize){
 	CMD_GR_UserStatus *info = (CMD_GR_UserStatus*)pDataBuffer;
 	switch (info->UserStatus.cbUserStatus)
 	{
-	case US_SIT://×øÏÂ
+	case US_SIT://åä¸‹
 	{
 		if (info->dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID){
 			DataModel::sharedDataModel()->userInfo->wTableID = info->UserStatus.wTableID;
 			DataModel::sharedDataModel()->userInfo->wChairID = info->UserStatus.wChairID;
-			CCLog("--%s------------------<<%s>>", Tools::GBKToUTF8("°ÙÈËÅ£Å£×øÏÂ"), __FUNCTION__);
+			CCLog("--%s------------------<<%s>>", Tools::GBKToUTF8("ç™¾äººç‰›ç‰›åä¸‹"), __FUNCTION__);
 		}
 	}
 	break;
-	case US_FREE://Õ¾Á¢
+	case US_FREE://ç«™ç«‹
 	{
 		map<long, tagUserInfo >::iterator l_it;
 		l_it = DataModel::sharedDataModel()->mTagUserInfo.find(info->dwUserID);
@@ -1612,7 +1612,7 @@ void GameControlOxHundred::onSubUserState(void * pDataBuffer, unsigned short wDa
 		}
 	}
 	break;
-	case US_READY://Í¬Òâ
+	case US_READY://åŒæ„
 	{
 	}
 	break;
@@ -1621,22 +1621,22 @@ void GameControlOxHundred::onSubUserState(void * pDataBuffer, unsigned short wDa
 	}
 	break;
 	default:
-		CCLog("state==Other userID:%ld ×´Ì¬£º%d<<%s>>", info->dwUserID, info->UserStatus.cbUserStatus, __FUNCTION__);
+		CCLog("state==Other userID:%ld çŠ¶æ€ï¼š%d<<%s>>", info->dwUserID, info->UserStatus.cbUserStatus, __FUNCTION__);
 		break;
 	}
 }
-//ÓÃ»§×´Ì¬
+//ç”¨æˆ·çŠ¶æ€
 void GameControlOxHundred::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
 }
 
-//¿ªÊ¼ÏÂ×¢Ğ§¹û¶¯»­
+//å¼€å§‹ä¸‹æ³¨æ•ˆæœåŠ¨ç”»
 void GameControlOxHundred::beginAddScoreEffect(){
 	CCArmature *pAnimate = CCArmature::create("AnimationGameIng");
 	this->addChild(pAnimate);
 	CCSize dSize = DataModel::sharedDataModel()->deviceSize;
 	pAnimate->setPosition(ccp(dSize.width/2,dSize.height/2-100));
 
-	pAnimate->getAnimation()->setMovementEventCallFunc(this, movementEvent_selector(GameControlOxHundred::onAnimationEventOver));//¶¯»­²¥Íê»Øµ÷ÓÃ
+	pAnimate->getAnimation()->setMovementEventCallFunc(this, movementEvent_selector(GameControlOxHundred::onAnimationEventOver));//åŠ¨ç”»æ’­å®Œå›è°ƒç”¨
 	pAnimate->getAnimation()->setFrameEventCallFunc(this, frameEvent_selector(GameControlOxHundred::onAnimationEventFrame));
 	
 	pAnimate->getAnimation()->play("addScore");

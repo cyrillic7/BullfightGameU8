@@ -26,8 +26,8 @@ void MainSceneBase::initPlayerLayer(){
 	playerLayer = PlayerLayer::create();
 	this->addChild(playerLayer);
 }
-//ÊÕµ½×¼±¸Íê³É»Øµ÷
+//æ”¶åˆ°å‡†å¤‡å®Œæˆå›è°ƒ
 void MainSceneBase::onEventReadyFnish(){
-	CCLog("×¼±¸Íê³ÉµÈ´ı·şÎñ¶ËÏìÓ¦.");
+	CCLog("å‡†å¤‡å®Œæˆç­‰å¾…æœåŠ¡ç«¯å“åº”.");
 	setServerStateWithUpdate(STATE_WAIT);
 }
