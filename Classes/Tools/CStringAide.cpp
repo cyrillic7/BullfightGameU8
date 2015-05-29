@@ -1,4 +1,4 @@
-﻿#include "CStringAide.h"
+#include "CStringAide.h"
 CStringAide::CStringAide()
 {
 }

@@ -29,32 +29,32 @@ void PlayerLayer::initPlayerInfo(){
 		pPlayerData[i]=PlayerData::create();
 		this->addChild(pPlayerData[i]);
 		pPlayerData[i]->pPlayerPanel = static_cast<UIPanel*>(m_pWidget->getWidgetByName(CCString::createWithFormat("player%d",i)->getCString()));
-		//½áËãÊý×Ö
+		//ç»“ç®—æ•°å­—
 		pPlayerData[i]->pLResult=static_cast<UILabelAtlas*>(pPlayerData[i]->pPlayerPanel->getChildByName("AtlasLabelResult"));
 		pPlayerData[i]->pLResult->setVisible(false);
-		//ÓÃ»§êÇ³Æ
+		//ç”¨æˆ·æ˜µç§°
 		pPlayerData[i]->pLUserName=static_cast<UILabel*>(pPlayerData[i]->pPlayerPanel->getChildByName("userName"));
-		//ÓÃ»§½ð±Ò
+		//ç”¨æˆ·é‡‘å¸
 		pPlayerData[i]->pLGoldCount=static_cast<UILabel*>(pPlayerData[i]->pPlayerPanel->getChildByName("goldCount"));
-		//×¯¼Ò±êÊ¶
+		//åº„å®¶æ ‡è¯†
 		pPlayerData[i]->pIBankIcon=static_cast<UIImageView*>(pPlayerData[i]->pPlayerPanel->getChildByName("ImageBankIcon"));
 		pPlayerData[i]->pIBankIcon->setVisible(false);
-		//²Ù×÷Õß¹â±ê
+		//æ“ä½œè€…å…‰æ ‡
 		pPlayerData[i]->pILight=static_cast<UIImageView*>(pPlayerData[i]->pPlayerPanel->getChildByName("ImageLight"));
 		pPlayerData[i]->pILight->setVisible(false);
-		//ÓÃ»§Í·Ïñ
+		//ç”¨æˆ·å¤´åƒ
 		pPlayerData[i]->pIPlayerIcon=static_cast<UIImageView*>(pPlayerData[i]->pPlayerPanel->getChildByName("headPortrait"));
-		//ÐÐÎªÀàÐÍ
+		//è¡Œä¸ºç±»åž‹
 		pPlayerData[i]->pIActionTypeBg=static_cast<UIImageView*>(pPlayerData[i]->pPlayerPanel->getChildByName("ImageAction"));
-		//ÐÐÎªÄÚÈÝ
+		//è¡Œä¸ºå†…å®¹
 		pPlayerData[i]->pIActionContent=static_cast<UIImageView*>(pPlayerData[i]->pPlayerPanel->getChildByName("ImageAction")->getChildByName("ImageActionContent"));
-		//Òþ²ØÓÃ»§
+		//éšè—ç”¨æˆ·
 		pPlayerData[i]->hidePlayer();
 
 		doSetCardMovePos(i);
 	}
 }
-//ÉèÖÃÅÆÎ»ÖÃ
+//è®¾ç½®ç‰Œä½ç½®
 void PlayerLayer::doSetCardMovePos(int i){
 	UIPanel *playerPanel = pPlayerData[i]->pPlayerPanel;
 	UIImageView *iPlayerIcon = (UIImageView*)playerPanel->getChildByName("headPortrait");
@@ -97,12 +97,12 @@ void PlayerLayer::updateState(){
 		break;
 	}
 }
-//ÏÔÊ¾½áËã¶¯»­
+//æ˜¾ç¤ºç»“ç®—åŠ¨ç”»
 void PlayerLayer::showResultAnimation(int iPanelIndex,long long lGameScore){
 	pPlayerData[iPanelIndex]->showResultAnimation(lGameScore);
 }
 
-//ÉèÖÃÓÃ»§ÐÅÏ¢
+//è®¾ç½®ç”¨æˆ·ä¿¡æ¯
 void PlayerLayer::setUserInfo(int panelIndex,tagUserInfo tagUser){
 	if (!pPlayerData[panelIndex]->pIPlayerIcon->isVisible())
 	{
@@ -134,7 +134,7 @@ MainSceneBase*PlayerLayer::getMainScene(){
 	return (MainSceneBase*)this->getParent();
 }
 
-//ÓÃ»§½øÈëÐ§¹û¶¯»­
+//ç”¨æˆ·è¿›å…¥æ•ˆæžœåŠ¨ç”»
 void PlayerLayer::userEnterEffect(CCPoint pos,int tag){
 	CCArmature *pAnimate = CCArmature::create("AnimationGameIng");
 	this->addChild(pAnimate,100);
@@ -142,7 +142,7 @@ void PlayerLayer::userEnterEffect(CCPoint pos,int tag){
 	pAnimate->setPosition(pos);
 	pAnimate->setTag(tag);
 
-	pAnimate->getAnimation()->setMovementEventCallFunc(this, movementEvent_selector(PlayerLayer::onAnimationEventOver));//¶¯»­²¥Íê»Øµ÷ÓÃ
+	pAnimate->getAnimation()->setMovementEventCallFunc(this, movementEvent_selector(PlayerLayer::onAnimationEventOver));//åŠ¨ç”»æ’­å®Œå›žè°ƒç”¨
 	pAnimate->getAnimation()->setFrameEventCallFunc(this, frameEvent_selector(PlayerLayer::onAnimationEventFrame));
 
 	pAnimate->getAnimation()->play("enterChair");

@@ -13,7 +13,7 @@ bool GameEndLayer::init(){
 	{
 		return false;
 	}
-	//¼ÓÔØÆË¿Ë¶¯»­ÎÄ¼þ
+	//åŠ è½½æ‰‘å…‹åŠ¨ç”»æ–‡ä»¶
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationGameEnd.ExportJson));
 	return true;
 }
@@ -28,7 +28,7 @@ void GameEndLayer::onExit(){
 	CCLayer::onExit();
 }
 void GameEndLayer::initAnimationEventListener(){
-	pAGameEnd->getAnimation()->setMovementEventCallFunc(this, movementEvent_selector(GameEndLayer::onAnimationEventOver));//¶¯»­²¥Íê»Øµ÷ÓÃ
+	pAGameEnd->getAnimation()->setMovementEventCallFunc(this, movementEvent_selector(GameEndLayer::onAnimationEventOver));//åŠ¨ç”»æ’­å®Œå›žè°ƒç”¨
 	pAGameEnd->getAnimation()->setFrameEventCallFunc(this, frameEvent_selector(GameEndLayer::onAnimationEventFrame));
 }
 void GameEndLayer::onAnimationEventOver(CCArmature *pArmature, MovementEventType movementType, const char *movementID){

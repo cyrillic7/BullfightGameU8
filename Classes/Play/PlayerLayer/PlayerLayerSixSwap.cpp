@@ -16,7 +16,7 @@ void PlayerLayerSixSwap::onEnter(){
 void PlayerLayerSixSwap::onExit(){
 	PlayerLayer::onExit();
 }
-//ÉèÖÃÅÆÎ»ÖÃ
+//è®¾ç½®ç‰Œä½ç½®
 void PlayerLayerSixSwap::doSetCardMovePos(int i){
 	UIPanel *playerPanel = pPlayerData[i]->pPlayerPanel;
 	CCPoint playerPos = playerPanel->getPosition();

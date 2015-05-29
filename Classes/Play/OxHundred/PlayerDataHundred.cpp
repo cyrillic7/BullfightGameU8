@@ -8,14 +8,14 @@ PlayerDataHundred::PlayerDataHundred()
 }
 PlayerDataHundred::~PlayerDataHundred() {
 }
-/*//Òş²ØÓÃ»§
+/*//éšè—ç”¨æˆ·
 void PlayerDataHundred::hidePlayer(){
 	pIPlayerIcon->setVisible(false);
 	pLUserName->setVisible(false);
 	pLGoldCount->setVisible(false);
 	pIActionTypeBg->setVisible(false);
 }
-//ÉèÖÃÎª×¯¼Ò
+//è®¾ç½®ä¸ºåº„å®¶
 void PlayerDataHundred::setBankIcon(){
 	pIBankIcon->setScale(10);
 	pIBankIcon->setVisible(true);
@@ -23,7 +23,7 @@ void PlayerDataHundred::setBankIcon(){
 	CCScaleTo *sTo=CCScaleTo::create(0.2,1,1);
 	pIBankIcon->runAction(CCEaseBackOut::create(sTo));
 }*/
-//ÉèÖÃÓÃ»§ĞÅÏ¢
+//è®¾ç½®ç”¨æˆ·ä¿¡æ¯
 void PlayerDataHundred::setUserInfo(tagUserInfo userInfo){
 	memcpy(&userInfoPlayer,&userInfo,sizeof(tagUserInfo));
 
@@ -42,7 +42,7 @@ void PlayerDataHundred::setUserInfo(tagUserInfo userInfo){
 	//pLGoldCount->setVisible(true);
 	pLGoldCount->setText(CCString::createWithFormat("%lld",userInfoPlayer.lScore)->getCString());
 }
-//ÏÔÊ¾½áËã¶¯»­
+//æ˜¾ç¤ºç»“ç®—åŠ¨ç”»
 void PlayerDataHundred::showResultAnimation(){
 	//changePlayerGole(lGameScore);
 
@@ -76,7 +76,7 @@ void PlayerDataHundred::onResultAnimationFinish(){
 	}
 }
 
-//ÉèÖÃÓÃ»§½ğ±Ò
+//è®¾ç½®ç”¨æˆ·é‡‘å¸
 void PlayerDataHundred::changePlayerGole(long long lGold){
 	//userInfoPlayer.lScore+=lGold;
 	pLGoldCount->setText(CCString::createWithFormat("%lld",lGold)->getCString());
@@ -102,7 +102,7 @@ void PlayerDataHundred::showActionType(ActionType type){
 void PlayerDataHundred::hideActionType(){
 	pIActionTypeBg->setVisible(false);
 }*/
-//ÓÃ»§½øÈëĞ§¹û¶¯»­
+//ç”¨æˆ·è¿›å…¥æ•ˆæœåŠ¨ç”»
 void PlayerDataHundred::userEnterEffect(CCPoint pos, int tag){
 	CCArmature *pAnimate = CCArmature::create("AnimationGameIng");
 	this->addChild(pAnimate, 100);
@@ -110,7 +110,7 @@ void PlayerDataHundred::userEnterEffect(CCPoint pos, int tag){
 	pAnimate->setPosition(pos);
 	pAnimate->setTag(tag);
 
-	pAnimate->getAnimation()->setMovementEventCallFunc(this, movementEvent_selector(PlayerDataHundred::onAnimationEventOver));//¶¯»­²¥Íê»Øµ÷ÓÃ
+	pAnimate->getAnimation()->setMovementEventCallFunc(this, movementEvent_selector(PlayerDataHundred::onAnimationEventOver));//åŠ¨ç”»æ’­å®Œå›è°ƒç”¨
 	pAnimate->getAnimation()->setFrameEventCallFunc(this, frameEvent_selector(PlayerDataHundred::onAnimationEventFrame));
 
 	pAnimate->getAnimation()->play("enterChair");

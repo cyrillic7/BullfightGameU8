@@ -6,7 +6,7 @@ SeatData::SeatData()
 }
 SeatData::~SeatData() {
 }
-//ÖØÖÃÊı¾İ
+//é‡ç½®æ•°æ®
 void SeatData::resetData(){
 	allJettonCount=0;
 	hideAllJettonLabel();
@@ -14,7 +14,7 @@ void SeatData::resetData(){
 	pINotAddJetton->setVisible(false);
 	pLResult->setVisible(false);
 }
-//ÉèÖÃËùÓĞ³ïÂë
+//è®¾ç½®æ‰€æœ‰ç­¹ç 
 void SeatData::setAllJettonByAdd(long long lValue){
 	allJettonCount+=lValue;
 	if (allJettonCount/10000>0)
@@ -34,7 +34,7 @@ void SeatData::setAllJettonByAdd(long long lValue){
 void SeatData::hideAllJettonLabel(){
 	pLAllJetton->setVisible(false);
 }
-//ÉèÖÃÓÃ»§³ïÂë
+//è®¾ç½®ç”¨æˆ·ç­¹ç 
 void SeatData::setUserJetton(long long lValue){
 	if (lValue/10000>0)
 	{
@@ -56,12 +56,12 @@ void SeatData::setUserJetton(long long lValue){
 		pLUserJetton->setVisible(true);
 	}
 }
-//Òş²ØÓÃ»§³ïÂë±êÇ©
+//éšè—ç”¨æˆ·ç­¹ç æ ‡ç­¾
 void SeatData::hideUserJettonLabel(){
 	pLUserJetton->setVisible(false);
 	pIUserFontWan->setVisible(false);
 }
-//ÉèÖÃ½áËã
+//è®¾ç½®ç»“ç®—
 void SeatData::setResult(long long lResult){
 	if (lResult==0)
 	{

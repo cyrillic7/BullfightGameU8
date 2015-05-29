@@ -10,14 +10,14 @@ PlayerData::PlayerData()
 }
 PlayerData::~PlayerData() {
 }
-//Òþ²ØÓÃ»§
+//éšè—ç”¨æˆ·
 void PlayerData::hidePlayer(){
 	pIPlayerIcon->setVisible(false);
 	pLUserName->setVisible(false);
 	pLGoldCount->setVisible(false);
 	pIActionTypeBg->setVisible(false);
 }
-//ÉèÖÃÎª×¯¼Ò
+//è®¾ç½®ä¸ºåº„å®¶
 void PlayerData::setBankIcon(){
 	pIBankIcon->setScale(10);
 	pIBankIcon->setVisible(true);
@@ -25,7 +25,7 @@ void PlayerData::setBankIcon(){
 	CCScaleTo *sTo=CCScaleTo::create(0.2,1,1);
 	pIBankIcon->runAction(CCEaseBackOut::create(sTo));
 }
-//ÉèÖÃÓÃ»§ÐÅÏ¢
+//è®¾ç½®ç”¨æˆ·ä¿¡æ¯
 void PlayerData::setUserInfo(tagUserInfo userInfo){
 	/*//memset(&userInfoPlayer, 0, sizeof(tagUserInfo));
 	memcpy(&userInfoPlayer,&userInfo,sizeof(tagUserInfo));
@@ -48,7 +48,7 @@ void PlayerData::setUserInfo(tagUserInfo userInfo){
 	pLGoldCount->setVisible(true);
 	pLGoldCount->setText(CCString::createWithFormat("%lld", userInfo.lScore)->getCString());
 }
-//ÏÔÊ¾½áËã¶¯»­
+//æ˜¾ç¤ºç»“ç®—åŠ¨ç”»
 void PlayerData::showResultAnimation(long long lGameScore){
 	changePlayerGole(lGameScore);
 
@@ -72,7 +72,7 @@ void PlayerData::showResultAnimation(long long lGameScore){
 			CCCallFunc::create(this,SEL_CallFunc(&PlayerData::onResultAnimationFinish)),NULL);
 	pLResult->runAction(seq);
 }
-//»ñÈ¡Ö÷³¡¾°¶ÔÏó
+//èŽ·å–ä¸»åœºæ™¯å¯¹è±¡
 MainSceneBase *PlayerData::getMainScene(){
 	return (MainSceneBase*)this->getParent()->getParent();
 }
@@ -81,7 +81,7 @@ void PlayerData::onResultAnimationFinish(){
 		getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_READY);
 	}
 }
-//ÉèÖÃÓÃ»§½ð±Ò
+//è®¾ç½®ç”¨æˆ·é‡‘å¸
 void PlayerData::changePlayerGole(long long lGold){
 	userInfoPlayer.lScore+=lGold;
 	pLGoldCount->setText(CCString::createWithFormat("%lld",userInfoPlayer.lScore)->getCString());

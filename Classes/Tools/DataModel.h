@@ -8,18 +8,18 @@
 USING_NS_CC;
 class DataModel:public CCObject{
 public:
-	//ÒôĞ§¿ª¹Ø
+	//éŸ³æ•ˆå¼€å…³
 	static bool isSound;
-	//ÒôÀÖ¿ª¹Ø
+	//éŸ³ä¹å¼€å…³
 	static bool isMusic;
-	//ÊÇ·ñ×øÏÂ
+	//æ˜¯å¦åä¸‹
 	bool isSit;
 	CCSize deviceSize;
-	//µÇÂ¼ÕÊºÅ
+	//ç™»å½•å¸å·
 	std::string sLogonAccount;
-	//µÇÂ¼ÃÜÂë
+	//ç™»å½•å¯†ç 
 	std::string sLogonPassword;
-	//Ö÷³¡¾°¶ÔÏó
+	//ä¸»åœºæ™¯å¯¹è±¡
 	CC_SYNTHESIZE(MainSceneOxTwo *, mainSceneOxTwo, MainSceneOxTwo);
 	CC_SYNTHESIZE(MainSceneOxHundred *, mainSceneOxHundred, MainSceneOxHundred);
 	CC_SYNTHESIZE(MainSceneOxOneByOne *, mainSceneOxOneByOne, MainSceneOxOneByOne);
@@ -30,21 +30,21 @@ public:
 	std::vector <tagGameServer *> tagGameServerListOxHundred;
 	std::vector <tagGameServer *> tagGameServerListOxOneByOne;
 	std::vector <tagGameServer *> tagGameServerListSixSwap;
-	//ÓÃ»§ĞÅÏ¢Êı×é
+	//ç”¨æˆ·ä¿¡æ¯æ•°ç»„
 	std::map<long ,tagUserInfo>mTagUserInfo;
-	//µÇÂ¼³É¹¦ĞÅÏ¢
+	//ç™»å½•æˆåŠŸä¿¡æ¯
 	//CMD_MB_LogonSuccess *logonSuccessUserInfo;
-	//×î´ó¼Ó×¢Êı
+	//æœ€å¤§åŠ æ³¨æ•°
 	long long m_lTurnMaxScore;
-	//ÅÆÊı×é
+	//ç‰Œæ•°ç»„
 	BYTE card[MAX_PLAYER][5];
-	//ÊÇ·ñÉèÖÃ¹ıÒøĞĞÃÜÂë
+	//æ˜¯å¦è®¾ç½®è¿‡é“¶è¡Œå¯†ç 
 	BYTE cbInsurePwd;
-	//±äÁ¿¶¨Òå
+	//å˜é‡å®šä¹‰
 	tagUserInfo *userInfo;
-	//ÏûÏ¢¶ÓÁĞ
+	//æ¶ˆæ¯é˜Ÿåˆ—
 	std::queue<ReadData>readDataQueue;
-	//³ïÂë
+	//ç­¹ç 
 	std::vector<JettonNode *>vecJettonNode;
 public:
 	DataModel();
@@ -53,8 +53,8 @@ public:
 private:
 	void initDataModel();
 public:
-	//ÅÅĞòvector
+	//æ’åºvector
 	void sortVector(std::vector <tagGameServer *> vTagGameServer);
-	//ÒÆ³ı·şÎñÁĞ±í
+	//ç§»é™¤æœåŠ¡åˆ—è¡¨
 	void removeTagGameServerList(std::vector <tagGameServer *> vTagGameServer);
 };
