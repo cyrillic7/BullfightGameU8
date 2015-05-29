@@ -5,7 +5,7 @@
 #include "Card.h"
 #include "../../Tools/DataModel.h"
 #include "../../Tools/BaseAttributes.h"
-#define SELF_SEAT									3						//×Ô¼ºµÄÎ»ÖÃ
+#define SELF_SEAT									3						//è‡ªå·±çš„ä½ç½®
 CardLayerTwo::CardLayerTwo()
 {
 }
@@ -22,7 +22,7 @@ void CardLayerTwo::onExit(){
 
 
 
-//ÌáÊ¾Å£Å£
+//æç¤ºç‰›ç‰›
 bool CardLayerTwo::promptOx(int oxIndex){
 	BYTE tempCard[5];
 	memcpy(tempCard, DataModel::sharedDataModel()->card[oxIndex], sizeof(tempCard));
@@ -59,9 +59,9 @@ bool CardLayerTwo::promptOx(int oxIndex){
 }
 //
 //************************************
-// ÖØÅÅĞòÅ£Å£ÅÆ
-// Parameter: int chairIDÊµ¼Ê×À×ÓÎ»ÖÃ
-// Parameter: int showChairiDÏÔÊ¾×À×ÓÎ»ÖÃ
+// é‡æ’åºç‰›ç‰›ç‰Œ
+// Parameter: int chairIDå®é™…æ¡Œå­ä½ç½®
+// Parameter: int showChairiDæ˜¾ç¤ºæ¡Œå­ä½ç½®
 //************************************
 void CardLayerTwo::sortingOx(int chairID,int showChairiD){
 	UIPanel *playerPanel = DataModel::sharedDataModel()->getMainSceneOxTwo()->playerLayer->pPlayerData[showChairiD]-> pPlayerPanel;
@@ -74,7 +74,7 @@ void CardLayerTwo::sortingOx(int chairID,int showChairiD){
 	bool isOxCard = GetOxCard(tempCard, 5);
 	if (isOxCard)
 	{
-		//ÖØÅÅÅ£Å£ÅÆË³Ğò
+		//é‡æ’ç‰›ç‰›ç‰Œé¡ºåº
 		for (int i = 0; i < MAX_COUNT; i++)
 		{
 			int cardColor = GetCardColor(tempCard[i])/16;
@@ -84,7 +84,7 @@ void CardLayerTwo::sortingOx(int chairID,int showChairiD){
 		
 	}
 
-	//ÏÔÊ¾µãÊı
+	//æ˜¾ç¤ºç‚¹æ•°
 	/*BYTE bValue=GetCardLogicValue(tempCard[3])+GetCardLogicValue(tempCard[4]);
 	if(bValue>10)bValue-=10;
 	if(bValue>=10)bValue=10;
@@ -147,9 +147,9 @@ void CardLayerTwo::onPlayOxAnimation(CCNode *obj){
 	oxAnimation->setVisible(true);
 	oxAnimation->getAnimation()->play(CCString::createWithFormat("Ox%d",oxAnimation->getTag())->getCString());
 }
-//·¢ÅÆÖĞ
+//å‘ç‰Œä¸­
 void CardLayerTwo::sendCardIng(){
-	//Æ«ÒÆË÷Òı
+	//åç§»ç´¢å¼•
 	int offsetIndex = 0;
 	for (int i = 0; i < MAX_PLAYER; i++)
 	{
@@ -167,7 +167,7 @@ void CardLayerTwo::sendCardIng(){
 	}
 }
 
-//·¢5ÕÅÅÆ
+//å‘5å¼ ç‰Œ
 void CardLayerTwo::sendFiveCard(int index,int offsetIndex){
 	CCPoint cardPos = getMainScene()->posChair[index];
 	for (int i = 0; i < MAX_CARD_COUNT; i++)
@@ -188,7 +188,7 @@ void CardLayerTwo::sendFiveCard(int index,int offsetIndex){
 			ccpAdd(cardPos, offPos),index);
 	}
 }
-//ÒÆ¶¯µ¥ÕÅÅÆ
+//ç§»åŠ¨å•å¼ ç‰Œ
 void CardLayerTwo::moveCardAction(CCArmature *armature, float fTime, CCPoint targetPos,int index){
 	float moveSpeed=0.05;
 	CCDelayTime *delayTime = CCDelayTime::create(fTime);
@@ -199,7 +199,7 @@ void CardLayerTwo::moveCardAction(CCArmature *armature, float fTime, CCPoint tar
 	CCSequence *seq = CCSequence::create(delayTime,spawn,callbackFunc,NULL);
 	armature->runAction(seq);
 }
-//µ¥ÕÅÅÆ·¢Íê»Øµ÷
+//å•å¼ ç‰Œå‘å®Œå›è°ƒ
 void CardLayerTwo::onSendCardFinish(){
 	setSendCardState(SEND_STATE_WAIT);
 	sSendCardCount++;
@@ -259,7 +259,7 @@ float CardLayerTwo::getCardScale(int index){
 	}
 	return 0.7-(1-DataModel::sharedDataModel()->deviceSize.height/SCENE_SIZE.height);
 }
-//ÏÔÊ¾ÅÆ
+//æ˜¾ç¤ºç‰Œ
 void CardLayerTwo::showCard(int index,int dataIndex){
 	int beginCardIndex=index*MAX_COUNT;
 	for (int i = 0; i < MAX_COUNT; i++)

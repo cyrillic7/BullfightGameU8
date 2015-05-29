@@ -355,7 +355,9 @@ struct CMD_GP_BuyGift
 	DWORD				dwType;									//类别1:礼包，2:道具
 	DWORD				dwID;									//礼包或道具id
 	DWORD				dwNum;									//数量
+	DWORD				dwBuyMethod;							//购买方法：1：金币，2：元宝，3：红包，4：奖券
 	TCHAR				szMachineID[LEN_MACHINE_ID];			//机器序列
+
 };
 
 struct CMD_GP_BuyGiftLog
