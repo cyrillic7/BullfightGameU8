@@ -5,7 +5,7 @@
 #include "Card.h"
 #include "../../Tools/DataModel.h"
 #include "../../Tools/BaseAttributes.h"
-#define SELF_SEAT									3						//×Ô¼ºµÄÎ»ÖÃ
+#define SELF_SEAT									3						//è‡ªå·±çš„ä½ç½®
 CardLayerOneByOne::CardLayerOneByOne()
 {
 }
@@ -22,7 +22,7 @@ void CardLayerOneByOne::onExit(){
 
 
 
-//ÌáÊ¾Å£Å£
+//æç¤ºç‰›ç‰›
 bool CardLayerOneByOne::promptOx(int oxIndex){
 	BYTE tempCard[5];
 	memcpy(tempCard, DataModel::sharedDataModel()->card[oxIndex], sizeof(tempCard));
@@ -60,21 +60,21 @@ bool CardLayerOneByOne::promptOx(int oxIndex){
 }
 //
 //************************************
-// ÖØÅÅĞòÅ£Å£ÅÆ
-// Parameter: int chairIDÊµ¼Ê×À×ÓÎ»ÖÃ
-// Parameter: int showChairiDÏÔÊ¾×À×ÓÎ»ÖÃ
+// é‡æ’åºç‰›ç‰›ç‰Œ
+// Parameter: int chairIDå®é™…æ¡Œå­ä½ç½®
+// Parameter: int showChairiDæ˜¾ç¤ºæ¡Œå­ä½ç½®
 //************************************
 void CardLayerOneByOne::sortingOx(int chairID,int showChairiD){
-	//ÏÔÊ¾ÅÆĞÍ
+	//æ˜¾ç¤ºç‰Œå‹
 	bool bOxSound = false;
-	//ÆË¿ËÊı¾İ
+	//æ‰‘å…‹æ•°æ®
 	BYTE bCardData[MAX_COUNT];
 	memcpy(bCardData, DataModel::sharedDataModel()->card[chairID], sizeof(bCardData));
 	BYTE bCardValue = GetCardType(bCardData, MAX_COUNT, bCardData);
 	CCLog("====:%d<<%s>>",bCardValue,__FUNCTION__);
 	//assert(bCardValue > 0);
 	//float orgCradY = 2000;
-	//ÖØÅÅÅ£Å£ÅÆË³Ğò
+	//é‡æ’ç‰›ç‰›ç‰Œé¡ºåº
 	for (int i = 0; i < MAX_COUNT; i++)
 	{
 		int cardColor = GetCardColor(bCardData[i]);
@@ -87,9 +87,9 @@ void CardLayerOneByOne::sortingOx(int chairID,int showChairiD){
 		}
 		//orgCradY = MIN(pCard[showChairiD*MAX_COUNT + i]->m_cpArmatureCard->getPositionY(), orgCradY);
 	}
-	//ÏÔÊ¾ÅÆĞÍµãÊı
+	//æ˜¾ç¤ºç‰Œå‹ç‚¹æ•°
 	showOxType(showChairiD, bCardValue);
-	//¶¯»­ÏÔÊ¾Íæ¼Ò×Ô¼ºµÄÅÆ
+	//åŠ¨ç”»æ˜¾ç¤ºç©å®¶è‡ªå·±çš„ç‰Œ
 	if (showChairiD==3)
 	{
 		CCPoint cardPos = CCPointZero;
@@ -133,32 +133,32 @@ void CardLayerOneByOne::sortingOx(int chairID,int showChairiD){
 		if (i == GetMeChairID() && !IsLookonMode())continue;
 		m_GameClientView.m_CardControl[wViewChairID].SetDisplayItem(true);
 
-		//Å£Å£ÅÆĞÍ
+		//ç‰›ç‰›ç‰Œå‹
 		if (m_cbHandCardData[i][0]>0)
 		{
 			if (m_bUserOxCard[i] == TRUE)
 			{
-				//ÆË¿ËÊı¾İ
+				//æ‰‘å…‹æ•°æ®
 				BYTE bCardData[MAX_COUNT];
 				CopyMemory(bCardData, m_cbHandCardData[i], sizeof(bCardData));
 
-				//»ñÈ¡Å£Å£Êı¾İ
+				//è·å–ç‰›ç‰›æ•°æ®
 				//m_GameLogic.GetOxCard(bCardData,MAX_COUNT);
 
 				BYTE bCardValue = m_GameLogic.GetCardType(bCardData, MAX_COUNT, bCardData);
 				ASSERT(bCardValue > 0);
 
-				//¼ÓÔØÊı¾İ
+				//åŠ è½½æ•°æ®
 				m_GameClientView.m_CardControl[wViewChairID].SetCardData(bCardData, 3);
 				m_GameClientView.m_CardControlOx[wViewChairID].SetCardData(&bCardData[3], 2);
 
-				//ÏÔÊ¾µãÊı
+				//æ˜¾ç¤ºç‚¹æ•°
 				if (bCardValue >= 10)bOxSound = true;
 				m_GameClientView.SetUserOxValue(wViewChairID, bCardValue);
 			}
 			else
 			{
-				//ÎŞÅ£
+				//æ— ç‰›
 				m_GameClientView.SetUserOxValue(wViewChairID, 0);
 			}
 		}
@@ -172,7 +172,7 @@ void CardLayerOneByOne::sortingOx(int chairID,int showChairiD){
 	bool isOxCard = GetOxCard(tempCard, 5);
 	if (isOxCard)
 	{
-		//ÖØÅÅÅ£Å£ÅÆË³Ğò
+		//é‡æ’ç‰›ç‰›ç‰Œé¡ºåº
 		for (int i = 0; i < MAX_COUNT; i++)
 		{
 			int cardColor = GetCardColor(tempCard[i]);
@@ -181,7 +181,7 @@ void CardLayerOneByOne::sortingOx(int chairID,int showChairiD){
 		}
 		
 	}
-	//ÏÔÊ¾µãÊı
+	//æ˜¾ç¤ºç‚¹æ•°
 	int iValue=GetCardType(tempCard,5);
 	if (iValue>10)
 	{
@@ -237,10 +237,10 @@ void CardLayerOneByOne::onPlayOxAnimation(CCNode *obj){
 	oxAnimation->setVisible(true);
 	oxAnimation->getAnimation()->play(CCString::createWithFormat("Ox%d",oxAnimation->getTag())->getCString());
 }
-//·¢ÅÆÖĞ
+//å‘ç‰Œä¸­
 void CardLayerOneByOne::sendCardIng(){
 	sSendCardCount = 0;
-	//Æ«ÒÆË÷Òı
+	//åç§»ç´¢å¼•
 	int offsetIndex = 0;
 	for (int i = 0; i < MAX_PLAYER; i++)
 	{
@@ -260,7 +260,7 @@ void CardLayerOneByOne::sendCardIng(){
 	
 }
 
-//·¢5ÕÅÅÆ
+//å‘5å¼ ç‰Œ
 void CardLayerOneByOne::sendFiveCard(int index,int offsetIndex){
 	CCPoint cardPos = getMainScene()->posChair[index];
 	int jg = 25;
@@ -283,7 +283,7 @@ void CardLayerOneByOne::sendFiveCard(int index,int offsetIndex){
 			ccpAdd(cardPos, offPos), index);
 	}
 }
-//ÒÆ¶¯µ¥ÕÅÅÆ
+//ç§»åŠ¨å•å¼ ç‰Œ
 void CardLayerOneByOne::moveCardAction(CCArmature *armature, float fTime, CCPoint targetPos,int index){
 	float moveSpeed = 0.35;
 	CCDelayTime *delayTime = CCDelayTime::create(fTime);
@@ -295,7 +295,7 @@ void CardLayerOneByOne::moveCardAction(CCArmature *armature, float fTime, CCPoin
 	CCSequence *seq = CCSequence::create(delayTime, spawn, callbackFunc, NULL);
 	armature->runAction(seq);
 }
-//µ¥ÕÅÅÆ·¢Íê»Øµ÷
+//å•å¼ ç‰Œå‘å®Œå›è°ƒ
 void CardLayerOneByOne::onSendCardFinish(){
 	setSendCardState(SEND_STATE_WAIT);
 	sSendCardCount++;
@@ -349,7 +349,7 @@ float CardLayerOneByOne::getCardScale(int index){
 	}
 	return 0.5-(1-DataModel::sharedDataModel()->deviceSize.height/SCENE_SIZE.height);
 }
-//ÏÔÊ¾ÅÆ
+//æ˜¾ç¤ºç‰Œ
 void CardLayerOneByOne::showCard(int index,int dataIndex){
 	int beginCardIndex=index*MAX_COUNT;
 	for (int i = 0; i < MAX_COUNT; i++)

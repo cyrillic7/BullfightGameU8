@@ -1,9 +1,9 @@
 /************************************************************************/
-/* Í¨±ÈÅ£Å£ logic                                                                     */
+/* é€šæ¯”ç‰›ç‰› logic                                                                     */
 /************************************************************************/
 #pragma once
 #include "cocos2d.h"
-//Èç¹ûÊÇandroidÆ½Ì¨ĞèÒª¶¨Òåºê
+//å¦‚æœæ˜¯androidå¹³å°éœ€è¦å®šä¹‰å®
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID||CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
 #define RtlCopyMemory(Destination,Source,Length) memcpy((Destination),(Source),(Length))
 #define CopyMemory RtlCopyMemory
@@ -11,86 +11,86 @@ typedef unsigned char       BYTE;
 
 #endif
 //////////////////////////////////////////////////////////////////////////
-//ºê¶¨Òå
+//å®å®šä¹‰
 
-#define MAX_COUNT					5									//×î´óÊıÄ¿
+#define MAX_COUNT					5									//æœ€å¤§æ•°ç›®
 
-//ÊıÖµÑÚÂë
-#define	LOGIC_MASK_COLOR			0xF0								//»¨É«ÑÚÂë
-#define	LOGIC_MASK_VALUE			0x0F								//ÊıÖµÑÚÂë
+//æ•°å€¼æ©ç 
+#define	LOGIC_MASK_COLOR			0xF0								//èŠ±è‰²æ©ç 
+#define	LOGIC_MASK_VALUE			0x0F								//æ•°å€¼æ©ç 
 
-//ÆË¿ËÀàĞÍ
-#define OX_VALUE0					0									//»ìºÏÅÆĞÍ
-#define OX_THREE_SAME				102									//ÈıÌõÅÆĞÍ
-#define OX_FOUR_SAME				103									//ËÄÌõÅÆĞÍ
-#define OX_FOURKING					104									//ÌìÍõÅÆĞÍ
-#define OX_FIVEKING					105									//ÌìÍõÅÆĞÍ
+//æ‰‘å…‹ç±»å‹
+#define OX_VALUE0					0									//æ··åˆç‰Œå‹
+#define OX_THREE_SAME				102									//ä¸‰æ¡ç‰Œå‹
+#define OX_FOUR_SAME				103									//å››æ¡ç‰Œå‹
+#define OX_FOURKING					104									//å¤©ç‹ç‰Œå‹
+#define OX_FIVEKING					105									//å¤©ç‹ç‰Œå‹
 
 //////////////////////////////////////////////////////////////////////////
 
-//·ÖÎö½á¹¹
+//åˆ†æç»“æ„
 struct tagAnalyseResult
 {
-	BYTE 							cbFourCount;						//ËÄÕÅÊıÄ¿
-	BYTE 							cbThreeCount;						//ÈıÕÅÊıÄ¿
-	BYTE 							cbDoubleCount;						//Á½ÕÅÊıÄ¿
-	BYTE							cbSignedCount;						//µ¥ÕÅÊıÄ¿
-	BYTE 							cbFourLogicVolue[1];				//ËÄÕÅÁĞ±í
-	BYTE 							cbThreeLogicVolue[1];				//ÈıÕÅÁĞ±í
-	BYTE 							cbDoubleLogicVolue[2];				//Á½ÕÅÁĞ±í
-	BYTE 							cbSignedLogicVolue[5];				//µ¥ÕÅÁĞ±í
-	BYTE							cbFourCardData[MAX_COUNT];			//ËÄÕÅÁĞ±í
-	BYTE							cbThreeCardData[MAX_COUNT];			//ÈıÕÅÁĞ±í
-	BYTE							cbDoubleCardData[MAX_COUNT];		//Á½ÕÅÁĞ±í
-	BYTE							cbSignedCardData[MAX_COUNT];		//µ¥ÕÅÊıÄ¿
+	BYTE 							cbFourCount;						//å››å¼ æ•°ç›®
+	BYTE 							cbThreeCount;						//ä¸‰å¼ æ•°ç›®
+	BYTE 							cbDoubleCount;						//ä¸¤å¼ æ•°ç›®
+	BYTE							cbSignedCount;						//å•å¼ æ•°ç›®
+	BYTE 							cbFourLogicVolue[1];				//å››å¼ åˆ—è¡¨
+	BYTE 							cbThreeLogicVolue[1];				//ä¸‰å¼ åˆ—è¡¨
+	BYTE 							cbDoubleLogicVolue[2];				//ä¸¤å¼ åˆ—è¡¨
+	BYTE 							cbSignedLogicVolue[5];				//å•å¼ åˆ—è¡¨
+	BYTE							cbFourCardData[MAX_COUNT];			//å››å¼ åˆ—è¡¨
+	BYTE							cbThreeCardData[MAX_COUNT];			//ä¸‰å¼ åˆ—è¡¨
+	BYTE							cbDoubleCardData[MAX_COUNT];		//ä¸¤å¼ åˆ—è¡¨
+	BYTE							cbSignedCardData[MAX_COUNT];		//å•å¼ æ•°ç›®
 };
 
 //////////////////////////////////////////////////////////////////////////
 
-//ÓÎÏ·Âß¼­Àà
+//æ¸¸æˆé€»è¾‘ç±»
 class GameLogicOneByOne
 {
-	//±äÁ¿¶¨Òå
+	//å˜é‡å®šä¹‰
 private:
-	static BYTE						m_cbCardListData[54];				//ÆË¿Ë¶¨Òå
+	static BYTE						m_cbCardListData[54];				//æ‰‘å…‹å®šä¹‰
 
-	//º¯Êı¶¨Òå
+	//å‡½æ•°å®šä¹‰
 public:
-	//¹¹Ôìº¯Êı
+	//æ„é€ å‡½æ•°
 	GameLogicOneByOne();
-	//Îö¹¹º¯Êı
+	//ææ„å‡½æ•°
 	virtual ~GameLogicOneByOne();
 
-	//ÀàĞÍº¯Êı
+	//ç±»å‹å‡½æ•°
 public:
-	//»ñÈ¡ÀàĞÍ
+	//è·å–ç±»å‹
 	//BYTE GetCardType(BYTE cbCardData[], BYTE cbCardCount);
-	//»ñÈ¡ÅÆĞÍ
+	//è·å–ç‰Œå‹
 	BYTE GetCardType(const BYTE cbCardData[], BYTE cbCardCount,BYTE *bcOutCadData = NULL);
-	//»ñÈ¡ÊıÖµ
+	//è·å–æ•°å€¼
 	BYTE GetCardValue(BYTE cbCardData) { return cbCardData&LOGIC_MASK_VALUE; }
-	//»ñÈ¡»¨É«
+	//è·å–èŠ±è‰²
 	BYTE GetCardColor(BYTE cbCardData) { return (cbCardData&LOGIC_MASK_COLOR)>>4; }
-	//»ñÈ¡±¶Êı
+	//è·å–å€æ•°
 	BYTE GetTimes(BYTE cbCardData[], BYTE cbCardCount);
-	//»ñÈ¡Å£Å£
+	//è·å–ç‰›ç‰›
 	bool GetOxCard(BYTE cbCardData[], BYTE cbCardCount);
-	//»ñÈ¡ÕûÊı
+	//è·å–æ•´æ•°
 	bool IsIntValue(BYTE cbCardData[], BYTE cbCardCount);
 
-	//¿ØÖÆº¯Êı
+	//æ§åˆ¶å‡½æ•°
 public:
-	//ÅÅÁĞÆË¿Ë
+	//æ’åˆ—æ‰‘å…‹
 	void SortCardList(BYTE cbCardData[], BYTE cbCardCount);
-	//»ìÂÒÆË¿Ë
+	//æ··ä¹±æ‰‘å…‹
 	void RandCardList(BYTE cbCardBuffer[], BYTE cbBufferCount);
 
-	//¹¦ÄÜº¯Êı
+	//åŠŸèƒ½å‡½æ•°
 public:
-	//Âß¼­ÊıÖµ
+	//é€»è¾‘æ•°å€¼
 	BYTE GetCardLogicValue(BYTE cbCardData);
 	BYTE GetCardNewValue(BYTE cbCardData);
-	//¶Ô±ÈÆË¿Ë
+	//å¯¹æ¯”æ‰‘å…‹
 	bool CompareCard(BYTE cbFirstData[], BYTE cbNextData[], BYTE cbCardCount,bool FirstOX,bool NextOX);
 };
 

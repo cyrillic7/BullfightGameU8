@@ -37,7 +37,7 @@ void Card::showCard(){
 	m_cpArmatureCard->getAnimation()->play(CCString::createWithFormat("card_%d_%d",iCardColor,iCardValue)->getCString());
 	m_cpArmatureCard->getParent()->reorderChild(m_cpArmatureCard,iZOrder);
 }
-//´¥ÃþÅÆ
+//è§¦æ‘¸ç‰Œ
 void Card::touchCard(CCPoint pos,bool isAction){
 	CCRect rect = CCRect(
 		m_cpArmatureCard->getPositionX() - m_cpArmatureCard->getContentSize().width / 2 * m_cpArmatureCard->getScaleX(),
@@ -50,7 +50,7 @@ void Card::touchCard(CCPoint pos,bool isAction){
 		upCard(isAction);
 	}
 }
-//Ì§ÆðÅÆ
+//æŠ¬èµ·ç‰Œ
 void Card::upCard(bool isAction){
 	
 		if (!isUpCard)
