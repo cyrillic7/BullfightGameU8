@@ -40,6 +40,7 @@ int GameControlOxTwo::getChairIndex(int meChairID,int chairID){
 	}
 	return 0;
 }
+
 //开牌
 void GameControlOxTwo::menuOpenCard(CCObject* pSender, TouchEventType type){
 	switch (type)

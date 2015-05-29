@@ -16,6 +16,7 @@ public:
 		ACTION_NOT_CALL,				//不叫庄
 	};
 public:
+    
 	//用户容器
 	UIPanel *pPlayerPanel;
 	//结算

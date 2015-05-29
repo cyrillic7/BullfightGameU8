@@ -10,6 +10,7 @@
 #include "PopDialogBox.h"
 class PopDialogBoxBank: public PopDialogBox {
 private:
+    
 	//标题
 	UILabel *pLTitle0;
 	UILabel *pLTitle1;

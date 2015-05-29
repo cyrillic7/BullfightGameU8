@@ -33,6 +33,7 @@ USING_NS_CC;
 USING_NS_CC_EXT;
 class MainSceneOxSixSwap:public TCPSocket,public MainSceneBase
 {
+    
 public:
 	/*//游戏状态
 	enum GameState

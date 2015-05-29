@@ -21,6 +21,7 @@ TCPSocketControl::TCPSocketControl()
 
 }
 
+
 TCPSocketControl::~TCPSocketControl() {
 	// TODO Auto-generated destructor stub
 	isRun=false;

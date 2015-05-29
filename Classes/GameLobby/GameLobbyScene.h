@@ -12,6 +12,7 @@ USING_NS_CC_EXT;
 using namespace gui;
 class GameLobbyScene:public BaseLobbyScene,public MessageQueue
 {
+    
 public:
 	enum ModeType
 	{

@@ -22,6 +22,7 @@ void CardLayerSixSwap::onExit(){
 
 
 
+
 //提示牛牛
 bool CardLayerSixSwap::promptOx(int oxIndex){
 	BYTE tempCard[5];

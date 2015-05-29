@@ -11,6 +11,7 @@
 class PopDialogBoxMore: public PopDialogBox {
 private:
 
+    
 public:
 	PopDialogBoxMore();
 	~PopDialogBoxMore();

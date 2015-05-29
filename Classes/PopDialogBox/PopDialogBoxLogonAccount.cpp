@@ -13,6 +13,7 @@
 PopDialogBoxLogonAccount::PopDialogBoxLogonAccount()
 {
 	
+    
 }
 PopDialogBoxLogonAccount::~PopDialogBoxLogonAccount() {
 	CCLog("~ <<%s>>",__FUNCTION__);

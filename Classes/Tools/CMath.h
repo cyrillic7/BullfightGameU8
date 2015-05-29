@@ -6,6 +6,7 @@ USING_NS_CC_EXT;
 using namespace ui;
 class CMath
 {
+    
 public:
 	CMath();
 	~CMath();

@@ -48,6 +48,7 @@ void PlayerData::setUserInfo(tagUserInfo userInfo){
 	pLGoldCount->setVisible(true);
 	pLGoldCount->setText(CCString::createWithFormat("%lld", userInfo.lScore)->getCString());
 }
+
 //显示结算动画
 void PlayerData::showResultAnimation(long long lGameScore){
 	changePlayerGole(lGameScore);

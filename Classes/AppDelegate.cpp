@@ -14,7 +14,6 @@ USING_NS_CC;
 AppDelegate::AppDelegate() {
 
 }
-
 AppDelegate::~AppDelegate() 
 {
 	DataModel *m = DataModel::sharedDataModel();

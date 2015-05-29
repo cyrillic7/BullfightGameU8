@@ -588,6 +588,7 @@ void GameControlBase::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void *
 		break;
 	}
 }
+
 void GameControlBase::frameEvent(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
 	switch (wSubCmdID)
 	{

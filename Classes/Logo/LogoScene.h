@@ -19,6 +19,7 @@ public:
     //场景初始化
     static CCScene* scene();
     CREATE_FUNC(LogoScene);
+    
 private:
 	//进入主游戏场景
     void updateToMainScene(float dt);

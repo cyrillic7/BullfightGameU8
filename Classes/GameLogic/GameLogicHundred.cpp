@@ -19,7 +19,6 @@ const BYTE GameLogicHundred::m_cbCardListData[54]=
 GameLogicHundred::GameLogicHundred()
 {
 }
-
 //析构函数
 GameLogicHundred::~GameLogicHundred()
 {

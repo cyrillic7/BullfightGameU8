@@ -10,6 +10,7 @@ public:
 	CStringAide();
 	~CStringAide();
 
+    
 	//GBK转UTF-8////////////////////////////////////////////////////////////////////////
 	const char * GBKToUTF8(const char *strChar);
 };

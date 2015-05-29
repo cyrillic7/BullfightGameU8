@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxUpBank::PopDialogBoxUpBank()
 {
+    
 	
 }
 PopDialogBoxUpBank::~PopDialogBoxUpBank() {

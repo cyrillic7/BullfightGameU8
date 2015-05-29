@@ -30,6 +30,7 @@ void Tools::revursivelyPauseAllChildren(CCNode * node) {
 		CCNode * n = (CCNode *)obj;
 		revursivelyPauseAllChildren(n);
 	}
+    
 }
 #pragma mark恢复游戏
 void Tools::revursivelyResumeAllChildren(CCNode * node) {

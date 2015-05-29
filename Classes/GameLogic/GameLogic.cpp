@@ -14,6 +14,7 @@ BYTE GameLogic::m_cbCardListData[54] =
 };
 GameLogic::GameLogic()
 {
+    
 }
 GameLogic::~GameLogic() {
 }

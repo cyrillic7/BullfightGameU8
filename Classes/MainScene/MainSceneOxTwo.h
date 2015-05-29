@@ -50,6 +50,7 @@ public:
     CREATE_FUNC(MainSceneOxTwo);
 	
 
+    
 	//收到发牌完成回调
 	void onEventSendCardFnish();
 	//设置状态并更新

@@ -61,6 +61,7 @@ private:
 
 };
 
+
 /* user guide
 you can comput the md5 by using the funtion ComputMd5
 eg:

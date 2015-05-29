@@ -14,6 +14,7 @@
 #define SUB_GR_LOGON_MOBILE			2									//手机登录
 #define SUB_GR_LOGON_ACCOUNTS		3									//帐户登录
 
+
 //登录结果
 #define SUB_GR_LOGON_SUCCESS		100									//登录成功
 #define SUB_GR_LOGON_FAILURE		101									//登录失败

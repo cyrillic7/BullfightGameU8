@@ -100,6 +100,7 @@ void MainSceneOxTwo::onEventSendCardFnish(){
 
 	CC_SAFE_DELETE(logic);
 }*/
+
 void MainSceneOxTwo::setGameStateWithUpdate(GameState gameState){
 	setGameState(gameState);
 	updateGameState();

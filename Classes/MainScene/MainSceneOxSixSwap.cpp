@@ -76,6 +76,7 @@ void MainSceneOxSixSwap::onEventReadyFnish(){
 	CCLog("准备完成等待服务端响应.");
 	setServerStateWithUpdate(STATE_WAIT);
 }
+
 //收到发牌完成回调
 void MainSceneOxSixSwap::onEventSendCardFnish(){
 	

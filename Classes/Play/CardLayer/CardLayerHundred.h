@@ -16,6 +16,7 @@ public:
 	//
 	virtual void updateGameState();
 private:
+    
 	//设置发牌区域
 	virtual void setCanSendCard();
 	virtual void sendCardIng();

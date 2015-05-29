@@ -11,6 +11,7 @@
 #include "../MainScene/MainSceneOxHundred.h"
 class PopDialogBoxUpBank: public PopDialogBox {
 private:
+    
 	//庄家列表
 	UIListView *pLBank;
 public:

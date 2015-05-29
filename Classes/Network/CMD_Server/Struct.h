@@ -402,6 +402,7 @@ struct tagServerOptionInfo
 	TCHAR							szServerName[LEN_SERVER];			//房间名称
 };
 
+
 //用户信息
 struct tagMobileUserInfoHead
 {

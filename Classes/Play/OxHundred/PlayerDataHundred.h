@@ -15,6 +15,7 @@ public:
 		ACTION_NOT_CALL,				//不叫庄
 	};*/
 public:
+    
 	//用户容器
 	UIImageView *pIPlayerBg;
 	//结算

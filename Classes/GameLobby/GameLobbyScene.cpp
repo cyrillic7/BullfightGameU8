@@ -197,6 +197,7 @@ void GameLobbyScene::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pD
 		break;
 	}
 }
+
 //连接成功
 void GameLobbyScene::onEventConnect(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
 	switch (wSubCmdID)

@@ -14,6 +14,7 @@ void SeatData::resetData(){
 	pINotAddJetton->setVisible(false);
 	pLResult->setVisible(false);
 }
+
 //设置所有筹码
 void SeatData::setAllJettonByAdd(long long lValue){
 	allJettonCount+=lValue;

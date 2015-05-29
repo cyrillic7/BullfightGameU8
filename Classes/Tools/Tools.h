@@ -51,6 +51,7 @@ public:
 
 
 private:
+    
 	static std::vector<std::string> parseUTF8(const std::string &str);
 public:
 	//截取字符串（中英文）

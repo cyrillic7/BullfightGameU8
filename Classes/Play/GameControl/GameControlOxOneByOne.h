@@ -11,6 +11,7 @@
 class GameControlOxOneByOne:public GameControlBase,public GameLogic
 {
 public:
+    
 	GameControlOxOneByOne();
 	~GameControlOxOneByOne();
 	virtual void onEnter();

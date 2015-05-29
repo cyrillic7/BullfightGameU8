@@ -7,6 +7,7 @@ PlayerDataHundred::PlayerDataHundred()
 {
 }
 PlayerDataHundred::~PlayerDataHundred() {
+    
 }
 /*//隐藏用户
 void PlayerDataHundred::hidePlayer(){

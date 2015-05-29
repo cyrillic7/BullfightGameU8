@@ -83,6 +83,7 @@ void MainSceneOxOneByOne::onEventSendCardFnish(){
 void MainSceneOxOneByOne::setGameStateWithUpdate(GameState gameState){
 	setGameState(gameState);
 	updateGameState();
+    
 }
 void MainSceneOxOneByOne::setServerStateWithUpdate(GameState serverState){
 	setServerState(serverState);

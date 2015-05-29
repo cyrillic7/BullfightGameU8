@@ -10,6 +10,7 @@
 #include "../Tools/DataModel.h"
 class PopDialogBoxTrend: public PopDialogBox {
 private:
+    
 	//趋势图
 	UIPanel *pPTrend;
 	//趋势列表

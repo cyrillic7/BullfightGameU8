@@ -12,6 +12,7 @@
 PopDialogBoxAuction::PopDialogBoxAuction()
 {
 	
+    
 }
 PopDialogBoxAuction::~PopDialogBoxAuction() {
 	CCLog("~ <<%s>>",__FUNCTION__);

@@ -12,6 +12,7 @@
 PopDialogBoxMore::PopDialogBoxMore()
 {
 	
+    
 }
 PopDialogBoxMore::~PopDialogBoxMore() {
 	CCLog("~ <<%s>>",__FUNCTION__);

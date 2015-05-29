@@ -245,6 +245,8 @@ struct CMD_S_GameFree
 	INT64                           nListUserCount;						//列表人数
 };
 
+
+
 //游戏开始
 struct CMD_S_GameStart
 {

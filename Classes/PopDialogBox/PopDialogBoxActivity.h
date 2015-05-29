@@ -9,6 +9,7 @@
 
 #include "PopDialogBox.h"
 class PopDialogBoxActivity: public PopDialogBox {
+    
 private:
 	//切换活动复选框
 	UICheckBox *pcbActivity[2];

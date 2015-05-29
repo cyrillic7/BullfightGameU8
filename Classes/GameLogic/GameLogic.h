@@ -15,6 +15,7 @@ typedef unsigned char       BYTE;
 #endif
 //宏定义
 
+
 #define MAX_COUNT					5									//最大数目
 
 //数值掩码

@@ -50,6 +50,7 @@ void Card::touchCard(CCPoint pos,bool isAction){
 		upCard(isAction);
 	}
 }
+
 //抬起牌
 void Card::upCard(bool isAction){
 	

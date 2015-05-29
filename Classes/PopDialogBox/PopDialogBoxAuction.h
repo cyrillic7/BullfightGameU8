@@ -11,6 +11,7 @@
 class PopDialogBoxAuction: public PopDialogBox {
 private:
 
+    
 public:
 	PopDialogBoxAuction();
 	~PopDialogBoxAuction();

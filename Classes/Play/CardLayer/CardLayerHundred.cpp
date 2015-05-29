@@ -52,8 +52,10 @@ void CardLayerHundred::sendCardIng(){
 		}
 	}
 }
+
 //发5张牌
 void CardLayerHundred::sendFiveCard(int index,int offsetIndex){
+    
 	CCPoint cardPos = getMainScene()->posChair[index];
 	for (int i = 0; i < MAX_CARD_COUNT; i++)
 	{

@@ -16,6 +16,7 @@ void PlayerLayerOneByOne::onEnter(){
 void PlayerLayerOneByOne::onExit(){
 	PlayerLayer::onExit();
 }
+
 //设置牌位置
 void PlayerLayerOneByOne::doSetCardMovePos(int i){
 	UIPanel *playerPanel = pPlayerData[i]->pPlayerPanel;

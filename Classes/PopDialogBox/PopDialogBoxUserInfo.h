@@ -11,6 +11,7 @@
 class PopDialogBoxUserInfo: public PopDialogBox {
 private:
 
+    
 	//昵称输入框
 	UITextField *pLabelNickName;
 	UIImageView *piNickNameBg;

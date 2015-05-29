@@ -14,7 +14,6 @@ typedef unsigned char       BYTE;
 //宏定义
 
 #define MAX_COUNT					5									//最大数目
-
 //数值掩码
 #define	LOGIC_MASK_COLOR			0xF0								//花色掩码
 #define	LOGIC_MASK_VALUE			0x0F								//数值掩码

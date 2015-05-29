@@ -12,6 +12,7 @@
 #include "GameConfig.h"
 USING_NS_CC;
 //#define GOODS_COUNT 4
+
 class BaseAttributes :public CCObject{
 public:
 	std::string sSexBoyName;

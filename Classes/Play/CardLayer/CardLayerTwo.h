@@ -16,6 +16,7 @@ public:
 
 	virtual void setCanSendCard();
 	
+    
 public:
 	//更新状态
 	virtual void updateServerState();

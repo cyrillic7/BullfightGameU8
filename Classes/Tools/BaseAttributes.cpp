@@ -13,6 +13,7 @@ BaseAttributes *  BaseAttributes::sharedAttributes(){
 		_sharedAttributes = new BaseAttributes();
 		_sharedAttributes->initBaseAttrobutes();
 	}
+    
 	return _sharedAttributes;
 }
 BaseAttributes::~BaseAttributes(){

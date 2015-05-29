@@ -8,6 +8,7 @@
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
+
 class MainSceneBase;
 class PlayerLayer:public CCLayer,public CMath {
 public:

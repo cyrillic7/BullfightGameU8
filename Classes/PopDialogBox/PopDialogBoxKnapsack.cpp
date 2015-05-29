@@ -15,6 +15,7 @@
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxKnapsack::PopDialogBoxKnapsack()
 {
+    
 	scheduleUpdate();
 }
 PopDialogBoxKnapsack::~PopDialogBoxKnapsack() {

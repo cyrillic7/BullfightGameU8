@@ -14,6 +14,7 @@ LogoScene::LogoScene(){
 }
 LogoScene::~LogoScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
+    
 }
 //场景初始化
 CCScene* LogoScene::scene()

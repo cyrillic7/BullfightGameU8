@@ -19,6 +19,7 @@ LogonGameListerner::LogonGameListerner()
 }
 LogonGameListerner::~LogonGameListerner()
 {
+    
 }
 void LogonGameListerner::OnClose(TCPSocket* so, bool fromRemote)
 {

@@ -24,6 +24,7 @@ public:
 	CC_SYNTHESIZE(MainSceneOxHundred *, mainSceneOxHundred, MainSceneOxHundred);
 	CC_SYNTHESIZE(MainSceneOxOneByOne *, mainSceneOxOneByOne, MainSceneOxOneByOne);
 
+    
 	CCArray *m_aTagGameKind;
 
 	std::vector <tagGameServer *> tagGameServerListOxTwo;
@@ -44,6 +45,7 @@ public:
 	tagUserInfo *userInfo;
 	//消息队列
 	std::queue<ReadData>readDataQueue;
+    
 	//筹码
 	std::vector<JettonNode *>vecJettonNode;
 public:

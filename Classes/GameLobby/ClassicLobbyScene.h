@@ -16,6 +16,7 @@ private:
 	UIButton* pBLevel[MAX_LEVEL_COUNT];
 	enum GameLevel
 	{
+        
 		LEVEL_0=1,					//初级
 		LEVEL_1,					//中级
 		LEVEL_2,					//高级

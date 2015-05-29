@@ -15,6 +15,7 @@ typedef unsigned char       BYTE;
 class MainSceneBase;
 class  Card;
 
+
 #define MAX_CARD_COUNT								5						//最大牌数
 #define SEND_CARD_DELAY_TIME						0.05					//发牌延时时长 
 

@@ -11,6 +11,7 @@
 class PopDialogBoxTask: public PopDialogBox {
 private:
 
+    
 public:
 	PopDialogBoxTask();
 	~PopDialogBoxTask();

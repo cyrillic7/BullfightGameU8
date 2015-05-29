@@ -10,6 +10,7 @@
 #include "../../GameLogic/GameLogic.h"
 class GameControlOxSixSwap:public GameControlBase,public GameLogic
 {
+    
 public:
 	GameControlOxSixSwap();
 	~GameControlOxSixSwap();

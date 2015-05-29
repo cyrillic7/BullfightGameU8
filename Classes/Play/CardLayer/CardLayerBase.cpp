@@ -120,6 +120,8 @@ void CardLayerBase::sendCard(){
 		}
 	}*/
 }
+
+
 //重置牌
 void CardLayerBase::resetCard(){
 	for (int i = 0; i < MAX_PLAYER; i++){

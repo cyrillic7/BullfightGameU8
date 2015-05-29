@@ -9,6 +9,7 @@
 
 #include "PopDialogBox.h"
 class PopDialogBoxRanking: public PopDialogBox {
+    
 private:
 	UICheckBox *pcbRanking[2];
 public:

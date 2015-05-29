@@ -16,6 +16,7 @@ public:
 	virtual bool init();
 	virtual void onEnter();
 	virtual void onExit();
+    
 	//显示结束
 	void showEnd(bool isWin);
 private:

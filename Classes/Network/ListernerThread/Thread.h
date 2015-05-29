@@ -59,6 +59,7 @@ inline int Thread::Detach()
     return pthread_detach(threadId);
 }
 
+
 inline int Thread::Join(void ** retValue) 
 {
     return pthread_join(threadId, retValue);

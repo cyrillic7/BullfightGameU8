@@ -17,6 +17,7 @@ PopDialogBox::PopDialogBox()
 	this->setTouchMode(kCCTouchesOneByOne);
 }
 
+
 PopDialogBox::~PopDialogBox() {
 	CCLog("~ <<%s>>",__FUNCTION__);
 	//GUIReader::purge();

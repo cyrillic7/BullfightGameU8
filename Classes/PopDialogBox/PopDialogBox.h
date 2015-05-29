@@ -21,6 +21,7 @@ public:
 public:
 	PopDialogBox();
 	~PopDialogBox();
+    
 
 	//菜单////////////////////////////////////////////////////////////////////////
 	void menuBack(CCObject *object, TouchEventType type);

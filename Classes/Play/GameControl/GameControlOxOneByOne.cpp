@@ -438,6 +438,7 @@ bool GameControlOxOneByOne::OnSubSendCard(const void * pBuffer, WORD wDataSize)
 
 	return true;
 }
+
 //用户摊牌
 bool GameControlOxOneByOne::OnSubOpenCard(const void * pBuffer, WORD wDataSize)
 {

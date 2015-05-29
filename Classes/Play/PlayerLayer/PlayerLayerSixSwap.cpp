@@ -15,6 +15,7 @@ void PlayerLayerSixSwap::onEnter(){
 }
 void PlayerLayerSixSwap::onExit(){
 	PlayerLayer::onExit();
+    
 }
 //设置牌位置
 void PlayerLayerSixSwap::doSetCardMovePos(int i){

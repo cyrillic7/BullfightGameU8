@@ -12,6 +12,7 @@
 PopDialogBoxFeedback::PopDialogBoxFeedback()
 {
 	
+    
 }
 PopDialogBoxFeedback::~PopDialogBoxFeedback() {
 	CCLog("~ <<%s>>",__FUNCTION__);

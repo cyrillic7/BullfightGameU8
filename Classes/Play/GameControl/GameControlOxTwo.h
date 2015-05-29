@@ -23,4 +23,5 @@ private:
 	//隐藏用户
 	virtual void hidePlayer(CMD_GR_UserStatus *userInfo);
 
+    
 };

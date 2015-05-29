@@ -69,6 +69,7 @@ bool PopDialogBoxOnLine::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent
 	}
 	return true;
 }
+
 //设置在线用户信息
 void PopDialogBoxOnLine::setOnLineUserInfo(bool isInsert,tagUserInfo userInfo){
 	if (isInsert)

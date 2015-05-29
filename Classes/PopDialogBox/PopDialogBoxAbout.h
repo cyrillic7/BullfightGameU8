@@ -11,6 +11,7 @@
 class PopDialogBoxAbout: public PopDialogBox {
 private:
 
+    
 public:
 	PopDialogBoxAbout();
 	~PopDialogBoxAbout();

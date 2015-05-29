@@ -50,7 +50,8 @@ void MessageQueue::update(float dt){
 	{
 		return;
 	}
-	LifeCircleMutexLock1(&sharedNotificationQueueLock1); 
+	LifeCircleMutexLock1(&sharedNotificationQueueLock1);
+    
 
  	ReadData iter =DataModel::sharedDataModel()->readDataQueue.front();
 	onEventReadMessage(iter.wMainCmdID,iter.wSubCmdID,iter.sReadData,iter.wDataSize);

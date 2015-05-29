@@ -14,6 +14,7 @@
 #define MAX_SHOP_ITEM_COUNT				2			//最大商店项总数
 class PopDialogBoxKnapsack: public PopDialogBox,public MessageQueue {
 private:
+    
 	enum KnapsackItem
 	{
 		KNAPSACK_LIST=0,				//背包列表

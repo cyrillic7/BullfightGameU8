@@ -72,6 +72,7 @@ void MainSceneOxHundred::initPlayerLayer(){
 void MainSceneOxHundred::setGameStateWithUpdate(GameState gameState){
 	setGameState(gameState);
 	updateGameState();
+    
 }
 void MainSceneOxHundred::setServerStateWithUpdate(GameState serverState){
 	setServerState(serverState);

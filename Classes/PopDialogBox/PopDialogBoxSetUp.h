@@ -10,6 +10,7 @@
 #include "PopDialogBox.h"
 class PopDialogBoxSetUp: public PopDialogBox {
 public:
+    
 	PopDialogBoxSetUp();
 	~PopDialogBoxSetUp();
 	CREATE_FUNC(PopDialogBoxSetUp);

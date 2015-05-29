@@ -13,6 +13,7 @@ using namespace ui;
 class JettonNode:public CCNode {
 public:
 	bool isReuse;
+    
 private:
 	UIImageView *pIJetton;
 	//移动速度

@@ -41,7 +41,6 @@ public:
 	};
 	CC_SYNTHESIZE(GameState, gameState, GameState);
 	CC_SYNTHESIZE(GameState, serverState, ServerState);
-
 	//椅子位置
 	CCPoint posChair[MAX_CHAIR_COUNT];
 	//扑克层

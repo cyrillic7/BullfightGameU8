@@ -10,6 +10,7 @@
 #include "../Tools/Tools.h"
 PopDialogBoxLoading::PopDialogBoxLoading()
 {
+    
 	timerIndex = 0;
 }
 PopDialogBoxLoading::~PopDialogBoxLoading() {

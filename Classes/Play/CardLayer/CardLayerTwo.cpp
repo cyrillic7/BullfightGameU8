@@ -22,6 +22,7 @@ void CardLayerTwo::onExit(){
 
 
 
+
 //提示牛牛
 bool CardLayerTwo::promptOx(int oxIndex){
 	BYTE tempCard[5];

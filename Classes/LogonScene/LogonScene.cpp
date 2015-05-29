@@ -474,6 +474,7 @@ void LogonScene::readRMS(){
 	}
 	else{
 		this->initRSM();
+        
 	}
 }
 void LogonScene::initRSM(){

@@ -8,6 +8,7 @@
 USING_NS_CC;
 class LogonGameListerner : public SocketListerner,public CCNode {
 public:
+    
     LogonGameListerner();
     virtual ~LogonGameListerner();
     void OnClose(TCPSocket* so, bool fromRemote);

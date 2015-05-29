@@ -6,6 +6,7 @@
  */
 #pragma once
 
+
 //#define S_L_OPEN										"listener_open"				//连接成功		
 //#define S_L_LOGON									"listener_logon"				//登录
 #define S_L_PLAY										"listener_play"					//游戏
@@ -15,3 +16,4 @@
 //#define S_L_US_ENTER								"userEnter"						//用户进入
 #define UPDATE_LIST								"updateList"						//刷新百人牛牛趋势列表
 #define UPDATE_BANK_LIST						"updateBankList"				//刷新百人牛牛庄家列表
+

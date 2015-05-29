@@ -35,6 +35,7 @@ public:
 	CC_SYNTHESIZE(GameControlOxHundred *, gameControl, GameControlOxHundred);
 	//玩家信息层
 	PlayerLayer *playerLayer;
+    
 private:
 public:
     MainSceneOxHundred();

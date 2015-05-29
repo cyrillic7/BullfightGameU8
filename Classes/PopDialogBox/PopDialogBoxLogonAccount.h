@@ -10,6 +10,7 @@
 #include "PopDialogBox.h"
 class PopDialogBoxLogonAccount: public PopDialogBox {
 private:
+    
 	UITextField *pTAccount;
 	UITextField *pTPassword; 
 public:

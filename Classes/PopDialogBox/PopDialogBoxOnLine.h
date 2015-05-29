@@ -10,6 +10,7 @@
 #include "../Tools/DataModel.h"
 class PopDialogBoxOnLine: public PopDialogBox {
 private:
+    
 	//在线列表
 	UIListView *pLOnLine;
 	float fPosX;

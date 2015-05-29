@@ -25,7 +25,8 @@ class LifeCircleMutexLocker
 {  
 	pthread_mutex_t* mutex;  
 
-public:  
+public:
+    
 	LifeCircleMutexLocker(pthread_mutex_t* aMutex) : mutex(aMutex)  
 	{  
 		pthread_mutex_lock(mutex);  

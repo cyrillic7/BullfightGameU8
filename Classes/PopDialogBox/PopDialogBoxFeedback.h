@@ -10,6 +10,7 @@
 #include "PopDialogBox.h"
 class PopDialogBoxFeedback: public PopDialogBox {
 private:
+    
 
 public:
 	PopDialogBoxFeedback();

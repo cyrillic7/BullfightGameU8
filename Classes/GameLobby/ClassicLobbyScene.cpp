@@ -479,6 +479,7 @@ void ClassicLobbyScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned
 		break;
 	}
 }
+
 //用户状态
 void ClassicLobbyScene::onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
 	switch (wSubCmdID)

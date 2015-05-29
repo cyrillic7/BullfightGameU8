@@ -15,6 +15,7 @@ CCPoint CMath::designResolutionToFrame(CCPoint designPos){
 	pos.y = posScaleY*DataModel::sharedDataModel()->deviceSize.height;
 	return pos;
 }
+
 std::string CMath::formatNumber(std::string strNum) {
 	std::string formatString = "";
 	int strLen = strNum.length();

@@ -10,6 +10,7 @@
 #include "PopDialogBox.h"
 class PopDialogBoxLoading: public PopDialogBox {
 private:
+    
 	UIImageView *pWidgetBg;
 	UILabel *pLLoading;
 	int timerIndex;

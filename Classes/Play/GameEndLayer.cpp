@@ -13,6 +13,7 @@ bool GameEndLayer::init(){
 	{
 		return false;
 	}
+    
 	//加载扑克动画文件
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationGameEnd.ExportJson));
 	return true;

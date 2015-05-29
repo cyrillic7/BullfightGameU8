@@ -12,6 +12,7 @@
 PopDialogBoxAbout::PopDialogBoxAbout()
 {
 	
+    
 }
 PopDialogBoxAbout::~PopDialogBoxAbout() {
 	CCLog("~ <<%s>>",__FUNCTION__);

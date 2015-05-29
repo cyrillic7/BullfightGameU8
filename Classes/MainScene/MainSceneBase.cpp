@@ -21,6 +21,7 @@ void MainSceneBase::onEnter(){
 }
 void MainSceneBase::onExit(){
 	CCLayer::onExit();
+    
 }
 void MainSceneBase::initPlayerLayer(){
 	playerLayer = PlayerLayer::create();

@@ -16,6 +16,7 @@ void PlayerLayer::onEnter(){
 }
 void PlayerLayer::onExit(){
 
+    
 }
 void PlayerLayer::initPlayerInfo(){
 	UILayer *m_pWidget = UILayer::create();

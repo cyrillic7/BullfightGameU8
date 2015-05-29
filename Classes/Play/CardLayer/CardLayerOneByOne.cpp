@@ -22,6 +22,7 @@ void CardLayerOneByOne::onExit(){
 
 
 
+
 //提示牛牛
 bool CardLayerOneByOne::promptOx(int oxIndex){
 	BYTE tempCard[5];

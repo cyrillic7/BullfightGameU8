@@ -9,6 +9,7 @@ USING_NS_CC_EXT;
 #define	CARD_MASK_COLOR				0xF0								//花色掩码
 #define	CARD_MASK_VALUE				0x0F								//数值掩码
 
+
 class Card:public CCNode {
 public:
 	//扑克动画

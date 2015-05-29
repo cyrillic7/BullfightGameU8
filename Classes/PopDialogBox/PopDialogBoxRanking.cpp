@@ -12,6 +12,7 @@
 PopDialogBoxRanking::PopDialogBoxRanking()
 {
 	
+    
 }
 PopDialogBoxRanking::~PopDialogBoxRanking() {
 	CCLog("~ <<%s>>",__FUNCTION__);

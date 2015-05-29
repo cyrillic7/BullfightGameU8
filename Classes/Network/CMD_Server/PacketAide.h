@@ -199,6 +199,7 @@ VOID * CRecvPacketHelper::GetData(tagDataDescribe & DataDescribe)
 	return pData;
 };*/
 
+
 //////////////////////////////////////////////////////////////////////////////////
 
 #pragma pack()

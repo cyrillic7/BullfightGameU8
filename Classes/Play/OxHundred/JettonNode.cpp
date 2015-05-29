@@ -13,6 +13,7 @@ JettonNode::JettonNode()
 {
 	pIJetton=UIImageView::create();
 	this->addChild(pIJetton);
+    
 }
 JettonNode::~JettonNode() {
 	CCLog("~<<%s>>",__FUNCTION__);

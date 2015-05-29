@@ -21,6 +21,7 @@
 BaseLobbyScene::BaseLobbyScene()
 	:isReadMessage(true){
 }
+
 BaseLobbyScene::~BaseLobbyScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
 }

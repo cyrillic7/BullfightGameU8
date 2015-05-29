@@ -19,7 +19,6 @@ BYTE GameLogicOneByOne::m_cbCardListData[54]=
 GameLogicOneByOne::GameLogicOneByOne()
 {
 }
-
 //析构函数
 GameLogicOneByOne::~GameLogicOneByOne()
 {

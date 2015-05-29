@@ -15,6 +15,7 @@
 PopDialogBoxTrend::PopDialogBoxTrend()
 {
 	
+    
 }
 PopDialogBoxTrend::~PopDialogBoxTrend() {
 	CCLog("~ <<%s>>",__FUNCTION__);

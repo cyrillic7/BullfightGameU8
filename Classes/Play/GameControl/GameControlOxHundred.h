@@ -20,6 +20,7 @@
 //记录信息
 struct tagGameRecord
 {
+    
 	bool							bWinShunMen;						//顺门胜利
 	bool							bWinDuiMen;							//对门胜利
 	bool							bWinDaoMen;							//倒门胜利

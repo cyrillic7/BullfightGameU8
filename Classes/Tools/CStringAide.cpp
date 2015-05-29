@@ -15,6 +15,7 @@ CStringAide::~CStringAide() {
 #endif
 static char g_GBKConvUTF8Buf[5000] = { 0 };
 
+
 const char * CStringAide::GBKToUTF8(const char * strChar){
 	iconv_t iconvH;
 	//iconvH = iconv_open("unicode","ascii");

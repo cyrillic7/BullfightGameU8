@@ -11,6 +11,7 @@
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxTask::PopDialogBoxTask()
 {
+    
 	
 }
 PopDialogBoxTask::~PopDialogBoxTask() {

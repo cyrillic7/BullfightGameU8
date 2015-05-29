@@ -169,6 +169,7 @@ public:
 	//用户状态
 	void OnEventUserState(WORD	 wSubCmdID,const void * pBuffer, WORD wDataSize);
 
+    
 	//用户状态
 	virtual void onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//隐藏所有操作按键

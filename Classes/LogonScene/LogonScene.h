@@ -34,6 +34,7 @@ public:
 	virtual void onExit();
     static CCScene* scene();
     
+    
     CREATE_FUNC(LogonScene);
 private:
 	void onMenuLogon(CCObject* pSender, TouchEventType type);

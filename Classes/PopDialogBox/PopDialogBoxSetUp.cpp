@@ -16,6 +16,7 @@
 PopDialogBoxSetUp::PopDialogBoxSetUp()
 {
 	
+    
 }
 PopDialogBoxSetUp::~PopDialogBoxSetUp() {
 	CCLog("~ <<%s>>",__FUNCTION__);

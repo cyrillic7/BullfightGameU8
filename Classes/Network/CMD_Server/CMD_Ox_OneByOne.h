@@ -13,6 +13,7 @@ typedef char TCHAR, *PTCHAR;
 //////////////////////////////////////////////////////////////////////////
 //公共宏定义
 
+
 #define KIND_ID						1002									//游戏 I D  (手机端为130)
 #define GAME_PLAYER					6										//游戏人数
 #define GAME_NAME					TEXT("通比牛牛")						//游戏名字

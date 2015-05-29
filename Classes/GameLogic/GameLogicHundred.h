@@ -13,7 +13,6 @@ typedef unsigned char       BYTE;
 #endif
 //////////////////////////////////////////////////////////////////////////
 //牌型
-
 enum emCardType
 {
 	CT_ERROR			=		0,								//错误类型

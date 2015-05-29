@@ -907,11 +907,14 @@ void GameControlOxHundred::onSubGameStart(const void * pBuffer, WORD wDataSize){
 	//设置时间
 	resetTimer(pGameStart->cbTimeLeave, BaseAttributes::sharedAttributes()->sGameStart.c_str());
 	hideTimer(false);
+    
 	//设置下注状态
-	DataModel::sharedDataModel()->getMainSceneOxHundred()->setGameStateWithUpdate(MainSceneOxHundred::STATE_GAME_PLACE_JETTON);
+    getMainScene()->setGameStateWithUpdate(MainSceneOxHundred::STATE_GAME_PLACE_JETTON);
+	//DataModel::sharedDataModel()->getMainSceneOxHundred()->setGameStateWithUpdate(MainSceneOxHundred::STATE_GAME_PLACE_JETTON);
 	setBankerInfo(pGameStart->wBankerUser, pGameStart->lBankerScore);
 	//操控更新
 	updateButtonContron();
+    
 }
 //用户下注
 void GameControlOxHundred::onSubPlaceJetton(const void * pBuffer, WORD wDataSize, bool bGameMes){

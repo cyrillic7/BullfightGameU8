@@ -24,6 +24,7 @@ void PopDialogBoxUserInfo::onEnter(){
 	Layout* layoutPauseUI = static_cast<Layout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UIPopDialogBoxUserInfo.ExportJson)));
 	pUILayer->addWidget(layoutPauseUI);
 	
+    
 	pWidgetBg = static_cast<UIImageView*>(pUILayer->getWidgetByName("bg"));
 	pWidgetBg->setScale(0.8);
 

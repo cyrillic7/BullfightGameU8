@@ -20,6 +20,7 @@ public:
 	void SetContext(TCPSocket* context);
 	virtual void Run();
 
+    
 private:
 	TCPSocket* context;
 };

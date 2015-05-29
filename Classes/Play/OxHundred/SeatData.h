@@ -21,6 +21,7 @@ public:
 	UILabelAtlas *pLResult;
 	//中心点
 	CCPoint posCenter;
+    
 	//座位大小
 	CCSize seatSize;
 private:

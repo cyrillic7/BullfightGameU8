@@ -10,6 +10,7 @@ public:
 	virtual void onEnter();
 	virtual void onExit();
 private:
+    
 	//设置牌位置
 	virtual void doSetCardMovePos(int i);
 };

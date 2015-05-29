@@ -11,6 +11,7 @@
 #define MAX_HELP_COUNT 5
 class PopDialogBoxHelp: public PopDialogBox {
 private:
+    
 	std::string helpText[MAX_HELP_COUNT];
 	UILabel *plHelpText;
 	UIScrollView *scrollViewHelp;

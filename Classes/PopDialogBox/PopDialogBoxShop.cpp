@@ -408,6 +408,7 @@ void PopDialogBoxShop::onSubGiftList(void * pDataBuffer, unsigned short wDataSiz
 	//关闭网络
 	TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_SHOP);
 }
+
 //购买礼品
 void PopDialogBoxShop::onSubButGift(void * pDataBuffer, unsigned short wDataSize){
 	//效验数据
