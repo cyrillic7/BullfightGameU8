@@ -702,7 +702,7 @@ void GameControlOxHundred::onSubGameFrame(WORD wSubCmdID, void * pDataBuffer, un
 		case GAME_SCENE_FREE:
 		{
 			int ss = sizeof(CMD_S_StatusFree);
-			//效验数据
+			//效验数据  
 			assert(wDataSize == sizeof(CMD_S_StatusFree));
 			if (wDataSize != sizeof(CMD_S_StatusFree)) return;
 
