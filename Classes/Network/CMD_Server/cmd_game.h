@@ -9,6 +9,7 @@
 typedef unsigned char       BYTE;
 typedef unsigned short      WORD;
 typedef unsigned long       DWORD;
+
 typedef char TCHAR, *PTCHAR;
 #define MAX_PATH          260
 typedef  int64_t      INT64, *PINT64;

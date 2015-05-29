@@ -1,6 +1,6 @@
 ﻿#ifndef CMD_OX_HEAD_FILE
 #define CMD_OX_HEAD_FILE
-
+#pragma pack(1)
 //如果是android平台需要定义宏
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID||CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
 #define RtlCopyMemory(Destination,Source,Length) memcpy((Destination),(Source),(Length))
@@ -191,5 +191,5 @@ struct CMD_C_ChangeCard
 	BYTE                                    cbChangeCard;                       //换牌数据
 };
 //////////////////////////////////////////////////////////////////////////
-
+#pragma pack()
 #endif
