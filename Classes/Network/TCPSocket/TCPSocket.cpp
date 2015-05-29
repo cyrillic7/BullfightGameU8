@@ -311,13 +311,15 @@ int TCPSocket::Recv(char* buf, int len, int flags) {
 
 int TCPSocket::Close() {
 	//this->listerner->OnClose(this,false);
+	int closeID = 0;
 #ifdef WIN32
-    return (closesocket(m_sock));
+	closeID=(closesocket(m_sock));
 #else
 	shutdown(m_sock,SHUT_RDWR);//避免延时
-    return (close(m_sock));
+	closeID=(close(m_sock));
 #endif
 	m_sock = INVALID_SOCKET;
+	return closeID;
 }
 
 int TCPSocket::GetError() {
