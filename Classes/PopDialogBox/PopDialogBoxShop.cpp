@@ -305,13 +305,13 @@ void PopDialogBoxShop::buyPropForType(){
 	case PopDialogBoxShop::SHOP_BUY_GIFT:
 	{
 		buyGift.dwID = vecGift[iBuyPropIndex].dwID;
-		//buyGift.dwType = 1;
+		buyGift.dwType = 1;
 	}
 		break;
 	case PopDialogBoxShop::SHOP_BUY_PROP:
 	{
 		buyGift.dwID = vecProp[iBuyPropIndex].dwID;
-		//buyGift.dwType = 2;
+		buyGift.dwType = 2;
 	}
 		break;
 	default:

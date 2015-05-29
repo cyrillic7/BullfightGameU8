@@ -1,4 +1,4 @@
-﻿//
+//
 //
 //
 //
@@ -867,7 +867,7 @@ void GameControlOxHundred::onSubGameFree(const void * pBuffer, WORD wDataSize)
 	//消息处理
 	CMD_S_GameFree * pGameFree = (CMD_S_GameFree *)pBuffer;
 	//设置时间
-	resetTimer(pGameFree->cbTimeLeave, Tools::GBKToUTF8("本轮即将开始"));
+	resetTimer(pGameFree->cbTimeLeave, Tools::GBKToUTF8("本轮即将开始 "));
 	CCLog("time:%d   count:%lld<<%s>>", pGameFree->cbTimeLeave, pGameFree->nListUserCount, __FUNCTION__);
 	resetData();
 	for (int i = 0; i < MAX_SEAT_COUNT; i++)
@@ -904,7 +904,7 @@ void GameControlOxHundred::onSubGameStart(const void * pBuffer, WORD wDataSize){
 
 	CCLog("gameStart=time--:%d<<%s>>", pGameStart->cbTimeLeave, __FUNCTION__);
 	//设置时间
-	resetTimer(pGameStart->cbTimeLeave, Tools::GBKToUTF8("请下注"));
+	resetTimer(pGameStart->cbTimeLeave, Tools::GBKToUTF8("请下注 "));
 	hideTimer(false);
 	//设置下注状态
 	DataModel::sharedDataModel()->getMainSceneOxHundred()->setGameStateWithUpdate(MainSceneOxHundred::STATE_GAME_PLACE_JETTON);
