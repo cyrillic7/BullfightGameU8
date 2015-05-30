@@ -18,6 +18,7 @@ class PopDialogBox: public CCLayer,public CStringAide {
 public:
 	UILayer * pUILayer;
 	UIImageView *pWidgetBg;
+	std::string sSocketName;
 public:
 	PopDialogBox();
 	~PopDialogBox();
@@ -30,5 +31,6 @@ public:
 	//播放放大动画
 	void playAnimation();
 
-	
+
+	void setSocketName(std::string sName);
 };

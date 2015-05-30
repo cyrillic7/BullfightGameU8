@@ -26,5 +26,5 @@ CCScene* LogoScene::scene()
 }
 //进入主游戏场景
 void LogoScene::updateToMainScene(float dt){
-	Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene());
+	Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(false));
 }

@@ -26,6 +26,7 @@
     <string>UIPopDialogBoxOnline.json</string>
     <string>UIPopDialogBoxTrend.json</string>
     <string>UIPopDialogBoxKnapsack.json</string>
+    <string>UIPopDialogBoxTipInfo.json</string>
   </JsonList>
   <CanvasSize>
     <Width>1136</Width>
@@ -297,7 +298,20 @@
     <string>Font.png</string>
     <string>UIGameIng.png</string>
     <string>UIGameIngHundred.png</string>
+    <string>UIPanel.png</string>
+    <string>UIButton.png</string>
+    <string>UIUserInfo.png</string>
+    <string>UICheckBox.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UILogon.png</string>
+    <string>UIShop.png</string>
+    <string>UIRanking.png</string>
+    <string>UIActivity.png</string>
+    <string>Font.png</string>
+    <string>UIGameIng.png</string>
+    <string>UIGameIngHundred.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxKnapsack.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxTipInfo.json</CurrentUIJson>
 </UIProject>

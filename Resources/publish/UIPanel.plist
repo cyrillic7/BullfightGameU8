@@ -7,7 +7,7 @@
             <key>u_lobby_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{736,2},{49,37}}</string>
+                <string>{{612,230},{49,37}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -17,10 +17,36 @@
                 <key>sourceSize</key>
                 <string>{49,37}</string>
             </dict>
+            <key>u_pop_small_bg.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{486,287}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{486,287}}</string>
+                <key>sourceSize</key>
+                <string>{486,287}</string>
+            </dict>
+            <key>u_pop_small_title.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{651,230},{229,45}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{229,45}}</string>
+                <key>sourceSize</key>
+                <string>{229,45}</string>
+            </dict>
             <key>u_u_info_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{721,77},{49,49}}</string>
+                <string>{{561,230},{49,49}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +59,7 @@
             <key>u_u_info_title.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{437,2},{297,69}}</string>
+                <string>{{561,159},{297,69}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,11 +72,11 @@
             <key>u_u_info_title1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{437,77},{282,69}}</string>
+                <string>{{490,2},{282,69}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{282,69}}</string>
                 <key>sourceSize</key>
@@ -59,11 +85,11 @@
             <key>u_u_knapsack_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{736,53},{34,22}}</string>
+                <string>{{860,159},{34,22}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{34,22}}</string>
                 <key>sourceSize</key>
@@ -72,7 +98,7 @@
             <key>ui_pop_user_info_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{155,433}}</string>
+                <string>{{561,2},{155,433}}</string>
                 <key>offset</key>
                 <string>{0,1}</string>
                 <key>rotated</key>
@@ -90,9 +116,9 @@
             <key>realTextureFileName</key>
             <string>UIPanel.png</string>
             <key>size</key>
-            <string>{775,159}</string>
+            <string>{996,291}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:31662ae53cedd38978565696ba517c66:2f3593ff2923cb8877c55e95461d97b9:32c497890652a868b1bc601216ad4c61$</string>
+            <string>$TexturePacker:SmartUpdate:34d26416a7b14267966d09beb53c5e92:de8f70ff26edf072df3e6dd5d0c0b2a4:32c497890652a868b1bc601216ad4c61$</string>
             <key>textureFileName</key>
             <string>UIPanel.png</string>
         </dict>

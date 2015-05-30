@@ -13,6 +13,8 @@
 		<string>请下注</string>
 		<key>strGameEnd</key>
 		<string>休息一下...</string>
+		<key>strLoading</key>
+		<string>正在载入</string>
 		 
 	</dict>
 

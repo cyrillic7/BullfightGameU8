@@ -4,10 +4,11 @@
 //
 #pragma once
 #include "cocos-ext.h"
+#include "../Tools/CStringAide.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
-class BaseLobbyScene:public CCLayer
+class BaseLobbyScene:public CCLayer,public CStringAide
 {
 public:
 	UILabel *userName;

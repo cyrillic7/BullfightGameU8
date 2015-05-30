@@ -20,6 +20,7 @@ public:
 	std::string sGameFree;
 	std::string sGameStart;
 	std::string sGameEnd;
+	std::string sLoading;
 
 	int iCardOffsetX[MAX_PLAYER];
 	int iCardOffsetY[MAX_PLAYER];

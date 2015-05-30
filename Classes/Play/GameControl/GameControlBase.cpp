@@ -221,7 +221,7 @@ void GameControlBase::menuPause(CCObject* pSender, TouchEventType type){
 	case TOUCH_EVENT_ENDED:
 	{
 		//TCPSocketControl::sharedTCPSocketControl()->stopSocket();
-		Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene());
+		Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(false));
 	}
 	break;
 	default:
@@ -1271,8 +1271,8 @@ bool GameControlBase::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 }
 
 void GameControlBase::OnUserFree(CCObject *obj){
-	CCMessageBox(Tools::GBKToUTF8("长时间不操作，自动退出！"), Tools::GBKToUTF8("提示"));
-	Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene());
+	//CCMessageBox(Tools::GBKToUTF8("长时间不操作，自动退出！"), Tools::GBKToUTF8("提示"));
+	Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(true));
 	CCLog("退出 ");
 }
 //用户进入

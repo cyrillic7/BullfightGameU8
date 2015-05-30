@@ -14,10 +14,12 @@ private:
 	UIImageView *pWidgetBg;
 	UILabel *pLLoading;
 	int timerIndex;
+	
 public:
 	PopDialogBoxLoading();
 	~PopDialogBoxLoading();
 	CREATE_FUNC(PopDialogBoxLoading);
+
 private:
 	virtual void onEnter();
 	virtual void onExit();
@@ -25,4 +27,6 @@ private:
 	virtual void playAnimation();
 	//更新加载文字动画
 	void updateLoadingLabel(float dt);
+	//超时关闭
+	void outTimeExit(float dt);
 };

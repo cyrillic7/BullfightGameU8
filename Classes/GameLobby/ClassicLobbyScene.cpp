@@ -19,6 +19,7 @@
 #include "../Network/ListernerThread/LogonGameListerner.h"
 #include "../Tools/DataModel.h"
 #include "../PopDialogBox/PopDialogBoxLoading.h"
+#include "../PopDialogBox/PopDialogBoxTipInfo.h"
 #include "../Network/MD5/MD5.h"
 #include "../Network/SEvent.h"
 #include "../Network/CMD_Server/cmd_ox.h"
@@ -236,7 +237,7 @@ void ClassicLobbyScene::popDialogBox(){
 	{
 		TCPSocketControl::sharedTCPSocketControl()->stopSocket();
 	}
-	Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene());
+	Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(false));
 }
 void ClassicLobbyScene::enterMainSceneByMode(int mode){
 	switch (mode)
@@ -473,6 +474,12 @@ void ClassicLobbyScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned
 		{
 			CMD_GR_LogonFailure *lf = (CMD_GR_LogonFailure*)pDataBuffer;
 			CCLog("登录失败:%s",Tools::GBKToUTF8(lf->szDescribeString));
+
+			this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+			//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_GAME);
+			PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+			this->addChild(tipInfo);
+			tipInfo->setTipInfoContent(GBKToUTF8(lf->szDescribeString));
 		}
 		break;
 	default:

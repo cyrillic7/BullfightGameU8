@@ -24,13 +24,15 @@ public:
 private:
 	UILabel *pLabelGoldCount;
 	UIScrollView *scroll;
+	//是否显示站立提示
+	static bool isShowUpTip;
 public:
     GameLobbyScene();
     ~GameLobbyScene();
 	virtual void onEnter();
 	virtual void onExit();
 
-    static CCScene* scene();
+	static CCScene* scene(bool showUpTip);
     CREATE_FUNC(GameLobbyScene);
 private:
 	//获取socket
@@ -61,4 +63,6 @@ private:
 	void onSubUserEnter(void * pDataBuffer, unsigned short wDataSize);
 	//用户状态
 	void onSubUserState(void * pDataBuffer, unsigned short wDataSize);
+	//显示站立提示
+	void showUpTip();
 };

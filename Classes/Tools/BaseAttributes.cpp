@@ -33,6 +33,7 @@ void BaseAttributes::initStr(){
 	sGameFree = dynamic_cast<CCString *>(mDic->objectForKey("strGameFree"))->getCString();
 	sGameStart = dynamic_cast<CCString *>(mDic->objectForKey("strGameStart"))->getCString();
  	sGameEnd = dynamic_cast<CCString *>(mDic->objectForKey("strGameEnd"))->getCString();
+	sLoading = dynamic_cast<CCString *>(mDic->objectForKey("strLoading"))->getCString();
 
 	mDic->removeAllObjects();
 	CC_SAFE_RELEASE_NULL(mDic);

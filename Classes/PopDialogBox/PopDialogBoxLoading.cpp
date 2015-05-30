@@ -8,9 +8,11 @@
 #include "PopDialogBoxLoading.h"
 #include "../Tools/DataModel.h"
 #include "../Tools/Tools.h"
+#include "../Tools/BaseAttributes.h"
+#include "../Network/TCPSocket/TCPSocketControl.h"
+#define OUT_TIME			10				//超时时长
 PopDialogBoxLoading::PopDialogBoxLoading()
 {
-    
 	timerIndex = 0;
 }
 PopDialogBoxLoading::~PopDialogBoxLoading() {
@@ -32,11 +34,19 @@ void PopDialogBoxLoading::onEnter(){
 	pLLoading->setPositionY(pArmature->getPositionY()-pArmature->getContentSize().height/2-30);
 	
 	//pLLoading->setText("正在转入.");
-	//schedule(SEL_SCHEDULE(&PopDialogBoxLoading::updateLoadingLabel),0.5);
+	schedule(SEL_SCHEDULE(&PopDialogBoxLoading::updateLoadingLabel),0.5);
+	scheduleOnce(SEL_SCHEDULE(&PopDialogBoxLoading::outTimeExit), OUT_TIME);
 }
 void PopDialogBoxLoading::onExit(){
 	CCLayer::onExit();
-	//unschedule(SEL_SCHEDULE(&PopDialogBoxLoading::updateLoadingLabel));
+	unschedule(SEL_SCHEDULE(&PopDialogBoxLoading::updateLoadingLabel));
+}
+
+//超时关闭
+void PopDialogBoxLoading::outTimeExit(float dt){
+	//关闭网络
+	TCPSocketControl::sharedTCPSocketControl()->stopSocket(sSocketName);
+	this->removeFromParentAndCleanup(true);
 }
 void PopDialogBoxLoading::playAnimation(){
 	pWidgetBg->runAction(CCEaseBackOut::create(CCScaleTo::create(0.2, 1)));
@@ -45,14 +55,14 @@ void PopDialogBoxLoading::playAnimation(){
 void PopDialogBoxLoading::updateLoadingLabel(float dt){
 	if (timerIndex <1)
 	{
-		pLLoading->setText("正在转入.");
+		pLLoading->setText(CCString::createWithFormat("%s.",BaseAttributes::sharedAttributes()->sLoading.c_str())->getCString());
 	}
 	else if (timerIndex <2)
 	{
-		pLLoading->setText("正在转入..");
+		pLLoading->setText(CCString::createWithFormat("%s..", BaseAttributes::sharedAttributes()->sLoading.c_str())->getCString());
 	}
 	else if (timerIndex < 3){
-		pLLoading->setText("正在转入...");
+		pLLoading->setText(CCString::createWithFormat("%s...", BaseAttributes::sharedAttributes()->sLoading.c_str())->getCString());
 	}
 	else if (timerIndex < 4){
 		timerIndex = 0;

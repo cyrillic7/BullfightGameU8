@@ -19,6 +19,7 @@ MainSceneOxHundred::MainSceneOxHundred()
 MainSceneOxHundred::~MainSceneOxHundred(){
 	CCLog("~ <<%s>>", __FUNCTION__);
 	//TCPSocketControl::sharedTCPSocketControl()->stopSocket();
+	removeLoadingLayer();
 
 	GUIReader::purge();
 	CCArmatureDataManager::purge();

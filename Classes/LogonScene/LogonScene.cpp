@@ -10,6 +10,7 @@
 #include "../Tools/Tools.h"
 #include "../PopDialogBox/PopDialogBoxLoading.h"
 #include "../PopDialogBox/PopDialogBoxLogonAccount.h"
+#include "../PopDialogBox/PopDialogBoxTipInfo.h"
 #include "../GameLobby/GameLobbyScene.h"
 #include "../Network/ListernerThread/LogonGameListerner.h"
 #include "../Network/MD5/MD5.h"
@@ -362,7 +363,11 @@ ShowStatusWindow(TEXT("正在获取游戏列表..."));
 			this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 			CCLog("登录失败:%s",GBKToUTF8(describeStr));
 			TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_GAME);
-			//
+			
+			PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+			this->addChild(tipInfo);
+			tipInfo->setTipInfoContent(GBKToUTF8(describeStr));
+			
 		}
 		break;
 	case SUB_MB_UPDATE_NOTIFY:
@@ -456,7 +461,7 @@ void LogonScene::onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned s
 		{
 			unscheduleUpdate();
 			TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_GAME);
-			Tools::setTransitionAnimation(0,0,GameLobbyScene::scene());
+			Tools::setTransitionAnimation(0,0,GameLobbyScene::scene(false));
 		}
 		break;
 	default:

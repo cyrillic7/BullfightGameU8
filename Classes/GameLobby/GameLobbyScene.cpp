@@ -10,6 +10,7 @@
 #include "../Tools/GameConfig.h"
 #include "../PopDialogBox/PopDialogBoxUserInfo.h"
 #include "../PopDialogBox/PopDialogBoxLoading.h"
+#include "../PopDialogBox/PopDialogBoxTipInfo.h"
 #include "ClassicLobbyScene.h"
 #include "../Play/GameControl/GameControlOxHundred.h"
 #include "../Tools/DataModel.h"
@@ -18,6 +19,7 @@
 #include "../Network/ListernerThread/LogonGameListerner.h"
 #include "../Network/MD5/MD5.h"
 #include "../Network/CMD_Server/PacketAide.h"
+bool GameLobbyScene::isShowUpTip = false;
 GameLobbyScene::GameLobbyScene()
 {
 	scheduleUpdate();
@@ -35,11 +37,12 @@ GameLobbyScene::~GameLobbyScene(){
 	CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
 	CCTextureCache::sharedTextureCache()->removeUnusedTextures();
 }
-CCScene* GameLobbyScene::scene()
+CCScene* GameLobbyScene::scene(bool showUpTip)
 {
     CCScene *scene = CCScene::create();
     GameLobbyScene *layer = GameLobbyScene::create();
     scene->addChild(layer);
+	isShowUpTip = showUpTip;
     return scene;
 }
 void GameLobbyScene::onEnter(){
@@ -81,8 +84,17 @@ void GameLobbyScene::onEnter(){
 	userName=static_cast<UILabel*>(m_pWidget->getWidgetByName("labelUserName"));
 	//金币
 	pLabelGoldCount=static_cast<UILabel*>(m_pWidget->getWidgetByName("LabelGoldCount"));*/
+	if (isShowUpTip)
+	{
+		showUpTip();
+	}
 }
-
+//显示站立提示
+void GameLobbyScene::showUpTip(){
+	PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+	this->addChild(tipInfo);
+	tipInfo->setTipInfoContent(("长时间不操作，自动退出！"));
+}
 void GameLobbyScene::onExit(){
 	BaseLobbyScene::onExit();
 }
@@ -261,6 +273,12 @@ void GameLobbyScene::onSubLogon(WORD wSubCmdID,void * pDataBuffer, unsigned shor
 		{
 			CMD_GR_LogonFailure *lf = (CMD_GR_LogonFailure*)pDataBuffer;
 			CCLog("登录失败:%s",Tools::GBKToUTF8(lf->szDescribeString));
+
+			this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+			//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_GAME);
+			PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+			this->addChild(tipInfo);
+			tipInfo->setTipInfoContent(GBKToUTF8(lf->szDescribeString));
 		}
 		break;
 	default:

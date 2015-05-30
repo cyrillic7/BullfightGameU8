@@ -230,6 +230,7 @@ void PopDialogBoxShop::connectServer(){
 	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_SHOP);
 	PopDialogBox *box = PopDialogBoxLoading::create();
 	this->addChild(box, 10, TAG_LOADING);
+	box->setSocketName(SOCKET_SHOP);
 	TCPSocket *tcp = getSocket();
 	if (tcp)
 	{
@@ -319,6 +320,7 @@ void PopDialogBoxShop::buyPropForType(){
 	}
 	
 	buyGift.dwNum = 1;
+	buyGift.dwBuyMethod = 4;
 	strcpy(buyGift.szMachineID, "12");
 
 	getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_BUYGIFT, &buyGift, sizeof(CMD_GP_BuyGift));

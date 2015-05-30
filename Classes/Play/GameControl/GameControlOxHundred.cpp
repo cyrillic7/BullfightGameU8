@@ -15,6 +15,7 @@
 #include "../../PopDialogBox/PopDialogBoxUpBank.h"
 #include "../../PopDialogBox/PopDialogBoxOnLine.h"
 #include "../../PopDialogBox/PopDialogBoxTrend.h"
+#include "../../PopDialogBox/PopDialogBoxLoading.h"
 #include "../../Network/SEvent.h"
 #include "../../MTNotificationQueue/MTNotificationQueue.h"
 using namespace std;
@@ -36,6 +37,7 @@ GameControlOxHundred::GameControlOxHundred()
 	DataModel::sharedDataModel()->userInfo->wChairID = -10;
 }
 GameControlOxHundred::~GameControlOxHundred(){
+	
 	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
 	DataModel::sharedDataModel()->mTagUserInfo.clear();
 	DataModel::sharedDataModel()->vecJettonNode.clear();
@@ -632,10 +634,11 @@ void GameControlOxHundred::standUpWithExit(){
 	if (userStandUp.wChairID == -10 || userStandUp.wChairID > MAX_CHAIR)
 	{
 		TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
-		Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene());
+		Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(false));
 	}
 	else
 	{
+		getMainScene()->addLoadingLayer();
 		CCLog("-------userStandUp.wChairID :%d<<%s>>", userStandUp.wChairID, __FUNCTION__);
 		//发送消息
 		TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM)->SendData(MDM_GR_USER, SUB_GR_USER_STANDUP, &userStandUp, sizeof(userStandUp));
@@ -1607,7 +1610,7 @@ void GameControlOxHundred::onSubUserState(void * pDataBuffer, unsigned short wDa
 		if (info->dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID)
 		{
 			TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
-			Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene());
+			Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(false));
 			//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_US_FREE,NULL);
 		}
 		else

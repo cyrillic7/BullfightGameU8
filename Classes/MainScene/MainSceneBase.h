@@ -56,6 +56,10 @@ public:
 	virtual void initPlayerLayer();
 	//收到准备完成回调
 	void onEventReadyFnish();
+	//加载Loading
+	void addLoadingLayer();
+	//移除Loading
+	void removeLoadingLayer();
 public:
 	//设置状态并更新
 	virtual void setGameStateWithUpdate(GameState gameState){}

@@ -76,4 +76,8 @@
     <Project>UIPopDialogBoxKnapsack</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxTipInfo</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

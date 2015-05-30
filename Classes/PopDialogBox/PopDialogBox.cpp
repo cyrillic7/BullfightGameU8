@@ -48,3 +48,6 @@ void PopDialogBox::playAnimation(){
 		pWidgetBg->runAction(CCEaseBackOut::create(CCScaleTo::create(0.2, 1)));
 	}
 }
+void PopDialogBox::setSocketName(std::string sName){
+	sSocketName = sName;
+}
