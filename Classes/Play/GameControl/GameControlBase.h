@@ -12,6 +12,7 @@
 #include "cocos2d.h"
 #include "cocos-ext.h"
 #include "../../Network/TCPSocket/TCPSocket.h"
+#include "../../Network/TCPSocket/TCPSocketControl.h"
 #include "../GameEndLayer.h"
 #include "../../MTNotificationQueue/MessageQueue.h"
 #include "../../Tools/CMath.h"
@@ -68,6 +69,8 @@ public:
 	virtual void updateState();
 	//获取主场景
 	MainSceneBase*getMainScene();
+	//获取socket
+	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM); }
 public:
 	//显示指定索引提示动画
 	void showActionPrompt(int promptIndex, CCPoint offsetPos);

@@ -17,7 +17,7 @@ MainSceneOxTwo::MainSceneOxTwo()
 }
 MainSceneOxTwo::~MainSceneOxTwo(){
 	CCLog("~ <<%s>>", __FUNCTION__);
-	TCPSocketControl::sharedTCPSocketControl()->stopSocket();
+	TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 
 	GUIReader::purge();
 	CCArmatureDataManager::purge();

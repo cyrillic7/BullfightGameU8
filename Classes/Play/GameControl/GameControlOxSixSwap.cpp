@@ -74,7 +74,7 @@ void GameControlOxSixSwap::onUserChangeCard(int wParam, long lParam)
 
 	//m_GameClientView.m_btChange.ShowWindow(SW_HIDE);
 	//m_GameClientView.m_btNoChange.ShowWindow(SW_HIDE);
-	bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_GAME,SUB_C_CHANGE_CARD, &ChangeCard, sizeof(ChangeCard));
+	bool isSend =getSocket()->SendData(MDM_GF_GAME,SUB_C_CHANGE_CARD, &ChangeCard, sizeof(ChangeCard));
 	if (isSend)
 	{
 		getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_OPT_OX);
@@ -94,7 +94,7 @@ void GameControlOxSixSwap::menuOpenCard(CCObject* pSender, TouchEventType type){
 		CMD_C_OxCard OxCard;
 		OxCard.bOX=GetOxCard(DataModel::sharedDataModel()->card[getMeChairID()],5);
 		//发送信息
-		bool isSend=TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_GAME,SUB_C_OPEN_CARD,&OxCard,sizeof(OxCard));
+		bool isSend=getSocket()->SendData(MDM_GF_GAME,SUB_C_OPEN_CARD,&OxCard,sizeof(OxCard));
 		getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
 	}
 		break;

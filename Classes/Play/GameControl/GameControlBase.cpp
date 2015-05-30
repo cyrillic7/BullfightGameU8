@@ -292,7 +292,7 @@ void GameControlBase::menuReady(CCObject* pSender, TouchEventType type){
 		//隐藏准备
 		pPanelReady->setEnabled(false);
 		//发送准备指使
-		bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_FRAME, SUB_GF_USER_READY);
+		bool isSend = getSocket()->SendData(MDM_GF_FRAME, SUB_GF_USER_READY);
 		//设置主状态为准备状态
 		getMainScene()->setGameState(MainSceneOxTwo::STATE_READY);
 		/*//获取按键子控件并隐藏
@@ -326,7 +326,7 @@ void GameControlBase::menuNotFight(CCObject* pSender, TouchEventType type){
 		CMD_C_CallBanker CallBanker;
 		CallBanker.bBanker = (BYTE)0;
 		//发送信息
-		TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_GAME, SUB_C_CALL_BANKER, &CallBanker, sizeof(CallBanker));
+		getSocket()->SendData(MDM_GF_GAME, SUB_C_CALL_BANKER, &CallBanker, sizeof(CallBanker));
 	}
 	break;
 	default:
@@ -349,7 +349,7 @@ void GameControlBase::menuFight(CCObject* pSender, TouchEventType type){
 		CallBanker.bBanker = (BYTE)1;
 
 		//发送信息
-		TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_GAME, SUB_C_CALL_BANKER, &CallBanker, sizeof(CallBanker));
+		getSocket()->SendData(MDM_GF_GAME, SUB_C_CALL_BANKER, &CallBanker, sizeof(CallBanker));
 		//SendSocketData(SUB_C_CALL_BANKER,&CallBanker,sizeof(CallBanker));
 	}
 	break;
@@ -380,7 +380,7 @@ void GameControlBase::menuBetting(CCObject* pSender, TouchEventType type){
 		CMD_C_AddScore AddScore;
 		AddScore.lScore = lCurrentScore;
 		//发送信息
-		TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_GAME, SUB_C_ADD_SCORE, &AddScore, sizeof(AddScore));
+		getSocket()->SendData(MDM_GF_GAME, SUB_C_ADD_SCORE, &AddScore, sizeof(AddScore));
 	}
 	break;
 	default:
@@ -1331,7 +1331,7 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 					GameOption.cbAllowLookon = 0;
 					GameOption.dwClientVersion = VERSION_CLIENT;
 					//发送
-					bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_FRAME, SUB_GF_GAME_OPTION, &GameOption, sizeof(GameOption));
+					bool isSend =getSocket()->SendData(MDM_GF_FRAME, SUB_GF_GAME_OPTION, &GameOption, sizeof(GameOption));
 					if (isSend)
 					{
 					}

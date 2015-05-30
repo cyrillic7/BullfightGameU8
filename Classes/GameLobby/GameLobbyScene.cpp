@@ -8,6 +8,7 @@
 #include "GameLobbyScene.h"
 #include "../Tools/Tools.h"
 #include "../Tools/GameConfig.h"
+#include "../Tools/BaseAttributes.h"
 #include "../PopDialogBox/PopDialogBoxUserInfo.h"
 #include "../PopDialogBox/PopDialogBoxLoading.h"
 #include "../PopDialogBox/PopDialogBoxTipInfo.h"
@@ -133,7 +134,9 @@ void GameLobbyScene::menuSelectMode(CCObject* pSender, TouchEventType type){
 		}
 		else
 		{
-			CCLog("敬请期待<<%s>>",__FUNCTION__);
+			PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+			this->addChild(tipInfo);
+			tipInfo->setTipInfoContent(BaseAttributes::sharedAttributes()->sWaitCodeing.c_str());
 		}
 	}
 		break;

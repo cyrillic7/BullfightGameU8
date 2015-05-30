@@ -15,6 +15,7 @@
 #include "../Network/ListernerThread/LogonGameListerner.h"
 #include "../Network/MD5/MD5.h"
 #include "../Network/CMD_Server/cmd_ox.h"
+#include "../Tools/BaseAttributes.h"
 LogonScene::LogonScene(){
 	readRMS();
 	scheduleUpdate();
@@ -82,7 +83,12 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 				}
 				break;
 			case LOGON_QQ:
+			case LOGON_REGISTER:
+			case LOGON_QUICK://快速登录
 				{
+					PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+					this->addChild(tipInfo);
+					tipInfo->setTipInfoContent(BaseAttributes::sharedAttributes()->sWaitCodeing.c_str());
 					//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_GAME);
 				}
 				break;

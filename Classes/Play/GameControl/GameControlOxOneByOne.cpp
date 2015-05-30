@@ -53,7 +53,7 @@ void GameControlOxOneByOne::menuOpenCard(CCObject* pSender, TouchEventType type)
 		CMD_C_OxCard OxCard;
 		OxCard.bOX=GetOxCard(DataModel::sharedDataModel()->card[getMeChairID()],5);
 		//发送信息
-		bool isSend=TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_GAME,SUB_C_OPEN_CARD,&OxCard,sizeof(OxCard));
+		bool isSend=getSocket()->SendData(MDM_GF_GAME,SUB_C_OPEN_CARD,&OxCard,sizeof(OxCard));
 		getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
 	}
 		break;
@@ -347,7 +347,7 @@ bool GameControlOxOneByOne::OnSubGameStart(const void * pBuffer, WORD wDataSize)
 	//发送消息
 	CMD_C_AddScore AddScore;
 	AddScore.lScore = DataModel::sharedDataModel()->m_lTurnMaxScore;
-	TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_GAME,SUB_C_ADD_SCORE, &AddScore, sizeof(AddScore));
+	getSocket()->SendData(MDM_GF_GAME,SUB_C_ADD_SCORE, &AddScore, sizeof(AddScore));
 	return true;
 }
 //发牌消息

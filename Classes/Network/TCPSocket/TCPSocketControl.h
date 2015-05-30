@@ -40,7 +40,7 @@ public:
 	int startSendThread();
 	static void* networkThread(void* object);
 	void initNetwork();
-	void stopSocket();
+	//void stopSocket();
 	bool SendData(WORD wMainCmdID, WORD wSubCmdID, void * const pData, WORD wDataSize);
 	bool SendData(WORD wMainCmdID, WORD wSubCmdID);
 

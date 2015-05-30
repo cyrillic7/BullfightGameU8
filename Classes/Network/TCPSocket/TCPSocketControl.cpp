@@ -83,10 +83,10 @@ void TCPSocketControl::initNetwork(){
 	//delete tcp;
 	CCLog("Connect:%d", isRun);
 }
-void TCPSocketControl::stopSocket(){
+/*void TCPSocketControl::stopSocket(){
 	tcpSocket->Clean();
 	tcpSocket->Close();
-}
+}*/
 bool TCPSocketControl::SendData(WORD wMainCmdID, WORD wSubCmdID, void * const pData, WORD wDataSize){
 	return tcpSocket->SendData(wMainCmdID,wSubCmdID,pData,wDataSize);
 }

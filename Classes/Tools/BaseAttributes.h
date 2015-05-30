@@ -21,6 +21,8 @@ public:
 	std::string sGameStart;
 	std::string sGameEnd;
 	std::string sLoading;
+	std::string sOutTime;
+	std::string sWaitCodeing;
 
 	int iCardOffsetX[MAX_PLAYER];
 	int iCardOffsetY[MAX_PLAYER];

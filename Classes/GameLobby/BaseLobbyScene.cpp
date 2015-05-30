@@ -8,6 +8,7 @@
 
 #include "BaseLobbyScene.h"
 #include "../Tools/Tools.h"
+#include "../Tools/BaseAttributes.h"
 #include "../PopDialogBox/PopDialogBoxUserInfo.h"
 #include "../PopDialogBox/PopDialogBoxSetUp.h"
 #include "../PopDialogBox/PopDialogBoxMore.h"
@@ -17,6 +18,7 @@
 #include "../PopDialogBox/PopDialogBoxShop.h"
 #include "../PopDialogBox/PopDialogBoxAuction.h"
 #include "../PopDialogBox/PopDialogBoxRanking.h"
+#include "../PopDialogBox/PopDialogBoxTipInfo.h"
 #include "../Tools/DataModel.h"
 BaseLobbyScene::BaseLobbyScene()
 	:isReadMessage(true){
@@ -68,6 +70,10 @@ void BaseLobbyScene::onEnter(){
 	//绑定排行按键
 	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonRanking"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
+	//绑定消息
+	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonMsg"));
+	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
+	
 	//用户名
 	userName=static_cast<UILabel*>(m_pWidget->getWidgetByName("labelUserName"));
 	//金币
@@ -157,6 +163,12 @@ void BaseLobbyScene::onMenuCallback(CCObject* pSender, TouchEventType type){
 			else if(strcmp(button->getName(),"ButtonRanking")==0)
 			{
 				popDialogBox(POP_RANKING);
+			}
+			else
+			{
+				PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+				this->addChild(tipInfo);
+				tipInfo->setTipInfoContent(BaseAttributes::sharedAttributes()->sWaitCodeing.c_str());
 			}
 		}
 		break;

@@ -18,7 +18,7 @@ MainSceneOxSixSwap::MainSceneOxSixSwap()
 }
 MainSceneOxSixSwap::~MainSceneOxSixSwap(){
 	CCLog("~ <<%s>>", __FUNCTION__);
-	TCPSocketControl::sharedTCPSocketControl()->stopSocket();
+	TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 
 	GUIReader::purge();
 	CCArmatureDataManager::purge();

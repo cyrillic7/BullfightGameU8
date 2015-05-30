@@ -15,7 +15,11 @@
 		<string>休息一下...</string>
 		<key>strLoading</key>
 		<string>正在载入</string>
-		 
+		<key>strOutTime</key>
+		<string>连接超时！</string>
+		<key>strWaitCodeing</key>
+		<string>敬请期待</string>
+		
 	</dict>
 
 </plist>
