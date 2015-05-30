@@ -10,6 +10,7 @@
 #include "../Tools/Tools.h"
 #include "../Tools/BaseAttributes.h"
 #include "../Network/TCPSocket/TCPSocketControl.h"
+#include "PopDialogBoxTipInfo.h"
 #define OUT_TIME			10				//超时时长
 PopDialogBoxLoading::PopDialogBoxLoading()
 {
@@ -46,6 +47,10 @@ void PopDialogBoxLoading::onExit(){
 void PopDialogBoxLoading::outTimeExit(float dt){
 	//关闭网络
 	TCPSocketControl::sharedTCPSocketControl()->stopSocket(sSocketName);
+	PopDialogBoxTipInfo *pTipInfo = PopDialogBoxTipInfo::create();
+	this->getParent()->addChild(pTipInfo,100);
+	pTipInfo->setTipInfoContent(GBKToUTF8("连接超时！"));
+
 	this->removeFromParentAndCleanup(true);
 }
 void PopDialogBoxLoading::playAnimation(){
