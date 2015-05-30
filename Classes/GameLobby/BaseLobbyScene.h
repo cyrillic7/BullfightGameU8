@@ -5,6 +5,7 @@
 #pragma once
 #include "cocos-ext.h"
 #include "../Tools/CStringAide.h"
+#include "../Network/TCPSocket/TCPSocketControl.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
@@ -35,6 +36,9 @@ public:
 	virtual void onEnter();
 	virtual void onExit();
     CREATE_FUNC(BaseLobbyScene);
+
+	//获取socket
+	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM); }
 private:
 	//弹出框
 	void popDialogBox(PopType type);

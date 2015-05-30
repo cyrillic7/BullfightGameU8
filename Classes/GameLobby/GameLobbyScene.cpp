@@ -157,7 +157,9 @@ void GameLobbyScene::enterLobbyByMode(int mode){
 	case MODE_Hundred:
 		{
 			PopDialogBox *pLoading = PopDialogBoxLoading::create();
-			this->addChild(pLoading);
+			this->addChild(pLoading,10,TAG_LOADING);
+
+			TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
 			tagGameServer *tgs = DataModel::sharedDataModel()->tagGameServerListOxHundred[0];
 			getSocket()->createSocket(tgs->szServerAddr,tgs->wServerPort,new LogonGameListerner());
 			//Tools::setTransitionAnimation(0, 0, MainSceneOxHundred::scene());
@@ -227,7 +229,7 @@ void GameLobbyScene::onEventConnect(WORD wSubCmdID,void * pDataBuffer, unsigned 
 			logonMobile.wPageTableCount=10;
 
 			logonMobile.dwUserID=DataModel::sharedDataModel()->userInfo->dwUserID;
-
+			//logonMobile.dwUserID = 11;
 			MD5 m;
 			m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(),DataModel::sharedDataModel()->sLogonPassword.length());
 			std::string md5PassWord = m.GetMd5();
@@ -279,6 +281,8 @@ void GameLobbyScene::onSubLogon(WORD wSubCmdID,void * pDataBuffer, unsigned shor
 			PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
 			this->addChild(tipInfo);
 			tipInfo->setTipInfoContent(GBKToUTF8(lf->szDescribeString));
+
+			TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 		}
 		break;
 	default:

@@ -5,7 +5,6 @@
 #pragma once
 #include "cocos-ext.h"
 #include "BaseLobbyScene.h"
-#include "../Network/TCPSocket/TCPSocketControl.h"
 #include "../MTNotificationQueue/MessageQueue.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -35,8 +34,7 @@ public:
 	static CCScene* scene(bool showUpTip);
     CREATE_FUNC(GameLobbyScene);
 private:
-	//获取socket
-	TCPSocket *getSocket(){return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM);}
+	
 	//弹出框
 	void popDialogBox();
 	//菜单设置用户信息
