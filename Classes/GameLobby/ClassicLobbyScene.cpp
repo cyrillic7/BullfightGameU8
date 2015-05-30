@@ -106,37 +106,40 @@ void ClassicLobbyScene::onExit(){
 void ClassicLobbyScene::initTCPLogon(int index){
 	PopDialogBox *pdb = PopDialogBoxLoading::create();
 	this->addChild(pdb);
-	pdb->setTag(TAG_POP_DIALOG_BOX);
+	pdb->setTag(TAG_LOADING);
 
-	TCPSocketControl *tcp=TCPSocketControl::sharedTCPSocketControl();
+	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
+	
+	char *ip = "";
+	short port = 0;
+	//TCPSocketControl *tcp=TCPSocketControl::sharedTCPSocketControl();
 	switch (getGameItem())
 	{
 	case ITEM_0:
 		{
-			tcp->ip=DataModel::sharedDataModel()->tagGameServerListOxTwo[index]->szServerAddr;
-			tcp->port=DataModel::sharedDataModel()->tagGameServerListOxTwo[index]->wServerPort;
+			ip=DataModel::sharedDataModel()->tagGameServerListOxTwo[index]->szServerAddr;
+			port=DataModel::sharedDataModel()->tagGameServerListOxTwo[index]->wServerPort;
 		}
 		break;
 	case ITEM_1:
 		{
-			tcp->ip=DataModel::sharedDataModel()->tagGameServerListOxOneByOne[index]->szServerAddr;
-			tcp->port=DataModel::sharedDataModel()->tagGameServerListOxOneByOne[index]->wServerPort;
+			ip=DataModel::sharedDataModel()->tagGameServerListOxOneByOne[index]->szServerAddr;
+			port=DataModel::sharedDataModel()->tagGameServerListOxOneByOne[index]->wServerPort;
 		}
 		break;
 	case ITEM_2:
 	{
-		tcp->ip = DataModel::sharedDataModel()->tagGameServerListSixSwap[index]->szServerAddr;
-		tcp->port = DataModel::sharedDataModel()->tagGameServerListSixSwap[index]->wServerPort;
+		ip = DataModel::sharedDataModel()->tagGameServerListSixSwap[index]->szServerAddr;
+		port = DataModel::sharedDataModel()->tagGameServerListSixSwap[index]->wServerPort;
 	}
 	break;
 	default:
 		break;
 	}
-
-	CCLog("-----------ip:%s     port:%d<<%s>>",tcp->ip,tcp->port,__FUNCTION__);
 	//tcp->listerner=new GameListerner();
-	tcp->listerner = new LogonGameListerner();
-	tcp->startSendThread();
+	//tcp->listerner = new LogonGameListerner();
+	//tcp->startSendThread();
+	getSocket()->createSocket(ip, port, new LogonGameListerner());
 }
 //更新房间列表
 void  ClassicLobbyScene::updateRoomList(){
@@ -235,8 +238,9 @@ void ClassicLobbyScene::menuStar(CCObject* pSender, TouchEventType type){
 void ClassicLobbyScene::popDialogBox(){
 	if (TCPSocketControl::sharedTCPSocketControl()->listerner)
 	{
-		TCPSocketControl::sharedTCPSocketControl()->stopSocket();
+		TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 	}
+
 	Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(false));
 }
 void ClassicLobbyScene::enterMainSceneByMode(int mode){
@@ -267,7 +271,7 @@ void ClassicLobbyScene::update(float delta){
 	}*/
 }
 void ClassicLobbyScene::onPlay(CCObject *obj){
-	PopDialogBox *pdb=(PopDialogBoxLoading*)this->getChildByTag(TAG_POP_DIALOG_BOX);
+	PopDialogBox *pdb=(PopDialogBoxLoading*)this->getChildByTag(TAG_LOADING);
 	pdb->removeFromParentAndCleanup(true);
 
 	isEnterGame=true;
@@ -368,8 +372,8 @@ void ClassicLobbyScene::onEventConnect(WORD wSubCmdID, void * pDataBuffer, unsig
 							   logonMobile.wBehaviorFlags = BEHAVIOR_LOGON_IMMEDIATELY;
 							   logonMobile.wPageTableCount = 10;
 
-							   logonMobile.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
-
+							  logonMobile.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+							
 							   MD5 m;
 							   //MD5::char8 str[] = "z12345678";
 							   //m.ComputMd5(str,sizeof(str)-1);
@@ -379,7 +383,7 @@ void ClassicLobbyScene::onEventConnect(WORD wSubCmdID, void * pDataBuffer, unsig
 
 							   strcpy(logonMobile.szMachineID, "123");
 
-							   bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GR_LOGON, SUB_GR_LOGON_MOBILE, &logonMobile, sizeof(logonMobile));
+							   bool isSend =getSocket()->SendData(MDM_GR_LOGON, SUB_GR_LOGON_MOBILE, &logonMobile, sizeof(logonMobile));
 #endif						 
 	}
 		break;
@@ -477,6 +481,8 @@ void ClassicLobbyScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned
 
 			this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 			//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_GAME);
+			TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
+
 			PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
 			this->addChild(tipInfo);
 			tipInfo->setTipInfoContent(GBKToUTF8(lf->szDescribeString));
