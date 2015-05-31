@@ -311,7 +311,7 @@ int TCPSocket::Recv(char* buf, int len, int flags) {
 }
 
 int TCPSocket::Close() {
-	//this->listerner->OnClose(this,false);
+	this->listerner->OnClose(this,false);
 	int closeID = 0;
 #ifdef WIN32
 	closeID=(closesocket(m_sock));

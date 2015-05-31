@@ -54,6 +54,6 @@ void SocketListerner::Run()
 		}
 		
 	}
-	this->OnClose(context, true);
+	//this->OnClose(context, true);
 }
 
