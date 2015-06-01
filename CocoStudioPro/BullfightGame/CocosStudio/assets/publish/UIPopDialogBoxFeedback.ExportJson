@@ -22,7 +22,8 @@
     "UIActivity.plist",
     "Font.plist",
     "UIGameIng.plist",
-    "UIGameIngHundred.plist"
+    "UIGameIngHundred.plist",
+    "UIKnapsack.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
@@ -38,6 +39,7 @@
     "Font.png",
     "UIGameIng.png",
     "UIGameIngHundred.png",
+    "UIKnapsack.png",
     "UIPanel.png",
     "UIButton.png",
     "UIUserInfo.png",
@@ -51,6 +53,7 @@
     "Font.png",
     "UIGameIng.png",
     "UIGameIngHundred.png",
+    "UIKnapsack.png",
     "UIPanel.png",
     "UIButton.png",
     "UIUserInfo.png",
@@ -64,6 +67,7 @@
     "Font.png",
     "UIGameIng.png",
     "UIGameIngHundred.png",
+    "UIKnapsack.png",
     "UIPanel.png",
     "UIButton.png",
     "UIUserInfo.png",
@@ -77,6 +81,7 @@
     "Font.png",
     "UIGameIng.png",
     "UIGameIngHundred.png",
+    "UIKnapsack.png",
     "UIPanel.png",
     "UIButton.png",
     "UIUserInfo.png",
@@ -89,7 +94,8 @@
     "UIActivity.png",
     "Font.png",
     "UIGameIng.png",
-    "UIGameIngHundred.png"
+    "UIGameIngHundred.png",
+    "UIKnapsack.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

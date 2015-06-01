@@ -22,7 +22,8 @@
     "UIActivity.plist",
     "Font.plist",
     "UIGameIng.plist",
-    "UIGameIngHundred.plist"
+    "UIGameIngHundred.plist",
+    "UIKnapsack.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
@@ -37,7 +38,8 @@
     "UIActivity.png",
     "Font.png",
     "UIGameIng.png",
-    "UIGameIngHundred.png"
+    "UIGameIngHundred.png",
+    "UIKnapsack.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

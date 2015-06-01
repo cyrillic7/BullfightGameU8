@@ -9,10 +9,12 @@
 #include "../Tools/DataModel.h"
 #include "../Tools/GameConfig.h"
 #include "PopDialogBoxLoading.h"
+#include "PopDialogBoxKnapsack.h"
+#include "PopDialogBoxTipInfo.h"
 #include "../Network/ListernerThread/LogonGameListerner.h"
 #include "../Network/MD5/MD5.h"
 #include "../GameLobby/BaseLobbyScene.h"
-#include "PopDialogBoxKnapsack.h"
+
 #define ROW_COUNT			3			//商品横排数
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxShop::PopDialogBoxShop()
@@ -321,6 +323,8 @@ void PopDialogBoxShop::buyPropForType(){
 	
 	buyGift.dwNum = 1;
 	buyGift.dwBuyMethod = 4;
+	
+	strcpy(buyGift.szNote, "");
 	strcpy(buyGift.szMachineID, "12");
 
 	getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_BUYGIFT, &buyGift, sizeof(CMD_GP_BuyGift));
@@ -418,11 +422,15 @@ void PopDialogBoxShop::onSubButGift(void * pDataBuffer, unsigned short wDataSize
 	 CMD_GP_BuyGiftLog * pBuyGiftLog = (CMD_GP_BuyGiftLog *)pDataBuffer;
 	 if (pBuyGiftLog->dwRet==1)
 	 {
-		 CCLog("lost:%s <<%s>>",GBKToUTF8(pBuyGiftLog->szDescribeString), __FUNCTION__);
+		 PopDialogBoxTipInfo *pTipInfo = PopDialogBoxTipInfo::create();
+		 this->getParent()->addChild(pTipInfo, 100);
+		 pTipInfo->setTipInfoContent(GBKToUTF8(pBuyGiftLog->szDescribeString));
 	 }
 	 else
 	 {
-		 CCLog("buySu--------------- <<%s>>", __FUNCTION__);
+		 PopDialogBoxTipInfo *pTipInfo = PopDialogBoxTipInfo::create();
+		 this->getParent()->addChild(pTipInfo, 100);
+		 pTipInfo->setTipInfoContent(GBKToUTF8(pBuyGiftLog->szDescribeString));
 	 }
 
 	 //移除loading
