@@ -20,6 +20,7 @@
 PopDialogBoxShop::PopDialogBoxShop()
 	:shopItem(SHOP_GIFT_PACKAGE)
 	, iBuyPropIndex(0)
+	, isReadMessage(true)
 {
 	scheduleUpdate();
 }
@@ -100,6 +101,7 @@ void PopDialogBoxShop::onMenuMyPackaga(CCObject *object, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
+		isReadMessage = false;
 		PopDialogBox *box = PopDialogBoxKnapsack::create();
 		this->addChild(box, 10);
 		//tempSize++;
@@ -291,7 +293,10 @@ void PopDialogBoxShop::setParentReadMessage(bool isRead){
 	((BaseLobbyScene*)this->getParent())->isReadMessage = isRead;
 }
 void PopDialogBoxShop::update(float delta){
-	MessageQueue::update(delta);
+	if (isReadMessage)
+	{
+		MessageQueue::update(delta);
+	}
 }
 //购买道具
 void PopDialogBoxShop::buyPropForType(){

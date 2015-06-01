@@ -13,6 +13,8 @@
 #include "../MTNotificationQueue/MessageQueue.h"
 #define MAX_SHOP_ITEM_COUNT				2			//最大商店项总数
 class PopDialogBoxShop: public PopDialogBox,public MessageQueue {
+public:
+	bool isReadMessage;
 private:
     
 	enum ShopItem

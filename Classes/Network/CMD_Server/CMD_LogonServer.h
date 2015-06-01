@@ -370,7 +370,7 @@ struct CMD_GP_BuyGiftLog
 	TCHAR							szDescribeString[128];				//描述消息
 };
 ///////////////////////////////////////礼品///////////////////////////////////////
-//查询信息
+//查询背包信息
 struct CMD_GP_UserID
 {
 	CMD_GP_UserID()

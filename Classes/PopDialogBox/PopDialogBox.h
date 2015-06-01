@@ -32,9 +32,7 @@ public:
 	//播放放大动画
 	void playAnimation();
 
-	TCPSocket *getSocket(){ 
-		CCLog("soceketname::%s <<%s>>",sSocketName.c_str(), __FUNCTION__);
-		return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(sSocketName); }
+	TCPSocket *getSocket(){return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(sSocketName); }
 	//连接服务器
 	void connectServer(std::string socketName);
 	void setSocketName(std::string sName);

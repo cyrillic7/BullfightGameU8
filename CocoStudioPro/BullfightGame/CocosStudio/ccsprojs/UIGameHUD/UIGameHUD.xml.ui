@@ -21,11 +21,7 @@
     <string>UIButton.plist</string>
     <string>card.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>UIGameIng.png</string>
-    <string>UIButton.png</string>
-    <string>card.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIGameHUD.json</CurrentUIJson>
+  <CurrentUIJson />
 </UIProject>
