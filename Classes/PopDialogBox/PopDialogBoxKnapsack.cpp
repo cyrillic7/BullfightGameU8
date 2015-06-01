@@ -192,13 +192,22 @@ void PopDialogBoxKnapsack::onSubUseGoods(void * pDataBuffer, unsigned short wDat
 	//效验数据
 	assert (wDataSize != sizeof(CMD_GP_UseKnapsackLog));
 	CMD_GP_UseKnapsackLog * pOpenCard = (CMD_GP_UseKnapsackLog *)pDataBuffer;
-	if (pOpenCard->dwRet==0)
+	if (pOpenCard->dwRet==1)
 	{
+		
+
 		vecGoods[iCurSelectIndex].dwNum--;
 		if (vecGoods[iCurSelectIndex].dwNum<=0)
 		{
+			vector< CMD_GP_Knapsack >::iterator k = vecGoods.begin() + iCurSelectIndex;
+			vecGoods.erase(k);
+		}
+		if (iCurSelectIndex>=vecGoods.size()-1)
+		{
+			iCurSelectIndex = vecGoods.size()-1;
 		}
 		updateListGoods();
+
 	}
 	else
 	{
@@ -269,7 +278,7 @@ void PopDialogBoxKnapsack::updateListGoods(){
 	}
 
 	//////////////////////////////////////////////////////////////////////////
-	UICheckBox *pCheckBox = static_cast<UICheckBox*>(pListViewGoods->getItem(0)->getChildByName(CCString::createWithFormat("ImageItem%d", 0)->getCString())->getChildByName("CheckBox"));
+	UICheckBox *pCheckBox = static_cast<UICheckBox*>(pListViewGoods->getItem(iCurSelectIndex / MAX_KNAPSACK_ROW_COUNT)->getChildByName(CCString::createWithFormat("ImageItem%d", iCurSelectIndex%MAX_KNAPSACK_ROW_COUNT)->getCString())->getChildByName("CheckBox"));
 	pCheckBox->setSelectedState(true);
 	onCheckBoxSelectedStateEvent(pCheckBox, CHECKBOX_STATE_EVENT_SELECTED);
 }
