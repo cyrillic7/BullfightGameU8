@@ -228,11 +228,12 @@ void PopDialogBoxShop::changeSelectItem(ShopItem eItem){
 }
 //连接服务器
 void PopDialogBoxShop::connectServer(){
-	
-	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_SHOP);
 	PopDialogBox *box = PopDialogBoxLoading::create();
 	this->addChild(box, 10, TAG_LOADING);
 	box->setSocketName(SOCKET_SHOP);
+
+	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_SHOP);
+	
 	TCPSocket *tcp = getSocket();
 	if (tcp)
 	{

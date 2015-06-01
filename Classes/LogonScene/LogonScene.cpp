@@ -109,6 +109,8 @@ void LogonScene::update(float delta){
 void LogonScene::logonGameByAccount(){
 	PopDialogBox *box=PopDialogBoxLoading::create();
 	this->addChild(box,10,TAG_LOADING);
+	box->setSocketName(SOCKET_LOGON_GAME);
+
 	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_GAME);
 	TCPSocket *tcp=getSocket();
 	if (tcp)

@@ -34,9 +34,10 @@ void MainSceneBase::onEventReadyFnish(){
 	setServerStateWithUpdate(STATE_WAIT);
 }
 //加载Loading
-void MainSceneBase::addLoadingLayer(){
+void MainSceneBase::addLoadingLayer(std::string socketName){
 	PopDialogBox *pPopBox = PopDialogBoxLoading::create();
 	this->addChild(pPopBox, 10, TAG_LOADING);
+	pPopBox->setSocketName(socketName);
 }
 //移除Loading
 void MainSceneBase::removeLoadingLayer(){

@@ -8,8 +8,8 @@
 #pragma once
 
 #include "PopDialogBox.h"
-#include "../Network/TCPSocket/TCPSocketControl.h"
-#include "../Network/CMD_Server/CMD_LogonServer.h"
+//#include "../Network/TCPSocket/TCPSocketControl.h"
+//#include "../Network/CMD_Server/CMD_LogonServer.h"
 #include "../MTNotificationQueue/MessageQueue.h"
 #define MAX_SHOP_ITEM_COUNT				2			//最大商店项总数
 class PopDialogBoxKnapsack: public PopDialogBox,public MessageQueue {
@@ -28,7 +28,7 @@ public:
 private:
 	virtual void onEnter();
 	virtual void onExit();
-	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_KNAPSACK); }
+	//TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_KNAPSACK); }
 	//////////////////////////////////////////////////////////////////////////
 	//网络消息
 	virtual void onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);

@@ -57,7 +57,7 @@ public:
 	//收到准备完成回调
 	void onEventReadyFnish();
 	//加载Loading
-	void addLoadingLayer();
+	void addLoadingLayer(std::string socketName);
 	//移除Loading
 	void removeLoadingLayer();
 public:

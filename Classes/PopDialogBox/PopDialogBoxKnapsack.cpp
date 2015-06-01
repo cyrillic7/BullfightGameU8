@@ -37,6 +37,17 @@ void PopDialogBoxKnapsack::onEnter(){
 	
 	playAnimation();
 	
+	connectServer(SOCKET_KNAPSACK);
+
+	/*TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_KNAPSACK);
+	PopDialogBox *box = PopDialogBoxLoading::create();
+	this->addChild(box, 10, TAG_LOADING);
+	box->setSocketName(SOCKET_KNAPSACK);
+	TCPSocket *tcp = getSocket();
+	if (tcp)
+	{
+		tcp->createSocket(GAME_IP, PORT_LOGON, new LogonGameListerner());
+	}*/
 }
 void PopDialogBoxKnapsack::onExit(){
 	CCLayer::onExit();

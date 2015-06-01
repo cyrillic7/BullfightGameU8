@@ -161,6 +161,7 @@ void GameLobbyScene::enterLobbyByMode(int mode){
 		{
 			PopDialogBox *pLoading = PopDialogBoxLoading::create();
 			this->addChild(pLoading,10,TAG_LOADING);
+			pLoading->setSocketName(SOCKET_LOGON_ROOM);
 
 			TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
 			tagGameServer *tgs = DataModel::sharedDataModel()->tagGameServerListOxHundred[0];

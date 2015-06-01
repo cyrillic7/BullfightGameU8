@@ -107,6 +107,7 @@ void ClassicLobbyScene::initTCPLogon(int index){
 	PopDialogBox *pdb = PopDialogBoxLoading::create();
 	this->addChild(pdb);
 	pdb->setTag(TAG_LOADING);
+	pdb->setSocketName(SOCKET_LOGON_ROOM);
 
 	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
 	

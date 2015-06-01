@@ -638,7 +638,7 @@ void GameControlOxHundred::standUpWithExit(){
 	}
 	else
 	{
-		getMainScene()->addLoadingLayer();
+		getMainScene()->addLoadingLayer(SOCKET_LOGON_ROOM);
 		CCLog("-------userStandUp.wChairID :%d<<%s>>", userStandUp.wChairID, __FUNCTION__);
 		//发送消息
 		TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM)->SendData(MDM_GR_USER, SUB_GR_USER_STANDUP, &userStandUp, sizeof(userStandUp));

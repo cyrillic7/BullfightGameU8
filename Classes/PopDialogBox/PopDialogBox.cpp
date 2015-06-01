@@ -6,6 +6,9 @@
  */
 
 #include "PopDialogBox.h"
+#include "../Network/ListernerThread/LogonGameListerner.h"
+#include "PopDialogBoxLoading.h"
+std::string PopDialogBox::sSocketName = "";
 PopDialogBox::PopDialogBox()
 :pUILayer(NULL)
 ,pWidgetBg(NULL){
@@ -46,6 +49,21 @@ void PopDialogBox::playAnimation(){
 	if (pWidgetBg)
 	{
 		pWidgetBg->runAction(CCEaseBackOut::create(CCScaleTo::create(0.2, 1)));
+	}
+}
+//连接服务器
+void PopDialogBox::connectServer(std::string socketName){
+	PopDialogBox *box = PopDialogBoxLoading::create();
+	this->addChild(box, 10, TAG_LOADING);
+	box->setSocketName(socketName);
+
+	//setSocketName(socketName);
+
+	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(socketName);
+	TCPSocket *tcp = getSocket();
+	if (tcp)
+	{
+		tcp->createSocket(GAME_IP, PORT_LOGON, new LogonGameListerner());
 	}
 }
 void PopDialogBox::setSocketName(std::string sName){
