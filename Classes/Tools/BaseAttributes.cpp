@@ -36,6 +36,11 @@ void BaseAttributes::initStr(){
 	sLoading = dynamic_cast<CCString *>(mDic->objectForKey("strLoading"))->getCString();
 	sOutTime = dynamic_cast<CCString *>(mDic->objectForKey("strOutTime"))->getCString();
 	sWaitCodeing = dynamic_cast<CCString *>(mDic->objectForKey("strWaitCodeing"))->getCString();
+	sPasswordEmpty = dynamic_cast<CCString *>(mDic->objectForKey("strPasswordEmpty"))->getCString();
+	sPasswordInconsistent = dynamic_cast<CCString *>(mDic->objectForKey("strPasswordInconsistent"))->getCString();
+	sInsurePasswordLeng = dynamic_cast<CCString *>(mDic->objectForKey("strInsurePasswordLeng"))->getCString();
+	sInsurePasswordNum = dynamic_cast<CCString *>(mDic->objectForKey("strInsurePasswordNum"))->getCString();
+	
 
 	mDic->removeAllObjects();
 	CC_SAFE_RELEASE_NULL(mDic);

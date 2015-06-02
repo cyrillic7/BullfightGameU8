@@ -8,6 +8,7 @@
 #include "PopDialogBox.h"
 #include "../Network/ListernerThread/LogonGameListerner.h"
 #include "PopDialogBoxLoading.h"
+#include "PopDialogBoxTipInfo.h"
 std::string PopDialogBox::sSocketName = "";
 PopDialogBox::PopDialogBox()
 :pUILayer(NULL)
@@ -68,4 +69,9 @@ void PopDialogBox::connectServer(std::string socketName){
 }
 void PopDialogBox::setSocketName(std::string sName){
 	sSocketName = sName;
+}
+void PopDialogBox::showTipInfo(const char* sInfo){
+	PopDialogBoxTipInfo *pTipInfo = PopDialogBoxTipInfo::create();
+	this->addChild(pTipInfo, 10);
+	pTipInfo->setTipInfoContent(sInfo);
 }

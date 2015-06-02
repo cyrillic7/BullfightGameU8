@@ -552,6 +552,8 @@ struct CMD_GP_UserInsureInfo
 	SCORE							lUserScore;							//用户金币
 	SCORE							lUserInsure;						//银行金币
 	SCORE							lTransferPrerequisite;				//转账条件
+	SCORE                           lUserIngot;                         //用户元宝
+	SCORE                           lUserLoveliness;                    //用户魅力
 };
 
 //存入金币

@@ -19,7 +19,16 @@
 		<string>连接超时！</string>
 		<key>strWaitCodeing</key>
 		<string>敬请期待</string>
-		
+		<key>strPasswordEmpty</key>
+
+		<string>密码不能为空！</string>
+		<key>strPasswordInconsistent</key>
+		<string>两次密码输入不一致，请重新输入！</string>
+		<key>strInsurePasswordLeng</key>
+		<string>密码必须大于8位以上</string>
+		<key>strInsurePasswordNum</key>
+		<string>密码不能全是数字</string>
+
 	</dict>
 
 </plist>

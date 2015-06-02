@@ -40,7 +40,7 @@ public:
 	//牌数组
 	BYTE card[MAX_PLAYER][5];
 	//是否设置过银行密码
-	BYTE cbInsurePwd;
+	bool cbInsurePwd;
 	//变量定义
 	tagUserInfo *userInfo;
 	//消息队列

@@ -36,4 +36,6 @@ public:
 	//连接服务器
 	void connectServer(std::string socketName);
 	void setSocketName(std::string sName);
+	//显示提示语
+	void showTipInfo(const char* sInfo);
 };

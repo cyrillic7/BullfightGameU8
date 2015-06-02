@@ -23,6 +23,10 @@ public:
 	std::string sLoading;
 	std::string sOutTime;
 	std::string sWaitCodeing;
+	std::string sPasswordEmpty;					//密码不能为空！
+	std::string sPasswordInconsistent;			//两次密码输入不一致，请重新输入！
+	std::string sInsurePasswordLeng;			//密码必须大于8位以上
+	std::string sInsurePasswordNum;				//密码不能全是数字	
 
 	int iCardOffsetX[MAX_PLAYER];
 	int iCardOffsetY[MAX_PLAYER];
