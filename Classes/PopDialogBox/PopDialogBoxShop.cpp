@@ -62,6 +62,20 @@ void PopDialogBoxShop::onEnter(){
 	pCBShopItems[0]->setSelectedState(true);
 	onCheckBoxSelectedStateEvent(pCBShopItems[0], CHECKBOX_STATE_EVENT_SELECTED);
 
+	//奖券
+	pIVoucher = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageScoreIcon0"));
+	//元宝
+	pIBigGold = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageScoreIcon1"));
+	//保险箱
+	pIInsure = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageScoreIcon2"));
+	
+	setVoucher(112);
+	setBigGold(0);
+	setInsure(123456);
+	
+	
+	
+
 	playAnimation();
 	
 }
@@ -76,25 +90,29 @@ void PopDialogBoxShop::initListCommodity(){
 	pListViewCommodity->setItemModel(pListViewCommodity->getItem(0));
 	//更新商品列表
 	updateListCommodity(NULL);
-	/*
-	else
-	{
-		int i = 0;
-		std::list <tagApplyUser> ::iterator iter;
-		for (iter = listApplyUser.begin(); iter != listApplyUser.end(); iter++)
-		{
-			if (i == 0)
-			{
-				insertBank(false, i, (tagApplyUser)*iter);
-			}
-			else
-			{
-				insertBank(true, i, (tagApplyUser)*iter);
-			}
-			i++;
-		}
-	}*/
 }
+//设置奖券
+void PopDialogBoxShop::setVoucher(long long llVoucher){
+	UILabel *pLNum = static_cast<UILabel*>(pIVoucher->getChildByName("LabelNum"));
+	pLNum->setText(CCString::createWithFormat("%lld", llVoucher)->getCString());
+	CCSize bigGoldSize = CCSize(pLNum->getContentSize().width + 60, pIVoucher->getContentSize().height);
+	pIVoucher->setSize(bigGoldSize);
+}
+//设置元宝
+void PopDialogBoxShop::setBigGold(long long llBigGold){
+	UILabel *pLNum = static_cast<UILabel*>(pIBigGold->getChildByName("LabelNum"));
+	pLNum->setText(CCString::createWithFormat("%lld", llBigGold)->getCString());
+	CCSize bigGoldSize = CCSize(pLNum->getContentSize().width + 60, pIBigGold->getContentSize().height);
+	pIBigGold->setSize(bigGoldSize);
+}
+//设置保险箱
+void PopDialogBoxShop::setInsure(long long llInsure){
+	UILabel *pLNum = static_cast<UILabel*>(pIInsure->getChildByName("LabelNum"));
+	pLNum->setText(CCString::createWithFormat("%lld", llInsure)->getCString());
+	CCSize bigGoldSize = CCSize(pLNum->getContentSize().width + 60, pIInsure->getContentSize().height);
+	pIInsure->setSize(bigGoldSize);
+}
+
 //我的背包////////////////////////////////////////////////////////////////////////
 void PopDialogBoxShop::onMenuMyPackaga(CCObject *object, TouchEventType type){
 	switch (type)

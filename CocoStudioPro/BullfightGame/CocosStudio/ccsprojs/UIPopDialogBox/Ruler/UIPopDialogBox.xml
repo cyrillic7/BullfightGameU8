@@ -41,10 +41,6 @@
     <GuidesList />
   </GuidesProject>
   <GuidesProject>
-    <Project>UIPopDialogBoxAuction</Project>
-    <GuidesList />
-  </GuidesProject>
-  <GuidesProject>
     <Project>UIPopDialogBoxRanking</Project>
     <GuidesList />
   </GuidesProject>
@@ -78,6 +74,10 @@
   </GuidesProject>
   <GuidesProject>
     <Project>UIPopDialogBoxTipInfo</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxAuction</Project>
     <GuidesList />
   </GuidesProject>
 </ArrayOfGuidesProject>

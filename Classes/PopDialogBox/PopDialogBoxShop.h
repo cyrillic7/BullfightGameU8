@@ -37,6 +37,13 @@ private:
 	std::vector<CMD_GP_Gift> vecProp;
 	//购买道具索引
 	int iBuyPropIndex;
+
+	//奖券
+	UIImageView *pIVoucher;
+	//元宝
+	UIImageView *pIBigGold;
+	//保险箱
+	UIImageView *pIInsure;
 public:
 	PopDialogBoxShop();
 	~PopDialogBoxShop();
@@ -47,6 +54,13 @@ private:
 	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_SHOP); }
 	//初始化商品列表
 	void initListCommodity();
+	//设置奖券
+	void setVoucher(long long llVoucher);
+	//设置元宝
+	void setBigGold(long long llBigGold);
+	//设置保险箱
+	void setInsure(long long llInsure);
+	
 	//我的背包////////////////////////////////////////////////////////////////////////
 	void onMenuMyPackaga(CCObject *object, TouchEventType type);
 	void onMenuBack(CCObject *object, TouchEventType type);
