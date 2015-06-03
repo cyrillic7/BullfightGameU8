@@ -40,7 +40,10 @@ void BaseAttributes::initStr(){
 	sPasswordInconsistent = dynamic_cast<CCString *>(mDic->objectForKey("strPasswordInconsistent"))->getCString();
 	sInsurePasswordLeng = dynamic_cast<CCString *>(mDic->objectForKey("strInsurePasswordLeng"))->getCString();
 	sInsurePasswordNum = dynamic_cast<CCString *>(mDic->objectForKey("strInsurePasswordNum"))->getCString();
-	
+	sSaveLimit = dynamic_cast<CCString *>(mDic->objectForKey("strSaveLimit"))->getCString();
+	sTakeOutLimit = dynamic_cast<CCString *>(mDic->objectForKey("strTakeOutLimit"))->getCString();
+	sInsureNotEnough = dynamic_cast<CCString *>(mDic->objectForKey("strInsureNotEnough"))->getCString();
+	sScoreNotEnough = dynamic_cast<CCString *>(mDic->objectForKey("strScoreNotEnough"))->getCString();
 
 	mDic->removeAllObjects();
 	CC_SAFE_RELEASE_NULL(mDic);

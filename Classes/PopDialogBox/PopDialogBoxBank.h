@@ -9,7 +9,7 @@
 
 #include "PopDialogBox.h"
 #include "../MTNotificationQueue/MessageQueue.h"
-#define MAX_SELECT_MONEY_COUNT				6				//最大选择款项数
+#define MAX_QUICK_BUTTON_COUNT				6				//最大选择款项数
 class PopDialogBoxBank: public PopDialogBox,public MessageQueue {
 private:
 	enum BankState
@@ -47,8 +47,10 @@ private:
 	UIButton *pBOperationMoney;
 	//存款/取款金币数
 	UITextField *pTFInputMoney;
-	//选择款项按键
-	UIButton *pBSelectMoney[MAX_SELECT_MONEY_COUNT];
+	//快捷选择款项按键
+	UIButton *pBQuickSelectMoney[MAX_QUICK_BUTTON_COUNT];
+	//快捷款项选择限制条件
+	long long llQuickLimitNum[MAX_QUICK_BUTTON_COUNT];
 	bool isGetBankInfo;
 	//临时密码
 	std::string sTempPassword;
@@ -59,8 +61,8 @@ public:
 private:
 	virtual void onEnter();
 	virtual void onExit();
-	//初始化选择款按键
-	void initSelectMoneyButton();
+	//初始化快捷选择款按键
+	void initQuickSelectMoney();
 	//设置标题
 	void setTitle(const char * sTitle);
 	//创建密码菜单////////////////////////////////////////////////////////////////////////
@@ -71,8 +73,12 @@ private:
 	void onMenuChangeOperationType(CCObject *object, TouchEventType type);
 	//存款/取款按键
 	void onMenuOperationMoney(CCObject *object, TouchEventType type);
+	//快捷选择款项
+	void onMenuQuickSelectMoney(CCObject *object, TouchEventType type);
 	//设置父结节是否读取网络消息
 	void setParentReadMessage(bool isRead);
+	//更新快捷款项选择键
+	void updateQuickButton();
 	//更新
 	void update(float delta);
 	//////////////////////////////////////////////////////////////////////////

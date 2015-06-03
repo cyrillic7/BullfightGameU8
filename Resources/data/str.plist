@@ -28,6 +28,14 @@
 		<string>密码必须大于8位以上</string>
 		<key>strInsurePasswordNum</key>
 		<string>密码不能全是数字</string>
+		<key>strSaveLimit</key>
+		<string>存入的游戏币数量不能为空，请重新输入游戏币数量</string>
+		<key>strTakeOutLimit</key>
+		<string>取出的游戏币数量不能为空，请重新输入游戏币数量</string>
+		<key>strInsureNotEnough</key>
+		<string>您当前保险柜的游戏币余额不足，游戏币提取失败</string>
+		<key>strScoreNotEnough</key>
+		<string>您当前游戏币的可用余额不足，游戏币存入失败！</string>
 
 	</dict>
 

@@ -27,6 +27,10 @@ public:
 	std::string sPasswordInconsistent;			//两次密码输入不一致，请重新输入！
 	std::string sInsurePasswordLeng;			//密码必须大于8位以上
 	std::string sInsurePasswordNum;				//密码不能全是数字	
+	std::string sSaveLimit;						//存入的游戏币数量不能为空，请重新输入游戏币数量
+	std::string sTakeOutLimit;					//取出的游戏币数量不能为空，请重新输入游戏币数量
+	std::string sInsureNotEnough;				//您当前保险柜的游戏币余额不足，游戏币提取失败
+	std::string sScoreNotEnough;				//您当前游戏币的可用余额不足，游戏币存入失败！
 
 	int iCardOffsetX[MAX_PLAYER];
 	int iCardOffsetY[MAX_PLAYER];

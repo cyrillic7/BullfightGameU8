@@ -16,6 +16,12 @@ PopDialogBoxBank::PopDialogBoxBank()
 	:isGetBankInfo(false)
 {
 	scheduleUpdate();
+	llQuickLimitNum[0] = 0;
+	llQuickLimitNum[1] = 1000000;
+	llQuickLimitNum[2] = 5000000;
+	llQuickLimitNum[3] = 10000000;
+	llQuickLimitNum[4] = 50000000;
+	llQuickLimitNum[5] = 100000000;
 }
 PopDialogBoxBank::~PopDialogBoxBank() {
 	CCLog("~ <<%s>>",__FUNCTION__);
@@ -88,21 +94,22 @@ void PopDialogBoxBank::onEnter(){
 		pPanelCreatePassword->setEnabled(true);
 		pPanelCreatePassword->setVisible(true);
 	}
-	//初始化选择款按键
-	initSelectMoneyButton();
+	//初始化快捷选择款按键
+	initQuickSelectMoney();
 	setParentReadMessage(false);
 	playAnimation();
 }
 void PopDialogBoxBank::onExit(){
 	CCLayer::onExit();
 }
-//初始化选择款按键
-void PopDialogBoxBank::initSelectMoneyButton(){
-	for (int i = 0; i < MAX_SELECT_MONEY_COUNT; i++)
+//初始化快捷选择款按键
+void PopDialogBoxBank::initQuickSelectMoney(){
+	for (int i = 0; i < MAX_QUICK_BUTTON_COUNT; i++)
 	{
-		pBSelectMoney[i] = static_cast<UIButton*>(pUILayer->getWidgetByName(CCString::createWithFormat("ButtonItem%d", i)->getCString()));
-		pBSelectMoney[i]->setBright(false);
-		UILabel *pLMoney = static_cast<UILabel*>(pBSelectMoney[i]->getChildByName("LabelMoneyNum"));
+		pBQuickSelectMoney[i] = static_cast<UIButton*>(pUILayer->getWidgetByName(CCString::createWithFormat("ButtonItem%d", i)->getCString()));
+		pBQuickSelectMoney[i]->setBright(false);
+		pBQuickSelectMoney[i]->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxBank::onMenuQuickSelectMoney));
+		UILabel *pLMoney = static_cast<UILabel*>(pBQuickSelectMoney[i]->getChildByName("LabelMoneyNum"));
 		pLMoney->setColor(ccc3(114,61,29));
 	}
 }
@@ -201,6 +208,7 @@ void PopDialogBoxBank::onMenuChangeOperationType(CCObject *object, TouchEventTyp
 			pBOperationMoney->setTitleText("存入");
 			setBankState(BANK_STATE_SAVE);
 		}
+		updateQuickButton();
 	}
 	break;
 	default:
@@ -213,21 +221,91 @@ void PopDialogBoxBank::onMenuOperationMoney(CCObject *object, TouchEventType typ
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		connectServer(SOCKET_BANK);
 		switch (getBankState())
 		{
 		case BANK_STATE_TAKE_OUT:
 		{
-
+			long long llTempNum = strtoll(pTFInputMoney->getStringValue(), NULL, 10);
+			if (strcmp(pTFInputMoney->getStringValue(), "") == 0 || llTempNum==0)
+			{
+				showTipInfo(BaseAttributes::sharedAttributes()->sTakeOutLimit.c_str());
+			}
+			else if (llTempNum>DataModel::sharedDataModel()->userInfo->lInsure)
+			{
+				showTipInfo(BaseAttributes::sharedAttributes()->sInsureNotEnough.c_str());
+			}
+			else{
+				connectServer(SOCKET_BANK);
+			}
 		}
-			break;
+		break;
 		case BANK_STATE_SAVE:
 		{
-
+			long long llTempNum = strtoll(pTFInputMoney->getStringValue(), NULL, 10);
+			if (strcmp(pTFInputMoney->getStringValue(), "") == 0 || llTempNum == 0)
+			{
+				showTipInfo(BaseAttributes::sharedAttributes()->sSaveLimit.c_str());
+			}
+			else if (llTempNum > DataModel::sharedDataModel()->userInfo->lScore)
+			{
+				showTipInfo(BaseAttributes::sharedAttributes()->sScoreNotEnough.c_str());
+			}
+			else{
+				connectServer(SOCKET_BANK);
+			}
 		}
-			break;
+		break;
 		default:
 			break;
+		}
+	}
+	break;
+	default:
+		break;
+	}
+}
+//快捷选择款项按键
+void PopDialogBoxBank::onMenuQuickSelectMoney(CCObject *object, TouchEventType type){
+	switch (type)
+	{
+	case TOUCH_EVENT_ENDED:
+	{
+		UIButton *pBTempQuick = (UIButton*)object;
+		for (int i = 0; i < MAX_QUICK_BUTTON_COUNT; i++)
+		{
+			if (!pBQuickSelectMoney[i]->isTouchEnabled())
+			{
+				continue;
+			}
+			UILabel *pTempLabel = static_cast<UILabel*>(pBQuickSelectMoney[i]->getChildByName("LabelMoneyNum"));
+
+			if (pBQuickSelectMoney[i]->getTag() == pBTempQuick->getTag())
+			{
+				pTempLabel->setColor(ccc3(255, 255, 255));
+				pBQuickSelectMoney[i]->setBright(true);
+				if (i==0)
+				{
+					long long llTempQuick = 0;
+					if (getBankState()==BANK_STATE_TAKE_OUT)
+					{
+						llTempQuick = DataModel::sharedDataModel()->userInfo->lInsure;
+					}
+					else if (getBankState() == BANK_STATE_SAVE)
+					{
+						llTempQuick = DataModel::sharedDataModel()->userInfo->lScore;
+					}
+					pTFInputMoney->setText(CCString::createWithFormat("%lld", llTempQuick)->getCString());
+				}
+				else
+				{
+					pTFInputMoney->setText(CCString::createWithFormat("%lld",llQuickLimitNum[i])->getCString());
+				}
+			}
+			else
+			{
+				pTempLabel->setColor(ccc3(114, 61, 29));
+				pBQuickSelectMoney[i]->setBright(false);
+			}
 		}
 	}
 	break;
@@ -238,6 +316,46 @@ void PopDialogBoxBank::onMenuOperationMoney(CCObject *object, TouchEventType typ
 //设置父结节是否读取网络消息
 void PopDialogBoxBank::setParentReadMessage(bool isRead){
 	((BaseLobbyScene*)this->getParent())->isReadMessage = isRead;
+}
+//更新快捷款项选择键
+void PopDialogBoxBank::updateQuickButton(){
+	pTFInputMoney->setText("");
+	long long llTempNum = 0;
+
+	switch (bankState)
+	{
+	case PopDialogBoxBank::BANK_STATE_TAKE_OUT:
+	{
+		llTempNum = DataModel::sharedDataModel()->userInfo->lInsure;
+	}
+	break;
+	case PopDialogBoxBank::BANK_STATE_SAVE:
+	{
+		llTempNum = DataModel::sharedDataModel()->userInfo->lScore;
+	}
+	break;
+	default:
+		break;
+	}
+	pLBankMoney->setText(CCString::createWithFormat("%lld", llTempNum)->getCString());
+
+	for (int i = 0; i < MAX_QUICK_BUTTON_COUNT; i++)
+	{
+		UILabel *pTempLabel = static_cast<UILabel*>(pBQuickSelectMoney[i]->getChildByName("LabelMoneyNum"));
+		pBQuickSelectMoney[i]->setBright(false);
+		
+		if (llTempNum >= llQuickLimitNum[i])
+		{
+			pTempLabel->setColor(ccc3(114, 61, 29));
+			pBQuickSelectMoney[i]->setTouchEnabled(true);
+		}
+		else
+		{
+			pTempLabel->setColor(ccc3(182, 136, 91));
+			pBQuickSelectMoney[i]->setTouchEnabled(false);
+		}
+
+	}
 }
 //更新
 void PopDialogBoxBank::update(float delta){
@@ -423,34 +541,42 @@ void PopDialogBoxBank::onEventUserService(WORD wSubCmdID, void * pDataBuffer, un
 	
 		setTitle("我的银行");
 		pPanelInputPassword->setEnabled(false);
+		pPanelCreatePassword->setEnabled(false);
 		pPanelOperationMoney->setEnabled(true);
 
 		setBankState(BANK_STATE_TAKE_OUT);
 		DataModel::sharedDataModel()->userInfo->lScore = pUserInsureInfo->lUserScore;
 		DataModel::sharedDataModel()->userInfo->lInsure = pUserInsureInfo->lUserInsure;
 		pLBankMoney->setText(CCString::createWithFormat("%lld", DataModel::sharedDataModel()->userInfo->lInsure)->getCString());
+
+		onMenuChangeOperationType(pBTakeOut, TOUCH_EVENT_ENDED);
 	}
 		break;
 	case SUB_GP_USER_INSURE_SUCCESS://银行成功
 	{
-		int size = sizeof(CMD_GP_UserInsureSuccess);
-		assert(wDataSize == sizeof(CMD_GP_UserInsureSuccess));
-		if (wDataSize < sizeof(CMD_GP_UserInsureSuccess)) return;
-		//变量定义
-		CMD_GP_UserInsureSuccess * bankSuccess = (CMD_GP_UserInsureSuccess *)pDataBuffer;
-		CCLog(" <<%s>>", __FUNCTION__);
+		//效验参数
+		CMD_GP_UserInsureSuccess * pUserInsureSuccess = (CMD_GP_UserInsureSuccess *)pDataBuffer;
+		assert(wDataSize >= (sizeof(CMD_GP_UserInsureSuccess) - sizeof(pUserInsureSuccess->szDescribeString)));
+		if (wDataSize < (sizeof(CMD_GP_UserInsureSuccess) - sizeof(pUserInsureSuccess->szDescribeString))) return ;
 
+		DataModel::sharedDataModel()->userInfo->lInsure = pUserInsureSuccess->lUserInsure;
+		DataModel::sharedDataModel()->userInfo->lScore = pUserInsureSuccess->lUserScore;
+		showTipInfo(GBKToUTF8(pUserInsureSuccess->szDescribeString));
+		
+		((BaseLobbyScene*)this->getParent())->pLabelGoldCount->setText(CCString::createWithFormat("%lld", DataModel::sharedDataModel()->userInfo->lScore)->getCString());
+
+		updateQuickButton();
 	}
 		break;
 	case SUB_GP_USER_INSURE_FAILURE://银行失败
 	{
-		int size = sizeof(CMD_GP_UserInsureFailure);
-		assert(wDataSize == sizeof(CMD_GP_UserInsureFailure));
-		if (wDataSize < sizeof(CMD_GP_UserInsureFailure)) return;
-		//变量定义
-		CMD_GP_UserInsureFailure * bankFailure = (CMD_GP_UserInsureFailure *)pDataBuffer;
-		CCLog(" <<%s>>", __FUNCTION__);
-		//
+		//效验参数
+		CMD_GP_UserInsureFailure * pUserInsureFailure = (CMD_GP_UserInsureFailure *)pDataBuffer;
+		assert(wDataSize >= (sizeof(CMD_GP_UserInsureFailure) - sizeof(pUserInsureFailure->szDescribeString)));
+		if (wDataSize < (sizeof(CMD_GP_UserInsureFailure) - sizeof(pUserInsureFailure->szDescribeString))) return ;
+
+		showTipInfo(GBKToUTF8(pUserInsureFailure->szDescribeString));
+		
 	}
 		break;
 	default:
