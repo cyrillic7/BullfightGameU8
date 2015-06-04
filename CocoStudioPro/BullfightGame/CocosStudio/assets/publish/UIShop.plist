@@ -17,6 +17,19 @@
                 <key>sourceSize</key>
                 <string>{44,22}</string>
             </dict>
+            <key>u_auction_small_list_bg.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{231,688},{19,45}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{19,45}}</string>
+                <key>sourceSize</key>
+                <string>{19,45}</string>
+            </dict>
             <key>u_shop_bg.png</key>
             <dict>
                 <key>frame</key>
@@ -183,7 +196,7 @@
             <key>size</key>
             <string>{275,1014}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:82127e9b7ec15523401b15cf2cfa9551:01452090a24197f23a198bb8da4e211e:5dff9365c6c14675677185d52acaa034$</string>
+            <string>$TexturePacker:SmartUpdate:d3379749bc83cb4c35a234170cb83a78:af059b5b46da53f2fd605a4635e7f5cc:5dff9365c6c14675677185d52acaa034$</string>
             <key>textureFileName</key>
             <string>UIShop.png</string>
         </dict>

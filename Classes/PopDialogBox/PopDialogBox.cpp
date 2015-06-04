@@ -9,6 +9,7 @@
 #include "../Network/ListernerThread/LogonGameListerner.h"
 #include "PopDialogBoxLoading.h"
 #include "PopDialogBoxTipInfo.h"
+#include "../GameLobby/BaseLobbyScene.h"
 std::string PopDialogBox::sSocketName = "";
 PopDialogBox::PopDialogBox()
 :pUILayer(NULL)
@@ -70,8 +71,13 @@ void PopDialogBox::connectServer(std::string socketName){
 void PopDialogBox::setSocketName(std::string sName){
 	sSocketName = sName;
 }
+////显示提示语
 void PopDialogBox::showTipInfo(const char* sInfo){
 	PopDialogBoxTipInfo *pTipInfo = PopDialogBoxTipInfo::create();
 	this->addChild(pTipInfo, 10);
 	pTipInfo->setTipInfoContent(sInfo);
+}
+//设置大厅是否读取网络消息
+void PopDialogBox::setLobbyReadMessage(bool isRead){
+	((BaseLobbyScene*)this->getParent())->isReadMessage = isRead;
 }

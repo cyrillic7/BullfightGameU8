@@ -8,15 +8,17 @@
 #include "PopDialogBoxAuction.h"
 #include "../Tools/DataModel.h"
 #include "../Tools/GameConfig.h"
+#include "PopDialogBoxLoading.h"
+#include "../Network/ListernerThread/LogonGameListerner.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxAuction::PopDialogBoxAuction()
 	:auctionItem(AUCTION_INFO)
 {
-	
-    
+	scheduleUpdate();
 }
 PopDialogBoxAuction::~PopDialogBoxAuction() {
 	CCLog("~ <<%s>>",__FUNCTION__);
+	unscheduleUpdate();
 }
 void PopDialogBoxAuction::onEnter(){
 	CCLayer::onEnter();
@@ -69,6 +71,9 @@ void PopDialogBoxAuction::onEnter(){
 	setInsure(123456);
 	setAuction(0);
 	playAnimation();
+
+	
+	setLobbyReadMessage(false);
 }
 void PopDialogBoxAuction::onExit(){
 	CCLayer::onExit();
@@ -139,6 +144,24 @@ void PopDialogBoxAuction::onCheckBoxSelectedStateEvent(CCObject *pSender, CheckB
 //切换拍卖项
 void PopDialogBoxAuction::changeSelectItem(AuctionItem eItem){
 	setAuctionItem(eItem);
+	switch (auctionItem)
+	{
+	case PopDialogBoxAuction::AUCTION_INFO:
+	{
+		if (vecAuctionInfo.size()<=0)
+		{
+			connectServer(SOCKET_AUCTION_INFO);
+		}
+	}
+		break;
+	case PopDialogBoxAuction::AUCTION_MY:
+		break;
+	case PopDialogBoxAuction::AUCTION_RECORD:
+		break;
+	default:
+		break;
+	}
+
 	for (int i = 0; i < MAX_AUCTION_ITEM_COUNT; i++)
 	{
 		if (i==auctionItem)
@@ -160,4 +183,79 @@ void PopDialogBoxAuction::changeSelectItem(AuctionItem eItem){
 		}
 	}
 	
+}
+
+
+
+//////////////////////////////////////////////////////////////////////////
+void PopDialogBoxAuction::update(float delta){
+	MessageQueue::update(delta);
+}
+//读取网络消息回调
+void PopDialogBoxAuction::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
+	switch (wMainCmdID)
+	{
+	case MDM_MB_SOCKET://socket连接成功
+	{
+		connectSuccess();
+	}
+		break;
+	case MDM_GP_USER_SERVICE:
+	{
+		onEventUserService(wSubCmdID, pDataBuffer, wDataSize);
+	}
+		break;
+	default:
+		CCLog("sub:%d <<%s>>", wSubCmdID, __FUNCTION__);
+		break;
+	}
+}
+//连接成功
+void PopDialogBoxAuction::connectSuccess(){
+	switch (auctionItem)
+	{
+	case PopDialogBoxAuction::AUCTION_INFO:
+	{
+		CMD_GP_GetAuctionRecord qAuction;
+ 		qAuction.dwPage = 1;
+ 		qAuction.dwPageSize = 20;
+		qAuction.dwUserID = 0;
+ 		qAuction.dwLastDay=12;
+		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_AUCTION_RECORD, &qAuction, sizeof(qAuction));
+	}
+		break;
+	case PopDialogBoxAuction::AUCTION_MY:
+		break;
+	case PopDialogBoxAuction::AUCTION_RECORD:
+		break;
+	default:
+		break;
+	}
+}
+//用户服务
+void PopDialogBoxAuction::onEventUserService(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
+	switch (wSubCmdID)
+	{
+	case SUB_GP_AUCTION_RECORD://拍卖记录
+		onSubAuctionRecord(pDataBuffer, wDataSize);
+		break;
+	default:
+		CCLog("sub:%d <<%s>>", wSubCmdID, __FUNCTION__);
+		break;
+	}
+	//移除loading
+	this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+	//关闭网络
+	TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_AUCTION_INFO);
+}
+//拍卖记录
+void PopDialogBoxAuction::onSubAuctionRecord(void * pDataBuffer, unsigned short wDataSize){
+	CMD_GP_AuctionRecord <CMD_GP_AuctionRecordItem> *gpAuctionRecord;
+	assert(wDataSize>=sizeof(gpAuctionRecord));
+	gpAuctionRecord = (CMD_GP_AuctionRecord<CMD_GP_AuctionRecordItem> *)pDataBuffer;
+	for (int i = 0; i < gpAuctionRecord->dwIndex; i++)
+	{
+		vecAuctionInfo.push_back(gpAuctionRecord->RecordItem[i]);
+	}
+
 }

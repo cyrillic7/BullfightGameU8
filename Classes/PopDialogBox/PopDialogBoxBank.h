@@ -75,8 +75,6 @@ private:
 	void onMenuOperationMoney(CCObject *object, TouchEventType type);
 	//快捷选择款项
 	void onMenuQuickSelectMoney(CCObject *object, TouchEventType type);
-	//设置父结节是否读取网络消息
-	void setParentReadMessage(bool isRead);
 	//更新快捷款项选择键
 	void updateQuickButton();
 	//更新

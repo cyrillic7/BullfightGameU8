@@ -280,6 +280,14 @@ struct CMD_GP_ServerOnline
 #define SUB_GP_KNAPSACK				111									//背包
 #define SUB_GP_KNAPSACKLOG			112									//背包错误提示
 #define SUB_GP_USE_KNAPSACKLOG		113									//使用背包
+#define SUB_GP_AUCTION				114									//拍卖品
+#define SUB_GP_SELL_AUCTION			115									//出售拍卖品
+#define SUB_GP_BUY_AUCTION			116									//购买拍卖品
+#define SUB_GP_CANCEL_AUCTION		117									//撤消拍卖品
+#define SUB_GP_AUCTION_RECORD		118									//拍卖记录
+#define SUB_GP_MYAUCTION_RECORD		119									//我的拍卖
+#define SUB_GP_AUCTION_HISTORY_RECORD	120								//拍卖历史记录
+#define SUB_GP_QUERY_AUCTION		121									//查询拍卖记录
 //修改头像
 #define SUB_GP_USER_FACE_INFO		200									//头像信息
 #define SUB_GP_SYSTEM_FACE_INFO		201									//系统头像
@@ -430,7 +438,161 @@ struct CMD_GP_UseKnapsackLog
 	TCHAR							szDescribeString[128];				//描述消息
 };
 
-
+//////////////////////////////////////////////////////////////////////////
+struct CMD_GP_Auction
+{
+	CMD_GP_Auction()
+	{
+		//memset(this, 0, sizeof(CMD_GP_Auction));
+	}
+	DWORD				dwID;
+	DWORD				dwPackType;								//类别1:礼包，2:道具
+	DWORD				dwPropID;								//礼包或道具id
+	DWORD				dwNum;									//数量
+	DWORD				dwSortID;								//顺序
+	TCHAR				szName[GIFT_NAME_LEN];					//名称
+	TCHAR				szImgName[GIFT_IMGNAME];				//图片
+};
+//拍卖品上架
+struct CMD_GP_Sell_Auction
+{
+	CMD_GP_Sell_Auction()
+	{
+		//memset(this, 0, sizeof(CMD_GP_Sell_Auction));
+	}
+	DWORD			    dwUserID;								//id
+	DWORD				dwOpTerminal;							//操作终端（1：pc, 2：手机）
+	TCHAR				szLogonPass[LEN_MD5];					//登录密码
+	DWORD				dwID;									//礼包或道具id
+	SCORE				lGold;									//价格
+	DWORD				dwNum;									//数量
+	DWORD				dwClientAddr;							//连接地址
+	TCHAR				szMachineID[LEN_MACHINE_ID];			//机器序列
+};
+//购买拍卖品
+struct CMD_GP_Buy_Auction
+{
+	CMD_GP_Buy_Auction()
+	{
+		memset(this, 0, sizeof(CMD_GP_Buy_Auction));
+	}
+	DWORD			    dwUserID;								//id
+	DWORD				dwOpTerminal;							//操作终端（1：pc, 2：手机）
+	TCHAR				szLogonPass[LEN_MD5];					//登录密码
+	DWORD				dwID;									//礼包或道具id
+	DWORD				dwNum;									//数量
+	DWORD				dwClientAddr;							//连接地址
+	TCHAR				szMachineID[LEN_MACHINE_ID];			//机器序列
+};
+//拍卖品撤消
+struct CMD_GP_Cancel_Auction
+{
+	CMD_GP_Cancel_Auction()
+	{
+		memset(this, 0, sizeof(CMD_GP_Cancel_Auction));
+	}
+	DWORD			    dwUserID;								//id
+	DWORD				dwOpTerminal;							//操作终端（1：pc, 2：手机）
+	TCHAR				szLogonPass[LEN_MD5];					//登录密码
+	DWORD				dwID;									//礼包或道具id
+	TCHAR				szMachineID[LEN_MACHINE_ID];			//机器序列
+};
+//查找拍卖记录
+struct CMD_GP_Query_Auction
+{
+	CMD_GP_Query_Auction()
+	{
+		memset(this, 0, sizeof(CMD_GP_Query_Auction));
+	}
+	TCHAR				szID[LEN_ACCOUNTS];							//GameID 或 昵称
+	DWORD								dwPage;							//查询第几页
+	DWORD								dwPageSize;						//每页大小，缺省为10
+	DWORD								dwLastDay;						//时间
+};
+//获取拍卖记录
+struct CMD_GP_GetAuctionRecord
+{
+	DWORD								dwUserID;
+	DWORD								dwPage;							//查询第几页
+	DWORD								dwPageSize;						//每页大小，缺省为10
+	DWORD								dwLastDay;						//时间
+};
+//拍卖记录
+struct CMD_GP_AuctionRecordItem
+{
+	DWORD								dwIndex;						//单号
+	DWORD								dwGameID;
+	TCHAR								szNickName[LEN_ACCOUNTS];		//昵称
+	TCHAR								szAuctionName[NAME_LEN];		//拍卖品名称
+	DWORD								dwPropNum;
+	LONGLONG							lGold;							//价格
+};
+//我的拍卖
+struct CMD_GP_MyAuctionRecordItem
+{
+	DWORD								dwIndex;						//单号
+	TCHAR								szAuctionName[NAME_LEN];		//拍卖品名称
+	DWORD								dwPropNum;
+	LONGLONG							lGold;							//价格
+};
+//拍卖记录
+struct CMD_GP_HistoryAuctionRecordItem
+{
+	DWORD								dwIndex;						//单号
+	DWORD								dwGameID;
+	TCHAR								szNickName[LEN_ACCOUNTS];		//昵称
+	TCHAR								szAuctionName[NAME_LEN];		//拍卖品名称
+	DWORD								dwType;							//类型1:买，2:卖
+	DWORD								dwPropNum;
+	LONGLONG							lGold;							//价格
+	SYSTEMTIME							tOpDate;
+};
+//记录
+template <class T>
+struct CMD_GP_AuctionRecord
+{
+	DWORD								dwPageCount;					//页码总数
+	DWORD								dwPageIndex;					//查询第几页
+	DWORD								dwIndex;						//条数
+	T									RecordItem[20];
+};
+struct CMD_GP_Sell_AuctionLog
+{
+	CMD_GP_Sell_AuctionLog()
+	{
+		memset(this, 0, sizeof(CMD_GP_Sell_AuctionLog));
+	}
+	DWORD							dwRet;								//0：成功，1：失败
+	DWORD							dwID;								//礼包或道具id
+	SCORE							lGold;								//价格
+	DWORD							dwNum;								//数量							
+	TCHAR							szDescribeString[128];				//描述消息
+};
+struct CMD_GP_Buy_AuctionLog
+{
+	CMD_GP_Buy_AuctionLog()
+	{
+		memset(this, 0, sizeof(CMD_GP_Buy_AuctionLog));
+	}
+	DWORD							dwRet;								//0：成功，1：失败
+	DWORD							dwID;								//礼包或道具id
+	SCORE							lGold;								//价格					
+	TCHAR							szDescribeString[128];				//描述消息
+};
+struct CMD_GP_Cancel_AuctionLog
+{
+	CMD_GP_Cancel_AuctionLog()
+	{
+		memset(this, 0, sizeof(CMD_GP_Cancel_AuctionLog));
+	}
+	DWORD							dwRet;								//0：成功，1：失败
+	DWORD							dwID;
+	DWORD							dwNum;								//数量
+	DWORD							dwSortID;							//顺序
+	TCHAR							szName[GIFT_NAME_LEN];				//名称
+	TCHAR							szImgName[GIFT_IMGNAME];			//图片		
+	TCHAR							szDescribeString[128];				//描述消息
+};
 //////////////////////////////////////////////////////////////////////////////////
 
 //修改密码

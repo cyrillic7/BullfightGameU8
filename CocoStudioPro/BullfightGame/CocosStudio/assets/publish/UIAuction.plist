@@ -11,7 +11,7 @@
                 <key>offset</key>
                 <string>{-11,1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{205,93}}</string>
                 <key>sourceSize</key>
@@ -20,7 +20,7 @@
             <key>u_a_auction_list_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{285,42},{23,22}}</string>
+                <string>{{2,321},{23,22}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -30,14 +30,27 @@
                 <key>sourceSize</key>
                 <string>{23,22}</string>
             </dict>
-            <key>u_a_icon_bg.png</key>
+            <key>u_a_goods_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{209,2},{50,35}}</string>
+                <string>{{54,209},{38,39}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{38,39}}</string>
+                <key>sourceSize</key>
+                <string>{38,39}</string>
+            </dict>
+            <key>u_a_icon_bg.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,209},{50,35}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{50,35}}</string>
                 <key>sourceSize</key>
@@ -46,7 +59,7 @@
             <key>u_a_icon_jq.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{245,54},{38,38}}</string>
+                <string>{{2,281},{38,38}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,11 +72,11 @@
             <key>u_a_icon_pm.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{281,2},{38,36}}</string>
+                <string>{{42,285},{38,36}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{38,36}}</string>
                 <key>sourceSize</key>
@@ -72,11 +85,11 @@
             <key>u_a_icon_yb.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{246,2},{47,33}}</string>
+                <string>{{2,246},{47,33}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{47,33}}</string>
                 <key>sourceSize</key>
@@ -85,11 +98,11 @@
             <key>u_a_icon_yh.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{209,54},{34,39}}</string>
+                <string>{{51,249},{34,39}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{34,39}}</string>
                 <key>sourceSize</key>
@@ -103,9 +116,9 @@
             <key>realTextureFileName</key>
             <string>UIAuction.png</string>
             <key>size</key>
-            <string>{319,97}</string>
+            <string>{97,345}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:8ed67eb5a41b0229d173abfc71272275:fcf30bcf2607b0a3f812f5a68041463d:e6274a8aa8f6da0844da162cbee4ae49$</string>
+            <string>$TexturePacker:SmartUpdate:b50dbdf5f945dcbdd7e5f8da89586329:4329499f7a14a342b8251b414f16023e:e6274a8aa8f6da0844da162cbee4ae49$</string>
             <key>textureFileName</key>
             <string>UIAuction.png</string>
         </dict>

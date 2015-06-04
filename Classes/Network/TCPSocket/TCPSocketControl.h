@@ -22,6 +22,8 @@ USING_NS_CC;
 #define SOCKET_SHOP								"socketShop"					//商店
 #define SOCKET_KNAPSACK							"socketKnapsack"				//我的背包
 #define SOCKET_BANK								"socketBank"					//我的保险箱
+#define SOCKET_AUCTION_INFO						"socketAuctionInfo"				//拍卖信息列表
+
 
 class TCPSocketControl {
 public:

@@ -32,7 +32,7 @@ PopDialogBoxShop::~PopDialogBoxShop() {
 void PopDialogBoxShop::onEnter(){
 	CCLayer::onEnter();
 	//设置父结点不读取网络数据
-	setParentReadMessage(false);
+	setLobbyReadMessage(false);
 	Layout* layoutPauseUI = static_cast<Layout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UIPopDialogBoxShop.ExportJson)));
 	pUILayer->addWidget(layoutPauseUI);
 	
@@ -134,7 +134,7 @@ void PopDialogBoxShop::onMenuMyPackaga(CCObject *object, TouchEventType type){
 void PopDialogBoxShop::onMenuBack(CCObject *object, TouchEventType type){
 	if (type == TOUCH_EVENT_ENDED)
 	{
-		setParentReadMessage(true);
+		setLobbyReadMessage(true);
 		this->removeFromParentAndCleanup(true);
 	}
 }
@@ -162,7 +162,7 @@ void PopDialogBoxShop::onMenuButProp(CCObject *object, TouchEventType type){
 		default:
 			break;
 		}
-		connectServer();
+		connectServer(SOCKET_SHOP);
 	}
 	break;
 	default:
@@ -218,7 +218,7 @@ void PopDialogBoxShop::changeSelectItem(ShopItem eItem){
 		if (vecGift.size()<=0)
 		{
 			//连接服务器
-			connectServer();
+			connectServer(SOCKET_SHOP);
 		}
 		else
 		{
@@ -233,7 +233,7 @@ void PopDialogBoxShop::changeSelectItem(ShopItem eItem){
 		if (vecProp.size()<=0)
 		{
 			//连接服务器
-			connectServer();
+			connectServer(SOCKET_SHOP);
 		}
 		else
 		{
@@ -244,20 +244,6 @@ void PopDialogBoxShop::changeSelectItem(ShopItem eItem){
 		break;
 	default:
 		break;
-	}
-}
-//连接服务器
-void PopDialogBoxShop::connectServer(){
-	PopDialogBox *box = PopDialogBoxLoading::create();
-	this->addChild(box, 10, TAG_LOADING);
-	box->setSocketName(SOCKET_SHOP);
-
-	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_SHOP);
-	
-	TCPSocket *tcp = getSocket();
-	if (tcp)
-	{
-		tcp->createSocket(GAME_IP, PORT_LOGON, new LogonGameListerner());
 	}
 }
 //更新商品列表
@@ -306,9 +292,6 @@ void PopDialogBoxShop::updateListCommodity(std::vector<CMD_GP_Gift> *vec){
 		}
 
 	}
-}
-void PopDialogBoxShop::setParentReadMessage(bool isRead){
-	((BaseLobbyScene*)this->getParent())->isReadMessage = isRead;
 }
 void PopDialogBoxShop::update(float delta){
 	if (isReadMessage)

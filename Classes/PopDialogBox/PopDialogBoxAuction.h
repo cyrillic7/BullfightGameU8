@@ -7,8 +7,11 @@
 
 #pragma once
 #include "PopDialogBox.h"
+#include "../Network/CMD_Server/CMD_LogonServer.h"
+#include "../MTNotificationQueue/MessageQueue.h"
+#include "../Network/TCPSocket/TCPSocketControl.h"
 #define MAX_AUCTION_ITEM_COUNT			3			//最大拍卖项总数
-class PopDialogBoxAuction: public PopDialogBox {
+class PopDialogBoxAuction: public PopDialogBox,public MessageQueue {
 private:
 	enum AuctionItem
 	{
@@ -31,6 +34,9 @@ private:
 	UIImageView *pICellItemContent[MAX_AUCTION_ITEM_COUNT];
 	//线条
 	UIPanel *pPLine[MAX_AUCTION_ITEM_COUNT];
+	//拍卖信息
+	//UILabel 
+	std::vector <CMD_GP_AuctionRecordItem> vecAuctionInfo;
 public:
 	PopDialogBoxAuction();
 	~PopDialogBoxAuction();
@@ -48,4 +54,18 @@ private:
 	void onCheckBoxSelectedStateEvent(CCObject *pSender, CheckBoxEventType type);
 	//切换拍卖项
 	void changeSelectItem(AuctionItem eItem);
+
+	//////////////////////////////////////////////////////////////////////////
+	void update(float delta);
+	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_AUCTION_INFO); }
+	//网络消息
+	virtual void onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
+	//连接成功
+	void connectSuccess();
+	//用户服务
+	void onEventUserService(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
+	//拍卖记录
+	void onSubAuctionRecord(void * pDataBuffer, unsigned short wDataSize);
+
+	
 };

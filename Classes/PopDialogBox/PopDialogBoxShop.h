@@ -72,16 +72,13 @@ private:
 	void changeSelectItem(ShopItem eItem);
 	//更新商品列表
 	void updateListCommodity(std::vector<CMD_GP_Gift> *vec);
-	//设置父结节是否读取网络消息
-	void setParentReadMessage(bool isRead);
+	
 	
 	void update(float delta);
 	//购买道具
 	void buyPropForType();
 
 	//////////////////////////////////////////////////////////////////////////
-	//连接服务器
-	void connectServer();
 	//网络消息
 	virtual void onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
 	//用户服务

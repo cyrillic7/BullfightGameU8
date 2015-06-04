@@ -96,7 +96,7 @@ void PopDialogBoxBank::onEnter(){
 	}
 	//初始化快捷选择款按键
 	initQuickSelectMoney();
-	setParentReadMessage(false);
+	setLobbyReadMessage(false);
 	playAnimation();
 }
 void PopDialogBoxBank::onExit(){
@@ -312,10 +312,6 @@ void PopDialogBoxBank::onMenuQuickSelectMoney(CCObject *object, TouchEventType t
 	default:
 		break;
 	}
-}
-//设置父结节是否读取网络消息
-void PopDialogBoxBank::setParentReadMessage(bool isRead){
-	((BaseLobbyScene*)this->getParent())->isReadMessage = isRead;
 }
 //更新快捷款项选择键
 void PopDialogBoxBank::updateQuickButton(){
