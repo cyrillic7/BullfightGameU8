@@ -83,8 +83,9 @@ void PopDialogBox::setLobbyReadMessage(bool isRead){
 	((BaseLobbyScene*)this->getParent())->isReadMessage = isRead;
 }
 //显示数量输入框
-void PopDialogBox::showInputNumBox(BuyType eBuyType,const char* cPropName,const char* cPropImagePuth,long lMaxNum, long long lPice){
+void PopDialogBox::showInputNumBox(BuyType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, long long lPice, IPopAssist* pIPop){
 	PopDialogBoxInputNum *box = PopDialogBoxInputNum::create();
 	this->addChild(box, 10, TAG_INPUT_BOX);
 	box->setInputData(eBuyType, cPropName, cPropImagePuth, lMaxNum, lPice);
+	box->setIPopAssist(pIPop);
 }

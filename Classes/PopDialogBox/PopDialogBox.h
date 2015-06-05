@@ -15,7 +15,17 @@
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace ui;
+
+struct IPopAssist//弹框辅助接口
+{
+	virtual ~IPopAssist(){}
+	//购买数量回调
+	virtual void onBuyNum(long lNum) = 0;
+};
+
 class PopDialogBox: public CCLayer,public CStringAide {
+public:
+	CC_SYNTHESIZE(IPopAssist*, pIPopAssist, IPopAssist);
 public:
 	enum BuyType
 	{
@@ -28,8 +38,6 @@ public:
 public:
 	PopDialogBox();
 	~PopDialogBox();
-    
-
 	//菜单////////////////////////////////////////////////////////////////////////
 	void menuBack(CCObject *object, TouchEventType type);
 
@@ -46,5 +54,5 @@ public:
 	//设置大厅是否读取网络消息
 	void setLobbyReadMessage(bool isRead);
 	//显示数量输入框
-	void showInputNumBox(BuyType eBuyType,const char* cPropName,const char* cPropImagePuth,long lMaxNum, long long lPice);
+	void showInputNumBox(BuyType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, long long lPice,IPopAssist* pIPop);
 };

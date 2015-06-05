@@ -38,6 +38,12 @@ void PopDialogBoxInputNum::onEnter(){
 	pLCurrencyName = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelPice"));
 	//总价
 	pAllPice = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelAllPice"));
+	//输入数量
+	pTFInputCount = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldCount")); 
+	//确定按键
+	UIButton *pBSure = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonSure"));
+	pBSure->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxInputNum::onMenuSure));
+
 	playAnimation();
 }
 void PopDialogBoxInputNum::onExit(){
@@ -65,5 +71,20 @@ void PopDialogBoxInputNum::setInputData(BuyType eBuyType, const char* cPropName,
 }
 //更新总价
 void PopDialogBoxInputNum::updateAllPice(){
+	pTFInputCount->setText(CCString::createWithFormat("%ld", lBuyNum)->getCString());
 	pAllPice->setText(CCString::createWithFormat("%lld", lPropPice*lBuyNum)->getCString());
+}
+//确定按键
+void PopDialogBoxInputNum::onMenuSure(CCObject *object, TouchEventType type){
+	switch (type)
+	{
+	case TOUCH_EVENT_ENDED:
+	{
+		getIPopAssist()->onBuyNum(lBuyNum);
+		this->removeFromParentAndCleanup(true);
+	}
+		break;
+	default:
+		break;
+	}
 }

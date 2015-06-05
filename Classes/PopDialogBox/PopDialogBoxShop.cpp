@@ -139,7 +139,7 @@ void PopDialogBoxShop::onMenuBack(CCObject *object, TouchEventType type){
 	}
 }
 //购买道具
-void PopDialogBoxShop::onMenuButProp(CCObject *object, TouchEventType type){
+void PopDialogBoxShop::onMenuBuyProp(CCObject *object, TouchEventType type){
 	switch (type)
 	{
 	case TOUCH_EVENT_ENDED:
@@ -269,7 +269,7 @@ void PopDialogBoxShop::updateListCommodity(std::vector<CMD_GP_Gift> *vec){
 			{
 				UIButton *pButton = static_cast<UIButton*>(pListViewCommodity->getItem(pListViewCommodity->getItems()->count() - 1)->getChildByName(CCString::createWithFormat("ImageCommodity%d", j)->getCString())->getChildByName("ButtonBuy"));
 				pButton->setTag(tempIndex);
-				pButton->addTouchEventListener(this, toucheventselector(PopDialogBoxShop::onMenuButProp));
+				pButton->addTouchEventListener(this, toucheventselector(PopDialogBoxShop::onMenuBuyProp));
 				std::string buttonText = CCString::createWithFormat("%ld", vec->at(tempIndex).price[0].dwCount)->getCString();
 				pButton->setTitleText(GBKToUTF8(buttonText.c_str()));
 
@@ -331,10 +331,11 @@ void PopDialogBoxShop::buyPropForType(){
 	buyGift.dwNum = 1;
 	buyGift.dwBuyMethod = 4;
 	
-	strcpy(buyGift.szNote, "");
+//	strcpy(buyGift.szNote, "");
 	strcpy(buyGift.szMachineID, "12");
 
-	getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_BUYGIFT, &buyGift, sizeof(CMD_GP_BuyGift));
+	bool isSend=getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_BUYGIFT, &buyGift, sizeof(CMD_GP_BuyGift));
+	CCLog("send: %d  <<%s>>",isSend, __FUNCTION__);
 }
 //读取网络消息回调
 void PopDialogBoxShop::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
@@ -387,7 +388,7 @@ void PopDialogBoxShop::onEventUserService(WORD wSubCmdID, void * pDataBuffer, un
 		onSubGiftList(pDataBuffer, wDataSize,vecProp);
 		break;
 	case SUB_GP_BUYGIFT://购买礼品包,道具
-		onSubButGift(pDataBuffer, wDataSize);
+		onSubBuyGift(pDataBuffer, wDataSize);
 		break;
 	default:
 		CCLog("sub:%d <<%s>>",wSubCmdID, __FUNCTION__);
@@ -423,7 +424,7 @@ void PopDialogBoxShop::onSubGiftList(void * pDataBuffer, unsigned short wDataSiz
 }
 
 //购买礼品
-void PopDialogBoxShop::onSubButGift(void * pDataBuffer, unsigned short wDataSize){
+void PopDialogBoxShop::onSubBuyGift(void * pDataBuffer, unsigned short wDataSize){
 	//效验数据
 	 if (wDataSize != sizeof(CMD_GP_BuyGiftLog)) return;
 	 CMD_GP_BuyGiftLog * pBuyGiftLog = (CMD_GP_BuyGiftLog *)pDataBuffer;

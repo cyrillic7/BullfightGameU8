@@ -45,6 +45,15 @@
 		<string>奖券</string>
 		<key>strAllPice</key>
 		<string>总价</string>
+
+		<key>strAuctionSell</key>
+		<string>卖出</string>
+		<key>strAuctionBuy</key>
+		<string>买入</string>
+		<key>strAuctionSeller</key>
+		<string>[卖家]</string>
+		<key>strAuctionBuyers</key>
+		<string>[买家]</string>
 	</dict>
 
 </plist>

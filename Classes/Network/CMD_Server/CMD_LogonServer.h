@@ -367,7 +367,7 @@ struct CMD_GP_BuyGift
 	DWORD				dwID;									//礼包或道具id
 	DWORD				dwNum;									//数量
 	DWORD				dwBuyMethod;							//购买方法：1：金币，2：元宝，3：红包，4：奖券
-	TCHAR				szNote[NOTE_LEN];						//描述消息
+	//TCHAR				szNote[NOTE_LEN];						//描述消息
 	TCHAR				szMachineID[LEN_MACHINE_ID];			//机器序列
 };
 
@@ -476,7 +476,7 @@ struct CMD_GP_Buy_Auction
 {
 	CMD_GP_Buy_Auction()
 	{
-		memset(this, 0, sizeof(CMD_GP_Buy_Auction));
+		//memset(this, 0, sizeof(CMD_GP_Buy_Auction));
 	}
 	DWORD			    dwUserID;								//id
 	DWORD				dwOpTerminal;							//操作终端（1：pc, 2：手机）
@@ -490,7 +490,7 @@ struct CMD_GP_Cancel_Auction
 {
 	CMD_GP_Cancel_Auction()
 	{
-		memset(this, 0, sizeof(CMD_GP_Cancel_Auction));
+		//memset(this, 0, sizeof(CMD_GP_Cancel_Auction));
 	}
 	DWORD			    dwUserID;								//id
 	DWORD				dwOpTerminal;							//操作终端（1：pc, 2：手机）
@@ -561,7 +561,7 @@ struct CMD_GP_Sell_AuctionLog
 {
 	CMD_GP_Sell_AuctionLog()
 	{
-		memset(this, 0, sizeof(CMD_GP_Sell_AuctionLog));
+		//memset(this, 0, sizeof(CMD_GP_Sell_AuctionLog));
 	}
 	DWORD							dwRet;								//0：成功，1：失败
 	DWORD							dwID;								//礼包或道具id
@@ -573,9 +573,9 @@ struct CMD_GP_Buy_AuctionLog
 {
 	CMD_GP_Buy_AuctionLog()
 	{
-		memset(this, 0, sizeof(CMD_GP_Buy_AuctionLog));
+		//memset(this, 0, sizeof(CMD_GP_Buy_AuctionLog));
 	}
-	DWORD							dwRet;								//0：成功，1：失败
+	DWORD							dwRet;								//0：成功，非0：失败
 	DWORD							dwID;								//礼包或道具id
 	SCORE							lGold;								//价格					
 	TCHAR							szDescribeString[128];				//描述消息
@@ -584,7 +584,7 @@ struct CMD_GP_Cancel_AuctionLog
 {
 	CMD_GP_Cancel_AuctionLog()
 	{
-		memset(this, 0, sizeof(CMD_GP_Cancel_AuctionLog));
+		//memset(this, 0, sizeof(CMD_GP_Cancel_AuctionLog));
 	}
 	DWORD							dwRet;								//0：成功，1：失败
 	DWORD							dwID;

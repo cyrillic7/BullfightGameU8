@@ -65,7 +65,7 @@ private:
 	void onMenuMyPackaga(CCObject *object, TouchEventType type);
 	void onMenuBack(CCObject *object, TouchEventType type);
 	//购买按键
-	void onMenuButProp(CCObject *object, TouchEventType type);
+	void onMenuBuyProp(CCObject *object, TouchEventType type);
 	//复选框回调
 	void onCheckBoxSelectedStateEvent(CCObject *pSender, CheckBoxEventType type);
 	//切换商店项
@@ -86,5 +86,5 @@ private:
 	//礼品列表
 	void onSubGiftList(void * pDataBuffer, unsigned short wDataSize, std::vector<CMD_GP_Gift> &vec);
 	//购买礼品
-	void onSubButGift(void * pDataBuffer, unsigned short wDataSize);
+	void onSubBuyGift(void * pDataBuffer, unsigned short wDataSize);
 };

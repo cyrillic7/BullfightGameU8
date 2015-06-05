@@ -26,6 +26,7 @@ private:
 	UILabel *pLCurrencyName;
 	//总价
 	UILabel *pAllPice;
+	UITextField *pTFInputCount;
 public:
 	PopDialogBoxInputNum();
 	~PopDialogBoxInputNum();
@@ -36,6 +37,8 @@ public:
 private:
 	virtual void onEnter();
 	virtual void onExit();
+	//确定////////////////////////////////////////////////////////////////////////
+	void onMenuSure(CCObject *object, TouchEventType type);
 	//更新总价
 	void updateAllPice();
 };

@@ -35,6 +35,10 @@ public:
 	std::string	sBuyTypeShop;					//兑换数量
 	std::string sLottery;						//奖券
 	std::string sAllPice;						//总价
+	std::string sAuctionSell;					//卖出
+	std::string sAuctionBuy;					//买入
+	std::string sAuctionSeller;					//[卖家]
+	std::string sAuctionBuyers;					//[买家]
 	int iCardOffsetX[MAX_PLAYER];
 	int iCardOffsetY[MAX_PLAYER];
 	int iCardOffsetSpace[MAX_PLAYER];
