@@ -39,6 +39,8 @@ private:
 	virtual void onExit();
 	//确定////////////////////////////////////////////////////////////////////////
 	void onMenuSure(CCObject *object, TouchEventType type);
+	//输入框回调
+	void onTextFieldAccount(CCObject* obj, TextFiledEventType type);
 	//更新总价
 	void updateAllPice();
 };

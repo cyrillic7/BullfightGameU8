@@ -40,6 +40,7 @@ void PopDialogBoxInputNum::onEnter(){
 	pAllPice = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelAllPice"));
 	//输入数量
 	pTFInputCount = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldCount")); 
+	pTFInputCount->addEventListenerTextField(this, SEL_TextFieldEvent(&PopDialogBoxInputNum::onTextFieldAccount));
 	//确定按键
 	UIButton *pBSure = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonSure"));
 	pBSure->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxInputNum::onMenuSure));
@@ -84,6 +85,26 @@ void PopDialogBoxInputNum::onMenuSure(CCObject *object, TouchEventType type){
 		this->removeFromParentAndCleanup(true);
 	}
 		break;
+	default:
+		break;
+	}
+}
+//输入框回调
+void PopDialogBoxInputNum::onTextFieldAccount(CCObject* obj, TextFiledEventType type){
+	switch (type)
+	{
+	case TEXTFIELD_EVENT_ATTACH_WITH_IME:
+		//CCLog("attach<<%s>>",__FUNCTION__);
+		break;
+	case TEXTFIELD_EVENT_INSERT_TEXT:
+	case TEXTFIELD_EVENT_DETACH_WITH_IME:
+	case TEXTFIELD_EVENT_DELETE_BACKWARD:
+	{
+		UITextField *pTF = (UITextField*)obj;
+		lBuyNum = strtol(pTF->getStringValue(), NULL, 10);
+		updateAllPice();
+	}
+	break;
 	default:
 		break;
 	}

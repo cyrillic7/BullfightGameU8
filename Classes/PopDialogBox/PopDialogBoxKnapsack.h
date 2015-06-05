@@ -25,7 +25,10 @@ private:
 
 	//物品列表
 	UIListView *pListViewGoods;
-
+	//信息背景
+	UIImageView *pIInfoBg;
+	//空包背景
+	UIImageView *pINothing;
 	//当前选择物品索引
 	int iCurSelectIndex;
 	//物品名称

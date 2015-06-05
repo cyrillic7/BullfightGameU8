@@ -40,7 +40,10 @@ void PopDialogBoxKnapsack::onEnter(){
 	//关闭
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));
-	
+	//信息背景
+	pIInfoBg = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageInfoBg")); 
+	//空包背景
+	pINothing = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageNothing"));
 	//兑换
 	UIButton *pBExchange = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonExchange"));
 	pBExchange->addTouchEventListener(this, toucheventselector(PopDialogBoxKnapsack::onMenuExchange));
@@ -232,9 +235,12 @@ void PopDialogBoxKnapsack::updateListGoods(){
 	int tempSize = vecGoods.size();
 	if (tempSize == 0)
 	{
+		pIInfoBg->setEnabled(false);
+		pINothing->setVisible(true);
 		return;
 	}
-
+	pIInfoBg->setEnabled(true);
+	pINothing->setVisible(false);
 	for (int i = 0; i < (tempSize - 1) / MAX_KNAPSACK_ROW_COUNT + 1; i++)
 	{
 		pListViewGoods->insertDefaultItem(pListViewGoods->getItems()->count());
