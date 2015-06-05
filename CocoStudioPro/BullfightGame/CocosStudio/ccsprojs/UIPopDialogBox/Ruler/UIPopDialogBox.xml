@@ -80,4 +80,8 @@
     <Project>UIPopDialogBoxAuction</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxBuyCount</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

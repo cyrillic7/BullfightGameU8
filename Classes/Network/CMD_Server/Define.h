@@ -17,17 +17,31 @@ typedef int				socklen_t;
 typedef int				SOCKET;
 #define INVALID_SOCKET	-1
 #define SOCKET_ERROR	-1
-#endif
 
 
-//如果是android平台需要定义宏
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID||CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
 #define RtlCopyMemory(Destination,Source,Length) memcpy((Destination),(Source),(Length))
 #define CopyMemory RtlCopyMemory
 typedef unsigned char       BYTE;
 typedef unsigned short      WORD;
 typedef unsigned long       DWORD;
 typedef char TCHAR, *PTCHAR;
+
+typedef struct _SYSTEMTIME {
+	WORD wYear;
+	WORD wMonth;
+	WORD wDayOfWeek;
+	WORD wDay;
+	WORD wHour;
+	WORD wMinute;
+	WORD wSecond;
+	WORD wMilliseconds;
+} SYSTEMTIME;
+#endif
+
+
+//如果是android平台需要定义宏
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID||CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
+
 #endif
 
 #define  SCORE						long long

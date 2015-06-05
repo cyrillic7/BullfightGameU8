@@ -9,6 +9,7 @@
 #include "../Network/ListernerThread/LogonGameListerner.h"
 #include "PopDialogBoxLoading.h"
 #include "PopDialogBoxTipInfo.h"
+#include "PopDialogBoxInputNum.h"
 #include "../GameLobby/BaseLobbyScene.h"
 std::string PopDialogBox::sSocketName = "";
 PopDialogBox::PopDialogBox()
@@ -80,4 +81,10 @@ void PopDialogBox::showTipInfo(const char* sInfo){
 //设置大厅是否读取网络消息
 void PopDialogBox::setLobbyReadMessage(bool isRead){
 	((BaseLobbyScene*)this->getParent())->isReadMessage = isRead;
+}
+//显示数量输入框
+void PopDialogBox::showInputNumBox(BuyType eBuyType,const char* cPropName,const char* cPropImagePuth,long lMaxNum, long long lPice){
+	PopDialogBoxInputNum *box = PopDialogBoxInputNum::create();
+	this->addChild(box, 10, TAG_INPUT_BOX);
+	box->setInputData(eBuyType, cPropName, cPropImagePuth, lMaxNum, lPice);
 }

@@ -17,6 +17,11 @@ USING_NS_CC_EXT;
 using namespace ui;
 class PopDialogBox: public CCLayer,public CStringAide {
 public:
+	enum BuyType
+	{
+		BUY_AUCTION=0,					//拍卖购买
+	};
+	CC_SYNTHESIZE(BuyType, buyType, BuyType);
 	UILayer * pUILayer;
 	UIImageView *pWidgetBg;
 	static std::string sSocketName;
@@ -40,4 +45,6 @@ public:
 	void showTipInfo(const char* sInfo);
 	//设置大厅是否读取网络消息
 	void setLobbyReadMessage(bool isRead);
+	//显示数量输入框
+	void showInputNumBox(BuyType eBuyType,const char* cPropName,const char* cPropImagePuth,long lMaxNum, long long lPice);
 };

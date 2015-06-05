@@ -18,6 +18,7 @@ private:
 		AUCTION_INFO = 0,			//拍卖信息
 		AUCTION_MY,					//我的拍卖
 		AUCTION_RECORD,				//拍卖记录
+		AUCTION_BUY,				//拍卖购买
 	};
 	CC_SYNTHESIZE(AuctionItem, auctionItem, AuctionItem);
 	//元宝
@@ -37,6 +38,8 @@ private:
 	//拍卖信息
 	//UILabel 
 	std::vector <CMD_GP_AuctionRecordItem> vecAuctionInfo;
+	//购买索引
+	int auctionBuyIndex;
 public:
 	PopDialogBoxAuction();
 	~PopDialogBoxAuction();
@@ -50,11 +53,14 @@ private:
 	void setInsure(long long llInsure);
 	//设置拍卖
 	void setAuction(long long llAuction);
+	//购买按键
+	void onMenuButProp(CCObject *object, TouchEventType type);
 	//复选框回调
 	void onCheckBoxSelectedStateEvent(CCObject *pSender, CheckBoxEventType type);
 	//切换拍卖项
 	void changeSelectItem(AuctionItem eItem);
-
+	//更新拍卖信息列表
+	void updateListAuctionInfo();
 	//////////////////////////////////////////////////////////////////////////
 	void update(float delta);
 	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_AUCTION_INFO); }

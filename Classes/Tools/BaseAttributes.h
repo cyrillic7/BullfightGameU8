@@ -31,7 +31,10 @@ public:
 	std::string sTakeOutLimit;					//取出的游戏币数量不能为空，请重新输入游戏币数量
 	std::string sInsureNotEnough;				//您当前保险柜的游戏币余额不足，游戏币提取失败
 	std::string sScoreNotEnough;				//您当前游戏币的可用余额不足，游戏币存入失败！
-
+	std::string sBuyTypeAuction;				//购买数量
+	std::string	sBuyTypeShop;					//兑换数量
+	std::string sLottery;						//奖券
+	std::string sAllPice;						//总价
 	int iCardOffsetX[MAX_PLAYER];
 	int iCardOffsetY[MAX_PLAYER];
 	int iCardOffsetSpace[MAX_PLAYER];

@@ -8,8 +8,10 @@
 #include "PopDialogBoxAuction.h"
 #include "../Tools/DataModel.h"
 #include "../Tools/GameConfig.h"
+#include "../Tools/Tools.h"
 #include "PopDialogBoxLoading.h"
 #include "../Network/ListernerThread/LogonGameListerner.h"
+#include "../Network/MD5/MD5.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxAuction::PopDialogBoxAuction()
 	:auctionItem(AUCTION_INFO)
@@ -70,6 +72,9 @@ void PopDialogBoxAuction::onEnter(){
 	setBigGold(112);
 	setInsure(123456);
 	setAuction(0);
+	//更新拍卖信息（赋0）
+	updateListAuctionInfo();
+	
 	playAnimation();
 
 	
@@ -102,6 +107,24 @@ void PopDialogBoxAuction::setAuction(long long llAuction){
 	UIButton *pBTakeOut = static_cast<UIButton*>(pIAuction->getChildByName("ButtonTakeOut"));
 	CCPoint posTakeOut = ccpAdd(pLNum->getPosition(), ccp(pLNum->getContentSize().width + 60, 0));
 	pBTakeOut->setPosition(posTakeOut);
+}
+//购买按键
+void PopDialogBoxAuction::onMenuButProp(CCObject *object, TouchEventType type){
+	switch (type)
+	{
+	case TOUCH_EVENT_ENDED:
+	{
+		UIButton *pTempButton = (UIButton*)object;
+		auctionBuyIndex = pTempButton->getTag();
+		showInputNumBox(BUY_AUCTION, GBKToUTF8(vecAuctionInfo[auctionBuyIndex].szAuctionName), "", vecAuctionInfo[auctionBuyIndex].dwPropNum, vecAuctionInfo[auctionBuyIndex].lGold);
+		//setAuctionItem(AUCTION_BUY);
+		//connectServer(SOCKET_AUCTION_INFO);
+		CCLog("11 <<%s>>", __FUNCTION__);
+	}
+		break;
+	default:
+		break;
+	}
 }
 //复选框回调
 void PopDialogBoxAuction::onCheckBoxSelectedStateEvent(CCObject *pSender, CheckBoxEventType type){
@@ -152,6 +175,10 @@ void PopDialogBoxAuction::changeSelectItem(AuctionItem eItem){
 		{
 			connectServer(SOCKET_AUCTION_INFO);
 		}
+		else
+		{
+			//
+		}
 	}
 		break;
 	case PopDialogBoxAuction::AUCTION_MY:
@@ -167,8 +194,6 @@ void PopDialogBoxAuction::changeSelectItem(AuctionItem eItem){
 		if (i==auctionItem)
 		{
 			pLVAuction[i]->setEnabled(true);
-			pLVAuction[i]->removeAllItems();
-			pLVAuction[i]->insertDefaultItem(0);
 
 			pICellItemContent[i]->setVisible(true);
 			pPLine[i]->setEnabled(true);
@@ -184,7 +209,40 @@ void PopDialogBoxAuction::changeSelectItem(AuctionItem eItem){
 	}
 	
 }
+//更新拍卖信息列表
+void PopDialogBoxAuction::updateListAuctionInfo(){
+	pLVAuction[0]->removeAllItems();
+	
+	int tempSize = vecAuctionInfo.size();
+	if (tempSize == 0)
+	{
+		return;
+	}
 
+	for (int i = 0; i < tempSize ; i++)
+	{
+		int inserterPos = pLVAuction[0]->getItems()->count();
+		pLVAuction[0]->insertDefaultItem(inserterPos);
+		//拍卖物品名称
+		UILabel *pGoodsName = static_cast<UILabel*>(pLVAuction[0]->getItem(inserterPos)->getChildByName("Label0"));
+		pGoodsName->setText(GBKToUTF8(vecAuctionInfo[i].szAuctionName));
+		//拍卖数量
+		UILabel *pGoodsCount = static_cast<UILabel*>(pLVAuction[0]->getItem(inserterPos)->getChildByName("Label1"));
+		pGoodsCount->setText(CCString::createWithFormat("%ld",vecAuctionInfo[i].dwPropNum)->getCString());
+		//卖家
+		UILabel *pSeller = static_cast<UILabel*>(pLVAuction[0]->getItem(inserterPos)->getChildByName("Label2"));
+		std::string nickName = GBKToUTF8(vecAuctionInfo[i].szNickName);
+		CCString *pSSellerNick = CCString::createWithFormat("%s\nID:%ld", Tools::subUTF8(nickName, 0, 4).c_str(), vecAuctionInfo[i].dwGameID);
+		pSeller->setText(pSSellerNick->getCString());
+		//价格
+		UILabel *pPice = static_cast<UILabel*>(pLVAuction[0]->getItem(inserterPos)->getChildByName("Label3"));
+		pPice->setText(CCString::createWithFormat("%lld", vecAuctionInfo[i].lGold)->getCString());
+		//购买按键
+		UIButton *pButton = static_cast<UIButton*>(pLVAuction[0]->getItem(inserterPos)->getChildByName("ButtonBuy"));
+		pButton->setTag(inserterPos);
+		pButton->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxAuction::onMenuButProp));
+	}
+}
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -228,6 +286,26 @@ void PopDialogBoxAuction::connectSuccess(){
 		break;
 	case PopDialogBoxAuction::AUCTION_RECORD:
 		break;
+	case PopDialogBoxAuction::AUCTION_BUY:
+	{
+
+			/*
+			DWORD				dwID;									//礼包或道具id
+			DWORD				dwNum;									//数量
+		TCHAR				szMachineID[LEN_MACHINE_ID];			//机器序列*/
+		CMD_GP_Buy_Auction buyAuction;
+		buyAuction.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+		buyAuction.dwOpTerminal = 2;
+
+		MD5 m;
+		m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
+		std::string md5PassWord = m.GetMd5();
+		strcpy(buyAuction.szLogonPass, md5PassWord.c_str());
+
+
+		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_BUY_AUCTION, &buyAuction, sizeof(buyAuction));
+	}
+		break;
 	default:
 		break;
 	}
@@ -256,6 +334,7 @@ void PopDialogBoxAuction::onSubAuctionRecord(void * pDataBuffer, unsigned short 
 	for (int i = 0; i < gpAuctionRecord->dwIndex; i++)
 	{
 		vecAuctionInfo.push_back(gpAuctionRecord->RecordItem[i]);
+		CCLog("%lld <<%s>>",gpAuctionRecord->RecordItem[i].lGold, __FUNCTION__);
 	}
-
+	updateListAuctionInfo();
 }

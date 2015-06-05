@@ -44,6 +44,10 @@ void BaseAttributes::initStr(){
 	sTakeOutLimit = dynamic_cast<CCString *>(mDic->objectForKey("strTakeOutLimit"))->getCString();
 	sInsureNotEnough = dynamic_cast<CCString *>(mDic->objectForKey("strInsureNotEnough"))->getCString();
 	sScoreNotEnough = dynamic_cast<CCString *>(mDic->objectForKey("strScoreNotEnough"))->getCString();
+	sBuyTypeAuction = dynamic_cast<CCString *>(mDic->objectForKey("strBuyTypeAuction"))->getCString();
+	sBuyTypeShop = dynamic_cast<CCString *>(mDic->objectForKey("strBuyTypeShop"))->getCString();
+	sLottery = dynamic_cast<CCString *>(mDic->objectForKey("strLottery"))->getCString();
+	sAllPice = dynamic_cast<CCString *>(mDic->objectForKey("strAllPice"))->getCString();
 
 	mDic->removeAllObjects();
 	CC_SAFE_RELEASE_NULL(mDic);

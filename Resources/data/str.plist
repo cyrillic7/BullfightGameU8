@@ -37,6 +37,14 @@
 		<key>strScoreNotEnough</key>
 		<string>您当前游戏币的可用余额不足，游戏币存入失败！</string>
 
+		<key>strBuyTypeAuction</key>
+		<string>购买数量</string>
+		<key>strBuyTypeShop</key>
+		<string>兑换数量</string>
+		<key>strLottery</key>
+		<string>奖券</string>
+		<key>strAllPice</key>
+		<string>总价</string>
 	</dict>
 
 </plist>

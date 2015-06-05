@@ -30,8 +30,9 @@
 
 
 //标识////////////////////////////////////////////////////////////////////////
-#define TAG_LOADING									1000							//加载中
+#define TAG_LOADING								1000							//加载中
 #define TAG_POP_DIALOG_BOX						1001							//弹出框
+#define TAG_INPUT_BOX							1002							//输入框
 
 
 

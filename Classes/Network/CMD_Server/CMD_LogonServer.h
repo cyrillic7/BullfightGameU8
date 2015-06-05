@@ -4,7 +4,10 @@
 #include "Define.h"
 #include "Struct.h"
 #pragma pack(1)
+//如果是android平台需要定义宏
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID||CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
 
+#endif
 //////////////////////////////////////////////////////////////////////////////////
 //登录命令
 
@@ -466,7 +469,6 @@ struct CMD_GP_Sell_Auction
 	DWORD				dwID;									//礼包或道具id
 	SCORE				lGold;									//价格
 	DWORD				dwNum;									//数量
-	DWORD				dwClientAddr;							//连接地址
 	TCHAR				szMachineID[LEN_MACHINE_ID];			//机器序列
 };
 //购买拍卖品
@@ -481,7 +483,6 @@ struct CMD_GP_Buy_Auction
 	TCHAR				szLogonPass[LEN_MD5];					//登录密码
 	DWORD				dwID;									//礼包或道具id
 	DWORD				dwNum;									//数量
-	DWORD				dwClientAddr;							//连接地址
 	TCHAR				szMachineID[LEN_MACHINE_ID];			//机器序列
 };
 //拍卖品撤消
@@ -525,7 +526,7 @@ struct CMD_GP_AuctionRecordItem
 	TCHAR								szNickName[LEN_ACCOUNTS];		//昵称
 	TCHAR								szAuctionName[NAME_LEN];		//拍卖品名称
 	DWORD								dwPropNum;
-	LONGLONG							lGold;							//价格
+	long long							lGold;							//价格
 };
 //我的拍卖
 struct CMD_GP_MyAuctionRecordItem
@@ -533,7 +534,7 @@ struct CMD_GP_MyAuctionRecordItem
 	DWORD								dwIndex;						//单号
 	TCHAR								szAuctionName[NAME_LEN];		//拍卖品名称
 	DWORD								dwPropNum;
-	LONGLONG							lGold;							//价格
+	long long							lGold;							//价格
 };
 //拍卖记录
 struct CMD_GP_HistoryAuctionRecordItem
@@ -544,7 +545,7 @@ struct CMD_GP_HistoryAuctionRecordItem
 	TCHAR								szAuctionName[NAME_LEN];		//拍卖品名称
 	DWORD								dwType;							//类型1:买，2:卖
 	DWORD								dwPropNum;
-	LONGLONG							lGold;							//价格
+	long long							lGold;							//价格
 	SYSTEMTIME							tOpDate;
 };
 //记录
