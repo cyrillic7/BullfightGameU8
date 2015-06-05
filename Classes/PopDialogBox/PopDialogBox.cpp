@@ -14,7 +14,9 @@
 std::string PopDialogBox::sSocketName = "";
 PopDialogBox::PopDialogBox()
 :pUILayer(NULL)
-,pWidgetBg(NULL){
+,pWidgetBg(NULL)
+, isReadMessage(true)
+{
 	pUILayer = UILayer::create();
 	addChild(pUILayer);
 	

@@ -11,8 +11,10 @@
 #include "../Tools/Tools.h"
 #include "../Tools/BaseAttributes.h"
 #include "PopDialogBoxLoading.h"
+#include "PopDialogBoxKnapsack.h"
 #include "../Network/ListernerThread/LogonGameListerner.h"
 #include "../Network/MD5/MD5.h"
+
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxAuction::PopDialogBoxAuction()
 	:auctionItem(AUCTION_INFO)
@@ -42,6 +44,10 @@ void PopDialogBoxAuction::onEnter(){
 	//关闭
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));
+	//我的背包
+	UIButton *pBPackage = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonPackage"));
+	pBPackage->addTouchEventListener(this, toucheventselector(PopDialogBoxAuction::onMenupMyPackage));
+	
 	//元宝
 	pIBigGold = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageScoreIcon0"));
 	//保险箱
@@ -142,6 +148,21 @@ void PopDialogBoxAuction::onMenuCancelAuction(CCObject *object, TouchEventType t
 		connectServer(SOCKET_AUCTION_INFO);
 		//CCLog("auction:%d <<%s>>",auctionBuyIndex, __FUNCTION__);
 		//showInputNumBox(BUY_AUCTION, GBKToUTF8(vecAuctionInfo[auctionBuyIndex].szAuctionName), "", vecAuctionInfo[auctionBuyIndex].dwPropNum, vecAuctionInfo[auctionBuyIndex].lGold, this);
+	}
+	break;
+	default:
+		break;
+	}
+}
+//我的背包
+void PopDialogBoxAuction::onMenupMyPackage(CCObject *object, TouchEventType type){
+	switch (type)
+	{
+	case TOUCH_EVENT_ENDED:
+	{
+		isReadMessage = false;
+		PopDialogBox *box = PopDialogBoxKnapsack::create();
+		this->addChild(box, 10);
 	}
 	break;
 	default:
@@ -384,7 +405,10 @@ void PopDialogBoxAuction::updateListHistoryAuctionRecord(){
 
 //////////////////////////////////////////////////////////////////////////
 void PopDialogBoxAuction::update(float delta){
-	MessageQueue::update(delta);
+	if (isReadMessage)
+	{
+		MessageQueue::update(delta);
+	}
 }
 //读取网络消息回调
 void PopDialogBoxAuction::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){

@@ -26,6 +26,8 @@ struct IPopAssist//弹框辅助接口
 class PopDialogBox: public CCLayer,public CStringAide {
 public:
 	CC_SYNTHESIZE(IPopAssist*, pIPopAssist, IPopAssist);
+
+	bool isReadMessage;
 public:
 	enum BuyType
 	{

@@ -20,7 +20,7 @@
 PopDialogBoxShop::PopDialogBoxShop()
 	:shopItem(SHOP_GIFT_PACKAGE)
 	, iBuyPropIndex(0)
-	, isReadMessage(true)
+	
 {
 	scheduleUpdate();
 }

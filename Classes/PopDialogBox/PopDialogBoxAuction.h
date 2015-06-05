@@ -63,8 +63,14 @@ private:
 	void onMenuBuyProp(CCObject *object, TouchEventType type);
 	//取消拍卖按键
 	void onMenuCancelAuction(CCObject *object, TouchEventType type);
+	//我的背包
+	void onMenupMyPackage(CCObject *object, TouchEventType type);
+	
+	//////////////////////////////////////////////////////////////////////////
 	//购买数量回调
 	virtual void onBuyNum(long lNum);
+	//////////////////////////////////////////////////////////////////////////
+
 	//复选框回调
 	void onCheckBoxSelectedStateEvent(CCObject *pSender, CheckBoxEventType type);
 	//切换拍卖项
