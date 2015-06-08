@@ -251,6 +251,10 @@ struct tagUserInfo
 	//扩展标识
 	long							lExpand;
 	DWORD							dwExpand;
+
+	//////////////////////////////////////////////////////////////////////////
+	SCORE								lIngot;								//元宝
+	SCORE								lIngotScore;						//元宝
 };
 
 //用户信息

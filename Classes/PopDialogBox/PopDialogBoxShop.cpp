@@ -70,9 +70,9 @@ void PopDialogBoxShop::onEnter(){
 	//保险箱
 	pIInsure = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageScoreIcon2"));
 	
-	setVoucher(112);
-	setBigGold(0);
-	setInsure(123456);
+	setVoucher(0);
+	setBigGold(DataModel::sharedDataModel()->userInfo->lIngotScore);
+	setInsure(DataModel::sharedDataModel()->userInfo->lInsure);
 	
 	
 	

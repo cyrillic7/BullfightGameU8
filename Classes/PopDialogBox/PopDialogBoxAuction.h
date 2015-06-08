@@ -20,6 +20,7 @@ private:
 		AUCTION_RECORD,				//拍卖记录
 		AUCTION_BUY,				//拍卖购买
 		AUCTION_CANCEL,				//撤销拍卖
+		AUCTION_MY_GOODS,			//我的物品列表
 	};
 	CC_SYNTHESIZE(AuctionItem, auctionItem, AuctionItem);
 	//元宝
@@ -32,6 +33,8 @@ private:
 	UICheckBox *pCBAuctionItems[MAX_AUCTION_ITEM_COUNT];
 	//列表
 	UIListView *pLVAuction[MAX_AUCTION_ITEM_COUNT];
+	//我的上架物品列表
+	UIListView *pLVMyAuction;
 	//单项内容
 	UIImageView *pICellItemContent[MAX_AUCTION_ITEM_COUNT];
 	//线条
@@ -42,10 +45,18 @@ private:
 	std::vector <CMD_GP_MyAuctionRecordItem> vecMyAuction;
 	//拍卖记录
 	std::vector	<CMD_GP_HistoryAuctionRecordItem> vecHistoryAuction;
+	//玩家上架拍卖物品列表
+	std::vector <CMD_GP_Auction> vecMyAuctionGoods;
+	//上架商品名称
+	UILabel *pLAuctionGoodsName;
+
+
 	//购买索引
 	int auctionBuyIndex;
 	//当前购买数量
 	long lCurBuyNum;
+	//是否获取玩家上架商品列表
+	bool isGetMyAuction;
 public:
 	PopDialogBoxAuction();
 	~PopDialogBoxAuction();
@@ -65,6 +76,8 @@ private:
 	void onMenuCancelAuction(CCObject *object, TouchEventType type);
 	//我的背包
 	void onMenupMyPackage(CCObject *object, TouchEventType type);
+	//选择我的上架商品
+	void onMenupSelectMyAuctionCell(CCObject *object, TouchEventType type);
 	
 	//////////////////////////////////////////////////////////////////////////
 	//购买数量回调
@@ -81,6 +94,8 @@ private:
 	void updateListMyAuctionRecord();
 	//更新拍卖历史记录列表
 	void updateListHistoryAuctionRecord();
+	//更新玩家上架商品列表
+	void updateListMyAuction();
 	//////////////////////////////////////////////////////////////////////////
 	void update(float delta);
 	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_AUCTION_INFO); }

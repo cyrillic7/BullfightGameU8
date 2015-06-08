@@ -291,6 +291,8 @@ struct CMD_GP_ServerOnline
 #define SUB_GP_MYAUCTION_RECORD		119									//我的拍卖
 #define SUB_GP_AUCTION_HISTORY_RECORD	120								//拍卖历史记录
 #define SUB_GP_QUERY_AUCTION		121									//查询拍卖记录
+#define SUB_GP_AUCTIONLOG			122									//获取拍卖品
+
 //修改头像
 #define SUB_GP_USER_FACE_INFO		200									//头像信息
 #define SUB_GP_SYSTEM_FACE_INFO		201									//系统头像
@@ -456,6 +458,16 @@ struct CMD_GP_Auction
 	TCHAR				szName[GIFT_NAME_LEN];					//名称
 	TCHAR				szImgName[GIFT_IMGNAME];				//图片
 };
+//获取我的上架物品
+struct  CMD_GP_AuctionLog
+{
+	CMD_GP_AuctionLog()
+	{
+		//memset(this, 0, sizeof(CMD_GP_AuctionLog));
+	}
+	DWORD							dwRet;								//0：成功，1：失败
+	TCHAR							szDescribeString[128];				//描述消息
+};
 //拍卖品上架
 struct CMD_GP_Sell_Auction
 {
@@ -503,7 +515,7 @@ struct CMD_GP_Query_Auction
 {
 	CMD_GP_Query_Auction()
 	{
-		memset(this, 0, sizeof(CMD_GP_Query_Auction));
+		//memset(this, 0, sizeof(CMD_GP_Query_Auction));
 	}
 	TCHAR				szID[LEN_ACCOUNTS];							//GameID 或 昵称
 	DWORD								dwPage;							//查询第几页

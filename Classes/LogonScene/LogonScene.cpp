@@ -195,6 +195,8 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			DataModel::sharedDataModel()->userInfo->cbGender=ls->cbGender;
 			DataModel::sharedDataModel()->userInfo->wFaceID=ls->wFaceID;
 			DataModel::sharedDataModel()->cbInsurePwd=ls->cbInsurePwd;
+			DataModel::sharedDataModel()->userInfo->lIngot = ls->lIngot;
+			DataModel::sharedDataModel()->userInfo->lIngotScore = ls->lIngotScore;
 
 			Tools::saveStringByRMS(RMS_LOGON_ACCOUNT,DataModel::sharedDataModel()->sLogonAccount);
 			Tools::saveStringByRMS(RMS_LOGON_PASSWORD,DataModel::sharedDataModel()->sLogonPassword);

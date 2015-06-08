@@ -393,5 +393,5 @@
     <string>UIKnapsack.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxBuyCount.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxAuction.json</CurrentUIJson>
 </UIProject>

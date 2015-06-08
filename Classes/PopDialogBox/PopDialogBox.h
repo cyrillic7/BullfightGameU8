@@ -32,6 +32,7 @@ public:
 	enum BuyType
 	{
 		BUY_AUCTION=0,					//拍卖购买
+		BUY_SHOP,						//商城购买
 	};
 	CC_SYNTHESIZE(BuyType, buyType, BuyType);
 	UILayer * pUILayer;
