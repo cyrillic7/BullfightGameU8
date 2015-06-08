@@ -20,6 +20,7 @@
 PopDialogBoxShop::PopDialogBoxShop()
 	:shopItem(SHOP_GIFT_PACKAGE)
 	, iBuyPropIndex(0)
+	, lCurBuyNum(0)
 	
 {
 	scheduleUpdate();
@@ -112,7 +113,11 @@ void PopDialogBoxShop::setInsure(long long llInsure){
 	CCSize bigGoldSize = CCSize(pLNum->getContentSize().width + 60, pIInsure->getContentSize().height);
 	pIInsure->setSize(bigGoldSize);
 }
-
+//购买数量回调
+void PopDialogBoxShop::onBuyNum(long lNum){
+	lCurBuyNum = lNum;
+	connectServer(SOCKET_SHOP);
+}
 //我的背包////////////////////////////////////////////////////////////////////////
 void PopDialogBoxShop::onMenuMyPackaga(CCObject *object, TouchEventType type){
 	switch (type)
@@ -146,23 +151,27 @@ void PopDialogBoxShop::onMenuBuyProp(CCObject *object, TouchEventType type){
 	{
 		UIButton *pButton = static_cast<UIButton*>(object);
 		iBuyPropIndex = pButton->getTag();
-		CCLog("tag:%d <<%s>>",iBuyPropIndex, __FUNCTION__);
 		switch (shopItem)
 		{
 		case PopDialogBoxShop::SHOP_GIFT_PACKAGE:
+		case PopDialogBoxShop::SHOP_BUY_GIFT:
 		{
 			setShopItem(SHOP_BUY_GIFT);
+			showInputNumBox(BUY_SHOP, GBKToUTF8(vecGift[iBuyPropIndex].szName), "", 1, vecGift[iBuyPropIndex].price[0].dwCount, this);
 		}
 			break;
 		case PopDialogBoxShop::SHOP_PROP:
+		case PopDialogBoxShop::SHOP_BUY_PROP:
 		{
 			setShopItem(SHOP_BUY_PROP);
+			showInputNumBox(BUY_SHOP, GBKToUTF8(vecProp[iBuyPropIndex].szName), "", 1, vecProp[iBuyPropIndex].price[0].dwCount, this);
 		}
 			break;
 		default:
 			break;
 		}
-		connectServer(SOCKET_SHOP);
+		
+		//connectServer(SOCKET_SHOP);
 	}
 	break;
 	default:
@@ -328,7 +337,7 @@ void PopDialogBoxShop::buyPropForType(){
 		break;
 	}
 	
-	buyGift.dwNum = 1;
+	buyGift.dwNum = lCurBuyNum;
 	buyGift.dwBuyMethod = 4;
 	
 //	strcpy(buyGift.szNote, "");

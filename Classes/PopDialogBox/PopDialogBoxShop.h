@@ -12,7 +12,7 @@
 #include "../Network/CMD_Server/CMD_LogonServer.h"
 #include "../MTNotificationQueue/MessageQueue.h"
 #define MAX_SHOP_ITEM_COUNT				2			//最大商店项总数
-class PopDialogBoxShop: public PopDialogBox,public MessageQueue {
+class PopDialogBoxShop: public PopDialogBox,public MessageQueue,public IPopAssist {
 
 private:
     
@@ -43,6 +43,8 @@ private:
 	UIImageView *pIBigGold;
 	//保险箱
 	UIImageView *pIInsure;
+	//当前购买数量
+	long lCurBuyNum;
 public:
 	PopDialogBoxShop();
 	~PopDialogBoxShop();
@@ -60,6 +62,11 @@ private:
 	//设置保险箱
 	void setInsure(long long llInsure);
 	
+	//////////////////////////////////////////////////////////////////////////
+	//购买数量回调
+	virtual void onBuyNum(long lNum);
+	//////////////////////////////////////////////////////////////////////////
+
 	//我的背包////////////////////////////////////////////////////////////////////////
 	void onMenuMyPackaga(CCObject *object, TouchEventType type);
 	void onMenuBack(CCObject *object, TouchEventType type);
