@@ -26,6 +26,7 @@ PopDialogBoxBank::PopDialogBoxBank()
 PopDialogBoxBank::~PopDialogBoxBank() {
 	CCLog("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
+	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_BANK);
 }
 void PopDialogBoxBank::onEnter(){
 	CCLayer::onEnter();

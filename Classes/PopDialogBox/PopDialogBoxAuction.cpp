@@ -25,6 +25,7 @@ PopDialogBoxAuction::PopDialogBoxAuction()
 PopDialogBoxAuction::~PopDialogBoxAuction() {
 	CCLog("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
+	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_AUCTION_INFO);
 }
 void PopDialogBoxAuction::onEnter(){
 	CCLayer::onEnter();
