@@ -54,6 +54,12 @@
 		<string>[卖家]</string>
 		<key>strAuctionBuyers</key>
 		<string>[买家]</string>
+		<key>strSelectAuctionGoods</key>
+		<string>请选择要拍卖的道具</string>
+		<key>strInputAuctionGoodsPice</key>
+		<string>请正确填写拍卖单价</string>
+		<key>strInputAuctionGoodsNum</key>
+		<string>请正确填写拍卖数量</string>
 	</dict>
 
 </plist>

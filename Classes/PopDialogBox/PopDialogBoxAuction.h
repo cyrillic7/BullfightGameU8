@@ -21,8 +21,20 @@ private:
 		AUCTION_BUY,				//拍卖购买
 		AUCTION_CANCEL,				//撤销拍卖
 		AUCTION_MY_GOODS,			//我的物品列表
+		AUCTION_SELL_AUCTION,		//出售拍卖品
+		AUCTION_SEARCH,				//搜索
 	};
 	CC_SYNTHESIZE(AuctionItem, auctionItem, AuctionItem);
+
+	enum AgainGetData
+	{
+		AGAIN_NOTHING=0,					//不刷新
+		AGAIN_MY_AUCTION_GOODS,				//获取我的拍卖上架物品列表
+		AGAIN_AUCTION_INFO,					//刷新拍卖信息
+		AGAIN_MY_AUCTION,					//刷新我的拍卖
+	};
+	CC_SYNTHESIZE(AgainGetData, eAgainGetData, AgainGetData);
+
 	//元宝
 	UIImageView *pIBigGold;
 	//保险箱
@@ -49,14 +61,25 @@ private:
 	std::vector <CMD_GP_Auction> vecMyAuctionGoods;
 	//上架商品名称
 	UILabel *pLAuctionGoodsName;
+	//上架商品数量
+	UITextField *pTFAuctionGoodsNum;
+	//上架商品单价
+	UITextField *pTFAuctionGoodsPice;
 
-
+	//搜索
+	UITextField *pTFSearchByID;
+	//搜索按键
+	UIButton *pBSearchByID;
 	//购买索引
-	int auctionBuyIndex;
+	int iAuctionBuyIndex;
+	//卖索引
+	int iAuctionSellIndex;
 	//当前购买数量
 	long lCurBuyNum;
-	//是否获取玩家上架商品列表
-	bool isGetMyAuction;
+	//当前页
+	int iCurPage[MAX_AUCTION_ITEM_COUNT];
+	//总页数
+	int iPageCount[MAX_AUCTION_ITEM_COUNT];
 public:
 	PopDialogBoxAuction();
 	~PopDialogBoxAuction();
@@ -76,18 +99,25 @@ private:
 	void onMenuCancelAuction(CCObject *object, TouchEventType type);
 	//我的背包
 	void onMenupMyPackage(CCObject *object, TouchEventType type);
+	//开始拍卖按键
+	void onMenuSellAuctionGoods(CCObject *object, TouchEventType type);
 	//选择我的上架商品
-	void onMenupSelectMyAuctionCell(CCObject *object, TouchEventType type);
-	
+	void onMenuSelectMyAuctionCell(CCObject *object, TouchEventType type);
+	//搜索按键
+	void onMenuSearchByID(CCObject *object, TouchEventType type);
+
 	//////////////////////////////////////////////////////////////////////////
 	//购买数量回调
 	virtual void onBuyNum(long lNum);
 	//////////////////////////////////////////////////////////////////////////
-
+	//滚动回调
+	void onScrollViewEvent(CCObject*obj, ScrollviewEventType type);
 	//复选框回调
 	void onCheckBoxSelectedStateEvent(CCObject *pSender, CheckBoxEventType type);
 	//切换拍卖项
 	void changeSelectItem(AuctionItem eItem);
+	//显示搜索
+	void showSearch(bool isShow);
 	//更新拍卖信息列表
 	void updateListAuctionInfo();
 	//更新我的列表
@@ -95,7 +125,7 @@ private:
 	//更新拍卖历史记录列表
 	void updateListHistoryAuctionRecord();
 	//更新玩家上架商品列表
-	void updateListMyAuction();
+	void updateListMyAuctionGoods();
 	//////////////////////////////////////////////////////////////////////////
 	void update(float delta);
 	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_AUCTION_INFO); }
@@ -103,6 +133,8 @@ private:
 	virtual void onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
 	//连接成功
 	void connectSuccess();
+	//处理消息完成
+	void messageFinish();
 	//用户服务
 	void onEventUserService(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
 	//拍卖信息
@@ -113,5 +145,8 @@ private:
 	void onSubHistoryAuctionRecord(void * pDataBuffer, unsigned short wDataSize);
 	//购买拍卖品
 	void onSubBuyAuction(void * pDataBuffer, unsigned short wDataSize);
-
+	//出售拍卖品
+	void onSubSellAuction(void * pDataBuffer, unsigned short wDataSize);
+	//取消拍卖
+	void onSubCancelAuction(void * pDataBuffer, unsigned short wDataSize);
 };

@@ -1385,7 +1385,7 @@
                 "options": {
                   "__type": "ButtonSurrogate:#EditorCommon.JsonModel.Component.GUI",
                   "classname": "Button",
-                  "name": "ButtonAuction",
+                  "name": "ButtonSellAuction",
                   "ZOrder": 0,
                   "actiontag": 47815472,
                   "anchorPointX": 0.5,
@@ -1616,7 +1616,7 @@
                         "options": {
                           "__type": "TextFieldSurrogate:#EditorCommon.JsonModel.Component.GUI",
                           "classname": "TextField",
-                          "name": "TextField_65",
+                          "name": "TextFieldAuctionGoodsNum",
                           "ZOrder": 0,
                           "actiontag": 63558388,
                           "anchorPointX": 0,
@@ -1723,7 +1723,7 @@
                         "options": {
                           "__type": "TextFieldSurrogate:#EditorCommon.JsonModel.Component.GUI",
                           "classname": "TextField",
-                          "name": "TextField_66",
+                          "name": "TextFieldAuctionGoodsPice",
                           "ZOrder": 0,
                           "actiontag": 37524808,
                           "anchorPointX": 0,
@@ -1848,8 +1848,8 @@
                       "rotation": 0,
                       "scaleX": 1,
                       "scaleY": 1,
-                      "sizePercentX": 0.31088084,
-                      "sizePercentY": 0.1985294,
+                      "sizePercentX": 5.181347E-05,
+                      "sizePercentY": 7.352941E-05,
                       "sizeType": 0,
                       "tag": 2773,
                       "touchAble": false,
@@ -2361,7 +2361,7 @@
                 "options": {
                   "__type": "TextFieldSurrogate:#EditorCommon.JsonModel.Component.GUI",
                   "classname": "TextField",
-                  "name": "TextField_66",
+                  "name": "TextFieldSearchByID",
                   "ZOrder": 0,
                   "actiontag": 54137272,
                   "anchorPointX": 0,
@@ -2397,13 +2397,13 @@
                   "areaWidth": 135,
                   "fontFile": null,
                   "fontName": "微软雅黑",
-                  "fontSize": 20,
+                  "fontSize": 18,
                   "maxLength": 10,
                   "maxLengthEnable": false,
                   "passwordEnable": false,
                   "passwordStyleText": "*",
-                  "placeHolder": "",
-                  "text": " "
+                  "placeHolder": "输入ID或昵称",
+                  "text": ""
                 }
               }
             ],
@@ -2464,7 +2464,7 @@
             "options": {
               "__type": "ButtonSurrogate:#EditorCommon.JsonModel.Component.GUI",
               "classname": "Button",
-              "name": "Button_74",
+              "name": "ButtonSearchByID",
               "ZOrder": 0,
               "actiontag": 50478990,
               "anchorPointX": 0.5,
