@@ -84,4 +84,8 @@
     <Project>UIPopDialogBoxBuyCount</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxChangePassword</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

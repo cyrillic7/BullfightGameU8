@@ -14,12 +14,13 @@
 #include "PopDialogBoxKnapsack.h"
 #include "../Network/ListernerThread/LogonGameListerner.h"
 #include "../Network/MD5/MD5.h"
-#define MAX_PAGE_SIZE		2			//每页最大数
+#define MAX_PAGE_SIZE		20			//每页最大数
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxAuction::PopDialogBoxAuction()
 	:auctionItem(AUCTION_INFO)
 	, eAgainGetData(AGAIN_MY_AUCTION_GOODS)
 	, iAuctionSellIndex(-1)
+	, isCurSearchInfo(false)
 {
 	scheduleUpdate();
 }
@@ -266,8 +267,18 @@ void PopDialogBoxAuction::onMenuSearchByID(CCObject *object, TouchEventType type
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		setAuctionItem(AUCTION_SEARCH);
-		connectServer(SOCKET_AUCTION_INFO);
+		if (strcmp(pTFSearchByID->getStringValue(),"")!=0)
+		{
+			vecAuctionInfo.clear();
+			iCurPage[AUCTION_INFO] = 1;
+			isCurSearchInfo = true;
+			setAuctionItem(AUCTION_SEARCH);
+			connectServer(SOCKET_AUCTION_INFO);
+		}
+		else
+		{
+			//pTFSearchByID->setPlaceHolder("输入ID或昵称 ");
+		}
 	}
 	break;
 	default:
@@ -291,7 +302,15 @@ void PopDialogBoxAuction::onScrollViewEvent(CCObject*obj, ScrollviewEventType ty
 		if (iCurPage[index]<iPageCount[index])
 		{
 			iCurPage[index]++;
-			setAuctionItem((AuctionItem)index);
+			if (isCurSearchInfo)
+			{
+				setAuctionItem(AUCTION_SEARCH);
+			}
+			else
+			{
+				setAuctionItem((AuctionItem)index);
+			}
+			
 			connectServer(SOCKET_AUCTION_INFO);
 		}
 	}
@@ -307,6 +326,7 @@ void PopDialogBoxAuction::onCheckBoxSelectedStateEvent(CCObject *pSender, CheckB
 	{
 	case CHECKBOX_STATE_EVENT_SELECTED:
 	{
+		pTFSearchByID->setText("");
 		UICheckBox *box = (UICheckBox*)pSender;
 		int index = box->getTag() - 1;
 		
@@ -332,6 +352,7 @@ void PopDialogBoxAuction::onCheckBoxSelectedStateEvent(CCObject *pSender, CheckB
 	break;
 	case CHECKBOX_STATE_EVENT_UNSELECTED:
 	{
+		pTFSearchByID->setText("");
 		UICheckBox *box = (UICheckBox*)pSender;
 		int index = box->getTag() - 1;
 		if (!pCBAuctionItems[index]->getSelectedState())
@@ -380,6 +401,7 @@ void PopDialogBoxAuction::changeSelectItem(AuctionItem eItem){
 		showSearch(true);
 		iCurPage[AUCTION_INFO] = 1;
 		vecAuctionInfo.clear();
+		isCurSearchInfo = false;
 		connectServer(SOCKET_AUCTION_INFO);
 	}
 		break;
@@ -698,8 +720,8 @@ void PopDialogBoxAuction::connectSuccess(){
 	{
 		//查找拍卖记录
 		CMD_GP_Query_Auction queryAuction;
-		strcpy(queryAuction.szID, pTFSearchByID->getStringValue());
-		queryAuction.dwPage = 1;
+		strcpy(queryAuction.szID, UTF8ToGBK(pTFSearchByID->getStringValue()));
+		queryAuction.dwPage = iCurPage[AUCTION_INFO];
 		queryAuction.dwPageSize = MAX_PAGE_SIZE;
 		queryAuction.dwLastDay = 1;
 		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_QUERY_AUCTION, &queryAuction, sizeof(queryAuction));
@@ -772,6 +794,11 @@ void PopDialogBoxAuction::onEventUserService(WORD wSubCmdID, void * pDataBuffer,
 	case SUB_GP_SELL_AUCTION://出售拍卖品
 	{
 		onSubSellAuction(pDataBuffer,wDataSize);
+	}
+		break;
+	case SUB_GP_QUERY_AUCTION://搜索
+	{
+		onSubAuctionInfo(pDataBuffer, wDataSize);
 	}
 		break;
 	default:

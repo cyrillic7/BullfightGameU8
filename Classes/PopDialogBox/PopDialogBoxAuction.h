@@ -80,6 +80,8 @@ private:
 	int iCurPage[MAX_AUCTION_ITEM_COUNT];
 	//总页数
 	int iPageCount[MAX_AUCTION_ITEM_COUNT];
+	//当前是搜索信息
+	bool isCurSearchInfo;
 public:
 	PopDialogBoxAuction();
 	~PopDialogBoxAuction();
