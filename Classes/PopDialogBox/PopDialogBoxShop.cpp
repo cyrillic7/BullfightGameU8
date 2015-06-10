@@ -48,7 +48,7 @@ void PopDialogBoxShop::onEnter(){
 	bg->setScale(scale);
 	//关闭
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
-	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxShop::onMenuBack));
+	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::onMenuBackWithReadMsg));
 	//我的背包
 	backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonPackage"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxShop::onMenuMyPackaga));
@@ -134,13 +134,6 @@ void PopDialogBoxShop::onMenuMyPackaga(CCObject *object, TouchEventType type){
 		break;
 	default:
 		break;
-	}
-}
-void PopDialogBoxShop::onMenuBack(CCObject *object, TouchEventType type){
-	if (type == TOUCH_EVENT_ENDED)
-	{
-		setLobbyReadMessage(true);
-		this->removeFromParentAndCleanup(true);
 	}
 }
 //购买道具

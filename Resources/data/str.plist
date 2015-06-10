@@ -19,8 +19,8 @@
 		<string>连接超时！</string>
 		<key>strWaitCodeing</key>
 		<string>敬请期待</string>
-		<key>strPasswordEmpty</key>
 
+		<key>strPasswordEmpty</key>
 		<string>密码不能为空！</string>
 		<key>strPasswordInconsistent</key>
 		<string>两次密码输入不一致，请重新输入！</string>

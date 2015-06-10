@@ -9,9 +9,12 @@
 #include "../Tools/DataModel.h"
 #include "../Tools/GameConfig.h"
 #include "../Tools/BaseAttributes.h"
+#include "../Tools/Tools.h"
 #include "PopDialogBoxHelp.h"
 #include "PopDialogBoxFeedback.h"
 #include "PopDialogBoxAbout.h"
+#include "PopDialogBoxChangePassword.h"
+#include "../LogonScene/LogonScene.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxSetUp::PopDialogBoxSetUp()
 {
@@ -28,26 +31,38 @@ void PopDialogBoxSetUp::onEnter(){
 
 	pWidgetBg = static_cast<UIImageView*>(pUILayer->getWidgetByName("bg"));
 	pWidgetBg->setScale(0.8);
-
+	//用户昵称
+	UILabel *pLUserName = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelUserName"));
+	pLUserName->setText(GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName));
+	//关闭
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
-	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));
+	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::onMenuBackWithReadMsg));
 	//帮助按键
 	backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonHelp"));
-	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxSetUp::menuHelp));
+	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxSetUp::onMenuHelp));
 	//意见反馈
 	backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonFeedback"));
-	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxSetUp::menuFeedback));
+	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxSetUp::onMenuFeedback));
 	//关于我们
 	backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonAbout"));
-	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxSetUp::menuAbout));
-
+	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxSetUp::onMenuAbout));
+	//修改登录密码
+	backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonCLPassword"));
+	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxSetUp::onMenuChangePassword));
+	//修改保险箱密码
+	backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonCBPassword"));
+	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxSetUp::onMenuChangePassword));
+	//切换帐号
+	backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonChangeAccount"));
+	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxSetUp::onMenuChangeAccount));
 	playAnimation();
+	setLobbyReadMessage(false);
 }
 void PopDialogBoxSetUp::onExit(){
 	CCLayer::onExit();
 }
 //帮助
-void PopDialogBoxSetUp::menuHelp(CCObject *object, TouchEventType type){
+void PopDialogBoxSetUp::onMenuHelp(CCObject *object, TouchEventType type){
 	if (type==TOUCH_EVENT_ENDED)
 	{
 		PopDialogBoxHelp *help=PopDialogBoxHelp::create();
@@ -55,7 +70,7 @@ void PopDialogBoxSetUp::menuHelp(CCObject *object, TouchEventType type){
 	}
 }
 //意见反馈
-void PopDialogBoxSetUp::menuFeedback(CCObject *object, TouchEventType type){
+void PopDialogBoxSetUp::onMenuFeedback(CCObject *object, TouchEventType type){
 	if (type==TOUCH_EVENT_ENDED)
 	{
 		PopDialogBoxFeedback *feedback=PopDialogBoxFeedback::create();
@@ -63,10 +78,31 @@ void PopDialogBoxSetUp::menuFeedback(CCObject *object, TouchEventType type){
 	}
 }
 //关于我们
-void PopDialogBoxSetUp::menuAbout(CCObject *object, TouchEventType type){
+void PopDialogBoxSetUp::onMenuAbout(CCObject *object, TouchEventType type){
 	if (type==TOUCH_EVENT_ENDED)
 	{
 		PopDialogBoxAbout *about=PopDialogBoxAbout::create();
 		this->addChild(about);
+	}
+}
+//修改密码
+void PopDialogBoxSetUp::onMenuChangePassword(CCObject *object, TouchEventType type){
+	if (type == TOUCH_EVENT_ENDED)
+	{
+		UIButton *pBTemp = (UIButton*)object;
+		if (pBTemp->getTag()==1)
+		{
+		}
+		
+		PopDialogBoxChangePassword *pChangePasswrod = PopDialogBoxChangePassword::create();
+		this->addChild(pChangePasswrod);
+		pChangePasswrod->setPasswordType(pBTemp->getTag());
+	}
+}
+//切换帐号
+void PopDialogBoxSetUp::onMenuChangeAccount(CCObject *object, TouchEventType type){
+	if (type == TOUCH_EVENT_ENDED)
+	{
+		Tools::setTransitionAnimation(0, 0, LogonScene::scene());
 	}
 }

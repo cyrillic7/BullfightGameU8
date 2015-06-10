@@ -69,7 +69,6 @@ private:
 
 	//我的背包////////////////////////////////////////////////////////////////////////
 	void onMenuMyPackaga(CCObject *object, TouchEventType type);
-	void onMenuBack(CCObject *object, TouchEventType type);
 	//购买按键
 	void onMenuBuyProp(CCObject *object, TouchEventType type);
 	//复选框回调

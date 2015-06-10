@@ -23,7 +23,7 @@ USING_NS_CC;
 #define SOCKET_KNAPSACK							"socketKnapsack"				//我的背包
 #define SOCKET_BANK								"socketBank"					//我的保险箱
 #define SOCKET_AUCTION_INFO						"socketAuctionInfo"				//拍卖信息列表
-
+#define SOCKET_CHANGE_PASSWORD					"socketChangePassword"			//修改密码
 
 class TCPSocketControl {
 public:

@@ -37,7 +37,7 @@ void PopDialogBoxBank::onEnter(){
 	pWidgetBg->setScale(0.8);
 	//关闭
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
-	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));
+	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::onMenuBackWithReadMsg));
 
 	//创建密码容器////////////////////////////////////////////////////////////////////////
 	pPanelCreatePassword = static_cast<UIPanel*>(pUILayer->getWidgetByName("PanelCreatePassword"));

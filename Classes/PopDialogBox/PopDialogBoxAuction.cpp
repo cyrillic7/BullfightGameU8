@@ -47,7 +47,7 @@ void PopDialogBoxAuction::onEnter(){
 
 	//关闭
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
-	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));
+	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::onMenuBackWithReadMsg));
 	//我的背包
 	UIButton *pBPackage = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonPackage"));
 	pBPackage->addTouchEventListener(this, toucheventselector(PopDialogBoxAuction::onMenupMyPackage));
@@ -78,6 +78,7 @@ void PopDialogBoxAuction::onEnter(){
 	pLVMyAuction = static_cast<UIListView*>(pUILayer->getWidgetByName("ListViewMyAuction"));
 	//设置cell样式
 	pLVMyAuction->setItemModel(pLVMyAuction->getItem(0));
+	pLVMyAuction->removeAllItems();
 	
 	for (int i = 0; i < MAX_AUCTION_ITEM_COUNT; i++)
 	{
@@ -107,7 +108,7 @@ void PopDialogBoxAuction::onEnter(){
 	updateListHistoryAuctionRecord();
 
 	pCBAuctionItems[0]->setSelectedState(true);
-	onCheckBoxSelectedStateEvent(pCBAuctionItems[0], CHECKBOX_STATE_EVENT_SELECTED);
+	onCheckBoxSelectedStateEvent(pCBAuctionItems[AUCTION_INFO], CHECKBOX_STATE_EVENT_SELECTED);
 	
 
 	setBigGold(DataModel::sharedDataModel()->userInfo->lIngotScore);
@@ -788,7 +789,7 @@ void PopDialogBoxAuction::onEventUserService(WORD wSubCmdID, void * pDataBuffer,
 	{
 		
 		CMD_GP_AuctionLog *Log = (CMD_GP_AuctionLog *)pDataBuffer;
-		CCLog("2222222222222222 <<%s>>", __FUNCTION__);
+		//showTipInfo(GBKToUTF8(Log->szDescribeString));
 	}
 		break;
 	case SUB_GP_SELL_AUCTION://出售拍卖品
@@ -877,12 +878,20 @@ void PopDialogBoxAuction::onSubBuyAuction(void * pDataBuffer, unsigned short wDa
 	CMD_GP_Buy_AuctionLog *pBuyAuction = (CMD_GP_Buy_AuctionLog *)pDataBuffer;
 	if (pBuyAuction->dwRet==0)
 	{
-		
+		vecAuctionInfo[iAuctionBuyIndex].dwPropNum -= lCurBuyNum;
+		if (vecAuctionInfo[iAuctionBuyIndex].dwPropNum <= 0)
+		{
+			vector< CMD_GP_AuctionRecordItem >::iterator k = vecAuctionInfo.begin() + iAuctionBuyIndex;
+			vecAuctionInfo.erase(k);
+		}
+		updateListAuctionInfo();
+
 		setAgainGetData(AGAIN_MY_AUCTION_GOODS);
 	}
 	else
 	{
-
+		setAgainGetData(AGAIN_AUCTION_INFO);
+		//onCheckBoxSelectedStateEvent(pCBAuctionItems[AUCTION_INFO], CHECKBOX_STATE_EVENT_SELECTED);
 	}
 	showTipInfo(GBKToUTF8(pBuyAuction->szDescribeString));
 }

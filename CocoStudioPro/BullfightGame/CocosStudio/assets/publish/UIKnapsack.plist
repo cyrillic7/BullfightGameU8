@@ -7,11 +7,11 @@
             <key>u_k_Introduction.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{262,2},{120,35}}</string>
+                <string>{{109,85},{120,35}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{120,35}}</string>
                 <key>sourceSize</key>
@@ -20,24 +20,24 @@
             <key>u_k_nothing.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{258,258}}</string>
+                <string>{{2,2},{105,111}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{258,258}}</string>
+                <string>{{0,0},{105,111}}</string>
                 <key>sourceSize</key>
-                <string>{258,258}</string>
+                <string>{105,111}</string>
             </dict>
             <key>u_k_num_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{299,83},{43,23}}</string>
+                <string>{{269,2},{43,23}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{43,23}}</string>
                 <key>sourceSize</key>
@@ -46,7 +46,7 @@
             <key>ui_knapsack_determine.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{262,207},{32,32}}</string>
+                <string>{{231,83},{32,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>ui_knapsack_select.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{262,124},{80,81}}</string>
+                <string>{{109,2},{80,81}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>ui_knapsack_unselect.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{299,2},{76,79}}</string>
+                <string>{{191,2},{76,79}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -90,9 +90,9 @@
             <key>realTextureFileName</key>
             <string>UIKnapsack.png</string>
             <key>size</key>
-            <string>{377,262}</string>
+            <string>{294,122}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:1def141069ae5408244f92323563128f:abf4d914ca158380d48a98afa5f3a53e:7adc74eb6c6e62d8a58aec9d378b0cda$</string>
+            <string>$TexturePacker:SmartUpdate:c9947e41d0f763d04ce9c3dc5be2d9e5:5e061a25f215cee5cf477b7932a8cde5:7adc74eb6c6e62d8a58aec9d378b0cda$</string>
             <key>textureFileName</key>
             <string>UIKnapsack.png</string>
         </dict>

@@ -50,6 +50,13 @@ void PopDialogBox::menuBack(CCObject *object, TouchEventType type){
 		this->removeFromParentAndCleanup(true);
 	}
 }
+void PopDialogBox::onMenuBackWithReadMsg(CCObject *object, TouchEventType type){
+	if (type == TOUCH_EVENT_ENDED)
+	{
+		setLobbyReadMessage(true);
+		this->removeFromParentAndCleanup(true);
+	}
+}
 void PopDialogBox::playAnimation(){
 	if (pWidgetBg)
 	{

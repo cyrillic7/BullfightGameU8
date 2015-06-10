@@ -9,6 +9,8 @@
 
 #include "PopDialogBox.h"
 class PopDialogBoxSetUp: public PopDialogBox {
+private:
+
 public:
     
 	PopDialogBoxSetUp();
@@ -18,7 +20,11 @@ private:
 	virtual void onEnter();
 	virtual void onExit();
 	//帮助
-	void menuHelp(CCObject *object, TouchEventType type);
-	void menuFeedback(CCObject *object, TouchEventType type);
-	void menuAbout(CCObject *object, TouchEventType type);
+	void onMenuHelp(CCObject *object, TouchEventType type);
+	void onMenuFeedback(CCObject *object, TouchEventType type);
+	void onMenuAbout(CCObject *object, TouchEventType type);
+	//修改密码
+	void onMenuChangePassword(CCObject *object, TouchEventType type);
+	//切换帐号
+	void onMenuChangeAccount(CCObject *object, TouchEventType type);
 };
