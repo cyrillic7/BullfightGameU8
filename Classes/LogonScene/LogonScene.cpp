@@ -13,6 +13,7 @@
 #include "../PopDialogBox/PopDialogBoxTipInfo.h"
 #include "../GameLobby/GameLobbyScene.h"
 #include "../Network/ListernerThread/LogonGameListerner.h"
+#include "../Network/ListernerThread/LobbyGameListerner.h"
 #include "../Network/MD5/MD5.h"
 #include "../Network/CMD_Server/cmd_ox.h"
 #include "../Tools/BaseAttributes.h"
@@ -231,7 +232,14 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 		break;
 	case SUB_GP_LOBBY_IP:
 	{
-
+		//效验参数
+		if (wDataSize < sizeof(CMD_GP_LobbyIp)) return;
+		CMD_GP_LobbyIp *pLobbyIp = (CMD_GP_LobbyIp*)pDataBuffer;
+		
+		TCPSocket *tcp = TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOBBY);
+		if (tcp){
+			tcp->createSocket(pLobbyIp->szServerIP, pLobbyIp->dwServerPort, new LobbyGameListerner());
+		}
 	}
 		break;
 	default:

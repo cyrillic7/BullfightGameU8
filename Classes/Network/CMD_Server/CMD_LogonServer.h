@@ -1050,6 +1050,58 @@ struct CMD_MB_UpdateNotify
 
 //////////////////////////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////////////////
+//任务
+#define MDM_GL_C_DATA					1								//大厅--客户端数据
+#define	SUB_GL_C_TASK_LOAD				114								//加载任务
+
+#define  TASK_TITLE_LEN			16
+#define  TASK_TITLE_LEN			32
+#define	 TASK_AWARD				8
+#define  TASK_INFO_COUNT		20
+#define	 IMGNAME				32
+#define  PROC_NAME				64
+#define  LEN_AWARD				32
+
+struct CMD_GL_GetTask
+{
+	CMD_GL_GetTask()
+	{
+		//memset(this, 0, sizeof(CMD_GL_GetTask));
+	}
+	DWORD				dwOpTerminal;							//操作终端（1：pc, 2：手机）
+};
+//任务奖励，最多3个
+struct CMD_GL_TaskAward
+{
+	CMD_GL_TaskAward()
+	{
+		//memset(this, 0, sizeof(CMD_GL_TaskAward));
+	}
+	DWORD           dwAward1;
+	TCHAR			szAward1[LEN_AWARD];
+	DWORD           dwAward2;
+	TCHAR			szAward2[LEN_AWARD];
+	DWORD           dwAward3;
+	TCHAR			szAward3[LEN_AWARD];
+};
+//任务
+struct CMD_GL_TaskInfo
+{
+	CMD_GL_TaskInfo()
+	{
+		//memset(this, 0, sizeof(CMD_GL_TaskInfo));
+	}
+	DWORD				dwTaskID;
+	TCHAR				szTitle[TASK_TITLE_LEN];
+	TCHAR				szImgName[IMGNAME];				//图片
+	DWORD				dwSortID;
+	CMD_GL_TaskAward	Award;
+	TCHAR				szRemarks[TASK_TITLE_LEN];
+	DWORD				dwProgress;
+	DWORD				dwCurProgress;
+};
+
 #pragma pack()
 
 #endif

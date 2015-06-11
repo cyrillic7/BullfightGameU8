@@ -12,10 +12,11 @@
 PopDialogBoxTask::PopDialogBoxTask()
 {
     
-	
+	scheduleUpdate();
 }
 PopDialogBoxTask::~PopDialogBoxTask() {
 	CCLog("~ <<%s>>",__FUNCTION__);
+	unscheduleUpdate();
 }
 void PopDialogBoxTask::onEnter(){
 	CCLayer::onEnter();
@@ -29,7 +30,31 @@ void PopDialogBoxTask::onEnter(){
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));
 	
 	playAnimation();
+
+	
 }
 void PopDialogBoxTask::onExit(){
 	CCLayer::onExit();
+}
+//更新
+void PopDialogBoxTask::update(float delta){
+	MessageQueueLobby::update(delta);
+}
+//////////////////////////////////////////////////////////////////////////
+//网络数据
+void PopDialogBoxTask::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
+	switch (wMainCmdID)
+	{
+	case MDM_MB_SOCKET:
+	{
+		CMD_GL_GetTask getTask;
+		getTask.dwOpTerminal = 1;
+		bool isSend= getSocket()->SendData(MDM_GL_C_DATA, SUB_GL_C_TASK_LOAD, &getTask, sizeof(getTask));
+		CCLog(" <<%s>>", __FUNCTION__);
+	}
+		break;
+	default:
+		CCLog("main:%d <<%s>>",wMainCmdID, __FUNCTION__);
+		break;
+	}
 }

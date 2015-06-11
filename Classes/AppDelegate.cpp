@@ -16,12 +16,16 @@ AppDelegate::AppDelegate() {
 }
 AppDelegate::~AppDelegate() 
 {
+	//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOBBY);
+	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOBBY);
+
 	DataModel *m = DataModel::sharedDataModel();
 	CC_SAFE_RELEASE_NULL(m);
 	BaseAttributes *base=BaseAttributes::sharedAttributes();
 	CC_SAFE_DELETE(base);
 	TCPSocketControl *tcp=TCPSocketControl::sharedTCPSocketControl();
 	tcp->removeTCPSocket(SOCKET_LOGON_GAME);
+	tcp->removeTCPSocket(SOCKET_LOBBY);
 	CC_SAFE_DELETE(tcp);
 	MTNotificationQueue *mtQueue=MTNotificationQueue::sharedNotificationQueue();
 	CC_SAFE_DELETE(mtQueue);

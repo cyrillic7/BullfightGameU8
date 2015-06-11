@@ -45,6 +45,8 @@ public:
 	tagUserInfo *userInfo;
 	//消息队列
 	std::queue<ReadData>readDataQueue;
+	//大厅消息队列
+	std::queue<ReadData>readDataQueueLobby;
     
 	//筹码
 	std::vector<JettonNode *>vecJettonNode;
