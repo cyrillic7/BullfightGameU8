@@ -12,6 +12,7 @@
 #include "../PopDialogBox/PopDialogBoxUserInfo.h"
 #include "../PopDialogBox/PopDialogBoxLoading.h"
 #include "../PopDialogBox/PopDialogBoxTipInfo.h"
+#include "../PopDialogBox/PopDialogBoxSign.h"
 #include "ClassicLobbyScene.h"
 #include "../Play/GameControl/GameControlOxHundred.h"
 #include "../Tools/DataModel.h"
@@ -88,6 +89,13 @@ void GameLobbyScene::onEnter(){
 	if (isShowUpTip)
 	{
 		showUpTip();
+	}
+	//是否显示签到
+	isShowSign = false;
+	if (isShowSign)
+	{
+		PopDialogBoxSign *pSign = PopDialogBoxSign::create();
+		this->addChild(pSign,10);
 	}
 }
 //显示站立提示

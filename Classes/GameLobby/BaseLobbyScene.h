@@ -29,6 +29,7 @@ private:
 		POP_SHOP,					//商店
 		POP_AUCTION,				//拍卖
 		POP_RANKING,				//排行
+		POP_MSG,					//消息
 	};
 public:
     BaseLobbyScene();

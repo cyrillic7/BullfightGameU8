@@ -19,6 +19,7 @@
 #include "../PopDialogBox/PopDialogBoxAuction.h"
 #include "../PopDialogBox/PopDialogBoxRanking.h"
 #include "../PopDialogBox/PopDialogBoxTipInfo.h"
+#include "../PopDialogBox/PopDialogBoxMsg.h"
 #include "../Tools/DataModel.h"
 BaseLobbyScene::BaseLobbyScene()
 	:isReadMessage(true){
@@ -116,6 +117,9 @@ void BaseLobbyScene::popDialogBox(PopType type){
 	case BaseLobbyScene::POP_RANKING:
 		pdb=PopDialogBoxRanking::create();
 		break;
+	case BaseLobbyScene::POP_MSG:
+		pdb = PopDialogBoxMsg::create();
+		break;
 	default:
 		break;
 	}
@@ -163,6 +167,10 @@ void BaseLobbyScene::onMenuCallback(CCObject* pSender, TouchEventType type){
 			else if(strcmp(button->getName(),"ButtonRanking")==0)
 			{
 				popDialogBox(POP_RANKING);
+			}
+			else if (strcmp(button->getName(), "ButtonMsg") == 0)
+			{
+				popDialogBox(POP_MSG);
 			}
 			else
 			{

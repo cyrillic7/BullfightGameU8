@@ -25,6 +25,8 @@ private:
 	UIScrollView *scroll;
 	//是否显示站立提示
 	static bool isShowUpTip;
+	//是否显示签到
+	bool isShowSign;
 public:
     GameLobbyScene();
     ~GameLobbyScene();

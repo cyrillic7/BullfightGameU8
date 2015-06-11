@@ -116,6 +116,7 @@ void LogonScene::logonGameByAccount(){
 	if (tcp)
 	{
 		tcp->createSocket(GAME_IP, PORT_LOGON, new LogonGameListerner());
+		//tcp->createSocket(GAME_IP, 8130, new LogonGameListerner());
 	}
 }
 //读取网络消息回调
@@ -227,6 +228,11 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			CMD_MB_UpdateNotify *lf = (CMD_MB_UpdateNotify*)pDataBuffer;
 			CCLog("升级提示");
 		}
+		break;
+	case SUB_GP_LOBBY_IP:
+	{
+
+	}
 		break;
 	default:
 		CCLog("--------%d <<%s>>", wSubCmdID, __FUNCTION__);

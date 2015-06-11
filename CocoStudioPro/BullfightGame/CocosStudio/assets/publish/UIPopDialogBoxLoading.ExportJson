@@ -25,7 +25,9 @@
     "Font.plist",
     "UIGameIng.plist",
     "UIGameIngHundred.plist",
-    "UIKnapsack.plist"
+    "UIKnapsack.plist",
+    "UIMsg.plist",
+    "UISign.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
@@ -44,6 +46,8 @@
     "UIGameIng.png",
     "UIGameIngHundred.png",
     "UIKnapsack.png",
+    "UIMsg.png",
+    "UISign.png",
     "UIPanel.png",
     "UIButton.png",
     "UIUserInfo.png",
@@ -59,7 +63,9 @@
     "Font.png",
     "UIGameIng.png",
     "UIGameIngHundred.png",
-    "UIKnapsack.png"
+    "UIKnapsack.png",
+    "UIMsg.png",
+    "UISign.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

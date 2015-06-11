@@ -88,4 +88,12 @@
     <Project>UIPopDialogBoxChangePassword</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxMsg</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxSign</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

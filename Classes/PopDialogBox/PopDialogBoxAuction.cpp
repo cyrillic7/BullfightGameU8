@@ -789,6 +789,7 @@ void PopDialogBoxAuction::onEventUserService(WORD wSubCmdID, void * pDataBuffer,
 	{
 		
 		CMD_GP_AuctionLog *Log = (CMD_GP_AuctionLog *)pDataBuffer;
+		CCLog(" <<%s>>", __FUNCTION__);
 		//showTipInfo(GBKToUTF8(Log->szDescribeString));
 	}
 		break;
