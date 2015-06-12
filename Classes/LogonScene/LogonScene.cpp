@@ -238,10 +238,12 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 		//效验参数
 		if (wDataSize < sizeof(CMD_GP_LobbyIp)) return;
 		CMD_GP_LobbyIp *pLobbyIp = (CMD_GP_LobbyIp*)pDataBuffer;
-		
+		DataModel::sharedDataModel()->sLobbyIp = pLobbyIp->szServerIP;
+		DataModel::sharedDataModel()->lLobbyProt = pLobbyIp->dwServerPort;
 		TCPSocket *tcp = TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOBBY);
 		if (tcp&&tcp->eSocketState!=TCPSocket::SOCKET_STATE_CONNECT_SUCCESS){
 			tcp->createSocket(pLobbyIp->szServerIP, pLobbyIp->dwServerPort, new LobbyGameListerner());
+			//tcp->createSocket("112.1.1.1", pLobbyIp->dwServerPort, new LobbyGameListerner());
 		}
 	}
 		break;

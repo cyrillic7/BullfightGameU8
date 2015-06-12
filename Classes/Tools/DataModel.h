@@ -19,6 +19,10 @@ public:
 	std::string sLogonAccount;
 	//登录密码
 	std::string sLogonPassword;
+	//长连接大厅地址
+	std::string sLobbyIp;
+	//长连接大厅端口
+	long lLobbyProt;
 	//主场景对象
 	CC_SYNTHESIZE(MainSceneOxTwo *, mainSceneOxTwo, MainSceneOxTwo);
 	CC_SYNTHESIZE(MainSceneOxHundred *, mainSceneOxHundred, MainSceneOxHundred);

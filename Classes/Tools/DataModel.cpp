@@ -123,7 +123,10 @@ void DataModel::sortVector(std::vector <tagGameServer *> vTagGameServer){
 void DataModel::removeTagGameServerList(std::vector <tagGameServer *> vTagGameServer){
 	for (int i=0;i<vTagGameServer.size();i++)
 	{
-		CC_SAFE_DELETE(vTagGameServer[i]);
+		if (vTagGameServer[i])
+		{
+			CC_SAFE_DELETE(vTagGameServer[i]);
+		}
 	}
 	vTagGameServer.clear();
 	vTagGameServer.resize(0);

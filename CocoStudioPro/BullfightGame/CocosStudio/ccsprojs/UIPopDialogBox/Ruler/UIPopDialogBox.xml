@@ -30,7 +30,12 @@
   </GuidesProject>
   <GuidesProject>
     <Project>UIPopDialogBoxTask</Project>
-    <GuidesList />
+    <GuidesList>
+      <GuidesInfo>
+        <GuidesName>VThumb</GuidesName>
+        <GuidesPosition>571.68254307338179</GuidesPosition>
+      </GuidesInfo>
+    </GuidesList>
   </GuidesProject>
   <GuidesProject>
     <Project>UIPopDialogBoxBank</Project>

@@ -50,12 +50,18 @@ void LobbyGameListerner::OnIdle(TCPSocket* so)
  */
 bool LobbyGameListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_Command Command, void * pDataBuffer, unsigned short wDataSize)
 {
-	ReadData rData;
-	rData.wMainCmdID=Command.wMainCmdID;
-	rData.wSubCmdID=Command.wSubCmdID;
-	rData.wDataSize=wDataSize;
-	memcpy(rData.sReadData,pDataBuffer,wDataSize);
-	MessageQueueLobby::pushQueue(rData);
+	if (Command.wMainCmdID == MDM_GL_C_DATA)
+	{
+		if (Command.wSubCmdID == SUB_GL_C_TASK_LOAD)
+		{
+			ReadData rData;
+			rData.wMainCmdID = Command.wMainCmdID;
+			rData.wSubCmdID = Command.wSubCmdID;
+			rData.wDataSize = wDataSize;
+			memcpy(rData.sReadData, pDataBuffer, wDataSize);
+			MessageQueueLobby::pushQueue(rData);
+		}
+	}
 	return true;
 }
 void LobbyGameListerner::OnOpen(TCPSocket* so)
