@@ -18,6 +18,9 @@
 #include "../Network/CMD_Server/cmd_ox.h"
 #include "../Tools/BaseAttributes.h"
 LogonScene::LogonScene(){
+	DataModel *m = DataModel::sharedDataModel();
+	CC_SAFE_RELEASE_NULL(m);
+
 	readRMS();
 	scheduleUpdate();
 }
@@ -237,7 +240,7 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 		CMD_GP_LobbyIp *pLobbyIp = (CMD_GP_LobbyIp*)pDataBuffer;
 		
 		TCPSocket *tcp = TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOBBY);
-		if (tcp){
+		if (tcp&&tcp->eSocketState!=TCPSocket::SOCKET_STATE_CONNECT_SUCCESS){
 			tcp->createSocket(pLobbyIp->szServerIP, pLobbyIp->dwServerPort, new LobbyGameListerner());
 		}
 	}
