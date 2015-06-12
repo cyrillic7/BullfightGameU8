@@ -76,6 +76,14 @@ public:
     
 public:
 	SOCKET m_sock;
+	enum SocketState
+	{
+		SOCKET_STATE_FREE=0,					//空闲
+		SOCKET_STATE_CONNECT_SUCCESS,			//连接成功
+		SOCKET_STATE_CONNECT_FAILURE,			//连接失败
+		SOCKET_STATE_ERROR,						//错误
+		SOCKET_STATE_CLOSE,						//关闭
+	}eSocketState;
 protected:
    
     fd_set  fdR;

@@ -149,8 +149,7 @@ TCPSocket::TCPSocket(SOCKET sock) {
 		    }
 	   printf("\n");*/
 	
-	   
-
+	eSocketState=SOCKET_STATE_FREE;
 }
 
 TCPSocket::~TCPSocket() {
@@ -212,11 +211,14 @@ bool TCPSocket::Connect(const char* ip, unsigned short port) {
     svraddr.sin_port = htons(port);
     int ret = connect(m_sock, (struct sockaddr*) &svraddr, sizeof(svraddr));
     if (ret == SOCKET_ERROR) {
-		this->listerner->OnClose(this,false);
+		//this->listerner->OnClose(this,false);
+		this->listerner->OnError(this, "");
+		eSocketState = SOCKET_STATE_CONNECT_FAILURE;
         return false;
     }
 	this->listerner->OnOpen(this);
 	this->listerner->Start();
+	eSocketState = SOCKET_STATE_CONNECT_SUCCESS;
     return true;
 }
 
@@ -312,6 +314,7 @@ int TCPSocket::Recv(char* buf, int len, int flags) {
 
 int TCPSocket::Close() {
 	this->listerner->OnClose(this,false);
+	eSocketState = SOCKET_STATE_CLOSE;
 	int closeID = 0;
 #ifdef WIN32
 	closeID=(closesocket(m_sock));
