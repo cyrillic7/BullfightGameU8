@@ -54,7 +54,7 @@ void MessageQueueLobby::update(float dt){
     
 
 	ReadData iter = DataModel::sharedDataModel()->readDataQueueLobby.front();
-	onEventReadMessage(iter.wMainCmdID,iter.wSubCmdID,iter.sReadData,iter.wDataSize);
+	onEventReadMessageLobby(iter.wMainCmdID,iter.wSubCmdID,iter.sReadData,iter.wDataSize);
 	/*switch (iter.wMainCmdID)
 	{
 //	case MDM_MB_LOGON://登录

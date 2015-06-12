@@ -1053,6 +1053,7 @@ struct CMD_MB_UpdateNotify
 //////////////////////////////////////////////////////////////////////////
 //任务
 #define MDM_GL_C_DATA					1								//大厅--客户端数据
+#define SUB_GL_C_LOGON_ACCOUNTS	 		100								//帐号登录
 #define	SUB_GL_C_TASK_LOAD				114								//加载任务
 
 #define  TASK_TITLE_LEN			16
@@ -1062,6 +1063,19 @@ struct CMD_MB_UpdateNotify
 #define	 IMGNAME				32
 #define  PROC_NAME				64
 #define  LEN_AWARD				32
+//帐号登录
+struct CMD_GL_LogonAccounts
+{
+	//系统信息
+	//DWORD							dwPlazaVersion;						//广场版本
+	TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
+	//TCHAR							szPassPortID[LEN_PASS_PORT_ID];		 //身份证号（身份证绑定使用）
+	//TCHAR							szPhoneVerifyID[LEN_PHONE_VERIFY_ID];//手机验证号（手机绑定使用）
+	//登录信息
+	TCHAR							szPassword[LEN_MD5];				//登录密码
+	TCHAR							szAccounts[LEN_ACCOUNTS];			//登录帐号
+	//BYTE							cbValidateFlags;			        //校验标识
+};
 
 struct CMD_GL_GetTask
 {

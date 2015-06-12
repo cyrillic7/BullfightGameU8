@@ -351,5 +351,7 @@ struct ReadData
 };
 #define MDM_MB_SOCKET						9999					//socket			
 #define SUB_GP_SOCKET_OPEN			1							//连接成功
+#define MDM_MB_SOCKET_FAILURE				9998					//连接失败
+
 //////////////////////////////////////////////////////////////////////////
 #endif
