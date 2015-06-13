@@ -1055,6 +1055,9 @@ struct CMD_MB_UpdateNotify
 #define MDM_GL_C_DATA					1								//大厅--客户端数据
 #define SUB_GL_C_LOGON_ACCOUNTS	 		100								//帐号登录
 #define	SUB_GL_C_TASK_LOAD				114								//加载任务
+#define	SUB_GL_C_TASK_REWARD			115								//领取奖励
+
+
 
 #define  TASK_TITLE_LEN			16
 #define  TASK_TITLE_LEN			32
@@ -1116,6 +1119,26 @@ struct CMD_GL_TaskInfo
 	DWORD				dwCurProgress;
 };
 
+//接受, 奖励
+struct CMD_GL_TaskID
+{
+	CMD_GL_TaskID()
+	{
+		//memset(this, 0, sizeof(CMD_GL_TaskID));
+	}
+	DWORD				dwTaskID;
+	DWORD				dwUserID;
+};
+//奖励返回
+struct CMD_GL_TaskIDLog
+{
+	CMD_GL_TaskIDLog()
+	{
+		//memset(this, 0, sizeof(CMD_GL_TaskIDLog));
+	}
+	LONG							lResultCode;						//操作代码
+	TCHAR							szDescribeString[128];				//成功消息
+};
 #pragma pack()
 
 #endif

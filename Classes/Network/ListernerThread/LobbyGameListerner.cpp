@@ -52,7 +52,8 @@ bool LobbyGameListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_C
 {
 	if (Command.wMainCmdID == MDM_GL_C_DATA)
 	{
-		if (Command.wSubCmdID == SUB_GL_C_TASK_LOAD)
+		if (Command.wSubCmdID == SUB_GL_C_TASK_LOAD 
+			|| Command.wSubCmdID == SUB_GL_C_TASK_REWARD)
 		{
 			ReadData rData;
 			rData.wMainCmdID = Command.wMainCmdID;

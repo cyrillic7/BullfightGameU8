@@ -7,6 +7,7 @@
 
 #include "PopDialogBox.h"
 #include "../Network/ListernerThread/LogonGameListerner.h"
+#include "../Network/HttpDownload/ImageDownloader.h"
 #include "PopDialogBoxLoading.h"
 #include "PopDialogBoxTipInfo.h"
 #include "PopDialogBoxInputNum.h"
@@ -97,4 +98,20 @@ void PopDialogBox::showInputNumBox(BuyType eBuyType, const char* cPropName, cons
 	this->addChild(box, 10, TAG_INPUT_BOX);
 	box->setInputData(eBuyType, cPropName, cPropImagePuth, lMaxNum, lPice);
 	box->setIPopAssist(pIPop);
+}
+//加载下载图片
+void PopDialogBox::addDownloadImage(UIWidget *widget, const char *name, CCPoint pos, float fScale, bool useMask){
+	widget->removeAllNodes();
+	CCNode *pNImage = CCNode::create();
+	widget->addNode(pNImage, -100);
+	const char* url_item = IMAGE_URL(name);
+	const char* image_name = IMAGE_NAME(name);
+
+	ImageDownloader* item = ImageDownloader::create();
+	item->SendHttpRequest(this, imagenotification_selector(PopDialogBox::loadCompleteCallBack), url_item, pNImage, image_name);
+	//pNImage->setScale(0.2);
+}
+//图片下载完成回调
+void PopDialogBox::loadCompleteCallBack(){
+
 }

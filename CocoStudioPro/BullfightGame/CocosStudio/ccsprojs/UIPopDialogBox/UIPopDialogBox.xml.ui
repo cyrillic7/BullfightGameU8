@@ -7,30 +7,30 @@
   <JsonFileName>UIPopDialogBox.json</JsonFileName>
   <JsonFolder>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\ccsprojs\UIPopDialogBox\Json</JsonFolder>
   <JsonList>
-    <string>UIPopDialogBoxUserInfo.json</string>
-    <string>UIPopDialogBoxLoading.json</string>
-    <string>UIPopDialogBoxSetUp.json</string>
-    <string>UIPopDialogBoxHelp.json</string>
-    <string>UIPopDialogBoxFeedback.json</string>
     <string>UIPopDialogBoxAbout.json</string>
-    <string>UIPopDialogBoxMore.json</string>
-    <string>UIPopDialogBoxTask.json</string>
-    <string>UIPopDialogBoxBank.json</string>
-    <string>UIPopDialogBoxShop.json</string>
-    <string>UIPopDialogBoxRanking.json</string>
     <string>UIPopDialogBoxActivity.json</string>
-    <string>UIPopDialogBoxLoadingOther.json</string>
-    <string>UIPopDialogBoxLogonAccount.json</string>
-    <string>UIPopDialogBoxUpBank.json</string>
-    <string>UIPopDialogBoxOnline.json</string>
-    <string>UIPopDialogBoxTrend.json</string>
-    <string>UIPopDialogBoxKnapsack.json</string>
-    <string>UIPopDialogBoxTipInfo.json</string>
     <string>UIPopDialogBoxAuction.json</string>
+    <string>UIPopDialogBoxBank.json</string>
     <string>UIPopDialogBoxBuyCount.json</string>
     <string>UIPopDialogBoxChangePassword.json</string>
+    <string>UIPopDialogBoxFeedback.json</string>
+    <string>UIPopDialogBoxHelp.json</string>
+    <string>UIPopDialogBoxKnapsack.json</string>
+    <string>UIPopDialogBoxLoading.json</string>
+    <string>UIPopDialogBoxLoadingOther.json</string>
+    <string>UIPopDialogBoxLogonAccount.json</string>
+    <string>UIPopDialogBoxMore.json</string>
     <string>UIPopDialogBoxMsg.json</string>
+    <string>UIPopDialogBoxOnline.json</string>
+    <string>UIPopDialogBoxRanking.json</string>
+    <string>UIPopDialogBoxSetUp.json</string>
+    <string>UIPopDialogBoxShop.json</string>
     <string>UIPopDialogBoxSign.json</string>
+    <string>UIPopDialogBoxTask.json</string>
+    <string>UIPopDialogBoxTipInfo.json</string>
+    <string>UIPopDialogBoxTrend.json</string>
+    <string>UIPopDialogBoxUpBank.json</string>
+    <string>UIPopDialogBoxUserInfo.json</string>
   </JsonList>
   <CanvasSize>
     <Width>1136</Width>
@@ -42,457 +42,482 @@
   <imageFileList>
     <string>UIPanel.plist</string>
     <string>UIButton.plist</string>
+    <string>UIRanking.plist</string>
     <string>UIUserInfo.plist</string>
     <string>UICheckBox.plist</string>
-    <string>UITask.plist</string>
-    <string>UILoadingBar.plist</string>
-    <string>UILogon.plist</string>
-    <string>UIBank.plist</string>
-    <string>UIShop.plist</string>
-    <string>UIAuction.plist</string>
-    <string>UIRanking.plist</string>
     <string>UIActivity.plist</string>
     <string>Font.plist</string>
-    <string>UIGameIng.plist</string>
-    <string>UIGameIngHundred.plist</string>
+    <string>UIAuction.plist</string>
+    <string>UIShop.plist</string>
+    <string>UILogon.plist</string>
+    <string>UIBank.plist</string>
     <string>UIKnapsack.plist</string>
     <string>UIMsg.plist</string>
+    <string>UIGameIngHundred.plist</string>
     <string>UISign.plist</string>
+    <string>UITask.plist</string>
+    <string>UILoadingBar.plist</string>
+    <string>UIConnectFailure.plist</string>
+    <string>UIGameIng.plist</string>
   </imageFileList>
   <imagePngList>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UIRanking.png</string>
     <string>UIUserInfo.png</string>
     <string>UICheckBox.png</string>
-    <string>UITask.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UILogon.png</string>
-    <string>UIBank.png</string>
-    <string>UIShop.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRanking.png</string>
     <string>UIActivity.png</string>
     <string>Font.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIGameIngHundred.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
     <string>UIKnapsack.png</string>
     <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
     <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxTask.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxKnapsack.json</CurrentUIJson>
 </UIProject>

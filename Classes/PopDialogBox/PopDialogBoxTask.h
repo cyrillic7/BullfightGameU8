@@ -41,4 +41,6 @@ private:
 	void onEventTask(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
 	//任务列表
 	void onSubTaskList(void * pDataBuffer, unsigned short wDataSize);
+	//任务奖励
+	void onSubReward(void * pDataBuffer, unsigned short wDataSize);
 };

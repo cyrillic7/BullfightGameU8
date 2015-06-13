@@ -141,7 +141,15 @@ void PopDialogBoxTask::updateListTask(){
 void PopDialogBoxTask::onMenuReward(CCObject *object, TouchEventType type){
 	if (type == TOUCH_EVENT_ENDED){
 		UIButton *pBTemp = (UIButton*)object;
-		CCLog("tag:%d <<%s>>",pBTemp->getTag(), __FUNCTION__);
+		//CCLog("tag:%d <<%s>>",pBTemp->getTag(), __FUNCTION__);
+		PopDialogBox *box = PopDialogBoxLoading::create();
+		this->addChild(box, 10, TAG_LOADING);
+		box->setSocketName(SOCKET_LOBBY);
+
+		CMD_GL_TaskID taskID;
+		taskID.dwTaskID = vecTaskInfo[pBTemp->getTag()].dwTaskID;
+		taskID.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+		getSocket()->SendData(MDM_GL_C_DATA, SUB_GL_C_TASK_REWARD, &taskID, sizeof(taskID));
 	}
 }
 //更新
@@ -170,6 +178,11 @@ void PopDialogBoxTask::onEventTask(WORD wSubCmdID, void * pDataBuffer, unsigned 
 	case SUB_GL_C_TASK_LOAD:
 	{
 		onSubTaskList(pDataBuffer, wDataSize);
+	}
+		break;
+	case SUB_GL_C_TASK_REWARD:
+	{
+		onSubReward(pDataBuffer, wDataSize);
 	}
 		break;
 	default:
@@ -213,4 +226,18 @@ void PopDialogBoxTask::onSubTaskList(void * pDataBuffer, unsigned short wDataSiz
 	updateListTask();
 	//移除loading
 	this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+}
+//任务奖励
+void PopDialogBoxTask::onSubReward(void * pDataBuffer, unsigned short wDataSize){
+	assert(wDataSize <= sizeof(CMD_GL_TaskIDLog));
+	CMD_GL_TaskIDLog * pTaskIDLog= (CMD_GL_TaskIDLog*)pDataBuffer;
+	if (pTaskIDLog->lResultCode==0)
+	{
+		//CCLog(" <<%s>>", __FUNCTION__);
+	}
+	showTipInfo(GBKToUTF8(pTaskIDLog->szDescribeString));
+	//移除loading
+	this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+
+	getTashInfoList(); 
 }
