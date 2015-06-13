@@ -14,7 +14,6 @@
 #include "../Network/ListernerThread/LogonGameListerner.h"
 #include "../Network/MD5/MD5.h"
 #include "../GameLobby/BaseLobbyScene.h"
-
 #define MAX_KNAPSACK_ROW_COUNT			4			//物品横排数
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxKnapsack::PopDialogBoxKnapsack()
@@ -47,7 +46,8 @@ void PopDialogBoxKnapsack::onEnter(){
 	//兑换
 	UIButton *pBExchange = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonExchange"));
 	pBExchange->addTouchEventListener(this, toucheventselector(PopDialogBoxKnapsack::onMenuExchange));
-
+	//物品图片
+	pIVGoods = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageGoodsInfoBg"));
 	initListGoods();
 	initGoodsInfo();
 
@@ -249,6 +249,9 @@ void PopDialogBoxKnapsack::updateListGoods(){
 			int tempIndex = i*MAX_KNAPSACK_ROW_COUNT + j;
 			if (tempIndex < vecGoods.size())
 			{
+				UIImageView *pIVItem = static_cast<UIImageView*>(pListViewGoods->getItem(pListViewGoods->getItems()->count() - 1)->getChildByName(CCString::createWithFormat("ImageItem%d", j)->getCString()));
+
+
 				UICheckBox *pCheckBox = static_cast<UICheckBox*>(pListViewGoods->getItem(pListViewGoods->getItems()->count() - 1)->getChildByName(CCString::createWithFormat("ImageItem%d", j)->getCString())->getChildByName("CheckBox"));
 				pCheckBox->setTag(tempIndex);
 				pCheckBox->addEventListenerCheckBox(this, SEL_SelectedStateEvent(&PopDialogBoxKnapsack::onCheckBoxSelectedStateEvent));
@@ -256,8 +259,8 @@ void PopDialogBoxKnapsack::updateListGoods(){
 				UIImageView *pIDetermine = static_cast<UIImageView*>(pCheckBox->getChildByName("ImageDetermine"));
 				pIDetermine->setVisible(false);
 
-				
-				
+				addDownloadImage(pIVItem, vecGoods[tempIndex].szImgName,CCPointZero,1,false);
+
 				//设置数量
 				UIImageView *pINumBg = static_cast<UIImageView*>(pListViewGoods->getItem(pListViewGoods->getItems()->count() - 1)->getChildByName(CCString::createWithFormat("ImageItem%d", j)->getCString())->getChildByName("ImageGoodsNumBg"));
 				UILabel *pPropDescription = static_cast<UILabel*>(pINumBg->getChildByName("LabelGoldNum"));
@@ -297,6 +300,7 @@ void PopDialogBoxKnapsack::initGoodsInfo(){
 void PopDialogBoxKnapsack::updateGoodInfo(int index){
 	pLGoodsName->setText(GBKToUTF8(vecGoods[index].szName));
 
+	addDownloadImage(pIVGoods, vecGoods[index].szImgName, CCPointZero, 1, false);
 }
 //复选框回调（选择性别）
 void PopDialogBoxKnapsack::onCheckBoxSelectedStateEvent(CCObject *pSender, CheckBoxEventType type){

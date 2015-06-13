@@ -1,6 +1,6 @@
 /*
  * PopDialogBoxKnapsack.h
- *
+ * 我的背包
  *  Created on: 2015年3月17日
  *      Author: 恒
  */
@@ -33,6 +33,8 @@ private:
 	int iCurSelectIndex;
 	//物品名称
 	UILabel *pLGoodsName;
+	//物品图片
+	UIImageView *pIVGoods;
 public:
 	PopDialogBoxKnapsack();
 	~PopDialogBoxKnapsack();
