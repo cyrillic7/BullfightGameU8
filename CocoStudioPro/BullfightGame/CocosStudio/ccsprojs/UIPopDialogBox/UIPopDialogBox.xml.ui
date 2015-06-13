@@ -519,5 +519,5 @@
     <string>UIGameIng.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxKnapsack.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxRanking.json</CurrentUIJson>
 </UIProject>

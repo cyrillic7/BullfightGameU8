@@ -292,6 +292,7 @@ struct CMD_GP_ServerOnline
 #define SUB_GP_AUCTION_HISTORY_RECORD	120								//拍卖历史记录
 #define SUB_GP_QUERY_AUCTION		121									//查询拍卖记录
 #define SUB_GP_AUCTIONLOG			122									//获取拍卖品
+#define SUB_GP_TREASURE_RANK		123									//财富排名榜
 
 //修改头像
 #define SUB_GP_USER_FACE_INFO		200									//头像信息
@@ -444,6 +445,7 @@ struct CMD_GP_UseKnapsackLog
 };
 
 //////////////////////////////////////////////////////////////////////////
+//获取我的上架物品
 struct CMD_GP_Auction
 {
 	CMD_GP_Auction()
@@ -458,7 +460,7 @@ struct CMD_GP_Auction
 	TCHAR				szName[GIFT_NAME_LEN];					//名称
 	TCHAR				szImgName[GIFT_IMGNAME];				//图片
 };
-//获取我的上架物品
+//
 struct  CMD_GP_AuctionLog
 {
 	CMD_GP_AuctionLog()
@@ -606,6 +608,19 @@ struct CMD_GP_Cancel_AuctionLog
 	TCHAR							szImgName[GIFT_IMGNAME];			//图片		
 	TCHAR							szDescribeString[128];				//描述消息
 };
+//
+//财富排行
+struct CMD_GP_TreasureRank
+{
+	CMD_GP_TreasureRank()
+	{
+		//memset(this, 0, sizeof(CMD_GP_TreasureRank));
+	}
+	TCHAR							szNickName[LEN_NICKNAME];			//用户昵称
+	DWORD							dwFaceID;
+	SCORE							lScore;
+};
+
 //////////////////////////////////////////////////////////////////////////////////
 
 //修改密码
@@ -1128,6 +1143,7 @@ struct CMD_GL_TaskID
 	}
 	DWORD				dwTaskID;
 	DWORD				dwUserID;
+	TCHAR				szPassword[LEN_MD5];				//登录密码
 };
 //奖励返回
 struct CMD_GL_TaskIDLog
@@ -1136,7 +1152,7 @@ struct CMD_GL_TaskIDLog
 	{
 		//memset(this, 0, sizeof(CMD_GL_TaskIDLog));
 	}
-	LONG							lResultCode;						//操作代码
+	long							lResultCode;						//操作代码
 	TCHAR							szDescribeString[128];				//成功消息
 };
 #pragma pack()

@@ -10,6 +10,7 @@
 #include "../Tools/GameConfig.h"
 #include "PopDialogBoxLoading.h"
 #include "../Network/ListernerThread/LobbyGameListerner.h"
+#include "../Network/MD5/MD5.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxTask::PopDialogBoxTask()
 {
@@ -105,6 +106,11 @@ void PopDialogBoxTask::updateListTask(){
 		//任务名称
 		UILabel *pTaskName = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("ImageTitle")->getChildByName("LabelTitle"));
 		pTaskName->setText(GBKToUTF8(vecTaskInfo[i].szTitle));
+		//vecTaskInfo[i].szImgName
+		//CCLog("%s <<%s>>", IMAGE_URL(vecTaskInfo[inserterPos].szImgName), __FUNCTION__);
+		UIImageView *pIVRewardIconBg = static_cast<UIImageView*>(pLVTemp->getItem(inserterPos)->getChildByName("ImageRewardIconBg"));
+
+		addDownloadImage(pIVRewardIconBg, vecTaskInfo[inserterPos].szImgName, CCPointZero, 1, 0, false);
 		//任务说明
 		UILabel *pTaskEcplain = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("LabelExplain"));
 		pTaskEcplain->setText(GBKToUTF8(vecTaskInfo[i].szRemarks));
@@ -149,6 +155,12 @@ void PopDialogBoxTask::onMenuReward(CCObject *object, TouchEventType type){
 		CMD_GL_TaskID taskID;
 		taskID.dwTaskID = vecTaskInfo[pBTemp->getTag()].dwTaskID;
 		taskID.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+
+		MD5 m;
+		m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
+		std::string md5PassWord = m.GetMd5();
+		strcpy(taskID.szPassword, md5PassWord.c_str());
+
 		getSocket()->SendData(MDM_GL_C_DATA, SUB_GL_C_TASK_REWARD, &taskID, sizeof(taskID));
 	}
 }
@@ -198,6 +210,7 @@ void PopDialogBoxTask::onSubTaskList(void * pDataBuffer, unsigned short wDataSiz
 	BYTE cbDataBuffer[SOCKET_TCP_PACKET + sizeof(TCP_Head)];
 	CopyMemory(cbDataBuffer, pDataBuffer, wDataSize);
 
+	vecTaskInfo.clear();
 	for (int i = 0; i < count; i++)
 	{
 		void * pDataBuffer = cbDataBuffer + i*sizeof(CMD_GL_TaskInfo);

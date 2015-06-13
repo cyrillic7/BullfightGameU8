@@ -269,6 +269,10 @@ void PopDialogBoxShop::updateListCommodity(std::vector<CMD_GP_Gift> *vec){
 			int tempIndex = i*ROW_COUNT + j;
 			if (tempIndex<vec->size())
 			{
+				//加载商品图片
+				UIImageView *pIVItem = static_cast<UIImageView*>(pListViewCommodity->getItem(pListViewCommodity->getItems()->count() - 1)->getChildByName(CCString::createWithFormat("ImageCommodity%d", j)->getCString()));
+				addDownloadImage(pIVItem, vec->at(tempIndex).szImgName, CCPointZero, 1,0, false);
+				
 				UIButton *pButton = static_cast<UIButton*>(pListViewCommodity->getItem(pListViewCommodity->getItems()->count() - 1)->getChildByName(CCString::createWithFormat("ImageCommodity%d", j)->getCString())->getChildByName("ButtonBuy"));
 				pButton->setTag(tempIndex);
 				pButton->addTouchEventListener(this, toucheventselector(PopDialogBoxShop::onMenuBuyProp));

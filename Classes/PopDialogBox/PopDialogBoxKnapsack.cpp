@@ -259,7 +259,7 @@ void PopDialogBoxKnapsack::updateListGoods(){
 				UIImageView *pIDetermine = static_cast<UIImageView*>(pCheckBox->getChildByName("ImageDetermine"));
 				pIDetermine->setVisible(false);
 
-				addDownloadImage(pIVItem, vecGoods[tempIndex].szImgName,CCPointZero,1,false);
+				addDownloadImage(pIVItem, vecGoods[tempIndex].szImgName,CCPointZero,1,-100,false);
 
 				//设置数量
 				UIImageView *pINumBg = static_cast<UIImageView*>(pListViewGoods->getItem(pListViewGoods->getItems()->count() - 1)->getChildByName(CCString::createWithFormat("ImageItem%d", j)->getCString())->getChildByName("ImageGoodsNumBg"));
@@ -300,7 +300,7 @@ void PopDialogBoxKnapsack::initGoodsInfo(){
 void PopDialogBoxKnapsack::updateGoodInfo(int index){
 	pLGoodsName->setText(GBKToUTF8(vecGoods[index].szName));
 
-	addDownloadImage(pIVGoods, vecGoods[index].szImgName, CCPointZero, 1, false);
+	addDownloadImage(pIVGoods, vecGoods[index].szImgName, CCPointZero, 1,-100, false);
 }
 //复选框回调（选择性别）
 void PopDialogBoxKnapsack::onCheckBoxSelectedStateEvent(CCObject *pSender, CheckBoxEventType type){

@@ -4,49 +4,23 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>u_ranking_1.png</key>
+            <key>u_ranking_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{148,2},{47,45}}</string>
+                <string>{{2,2},{302,92}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{47,45}}</string>
+                <string>{{0,0},{302,92}}</string>
                 <key>sourceSize</key>
-                <string>{47,45}</string>
-            </dict>
-            <key>u_ranking_2.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{99,2},{47,45}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{47,45}}</string>
-                <key>sourceSize</key>
-                <string>{47,45}</string>
-            </dict>
-            <key>u_ranking_3.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{50,2},{47,45}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{47,45}}</string>
-                <key>sourceSize</key>
-                <string>{47,45}</string>
+                <string>{302,92}</string>
             </dict>
             <key>u_ranking_num_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{46,46}}</string>
+                <string>{{306,2},{46,46}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -56,19 +30,6 @@
                 <key>sourceSize</key>
                 <string>{46,46}</string>
             </dict>
-            <key>u_ranking_title.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{197,2},{99,42}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{16,1},{99,42}}</string>
-                <key>sourceSize</key>
-                <string>{131,44}</string>
-            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -77,9 +38,9 @@
             <key>realTextureFileName</key>
             <string>UIRanking.png</string>
             <key>size</key>
-            <string>{298,50}</string>
+            <string>{354,96}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:7e37e73f4da6f6fca06e3f7e79e7b624:edc1badec97b5b18971e9448b5fbaf61:fca71cec2bb19cfd8aeae45742cd4e34$</string>
+            <string>$TexturePacker:SmartUpdate:45feb2294be531624b7e06188ab7ec13:fb726da60214970fb261d64c8f28477d:fca71cec2bb19cfd8aeae45742cd4e34$</string>
             <key>textureFileName</key>
             <string>UIRanking.png</string>
         </dict>

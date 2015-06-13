@@ -453,6 +453,7 @@ void PopDialogBoxAuction::updateListAuctionInfo(){
 		//拍卖物品名称
 		UILabel *pGoodsName = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("Label0"));
 		pGoodsName->setText(GBKToUTF8(vecAuctionInfo[i].szAuctionName));
+		//addDownloadImage(pGoodsName,vecAuctionInfo[i].)
 		//拍卖数量
 		UILabel *pGoodsCount = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("Label1"));
 		pGoodsCount->setText(CCString::createWithFormat("%ld",vecAuctionInfo[i].dwPropNum)->getCString());
@@ -585,6 +586,9 @@ void PopDialogBoxAuction::updateListMyAuctionGoods(){
 		{
 			pIVCell->setOpacity(30);
 		}
+		UIImageView *pIVGoodsIcon = static_cast<UIImageView*>(pLVTemp->getItem(inserterPos)->getChildByName("ImageGoodsIcon"));
+		addDownloadImage(pIVGoodsIcon, vecMyAuctionGoods[i].szImgName, CCPointZero, 0.3, -100, false);
+
 		pIVCell->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxAuction::onMenuSelectMyAuctionCell));
 		pIVCell->setTag(i);
 	}

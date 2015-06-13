@@ -25,6 +25,7 @@ USING_NS_CC;
 #define SOCKET_AUCTION_INFO						"socketAuctionInfo"				//拍卖信息列表
 #define SOCKET_CHANGE_PASSWORD					"socketChangePassword"			//修改密码
 #define SOCKET_LOBBY							"socketLobby"					//大厅长连接
+#define SOCKET_RANKING							"socketRanking"					//排行榜
 
 class TCPSocketControl {
 public:

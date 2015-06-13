@@ -100,16 +100,18 @@ void PopDialogBox::showInputNumBox(BuyType eBuyType, const char* cPropName, cons
 	box->setIPopAssist(pIPop);
 }
 //加载下载图片
-void PopDialogBox::addDownloadImage(UIWidget *widget, const char *name, CCPoint pos, float fScale, bool useMask){
+void PopDialogBox::addDownloadImage(UIWidget *widget, const char *name, CCPoint pos, float fScale, int zOrder, bool useMask){
 	widget->removeAllNodes();
 	CCNode *pNImage = CCNode::create();
-	widget->addNode(pNImage, -100);
+	widget->addNode(pNImage, zOrder);
 	const char* url_item = IMAGE_URL(name);
 	const char* image_name = IMAGE_NAME(name);
 
 	ImageDownloader* item = ImageDownloader::create();
 	item->SendHttpRequest(this, imagenotification_selector(PopDialogBox::loadCompleteCallBack), url_item, pNImage, image_name);
-	//pNImage->setScale(0.2);
+	
+	pNImage->setPosition(pos);
+	pNImage->setScale(fScale);
 }
 //图片下载完成回调
 void PopDialogBox::loadCompleteCallBack(){

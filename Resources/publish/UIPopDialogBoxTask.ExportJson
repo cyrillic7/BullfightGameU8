@@ -947,7 +947,7 @@
                     "options": {
                       "__type": "ImageViewSurrogate:#EditorCommon.JsonModel.Component.GUI",
                       "classname": "ImageView",
-                      "name": "Image_12",
+                      "name": "ImageRewardIconBg",
                       "ZOrder": 0,
                       "actiontag": 5557749,
                       "anchorPointX": 0.5,
