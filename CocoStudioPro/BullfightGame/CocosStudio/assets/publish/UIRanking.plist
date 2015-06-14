@@ -4,6 +4,19 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>u_ranking_1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{306,2},{46,46}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{46,46}}</string>
+                <key>sourceSize</key>
+                <string>{46,46}</string>
+            </dict>
             <key>u_ranking_bg.png</key>
             <dict>
                 <key>frame</key>
@@ -40,7 +53,7 @@
             <key>size</key>
             <string>{354,96}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:45feb2294be531624b7e06188ab7ec13:fb726da60214970fb261d64c8f28477d:fca71cec2bb19cfd8aeae45742cd4e34$</string>
+            <string>$TexturePacker:SmartUpdate:22e3c448a6786961664ea7c042ffde87:3e3e3217d6a00b480ce6f8c22e380c7a:fca71cec2bb19cfd8aeae45742cd4e34$</string>
             <key>textureFileName</key>
             <string>UIRanking.png</string>
         </dict>
