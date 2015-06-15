@@ -8,6 +8,7 @@
 #include "PopDialogBoxRanking.h"
 #include "../Tools/DataModel.h"
 #include "../Tools/GameConfig.h"
+#include "../Tools/Tools.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxRanking::PopDialogBoxRanking()
 	:iMyRankingNum(-1)
@@ -81,7 +82,10 @@ void PopDialogBoxRanking::updateListRanking(){
 		UIImageView *pLNum = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageChampion")->getChildByName(CCString::createWithFormat("ImageNumber%d", i + 1)->getCString()));
 		//名称
 		UILabel *pLName = static_cast<UILabel*>(pLNum->getChildByName("LabelName"));
-		pLName->setText(GBKToUTF8(vecRanking[i].szNickName));
+		//pLName->setText(GBKToUTF8(vecRanking[i].szNickName));
+		std::string nickName = GBKToUTF8(vecRanking[i].szNickName);
+		pLName->setText(Tools::subUTF8(nickName, 0, 4));
+
 		//金币
 		UILabel *pLGold = static_cast<UILabel*>(pLNum->getChildByName("LabelGold"));
 		pLGold->setText(CCString::createWithFormat("%lld",vecRanking[i].lScore)->getCString());

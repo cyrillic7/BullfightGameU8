@@ -293,6 +293,8 @@ struct CMD_GP_ServerOnline
 #define SUB_GP_QUERY_AUCTION		121									//查询拍卖记录
 #define SUB_GP_AUCTIONLOG			122									//获取拍卖品
 #define SUB_GP_TREASURE_RANK		123									//财富排名榜
+#define	SUB_GP_VIP_POWER			124									//vip特权
+#define	SUB_GP_VIP_AWARD			125									//vip奖励
 
 //修改头像
 #define SUB_GP_USER_FACE_INFO		200									//头像信息
@@ -620,7 +622,59 @@ struct CMD_GP_TreasureRank
 	DWORD							dwFaceID;
 	SCORE							lScore;
 };
+//////////////////////////////////////////////////////////////////////////
+//vip特权
+struct CMD_GP_VipUserID
+{
+	CMD_GP_VipUserID()
+	{
+		//memset(this, 0, sizeof(CMD_GP_VipUserID));
+	}
+	DWORD	dwUserID;													//用户 I D
+	DWORD	dwOpTerminal;												//操作终端（1：pc, 2：手机）
+};
+//vip特权（dwRedPaper， dwRedPieces 非0那个有用）
+struct CMD_GP_VipPower
+{
+	CMD_GP_VipPower()
+	{
+		memset(this, 0, sizeof(CMD_GP_VipPower));
+	}
+	DWORD	dwVipID;													//1---7(vip1-vip7)
+	DWORD	dwIngot;													//差dwIngot升级
+	DWORD	dwAllIngot;													//下一级的元宝
+	SCORE   lLoginScore;												//每天登录的奖励
+	DWORD	dwShopping;													//打折
+	DWORD	dwRedPaper;													//红包
+	DWORD	dwRedPieces;												//红包碎片
+	DWORD	dwLoginScoreStatus;											//登录奖励 是否领取   0:无效 1：未领取 2：已领取
+	DWORD	dwRedPaperStatus;											//红包，红包碎片 是否领取 0:无效 1：未领取 2：已领取
+};
 
+
+
+//vip奖励领取
+struct CMD_GP_VipAward
+{
+	CMD_GP_VipAward()
+	{
+		//memset(this, 0, sizeof(CMD_GP_VipAward));
+	}
+	DWORD	dwUserID;													//id
+	DWORD	dwOpTerminal;												//操作终端（1：pc, 2：手机）
+	TCHAR	szLogonPass[LEN_MD5];										//登录密码
+	DWORD	dwAwardType;												//奖励类型1：登录奖励金币 2： 奖励红包（碎片）
+};
+//vip奖励领取
+struct CMD_GP_VipAwardLog
+{
+	CMD_GP_VipAwardLog()
+	{
+		//memset(this, 0, sizeof(CMD_GP_VipAwardLog));
+	}
+	DWORD	dwRet;														//0：成功，1：失败
+	TCHAR	szDescribeString[128];										//描述消息
+};
 //////////////////////////////////////////////////////////////////////////////////
 
 //修改密码

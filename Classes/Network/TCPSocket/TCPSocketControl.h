@@ -26,6 +26,7 @@ USING_NS_CC;
 #define SOCKET_CHANGE_PASSWORD					"socketChangePassword"			//修改密码
 #define SOCKET_LOBBY							"socketLobby"					//大厅长连接
 #define SOCKET_RANKING							"socketRanking"					//排行榜
+#define SOCKET_VIP								"socketVip"						//VIP特权
 
 class TCPSocketControl {
 public:

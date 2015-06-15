@@ -30,6 +30,19 @@
                 <key>sourceSize</key>
                 <string>{36,24}</string>
             </dict>
+            <key>u_vip_loading_bar.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{137,2},{291,16}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{291,16}}</string>
+                <key>sourceSize</key>
+                <string>{291,16}</string>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -38,9 +51,9 @@
             <key>realTextureFileName</key>
             <string>UILoadingBar.png</string>
             <key>size</key>
-            <string>{137,28}</string>
+            <string>{430,28}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:18037742544ffd99b0d18093e5bb8a8e:71bd0845a89aaad3bc141218136203b2:309247722e6556c9f6e0d897d475f239$</string>
+            <string>$TexturePacker:SmartUpdate:fe491c283bba0921198d6f4f2cf7319e:b9e3072f989fadb4145a09b60940f6c4:309247722e6556c9f6e0d897d475f239$</string>
             <key>textureFileName</key>
             <string>UILoadingBar.png</string>
         </dict>
