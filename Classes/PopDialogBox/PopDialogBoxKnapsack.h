@@ -11,7 +11,18 @@
 //#include "../Network/TCPSocket/TCPSocketControl.h"
 #include "../Network/CMD_Server/CMD_LogonServer.h"
 #include "../MTNotificationQueue/MessageQueue.h"
+
+struct IPopAssistKnapsack//弹框背包辅助接口
+{
+	virtual ~IPopAssistKnapsack(){}
+	//关闭背包
+	virtual void onCloseKnapsack() = 0;
+};
+
 class PopDialogBoxKnapsack: public PopDialogBox,public MessageQueue {
+public:
+	//背包接口
+	CC_SYNTHESIZE(IPopAssistKnapsack*, pIPopAssistKnapsack, IPopAssistKnapsack);
 private:
     
 	enum KnapsackItem

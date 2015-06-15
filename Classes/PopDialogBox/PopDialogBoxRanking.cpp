@@ -65,6 +65,8 @@ void PopDialogBoxRanking::updateListRanking(){
 	int tempSize = vecRanking.size();
 	if (tempSize == 0)
 	{
+		pIVMyRankingBg->setVisible(false);
+		pLMyRankingNum->setText("未入榜 ");
 		return;
 	}
 	//前三名////////////////////////////////////////////////////////////////////////
@@ -165,7 +167,7 @@ void PopDialogBoxRanking::onEventUserService(WORD wSubCmdID, void * pDataBuffer,
 }
 //排名列表
 void PopDialogBoxRanking::onSubRankingList(void * pDataBuffer, unsigned short wDataSize){
-	assert(wDataSize >= sizeof(CMD_GP_TreasureRank));
+	//assert(wDataSize >= sizeof(CMD_GP_TreasureRank));
 	int count = wDataSize / sizeof(CMD_GP_TreasureRank);
 
 	BYTE cbDataBuffer[SOCKET_TCP_PACKET + sizeof(TCP_Head)];

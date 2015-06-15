@@ -68,7 +68,7 @@ void PopDialogBoxKnapsack::onEnter(){
 	}*/
 }
 void PopDialogBoxKnapsack::onExit(){
-	((PopDialogBox*)this->getParent())->isReadMessage = true;
+	getIPopAssistKnapsack()->onCloseKnapsack();
 	CCLayer::onExit();
 }
 void PopDialogBoxKnapsack::update(float delta){

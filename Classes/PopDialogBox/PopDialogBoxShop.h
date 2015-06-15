@@ -11,8 +11,9 @@
 #include "../Network/TCPSocket/TCPSocketControl.h"
 #include "../Network/CMD_Server/CMD_LogonServer.h"
 #include "../MTNotificationQueue/MessageQueue.h"
+#include "PopDialogBoxKnapsack.h"
 #define MAX_SHOP_ITEM_COUNT				2			//最大商店项总数
-class PopDialogBoxShop: public PopDialogBox,public MessageQueue,public IPopAssist {
+class PopDialogBoxShop: public PopDialogBox,public MessageQueue,public IPopAssist,public IPopAssistKnapsack {
 
 private:
     
@@ -65,6 +66,8 @@ private:
 	//////////////////////////////////////////////////////////////////////////
 	//购买数量回调
 	virtual void onBuyNum(long lNum);
+	//背包关闭回调
+	virtual void onCloseKnapsack();
 	//////////////////////////////////////////////////////////////////////////
 
 	//我的背包////////////////////////////////////////////////////////////////////////

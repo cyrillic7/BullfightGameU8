@@ -105,8 +105,11 @@ TCPSocket *TCPSocketControl::getTCPSocket(std::string key){
 	return iter->second;
 }
 void TCPSocketControl::stopSocket(std::string key){
-	getTCPSocket(key)->Clean();
-	getTCPSocket(key)->Close();
+	if (getTCPSocket(key)->eSocketState != TCPSocket::SOCKET_STATE_FREE)
+	{
+		getTCPSocket(key)->Clean();
+		getTCPSocket(key)->Close();
+	}
 }
 void TCPSocketControl::removeTCPSocket(std::string key){
 	delete getTCPSocket(key);

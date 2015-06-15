@@ -10,8 +10,9 @@
 #include "../Network/CMD_Server/CMD_LogonServer.h"
 #include "../MTNotificationQueue/MessageQueue.h"
 #include "../Network/TCPSocket/TCPSocketControl.h"
+#include "PopDialogBoxKnapsack.h"
 #define MAX_AUCTION_ITEM_COUNT			3			//最大拍卖项总数
-class PopDialogBoxAuction: public PopDialogBox,public MessageQueue,public IPopAssist {
+class PopDialogBoxAuction: public PopDialogBox,public MessageQueue,public IPopAssist,public IPopAssistKnapsack {
 private:
 	enum AuctionItem
 	{
@@ -111,6 +112,8 @@ private:
 	//////////////////////////////////////////////////////////////////////////
 	//购买数量回调
 	virtual void onBuyNum(long lNum);
+	//关闭背包回调
+	virtual void onCloseKnapsack();
 	//////////////////////////////////////////////////////////////////////////
 	//滚动回调
 	void onScrollViewEvent(CCObject*obj, ScrollviewEventType type);

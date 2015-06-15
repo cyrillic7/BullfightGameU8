@@ -6,10 +6,11 @@
 #include "cocos-ext.h"
 #include "../Tools/CStringAide.h"
 #include "../Network/TCPSocket/TCPSocketControl.h"
+#include "../PopDialogBox/PopDialogBoxKnapsack.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
-class BaseLobbyScene:public CCLayer,public CStringAide
+class BaseLobbyScene:public CCLayer,public CStringAide,public IPopAssistKnapsack
 {
 public:
 	UILabel *userName;
@@ -30,6 +31,8 @@ private:
 		POP_AUCTION,				//拍卖
 		POP_RANKING,				//排行
 		POP_MSG,					//消息
+		POP_VIP,					//VIP
+		POP_KNAPSACK,				//背包
 	};
 public:
     BaseLobbyScene();
@@ -40,6 +43,8 @@ public:
 
 	//获取socket
 	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM); }
+	//VIP
+	void onMenuVip(CCObject* pSender, TouchEventType type);
 private:
 	//弹出框
 	void popDialogBox(PopType type);
@@ -47,4 +52,6 @@ private:
 	void onMenuCallback(CCObject* pSender, TouchEventType type);
 	//菜单（设置用户信息）
 	virtual void menuResetUser(CCObject* pSender, TouchEventType type);
+	//关闭背包回调
+	void onCloseKnapsack();
 };

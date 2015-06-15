@@ -9,7 +9,7 @@
 #include "../Tools/DataModel.h"
 #include "../Tools/GameConfig.h"
 #include "PopDialogBoxLoading.h"
-#include "PopDialogBoxKnapsack.h"
+
 #include "PopDialogBoxTipInfo.h"
 #include "../Network/ListernerThread/LogonGameListerner.h"
 #include "../Network/MD5/MD5.h"
@@ -125,8 +125,9 @@ void PopDialogBoxShop::onMenuMyPackaga(CCObject *object, TouchEventType type){
 	case TOUCH_EVENT_ENDED:
 	{
 		isReadMessage = false;
-		PopDialogBox *box = PopDialogBoxKnapsack::create();
+		PopDialogBoxKnapsack *box = PopDialogBoxKnapsack::create();
 		this->addChild(box, 10);
+		box->setIPopAssistKnapsack(this);
 		//tempSize++;
 		//updateListCommodity();
 		//CCLog(" <<%s>>", __FUNCTION__);
@@ -135,6 +136,10 @@ void PopDialogBoxShop::onMenuMyPackaga(CCObject *object, TouchEventType type){
 	default:
 		break;
 	}
+}
+//关闭背包回调////////////////////////////////////////////////////////////////////////
+void PopDialogBoxShop::onCloseKnapsack(){
+	isReadMessage = true;
 }
 //购买道具
 void PopDialogBoxShop::onMenuBuyProp(CCObject *object, TouchEventType type){

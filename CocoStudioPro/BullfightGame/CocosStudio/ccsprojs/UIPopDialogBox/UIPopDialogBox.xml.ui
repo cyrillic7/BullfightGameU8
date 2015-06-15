@@ -31,6 +31,7 @@
     <string>UIPopDialogBoxTrend.json</string>
     <string>UIPopDialogBoxUpBank.json</string>
     <string>UIPopDialogBoxUserInfo.json</string>
+    <string>UIPopDialogBoxVip.json</string>
   </JsonList>
   <CanvasSize>
     <Width>1136</Width>
@@ -62,5 +63,5 @@
   </imageFileList>
   <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxActivity.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxVip.json</CurrentUIJson>
 </UIProject>

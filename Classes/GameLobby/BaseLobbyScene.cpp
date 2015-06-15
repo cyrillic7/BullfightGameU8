@@ -20,6 +20,8 @@
 #include "../PopDialogBox/PopDialogBoxRanking.h"
 #include "../PopDialogBox/PopDialogBoxTipInfo.h"
 #include "../PopDialogBox/PopDialogBoxMsg.h"
+#include "../PopDialogBox/PopDialogBoxVip.h"
+
 #include "../Tools/DataModel.h"
 BaseLobbyScene::BaseLobbyScene()
 	:isReadMessage(true){
@@ -74,6 +76,12 @@ void BaseLobbyScene::onEnter(){
 	//绑定消息
 	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonMsg"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
+	//绑定背包
+	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonKnapsack"));
+	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
+	//绑定VIP
+	UIImageView *pIVip = static_cast<UIImageView*>(m_pWidget->getWidgetByName("ImageVip"));
+	pIVip->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuVip));
 	
 	//用户名
 	userName=static_cast<UILabel*>(m_pWidget->getWidgetByName("labelUserName"));
@@ -119,6 +127,16 @@ void BaseLobbyScene::popDialogBox(PopType type){
 		break;
 	case BaseLobbyScene::POP_MSG:
 		pdb = PopDialogBoxMsg::create();
+		break;
+	case BaseLobbyScene::POP_VIP:
+		pdb = PopDialogBoxVip::create();
+		break;
+	case BaseLobbyScene::POP_KNAPSACK:
+	{
+		isReadMessage = false;
+		pdb = PopDialogBoxKnapsack::create();
+		((PopDialogBoxKnapsack *)pdb)->setIPopAssistKnapsack(this);
+	}
 		break;
 	default:
 		break;
@@ -172,6 +190,10 @@ void BaseLobbyScene::onMenuCallback(CCObject* pSender, TouchEventType type){
 			{
 				popDialogBox(POP_MSG);
 			}
+			else if (strcmp(button->getName(), "ButtonKnapsack") == 0)
+			{
+				popDialogBox(POP_KNAPSACK);
+			}
 			else
 			{
 				PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
@@ -195,4 +217,18 @@ void BaseLobbyScene::menuResetUser(CCObject* pSender, TouchEventType type){
 		break;
 	}
 }
-
+//VIP
+void BaseLobbyScene::onMenuVip(CCObject* pSender, TouchEventType type){
+	switch (type)
+	{
+	case TOUCH_EVENT_ENDED:
+		popDialogBox(POP_VIP);
+		break;
+	default:
+		break;
+	}
+}
+//关闭背包回调
+void BaseLobbyScene::onCloseKnapsack(){
+	isReadMessage = true;
+}

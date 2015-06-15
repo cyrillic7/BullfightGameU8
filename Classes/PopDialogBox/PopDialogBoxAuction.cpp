@@ -11,7 +11,7 @@
 #include "../Tools/Tools.h"
 #include "../Tools/BaseAttributes.h"
 #include "PopDialogBoxLoading.h"
-#include "PopDialogBoxKnapsack.h"
+
 #include "../Network/ListernerThread/LogonGameListerner.h"
 #include "../Network/MD5/MD5.h"
 #define MAX_PAGE_SIZE		20			//每页最大数
@@ -189,8 +189,9 @@ void PopDialogBoxAuction::onMenupMyPackage(CCObject *object, TouchEventType type
 	case TOUCH_EVENT_ENDED:
 	{
 		isReadMessage = false;
-		PopDialogBox *box = PopDialogBoxKnapsack::create();
+		PopDialogBoxKnapsack *box = PopDialogBoxKnapsack::create();
 		this->addChild(box, 10);
+		box->setIPopAssistKnapsack(this);
 	}
 	break;
 	default:
@@ -291,6 +292,10 @@ void PopDialogBoxAuction::onBuyNum(long lNum){
 	lCurBuyNum = lNum;
 	setAuctionItem(AUCTION_BUY);
 	connectServer(SOCKET_AUCTION_INFO);
+}
+//关闭背包回调
+void PopDialogBoxAuction::onCloseKnapsack(){
+	isReadMessage = true;
 }
 //滚动回调
 void PopDialogBoxAuction::onScrollViewEvent(CCObject*obj, ScrollviewEventType type){
