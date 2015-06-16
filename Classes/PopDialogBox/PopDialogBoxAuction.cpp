@@ -14,7 +14,7 @@
 
 #include "../Network/ListernerThread/LogonGameListerner.h"
 #include "../Network/MD5/MD5.h"
-#define MAX_PAGE_SIZE		20			//每页最大数
+#define MAX_PAGE_SIZE		10			//每页最大数
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxAuction::PopDialogBoxAuction()
 	:auctionItem(AUCTION_INFO)

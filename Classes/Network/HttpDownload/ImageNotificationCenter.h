@@ -23,10 +23,12 @@ public:
 		imageName = std::string(iName);
 		observerId = std::string(idStr);
 		this->node = node;
+		this->node->retain();
 		useMask = mask;
 	}
 	~imgstruct()
 	{
+		this->node->release();
 	}
 
 	std::string imageName;

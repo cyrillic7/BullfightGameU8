@@ -73,6 +73,12 @@ void PopDialogBoxVip::onMenuReward(CCObject *object, TouchEventType type){
 			connectServer(SOCKET_VIP);
 		}
 			break;
+		case REWARD_SHOP:
+		{
+			getIPopAssistVip()->onCloseVipToShop();
+			this->removeFromParentAndCleanup(true);
+		}
+			break;
 		default:
 			break;
 		}
@@ -101,7 +107,7 @@ void PopDialogBoxVip::updateListVip(){
 	UILabel *pLRewardGold = static_cast<UILabel *>(pLVVipReward->getItem(0)->getChildByName("ImageVipItem0")->getChildByName("LabelVipRewardNum"));
 	pLRewardGold->setText(CCString::createWithFormat("%lld金币", vipPower.lLoginScore)->getCString());
 	UIButton *pBRewardGold = static_cast<UIButton *>(pLVVipReward->getItem(0)->getChildByName("ImageVipItem0")->getChildByName("ButtonVipReward"));
-	pBRewardGold->setTag(1);
+	pBRewardGold->setTag(REWARD_GOLD);
 	pBRewardGold->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxVip::onMenuReward));
 
 	switch (vipPower.dwLoginScoreStatus)
@@ -131,7 +137,7 @@ void PopDialogBoxVip::updateListVip(){
 	UILabel *pLRewardRedMoney = static_cast<UILabel *>(pLVVipReward->getItem(0)->getChildByName("ImageVipItem1")->getChildByName("LabelVipRewardNum"));
 	pLRewardRedMoney->setText(CCString::createWithFormat("%ld红包碎片", vipPower.dwRedPieces)->getCString());
 	UIButton *pBRewardRedMoney = static_cast<UIButton *>(pLVVipReward->getItem(0)->getChildByName("ImageVipItem1")->getChildByName("ButtonVipReward"));
-	pBRewardRedMoney->setTag(2);
+	pBRewardRedMoney->setTag(REWARD_RED_MONEY);
 	pBRewardRedMoney->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxVip::onMenuReward));
 
 	switch (vipPower.dwRedPaperStatus)
@@ -161,7 +167,7 @@ void PopDialogBoxVip::updateListVip(){
 	UILabel *pLRewardDiscount = static_cast<UILabel *>(pLVVipReward->getItem(1)->getChildByName("ImageVipItem0")->getChildByName("LabelVipRewardNum"));
 	pLRewardDiscount->setText(CCString::createWithFormat(" VIP享%ld折优惠 ", vipPower.dwShopping)->getCString());
 	UIButton *pBShop = static_cast<UIButton *>(pLVVipReward->getItem(1)->getChildByName("ImageVipItem0")->getChildByName("ButtonVipReward"));
-	pBShop->setTag(3);
+	pBShop->setTag(REWARD_SHOP);
 	pBShop->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxVip::onMenuReward));
 }
 //更新
@@ -262,5 +268,18 @@ void PopDialogBoxVip::onSubVipInfo(void * pDataBuffer, unsigned short wDataSize)
 //VIP领取奖励
 void PopDialogBoxVip::onSubVipReward(void * pDataBuffer, unsigned short wDataSize){
 	CMD_GP_VipAwardLog *pVipLog = (CMD_GP_VipAwardLog*)pDataBuffer;
+	if (pVipLog->dwRet==0)
+	{
+		if (getRewardType()==REWARD_GOLD)
+		{
+			vipPower.dwLoginScoreStatus = 2;
+		}
+		else if (getRewardType() == REWARD_RED_MONEY)
+		{
+			vipPower.dwRedPaperStatus = 2;
+		}
+		updateListVip();
+	}
+	showTipInfo(GBKToUTF8(pVipLog->szDescribeString));
 	CCLog(" <<%s>>", __FUNCTION__);
 }

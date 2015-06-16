@@ -35,19 +35,23 @@ void ImageNotificationCenter::postNotification(const char *name, CCObject *objec
 void ImageNotificationCenter::imageLoaded(CCObject *obj)
 {
 	imgstruct* img = (imgstruct*)obj;
-	CCLOG("imageLoaded success,imageName:%s", img->imageName.c_str());
+	//CCLOG("imageLoaded success,imageName:%s", img->imageName.c_str());
 	CCSprite* sprite = ImageNotificationCenter::getSpriteFromWriteablePath(img->imageName.c_str());
-	CCLOG("got sprite 0x%X", sprite);
+	//CCLOG("got sprite 0x%X", sprite);
 	if (img->useMask)
 	{
 		img->node->addChild(ImageNotificationCenter::createMaskedSprite(sprite, "mask.png"));
 	}
 	else
 	{
-		float scale_ = (float)img->node->getContentSize().width / (float)sprite->getContentSize().width;
-		sprite->setAnchorPoint(ccp(0.5f, 0.5f));
-		//sprite->setScale(0.5f);
-		img->node->addChild(sprite);
+		if (img->node->getParent())
+		{
+			float scale_ = (float)img->node->getContentSize().width / (float)sprite->getContentSize().width;
+			sprite->setAnchorPoint(ccp(0.5f, 0.5f));
+			//sprite->setScale(0.5f);
+			img->node->addChild(sprite);
+		}
+		
 	}
 	this->removeObserver(img->observerId.c_str());
 	img->release();

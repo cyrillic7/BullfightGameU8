@@ -21,6 +21,7 @@
 #include "../Network/ListernerThread/LogonGameListerner.h"
 #include "../Network/MD5/MD5.h"
 #include "../Network/CMD_Server/PacketAide.h"
+#include "../Network/ListernerThread/LobbyGameListerner.h"
 bool GameLobbyScene::isShowUpTip = false;
 GameLobbyScene::GameLobbyScene()
 {
@@ -96,6 +97,13 @@ void GameLobbyScene::onEnter(){
 	{
 		PopDialogBoxSign *pSign = PopDialogBoxSign::create();
 		this->addChild(pSign,10);
+	}
+
+
+	TCPSocket *tcp = TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOBBY);
+	if (tcp&&tcp->eSocketState != TCPSocket::SOCKET_STATE_CONNECT_SUCCESS){
+		tcp->createSocket(DataModel::sharedDataModel()->sLobbyIp.c_str(), DataModel::sharedDataModel()->lLobbyProt, new LobbyGameListerner());
+		//tcp->createSocket("112.1.1.1", pLobbyIp->dwServerPort, new LobbyGameListerner());
 	}
 }
 //显示站立提示

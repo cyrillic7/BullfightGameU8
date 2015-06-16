@@ -10,8 +10,16 @@
 #include "PopDialogBox.h"
 #include "../MTNotificationQueue/MessageQueue.h"
 #include "../Network/CMD_Server/CMD_LogonServer.h"
+struct IPopAssistVip//VIP辅助接口
+{
+	virtual ~IPopAssistVip(){}
+	//关闭VIP跳转到商城
+	virtual void onCloseVipToShop() = 0;
+};
 class PopDialogBoxVip: public PopDialogBox ,public MessageQueue{
 private:
+	CC_SYNTHESIZE(IPopAssistVip *, iIPopAssistVip, IPopAssistVip);
+
 	enum VipActionType
 	{
 		VIP_GET_LIST=0,						//获取VIP列表
@@ -24,6 +32,7 @@ private:
 	{
 		REWARD_GOLD = 1,					//领取金币
 		REWARD_RED_MONEY,					//领取红包
+		REWARD_SHOP,						//前往商城
 	};
 	CC_SYNTHESIZE(RewardType, eRewardType, RewardType);
 	//VIP等级

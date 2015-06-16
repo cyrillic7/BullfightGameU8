@@ -7,10 +7,11 @@
 #include "../Tools/CStringAide.h"
 #include "../Network/TCPSocket/TCPSocketControl.h"
 #include "../PopDialogBox/PopDialogBoxKnapsack.h"
+#include "../PopDialogBox/PopDialogBoxVip.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
-class BaseLobbyScene:public CCLayer,public CStringAide,public IPopAssistKnapsack
+class BaseLobbyScene:public CCLayer,public CStringAide,public IPopAssistKnapsack,public IPopAssistVip
 {
 public:
 	UILabel *userName;
@@ -52,6 +53,9 @@ private:
 	void onMenuCallback(CCObject* pSender, TouchEventType type);
 	//菜单（设置用户信息）
 	virtual void menuResetUser(CCObject* pSender, TouchEventType type);
+	//////////////////////////////////////////////////////////////////////////
 	//关闭背包回调
-	void onCloseKnapsack();
+	virtual void onCloseKnapsack();
+	//关闭VIP回调
+	virtual void onCloseVipToShop();
 };

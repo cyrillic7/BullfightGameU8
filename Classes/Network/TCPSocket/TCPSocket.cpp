@@ -623,8 +623,12 @@ long TCPSocket::OnSocketNotifyRead(unsigned int wParam, long lParam)
 			memmove(m_cbRecvBuf, m_cbRecvBuf + wPacketSize, m_wRecvSize);
 			//解密数据
 			WORD wRealySize = CrevasseBuffer(cbDataBuffer, wPacketSize);
-			ASSERT(wRealySize >= sizeof(TCP_Head));
-
+			//ASSERT(wRealySize >= sizeof(TCP_Head));
+			if (wRealySize<sizeof(TCP_Head))
+			{
+				//listerner->OnMessage(this, m_wSocketID, NULL, NULL, 0);
+				return false;
+			}
 			//解释数据
 			WORD wDataSize = wRealySize - sizeof(TCP_Head);
 			void * pDataBuffer = cbDataBuffer + sizeof(TCP_Head);
@@ -650,7 +654,7 @@ long TCPSocket::OnSocketNotifyRead(unsigned int wParam, long lParam)
 			//if (bSuccess == false) throw TEXT("网络数据包处理失败");
 			if (!bSuccess)
 			{
-                CCLog("网络数据包处理失败 ");
+				CCLog("网络数据包处理失败 <<%s>>", __FUNCTION__);
 				return bSuccess;
 			}
 		};

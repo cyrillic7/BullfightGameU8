@@ -36,10 +36,29 @@ void BaseLobbyScene::onEnter(){
 	//添加背景
 	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
 	CCSprite *spriteBg=CCSprite::create("res/main_bg.jpg");
-	this->addChild(spriteBg);
+	this->addChild(spriteBg,-1);
 	spriteBg->setPosition(ccp(deviceSize.width/2,deviceSize.height/2));
 	float scale=deviceSize.height/spriteBg->getContentSize().height;
 	spriteBg->setScale(scale);
+	//////////////////////////////////////////////////////////////////////////
+	//粒子
+	CCParticleSystemQuad *emitter1 = CCParticleSystemQuad::create("particle/sakura.plist");
+	emitter1->setPosition(ccp(deviceSize.width+20, deviceSize.height+20));    // 设置发射粒子的位置
+	emitter1->setAutoRemoveOnFinish(true);                          // 完成后制动移除
+	emitter1->setDuration(10);                                      // 设置粒子系统的持续时间秒
+	spriteBg->addChild(emitter1, 1, 1);
+	//////////////////////////////////////////////////////////////////////////
+	//门
+	CCSprite *pDoor = CCSprite::create("res/main_door.png");
+	spriteBg->addChild(pDoor, 2);
+	pDoor->setAnchorPoint(ccp(1,1));
+	pDoor->setPosition(ccp(SCENE_SIZE.width, SCENE_SIZE.height));
+
+	CCSprite *pDoor1 = CCSprite::create("res/main_door.png");
+	spriteBg->addChild(pDoor1, 2);
+	pDoor1->setAnchorPoint(ccp(1, 1));
+	pDoor1->setPosition(ccp(0, SCENE_SIZE.height));
+	pDoor1->setScaleX(-1);
 	//创建UI层
 	UILayer *m_pWidget = UILayer::create();
 	this->addChild(m_pWidget);
@@ -129,7 +148,11 @@ void BaseLobbyScene::popDialogBox(PopType type){
 		pdb = PopDialogBoxMsg::create();
 		break;
 	case BaseLobbyScene::POP_VIP:
+	{
 		pdb = PopDialogBoxVip::create();
+		((PopDialogBoxVip *)pdb)->setIPopAssistVip(this);
+	}
+		
 		break;
 	case BaseLobbyScene::POP_KNAPSACK:
 	{
@@ -231,4 +254,8 @@ void BaseLobbyScene::onMenuVip(CCObject* pSender, TouchEventType type){
 //关闭背包回调
 void BaseLobbyScene::onCloseKnapsack(){
 	isReadMessage = true;
+}
+//关闭VIP回调
+void BaseLobbyScene::onCloseVipToShop(){
+	popDialogBox(POP_SHOP);
 }
