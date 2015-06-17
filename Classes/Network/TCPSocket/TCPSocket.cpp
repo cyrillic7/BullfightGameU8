@@ -201,6 +201,32 @@ bool TCPSocket::Create(int af, int type, int protocol) {
     if (m_sock == INVALID_SOCKET) {
         return false;
     }
+
+	/*// 设置SOCKET为KEEPALIVE  
+	bool bKeepAlive = true;
+	if (bKeepAlive)
+	{
+		int     optval = 1;
+		if (setsockopt(m_sock, SOL_SOCKET, SO_KEEPALIVE, (char *)&optval, sizeof(optval)))
+		{
+			//closeSocket();
+			return false;
+		}
+
+		int keepalive = 1;  // 打开keepalive
+		int keepidle = 10;  // 空闲10s开始发送检测包（系统默认2小时）
+		int keepinterval = 1;  // 发送检测包间隔 （系统默认75s）
+		int keepcount = 5;  // 发送次数如果5次都没有回应，就认定peer端断开了。（系统默认9次）
+		setsockopt(m_sock, SOL_SOCKET, SO_KEEPALIVE, (char*)&keepalive, sizeof(keepalive));
+		setsockopt(m_sock, IPPROTO_TCP, TCP_KEEPIDLE, (char*)&keepidle, sizeof(keepidle));
+		setsockopt(m_sock, IPPROTO_TCP, TCP_KEEPINTVL, (char*)&keepinterval, sizeof(keepinterval));
+		setsockopt(m_sock, IPPROTO_TCP, TCP_KEEPCNT, (char*)&keepcount, sizeof(keepcount));
+	}
+	*/
+
+
+
+
     return true;
 }
 
@@ -216,9 +242,9 @@ bool TCPSocket::Connect(const char* ip, unsigned short port) {
 		eSocketState = SOCKET_STATE_CONNECT_FAILURE;
         return false;
     }
+	eSocketState = SOCKET_STATE_CONNECT_SUCCESS;
 	this->listerner->OnOpen(this);
 	this->listerner->Start();
-	eSocketState = SOCKET_STATE_CONNECT_SUCCESS;
     return true;
 }
 
@@ -516,7 +542,10 @@ DWORD __cdecl TCPSocket::SendData(WORD wMainCmdID, WORD wSubCmdID)
 {
 	//效验状态
 	if (m_sock == INVALID_SOCKET) return false;
-	//if (m_cbSocketStatus != SOCKET_STATUS_CONNECT) return false;
+	if (eSocketState != SOCKET_STATE_CONNECT_SUCCESS)
+	{
+		return false;
+	}
 
 	//构造数据
 	BYTE cbDataBuffer[SOCKET_TCP_BUFFER];
@@ -536,10 +565,13 @@ DWORD __cdecl TCPSocket::SendData(WORD wMainCmdID, WORD wSubCmdID, void * pData,
 {
 	//效验状态
 	if (m_sock == INVALID_SOCKET) return false;
-	//if (m_cbSocketStatus != SOCKET_STATUS_CONNECT) return false;
+	if (eSocketState != SOCKET_STATE_CONNECT_SUCCESS)
+	{
+		return false;
+	}
 
 	//效验大小
-	ASSERT(wDataSize <= SOCKET_TCP_PACKET);
+	//ASSERT(wDataSize <= SOCKET_TCP_PACKET);
 	if (wDataSize > SOCKET_TCP_PACKET) return false;
 
 	//构造数据
