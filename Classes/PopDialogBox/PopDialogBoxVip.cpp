@@ -45,7 +45,10 @@ void PopDialogBoxVip::onEnter(){
 	//下一等级内容描述
 	pLVipNextContent = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelVipNext"));
 	pLVipNextContent->setText("");
-
+	//设置默认VIP等级为0级
+	setVipGrade(0);
+	//
+	updateListVip();
 	//设置父节点不读取网络数据
 	setLobbyReadMessage(false);
 	//连接服务器
@@ -97,12 +100,16 @@ void PopDialogBoxVip::setVipGrade(int iGrade){
 	}
 	else
 	{
+		pIVVipText->setVisible(true);
+		pLAVipGradeNum->setVisible(true);
+
 		pIVVipGradeIcon->loadTexture("u_vip_icon1.png", UI_TEX_TYPE_PLIST);
 		pLAVipGradeNum->setStringValue(CCString::createWithFormat("%d", iGrade)->getCString());
 	}
 }
 //更新列表
 void PopDialogBoxVip::updateListVip(){
+	int colorH = 125;
 	//登录金币奖励
 	UILabel *pLRewardGold = static_cast<UILabel *>(pLVVipReward->getItem(0)->getChildByName("ImageVipItem0")->getChildByName("LabelVipRewardNum"));
 	pLRewardGold->setText(CCString::createWithFormat("%lld金币", vipPower.lLoginScore)->getCString());
@@ -114,17 +121,22 @@ void PopDialogBoxVip::updateListVip(){
 	{
 	case 0://无效
 	{
-		pBRewardGold->setColor(ccc3(125, 125, 125));
-		pBRewardGold->setTitleColor(ccc3(125, 125, 125));
+		pBRewardGold->setColor(ccc3(colorH, colorH, colorH));
+		pBRewardGold->setTitleColor(ccc3(colorH, colorH, colorH));
 		pBRewardGold->setTouchEnabled(false);
 	}
 	break;
 	case 1://未领取
+	{
+		pBRewardGold->setColor(ccc3(255, 255, 255));
+		pBRewardGold->setTitleColor(ccc3(255, 255, 255));
+		pBRewardGold->setTouchEnabled(true);
+	}
 		break;
 	case 2://已领取
 	{
-		pBRewardGold->setColor(ccc3(125, 125, 125));
-		pBRewardGold->setTitleColor(ccc3(125, 125, 125));
+		pBRewardGold->setColor(ccc3(colorH, colorH, colorH));
+		pBRewardGold->setTitleColor(ccc3(colorH, colorH, colorH));
 		pBRewardGold->setTouchEnabled(false);
 		pBRewardGold->setTitleText(" 已领取 ");
 	}
@@ -144,17 +156,22 @@ void PopDialogBoxVip::updateListVip(){
 	{
 	case 0://无效
 	{
-		pBRewardRedMoney->setColor(ccc3(125, 125, 125));
-		pBRewardRedMoney->setTitleColor(ccc3(125, 125, 125));
+		pBRewardRedMoney->setColor(ccc3(colorH, colorH, colorH));
+		pBRewardRedMoney->setTitleColor(ccc3(colorH, colorH, colorH));
 		pBRewardRedMoney->setTouchEnabled(false);
 	}
 	break;
 	case 1://未领取
+	{
+		pBRewardRedMoney->setColor(ccc3(255, 255, 255));
+		pBRewardRedMoney->setTitleColor(ccc3(255, 255, 255));
+		pBRewardRedMoney->setTouchEnabled(true);
+	}
 		break;
 	case 2://已领取
 	{
-		pBRewardRedMoney->setColor(ccc3(125, 125, 125));
-		pBRewardRedMoney->setTitleColor(ccc3(125, 125, 125));
+		pBRewardRedMoney->setColor(ccc3(colorH, colorH, colorH));
+		pBRewardRedMoney->setTitleColor(ccc3(colorH, colorH, colorH));
 		pBRewardRedMoney->setTouchEnabled(false);
 		pBRewardRedMoney->setTitleText(" 已领取 ");
 	}
