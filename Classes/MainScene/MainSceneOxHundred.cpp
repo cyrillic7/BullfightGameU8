@@ -55,7 +55,8 @@ void MainSceneOxHundred::addBg(){
 	float scaleX=deviceSize.width/spriteBg->getContentSize().width;
 	float scaleY=deviceSize.height/spriteBg->getContentSize().height;
 	spriteBg->setScaleX(scaleX);
-	spriteBg->setScaleY(scaleY);
+	//spriteBg->setScaleY(scaleY);
+	//spriteBg->setScale(scaleY-0.3);
 }
 void MainSceneOxHundred::initGameControl(){
 	gameControl = GameControlOxHundred::create();

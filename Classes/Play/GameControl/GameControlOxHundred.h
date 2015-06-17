@@ -8,6 +8,7 @@
 //#include "cmd_game.h"
 #include "../OxHundred/PlayerDataHundred.h"
 #include "../../GameLogic/GameLogicHundred.h"
+#include "../OxHundred/ChairData.h"
 
 //class cmd_game;
 #define MAX_SEAT_COUNT 4
@@ -16,6 +17,8 @@
 #define MAX_PLAYER_HUNDRED_COUNT			2			//百人牛牛用户数
 #define MAX_SCORE_HISTORY							15		//游戏记录最大数
 #define MAX_APPLY_DISPLAY							6			//最大申请显示人数
+
+#define MAX_USER_CHAIR						6					//最大用户椅子数
 #pragma pack(1)
 //记录信息
 struct tagGameRecord
@@ -62,6 +65,7 @@ private:
 
 	int nJetton[MAX_JETTON_BUTTON_COUNT];
 	SeatData *pSeatData[MAX_SEAT_COUNT];
+	ChairData *pChairData[MAX_USER_CHAIR];
 	UIButton *pBOnline ;
 	//筹码按钮
 	UIImageView *pIJettonButton[MAX_JETTON_BUTTON_COUNT];
@@ -95,6 +99,8 @@ private:
 	void initTimer(UILayer *pWidget);
 	//初始化座位
 	void initSeatData(UILayer *pWidget);
+	//初始化用户椅子
+	void initUserChair(UILayer *pWidget);
 	//获取筹码对象
 	JettonNode *getJettonNode();
 	//获取用户信息通过椅子号
@@ -120,6 +126,10 @@ private:
 	void onSubUserState(void * pDataBuffer, unsigned short wDataSize);
 	//用户状态
 	virtual void onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
+	//用户坐下状态
+	void onSubUserSitState(void * pDataBuffer, unsigned short wDataSize);
+	//用户起立状态
+	void onSubUserUpState(void * pDataBuffer, unsigned short wDataSize);
 	//////////////////////////////////////////////////////////////////////////
 	//游戏空闲
 	void onSubGameFree(const void * pBuffer, WORD wDataSize);
@@ -154,6 +164,8 @@ private:
 	void onMenuSelectJetton(CCObject* pSender, TouchEventType type);
 	//上庄
 	void onMenuUpBank(CCObject* pSender, TouchEventType type);
+	//换椅子
+	void onMenuChangeChair(CCObject* pSender, TouchEventType type);
 	//最大下注
 	long long getUserMaxJetton();
 	//更新控制

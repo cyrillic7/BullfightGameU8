@@ -92,3 +92,72 @@ const char * CStringAide::UTF8ToGBK(const char * strChar){
 	iconv_close(iconvH);
 	return g_GBKConvUTF8Buf;
 }
+//////////////////////////////////////////////////////////////////////////
+std::vector<std::string> CStringAide::parseUTF8(const std::string &str)
+{
+	int l = str.length();
+	std::vector<std::string> ret;
+	ret.clear();
+	for (int p = 0; p < l;)
+	{
+		int size = 0;
+		unsigned char c = str[p];
+		if (c < 0x80) {
+			size = 1;
+		}
+		else if (c < 0xc2)
+		{
+			size = 2;
+		}
+		else if (c < 0xe0)
+		{
+			size = 2;
+		}
+		else if (c < 0xf0)
+		{
+			size = 3;
+		}
+		else if (c < 0xf8)
+		{
+			size = 4;
+		}
+		else if (c < 0xfc)
+		{
+			size = 5;
+		}
+		else if (c < 0xfe)
+		{
+			size = 6;
+		}
+		else
+			size = 7;
+		std::string temp = "";
+		temp = str.substr(p, size);
+		ret.push_back(temp);
+		p += size;
+	}
+	return ret;
+}
+
+std::string CStringAide::subUTF8(const std::string &str, int from, int to)
+{
+	if (from > to) return "";
+	if (str.length() < to) return "";
+	std::vector<std::string> vstr = parseUTF8(str);
+	if (to > vstr.size())
+	{
+		to = vstr.size();
+	}
+	std::vector<std::string>::iterator iter = vstr.begin();
+	std::string res;
+	std::string result;
+	for (iter = (vstr.begin() + from); iter != (vstr.begin() + to); iter++)
+	{
+		res += *iter;
+	}
+	if (vstr.size() > from + to)
+	{
+		res += "...";
+	}
+	return res;
+}

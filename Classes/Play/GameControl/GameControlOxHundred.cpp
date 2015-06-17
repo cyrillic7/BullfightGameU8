@@ -111,6 +111,7 @@ void GameControlOxHundred::onEnter(){
 
 	initTimer(pWidget);
 	initSeatData(pWidget);
+	initUserChair(pWidget);
 }
 void GameControlOxHundred::onExit(){
 	CCLayer::onExit();
@@ -198,6 +199,24 @@ void GameControlOxHundred::initSeatData(UILayer *pWidget){
 		pSeatData[i]->pLResult = static_cast<UILabelAtlas*>(bg->getChildByName("AtlasLabelResultNum"));
 
 		pSeatData[i]->resetData();
+	}
+}
+//初始化用户椅子
+void GameControlOxHundred::initUserChair(UILayer *pWidget){
+	for (int i = 0; i < MAX_USER_CHAIR; i++)
+	{
+		pChairData[i] = ChairData::create();
+		this->addChild(pChairData[i]);
+
+		UIImageView *pIVPlayer = static_cast<UIImageView*>(pWidget->getWidgetByName(CCString::createWithFormat("ImagePlayer%d",i)->getCString()));
+		
+		pChairData[i]->pBDonw = static_cast<UIButton*>(pIVPlayer->getChildByName("ButtonDown"));
+		pChairData[i]->pBDonw->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxHundred::onMenuChangeChair));
+		pChairData[i]->pBDonw->setTag(i);
+		//用户昵称
+		pChairData[i]->pLUserName = static_cast<UILabel*>(pIVPlayer->getChildByName("LabelUserName"));
+		//用户头像
+		pChairData[i]->pIVUserIcon = static_cast<UIImageView*>(pIVPlayer->getChildByName("ImagePlayerIcon"));
 	}
 }
 //设置座位结算
@@ -366,6 +385,26 @@ void GameControlOxHundred::onMenuUpBank(CCObject* pSender, TouchEventType type){
 		getParent()->addChild(pDBUpBank, K_Z_ORDER_POP);
 	}
 	break;
+	default:
+		break;
+	}
+}
+//换椅子
+void GameControlOxHundred::onMenuChangeChair(CCObject* pSender, TouchEventType type){
+	switch (type)
+	{
+	case TOUCH_EVENT_ENDED:
+	{
+		UIButton *pBTemp = (UIButton*)pSender;
+
+		CMD_C_UserSit userSit;
+		userSit.wUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+		userSit.cbSitID = pBTemp->getTag();
+		//发送消息
+		TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM)->SendData(MDM_GF_GAME, SUB_C_USER_SIT, &userSit, sizeof(userSit));
+
+	}
+		break;
 	default:
 		break;
 	}
@@ -855,6 +894,12 @@ void GameControlOxHundred::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, un
 		onQiangZhuanRet(pDataBuffer, wDataSize);
 		break;
 	case SUB_S_AMDIN_COMMAND://管理员命令
+		break;
+	case SUB_S_USER_SIT://用户坐下椅子
+		onSubUserSitState(pDataBuffer, wDataSize);
+		break;
+	case SUB_S_USER_LEAVE://用户离开椅子
+		onSubUserUpState(pDataBuffer, wDataSize);
 		break;
 	default:
 		CCLog("===========sub:%d<<%s>>", wSubCmdID, __FUNCTION__);
@@ -1634,6 +1679,30 @@ void GameControlOxHundred::onSubUserState(void * pDataBuffer, unsigned short wDa
 }
 //用户状态
 void GameControlOxHundred::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
+}
+//用户坐下状态
+void GameControlOxHundred::onSubUserSitState(void * pDataBuffer, unsigned short wDataSize){
+	assert(wDataSize >= sizeof(CMD_C_UserSit));
+	CMD_C_UserSit *pUserSit = (CMD_C_UserSit*)pDataBuffer;
+	
+	map<long, tagUserInfo >::iterator l_it;
+	l_it = DataModel::sharedDataModel()->mTagUserInfo.find(pUserSit->wUserID);
+	if (l_it != DataModel::sharedDataModel()->mTagUserInfo.end())
+	{
+		pChairData[pUserSit->cbSitID]->setUserSitState(l_it->second, true);
+	}
+}
+//用户起立状态
+void GameControlOxHundred::onSubUserUpState(void * pDataBuffer, unsigned short wDataSize){
+	assert(wDataSize >= sizeof(CMD_C_UserSit));
+	CMD_C_UserSit *pUserSit = (CMD_C_UserSit*)pDataBuffer;
+
+	map<long, tagUserInfo >::iterator l_it;
+	l_it = DataModel::sharedDataModel()->mTagUserInfo.find(pUserSit->wUserID);
+	if (l_it != DataModel::sharedDataModel()->mTagUserInfo.end())
+	{
+		pChairData[pUserSit->cbSitID]->setUserSitState(l_it->second, false);
+	}
 }
 
 //开始下注效果动画

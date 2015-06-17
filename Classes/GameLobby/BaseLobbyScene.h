@@ -58,4 +58,8 @@ private:
 	virtual void onCloseKnapsack();
 	//关闭VIP回调
 	virtual void onCloseVipToShop();
+	//随机生成云
+	void createCloudRandom(CCSprite *pBg);
+	//去回调
+	void onMoveFinsh(CCNode *node);
 };

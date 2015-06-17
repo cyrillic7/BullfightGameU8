@@ -18,13 +18,13 @@ void SeatData::resetData(){
 //设置所有筹码
 void SeatData::setAllJettonByAdd(long long lValue){
 	allJettonCount+=lValue;
-	if (allJettonCount/10000>0)
+	/*if (allJettonCount/10000>0)
 	{
 		pLAllJetton->setStringValue(CCString::createWithFormat("%lld",allJettonCount)->getCString());
 		pLAllJetton->setPositionX(-pIFontWan->getContentSize().width/2);
 		pIFontWan->setPositionX(pLAllJetton->getContentSize().width/2+pIFontWan->getContentSize().width/2);
 		pIFontWan->setVisible(true);
-	}else
+	}else*/
 	{
 		pLAllJetton->setStringValue(CCString::createWithFormat("%lld",allJettonCount)->getCString());
 		pLAllJetton->setPositionX(0);
@@ -37,13 +37,13 @@ void SeatData::hideAllJettonLabel(){
 }
 //设置用户筹码
 void SeatData::setUserJetton(long long lValue){
-	if (lValue/10000>0)
+	/*if (lValue/10000>0)
 	{
 		pLUserJetton->setStringValue(CCString::createWithFormat("%lld",lValue/10000)->getCString());
 		pLUserJetton->setPositionX(-pIUserFontWan->getContentSize().width/2);
 		pIUserFontWan->setPositionX(pLUserJetton->getContentSize().width/2+pIUserFontWan->getContentSize().width/2);
 		pIUserFontWan->setVisible(true);
-	}else
+	}else*/
 	{
 		pLUserJetton->setStringValue(CCString::createWithFormat("%lld",lValue)->getCString());
 		pLUserJetton->setPositionX(0);
@@ -55,10 +55,12 @@ void SeatData::setUserJetton(long long lValue){
 	}else
 	{
 		pLUserJetton->setVisible(true);
+		pLUserJetton->getParent()->setVisible(true);
 	}
 }
 //隐藏用户筹码标签
 void SeatData::hideUserJettonLabel(){
+	pLUserJetton->getParent()->setVisible(false);
 	pLUserJetton->setVisible(false);
 	pIUserFontWan->setVisible(false);
 }

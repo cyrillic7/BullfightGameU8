@@ -73,7 +73,7 @@ void CardLayerHundred::sendFiveCard(int index,int offsetIndex){
 			//(index-offsetIndex)*SEND_CARD_DELAY_TIME*MAX_CARD_COUNT + i*SEND_CARD_DELAY_TIME, 
 			offsetIndex*SEND_CARD_DELAY_TIME*MAX_CARD_COUNT+i*SEND_CARD_DELAY_TIME,
 			ccpAdd(cardPos, offPos),index);*/
-		float offsetX=i*25-(4*25/2);
+		float offsetX=i*20-(4*20/2);
 		CCPoint offPos =ccp(offsetX,0);
 
 		moveCardAction(pCard[i+index*MAX_COUNT]->m_cpArmatureCard,

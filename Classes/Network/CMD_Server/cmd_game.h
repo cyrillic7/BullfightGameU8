@@ -430,5 +430,16 @@ struct CMD_S_QiangZhuan
 //}
 
 //////////////////////////////////////////////////////////////////////////
+#define SUB_C_USER_SIT			12									    //用户坐下
+#define SUB_S_USER_SIT			113 								//坐下
+#define SUB_S_USER_LEAVE			114 								//起立
+
+//用户坐下
+struct CMD_C_UserSit
+{
+	DWORD                           wUserID;
+	BYTE							cbSitID;						//筹码区域
+};
+
 #pragma pack()
 #endif
