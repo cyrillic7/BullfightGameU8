@@ -17,12 +17,15 @@
 #include "../Network/MD5/MD5.h"
 #include "../Network/CMD_Server/cmd_ox.h"
 #include "../Tools/BaseAttributes.h"
+#include "../Platform/coPlatform.h"
 LogonScene::LogonScene(){
 	DataModel *m = DataModel::sharedDataModel();
 	CC_SAFE_RELEASE_NULL(m);
 
 	readRMS();
 	scheduleUpdate();
+
+	platformAction("{\"act\":100}");
 }
 LogonScene::~LogonScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);

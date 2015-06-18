@@ -28,6 +28,8 @@ void PopDialogBoxInputNum::onEnter(){
 	//关闭
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));
+	//商品图片框
+	pIVPropIcon = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImagePropIcon"));
 	//道具名
 	pLPropName = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelPropName"));
 	//购买类型
@@ -56,6 +58,11 @@ void PopDialogBoxInputNum::setInputData(BuyType eBuyType, const char* cPropName,
 	lBuyNum = lMaxNum;
 	lPropPice = lPice;
 	pLPropName->setText(cPropName);
+	if (strcmp(cPropImagePuth,"")!=0)
+	{
+		addDownloadImage(pIVPropIcon, cPropImagePuth, CCPointZero, 1, 0, false);
+	}
+	
 	switch (eBuyType)
 	{
 	case PopDialogBox::BUY_AUCTION:

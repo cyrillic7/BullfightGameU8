@@ -601,7 +601,11 @@ DWORD TCPSocket::SendDataBuffer(void * pBuffer, WORD wSendSize)
 	WORD wSended = 0;
 	while (wSended < wSendSize)
 	{
-		int iErrorCode = send(m_sock, (char *)pBuffer + wSended, wSendSize - wSended, 0);
+		unsigned int flags = 0;
+#if (CC_TARGET_PLATFORM==CC_PLATFORM_ANDROID)  
+		flags = MSG_NOSIGNAL;
+#endif  
+		int iErrorCode = send(m_sock, (char *)pBuffer + wSended, wSendSize - wSended, flags);
 		//int nError = GetLastError();
 		if (iErrorCode == SOCKET_ERROR)
 		{
@@ -624,8 +628,12 @@ long TCPSocket::OnSocketNotifyRead(unsigned int wParam, long lParam)
 {
 	try
 	{
+		unsigned int flags = 0;
+#if (CC_TARGET_PLATFORM==CC_PLATFORM_ANDROID)  
+		flags = MSG_NOSIGNAL;
+#endif  
 		//读取数据
-		int iRetCode = recv(m_sock, (char *)m_cbRecvBuf + m_wRecvSize, sizeof(m_cbRecvBuf)-m_wRecvSize, 0);
+		int iRetCode = recv(m_sock, (char *)m_cbRecvBuf + m_wRecvSize, sizeof(m_cbRecvBuf) - m_wRecvSize, flags);
 		if (iRetCode == SOCKET_ERROR) return 0;
 		ASSERT(m_dwSendPacketCount > 0);
 		m_wRecvSize += iRetCode;

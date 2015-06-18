@@ -16,6 +16,8 @@ private:
 	long long lPropPice;
 	//购买数量
 	long lBuyNum;
+	//商品图片框
+	UIImageView *pIVPropIcon;
 	//道具名
 	UILabel *pLPropName;
 	//购买类型
