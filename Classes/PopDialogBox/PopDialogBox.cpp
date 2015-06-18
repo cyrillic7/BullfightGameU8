@@ -129,7 +129,9 @@ void PopDialogBox::addEditBox(UITextField *pTextField, EditBoxInputMode eInputMo
 	pEditBox->setPlaceHolder(pTextField->getPlaceHolder());//点位符
 	pEditBox->setPlaceholderFontSize(pTextField->getFontSize());
 
-	pEditBox->setMaxLength(pTextField->getMaxLength());//最大长度
+    if (pTextField->getMaxLength()>0) {
+        pEditBox->setMaxLength(pTextField->getMaxLength());//最大长度
+    }
 	pEditBox->setReturnType(kKeyboardReturnTypeDone);//键盘回车键名字
 	if (pTextField->isPasswordEnabled())
 	{
