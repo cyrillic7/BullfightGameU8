@@ -64,4 +64,6 @@ public:
 	void addDownloadImage(UIWidget *widget, const char *name, CCPoint pos, float fScale,int zOrder, bool useMask);
 	//图片下载完成回调
 	void loadCompleteCallBack();
+	//添加EditBox
+	void addEditBox(UITextField *pTextField);
 };

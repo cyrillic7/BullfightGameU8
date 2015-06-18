@@ -28,7 +28,8 @@
     "UITask.plist",
     "UILoadingBar.plist",
     "UIConnectFailure.plist",
-    "UIGameIng.plist"
+    "UIGameIng.plist",
+    "UIVip.plist"
   ],
   "texturesPng": [],
   "version": "1.6.0.0",

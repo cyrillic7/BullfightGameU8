@@ -36,10 +36,14 @@ void PopDialogBoxLogonAccount::onEnter(){
 	pTAccount=static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldAccount"));
 	pTAccount->addEventListenerTextField(this,SEL_TextFieldEvent(&PopDialogBoxLogonAccount::onTextFieldAccount));
 	pTAccount->setText(DataModel::sharedDataModel()->sLogonAccount);
+	pTAccount->setTouchEnabled(false);
+	addEditBox(pTAccount);
 	//绑定密码文本输入框
 	pTPassword=static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldPassword"));
 	pTPassword->addEventListenerTextField(this,SEL_TextFieldEvent(&PopDialogBoxLogonAccount::onTextFieldAccount));
 	pTPassword->setText(DataModel::sharedDataModel()->sLogonPassword);
+	pTPassword->setTouchEnabled(false);
+	addEditBox(pTPassword);
 	//播放显示动画
 	playAnimation();
 }
@@ -76,11 +80,16 @@ void PopDialogBoxLogonAccount::onMenuLogon(CCObject *object, TouchEventType type
 	{
 	case TOUCH_EVENT_ENDED:
 		{
-			if (strcmp(pTAccount->getStringValue(),"")==0||strcmp(pTPassword->getStringValue(),"")==0)
+			CCEditBox *pEBAccount = (CCEditBox*)pTAccount->getNodeByTag(TAG_INPUT_EDIT_BOX);
+			CCEditBox *pEBPassword = (CCEditBox*)pTPassword->getNodeByTag(TAG_INPUT_EDIT_BOX);
+			if (strcmp(pEBAccount->getText(), "") == 0 || strcmp(pEBPassword->getText(), "") == 0)
 			{
 				CCLog("帐号、密码不能为空<<%s>>",__FUNCTION__);
 			}else
 			{
+				DataModel::sharedDataModel()->sLogonAccount = pEBAccount->getText();
+				DataModel::sharedDataModel()->sLogonPassword = pEBPassword->getText();
+
 				((LogonScene*)this->getParent())->logonGameByAccount();
 			}
 		}

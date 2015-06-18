@@ -638,7 +638,7 @@ struct CMD_GP_VipPower
 {
 	CMD_GP_VipPower()
 	{
-		memset(this, 0, sizeof(CMD_GP_VipPower));
+		//memset(this, 0, sizeof(CMD_GP_VipPower));
 	}
 	DWORD	dwVipID;													//1---7(vip1-vip7)
 	DWORD	dwIngot;													//差dwIngot升级

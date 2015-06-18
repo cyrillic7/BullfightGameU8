@@ -117,3 +117,27 @@ void PopDialogBox::addDownloadImage(UIWidget *widget, const char *name, CCPoint 
 void PopDialogBox::loadCompleteCallBack(){
 
 }
+//添加EditBox
+void PopDialogBox::addEditBox(UITextField *pTextField){
+	//CCEditBox* m_pEditName = CCEditBox::create(pTextField->getContentSize(), CCScale9Sprite::createWithSpriteFrameName("u_info_change_bg.png"));
+	CCEditBox* pEditBox = CCEditBox::create(pTextField->getContentSize(), CCScale9Sprite::create("res/u_input.png"));
+	pEditBox->setPosition(CCPointZero);
+	pEditBox->setFontSize(pTextField->getFontSize());
+	pEditBox->setFontColor(pTextField->getColor());//设置文字颜色
+
+	pEditBox->setPlaceHolder(pTextField->getPlaceHolder());//点位符
+	pEditBox->setPlaceholderFontSize(pTextField->getFontSize());
+
+	pEditBox->setMaxLength(pTextField->getMaxLength());//最大长度
+	pEditBox->setReturnType(kKeyboardReturnTypeDone);//键盘回车键名字
+	if (pTextField->isPasswordEnabled())
+	{
+		pEditBox->setInputFlag(kEditBoxInputFlagPassword);//设置为密码模式
+	}
+	//pEditBox->setInputMode(kEditBoxInputModeNumeric);//设置键盘模式
+	pEditBox->setTouchPriority(-128);
+	pEditBox->setAnchorPoint(pTextField->getAnchorPoint());
+	pEditBox->setTag(TAG_INPUT_EDIT_BOX);
+	pEditBox->setText(pTextField->getStringValue());
+	pTextField->addNode(pEditBox, 10);
+}
