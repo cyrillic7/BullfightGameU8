@@ -37,13 +37,13 @@ void PopDialogBoxLogonAccount::onEnter(){
 	pTAccount->addEventListenerTextField(this,SEL_TextFieldEvent(&PopDialogBoxLogonAccount::onTextFieldAccount));
 	pTAccount->setText(DataModel::sharedDataModel()->sLogonAccount);
 	pTAccount->setTouchEnabled(false);
-	addEditBox(pTAccount);
+	addEditBox(pTAccount, kEditBoxInputModeSingleLine);
 	//绑定密码文本输入框
 	pTPassword=static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldPassword"));
 	pTPassword->addEventListenerTextField(this,SEL_TextFieldEvent(&PopDialogBoxLogonAccount::onTextFieldAccount));
 	pTPassword->setText(DataModel::sharedDataModel()->sLogonPassword);
 	pTPassword->setTouchEnabled(false);
-	addEditBox(pTPassword);
+	addEditBox(pTPassword, kEditBoxInputModeSingleLine);
 	//播放显示动画
 	playAnimation();
 }

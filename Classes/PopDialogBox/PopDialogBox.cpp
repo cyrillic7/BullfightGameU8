@@ -118,12 +118,13 @@ void PopDialogBox::loadCompleteCallBack(){
 
 }
 //添加EditBox
-void PopDialogBox::addEditBox(UITextField *pTextField){
+void PopDialogBox::addEditBox(UITextField *pTextField, EditBoxInputMode eInputMode){
 	//CCEditBox* m_pEditName = CCEditBox::create(pTextField->getContentSize(), CCScale9Sprite::createWithSpriteFrameName("u_info_change_bg.png"));
 	CCEditBox* pEditBox = CCEditBox::create(pTextField->getContentSize(), CCScale9Sprite::create("res/u_input.png"));
 	pEditBox->setPosition(CCPointZero);
 	pEditBox->setFontSize(pTextField->getFontSize());
 	pEditBox->setFontColor(pTextField->getColor());//设置文字颜色
+	
 
 	pEditBox->setPlaceHolder(pTextField->getPlaceHolder());//点位符
 	pEditBox->setPlaceholderFontSize(pTextField->getFontSize());
@@ -134,10 +135,44 @@ void PopDialogBox::addEditBox(UITextField *pTextField){
 	{
 		pEditBox->setInputFlag(kEditBoxInputFlagPassword);//设置为密码模式
 	}
-	//pEditBox->setInputMode(kEditBoxInputModeNumeric);//设置键盘模式
+	pEditBox->setInputMode(eInputMode);//设置键盘模式
 	pEditBox->setTouchPriority(-128);
 	pEditBox->setAnchorPoint(pTextField->getAnchorPoint());
 	pEditBox->setTag(TAG_INPUT_EDIT_BOX);
 	pEditBox->setText(pTextField->getStringValue());
+	pEditBox->setDelegate(this);
+
 	pTextField->addNode(pEditBox, 10);
+}
+void PopDialogBox::editBoxEditingDidBegin(cocos2d::extension::CCEditBox* editBox)
+{
+	CCLog("editBox %p DidBegin !", editBox);
+}
+
+void PopDialogBox::editBoxEditingDidEnd(cocos2d::extension::CCEditBox* editBox)
+{
+	CCLog("editBox %p DidEnd !", editBox);
+}
+
+void PopDialogBox::editBoxTextChanged(cocos2d::extension::CCEditBox* editBox, const std::string& text)
+{
+	CCLog("editBox %p TextChanged, text: %s ", editBox, text.c_str());
+}
+
+void PopDialogBox::editBoxReturn(CCEditBox* editBox)
+{
+	CCLog("editBox %p was returned !", editBox);
+
+	/*if (m_pEditName == editBox)
+	{
+		m_pTTFShowEditReturn->setString("Name EditBox return !");
+	}
+	else if (m_pEditPassword == editBox)
+	{
+		m_pTTFShowEditReturn->setString("Password EditBox return !");
+	}
+	else if (m_pEditEmail == editBox)
+	{
+		m_pTTFShowEditReturn->setString("Email EditBox return !");
+	}*/
 }

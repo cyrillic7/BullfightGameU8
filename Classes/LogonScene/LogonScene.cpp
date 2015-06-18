@@ -25,6 +25,13 @@ LogonScene::LogonScene(){
 	readRMS();
 	scheduleUpdate();
 
+
+	/*char szJson[512] = { 0 };
+	sprintf(szJson,
+		"{\"act\":20,\"type\":%d,\"item\":%d,\"cost\":%d,\"amount\":%d,\"name\":\"%s\",\"uid\":\"%s\",\"order\":\"%s\"}",
+		type, item, coPayGetCostAmount(item), coPayGetProductAmount(item), coPayGetProductName(item).c_str(),
+		uid.c_str(), order.c_str());
+	log("%s", szJson);*/
 	platformAction("{\"act\":100}");
 }
 LogonScene::~LogonScene(){

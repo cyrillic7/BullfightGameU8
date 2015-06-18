@@ -23,7 +23,7 @@ struct IPopAssist//弹框辅助接口
 	virtual void onBuyNum(long lNum) = 0;
 };
 
-class PopDialogBox: public CCLayer,public CStringAide {
+class PopDialogBox : public CCLayer, public CStringAide, public CCEditBoxDelegate {
 public:
 	CC_SYNTHESIZE(IPopAssist*, pIPopAssist, IPopAssist);
 
@@ -65,5 +65,10 @@ public:
 	//图片下载完成回调
 	void loadCompleteCallBack();
 	//添加EditBox
-	void addEditBox(UITextField *pTextField);
+	void addEditBox(UITextField *pTextField, EditBoxInputMode eInputMode);
+	//输入框回调
+	virtual void editBoxEditingDidBegin(cocos2d::extension::CCEditBox* editBox);
+	virtual void editBoxEditingDidEnd(cocos2d::extension::CCEditBox* editBox);
+	virtual void editBoxTextChanged(cocos2d::extension::CCEditBox* editBox, const std::string& text);
+	virtual void editBoxReturn(cocos2d::extension::CCEditBox* editBox);
 };

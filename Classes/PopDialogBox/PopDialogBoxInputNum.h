@@ -45,4 +45,6 @@ private:
 	void onTextFieldAccount(CCObject* obj, TextFiledEventType type);
 	//更新总价
 	void updateAllPice();
+	//输入改变
+	virtual void editBoxTextChanged(cocos2d::extension::CCEditBox* editBox, const std::string& text);
 };

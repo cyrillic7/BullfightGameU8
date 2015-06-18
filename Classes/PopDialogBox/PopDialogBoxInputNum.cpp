@@ -43,6 +43,8 @@ void PopDialogBoxInputNum::onEnter(){
 	//输入数量
 	pTFInputCount = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldCount")); 
 	pTFInputCount->addEventListenerTextField(this, SEL_TextFieldEvent(&PopDialogBoxInputNum::onTextFieldAccount));
+	pTFInputCount->setTouchEnabled(false);
+	addEditBox(pTFInputCount, kEditBoxInputModeNumeric);
 	//确定按键
 	UIButton *pBSure = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonSure"));
 	pBSure->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxInputNum::onMenuSure));
@@ -79,7 +81,8 @@ void PopDialogBoxInputNum::setInputData(BuyType eBuyType, const char* cPropName,
 }
 //更新总价
 void PopDialogBoxInputNum::updateAllPice(){
-	pTFInputCount->setText(CCString::createWithFormat("%ld", lBuyNum)->getCString());
+	CCEditBox *pEBInputCount = (CCEditBox *)pTFInputCount->getNodeByTag(TAG_INPUT_EDIT_BOX);
+	pEBInputCount->setText(CCString::createWithFormat("%ld", lBuyNum)->getCString());
 	pAllPice->setText(CCString::createWithFormat("%lld", lPropPice*lBuyNum)->getCString());
 }
 //确定按键
@@ -115,4 +118,14 @@ void PopDialogBoxInputNum::onTextFieldAccount(CCObject* obj, TextFiledEventType 
 	default:
 		break;
 	}
+}
+//输入改变
+void PopDialogBoxInputNum::editBoxTextChanged(cocos2d::extension::CCEditBox* editBox, const std::string& text)
+{
+	lBuyNum = strtol(text.c_str(), NULL, 10);
+	if (lBuyNum<1)
+	{
+		lBuyNum = 1;
+	}
+	updateAllPice();
 }

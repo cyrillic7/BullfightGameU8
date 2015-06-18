@@ -746,10 +746,10 @@
                   "fontName": "微软雅黑",
                   "fontSize": 20,
                   "maxLength": 10,
-                  "maxLengthEnable": false,
+                  "maxLengthEnable": true,
                   "passwordEnable": false,
                   "passwordStyleText": "*",
-                  "placeHolder": "",
+                  "placeHolder": "请输入数量",
                   "text": "1"
                 }
               }
