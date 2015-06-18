@@ -147,7 +147,15 @@ void PopDialogBoxVip::updateListVip(){
 	//////////////////////////////////////////////////////////////////////////
 	//红包奖励
 	UILabel *pLRewardRedMoney = static_cast<UILabel *>(pLVVipReward->getItem(0)->getChildByName("ImageVipItem1")->getChildByName("LabelVipRewardNum"));
-	pLRewardRedMoney->setText(CCString::createWithFormat("%ld红包碎片", vipPower.dwRedPieces)->getCString());
+	if (vipPower.dwRedPieces != 0)
+	{
+		pLRewardRedMoney->setText(CCString::createWithFormat("%ld红包碎片", vipPower.dwRedPieces)->getCString());
+	}
+	else
+	{
+		pLRewardRedMoney->setText(CCString::createWithFormat("%ld红包", vipPower.dwRedPaper)->getCString());
+	}
+	
 	UIButton *pBRewardRedMoney = static_cast<UIButton *>(pLVVipReward->getItem(0)->getChildByName("ImageVipItem1")->getChildByName("ButtonVipReward"));
 	pBRewardRedMoney->setTag(REWARD_RED_MONEY);
 	pBRewardRedMoney->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxVip::onMenuReward));
