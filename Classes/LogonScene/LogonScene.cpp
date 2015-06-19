@@ -11,6 +11,7 @@
 #include "../PopDialogBox/PopDialogBoxLoading.h"
 #include "../PopDialogBox/PopDialogBoxLogonAccount.h"
 #include "../PopDialogBox/PopDialogBoxTipInfo.h"
+
 #include "../GameLobby/GameLobbyScene.h"
 #include "../Network/ListernerThread/LogonGameListerner.h"
 #include "../Network/ListernerThread/LobbyGameListerner.h"
@@ -18,7 +19,9 @@
 #include "../Network/CMD_Server/cmd_ox.h"
 #include "../Tools/BaseAttributes.h"
 #include "../Platform/coPlatform.h"
-LogonScene::LogonScene(){
+LogonScene::LogonScene()
+	:eLogonType(LOGON_ACCOUNT)
+{
 	DataModel *m = DataModel::sharedDataModel();
 	CC_SAFE_RELEASE_NULL(m);
 
@@ -87,17 +90,24 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 	case TOUCH_EVENT_ENDED:
 		{
 			UIButton *pBtn =(UIButton *)pSender;
+			setLogonType((LogonType)pBtn->getTag());
 			switch (pBtn->getTag())
 			{
 			case LOGON_ACCOUNT:
 				{
 					//logonGame();
-					PopDialogBox *pLoading = PopDialogBoxLogonAccount::create();
-					this->addChild(pLoading);
+					PopDialogBox *pLogon = PopDialogBoxLogonAccount::create();
+					this->addChild(pLogon);
 				}
 				break;
+			case LOGON_REGISTER://注册
+			{
+				PopDialogBoxRegistered *pRegistered = PopDialogBoxRegistered::create();
+				this->addChild(pRegistered);
+				pRegistered->setIPopAssistRegistered(this);
+			}
+				break;
 			case LOGON_QQ:
-			case LOGON_REGISTER:
 			case LOGON_QUICK://快速登录
 				{
 					PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
@@ -119,19 +129,22 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 void LogonScene::update(float delta){
 	MessageQueue::update(delta);
 }
-//登录游戏////////////////////////////////////////////////////////////////////////
-void LogonScene::logonGameByAccount(){
-	PopDialogBox *box=PopDialogBoxLoading::create();
-	this->addChild(box,10,TAG_LOADING);
+//连接服务器
+void LogonScene::connectServer(){
+	PopDialogBox *box = PopDialogBoxLoading::create();
+	this->addChild(box, 10, TAG_LOADING);
 	box->setSocketName(SOCKET_LOGON_GAME);
 
 	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_GAME);
-	TCPSocket *tcp=getSocket();
+	TCPSocket *tcp = getSocket();
 	if (tcp)
 	{
 		tcp->createSocket(GAME_IP, PORT_LOGON, new LogonGameListerner());
-		//tcp->createSocket(GAME_IP, 8130, new LogonGameListerner());
 	}
+}
+//登录游戏////////////////////////////////////////////////////////////////////////
+void LogonScene::logonGameByAccount(){
+	connectServer();
 }
 //读取网络消息回调
 void LogonScene::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
@@ -151,40 +164,88 @@ void LogonScene::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataB
 		break;
 	}
 }
+//登录游戏
+void LogonScene::logonGame(){
+	CMD_MB_LogonAccounts logonAccounts;
+	logonAccounts.cbDeviceType = 2;
+	logonAccounts.dwPlazaVersion = VERSION_PLAZA;
+	strcpy(logonAccounts.szAccounts, DataModel::sharedDataModel()->sLogonAccount.c_str());
+	//strcpy(logonAccounts.szAccounts,"zhangh189");
+	strcpy(logonAccounts.szMachineID, "12");
+	strcpy(logonAccounts.szMobilePhone, "32");
+	strcpy(logonAccounts.szPassPortID, "12");
+	strcpy(logonAccounts.szPhoneVerifyID, "1");
+	//游戏标识
+	for (int i = 0; i < 10; i++)
+	{
+		logonAccounts.wModuleID[i] = 0;
+	}
+	logonAccounts.wModuleID[0] = 210; //210为二人牛牛标示
+	logonAccounts.wModuleID[1] = 30; //30为百人牛牛标示
+	logonAccounts.wModuleID[2] = 130; //1002为通比牛牛标示
+	//logonAccounts.wModuleID[3] = 430; //六人换牌
+	CCLog("passWord:%s <<%s>>", DataModel::sharedDataModel()->sLogonPassword.c_str(), __FUNCTION__);
+	MD5 m;
+	//std::string passWord = GBKToUTF8(DataModel::sharedDataModel()->sLogonPassword.c_str());
+	//m.ComputMd5(passWord.c_str(), passWord.length());
+	m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
+	std::string md5PassWord = m.GetMd5();
+	strcpy(logonAccounts.szPassword, md5PassWord.c_str());
+	CCLog("%s  --  :%s   %d<<%s>>", logonAccounts.szAccounts, logonAccounts.szPassword, sizeof(logonAccounts), __FUNCTION__);
+	bool isSend = getSocket()->SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &logonAccounts, sizeof(logonAccounts));
+	CCLog("Logon:send:%d", isSend);
+}
+//注册游戏
+void LogonScene::registeredGame(){
+	CMD_GP_RegisterAccounts registeredAccount;
+	registeredAccount.dwPlazaVersion = VERSION_PLAZA;//广场版本
+	strcpy(registeredAccount.szMachineID, "12");//机器序列
+
+	
+	MD5 m;
+	m.ComputMd5(sRegisterPasswrod.c_str(), sRegisterPasswrod.length());
+	std::string md5PassWord = m.GetMd5();
+	strcpy(registeredAccount.szLogonPass, md5PassWord.c_str());//登录密码
+	strcpy(registeredAccount.szInsurePass, md5PassWord.c_str());//银行密码
+
+	registeredAccount.wFaceID = 1;//头像标识
+	registeredAccount.cbGender = 1;//用户性别
+	strcpy(registeredAccount.szAccounts, sRegisterAccount.c_str());//登录帐号
+	strcpy(registeredAccount.szNickName, UTF8ToGBK(sRegisterNickname.c_str()));//用户昵称
+	strcpy(registeredAccount.szSpreader, "");//推荐帐号
+	strcpy(registeredAccount.szPassPortID, "");//证件号码
+	strcpy(registeredAccount.szCompellation, "");//真实名字
+
+	registeredAccount.cbValidateFlags = 1;//校验标识		      
+
+	getSocket()->SendData(MDM_MB_LOGON, SUB_GP_REGISTER_ACCOUNTS, &registeredAccount, sizeof(CMD_GP_RegisterAccounts));
+}
 //连接成功
 void LogonScene::onEventConnect(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
 	switch (wSubCmdID)
 	{
 	case SUB_GP_SOCKET_OPEN:
 		{
-			CMD_MB_LogonAccounts logonAccounts;
-			logonAccounts.cbDeviceType = 2;
-			logonAccounts.dwPlazaVersion=VERSION_PLAZA;
-			strcpy(logonAccounts.szAccounts,DataModel::sharedDataModel()->sLogonAccount.c_str());
-			//strcpy(logonAccounts.szAccounts,"zhangh189");
-			strcpy(logonAccounts.szMachineID,"12");
-			strcpy(logonAccounts.szMobilePhone,"32");
-			strcpy(logonAccounts.szPassPortID,"12");
-			strcpy(logonAccounts.szPhoneVerifyID,"1");
-			//游戏标识
-			for (int i = 0; i < 10; i++)
+			switch (eLogonType)
 			{
-				logonAccounts.wModuleID[i] =0;
+			case LogonScene::LOGON_ACCOUNT:
+			{
+				logonGame();
 			}
-			logonAccounts.wModuleID[0] = 210; //210为二人牛牛标示
-			logonAccounts.wModuleID[1] = 30; //30为百人牛牛标示
-			logonAccounts.wModuleID[2] = 130; //1002为通比牛牛标示
-			//logonAccounts.wModuleID[3] = 430; //六人换牌
-			CCLog("passWord:%s <<%s>>",DataModel::sharedDataModel()->sLogonPassword.c_str(), __FUNCTION__);
-			MD5 m;
-			//std::string passWord = GBKToUTF8(DataModel::sharedDataModel()->sLogonPassword.c_str());
-			//m.ComputMd5(passWord.c_str(), passWord.length());
-			m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
-			std::string md5PassWord = m.GetMd5();
-			strcpy(logonAccounts.szPassword,md5PassWord.c_str());
-			CCLog("%s  --  :%s   %d<<%s>>", logonAccounts.szAccounts, logonAccounts.szPassword, sizeof(logonAccounts), __FUNCTION__);
-			bool isSend =getSocket()->SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &logonAccounts, sizeof(logonAccounts));
-			CCLog("Logon:send:%d", isSend);
+				break;
+			case LogonScene::LOGON_QQ:
+				break;
+			case LogonScene::LOGON_REGISTER:
+			{
+				registeredGame();
+			}
+				break;
+			case LogonScene::LOGON_QUICK:
+				break;
+			default:
+				break;
+			}
+			
 		}
 		break;
 	default:
@@ -347,6 +408,13 @@ void LogonScene::onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned s
 		CCLog("other:%d<<%s>>",wSubCmdID,__FUNCTION__);
 		break;
 	}
+}
+//注册回调
+void LogonScene::onRegistered(const char *sAccount, const char*sNickname, const char*sPassword){
+	sRegisterAccount = sAccount;
+	sRegisterNickname = sNickname;
+	sRegisterPasswrod = sPassword;
+	connectServer();
 }
 /************************************************************************/
 /* 存档                                                                     */

@@ -105,4 +105,8 @@
     <Project>UIPopDialogBoxVip</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxRegistered</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

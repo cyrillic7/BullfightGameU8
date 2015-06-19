@@ -14,10 +14,11 @@
 #include "../Tools/DataModel.h"
 #include "../Tools/CStringAide.h"
 #include "../Network/TCPSocket/TCPSocketControl.h"
+#include "../PopDialogBox/PopDialogBoxRegistered.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace ui;
-class LogonScene:public CCLayer,public MessageQueue,public CStringAide
+class LogonScene:public CCLayer,public MessageQueue,public CStringAide,public IPopAssistRegistered
 {
 private:
 	enum LogonType
@@ -27,6 +28,10 @@ private:
 		LOGON_REGISTER,						//注册
 		LOGON_QUICK,							//快速登录
 	};
+	CC_SYNTHESIZE(LogonType, eLogonType, LogonType);
+	std::string sRegisterAccount;
+	std::string sRegisterNickname;
+	std::string sRegisterPasswrod;
 public:
     LogonScene();
     ~LogonScene();
@@ -45,6 +50,12 @@ public:
 	//登录游戏(帐号登录)
 	void logonGameByAccount();
 private:
+	//连接服务器
+	void connectServer();
+	//登录
+	void logonGame();
+	//注册
+	void registeredGame();
 	//网络回调////////////////////////////////////////////////////////////////////////
 	void onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//socket连接成功
@@ -53,7 +64,8 @@ private:
 	void onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//获取列表
 	void onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
-
+	//注册回调
+	virtual void onRegistered(const char *sAccount, const char*sNickname, const char*sPassword);
 	//存档
 	void readRMS();
 	void initRSM();
