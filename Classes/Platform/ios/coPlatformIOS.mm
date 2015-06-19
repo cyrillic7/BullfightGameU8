@@ -24,7 +24,7 @@ std::string platformAction(const std::string& jsonString)
 
 	int act = aide.getInt("act", -1);
 
-	CCLog("android.............................  %d",act);
+	CCLog("ios.............................  %d",act);
 
 	return "";
 }

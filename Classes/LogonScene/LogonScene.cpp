@@ -35,7 +35,8 @@ LogonScene::LogonScene()
 		type, item, coPayGetCostAmount(item), coPayGetProductAmount(item), coPayGetProductName(item).c_str(),
 		uid.c_str(), order.c_str());
 	log("%s", szJson);*/
-	platformAction("{\"act\":100}");
+	;
+	CCLog("--------:%s <<%s>>", platformAction("{\"act\":100}").c_str(), __FUNCTION__);
 }
 LogonScene::~LogonScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);

@@ -4,6 +4,7 @@
 
 #include "../coPlatform.h"
 #include "../../Libs/JsonAide.h"
+#include "JniHelper.h"
 USING_NS_CC;
 
 /**
@@ -24,7 +25,6 @@ std::string platformAction(const std::string& jsonString)
 	int act = aide.getInt("act", -1);
 
 	CCLog("android.............................  %d",act);
-	/*
 		JniMethodInfo minfo;
 		jobject jobj;//存对象
 		if (getJniMethod(jobj, minfo, "jniCjAction","(Ljava/lang/String;)Ljava/lang/String;"))
@@ -40,7 +40,7 @@ std::string platformAction(const std::string& jsonString)
 		return retUtf8;
 		}
 
-	*/
+	
 	return "";
 }
 //////////////////////////////////////////////////////////////////////////
