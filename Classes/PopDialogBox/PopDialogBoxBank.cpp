@@ -43,7 +43,9 @@ void PopDialogBoxBank::onEnter(){
 	pPanelCreatePassword = static_cast<UIPanel*>(pUILayer->getWidgetByName("PanelCreatePassword"));
 	//密码输入框
 	pTFCreatePassword0 = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldCreatePassword0"));
+	addEditBox(pTFCreatePassword0, kEditBoxInputModeAny);
 	pTFCreatePassword1 = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldCreatePassword1"));
+	addEditBox(pTFCreatePassword1, kEditBoxInputModeAny);
 	//创建密码保存按键
 	UIButton *pBSave = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonCreatePassword"));
 	pBSave->addTouchEventListener(this, toucheventselector(PopDialogBoxBank::onMenuCreatePassword));
@@ -52,6 +54,7 @@ void PopDialogBoxBank::onEnter(){
 	pPanelInputPassword = static_cast<UIPanel*>(pUILayer->getWidgetByName("PanelEnterPassword"));
 	//输入密码框
 	pTFInputPassword = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldEnterPassword"));
+	addEditBox(pTFInputPassword,kEditBoxInputModeAny);
 	//输入密码保存按键
 	UIButton *pBInput = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonEnterPassword"));
 	pBInput->addTouchEventListener(this, toucheventselector(PopDialogBoxBank::onMenuInputPassword));
@@ -74,6 +77,7 @@ void PopDialogBoxBank::onEnter(){
 	pBOperationMoney->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxBank::onMenuOperationMoney));
 	//存款/取款金币数
 	pTFInputMoney = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldInputMoney"));
+	addEditBox(pTFInputMoney, kEditBoxInputModeNumeric);
 	//标题
 	pLTitle0 = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelTitle0"));
 	pLTitle1 = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelTitle1"));
@@ -125,18 +129,20 @@ void PopDialogBoxBank::onMenuCreatePassword(CCObject *object, TouchEventType typ
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		string password0 = pTFCreatePassword0->getStringValue();
-		string password1 = pTFCreatePassword1->getStringValue();
+		CCEditBox *pEBCreatePassword0 = (CCEditBox*)pTFCreatePassword0->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		CCEditBox *pEBCreatePassword1 = (CCEditBox*)pTFCreatePassword1->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		string password0 = pEBCreatePassword0->getText();
+		string password1 = pEBCreatePassword1->getText();
 
-		if (strcmp(pTFCreatePassword0->getStringValue(), "") == 0 || strcmp(pTFCreatePassword1->getStringValue(), "") == 0)
+		if (strcmp(pEBCreatePassword0->getText(), "") == 0 || strcmp(pEBCreatePassword1->getText(), "") == 0)
 		{
 			showTipInfo(BaseAttributes::sharedAttributes()->sPasswordEmpty.c_str());
 		}
-		else if (strcmp(pTFCreatePassword0->getStringValue(), pTFCreatePassword1->getStringValue()) != 0)
+		else if (strcmp(pEBCreatePassword0->getText(), pEBCreatePassword1->getText()) != 0)
 		{
 			showTipInfo(BaseAttributes::sharedAttributes()->sPasswordInconsistent.c_str());
 		}
-		else if (strlen(pTFCreatePassword0->getStringValue())<8 || strlen(pTFCreatePassword1->getStringValue())<8)
+		else if (strlen(pEBCreatePassword0->getText())<8 || strlen(pEBCreatePassword1->getText())<8)
 		{
 			showTipInfo(BaseAttributes::sharedAttributes()->sInsurePasswordLeng.c_str());
 		}
@@ -160,7 +166,8 @@ void PopDialogBoxBank::onMenuInputPassword(CCObject *object, TouchEventType type
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		if (strcmp(pTFInputPassword->getStringValue(), "") == 0 )
+		CCEditBox *pEBInputPassword = (CCEditBox*)pTFInputPassword->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		if (strcmp(pEBInputPassword->getText(), "") == 0)
 		{
 			showTipInfo(BaseAttributes::sharedAttributes()->sPasswordEmpty.c_str());
 		}
@@ -226,8 +233,9 @@ void PopDialogBoxBank::onMenuOperationMoney(CCObject *object, TouchEventType typ
 		{
 		case BANK_STATE_TAKE_OUT:
 		{
-			long long llTempNum = strtoll(pTFInputMoney->getStringValue(), NULL, 10);
-			if (strcmp(pTFInputMoney->getStringValue(), "") == 0 || llTempNum==0)
+			CCEditBox *pEBInputMoney = (CCEditBox*)pTFInputMoney->getNodeByTag(TAG_INPUT_EDIT_BOX);
+			long long llTempNum = strtoll(pEBInputMoney->getText(), NULL, 10);
+			if (strcmp(pEBInputMoney->getText(), "") == 0 || llTempNum <= 0)
 			{
 				showTipInfo(BaseAttributes::sharedAttributes()->sTakeOutLimit.c_str());
 			}
@@ -242,8 +250,9 @@ void PopDialogBoxBank::onMenuOperationMoney(CCObject *object, TouchEventType typ
 		break;
 		case BANK_STATE_SAVE:
 		{
-			long long llTempNum = strtoll(pTFInputMoney->getStringValue(), NULL, 10);
-			if (strcmp(pTFInputMoney->getStringValue(), "") == 0 || llTempNum == 0)
+			CCEditBox *pEBInputMoney = (CCEditBox*)pTFInputMoney->getNodeByTag(TAG_INPUT_EDIT_BOX);
+			long long llTempNum = strtoll(pEBInputMoney->getText(), NULL, 10);
+			if (strcmp(pEBInputMoney->getText(), "") == 0 || llTempNum <= 0)
 			{
 				showTipInfo(BaseAttributes::sharedAttributes()->sSaveLimit.c_str());
 			}
@@ -295,11 +304,13 @@ void PopDialogBoxBank::onMenuQuickSelectMoney(CCObject *object, TouchEventType t
 					{
 						llTempQuick = DataModel::sharedDataModel()->userInfo->lScore;
 					}
-					pTFInputMoney->setText(CCString::createWithFormat("%lld", llTempQuick)->getCString());
+					CCEditBox *pEBInputMoney = (CCEditBox*)pTFInputMoney->getNodeByTag(TAG_INPUT_EDIT_BOX);
+					pEBInputMoney->setText(CCString::createWithFormat("%lld", llTempQuick)->getCString());
 				}
 				else
 				{
-					pTFInputMoney->setText(CCString::createWithFormat("%lld",llQuickLimitNum[i])->getCString());
+					CCEditBox *pEBInputMoney = (CCEditBox*)pTFInputMoney->getNodeByTag(TAG_INPUT_EDIT_BOX);
+					pEBInputMoney->setText(CCString::createWithFormat("%lld", llQuickLimitNum[i])->getCString());
 				}
 			}
 			else
@@ -316,7 +327,8 @@ void PopDialogBoxBank::onMenuQuickSelectMoney(CCObject *object, TouchEventType t
 }
 //更新快捷款项选择键
 void PopDialogBoxBank::updateQuickButton(){
-	pTFInputMoney->setText("");
+	CCEditBox *pEBInputMoney = (CCEditBox*)pTFInputMoney->getNodeByTag(TAG_INPUT_EDIT_BOX);
+	pEBInputMoney->setText("");
 	long long llTempNum = 0;
 
 	switch (bankState)
@@ -373,7 +385,8 @@ void PopDialogBoxBank::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void 
 
 			//加密密码
 			std::string szSrcPassword = DataModel::sharedDataModel()->sLogonPassword;
-			std::string szDesPassword = pTFCreatePassword1->getStringValue();
+			CCEditBox *pEBCreatePassword1 = (CCEditBox*)pTFCreatePassword1->getNodeByTag(TAG_INPUT_EDIT_BOX);
+			std::string szDesPassword = pEBCreatePassword1->getText();
 
 
 			
@@ -407,8 +420,9 @@ void PopDialogBoxBank::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void 
 			CMD_GP_VERIFY_INSUREPASS insurePass;
 			insurePass.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
 
+			CCEditBox *pEBInputPassword = (CCEditBox*)pTFInputPassword->getNodeByTag(TAG_INPUT_EDIT_BOX);
 			//密码
-			std::string sPassword = pTFInputPassword->getStringValue();
+			std::string sPassword = pEBInputPassword->getText();
 			
 			MD5 m;
 			m.ComputMd5(sPassword.c_str(), sPassword.length());
@@ -440,7 +454,8 @@ void PopDialogBoxBank::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void 
 		{
 			CMD_GP_UserTakeScore takeScore;
 			takeScore.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
-			takeScore.lTakeScore = strtoll(pTFInputMoney->getStringValue(), NULL, 10);
+			CCEditBox *pEBInputMoney = (CCEditBox*)pTFInputMoney->getNodeByTag(TAG_INPUT_EDIT_BOX);
+			takeScore.lTakeScore = strtoll(pEBInputMoney->getText(), NULL, 10);
 
 			//密码
 			strcpy(takeScore.szPassword, sTempPassword.c_str());
@@ -454,8 +469,8 @@ void PopDialogBoxBank::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void 
 		{
 			CMD_GP_UserSaveScore saveScore;
 			saveScore.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
-
-			saveScore.lSaveScore = strtoll(pTFInputMoney->getStringValue(), NULL, 10);
+			CCEditBox *pEBInputMoney = (CCEditBox*)pTFInputMoney->getNodeByTag(TAG_INPUT_EDIT_BOX);
+			saveScore.lSaveScore = strtoll(pEBInputMoney->getText(), NULL, 10);
 			strcpy(saveScore.szMachineID, "12");
 			//发送数据
 			getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_USER_SAVE_SCORE, &saveScore, sizeof(saveScore));
@@ -514,6 +529,10 @@ void PopDialogBoxBank::onEventUserService(WORD wSubCmdID, void * pDataBuffer, un
 		}
 		else
 		{
+			if (getBankState() == BANK_STATE_CREATE)
+			{
+				DataModel::sharedDataModel()->cbInsurePwd = true;
+			}
 			isGetBankInfo = true;
 		}
 		

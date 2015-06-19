@@ -65,15 +65,16 @@ void PopDialogBoxAuction::onEnter(){
 	pLAuctionGoodsName = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelGoodsName"));
 	//上架物品数量
 	pTFAuctionGoodsNum = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldAuctionGoodsNum"));
+	addEditBox(pTFAuctionGoodsNum,kEditBoxInputModeNumeric);
 	//上架物品单价
 	pTFAuctionGoodsPice = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldAuctionGoodsPice"));
-
+	addEditBox(pTFAuctionGoodsPice, kEditBoxInputModeNumeric);
 	//搜索物品输入框
 	pTFSearchByID = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldSearchByID"));
+	addEditBox(pTFSearchByID, kEditBoxInputModeAny);
 	//搜索按键
 	pBSearchByID = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonSearchByID"));
 	pBSearchByID->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxAuction::onMenuSearchByID));
-
 	//我的上架物品列表
 	pLVMyAuction = static_cast<UIListView*>(pUILayer->getWidgetByName("ListViewMyAuction"));
 	//设置cell样式
@@ -204,15 +205,21 @@ void PopDialogBoxAuction::onMenuSellAuctionGoods(CCObject *object, TouchEventTyp
 	{
 	case TOUCH_EVENT_ENDED:
 	{
+		CCEditBox *pEBGoodsNum = (CCEditBox*)pTFAuctionGoodsNum->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		long lGoosdNum = strtol(pEBGoodsNum->getText(), NULL, 10);
+
+		CCEditBox *pEBGoodsPice = (CCEditBox*)pTFAuctionGoodsPice->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		long long llGoosdPice = strtol(pEBGoodsPice->getText(), NULL, 10);
+
 		if (strcmp(pLAuctionGoodsName->getStringValue(),"")==0)
 		{
 			showTipInfo(BaseAttributes::sharedAttributes()->sSelectAuctionGoods.c_str());
 		}
-		else if (strcmp(pTFAuctionGoodsNum->getStringValue(), "") == 0)
+		else if (strcmp(pEBGoodsNum->getText(), "") == 0||lGoosdNum<1)
 		{
 			showTipInfo(BaseAttributes::sharedAttributes()->sInputAuctionGoodsNum.c_str());
 		}
-		else if (strcmp(pTFAuctionGoodsPice->getStringValue(), "") == 0)
+		else if (strcmp(pEBGoodsPice->getText(), "") == 0||llGoosdPice<1)
 		{
 			showTipInfo(BaseAttributes::sharedAttributes()->sInputAuctionGoodsPice.c_str());
 		}
@@ -242,13 +249,17 @@ void PopDialogBoxAuction::onMenuSelectMyAuctionCell(CCObject *object, TouchEvent
 				iAuctionSellIndex = i;
 				pIVTempCell->setOpacity(255);
 				pLAuctionGoodsName->setText(GBKToUTF8(vecMyAuctionGoods[i].szName));
-				if (strcmp(pTFAuctionGoodsNum->getStringValue(),"")==0)
+				
+				CCEditBox *pEBGoodsNum = (CCEditBox*)pTFAuctionGoodsNum->getNodeByTag(TAG_INPUT_EDIT_BOX);
+				if (strcmp(pEBGoodsNum->getText(), "") == 0)
 				{
-					pTFAuctionGoodsNum->setText("1");
+					pEBGoodsNum->setText("1");
 				}
-				if (strcmp(pTFAuctionGoodsPice->getStringValue(), "") == 0)
+
+				CCEditBox *pEBGoodsPice = (CCEditBox*)pTFAuctionGoodsPice->getNodeByTag(TAG_INPUT_EDIT_BOX);
+				if (strcmp(pEBGoodsPice->getText(), "") == 0)
 				{
-					pTFAuctionGoodsPice->setText("1000");
+					pEBGoodsPice->setText("1000");
 				}
 			}
 			else
@@ -269,7 +280,8 @@ void PopDialogBoxAuction::onMenuSearchByID(CCObject *object, TouchEventType type
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		if (strcmp(pTFSearchByID->getStringValue(),"")!=0)
+		CCEditBox *pEBSearch = (CCEditBox*)pTFSearchByID->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		if (strcmp(pEBSearch->getText(), "") != 0)
 		{
 			vecAuctionInfo.clear();
 			iCurPage[AUCTION_INFO] = 1;
@@ -332,7 +344,8 @@ void PopDialogBoxAuction::onCheckBoxSelectedStateEvent(CCObject *pSender, CheckB
 	{
 	case CHECKBOX_STATE_EVENT_SELECTED:
 	{
-		pTFSearchByID->setText("");
+		CCEditBox *pEBSearch = (CCEditBox*)pTFSearchByID->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		pEBSearch->setText("");
 		UICheckBox *box = (UICheckBox*)pSender;
 		int index = box->getTag() - 1;
 		
@@ -358,7 +371,8 @@ void PopDialogBoxAuction::onCheckBoxSelectedStateEvent(CCObject *pSender, CheckB
 	break;
 	case CHECKBOX_STATE_EVENT_UNSELECTED:
 	{
-		pTFSearchByID->setText("");
+		CCEditBox *pEBSearch = (CCEditBox*)pTFSearchByID->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		pEBSearch->setText("");
 		UICheckBox *box = (UICheckBox*)pSender;
 		int index = box->getTag() - 1;
 		if (!pCBAuctionItems[index]->getSelectedState())
@@ -719,8 +733,10 @@ void PopDialogBoxAuction::connectSuccess(){
 		strcpy(sellAuction.szLogonPass, md5PassWord.c_str());
 
 		sellAuction.dwID = vecMyAuctionGoods[iAuctionSellIndex].dwID;
-		sellAuction.lGold = strtoll(pTFAuctionGoodsPice->getStringValue(),NULL,10);
-		sellAuction.dwNum = strtol(pTFAuctionGoodsNum->getStringValue(), NULL, 10);
+		CCEditBox *pEBGoodsPice = (CCEditBox*)pTFAuctionGoodsPice->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		sellAuction.lGold = strtoll(pEBGoodsPice->getText(), NULL, 10);
+		CCEditBox *pEBGoodsNum = (CCEditBox*)pTFAuctionGoodsNum->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		sellAuction.dwNum = strtol(pEBGoodsNum->getText(), NULL, 10);
 
 		strcpy(sellAuction.szMachineID, "12");
 		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_SELL_AUCTION, &sellAuction, sizeof(sellAuction));
@@ -728,9 +744,10 @@ void PopDialogBoxAuction::connectSuccess(){
 		break;
 	case AUCTION_SEARCH://搜索
 	{
+		CCEditBox *pEBSearch = (CCEditBox*)pTFSearchByID->getNodeByTag(TAG_INPUT_EDIT_BOX);
 		//查找拍卖记录
 		CMD_GP_Query_Auction queryAuction;
-		strcpy(queryAuction.szID, UTF8ToGBK(pTFSearchByID->getStringValue()));
+		strcpy(queryAuction.szID, UTF8ToGBK(pEBSearch->getText()));
 		queryAuction.dwPage = iCurPage[AUCTION_INFO];
 		queryAuction.dwPageSize = MAX_PAGE_SIZE;
 		queryAuction.dwLastDay = 1;

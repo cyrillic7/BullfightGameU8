@@ -38,10 +38,13 @@ void PopDialogBoxChangePassword::onEnter(){
 	pLTitle1 = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelTitle1"));
 	//旧密码
 	pTFOldPassword = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldOldPassword"));
+	addEditBox(pTFOldPassword, kEditBoxInputModeAny);
 	//新密码0
 	pTFNewPassword0 = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldNewPassword0"));
+	addEditBox(pTFNewPassword0, kEditBoxInputModeAny);
 	//新密码1
 	pTFNewPassword1 = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldNewPassword1"));
+	addEditBox(pTFNewPassword1, kEditBoxInputModeAny);
 	//播放显示动画
 	playAnimation();
 	
@@ -72,19 +75,22 @@ void PopDialogBoxChangePassword::setPasswordType(int type){
 void PopDialogBoxChangePassword::onMenuChangePassword(CCObject *object, TouchEventType type){
 	if (type==TOUCH_EVENT_ENDED)
 	{
-		string password0 = pTFNewPassword0->getStringValue();
-		if (strcmp(pTFOldPassword->getStringValue(), "") == 0 || strcmp(pTFNewPassword0->getStringValue(), "") == 0 || strcmp(pTFNewPassword1->getStringValue(), "") == 0)
+		CCEditBox *pEBOldPassward = (CCEditBox*)pTFOldPassword->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		CCEditBox *pEBNewPassword0 = (CCEditBox*)pTFNewPassword0->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		CCEditBox *pEBNewPassword1 = (CCEditBox*)pTFNewPassword1->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		string password0 = pEBNewPassword0->getText();
+		if (strcmp(pEBOldPassward->getText(), "") == 0 || strcmp(pEBNewPassword0->getText(), "") == 0 || strcmp(pEBNewPassword1->getText(), "") == 0)
 		{
 			showTipInfo(BaseAttributes::sharedAttributes()->sPasswordEmpty.c_str());
 		}
-		else if (strlen(pTFNewPassword0->getStringValue()) < 8 || strlen(pTFNewPassword1->getStringValue()) < 8)
+		else if (strlen(pEBNewPassword0->getText()) < 8 || strlen(pEBNewPassword1->getText()) < 8)
 		{
 			showTipInfo(BaseAttributes::sharedAttributes()->sInsurePasswordLeng.c_str());
 		}
 		else if (password0.find_first_not_of("1234567890") == string::npos){
 			showTipInfo(BaseAttributes::sharedAttributes()->sInsurePasswordNum.c_str());
 		}
-		else if (strcmp(pTFNewPassword0->getStringValue(), pTFNewPassword1->getStringValue()) != 0)
+		else if (strcmp(pEBNewPassword0->getText(), pEBNewPassword1->getText()) != 0)
 		{
 			showTipInfo(BaseAttributes::sharedAttributes()->sPasswordInconsistent.c_str());
 		}
@@ -138,9 +144,11 @@ void PopDialogBoxChangePassword::connectSuccess(){
 		mLogonPassword.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
 
 		//旧密码
-		std::string szSrcPassword = pTFOldPassword->getStringValue();
+		CCEditBox *pEBOldPassward = (CCEditBox*)pTFOldPassword->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		std::string szSrcPassword = pEBOldPassward->getText();
 		//新密码
-		std::string szDesPassword = pTFNewPassword0->getStringValue();
+		CCEditBox *pEBNewPassword0 = (CCEditBox*)pTFNewPassword0->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		std::string szDesPassword = pEBNewPassword0->getText();
 
 		MD5 m;
 		m.ComputMd5(szSrcPassword.c_str(), szSrcPassword.length());
@@ -161,9 +169,11 @@ void PopDialogBoxChangePassword::connectSuccess(){
 		mInsurePassword.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
 
 		//旧密码
-		std::string szSrcPassword = pTFOldPassword->getStringValue();
+		CCEditBox *pEBOldPassward = (CCEditBox*)pTFOldPassword->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		std::string szSrcPassword = pEBOldPassward->getText();
 		//新密码
-		std::string szDesPassword = pTFNewPassword0->getStringValue();
+		CCEditBox *pEBNewPassword0 = (CCEditBox*)pTFNewPassword0->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		std::string szDesPassword = pEBNewPassword0->getText();
 
 		MD5 m;
 		m.ComputMd5(szSrcPassword.c_str(), szSrcPassword.length());
@@ -196,7 +206,8 @@ void PopDialogBoxChangePassword::onEventUserService(WORD wSubCmdID, void * pData
 		{
 		case PopDialogBoxChangePassword::CHANGE_LOGON_PASSWORD:
 		{
-			DataModel::sharedDataModel()->sLogonPassword = pTFNewPassword0->getStringValue();
+			CCEditBox *pEBNewPassword0 = (CCEditBox*)pTFNewPassword0->getNodeByTag(TAG_INPUT_EDIT_BOX);
+			DataModel::sharedDataModel()->sLogonPassword = pEBNewPassword0->getText();
 		}
 			break;
 		case PopDialogBoxChangePassword::CHANGE_BANK_PASSWORD:

@@ -119,8 +119,9 @@ void PopDialogBox::loadCompleteCallBack(){
 }
 //添加EditBox
 void PopDialogBox::addEditBox(UITextField *pTextField, EditBoxInputMode eInputMode){
+	pTextField->setTouchEnabled(false);
 	//CCEditBox* m_pEditName = CCEditBox::create(pTextField->getContentSize(), CCScale9Sprite::createWithSpriteFrameName("u_info_change_bg.png"));
-	CCEditBox* pEditBox = CCEditBox::create(pTextField->getContentSize(), CCScale9Sprite::create("res/u_input.png"));
+	CCEditBox* pEditBox = CCEditBox::create(pTextField->getSize(), CCScale9Sprite::create("res/u_input.png"));
 	pEditBox->setPosition(CCPointZero);
 	pEditBox->setFontSize(pTextField->getFontSize());
 	pEditBox->setFontColor(pTextField->getColor());//设置文字颜色
@@ -138,7 +139,7 @@ void PopDialogBox::addEditBox(UITextField *pTextField, EditBoxInputMode eInputMo
 		pEditBox->setInputFlag(kEditBoxInputFlagPassword);//设置为密码模式
 	}
 	pEditBox->setInputMode(eInputMode);//设置键盘模式
-	pEditBox->setTouchPriority(-128);
+	pEditBox->setTouchPriority(0);
 	pEditBox->setAnchorPoint(pTextField->getAnchorPoint());
 	pEditBox->setTag(TAG_INPUT_EDIT_BOX);
 	pEditBox->setText(pTextField->getStringValue());

@@ -43,7 +43,6 @@ void PopDialogBoxInputNum::onEnter(){
 	//输入数量
 	pTFInputCount = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldCount")); 
 	pTFInputCount->addEventListenerTextField(this, SEL_TextFieldEvent(&PopDialogBoxInputNum::onTextFieldAccount));
-	pTFInputCount->setTouchEnabled(false);
 	addEditBox(pTFInputCount, kEditBoxInputModeNumeric);
 	//确定按键
 	UIButton *pBSure = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonSure"));
