@@ -24,6 +24,8 @@ private:
 		SHOP_BUY_GIFT,					//购买礼品
 		SHOP_BUY_PROP,					//购买道具
 		//SHOP_KNAPSACK_LIST,				//背包列表
+		SHOP_GET_PROPERTY,				//获取财产
+
 	};
 	CC_SYNTHESIZE(ShopItem, shopItem, ShopItem);
 	//商店分类选项框
@@ -95,4 +97,6 @@ private:
 	void onSubGiftList(void * pDataBuffer, unsigned short wDataSize, std::vector<CMD_GP_Gift> &vec);
 	//购买礼品
 	void onSubBuyGift(void * pDataBuffer, unsigned short wDataSize);
+	//财富
+	void onSubTreasure(void * pDataBuffer, unsigned short wDataSize);
 };

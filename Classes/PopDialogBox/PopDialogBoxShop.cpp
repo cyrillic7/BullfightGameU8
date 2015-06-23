@@ -70,10 +70,12 @@ void PopDialogBoxShop::onEnter(){
 	//保险箱
 	pIInsure = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageScoreIcon2"));
 	
+// 	setVoucher(0);
+// 	setBigGold(DataModel::sharedDataModel()->userInfo->lIngotScore);
+// 	setInsure(DataModel::sharedDataModel()->userInfo->lInsure);
 	setVoucher(0);
-	setBigGold(DataModel::sharedDataModel()->userInfo->lIngotScore);
-	setInsure(DataModel::sharedDataModel()->userInfo->lInsure);
-	
+	setBigGold(0);
+	setInsure(0);
 	
 	
 
@@ -372,6 +374,19 @@ void PopDialogBoxShop::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void 
 			buyPropForType();
 		}
 			break;
+		case PopDialogBoxShop::SHOP_GET_PROPERTY://获取财产
+		{
+			CMD_GP_UserID userID;
+			userID.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+			
+			MD5 m;
+			m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
+			std::string md5PassWord = m.GetMd5();
+			strcpy(userID.szPassword, md5PassWord.c_str());
+
+			getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_TREASURE, &userID, sizeof(CMD_GP_UserID));
+		}
+			break;
 		default:
 			break;
 		}
@@ -400,6 +415,9 @@ void PopDialogBoxShop::onEventUserService(WORD wSubCmdID, void * pDataBuffer, un
 		break;
 	case SUB_GP_BUYGIFT://购买礼品包,道具
 		onSubBuyGift(pDataBuffer, wDataSize);
+		break;
+	case SUB_GP_TREASURE://财富详细 
+		onSubTreasure(pDataBuffer, wDataSize);
 		break;
 	default:
 		CCLog("sub:%d <<%s>>",wSubCmdID, __FUNCTION__);
@@ -432,6 +450,10 @@ void PopDialogBoxShop::onSubGiftList(void * pDataBuffer, unsigned short wDataSiz
 	this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 	//关闭网络
 	TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_SHOP);
+
+	//刷新财富
+	setShopItem(SHOP_GET_PROPERTY);
+	connectServer(SOCKET_SHOP);
 }
 
 //购买礼品
@@ -456,4 +478,25 @@ void PopDialogBoxShop::onSubBuyGift(void * pDataBuffer, unsigned short wDataSize
 	 this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 	 //关闭网络
 	 TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_SHOP);
+	 //购买成功刷新财富
+	 if (pBuyGiftLog->dwRet==0)
+	 {
+		 //刷新财富
+		 setShopItem(SHOP_GET_PROPERTY);
+		 connectServer(SOCKET_SHOP);
+	 }
+}
+//财富
+void PopDialogBoxShop::onSubTreasure(void * pDataBuffer, unsigned short wDataSize){
+	if (wDataSize != sizeof(CMD_GP_UserTreasure)) return;
+	CMD_GP_UserTreasure * pUserTreasure = (CMD_GP_UserTreasure *)pDataBuffer;
+
+	setVoucher(pUserTreasure->lLottery);
+	setBigGold(pUserTreasure->lIngotScore);
+	setInsure(pUserTreasure->lInsureScore);
+
+	//移除loading
+	this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+	//关闭网络
+	TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_SHOP);
 }

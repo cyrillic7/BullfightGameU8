@@ -319,6 +319,9 @@ struct CMD_GP_ServerOnline
 #define SUB_GP_GET_ALMS             409                                 //领取救济金     
 #define SUB_GP_INSURE_RECORD        410                                 //银行记录   
 
+#define SUB_GP_TREASURE					413                             //财富详细 
+#define SUB_GP_CONVERSION_AUCTIONSCORE   414                            //拍卖所得兑换 
+
 //操作结果
 #define SUB_GP_OPERATE_SUCCESS		900									//操作成功
 #define SUB_GP_OPERATE_FAILURE		901									//操作失败
@@ -675,6 +678,32 @@ struct CMD_GP_VipAwardLog
 	DWORD	dwRet;														//0：成功，1：失败
 	TCHAR	szDescribeString[128];										//描述消息
 };
+
+//财富
+struct CMD_GP_UserTreasure
+{
+	CMD_GP_UserTreasure()
+	{
+		//memset(this, 0, sizeof(CMD_GP_UserTreasure));
+	}
+	SCORE		lScore;
+	SCORE       lInsureScore;
+	SCORE		lIngotScore;											//元宝
+	SCORE		lAuctionScore;											//拍卖所得
+	SCORE		lLottery;												//奖劵
+};
+//拍卖所得转化
+struct CMD_GP_ConversionAuctionScore
+{
+	CMD_GP_ConversionAuctionScore()
+	{
+		//memset(this, 0, sizeof(CMD_GP_ConversionAuctionScore));
+	}
+	LONG							lResultCode;						//操作代码
+	SCORE							lInsureScore;						//银行金币
+	TCHAR							szDescribeString[128];				//描述消息
+};
+
 //////////////////////////////////////////////////////////////////////////////////
 
 //修改密码
