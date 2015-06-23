@@ -29,15 +29,12 @@ void PopDialogBoxRegistered::onEnter(){
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));
 	//帐号
 	pTFAccount = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldAccount"));
-	pTFAccount->setText("zh2001");
 	addEditBox(pTFAccount, kEditBoxInputModeAny);
 	//昵称
 	pTFNickname = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldNickname"));
-	pTFNickname->setText("zhangh189999");
 	addEditBox(pTFNickname, kEditBoxInputModeAny);
 	//密码
 	pTFPassword = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldPassword"));
-	pTFPassword->setText("z12345678");
 	addEditBox(pTFPassword, kEditBoxInputModeAny);
 	//注册
 	UIButton *pBRegistered = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonRegistered"));

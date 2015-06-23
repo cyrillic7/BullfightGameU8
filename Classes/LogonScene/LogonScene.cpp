@@ -198,9 +198,21 @@ void LogonScene::logonGame(){
 }
 //注册游戏
 void LogonScene::registeredGame(){
-	CMD_GP_RegisterAccounts registeredAccount;
+	CMD_MB_RegisterAccounts registeredAccount;
+	
+	//游戏标识
+	for (int i = 0; i < 10; i++)
+	{
+		registeredAccount.wModuleID[i] = 0;
+	}
+	registeredAccount.wModuleID[0] = 210; //210为二人牛牛标示
+	registeredAccount.wModuleID[1] = 30; //30为百人牛牛标示
+	registeredAccount.wModuleID[2] = 130; //1002为通比牛牛标示
+
 	registeredAccount.dwPlazaVersion = VERSION_PLAZA;//广场版本
-	strcpy(registeredAccount.szMachineID, "12");//机器序列
+
+	registeredAccount.cbDeviceType = 2;
+
 
 	
 	MD5 m;
@@ -208,16 +220,20 @@ void LogonScene::registeredGame(){
 	std::string md5PassWord = m.GetMd5();
 	strcpy(registeredAccount.szLogonPass, md5PassWord.c_str());//登录密码
 	strcpy(registeredAccount.szInsurePass, md5PassWord.c_str());//银行密码
+	CCLog("registeredPassword:%s <<%s>>",registeredAccount.szLogonPass, __FUNCTION__);
 
 	registeredAccount.wFaceID = 1;//头像标识
 	registeredAccount.cbGender = 1;//用户性别
 	strcpy(registeredAccount.szAccounts, sRegisterAccount.c_str());//登录帐号
 	strcpy(registeredAccount.szNickName, UTF8ToGBK(sRegisterNickname.c_str()));//用户昵称
-	strcpy(registeredAccount.szSpreader, "");//推荐帐号
-	strcpy(registeredAccount.szPassPortID, "");//证件号码
-	strcpy(registeredAccount.szCompellation, "");//真实名字
+	//strcpy(registeredAccount.szSpreader, "");//推荐帐号
+	//strcpy(registeredAccount.szPassPortID, "");//证件号码
+	//strcpy(registeredAccount.szCompellation, "");//真实名字
 
-	registeredAccount.cbValidateFlags = 1;//校验标识		      
+	//registeredAccount.cbValidateFlags = 1;//校验标识		   
+	strcpy(registeredAccount.szMachineID, "12");//机器序列
+	strcpy(registeredAccount.szMobilePhone, "");//电话号码
+
 
 	getSocket()->SendData(MDM_MB_LOGON, SUB_GP_REGISTER_ACCOUNTS, &registeredAccount, sizeof(CMD_GP_RegisterAccounts));
 }
@@ -275,6 +291,16 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			DataModel::sharedDataModel()->userInfo->lIngot = ls->lIngot;
 			DataModel::sharedDataModel()->userInfo->lIngotScore = ls->lIngotScore;
 
+			if (strcmp(sRegisterAccount.c_str(),"")!=0)
+			{
+				DataModel::sharedDataModel()->sLogonAccount = sRegisterAccount;
+			}
+			if (strcmp(sRegisterPasswrod.c_str(), "") != 0)
+			{
+				DataModel::sharedDataModel()->sLogonPassword = sRegisterPasswrod;
+			}
+			
+
 			Tools::saveStringByRMS(RMS_LOGON_ACCOUNT,DataModel::sharedDataModel()->sLogonAccount);
 			Tools::saveStringByRMS(RMS_LOGON_PASSWORD,DataModel::sharedDataModel()->sLogonPassword);
 		}
@@ -294,7 +320,9 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
 			this->addChild(tipInfo);
 			tipInfo->setTipInfoContent(GBKToUTF8(describeStr));
-			
+			sRegisterAccount = "";
+			sRegisterPasswrod = "";
+			sRegisterNickname = "";
 		}
 		break;
 	case SUB_MB_UPDATE_NOTIFY:

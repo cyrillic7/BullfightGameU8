@@ -1041,7 +1041,7 @@ struct CMD_MB_LogonAccounts
 struct CMD_MB_RegisterAccounts
 {
 	//系统信息
-	WORD							wModuleID;							//模块标识
+	WORD							wModuleID[10];							//模块标识
 	DWORD						dwPlazaVersion;						//广场版本
 	BYTE                            cbDeviceType;                       //设备类型
 
