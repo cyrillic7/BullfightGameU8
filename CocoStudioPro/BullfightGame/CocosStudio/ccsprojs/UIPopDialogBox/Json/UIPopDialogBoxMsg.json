@@ -539,7 +539,7 @@
                         "options": {
                           "__type": "LabelSurrogate:#EditorCommon.JsonModel.Component.GUI",
                           "classname": "Label",
-                          "name": "Label_18",
+                          "name": "LabelContent",
                           "ZOrder": 0,
                           "actiontag": 37443583,
                           "anchorPointX": 0,
@@ -589,7 +589,7 @@
                         "options": {
                           "__type": "ButtonSurrogate:#EditorCommon.JsonModel.Component.GUI",
                           "classname": "Button",
-                          "name": "Button_19",
+                          "name": "ButtonAction",
                           "ZOrder": 0,
                           "actiontag": 26896741,
                           "anchorPointX": 0.5,
@@ -659,7 +659,7 @@
                     "options": {
                       "__type": "ImageViewSurrogate:#EditorCommon.JsonModel.Component.GUI",
                       "classname": "ImageView",
-                      "name": "Image_17",
+                      "name": "ImageBg",
                       "ZOrder": 0,
                       "actiontag": 63326504,
                       "anchorPointX": 0,
@@ -710,7 +710,7 @@
                 "options": {
                   "__type": "PanelSurrogate:#EditorCommon.JsonModel.Component.GUI",
                   "classname": "Panel",
-                  "name": "Panel_15",
+                  "name": "Panel0",
                   "ZOrder": 0,
                   "actiontag": 64108548,
                   "anchorPointX": 0,
@@ -738,7 +738,7 @@
                     "marginLeft": 75,
                     "marginRight": 0,
                     "marginTop": -670,
-                    "relativeName": "Panel_15",
+                    "relativeName": "Panel0",
                     "relativeToName": "ListViewMsg",
                     "type": 1
                   },

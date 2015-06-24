@@ -22,6 +22,8 @@ private:
 	UILabel *pLMsgName;
 	//没有消息
 	UIImageView *pIVNothing;
+	//消息列表
+	UIListView *pLVMsgList;
 public:
 	PopDialogBoxMsg();
 	~PopDialogBoxMsg();
@@ -31,4 +33,7 @@ private:
 	virtual void onExit();
 	//消息按键回调
 	void onMenuMsg(CCObject *object, TouchEventType type);
+
+	//更新消息列表
+	void updateListMsg(std::vector<std::string> qMsg);
 };

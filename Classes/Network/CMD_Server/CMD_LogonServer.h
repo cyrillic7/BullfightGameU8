@@ -699,7 +699,7 @@ struct CMD_GP_ConversionAuctionScore
 	{
 		//memset(this, 0, sizeof(CMD_GP_ConversionAuctionScore));
 	}
-	LONG							lResultCode;						//操作代码
+	long							lResultCode;						//操作代码
 	SCORE							lInsureScore;						//银行金币
 	TCHAR							szDescribeString[128];				//描述消息
 };
@@ -1152,9 +1152,10 @@ struct CMD_MB_UpdateNotify
 //任务
 #define MDM_GL_C_DATA					1								//大厅--客户端数据
 #define SUB_GL_C_LOGON_ACCOUNTS	 		100								//帐号登录
+#define SUB_GL_C_MESSAGE				113								//消息
 #define	SUB_GL_C_TASK_LOAD				114								//加载任务
 #define	SUB_GL_C_TASK_REWARD			115								//领取奖励
-
+#define SUB_GL_MB_LOGON_ACCOUNTS	 	116								//手机登录
 
 
 #define  TASK_TITLE_LEN			16
@@ -1237,6 +1238,45 @@ struct CMD_GL_TaskIDLog
 	}
 	long							lResultCode;						//操作代码
 	TCHAR							szDescribeString[128];				//成功消息
+};
+//////////////////////////////////////////////////////////////////////////
+//消息
+#define MSG_MESSAGE_LEN		516
+#define MSG_TITLE			32
+#define DATE_LENGTH			64
+
+enum MsgPositionType
+{
+	Position_Top = 1,		//上面
+	Position_Under,			//下面
+	Position_Right,			//右上角
+};
+enum MsgType
+{
+	Msg_Delta = 1,			//充值			（只弹一次，在线）
+	Msg_Rewards,			//任务奖励		（只弹一次，在线）
+	Msg_Sell,				//拍卖			（只弹一次，在线）
+	Msg_Rolling,			//滚动消息		 (发送一次，实时显示）
+	Msg_Notice,				//公告			（登录或在线，都发送）
+};
+
+struct CMD_GL_MsgNode
+{
+	CMD_GL_MsgNode()
+	{
+		//memset(this, 0, sizeof(CMD_GL_MsgNode));
+	}
+	DWORD				dwMsgID;
+	DWORD				dwUserID;
+	MsgPositionType		dwPositionType;
+	MsgType				dwMsgType;
+	DWORD				dwIEType;
+	DWORD				dwMsgVlaue1;
+	DWORD				dwMsgVlaue2;
+	DWORD				dwMsgVlaue3;
+	DWORD				dwIsNotify;
+	TCHAR				szTitle[MSG_TITLE];
+	TCHAR				szMsgcontent[MSG_MESSAGE_LEN];
 };
 #pragma pack()
 

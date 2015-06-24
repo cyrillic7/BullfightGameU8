@@ -19,6 +19,7 @@
 #include "../Network/CMD_Server/cmd_ox.h"
 #include "../Tools/BaseAttributes.h"
 #include "../Platform/coPlatform.h"
+
 LogonScene::LogonScene()
 	:eLogonType(LOGON_ACCOUNT)
 {
@@ -28,14 +29,53 @@ LogonScene::LogonScene()
 	readRMS();
 	scheduleUpdate();
 
-
 	/*char szJson[512] = { 0 };
 	sprintf(szJson,
 		"{\"act\":20,\"type\":%d,\"item\":%d,\"cost\":%d,\"amount\":%d,\"name\":\"%s\",\"uid\":\"%s\",\"order\":\"%s\"}",
 		type, item, coPayGetCostAmount(item), coPayGetProductAmount(item), coPayGetProductName(item).c_str(),
 		uid.c_str(), order.c_str());
 	log("%s", szJson);*/
-	;
+	/*const char* text = "{\"data\": [\"UIActivity.plist\",\"UIVip.plist\"]}";
+	//const char* text = "{\"record\":{\"data\":20130101,\"rate\":23,\"buy\":1},\"record\":{\"data\":45,\"rate\":67,\"buy\":1},\"record\":{\"data\":45,\"rate\":76,\"buy\":10}}";
+	Json *root = Json_create(text);
+
+	Json* _date=Json_getItem(root, "data");
+	if (_date->type == Json_Array)
+	{
+		for (int i = 0; i <Json_getSize(_date); i++)
+		{
+			Json *s=Json_getItemAt(_date,i);
+			CCLog("--------===================== %s<<%s>>",s->valuestring, __FUNCTION__);
+		}
+	}
+	Json* _record = root->child;
+	while (_record)
+	{
+		//Json* _date = Json_getItem(_record, "data");
+		//if (_date->type == Json_String)
+		{
+		//	const char * date = _date->valuestring;
+			//CCLOG("Date: %s", date);
+		}
+		
+		Json* _rate = Json_getItem(_record, "rate");
+		if (_rate->type == Json_Number)
+		{
+			int rate = _rate->valueint;
+			CCLOG("Rate: %d", rate);
+		}
+		Json* _buy = Json_getItem(_record, "buy");
+		if (_buy->type == Json_Number)
+		{
+			int buy = _buy->valueint;
+			CCLOG("Buy: %d", buy);
+		}
+		_record = _record->next;
+	}
+	Json_dispose(root);*/
+
+
+
 	CCLog("--------:%s <<%s>>", platformAction("{\"act\":100}").c_str(), __FUNCTION__);
 }
 LogonScene::~LogonScene(){
@@ -235,7 +275,7 @@ void LogonScene::registeredGame(){
 	strcpy(registeredAccount.szMobilePhone, "");//电话号码
 
 
-	getSocket()->SendData(MDM_MB_LOGON, SUB_GP_REGISTER_ACCOUNTS, &registeredAccount, sizeof(CMD_GP_RegisterAccounts));
+	getSocket()->SendData(MDM_MB_LOGON, SUB_MB_REGISTER_ACCOUNTS, &registeredAccount, sizeof(CMD_GP_RegisterAccounts));
 }
 //连接成功
 void LogonScene::onEventConnect(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){

@@ -9,6 +9,7 @@
 #include "../CMD_Server/CMD_LogonServer.h"
 #include "../MD5/MD5.h"
 #include "../../Tools/DataModel.h"
+#include "../../Tools/Tools.h"
 #include "../TCPSocket/TCPSocketControl.h"
 #include "cocos2d.h"
 #include "../../MTNotificationQueue/MTNotificationQueue.h"
@@ -62,6 +63,26 @@ bool LobbyGameListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_C
 			memcpy(rData.sReadData, pDataBuffer, wDataSize);
 			MessageQueueLobby::pushQueue(rData);
 		}
+		else if (Command.wSubCmdID == SUB_GL_C_MESSAGE)//消息
+		{
+			CMD_GL_MsgNode *msgNode = (CMD_GL_MsgNode*)pDataBuffer;
+
+			std::string msg = msgNode->szMsgcontent;
+			if (msgNode->dwUserID==0)
+			{
+				
+				DataModel::sharedDataModel()->vecSystemMsg.push_back(msg);
+			}
+			else
+			{
+				DataModel::sharedDataModel()->vecMyMsg.push_back(msg);
+			}
+			CCLog("main:%d sub:%d %s<<%s>>", Command.wMainCmdID, Command.wSubCmdID, Tools::GBKToUTF8(msgNode->szMsgcontent), __FUNCTION__);
+		}
+		else
+		{
+			CCLog("main:%d sub:%d <<%s>>", Command.wMainCmdID, Command.wSubCmdID, __FUNCTION__);
+		}
 	}
 	return true;
 }
@@ -78,7 +99,7 @@ void LobbyGameListerner::OnOpen(TCPSocket* so)
 
 	//连接大厅长连接
 	TCPSocket *tcp = TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOBBY);
-	tcp->SendData(MDM_GL_C_DATA, SUB_GL_C_LOGON_ACCOUNTS, &LogonAccounts, sizeof(LogonAccounts));
+	tcp->SendData(MDM_GL_C_DATA, SUB_GL_MB_LOGON_ACCOUNTS, &LogonAccounts, sizeof(LogonAccounts));
 	
 	
 	/*//////////////////////////////////////////////////////////////////////////

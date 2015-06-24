@@ -177,6 +177,7 @@ struct CMD_S_ChangeBanker
 //游戏状态
 struct CMD_S_StatusFree
 {
+	BYTE                            cbIsTrainRoom;
 	//全局信息
 	BYTE							cbTimeLeave;						//剩余时间
 
@@ -201,6 +202,7 @@ struct CMD_S_StatusFree
 //游戏状态
 struct CMD_S_StatusPlay
 {
+	BYTE                            cbIsTrainRoom;
 	//全局下注
 	long long						lAllJettonScore[AREA_COUNT+1];		//全体总注
 

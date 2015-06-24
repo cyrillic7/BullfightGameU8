@@ -51,7 +51,12 @@ public:
 	std::queue<ReadData>readDataQueue;
 	//大厅消息队列
 	std::queue<ReadData>readDataQueueLobby;
-    
+   
+	//系统消息队列
+	std::vector<std::string>vecSystemMsg;
+	//我的消息队列
+	std::vector<std::string>vecMyMsg;
+	
 	//筹码
 	std::vector<JettonNode *>vecJettonNode;
 public:

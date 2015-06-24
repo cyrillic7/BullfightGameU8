@@ -5,7 +5,9 @@
 #pragma once
 #include "SocketListerner.h"
 #include "cocos2d.h"
+#include "cocos-ext.h"
 USING_NS_CC;
+USING_NS_CC_EXT;
 class LobbyGameListerner : public SocketListerner,public CCNode {
 public:
     

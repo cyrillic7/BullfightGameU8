@@ -65,5 +65,5 @@
   </imageFileList>
   <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxAuction.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxMsg.json</CurrentUIJson>
 </UIProject>
