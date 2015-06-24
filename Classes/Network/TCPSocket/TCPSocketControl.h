@@ -27,6 +27,7 @@ USING_NS_CC;
 #define SOCKET_LOBBY							"socketLobby"					//大厅长连接
 #define SOCKET_RANKING							"socketRanking"					//排行榜
 #define SOCKET_VIP								"socketVip"						//VIP特权
+//#define SOCKET_MY_PROPERTY						"myProperty"					//获取财富
 
 class TCPSocketControl {
 public:

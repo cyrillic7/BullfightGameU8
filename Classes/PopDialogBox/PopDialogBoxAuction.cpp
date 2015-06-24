@@ -48,6 +48,7 @@ void PopDialogBoxAuction::onEnter(){
 	//关闭
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::onMenuBackWithReadMsg));
+	
 	//我的背包
 	UIButton *pBPackage = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonPackage"));
 	pBPackage->addTouchEventListener(this, toucheventselector(PopDialogBoxAuction::onMenupMyPackage));
@@ -61,6 +62,11 @@ void PopDialogBoxAuction::onEnter(){
 	pIInsure= static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageScoreIcon1"));
 	//拍卖
 	pIAuction = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageScoreIcon2"));
+	//提取拍卖金币
+	pBTakeOut = static_cast<UIButton*>(pIAuction->getChildByName("ButtonTakeOut"));
+	pBTakeOut->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxAuction::onMenuTakeOut));
+	//可提取金币
+	pLTakeOutNum = static_cast<UILabel*>(pIAuction->getChildByName("LabelNum"));
 	//上架物品名称
 	pLAuctionGoodsName = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelGoodsName"));
 	//上架物品数量
@@ -112,9 +118,12 @@ void PopDialogBoxAuction::onEnter(){
 	onCheckBoxSelectedStateEvent(pCBAuctionItems[AUCTION_INFO], CHECKBOX_STATE_EVENT_SELECTED);
 	
 
-	setBigGold(DataModel::sharedDataModel()->userInfo->lIngotScore);
-	setInsure(DataModel::sharedDataModel()->userInfo->lInsure);
-	setAuction(DataModel::sharedDataModel()->userInfo->lIngot);
+	//setBigGold(DataModel::sharedDataModel()->userInfo->lIngotScore);
+	//setInsure(DataModel::sharedDataModel()->userInfo->lInsure);
+	//setAuction(DataModel::sharedDataModel()->userInfo->lIngot);
+	setBigGold(0);
+	setInsure(0);
+	setAuction(0);
 	
 
 	playAnimation();
@@ -141,13 +150,13 @@ void PopDialogBoxAuction::setInsure(long long llInsure){
 }
 //设置拍卖
 void PopDialogBoxAuction::setAuction(long long llAuction){
-	UILabel *pLNum = static_cast<UILabel*>(pIAuction->getChildByName("LabelNum"));
-	pLNum->setText(CCString::createWithFormat("%lld", llAuction)->getCString());
-	CCSize bigGoldSize = CCSize(pLNum->getContentSize().width + 60, pIAuction->getContentSize().height);
+	
+	pLTakeOutNum->setText(CCString::createWithFormat("%lld", llAuction)->getCString());
+	CCSize bigGoldSize = CCSize(pLTakeOutNum->getContentSize().width + 60, pIAuction->getContentSize().height);
 	pIAuction->setSize(bigGoldSize);
 
-	UIButton *pBTakeOut = static_cast<UIButton*>(pIAuction->getChildByName("ButtonTakeOut"));
-	CCPoint posTakeOut = ccpAdd(pLNum->getPosition(), ccp(pLNum->getContentSize().width + 60, 0));
+	
+	CCPoint posTakeOut = ccpAdd(pLTakeOutNum->getPosition(), ccp(pLTakeOutNum->getContentSize().width + 60, 0));
 	pBTakeOut->setPosition(posTakeOut);
 }
 //购买按键
@@ -292,6 +301,24 @@ void PopDialogBoxAuction::onMenuSearchByID(CCObject *object, TouchEventType type
 		else
 		{
 			//pTFSearchByID->setPlaceHolder("输入ID或昵称 ");
+		}
+	}
+	break;
+	default:
+		break;
+	}
+}
+//提取拍卖金币按键
+void PopDialogBoxAuction::onMenuTakeOut(CCObject *object, TouchEventType type){
+	switch (type)
+	{
+	case TOUCH_EVENT_ENDED:
+	{
+		long long llGold = strtoll(pLTakeOutNum->getStringValue(),NULL,10);
+		if (llGold>0)
+		{
+			setAuctionItem(AUCTION_TAKE_OUT);
+			connectServer(SOCKET_AUCTION_INFO);
 		}
 	}
 	break;
@@ -754,6 +781,32 @@ void PopDialogBoxAuction::connectSuccess(){
 		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_QUERY_AUCTION, &queryAuction, sizeof(queryAuction));
 	}
 		break;
+	case PopDialogBoxAuction::AUCTION_MY_PROPERTY://我的财富
+	{
+		CMD_GP_UserID userID;
+		userID.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+
+		MD5 m;
+		m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
+		std::string md5PassWord = m.GetMd5();
+		strcpy(userID.szPassword, md5PassWord.c_str());
+
+		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_TREASURE, &userID, sizeof(CMD_GP_UserID));
+	}
+		break;
+	case PopDialogBoxAuction::AUCTION_TAKE_OUT://提取拍卖金币
+	{
+		CMD_GP_UserID userID;
+		userID.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+
+		MD5 m;
+		m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
+		std::string md5PassWord = m.GetMd5();
+		strcpy(userID.szPassword, md5PassWord.c_str());
+
+		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_CONVERSION_AUCTIONSCORE, &userID, sizeof(CMD_GP_UserID));
+	}
+		break;
 	default:
 		break;
 	}
@@ -771,10 +824,22 @@ void PopDialogBoxAuction::onEventUserService(WORD wSubCmdID, void * pDataBuffer,
 	switch (wSubCmdID)
 	{
 	case SUB_GP_AUCTION_RECORD://拍卖记录
+	{
 		onSubAuctionInfo(pDataBuffer, wDataSize);
+		if (getAgainGetData() != AGAIN_MY_AUCTION_GOODS)
+		{
+			setAgainGetData(AGAIN_MY_PROPERTY);
+		}
+	}
 		break;
 	case SUB_GP_MYAUCTION_RECORD://我的拍卖
+	{
 		onSubMyAuction(pDataBuffer, wDataSize);
+		if (getAgainGetData() != AGAIN_MY_AUCTION_GOODS)
+		{
+			setAgainGetData(AGAIN_MY_PROPERTY);
+		}
+	}
 		break;
 	case SUB_GP_AUCTION_HISTORY_RECORD://拍卖历史记录
 		onSubHistoryAuctionRecord(pDataBuffer,wDataSize);
@@ -829,6 +894,16 @@ void PopDialogBoxAuction::onEventUserService(WORD wSubCmdID, void * pDataBuffer,
 		onSubAuctionInfo(pDataBuffer, wDataSize);
 	}
 		break;
+	case SUB_GP_TREASURE://财富详细 
+	{
+		onSubTreasure(pDataBuffer, wDataSize);
+	}
+		break;
+	case SUB_GP_CONVERSION_AUCTIONSCORE://提取拍卖取得
+	{
+		onSubTakeOut(pDataBuffer, wDataSize);
+	}
+		break;
 	default:
 		CCLog("sub:%d <<%s>>", wSubCmdID, __FUNCTION__);
 		break;
@@ -844,22 +919,37 @@ void PopDialogBoxAuction::onEventUserService(WORD wSubCmdID, void * pDataBuffer,
 	{
 		setAuctionItem(AUCTION_MY_GOODS);
 		connectServer(SOCKET_AUCTION_INFO);
+		
+		setAgainGetData(AGAIN_MY_PROPERTY);
 	}
 		break;
 	case PopDialogBoxAuction::AGAIN_AUCTION_INFO:
 	{
 		onCheckBoxSelectedStateEvent(pCBAuctionItems[AUCTION_INFO], CHECKBOX_STATE_EVENT_SELECTED);
+		setAgainGetData(AGAIN_NOTHING);
 	}
 		break;
 	case PopDialogBoxAuction::AGAIN_MY_AUCTION:
 	{
 		onCheckBoxSelectedStateEvent(pCBAuctionItems[AUCTION_MY], CHECKBOX_STATE_EVENT_SELECTED);
+		setAgainGetData(AGAIN_NOTHING);
+	}
+		break;
+	case AGAIN_MY_PROPERTY://我的财富
+	{
+		setAuctionItem(AUCTION_MY_PROPERTY);
+		connectServer(SOCKET_AUCTION_INFO);
+
+		setAgainGetData(AGAIN_NOTHING);
 	}
 		break;
 	default:
+	{
+		setAgainGetData(AGAIN_NOTHING);
+	}
 		break;
 	}
-	setAgainGetData(AGAIN_NOTHING);
+	
 }
 //拍卖记录
 void PopDialogBoxAuction::onSubAuctionInfo(void * pDataBuffer, unsigned short wDataSize){
@@ -991,4 +1081,28 @@ void PopDialogBoxAuction::onSubCancelAuction(void * pDataBuffer, unsigned short 
 
 	}
 	showTipInfo(GBKToUTF8(pCencelAuction->szDescribeString));
+}
+//财富
+void PopDialogBoxAuction::onSubTreasure(void * pDataBuffer, unsigned short wDataSize){
+	if (wDataSize != sizeof(CMD_GP_UserTreasure)) return;
+	CMD_GP_UserTreasure * pUserTreasure = (CMD_GP_UserTreasure *)pDataBuffer;
+
+	setAuction(pUserTreasure->lAuctionScore);
+
+	setBigGold(pUserTreasure->lIngotScore);
+	setInsure(pUserTreasure->lInsureScore);
+
+}
+//提取拍卖所得
+void PopDialogBoxAuction::onSubTakeOut(void * pDataBuffer, unsigned short wDataSize){
+	int size = sizeof(CMD_GP_ConversionAuctionScore);
+	assert(wDataSize <= sizeof(CMD_GP_ConversionAuctionScore));
+	CMD_GP_ConversionAuctionScore * pTakeOut = (CMD_GP_ConversionAuctionScore *)pDataBuffer;
+	if (pTakeOut->lResultCode==0)
+	{
+		setInsure(pTakeOut->lInsureScore);
+		setAuction(0);
+	}
+	showTipInfo(GBKToUTF8(pTakeOut->szDescribeString));
+	//setAgainGetData(AGAIN_MY_PROPERTY);
 }

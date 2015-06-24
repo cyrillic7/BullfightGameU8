@@ -50,12 +50,13 @@ bool AppDelegate::applicationDidFinishLaunching() {
     pDirector->setDisplayStats(true);
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
+	//设置缩放因子
+	//CCDirector::sharedDirector()->setContentScaleFactor(640 / SCENE_SIZE.height);
     // create a scene. it's an autorelease object
 	CCScene *pScene = LogonScene::scene();
 	//CCScene *pScene=MainSceneOxHundred::scene();
     //run
     pDirector->runWithScene(pScene);
-
 	CCDirector::sharedDirector()->getScheduler()->scheduleSelector(  
 		schedule_selector(MTNotificationQueue::postNotifications),  
 		MTNotificationQueue::sharedNotificationQueue(),  

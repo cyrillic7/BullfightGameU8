@@ -24,6 +24,8 @@ private:
 		AUCTION_MY_GOODS,			//我的物品列表
 		AUCTION_SELL_AUCTION,		//出售拍卖品
 		AUCTION_SEARCH,				//搜索
+		AUCTION_MY_PROPERTY,		//获取我的财富
+		AUCTION_TAKE_OUT,			//提取拍卖金币
 	};
 	CC_SYNTHESIZE(AuctionItem, auctionItem, AuctionItem);
 
@@ -33,6 +35,7 @@ private:
 		AGAIN_MY_AUCTION_GOODS,				//获取我的拍卖上架物品列表
 		AGAIN_AUCTION_INFO,					//刷新拍卖信息
 		AGAIN_MY_AUCTION,					//刷新我的拍卖
+		AGAIN_MY_PROPERTY,					//获取我的财富
 	};
 	CC_SYNTHESIZE(AgainGetData, eAgainGetData, AgainGetData);
 
@@ -66,7 +69,10 @@ private:
 	UITextField *pTFAuctionGoodsNum;
 	//上架商品单价
 	UITextField *pTFAuctionGoodsPice;
-
+	//提取拍卖金币
+	UIButton *pBTakeOut;
+	//拍卖所得金币数量
+	UILabel *pLTakeOutNum;
 	//搜索
 	UITextField *pTFSearchByID;
 	//搜索按键
@@ -108,6 +114,8 @@ private:
 	void onMenuSelectMyAuctionCell(CCObject *object, TouchEventType type);
 	//搜索按键
 	void onMenuSearchByID(CCObject *object, TouchEventType type);
+	//提取拍卖金币按键
+	void onMenuTakeOut(CCObject *object, TouchEventType type);
 
 	//////////////////////////////////////////////////////////////////////////
 	//购买数量回调
@@ -154,4 +162,8 @@ private:
 	void onSubSellAuction(void * pDataBuffer, unsigned short wDataSize);
 	//取消拍卖
 	void onSubCancelAuction(void * pDataBuffer, unsigned short wDataSize);
+	//财富
+	void onSubTreasure(void * pDataBuffer, unsigned short wDataSize);
+	//提取拍卖所得
+	void onSubTakeOut(void * pDataBuffer, unsigned short wDataSize);
 };
