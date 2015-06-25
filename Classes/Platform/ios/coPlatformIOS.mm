@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////////
 #include "../coPlatform.h"
 #include "../../Libs/JsonAide.h"
+#include "FMLayerWebView.h"
 USING_NS_CC;
 //---------------------------------------------------------------------------
 /**
@@ -42,6 +43,22 @@ std::string platformAction(const std::string& jsonString)
            // const char *cStr =[[[NSProcessInfo processInfo] globallyUniqueString] UTF8String];
             //return [str str];
             return [retrieveuuid UTF8String];
+        }
+            break;
+        case 200:
+        {
+            std::string url=aide.getString("url");
+            //NSString *strUrl=[[[NSString alloc] initWithFormat:@"%s",url.c_str()] autorelease];
+             //[[UIApplication sharedApplication]openURL:[NSURL URLWithString:strUrl]];
+            //UIWebView *webView=[[UIWebView alloc] init]
+            FMLayerWebView* web = FMLayerWebView::create();
+            
+            web->setPosition(CCPointZero);
+            web->setUrlWithOpen(url);
+            
+            CCDirector::sharedDirector()->getRunningScene()->addChild(web);
+            //addChild(web);
+            //CCLog("%s <<%s>>",url.c_str(),__PRETTY_FUNCTION__);
         }
             break;
             
