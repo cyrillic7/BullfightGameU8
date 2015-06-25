@@ -77,6 +77,7 @@ LogonScene::LogonScene()
 
 
 	CCLog("--------:%s <<%s>>", platformAction("{\"act\":100}").c_str(), __FUNCTION__);
+	
 }
 LogonScene::~LogonScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
@@ -149,6 +150,10 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 			}
 				break;
 			case LOGON_QQ:
+			{
+				platformAction("{\"act\":200 ,\"url\":\"http://www.999xw.com/QQLogin.aspx\"}").c_str();
+			}
+				break;
 			case LOGON_QUICK://快速登录
 				{
 					PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
@@ -514,3 +519,27 @@ bool LogonScene::isHaveSaveFile(){
 		return true;
 	}
 }
+
+/////////////////////////////////////////////////////////////////////////////
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#include <jni.h>
+
+//call c
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+
+	//java 调用(签名验证)
+	JNIEXPORT void JNICALL Java_com_xw_BullfightGame_BullfightGame_JniQQLogin(JNIEnv* env, jstring account, jstring password)
+	{
+
+		CCLog("-%s  %s",jstringTostring(env,account),jstringTostring(env,password));
+		
+	} 
+#ifdef __cplusplus
+}
+#endif
+//////////////////////////////////////////////////////////////////////////
+#endif // #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)

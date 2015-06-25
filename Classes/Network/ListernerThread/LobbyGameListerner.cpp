@@ -77,7 +77,7 @@ bool LobbyGameListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_C
 			{
 				DataModel::sharedDataModel()->vecMyMsg.push_back(msg);
 			}
-			CCLog("main:%d sub:%d %s<<%s>>", Command.wMainCmdID, Command.wSubCmdID, Tools::GBKToUTF8(msgNode->szMsgcontent), __FUNCTION__);
+ 			CCLog("main:%d sub:%d %s<<%s>>", Command.wMainCmdID, Command.wSubCmdID, Tools::GBKToUTF8(msgNode->szMsgcontent), __FUNCTION__);
 		}
 		else
 		{
