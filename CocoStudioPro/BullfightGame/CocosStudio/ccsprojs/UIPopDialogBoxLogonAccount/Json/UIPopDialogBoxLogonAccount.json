@@ -9,18 +9,8 @@
   "dataScale": 1,
   "designHeight": 640,
   "designWidth": 1136,
-  "textures": [
-    "UIPanel.plist",
-    "UIButton.plist",
-    "UIUserInfo.plist",
-    "UILogon.plist"
-  ],
-  "texturesPng": [
-    "UIPanel.png",
-    "UIButton.png",
-    "UIUserInfo.png",
-    "UILogon.png"
-  ],
+  "textures": [],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -64,7 +54,7 @@
               "sizeType": 0,
               "tag": 6,
               "touchAble": true,
-              "useMergedTexture": true,
+              "useMergedTexture": false,
               "visible": true,
               "width": 54,
               "x": 327,
@@ -85,13 +75,13 @@
               "normal": null,
               "normalData": {
                 "path": "u_user_info_btn_close.png",
-                "plistFile": "",
+                "plistFile": "UIButton.plist",
                 "resourceType": 1
               },
               "pressed": null,
               "pressedData": {
                 "path": "u_user_info_btn_close_press.png",
-                "plistFile": "",
+                "plistFile": "UIButton.plist",
                 "resourceType": 1
               },
               "scale9Enable": false,
@@ -141,7 +131,7 @@
                   "sizeType": 0,
                   "tag": 15,
                   "touchAble": false,
-                  "useMergedTexture": true,
+                  "useMergedTexture": false,
                   "visible": true,
                   "width": 120,
                   "x": 0,
@@ -191,7 +181,7 @@
                   "sizeType": 0,
                   "tag": 16,
                   "touchAble": false,
-                  "useMergedTexture": true,
+                  "useMergedTexture": false,
                   "visible": true,
                   "width": 120,
                   "x": 1,
@@ -238,7 +228,7 @@
               "sizeType": 0,
               "tag": 11,
               "touchAble": false,
-              "useMergedTexture": true,
+              "useMergedTexture": false,
               "visible": true,
               "width": 297,
               "x": 0,
@@ -250,7 +240,7 @@
               "fileName": null,
               "fileNameData": {
                 "path": "u_u_info_title.png",
-                "plistFile": "",
+                "plistFile": "UIPanel.plist",
                 "resourceType": 1
               },
               "scale9Enable": false,
@@ -292,7 +282,7 @@
               "sizeType": 0,
               "tag": 906,
               "touchAble": false,
-              "useMergedTexture": true,
+              "useMergedTexture": false,
               "visible": true,
               "width": 96,
               "x": -231,
@@ -342,7 +332,7 @@
               "sizeType": 0,
               "tag": 908,
               "touchAble": false,
-              "useMergedTexture": true,
+              "useMergedTexture": false,
               "visible": true,
               "width": 96,
               "x": -231,
@@ -396,7 +386,7 @@
                   "sizeType": 0,
                   "tag": 914,
                   "touchAble": false,
-                  "useMergedTexture": true,
+                  "useMergedTexture": false,
                   "visible": true,
                   "width": 17,
                   "x": -175,
@@ -408,7 +398,7 @@
                   "fileName": null,
                   "fileNameData": {
                     "path": "u_l_ass_icon.png",
-                    "plistFile": "",
+                    "plistFile": "UILogon.plist",
                     "resourceType": 1
                   },
                   "scale9Enable": false,
@@ -450,7 +440,7 @@
                   "sizeType": 0,
                   "tag": 919,
                   "touchAble": true,
-                  "useMergedTexture": true,
+                  "useMergedTexture": false,
                   "visible": true,
                   "width": 350,
                   "x": -145,
@@ -499,7 +489,7 @@
               "sizeType": 0,
               "tag": 909,
               "touchAble": false,
-              "useMergedTexture": true,
+              "useMergedTexture": false,
               "visible": true,
               "width": 420,
               "x": 69,
@@ -511,7 +501,7 @@
               "fileName": null,
               "fileNameData": {
                 "path": "u_info_change_bg.png",
-                "plistFile": "",
+                "plistFile": "UIUserInfo.plist",
                 "resourceType": 1
               },
               "scale9Enable": true,
@@ -557,7 +547,7 @@
                   "sizeType": 0,
                   "tag": 915,
                   "touchAble": false,
-                  "useMergedTexture": true,
+                  "useMergedTexture": false,
                   "visible": true,
                   "width": 17,
                   "x": -175,
@@ -569,7 +559,7 @@
                   "fileName": null,
                   "fileNameData": {
                     "path": "u_l_ass_password_icon.png",
-                    "plistFile": "",
+                    "plistFile": "UILogon.plist",
                     "resourceType": 1
                   },
                   "scale9Enable": false,
@@ -611,7 +601,7 @@
                   "sizeType": 0,
                   "tag": 921,
                   "touchAble": true,
-                  "useMergedTexture": true,
+                  "useMergedTexture": false,
                   "visible": true,
                   "width": 350,
                   "x": -145,
@@ -660,7 +650,7 @@
               "sizeType": 0,
               "tag": 911,
               "touchAble": false,
-              "useMergedTexture": true,
+              "useMergedTexture": false,
               "visible": true,
               "width": 420,
               "x": 69,
@@ -672,7 +662,7 @@
               "fileName": null,
               "fileNameData": {
                 "path": "u_info_change_bg.png",
-                "plistFile": "",
+                "plistFile": "UIUserInfo.plist",
                 "resourceType": 1
               },
               "scale9Enable": true,
@@ -714,7 +704,7 @@
               "sizeType": 0,
               "tag": 912,
               "touchAble": true,
-              "useMergedTexture": true,
+              "useMergedTexture": false,
               "visible": true,
               "width": 152,
               "x": 0,
@@ -735,13 +725,13 @@
               "normal": null,
               "normalData": {
                 "path": "btn_green.png",
-                "plistFile": "",
+                "plistFile": "UIButton.plist",
                 "resourceType": 1
               },
               "pressed": null,
               "pressedData": {
                 "path": "btn_green_press.png",
-                "plistFile": "",
+                "plistFile": "UIButton.plist",
                 "resourceType": 1
               },
               "scale9Enable": false,
@@ -787,7 +777,7 @@
               "sizeType": 0,
               "tag": 913,
               "touchAble": true,
-              "useMergedTexture": true,
+              "useMergedTexture": false,
               "visible": true,
               "width": 96,
               "x": 219,
@@ -834,7 +824,7 @@
           "sizeType": 0,
           "tag": 5,
           "touchAble": false,
-          "useMergedTexture": true,
+          "useMergedTexture": false,
           "visible": true,
           "width": 700,
           "x": 568,
@@ -846,7 +836,7 @@
           "fileName": null,
           "fileNameData": {
             "path": "ui_pop_user_info_bg.png",
-            "plistFile": "",
+            "plistFile": "UIPanel.plist",
             "resourceType": 1
           },
           "scale9Enable": true,
@@ -885,7 +875,7 @@
       "sizeType": 0,
       "tag": 3,
       "touchAble": true,
-      "useMergedTexture": true,
+      "useMergedTexture": false,
       "visible": true,
       "width": 1136,
       "x": 0,
