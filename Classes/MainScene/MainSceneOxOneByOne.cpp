@@ -20,14 +20,7 @@ MainSceneOxOneByOne::~MainSceneOxOneByOne(){
 	CCLog("~ <<%s>>", __FUNCTION__);
 	TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 
-	GUIReader::purge();
-	CCArmatureDataManager::purge();
-	CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
-	CCTextureCache::sharedTextureCache()->removeUnusedTextures();
-
 	
-	BaseAttributes *b = BaseAttributes::sharedAttributes();
-	CC_SAFE_RELEASE_NULL(b);
 
 }
 CCScene* MainSceneOxOneByOne::scene()
@@ -47,6 +40,15 @@ void MainSceneOxOneByOne::onEnter(){
 	initGameControl();
 }
 void MainSceneOxOneByOne::onExit(){
+    GUIReader::purge();
+    CCArmatureDataManager::purge();
+    CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
+    CCTextureCache::sharedTextureCache()->removeUnusedTextures();
+    
+    
+    BaseAttributes *b = BaseAttributes::sharedAttributes();
+    CC_SAFE_RELEASE_NULL(b);
+    
 	MainSceneBase::onExit();
 	//CCLayer::onExit();
 }

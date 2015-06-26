@@ -35,11 +35,6 @@ ClassicLobbyScene::~ClassicLobbyScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
 	//
 	
-	this->removeAllChildrenWithCleanup(true);
-	GUIReader::purge();
-	CCArmatureDataManager::purge();
-	CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
-	CCTextureCache::sharedTextureCache()->removeUnusedTextures();
 }
 CCScene* ClassicLobbyScene::scene()
 {
@@ -101,6 +96,13 @@ void ClassicLobbyScene::onExit(){
 	//CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_CONFIG_FINISH); 
 	//CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_OPEN); 
 
+    
+    this->removeAllChildrenWithCleanup(true);
+    GUIReader::purge();
+    CCArmatureDataManager::purge();
+    CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
+    CCTextureCache::sharedTextureCache()->removeUnusedTextures();
+    
 	BaseLobbyScene::onExit();
 }
 void ClassicLobbyScene::initTCPLogon(int index){

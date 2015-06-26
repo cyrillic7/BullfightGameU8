@@ -19,14 +19,7 @@ MainSceneOxTwo::~MainSceneOxTwo(){
 	CCLog("~ <<%s>>", __FUNCTION__);
 	TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 
-	GUIReader::purge();
-	CCArmatureDataManager::purge();
-	CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
-	CCTextureCache::sharedTextureCache()->removeUnusedTextures();
-
 	
-	BaseAttributes *b = BaseAttributes::sharedAttributes();
-	CC_SAFE_RELEASE_NULL(b);
 
 }
 /*bool MainScene::init(){
@@ -53,6 +46,15 @@ void MainSceneOxTwo::onEnter(){
 	initGameControl();
 }
 void MainSceneOxTwo::onExit(){
+    GUIReader::purge();
+    CCArmatureDataManager::purge();
+    CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
+    CCTextureCache::sharedTextureCache()->removeUnusedTextures();
+    
+    
+    BaseAttributes *b = BaseAttributes::sharedAttributes();
+    CC_SAFE_RELEASE_NULL(b);
+    
 	MainSceneBase::onExit();
 	//CCLayer::onExit();
 }

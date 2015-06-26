@@ -19,15 +19,7 @@ MainSceneOxHundred::MainSceneOxHundred()
 MainSceneOxHundred::~MainSceneOxHundred(){
 	CCLog("~ <<%s>>", __FUNCTION__);
 	//TCPSocketControl::sharedTCPSocketControl()->stopSocket();
-	removeLoadingLayer();
-
-	GUIReader::purge();
-	CCArmatureDataManager::purge();
-	CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
-	CCTextureCache::sharedTextureCache()->removeUnusedTextures();
-
-	BaseAttributes *b = BaseAttributes::sharedAttributes();
-	CC_SAFE_RELEASE_NULL(b);
+	
 }
 CCScene* MainSceneOxHundred::scene()
 {
@@ -45,6 +37,16 @@ void MainSceneOxHundred::onEnter(){
 	initGameControl();
 }
 void MainSceneOxHundred::onExit(){
+    removeLoadingLayer();
+    
+    GUIReader::purge();
+    CCArmatureDataManager::purge();
+    CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
+    CCTextureCache::sharedTextureCache()->removeUnusedTextures();
+    
+    BaseAttributes *b = BaseAttributes::sharedAttributes();
+    CC_SAFE_RELEASE_NULL(b);
+    
 	CCLayer::onExit();
 }
 void MainSceneOxHundred::addBg(){

@@ -20,14 +20,6 @@ MainSceneOxSixSwap::~MainSceneOxSixSwap(){
 	CCLog("~ <<%s>>", __FUNCTION__);
 	TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 
-	GUIReader::purge();
-	CCArmatureDataManager::purge();
-	CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
-	CCTextureCache::sharedTextureCache()->removeUnusedTextures();
-
-	
-	BaseAttributes *b = BaseAttributes::sharedAttributes();
-	CC_SAFE_RELEASE_NULL(b);
 
 }
 CCScene* MainSceneOxSixSwap::scene()
@@ -47,6 +39,16 @@ void MainSceneOxSixSwap::onEnter(){
 	initGameControl();
 }
 void MainSceneOxSixSwap::onExit(){
+    
+    GUIReader::purge();
+    CCArmatureDataManager::purge();
+    CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
+    CCTextureCache::sharedTextureCache()->removeUnusedTextures();
+    
+    
+    BaseAttributes *b = BaseAttributes::sharedAttributes();
+    CC_SAFE_RELEASE_NULL(b);
+    
 	MainSceneBase::onExit();
 	//CCLayer::onExit();
 }
