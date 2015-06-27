@@ -192,7 +192,7 @@ void LogonScene::connectServer(){
 	}
 }
 //登录游戏////////////////////////////////////////////////////////////////////////
-void LogonScene::logonGameByAccount(){
+void LogonScene::logonGameByAccount(float dt){
 	connectServer();
 }
 //读取网络消息回调
@@ -534,7 +534,7 @@ void LogonScene::logonQQ(const char*id,const char*pwd){
     closeWebView();
     DataModel::sharedDataModel()->sLogonAccount=id;
     DataModel::sharedDataModel()->sLogonPassword=pwd;
-    logonGameByAccount();
+    scheduleOnce(SEL_SCHEDULE(&LogonScene::logonGameByAccount),0.5);
     CCLog("logonScene:%s   %s <<%s>>",id,pwd,__PRETTY_FUNCTION__);
 }
 /////////////////////////////////////////////////////////////////////////////
@@ -549,11 +549,23 @@ extern "C"
 
 
 	//java 调用(签名验证)
-	JNIEXPORT void JNICALL Java_com_xw_BullfightGame_BullfightGame_JniQQLogin(JNIEnv* env, jstring account, jstring password)
+	JNIEXPORT void JNICALL Java_com_xw_BullfightGame_BullfightGame_JniQQLogin(JNIEnv* env,jobject job,jint type, jstring account, jstring password)
 	{
-
-		CCLog("-%s  %s",jstringTostring(env,account),jstringTostring(env,password));
-		
+		const char * sAccount= env->GetStringUTFChars(account, NULL);
+		const char * sPwd= env->GetStringUTFChars(password, NULL);
+		switch(type)
+		{
+		case 1:
+		{
+			LogonScene::pLScene->logonQQ(sAccount,sPwd);
+		}
+			break;
+		default:
+		{
+			LogonScene::pLScene->closeWebView();
+		}
+			break;
+		}
 	} 
 #ifdef __cplusplus
 }

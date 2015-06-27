@@ -73,15 +73,15 @@ bool LobbyGameListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_C
 				
 				DataModel::sharedDataModel()->vecSystemMsg.push_back(msg);
 			}
-			else
+			else 
 			{
 				DataModel::sharedDataModel()->vecMyMsg.push_back(msg);
 			}
- 			CCLog("main:%d sub:%d %s<<%s>>", Command.wMainCmdID, Command.wSubCmdID, Tools::GBKToUTF8(msgNode->szMsgcontent), __FUNCTION__);
+ 			CCLog("msg main:%d sub:%d %s<<%s>>", Command.wMainCmdID, Command.wSubCmdID, Tools::GBKToUTF8(msgNode->szMsgcontent), __FUNCTION__);
 		}
 		else
 		{
-			CCLog("main:%d sub:%d <<%s>>", Command.wMainCmdID, Command.wSubCmdID, __FUNCTION__);
+			CCLog("else main:%d sub:%d <<%s>>", Command.wMainCmdID, Command.wSubCmdID, __FUNCTION__);
 		}
 	}
 	return true;

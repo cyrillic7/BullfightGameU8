@@ -16,8 +16,18 @@
   <filePath>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\ccsprojs\UIPopDialogBoxLogonAccount\UIPopDialogBoxLogonAccount.xml.ui</filePath>
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
-  <imageFileList />
-  <imagePngList />
+  <imageFileList>
+    <string>UIPanel.plist</string>
+    <string>UIButton.plist</string>
+    <string>UIUserInfo.plist</string>
+    <string>UILogon.plist</string>
+  </imageFileList>
+  <imagePngList>
+    <string>UIPanel.png</string>
+    <string>UIButton.png</string>
+    <string>UIUserInfo.png</string>
+    <string>UILogon.png</string>
+  </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>UIPopDialogBoxLogonAccount.json</CurrentUIJson>
 </UIProject>

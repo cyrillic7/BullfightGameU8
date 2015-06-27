@@ -91,7 +91,7 @@ void MainSceneOxSixSwap::setServerStateWithUpdate(GameState serverState){
 	setServerState(serverState);
 	updateServerState();
 }
-//更新状态
+//更新状态  
 void MainSceneOxSixSwap::updateGameState(){
 	//操作层更新状态
 	gameControl->updateState();

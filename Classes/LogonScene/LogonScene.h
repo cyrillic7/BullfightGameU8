@@ -53,7 +53,7 @@ private:
 	TCPSocket *getSocket(){return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_GAME);}
 public:
 	//登录游戏(帐号登录)
-	void logonGameByAccount();
+	void logonGameByAccount(float dt);
 private:
 	//连接服务器
 	void connectServer();

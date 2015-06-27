@@ -9,8 +9,18 @@
   "dataScale": 1,
   "designHeight": 640,
   "designWidth": 1136,
-  "textures": [],
-  "texturesPng": [],
+  "textures": [
+    "UIPanel.plist",
+    "UIButton.plist",
+    "UIUserInfo.plist",
+    "UILogon.plist"
+  ],
+  "texturesPng": [
+    "UIPanel.png",
+    "UIButton.png",
+    "UIUserInfo.png",
+    "UILogon.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",

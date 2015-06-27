@@ -88,7 +88,7 @@ void PopDialogBoxLogonAccount::onMenuLogon(CCObject *object, TouchEventType type
 				DataModel::sharedDataModel()->sLogonAccount = pEBAccount->getText();
 				DataModel::sharedDataModel()->sLogonPassword = pEBPassword->getText();
 
-				((LogonScene*)this->getParent())->logonGameByAccount();
+				((LogonScene*)this->getParent())->logonGameByAccount(0);
 			}
 		}
 		break;
