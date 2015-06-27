@@ -1,6 +1,6 @@
 #include "Tools.h"
 #include "SimpleAudioEngine.h"
-//#include "DataModel.h"
+#include "DataModel.h"
 const char* Tools::s_cMusicPath = NULL;
 using namespace CocosDenshion;
 void Tools::setTransitionAnimation(int type, float time, CCScene *scene){
@@ -66,7 +66,7 @@ std::string Tools::getStringByRMS(const char *name){
 }
 void Tools::playMusic(const char *path){
 	s_cMusicPath = path;
-//	if (DataModel::isMusic) {
+	if (DataModel::isMusic) {
 		if (!SimpleAudioEngine::sharedEngine()->isBackgroundMusicPlaying()){
 			SimpleAudioEngine::sharedEngine()->playBackgroundMusic(path, true);
 		}
@@ -74,9 +74,12 @@ void Tools::playMusic(const char *path){
 		{
 			SimpleAudioEngine::sharedEngine()->playBackgroundMusic(path, true);
 		}
-	//}
+	}
 }
 void Tools::playSound(const char *path){
+	if (DataModel::isSound) {
+		SimpleAudioEngine::sharedEngine()->playEffect(path);
+	}
 	/*if (DataModel::isSound) {
 		if (DataModel::sharedDataModel()->_pDicSoundName)
 		{

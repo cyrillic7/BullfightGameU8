@@ -535,7 +535,6 @@ void LogonScene::logonQQ(const char*id,const char*pwd){
     DataModel::sharedDataModel()->sLogonAccount=id;
     DataModel::sharedDataModel()->sLogonPassword=pwd;
     scheduleOnce(SEL_SCHEDULE(&LogonScene::logonGameByAccount),0.5);
-    CCLog("logonScene:%s   %s <<%s>>",id,pwd,__PRETTY_FUNCTION__);
 }
 /////////////////////////////////////////////////////////////////////////////
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
