@@ -32,6 +32,8 @@ private:
 	std::string sRegisterAccount;
 	std::string sRegisterNickname;
 	std::string sRegisterPasswrod;
+    
+    UILayer *m_pWidget;
 public:
     LogonScene();
     ~LogonScene();

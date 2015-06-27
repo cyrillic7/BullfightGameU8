@@ -18,7 +18,7 @@
 USING_NS_CC;
 
 class FMLayerWebView : public CCLayer{
-    
+
 public:
     
     FMLayerWebView();

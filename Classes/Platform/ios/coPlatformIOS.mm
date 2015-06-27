@@ -3,6 +3,8 @@
 //////////////////////////////////////////////////////////////////////////
 #include "../coPlatform.h"
 #include "../../Libs/JsonAide.h"
+//#include "../../LogonScene/LogonScene.h"
+//#include "../../Tools/DataModel.h"
 #include "FMLayerWebView.h"
 USING_NS_CC;
 //---------------------------------------------------------------------------
@@ -34,7 +36,8 @@ std::string platformAction(const std::string& jsonString)
                 CFStringRef uuidStr = CFUUIDCreateString(NULL, uuid);
                 
                 NSString *retrieveuuid = [NSString stringWithFormat:@"%@", uuidStr];
-                
+            
+            CFRelease(uuidStr);
                 //[SSKeychain setPassword:retrieveuuid forService:@"com.mohe.userinfo"account:@"uuid"];D9661007-6BC0-4F49-AA79-1C996E601AFE
             //27C54597-2384-4995-8C0C-D1688F81A965
            // }
@@ -48,17 +51,15 @@ std::string platformAction(const std::string& jsonString)
         case 200:
         {
             std::string url=aide.getString("url");
-            //NSString *strUrl=[[[NSString alloc] initWithFormat:@"%s",url.c_str()] autorelease];
-             //[[UIApplication sharedApplication]openURL:[NSURL URLWithString:strUrl]];
-            //UIWebView *webView=[[UIWebView alloc] init]
+            //LogonScene *pLS;
             FMLayerWebView* web = FMLayerWebView::create();
-            
-            web->setPosition(CCPointZero);
+            //CCSize winSize=CCDirector::sharedDirector()->getWinSize();
+            //web->setContentSize(CCSize(winSize.width/2,winSize.height/2));
+            //web->setPosition(CCPoint(100,50));
             web->setUrlWithOpen(url);
             
             CCDirector::sharedDirector()->getRunningScene()->addChild(web);
-            //addChild(web);
-            //CCLog("%s <<%s>>",url.c_str(),__PRETTY_FUNCTION__);
+            
         }
             break;
             

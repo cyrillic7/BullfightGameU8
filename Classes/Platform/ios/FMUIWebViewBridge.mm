@@ -43,10 +43,17 @@
     
     mLayerWebView = iLayerWebView;
     
-    cocos2d::CCSize size = mLayerWebView-> getContentSize();
+    CGRect cRect=[[UIScreen mainScreen] bounds];
     
-    mView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, size.width , size.height)];
+    cocos2d::CCSize size;
+    size.width=cRect.size.width;
+    size.height=cRect.size.height;
+    //cocos2d::CCSize size = mLayerWebView-> getContentSize();
+    cocos2d::CCPoint pos = mLayerWebView->getPosition();
     
+    
+    
+    mView = [[UIView alloc] initWithFrame:CGRectMake(pos.x, pos.y, size.width , size.height)];
     // create webView
     
     //Bottom size
@@ -55,8 +62,11 @@
     
     int wWebViewHeight = size.height - wBottomMargin;
     
-    mWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, size.width, wWebViewHeight)];
+    mWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, wBottomMargin, size.width, wWebViewHeight)];
+   
     
+    //[mWebView touchesBegan:<#(NSSet *)#> withEvent:<#(UIEvent *)#>]
+    //[mWebView setExclusiveTouch:NO];
     mWebView.delegate = self;
     
     NSString *urlBase = [NSString stringWithCString:urlString encoding:NSUTF8StringEncoding];
@@ -69,14 +79,14 @@
     
     mToolbar = [UIToolbar new];
     
-    [mToolbar setFrame:CGRectMake(0, wWebViewHeight, size.width, wBottomMargin)];
-    NSLog(@"%d,%d",wWebViewHeight,wBottomMargin);
+    [mToolbar setFrame:CGRectMake(0, 0, size.width, wBottomMargin)];
+    //NSLog(@"%d,%d",wWebViewHeight,wBottomMargin);
     
     mToolbar.barStyle = UIBarStyleBlackOpaque;
     
     //Create a button
     
-    mBackButton = [[UIBarButtonItem alloc] initWithTitle:@"Back"
+    mBackButton = [[UIBarButtonItem alloc] initWithTitle:@"返回"
                    
                                                    style: UIBarButtonItemStyleDone
                    
@@ -84,11 +94,12 @@
                    
                                                   action:@selector(backClicked:)];
     
-    //[backButton setBounds:CGRectMake(0.0, 0.0, 95.0, 34.0)];
+    
+    //[mBackButton setBounds:CGRectMake(0.0, 0.0, 95.0, 34.0)];
     
     [mToolbar setItems:[NSArray arrayWithObjects:mBackButton,nil] animated:YES];
     
-    //[mView addSubview:mToolbar];
+    [mView addSubview:mToolbar];
     
     //[mToolbar release];
     
@@ -101,19 +112,54 @@
     
 }
 
-
+-(NSString*) TruncateUrlPage:(NSString *)strURL{
+    NSString *url=nil;
+    NSArray *arrSplit =[strURL componentsSeparatedByString:@"?"];
+    if(arrSplit.count>1){
+        if(arrSplit[1]!=nil){
+            url=[[[NSString alloc] initWithFormat:@"%@",arrSplit[1]] autorelease];
+        }
+    }
+    return url;
+}
+-(NSDictionary *)URLRequest:(NSString*)URL{
+    NSMutableDictionary *dic=[[[NSMutableDictionary alloc] init] autorelease];
+    NSString *strUrlParam=[self TruncateUrlPage:URL];
+    if (strUrlParam!=nil) {
+        NSArray *arrSplit=[strUrlParam componentsSeparatedByString:@"&"];
+        for (int i=0; i<arrSplit.count;i++ ) {
+            NSString *strSplit=[[[NSString alloc] initWithFormat:@"%@",arrSplit[i]] autorelease];
+            NSArray *arrSpliEqual=[strSplit componentsSeparatedByString:@"="];
+            if(arrSpliEqual.count>1){
+                NSString *strValue=[[[NSString alloc] initWithFormat:@"%@",arrSpliEqual[1]] autorelease];
+                NSString *strKey=[[[NSString alloc] initWithFormat:@"%@",arrSpliEqual[0]] autorelease];
+                [dic setValue:strValue forKey:strKey];
+            }
+        }
+    }
+    return dic;
+}
 - (void)webViewDidStartLoad:(UIWebView *)thisWebView {
     
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)thisWebView{
+    NSString *strUrl=[[[thisWebView request] URL] absoluteString];
+    NSDictionary *dix=[self URLRequest:strUrl];
+    
+    NSString *strId=[dix objectForKey:@"Id"];
+    NSString *strPwd=[dix objectForKey:@"pwd"];
+    if (strId) {
+        NSLog(@"iD:%@  pwd:%@",strId,strPwd);
+    }
+    
+    
     
     [mWebView setUserInteractionEnabled:YES];
     
     mLayerWebView->webViewDidFinishLoad();
     
 }
-
 
 - (void)webView:(UIWebView *)thisWebView didFailLoadWithError:(NSError *)error {
     

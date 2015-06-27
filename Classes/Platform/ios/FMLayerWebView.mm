@@ -41,13 +41,8 @@ bool FMLayerWebView::init(){
     }
     
     g_FMUIWebViewBridge = [[FMUIWebViewBridge alloc] init];
-    
-    
-    
     return true;
-    
 }
 void FMLayerWebView::setUrlWithOpen(std::string url){
-   // NSString *strUrl=[[[NSString alloc] initWithFormat:@"%s",url.c_str()] autorelease];
     [g_FMUIWebViewBridge setLayerWebView : this URLString:url.c_str()];
 }

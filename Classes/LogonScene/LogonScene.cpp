@@ -102,7 +102,7 @@ void LogonScene::onEnter(){
 	spriteBg->setScale(scale);
 	//////////////////////////////////////////////////////////////////////////
 	//创建UI层
-	UILayer *m_pWidget = UILayer::create();
+    m_pWidget = UILayer::create();
 	this->addChild(m_pWidget);
 	//加载UI层
 	UILayout *pWidget = dynamic_cast<UILayout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UILogon.ExportJson)));
@@ -152,6 +152,7 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 				break;
 			case LOGON_QQ:
 			{
+                m_pWidget->setTouchEnabled(false);
 				platformAction("{\"act\":200 ,\"url\":\"http://www.999xw.com/QQLogin.aspx\"}").c_str();
 			}
 				break;
