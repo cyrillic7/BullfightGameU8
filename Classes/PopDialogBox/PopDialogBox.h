@@ -36,7 +36,7 @@ public:
 	};
 	CC_SYNTHESIZE(BuyType, buyType, BuyType);
 	UILayer * pUILayer;
-	UIImageView *pWidgetBg;
+	ImageView *pWidgetBg;
 	static std::string sSocketName;
 public:
 	PopDialogBox();
@@ -65,7 +65,7 @@ public:
 	//图片下载完成回调
 	void loadCompleteCallBack();
 	//添加EditBox
-	void addEditBox(UITextField *pTextField, EditBoxInputMode eInputMode);
+	void addEditBox(TextField *pTextField, EditBoxInputMode eInputMode);
 	//输入框回调
 	virtual void editBoxEditingDidBegin(cocos2d::extension::CCEditBox* editBox);
 	virtual void editBoxEditingDidEnd(cocos2d::extension::CCEditBox* editBox);

@@ -19,7 +19,7 @@
 #include "../Network/CMD_Server/cmd_ox.h"
 #include "../Tools/BaseAttributes.h"
 #include "../Platform/coPlatform.h"
-
+LogonScene* LogonScene::pLScene=NULL;
 LogonScene::LogonScene()
 	:eLogonType(LOGON_ACCOUNT)
 {
@@ -89,6 +89,7 @@ CCScene* LogonScene::scene()
     CCScene *scene = CCScene::create();
     LogonScene *layer = LogonScene::create();
     scene->addChild(layer);
+    pLScene=layer;
     return scene;
 }
 void LogonScene::onEnter(){
@@ -298,6 +299,9 @@ void LogonScene::onEventConnect(WORD wSubCmdID,void * pDataBuffer, unsigned shor
 			}
 				break;
 			case LogonScene::LOGON_QQ:
+            {
+                logonGame();
+            }
 				break;
 			case LogonScene::LOGON_REGISTER:
 			{
@@ -522,6 +526,17 @@ bool LogonScene::isHaveSaveFile(){
 	}
 }
 
+
+void LogonScene::closeWebView(){
+    m_pWidget->setTouchEnabled(true);
+}
+void LogonScene::logonQQ(const char*id,const char*pwd){
+    closeWebView();
+    DataModel::sharedDataModel()->sLogonAccount=id;
+    DataModel::sharedDataModel()->sLogonPassword=pwd;
+    logonGameByAccount();
+    CCLog("logonScene:%s   %s <<%s>>",id,pwd,__PRETTY_FUNCTION__);
+}
 /////////////////////////////////////////////////////////////////////////////
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include <jni.h>

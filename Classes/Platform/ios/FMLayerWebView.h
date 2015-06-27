@@ -35,6 +35,8 @@ public:
     void onBackbuttonClick();
     
     void setUrlWithOpen(std::string url);
+    
+    void logonQQ(const char*id,const char*pwd);
 private:
     
     int mWebViewLoadCounter;

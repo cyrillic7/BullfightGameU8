@@ -15,7 +15,7 @@ public:
 	bool isReuse;
     
 private:
-	UIImageView *pIJetton;
+	ImageView *pIJetton;
 	//移动速度
 	float fMoveSpeed;
 public:

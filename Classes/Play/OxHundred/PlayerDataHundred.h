@@ -17,15 +17,15 @@ public:
 public:
     
 	//用户容器
-	UIImageView *pIPlayerBg;
+	ImageView *pIPlayerBg;
 	//结算
 	UILabelAtlas *pLResult;
 	//结算成绩
 	long long lGameScore;
 	//用户昵称
-	UILabel *pLUserName;
+	Label *pLUserName;
 	//用户金币
-	UILabel *pLGoldCount;
+	Label *pLGoldCount;
 	/*//庄家标识
 	UIImageView *pIBankIcon;
 	//操作者光标

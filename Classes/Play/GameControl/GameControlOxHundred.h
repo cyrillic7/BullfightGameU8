@@ -66,17 +66,17 @@ private:
 	int nJetton[MAX_JETTON_BUTTON_COUNT];
 	SeatData *pSeatData[MAX_SEAT_COUNT];
 	ChairData *pChairData[MAX_USER_CHAIR];
-	UIButton *pBOnline ;
+	Button *pBOnline ;
 	//筹码按钮
-	UIImageView *pIJettonButton[MAX_JETTON_BUTTON_COUNT];
+	ImageView *pIJettonButton[MAX_JETTON_BUTTON_COUNT];
 	//筹码选择光标
-	UIImageView *pIJettonSelect;
+	ImageView *pIJettonSelect;
 	//当前所选筹码索引
 	int iCurSelectJettonIndex;
 	//用户信息
 	PlayerDataHundred *pPlayerData[MAX_PLAYER_HUNDRED_COUNT];
 	//上庄按键
-	UIImageView *pIUpBank;
+	ImageView *pIUpBank;
 	//游戏状态
 protected:
 	bool								m_bAllowLookon;						//允许旁观

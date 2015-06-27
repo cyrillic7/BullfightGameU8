@@ -10,13 +10,13 @@ public:
 	//所有筹码数字标签
 	UILabelAtlas *pLAllJetton;
 	//所有筹码文字“万”
-	UIImageView *pIFontWan;
+	ImageView *pIFontWan;
 	//用户筹码数字标签
 	UILabelAtlas *pLUserJetton;
 	//用户筹码文字“万”
-	UIImageView *pIUserFontWan;
+	ImageView *pIUserFontWan;
 	//未下注
-	UIImageView *pINotAddJetton;
+	ImageView *pINotAddJetton;
 	//结算数字
 	UILabelAtlas *pLResult;
 	//中心点

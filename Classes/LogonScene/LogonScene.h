@@ -35,13 +35,16 @@ private:
     
     UILayer *m_pWidget;
 public:
+    static LogonScene* pLScene;
+public:
     LogonScene();
     ~LogonScene();
 	virtual void onEnter();
 	virtual void onExit();
     static CCScene* scene();
     
-    
+    void closeWebView();
+    void logonQQ(const char*id,const char*pwd);
     CREATE_FUNC(LogonScene);
 private:
 	void onMenuLogon(CCObject* pSender, TouchEventType type);

@@ -29,7 +29,7 @@ public:
 	//庄家用户
 	BYTE wBankerUser;
 	//加注按键
-	UIButton *pbBetting[4];
+	Button *pbBetting[4];
 	//换牌操作容器
 	UIPanel *pPanelSwapCard;
 private:
@@ -51,11 +51,11 @@ protected:
 	BYTE							m_cbGameStatus;						//游戏状态
 public:
 	//计时器
-	UIImageView *pITimer;
+	ImageView *pITimer;
 	//计时器数字
 	UILabelAtlas *pLTimerNum;
 	//计时器提示内容
-	UILabel *pLTimerPromptContent;
+	Label *pLTimerPromptContent;
 	//计时变量
 	int iTimerCount;
 public:

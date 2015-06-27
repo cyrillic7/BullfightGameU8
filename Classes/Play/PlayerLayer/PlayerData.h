@@ -22,19 +22,19 @@ public:
 	//结算
 	UILabelAtlas *pLResult;
 	//用户昵称
-	UILabel *pLUserName;
+	Label *pLUserName;
 	//用户金币
-	UILabel *pLGoldCount;
+	Label *pLGoldCount;
 	//庄家标识
-	UIImageView *pIBankIcon;
+	ImageView *pIBankIcon;
 	//操作者光标
-	UIImageView *pILight;
+	ImageView *pILight;
 	//用户头像
-	UIImageView *pIPlayerIcon;
+	ImageView *pIPlayerIcon;
 	//行为类型背景
-	UIImageView *pIActionTypeBg;
+	ImageView *pIActionTypeBg;
 	//行为内容
-	UIImageView *pIActionContent;
+	ImageView *pIActionContent;
 private:
 	//用户信息
 	tagUserInfo userInfoPlayer;

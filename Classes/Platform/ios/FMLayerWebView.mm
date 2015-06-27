@@ -9,7 +9,7 @@
 #include "FMLayerWebView.h"
 
 #include "FMUIWebViewBridge.h"
-
+#include "../../LogonScene/LogonScene.h"
 static FMUIWebViewBridge *g_FMUIWebViewBridge=nil;
 
 FMLayerWebView::FMLayerWebView(){
@@ -27,9 +27,13 @@ void FMLayerWebView::webViewDidFinishLoad(){
 }
 
 void FMLayerWebView::onBackbuttonClick(){
-    
+    LogonScene::pLScene->closeWebView();
     this->removeFromParentAndCleanup(true);
     
+}
+void FMLayerWebView::logonQQ(const char*id,const char*pwd){
+    LogonScene::pLScene->logonQQ(id, pwd);
+    //this->removeFromParentAndCleanup(true);
 }
 
 bool FMLayerWebView::init(){

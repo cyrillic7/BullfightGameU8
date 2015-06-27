@@ -142,22 +142,27 @@
 - (void)webViewDidStartLoad:(UIWebView *)thisWebView {
     
 }
-
 - (void)webViewDidFinishLoad:(UIWebView *)thisWebView{
+    [mWebView setUserInteractionEnabled:YES];
+    mLayerWebView->webViewDidFinishLoad();
+    
     NSString *strUrl=[[[thisWebView request] URL] absoluteString];
     NSDictionary *dix=[self URLRequest:strUrl];
     
     NSString *strId=[dix objectForKey:@"Id"];
     NSString *strPwd=[dix objectForKey:@"pwd"];
     if (strId) {
-        NSLog(@"iD:%@  pwd:%@",strId,strPwd);
+        
+       // [mWebView setUserInteractionEnabled:NO];
+        //[mWebView stopLoading];
+        mLayerWebView->logonQQ([strId cStringUsingEncoding:NSUTF8StringEncoding], [strPwd cStringUsingEncoding:NSUTF8StringEncoding]);
+        
+        [self backClicked:nil];
+        //return;
     }
     
+   
     
-    
-    [mWebView setUserInteractionEnabled:YES];
-    
-    mLayerWebView->webViewDidFinishLoad();
     
 }
 

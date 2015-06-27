@@ -9,9 +9,9 @@ using namespace gui;
 #include "../../Tools/CStringAide.h"
 class ChairData:public CCNode ,public CStringAide{
 public:
-	UIButton *pBDonw;
-	UILabel *pLUserName;
-	UIImageView *pIVUserIcon;
+	Button *pBDonw;
+	Label *pLUserName;
+	ImageView *pIVUserIcon;
 public:
 	ChairData();
 	~ChairData();

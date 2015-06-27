@@ -19,11 +19,11 @@ public:
 	CC_SYNTHESIZE(IPopAssistRegistered*, pIPopAssistRegistered, IPopAssistRegistered);
 private:
 	//帐号
-	UITextField *pTFAccount;
+	TextField *pTFAccount;
 	//昵称
-	UITextField *pTFNickname;
+	TextField *pTFNickname;
 	//密码
-	UITextField *pTFPassword;
+	TextField *pTFPassword;
 public:
 	PopDialogBoxRegistered();
 	~PopDialogBoxRegistered();
