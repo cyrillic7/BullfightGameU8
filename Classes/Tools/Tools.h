@@ -26,9 +26,9 @@ public:
 	static void playSound(const char *path);
 	//GBK转UTF-8////////////////////////////////////////////////////////////////////////
 	static const char * GBKToUTF8(const char *strChar);
-	/*
-	static void stopMusic();
 	
+	static void stopMusic();
+	/*
 
 	//循环音效
 	static void playSoundLoop(const char *path);

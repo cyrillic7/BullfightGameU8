@@ -76,6 +76,13 @@ void Tools::playMusic(const char *path){
 		}
 	}
 }
+void Tools::stopMusic(){
+    //SimpleAudioEngine::sharedEngine()->stopAllEffects();
+    SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+    
+    //releseSound();
+    //SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+}
 void Tools::playSound(const char *path){
 	if (DataModel::isSound) {
 		SimpleAudioEngine::sharedEngine()->playEffect(path);

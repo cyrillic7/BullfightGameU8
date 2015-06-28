@@ -6,6 +6,7 @@
 #include "GameControlOxHundred.h"
 #include "../../Tools/GameConfig.h"
 #include "../../Tools/Tools.h"
+#include "../../Tools/SoundConfig.h"
 #include "../../Tools/BaseAttributes.h"
 #include "../../GameLobby/GameLobbyScene.h"
 #include "../../Tools/DataModel.h"
@@ -1001,6 +1002,7 @@ void GameControlOxHundred::onSubPlaceJetton(const void * pBuffer, WORD wDataSize
 
 	JettonNode *pJetton = getJettonNode();
 
+    Tools::playSound(kSoundHundredAddGold);
 	pJetton->setJettonTypeWithMove(pPlaceJetton->lJettonScore, posBegin, pos);
 	//CCLog("chair:%d jettonScore: %lld<<%s>>",pPlaceJetton->wChairID,pPlaceJetton->lJettonScore,__FUNCTION__);
 	updateButtonContron();

@@ -11,15 +11,17 @@
 #include "../Tools/DataModel.h"
 #include "../Tools/BaseAttributes.h"
 #include "../Tools/Tools.h"
+#include "../Tools/SoundConfig.h"
 #include "../Network/TCPSocket/TCPSocketControl.h"
 #include "../Play/CardLayer/CardLayerHundred.h"
 MainSceneOxHundred::MainSceneOxHundred()
 :gameState(STATE_GAME_FREE)
 {
-	Tools::playSound("sound/CHEER1.wav");
+	//Tools::playMusic(kMusicHundred);
 }
 MainSceneOxHundred::~MainSceneOxHundred(){
 	CCLog("~ <<%s>>", __FUNCTION__);
+    Tools::stopMusic();
 	//TCPSocketControl::sharedTCPSocketControl()->stopSocket();
 	
 }

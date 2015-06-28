@@ -1,6 +1,9 @@
 #pragma once
 
-#define kMusicHundred "music/"                                 //百人牛牛背音乐
+#define kMusicHundred "music/BACK_GROUND.wav"                                 //百人牛牛背音乐
+
+
+#define kSoundHundredAddGold "sound/ADD_GOLD"                                 //百人牛牛下注
 /*
 #define kMusicGameMenu "music/m_menu.mp3"
 #define kMusicGameIn "music/m_gameIn.mp3"
