@@ -310,7 +310,7 @@ void CardLayerSixSwap::onSendCardFinish(){
 		getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_SWAP_CARD);
 		//DataModel::sharedDataModel()->getm()->setGameStateWithUpdate(MainSceneOxTwo::STATE_OPT_OX);
 		//DataModel::sharedDataModel()->getMainSceneOxTwo()->setServerStateWithUpdate(MainScene::STATE_FIGHT_BANKER);
-		showCard(SELF_SEAT,DataModel::sharedDataModel()->userInfo->wChairID);
+		showCard(true,SELF_SEAT,DataModel::sharedDataModel()->userInfo->wChairID);
 		sSendCardCount=0;
 	}
 }
@@ -355,13 +355,13 @@ float CardLayerSixSwap::getCardScale(int index){
 	return 0.5-(1-DataModel::sharedDataModel()->deviceSize.height/SCENE_SIZE.height);
 }
 //显示牌
-void CardLayerSixSwap::showCard(int index,int dataIndex){
+void CardLayerSixSwap::showCard(bool isAction, int index, int dataIndex){
 	int beginCardIndex=index*MAX_COUNT;
 	for (int i = 0; i < MAX_COUNT; i++)
 	{
 		int cardColor = GetCardColor(DataModel::sharedDataModel()->card[dataIndex][i]);
 		int cardValue = GetCardValue(DataModel::sharedDataModel()->card[dataIndex][i]);
-		pCard[beginCardIndex + i]->changeCard(true, cardColor, cardValue, beginCardIndex + i, getCardScale(index));
+		pCard[beginCardIndex + i]->changeCard(isAction, cardColor, cardValue, beginCardIndex + i, getCardScale(index));
 	}
 }
 //触摸牌

@@ -957,7 +957,7 @@ bool GameControlOxSixSwap::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 		}
 		if (!isCardError)
 		{
-			getMainScene()->cardLayer->showCard(getViewChairID(i),i);
+			getMainScene()->cardLayer->showCard(true,getViewChairID(i),i);
 			getMainScene()->cardLayer->sortingOx(i,getViewChairID(i));
 			
 			//getMainScene()->cardLayer->showCard(getChairIndex(DataModel::sharedDataModel()->userInfo->wChairID, i), i);

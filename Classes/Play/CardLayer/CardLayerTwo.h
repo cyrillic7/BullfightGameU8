@@ -23,7 +23,7 @@ public:
 	//
 	virtual void updateGameState();
 	//显示牌
-	void showCard(int index,int dataIndex);
+	void showCard(bool isAction, int index, int dataIndex);
 
 	//提示牛牛
 	bool promptOx(int oxIndex);

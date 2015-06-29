@@ -209,7 +209,7 @@ void CardLayerTwo::onSendCardFinish(){
 		CCLog("CardLayer::onSendCardFinish-->sendFinish");
 		DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainSceneOxTwo::STATE_OPT_OX);
 		//DataModel::sharedDataModel()->getMainSceneOxTwo()->setServerStateWithUpdate(MainScene::STATE_FIGHT_BANKER);
-		showCard(SELF_SEAT,DataModel::sharedDataModel()->userInfo->wChairID);
+		showCard(true,SELF_SEAT,DataModel::sharedDataModel()->userInfo->wChairID);
 		sSendCardCount=0;
 	}
 }
@@ -261,12 +261,12 @@ float CardLayerTwo::getCardScale(int index){
 	return 0.7-(1-DataModel::sharedDataModel()->deviceSize.height/SCENE_SIZE.height);
 }
 //显示牌
-void CardLayerTwo::showCard(int index,int dataIndex){
+void CardLayerTwo::showCard(bool isAction, int index, int dataIndex){
 	int beginCardIndex=index*MAX_COUNT;
 	for (int i = 0; i < MAX_COUNT; i++)
 	{
 		int cardColor = GetCardColor(DataModel::sharedDataModel()->card[dataIndex][i])/16;
 		int cardValue = GetCardValue(DataModel::sharedDataModel()->card[dataIndex][i]);
-		pCard[beginCardIndex+i]->changeCard(true,cardColor,cardValue,beginCardIndex+i,1);
+		pCard[beginCardIndex+i]->changeCard(isAction,cardColor,cardValue,beginCardIndex+i,1);
 	}
 }

@@ -1015,7 +1015,7 @@ bool GameControlBase::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 		}
 		if (!isCardError)
 		{
-			getMainScene()->cardLayer->showCard(getChairIndex(DataModel::sharedDataModel()->userInfo->wChairID, i), i);
+			getMainScene()->cardLayer->showCard(true,getChairIndex(DataModel::sharedDataModel()->userInfo->wChairID, i), i);
 			getMainScene()->cardLayer->sortingOx(i, getChairIndex(DataModel::sharedDataModel()->userInfo->wChairID, i));
 		}
 	}

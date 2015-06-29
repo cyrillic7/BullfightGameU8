@@ -59,7 +59,7 @@ public:
 	virtual void sortingOx(int chairID,int showChairiD){}
 	
 	//显示牌
-	virtual void showCard(int index,int dataIndex){}
+	virtual void showCard(bool isAction,int index,int dataIndex){}
 	//显示牛牛点数
 	//virtual void showOxType(int chairiD,int oxType){}
 	//触摸牌

@@ -306,7 +306,7 @@ void CardLayerOneByOne::onSendCardFinish(){
 		getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_OPT_OX);
 		//DataModel::sharedDataModel()->getm()->setGameStateWithUpdate(MainSceneOxTwo::STATE_OPT_OX);
 		//DataModel::sharedDataModel()->getMainSceneOxTwo()->setServerStateWithUpdate(MainScene::STATE_FIGHT_BANKER);
-		showCard(SELF_SEAT,DataModel::sharedDataModel()->userInfo->wChairID);
+		showCard(true,SELF_SEAT,DataModel::sharedDataModel()->userInfo->wChairID);
 		sSendCardCount=0;
 	}
 }
@@ -351,13 +351,33 @@ float CardLayerOneByOne::getCardScale(int index){
 	return 0.5-(1-DataModel::sharedDataModel()->deviceSize.height/SCENE_SIZE.height);
 }
 //显示牌
-void CardLayerOneByOne::showCard(int index,int dataIndex){
+void CardLayerOneByOne::showCard(bool isAction, int index, int dataIndex){
 	int beginCardIndex=index*MAX_COUNT;
+	//设置位置
+	CCPoint cardPos = getMainScene()->posChair[index];
+	int jg = 25;
+	if (index == 3)
+	{
+		jg = 100;
+	}
+
 	for (int i = 0; i < MAX_COUNT; i++)
 	{
 		int cardColor = GetCardColor(DataModel::sharedDataModel()->card[dataIndex][i]);
 		int cardValue = GetCardValue(DataModel::sharedDataModel()->card[dataIndex][i]);
-		pCard[beginCardIndex + i]->changeCard(true, cardColor, cardValue, beginCardIndex + i, getCardScale(index));
+		pCard[beginCardIndex + i]->changeCard(isAction, cardColor, cardValue, beginCardIndex + i, getCardScale(index));
+		
+		
+		CCArmature *pArmature = pCard[beginCardIndex+ i]->m_cpArmatureCard;
+		
+		pArmature->setScale(getCardScale(index));
+
+		int offx = rand() % 3;
+		int offy = rand() % 3;
+		float offsetX = i * jg - (4 * jg / 2);
+		CCPoint offPos = ccp(offsetX, 0);
+
+		pArmature->setPosition(ccpAdd(cardPos, offPos));
 	}
 }
 

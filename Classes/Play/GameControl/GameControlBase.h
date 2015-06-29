@@ -32,11 +32,12 @@ public:
 	Button *pbBetting[4];
 	//换牌操作容器
 	UIPanel *pPanelSwapCard;
+	//准备容器
+	UIPanel *pPanelReady;
 private:
 	//操作者提示动画
 	CCArmature *pArmatureActionPrompt;
-	//准备容器
-	UIPanel *pPanelReady;
+	
 	//抢庄容器
 	UIPanel *pFightForBanker;
 	//投注容器

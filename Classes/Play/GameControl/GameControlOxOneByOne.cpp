@@ -22,6 +22,7 @@ void GameControlOxOneByOne::onEnter(){
 	GameControlBase::onEnter();
 	//添加标题 
 	getMainScene()->addTitle();
+	hideAllActionPanel();
 }
 void GameControlOxOneByOne::onExit(){
 	GameControlBase::onExit();
@@ -138,7 +139,7 @@ bool GameControlOxOneByOne::OnEventSceneMessage(void * pData, WORD wDataSize){
 		//效验数据
 		if (wDataSize != sizeof(CMD_S_StatusFree)) return false;
 		CMD_S_StatusFree * pStatusFree = (CMD_S_StatusFree *)pData;
-
+		pPanelReady->setEnabled(true);
 		//设置控件
 		//@if (IsLookonMode() == false && GetMeUserItem()->GetUserStatus() != US_READY)
 		{
@@ -211,14 +212,14 @@ bool GameControlOxOneByOne::OnEventSceneMessage(void * pData, WORD wDataSize){
 		//效验数据
 		if (wDataSize != sizeof(CMD_S_StatusPlay)) return false;
 		CMD_S_StatusPlay * pStatusPlay = (CMD_S_StatusPlay *)pData;
-		
+		hideAllActionPanel();
 		//设置变量
 		m_lTurnMaxScore = pStatusPlay->lTurnMaxScore;
 		CopyMemory(m_lTableScore, pStatusPlay->lTableScore, sizeof(m_lTableScore));
 		CopyMemory(m_bUserOxCard, pStatusPlay->bOxCard, sizeof(m_bUserOxCard));
 		CopyMemory(m_cbPlayStatus, pStatusPlay->cbPlayStatus, sizeof(m_cbPlayStatus));
 
-		for (WORD i = 0; i < GAME_PLAYER; i++)
+ 		for (WORD i = 0; i < GAME_PLAYER; i++)
 		{
 			//视图位置
 			//@m_wViewChairID[i] = SwitchViewChairID(i);
@@ -249,10 +250,38 @@ bool GameControlOxOneByOne::OnEventSceneMessage(void * pData, WORD wDataSize){
 			//设置扑克
 			if (m_cbPlayStatus[i] == USEX_PLAYING)
 			{
-				//@m_GameClientView.m_CardControl[wViewChairID].SetCardData(pStatusPlay->cbHandCardData[i], MAX_COUNT);
+				getMainScene()->cardLayer->canSendCard[getViewChairID(i)] = true;
+				
+				//显示牌型
+				bool bOxSound = false;
+				
+					//WORD wViewChairID=m_wViewChairID[i];
+					if (i == getMeChairID() && !IsLookonMode())
+						continue;
+					bool isCardError = false;
+					for (int j = 0; j < MAX_COUNT; j++)
+					{
+						//DataModel::sharedDataModel()->card[i][j] = pStatusPlay->cbHandCardData[i][j];
+						DataModel::sharedDataModel()->card[i][j] = 80;
+						if (pStatusPlay->cbHandCardData[i][j] == 0)
+						{
+							isCardError = true;
+							break;
+						}
+					}
+					if (!isCardError)
+					{
+						getMainScene()->cardLayer->showCard(false,getViewChairID(i), i);
+						//getMainScene()->cardLayer->sortingOx(i, getViewChairID(i));
+					}
+			}
+			else{
+				getMainScene()->cardLayer->canSendCard[getViewChairID(i)] = false;
 			}
 		}
-
+		//hideAllActionPanel();
+		//getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_END);
+		
 		//@WORD wMeChiarID = GetMeChairID();
 		//@WORD wViewChairID = m_wViewChairID[wMeChiarID];
 		//@if (!IsLookonMode())m_GameClientView.m_CardControl[wViewChairID].SetPositively(true);
@@ -308,7 +337,11 @@ bool GameControlOxOneByOne::OnEventSceneMessage(void * pData, WORD wDataSize){
 			}
 		}
 		return true;
+		
 	}
+	default:
+		pPanelReady->setEnabled(true);
+		break;
 	}
 
 	return false;
@@ -751,7 +784,7 @@ bool GameControlOxOneByOne::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 		}
 		if (!isCardError)
 		{
-			getMainScene()->cardLayer->showCard(getViewChairID(i),i);
+			getMainScene()->cardLayer->showCard(true,getViewChairID(i),i);
 			getMainScene()->cardLayer->sortingOx(i,getViewChairID(i));
 			
 			//getMainScene()->cardLayer->showCard(getChairIndex(DataModel::sharedDataModel()->userInfo->wChairID, i), i);
