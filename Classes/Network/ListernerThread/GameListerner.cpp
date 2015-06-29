@@ -14,7 +14,7 @@
 #include "../../Tools/DataModel.h"
 #include "../../MTNotificationQueue/MTNotificationQueue.h"
 #include "../../Tools/Tools.h"
-#include "../CMD_Server/cmd_ox.h"
+//#include "../CMD_Server/cmd_ox.h"
 #include "cocos2d.h"
 //#include "QueueData.h"
 #include "../../Tools/GameConfig.h"

@@ -22,7 +22,7 @@
 #include "../PopDialogBox/PopDialogBoxTipInfo.h"
 #include "../Network/MD5/MD5.h"
 #include "../Network/SEvent.h"
-#include "../Network/CMD_Server/cmd_ox.h"
+//#include "../Network/CMD_Server/cmd_ox.h"
 ClassicLobbyScene::ClassicLobbyScene()
 :isDeleteList(false)
 ,isEnterGame(false)
@@ -349,7 +349,7 @@ void ClassicLobbyScene::onEventConnect(WORD wSubCmdID, void * pDataBuffer, unsig
 							   {
 							   case ITEM_0:
 							   {
-											  logonMobile.wGameID = KIND_ID;
+											  logonMobile.wGameID = 210;
 											  logonMobile.dwProcessVersion = VERSION_CLIENT;
 							   }
 								   break;

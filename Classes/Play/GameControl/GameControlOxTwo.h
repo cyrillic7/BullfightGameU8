@@ -22,6 +22,6 @@ private:
 	virtual void menuOpenCard(CCObject* pSender, TouchEventType type);
 	//隐藏用户
 	virtual void hidePlayer(CMD_GR_UserStatus *userInfo);
-
-    
+	//游戏中
+	void onEventGameIng(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
 };

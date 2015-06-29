@@ -39,7 +39,6 @@ GameControlOxHundred::GameControlOxHundred()
 }
 GameControlOxHundred::~GameControlOxHundred(){
 	
-	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
 	DataModel::sharedDataModel()->mTagUserInfo.clear();
 	DataModel::sharedDataModel()->vecJettonNode.clear();
 }
@@ -663,7 +662,7 @@ void GameControlOxHundred::setBankerInfo(unsigned short  wBanker, long long lSco
 	}
 	m_lBankerScore = lScore;
 }
-//站立并退出
+/*//站立并退出
 void GameControlOxHundred::standUpWithExit(){
 
 	//tagUserInfo userInfo=DataModel::sharedDataModel()->mTagUserInfo.find(DataModel::sharedDataModel()->userInfo.dwUserID);
@@ -683,7 +682,7 @@ void GameControlOxHundred::standUpWithExit(){
 		//发送消息
 		TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM)->SendData(MDM_GR_USER, SUB_GR_USER_STANDUP, &userStandUp, sizeof(userStandUp));
 	}
-}
+}*/
 //申请庄家
 void GameControlOxHundred::onApplyBanker(bool bApplyBanker){
 	//当前判断

@@ -42,6 +42,8 @@ private:
 	//投注容器
 	UIPanel *pBetting;
 
+	//是否主动退出
+	bool isExitGame;
 	
 	//游戏结算层
 	GameEndLayer *pEndLayer;
@@ -139,7 +141,7 @@ public:
 
 	virtual void onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//游戏中
-	virtual void onEventGameIng(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
+	virtual void onEventGameIng(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){}
 	//用户叫庄
 	virtual bool OnSubCallBanker(const void * pBuffer, WORD wDataSize);
 	//游戏开始

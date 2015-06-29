@@ -22,6 +22,7 @@
 GameControlBase::GameControlBase()
 	:pEndLayer(NULL)
 	, pLTimerPromptContent(NULL)
+	, isExitGame(false)
 	{
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationActionPrompt.ExportJson));
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationGameIng.ExportJson));
@@ -31,6 +32,8 @@ GameControlBase::GameControlBase()
 GameControlBase::~GameControlBase(){
 	unschedule(SEL_SCHEDULE(&GameControlBase::updateTimer));
 	unscheduleUpdate();
+
+	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
 }
 void GameControlBase::onEnter(){
 	CCLayer::onEnter();
@@ -221,7 +224,9 @@ void GameControlBase::menuPause(CCObject* pSender, TouchEventType type){
 	case TOUCH_EVENT_ENDED:
 	{
 		//TCPSocketControl::sharedTCPSocketControl()->stopSocket();
-		Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(false));
+		
+		standUpWithExit();
+		//Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(false));
 	}
 	break;
 	default:
@@ -642,78 +647,7 @@ bool GameControlBase::IsLookonMode()
 	//return (m_pIMySelfUserItem->GetUserStatus() == US_LOOKON);
 	return m_cbGameStatus == US_LOOKON;
 }
-//游戏中
-void GameControlBase::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
-	switch (wSubCmdID)
-	{
-	case SUB_S_CALL_BANKER:	//用户叫庄
-	{
-		//消息处理
-		OnSubCallBanker(pDataBuffer, wDataSize);
-		CCLog("用户叫庄<<%s>>", __FUNCTION__);
-	}
-	break;
-	case SUB_S_GAME_START:	//游戏开始
-	{
-		//消息处理
-		OnSubGameStart(pDataBuffer, wDataSize);
-		CCLog("游戏开始<<%s>>", __FUNCTION__);
-	}
-	break;
-	case SUB_S_ADD_SCORE:	//用户下注
-	{
-		//消息处理
-		OnSubAddScore(pDataBuffer, wDataSize);
-		CCLog("用户下注<<%s>>", __FUNCTION__);
-	}
-	break;
-	case SUB_S_SEND_CARD:	//发牌消息
-	{
-		//消息处理
-		OnSubSendCard(pDataBuffer, wDataSize);
-		CCLog("发牌消息<<%s>>", __FUNCTION__);
-	}
-	break;
-	case SUB_S_OPEN_CARD:	//用户摊牌
-	{
-		//消息处理
-		OnSubOpenCard(pDataBuffer, wDataSize);
-		CCLog("用户摊牌<<%s>>", __FUNCTION__);
-	}
-	break;
-	case SUB_S_PLAYER_EXIT:	//用户强退
-	{
-		//消息处理
-		OnSubPlayerExit(pDataBuffer, wDataSize);
-		CCLog("用户强退<<%s>>", __FUNCTION__);
-	}
-	break;
-	case SUB_S_GAME_END:	//游戏结束
-	{
-		//结束动画
-		//m_GameClientView.FinishDispatchCard();
-		//消息处理
-		OnSubGameEnd(pDataBuffer, wDataSize);
-		CCLog("游戏结束<<%s>>", __FUNCTION__);
-	}
-	break;
-	/*case SUB_S_GAME_BASE:
-	{
-	OnSubGameBase(pData, wDataSize);
-	}
-	break;*/
-	case 1024:
-	{
-		CCLog("1024-----------------------<<%s>>", __FUNCTION__);
-		//m_GameClientView.OnLockGame(pData->pDataBuffer,pData->wDataSize);
-		//return true;
-	}
-	break;
-	default:
-		CCLog("--------------------gameIng:%d<<%s>>", wSubCmdID, __FUNCTION__);
-		break;
-	}
-}
+
 //用户叫庄
 bool GameControlBase::OnSubCallBanker(const void * pBuffer, WORD wDataSize){
 	//效验数据 
@@ -1272,7 +1206,7 @@ bool GameControlBase::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 
 void GameControlBase::OnUserFree(CCObject *obj){
 	//CCMessageBox(Tools::GBKToUTF8("长时间不操作，自动退出！"), Tools::GBKToUTF8("提示"));
-	Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(true));
+	Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(!isExitGame));
 	CCLog("退出 ");
 }
 //用户进入
@@ -1558,14 +1492,30 @@ void GameControlBase::goldJump(int index, CCPoint beginPos, CCPoint endPos){
 void GameControlBase::onGoldJump(CCNode *node){
 	node->removeFromParentAndCleanup(true);
 }
-void GameControlBase::standUpWithExit(){
 
-	//CMD_GR_UserStandUp
-	/*
-	*/
-}
 /*
 */
 MainSceneBase*GameControlBase::getMainScene(){
 	return (MainSceneBase*)this->getParent();
+}
+//站立并退出
+void GameControlBase::standUpWithExit(){
+	isExitGame = true;
+	//tagUserInfo userInfo=DataModel::sharedDataModel()->mTagUserInfo.find(DataModel::sharedDataModel()->userInfo.dwUserID);
+	CMD_GR_UserStandUp  userStandUp;
+	userStandUp.wTableID = DataModel::sharedDataModel()->userInfo->wTableID;
+	userStandUp.wChairID = DataModel::sharedDataModel()->userInfo->wChairID;
+	userStandUp.cbForceLeave = true;
+	if (userStandUp.wChairID == -10 || userStandUp.wChairID > MAX_CHAIR)
+	{
+		TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
+		Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(false));
+	}
+	else
+	{
+		getMainScene()->addLoadingLayer(SOCKET_LOGON_ROOM);
+		CCLog("-------userStandUp.wChairID :%d<<%s>>", userStandUp.wChairID, __FUNCTION__);
+		//发送消息
+		TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM)->SendData(MDM_GR_USER, SUB_GR_USER_STANDUP, &userStandUp, sizeof(userStandUp));
+	}
 }

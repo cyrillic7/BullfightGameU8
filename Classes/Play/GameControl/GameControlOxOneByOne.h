@@ -7,9 +7,17 @@
 //
 #pragma once
 #include "GameControlBase.h"
+//#include "../../Network/CMD_Server/CMD_Ox_OneByOne.h"
 #include "../../GameLogic/GameLogic.h"
+
+#define GAME_PLAYER					6										//游戏人数
 class GameControlOxOneByOne:public GameControlBase,public GameLogic
 {
+private:
+	long long m_lTurnMaxScore;					//最大下注
+	long long m_lTableScore[GAME_PLAYER];		//下注数目
+	BYTE m_bUserOxCard[GAME_PLAYER];			//牛牛数据
+	BYTE m_cbPlayStatus[GAME_PLAYER];			//用户状态
 public:
     
 	GameControlOxOneByOne();

@@ -8,8 +8,8 @@
 
 #include "GameControlOxOneByOne.h"
 #include "../../Tools/DataModel.h"
-#include "../../Network/CMD_Server/CMD_Ox_OneByOne.h"
 #include "../../Network/TCPSocket/TCPSocketControl.h"
+#include "../../Network/CMD_Server/CMD_Ox_OneByOne.h"
 #include "../../Tools/Tools.h"
 GameControlOxOneByOne::GameControlOxOneByOne()
 {
@@ -211,12 +211,12 @@ bool GameControlOxOneByOne::OnEventSceneMessage(void * pData, WORD wDataSize){
 		//效验数据
 		if (wDataSize != sizeof(CMD_S_StatusPlay)) return false;
 		CMD_S_StatusPlay * pStatusPlay = (CMD_S_StatusPlay *)pData;
-
+		
 		//设置变量
-		//@m_lTurnMaxScore = pStatusPlay->lTurnMaxScore;
-		//@CopyMemory(m_lTableScore, pStatusPlay->lTableScore, sizeof(m_lTableScore));
-		//@CopyMemory(m_bUserOxCard, pStatusPlay->bOxCard, sizeof(m_bUserOxCard));
-		//@CopyMemory(m_cbPlayStatus, pStatusPlay->cbPlayStatus, sizeof(m_cbPlayStatus));
+		m_lTurnMaxScore = pStatusPlay->lTurnMaxScore;
+		CopyMemory(m_lTableScore, pStatusPlay->lTableScore, sizeof(m_lTableScore));
+		CopyMemory(m_bUserOxCard, pStatusPlay->bOxCard, sizeof(m_bUserOxCard));
+		CopyMemory(m_cbPlayStatus, pStatusPlay->cbPlayStatus, sizeof(m_cbPlayStatus));
 
 		for (WORD i = 0; i < GAME_PLAYER; i++)
 		{
@@ -247,7 +247,7 @@ bool GameControlOxOneByOne::OnEventSceneMessage(void * pData, WORD wDataSize){
 			//@WORD wViewChairID = m_wViewChairID[i];
 
 			//设置扑克
-			//@if (m_cbPlayStatus[i] == USEX_PLAYING)
+			if (m_cbPlayStatus[i] == USEX_PLAYING)
 			{
 				//@m_GameClientView.m_CardControl[wViewChairID].SetCardData(pStatusPlay->cbHandCardData[i], MAX_COUNT);
 			}
@@ -264,8 +264,8 @@ bool GameControlOxOneByOne::OnEventSceneMessage(void * pData, WORD wDataSize){
 		//摊牌标志
 		for (WORD i = 0; i < GAME_PLAYER; i++)
 		{
-			//@if (m_cbPlayStatus[i] != USEX_PLAYING) continue;
-			//@if (m_bUserOxCard[i] != 0xff)
+			if (m_cbPlayStatus[i] != USEX_PLAYING) continue;
+			if (m_bUserOxCard[i] != 0xff)
 			{
 				//@m_GameClientView.ShowOpenCard(m_wViewChairID[i]);
 			}

@@ -16,7 +16,7 @@
 #include "../Network/ListernerThread/LogonGameListerner.h"
 #include "../Network/ListernerThread/LobbyGameListerner.h"
 #include "../Network/MD5/MD5.h"
-#include "../Network/CMD_Server/cmd_ox.h"
+//#include "../Network/CMD_Server/cmd_ox.h"
 #include "../Tools/BaseAttributes.h"
 #include "../Platform/coPlatform.h"
 LogonScene* LogonScene::pLScene=NULL;
@@ -229,7 +229,7 @@ void LogonScene::logonGame(){
 #elef(CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
 	logonAccounts.cbDeviceType = 3;
 #else
-	logonAccounts.cbDeviceType = 1;
+	logonAccounts.cbDeviceType = 2;
 #endif
 	
 	logonAccounts.dwPlazaVersion = VERSION_PLAZA;
@@ -279,7 +279,7 @@ void LogonScene::registeredGame(){
 	#elef(CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	registeredAccount.cbDeviceType = 3;
 #else
-	registeredAccount.cbDeviceType = 1;
+	registeredAccount.cbDeviceType = 2;
 #endif
 
 
@@ -464,7 +464,7 @@ void LogonScene::onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned s
 				tagGameServer *tempTag=new tagGameServer();
 				memcpy(tempTag,gameServer,sizeof(tagGameServer));
 				//memcoyp(gameServer,0,sizeof(tagGameServer));
-				if (tempTag->wKindID==KIND_ID)
+				if (tempTag->wKindID==210)
 				{
 					DataModel::sharedDataModel()->tagGameServerListOxTwo.push_back(tempTag);
 				}else if(tempTag->wKindID==30)

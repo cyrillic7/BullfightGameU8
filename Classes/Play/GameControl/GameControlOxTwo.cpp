@@ -74,3 +74,76 @@ void GameControlOxTwo::menuOpenCard(CCObject* pSender, TouchEventType type){
 void GameControlOxTwo::hidePlayer(CMD_GR_UserStatus *userInfo){
 	getMainScene()->playerLayer->pPlayerData[0]->hidePlayer();
 }
+
+//游戏中
+void GameControlOxTwo::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
+	switch (wSubCmdID)
+	{
+	case SUB_S_CALL_BANKER:	//用户叫庄
+	{
+		//消息处理
+		OnSubCallBanker(pDataBuffer, wDataSize);
+		CCLog("用户叫庄<<%s>>", __FUNCTION__);
+	}
+	break;
+	case SUB_S_GAME_START:	//游戏开始
+	{
+		//消息处理
+		OnSubGameStart(pDataBuffer, wDataSize);
+		CCLog("游戏开始<<%s>>", __FUNCTION__);
+	}
+	break;
+	case SUB_S_ADD_SCORE:	//用户下注
+	{
+		//消息处理
+		OnSubAddScore(pDataBuffer, wDataSize);
+		CCLog("用户下注<<%s>>", __FUNCTION__);
+	}
+	break;
+	case SUB_S_SEND_CARD:	//发牌消息
+	{
+		//消息处理
+		OnSubSendCard(pDataBuffer, wDataSize);
+		CCLog("发牌消息<<%s>>", __FUNCTION__);
+	}
+	break;
+	case SUB_S_OPEN_CARD:	//用户摊牌
+	{
+		//消息处理
+		OnSubOpenCard(pDataBuffer, wDataSize);
+		CCLog("用户摊牌<<%s>>", __FUNCTION__);
+	}
+	break;
+	case SUB_S_PLAYER_EXIT:	//用户强退
+	{
+		//消息处理
+		OnSubPlayerExit(pDataBuffer, wDataSize);
+		CCLog("用户强退<<%s>>", __FUNCTION__);
+	}
+	break;
+	case SUB_S_GAME_END:	//游戏结束
+	{
+		//结束动画
+		//m_GameClientView.FinishDispatchCard();
+		//消息处理
+		OnSubGameEnd(pDataBuffer, wDataSize);
+		CCLog("游戏结束<<%s>>", __FUNCTION__);
+	}
+	break;
+	/*case SUB_S_GAME_BASE:
+	{
+	OnSubGameBase(pData, wDataSize);
+	}
+	break;*/
+	case 1024:
+	{
+		CCLog("1024-----------------------<<%s>>", __FUNCTION__);
+		//m_GameClientView.OnLockGame(pData->pDataBuffer,pData->wDataSize);
+		//return true;
+	}
+	break;
+	default:
+		CCLog("--------------------gameIng:%d<<%s>>", wSubCmdID, __FUNCTION__);
+		break;
+	}
+}
