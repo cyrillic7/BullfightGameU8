@@ -8,12 +8,13 @@
 #include "PopDialogBoxLogonAccount.h"
 #include "../Tools/DataModel.h"
 #include "../Tools/GameConfig.h"
+#include "../Tools/Tools.h"
 #include "../LogonScene/LogonScene.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxLogonAccount::PopDialogBoxLogonAccount()
 {
-	
-    
+	DataModel::sharedDataModel()->sLogonAccount = Tools::getStringByRMS(RMS_LOGON_ACCOUNT);
+	DataModel::sharedDataModel()->sLogonPassword = Tools::getStringByRMS(RMS_LOGON_PASSWORD);
 }
 PopDialogBoxLogonAccount::~PopDialogBoxLogonAccount() {
 	CCLog("~ <<%s>>",__FUNCTION__);

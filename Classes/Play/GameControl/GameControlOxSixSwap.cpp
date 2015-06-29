@@ -21,6 +21,8 @@ GameControlOxSixSwap::~GameControlOxSixSwap(){
 }
 void GameControlOxSixSwap::onEnter(){
 	GameControlBase::onEnter();
+	//添加标题 
+	getMainScene()->addTitle();
 
 	pITimer->setPosition(ccp(DataModel::sharedDataModel()->deviceSize.width - 50, 40));
 }
@@ -211,7 +213,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 		CMD_S_StatusCall * pStatusCall = (CMD_S_StatusCall *)pData;
 		CCLog("%s <<%s>>", Tools::GBKToUTF8("叫庄状态"), __FUNCTION__);
 		hideAllActionPanel();
-		getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_CALL_BANKER);
+		//getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_CALL_BANKER);
 		/*//游戏信息
 		memcpy(m_cbPlayStatus, pStatusCall->cbPlayStatus, sizeof(m_cbPlayStatus));
 
@@ -263,12 +265,12 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 	case GS_TK_SCORE:	//下注状态
 	{
 		//效验数据
-		int size = sizeof(CMD_S_StatusScore);
-		if (wDataSize != sizeof(CMD_S_StatusScore)) return false;
-		CMD_S_StatusScore * pStatusScore = (CMD_S_StatusScore *)pData;
+		int size = sizeof(CMD_S_StatusScore1);
+		if (wDataSize != sizeof(CMD_S_StatusScore1)) return false;
+		CMD_S_StatusScore1 * pStatusScore = (CMD_S_StatusScore1 *)pData;
 		hideAllActionPanel();
 		CCLog("%s <<%s>>", Tools::GBKToUTF8("下注状态"), __FUNCTION__);
-		getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_BETTING);
+		//getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_BETTING);
 		/*//设置变量
 		m_lTurnMaxScore = pStatusScore->lTurnMaxScore;
 		m_wBankerUser = pStatusScore->wBankerUser;
@@ -332,9 +334,13 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 		int size = sizeof(CMD_S_StatusPlay);
 		if (wDataSize != sizeof(CMD_S_StatusPlay)) return false;
 		CMD_S_StatusPlay * pStatusPlay = (CMD_S_StatusPlay *)pData;
+		
 		hideAllActionPanel();
 		CCLog("%s <<%s>>", Tools::GBKToUTF8("游戏状态"), __FUNCTION__);
-		getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_GAME_END);
+
+
+
+		//getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_GAME_END);
 		/*
 		//设置变量
 		m_lTurnMaxScore = pStatusPlay->lTurnMaxScore;

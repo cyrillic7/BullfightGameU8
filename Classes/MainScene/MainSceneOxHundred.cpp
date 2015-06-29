@@ -75,7 +75,7 @@ void MainSceneOxHundred::initCardLayer(){
 }
 void MainSceneOxHundred::initPlayerLayer(){
 	playerLayer = PlayerLayer::create();
-	this->addChild(playerLayer);
+	this->addChild(playerLayer,K_Z_GI_PLAYER);
 }
 void MainSceneOxHundred::setGameStateWithUpdate(GameState gameState){
 	setGameState(gameState);

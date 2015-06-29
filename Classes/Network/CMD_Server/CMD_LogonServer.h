@@ -1052,7 +1052,7 @@ struct CMD_MB_LogonAccounts
 {
 	//系统信息
 	WORD							wModuleID[10];						//模块标识
-	DWORD						dwPlazaVersion;						//广场版本
+	DWORD							dwPlazaVersion;						//广场版本
 	BYTE                            cbDeviceType;                       //设备类型
 
 	//登录信息

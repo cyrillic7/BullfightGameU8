@@ -19,6 +19,9 @@ GameControlOxTwo::~GameControlOxTwo(){
 }
 void GameControlOxTwo::onEnter(){
 	GameControlBase::onEnter();
+	//添加标题 
+	getMainScene()->addTitle();
+
 	getMainScene()->playerLayer->hideOxTwoPlayer();
 }
 void GameControlOxTwo::onExit(){

@@ -1331,7 +1331,7 @@
           "tag": 40,
           "touchAble": false,
           "useMergedTexture": false,
-          "visible": true,
+          "visible": false,
           "width": 135,
           "x": 568,
           "y": 446,

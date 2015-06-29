@@ -60,6 +60,8 @@ public:
 	void addLoadingLayer(std::string socketName);
 	//移除Loading
 	void removeLoadingLayer();
+	//加载标题
+	void addTitle();
 public:
 	//设置状态并更新
 	virtual void setGameStateWithUpdate(GameState gameState){}

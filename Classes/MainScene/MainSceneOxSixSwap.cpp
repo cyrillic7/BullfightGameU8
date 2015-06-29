@@ -55,7 +55,7 @@ void MainSceneOxSixSwap::onExit(){
 void MainSceneOxSixSwap::addBg(){
 	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
 	CCSprite *spriteBg=CCSprite::create("res/room_six_swap.jpg");
-	this->addChild(spriteBg);
+	this->addChild(spriteBg,-1);
 	spriteBg->setPosition(ccp(deviceSize.width/2,deviceSize.height/2));
 	float scale=deviceSize.height/spriteBg->getContentSize().height;
 	spriteBg->setScale(scale);
@@ -67,11 +67,11 @@ void MainSceneOxSixSwap::initGameControl(){
 //
 void MainSceneOxSixSwap::initCardLayer(){
 	cardLayer = CardLayerSixSwap::create();
-	this->addChild(cardLayer);
+	this->addChild(cardLayer,K_Z_GI_CORD);
 }
 void MainSceneOxSixSwap::initPlayerLayer(){
 	playerLayer = PlayerLayerSixSwap::create();
-	this->addChild(playerLayer);
+	this->addChild(playerLayer,K_Z_GI_PLAYER);
 }
 //收到准备完成回调
 void MainSceneOxSixSwap::onEventReadyFnish(){

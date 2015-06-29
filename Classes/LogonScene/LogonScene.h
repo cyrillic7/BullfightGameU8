@@ -24,9 +24,9 @@ private:
 	enum LogonType
 	{
 		LOGON_ACCOUNT=1,					//帐号登录
-		LOGON_QQ,									//QQ登录
+		LOGON_QQ,							//QQ登录
 		LOGON_REGISTER,						//注册
-		LOGON_QUICK,							//快速登录
+		LOGON_QUICK,						//快速登录
 	};
 	CC_SYNTHESIZE(LogonType, eLogonType, LogonType);
 	std::string sRegisterAccount;

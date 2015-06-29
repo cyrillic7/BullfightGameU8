@@ -76,7 +76,7 @@ LogonScene::LogonScene()
 
 
 
-	CCLog("--------:%s <<%s>>", platformAction("{\"act\":100}").c_str(), __FUNCTION__);
+	//CCLog("--------:%s <<%s>>", platformAction("{\"act\":100}").c_str(), __FUNCTION__);
 	
 }
 LogonScene::~LogonScene(){
@@ -153,8 +153,15 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 				break;
 			case LOGON_QQ:
 			{
-                m_pWidget->setTouchEnabled(false);
+/*#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+				PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+				this->addChild(tipInfo);
+				tipInfo->setTipInfoContent(BaseAttributes::sharedAttributes()->sWaitCodeing.c_str());
+#else*/
+				m_pWidget->setTouchEnabled(false);
 				platformAction("{\"act\":200 ,\"url\":\"http://www.999xw.com/QQLogin.aspx\"}").c_str();
+/*#endif*/
+                
 			}
 				break;
 			case LOGON_QUICK://快速登录
@@ -216,7 +223,15 @@ void LogonScene::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataB
 //登录游戏
 void LogonScene::logonGame(){
 	CMD_MB_LogonAccounts logonAccounts;
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	logonAccounts.cbDeviceType = 2;
+#elef(CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
+	logonAccounts.cbDeviceType = 3;
+#else
+	logonAccounts.cbDeviceType = 1;
+#endif
+	
 	logonAccounts.dwPlazaVersion = VERSION_PLAZA;
 	strcpy(logonAccounts.szAccounts, DataModel::sharedDataModel()->sLogonAccount.c_str());
 	//strcpy(logonAccounts.szAccounts,"zhangh189");
@@ -232,8 +247,8 @@ void LogonScene::logonGame(){
 	logonAccounts.wModuleID[0] = 210; //210为二人牛牛标示
 	logonAccounts.wModuleID[1] = 30; //30为百人牛牛标示
 	logonAccounts.wModuleID[2] = 130; //1002为通比牛牛标示
-	//logonAccounts.wModuleID[3] = 430; //六人换牌
-	CCLog("passWord:%s <<%s>>", DataModel::sharedDataModel()->sLogonPassword.c_str(), __FUNCTION__);
+	logonAccounts.wModuleID[3] = 430; //六人换牌
+	
 	MD5 m;
 	//std::string passWord = GBKToUTF8(DataModel::sharedDataModel()->sLogonPassword.c_str());
 	//m.ComputMd5(passWord.c_str(), passWord.length());
@@ -259,7 +274,13 @@ void LogonScene::registeredGame(){
 
 	registeredAccount.dwPlazaVersion = VERSION_PLAZA;//广场版本
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	registeredAccount.cbDeviceType = 2;
+	#elef(CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	registeredAccount.cbDeviceType = 3;
+#else
+	registeredAccount.cbDeviceType = 1;
+#endif
 
 
 	

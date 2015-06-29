@@ -72,7 +72,7 @@ struct CMD_S_StatusCall
 };
 
 //游戏状态
-struct CMD_S_StatusScore
+struct CMD_S_StatusScore1
 {
 	//下注信息
 	long long								lTurnMaxScore;						//最大下注

@@ -25,6 +25,8 @@ private:
 	virtual void onUserEnter();
 
 	//////////////////////////////////////////////////////////////////////////
+	//游戏场景
+	virtual bool OnEventSceneMessage(void * pData, WORD wDataSize);
 	//游戏中
 	virtual void onEventGameIng(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
 	//用户下注

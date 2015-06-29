@@ -61,7 +61,7 @@ void MainSceneOxTwo::onExit(){
 void MainSceneOxTwo::addBg(){
 	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
 	CCSprite *spriteBg=CCSprite::create("res/room1_n.jpg");
-	this->addChild(spriteBg);
+	this->addChild(spriteBg,-1);
 	spriteBg->setPosition(ccp(deviceSize.width/2,deviceSize.height/2));
 	float scale=deviceSize.height/spriteBg->getContentSize().height;
 	spriteBg->setScale(scale);
@@ -73,7 +73,7 @@ void MainSceneOxTwo::initGameControl(){
 //
 void MainSceneOxTwo::initCardLayer(){
 	cardLayer = CardLayerTwo::create();
-	this->addChild(cardLayer);
+	this->addChild(cardLayer,K_Z_GI_CORD);
 }
 
 

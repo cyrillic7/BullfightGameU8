@@ -32,6 +32,10 @@
 #define K_Z_ORDER_CARD				11			//牌
 #define K_Z_ORDER_HUD				10			//UI层
 
+#define K_Z_GI_PLAYER				2			//玩家信息层
+#define K_Z_GI_CORD					1			//扑克
+#define K_Z_GI_TITLE				0			//标题
+
 
 //标识////////////////////////////////////////////////////////////////////////
 #define TAG_LOADING								1000							//加载中
