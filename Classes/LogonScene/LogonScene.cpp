@@ -226,7 +226,7 @@ void LogonScene::logonGame(){
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	logonAccounts.cbDeviceType = 2;
-#elef(CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
+#elif(CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
 	logonAccounts.cbDeviceType = 3;
 #else
 	logonAccounts.cbDeviceType = 2;
@@ -276,7 +276,7 @@ void LogonScene::registeredGame(){
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	registeredAccount.cbDeviceType = 2;
-	#elef(CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#elif(CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	registeredAccount.cbDeviceType = 3;
 #else
 	registeredAccount.cbDeviceType = 2;

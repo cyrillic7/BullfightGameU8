@@ -18,7 +18,7 @@ MainSceneOxOneByOne::MainSceneOxOneByOne()
 }
 MainSceneOxOneByOne::~MainSceneOxOneByOne(){
 	CCLog("~ <<%s>>", __FUNCTION__);
-	TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
+	//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 
 	
 

@@ -180,8 +180,8 @@ bool GameControlOxOneByOne::OnEventSceneMessage(void * pData, WORD wDataSize){
 		//设置筹码
 		//@if (!IsLookonMode() && pStatusScore->lTurnMaxScore > 0L && m_lTableScore[GetMeChairID()] == 0L)
 		{
-			LONGLONG lUserMaxScore[GAME_PLAYER];
-			ZeroMemory(lUserMaxScore, sizeof(lUserMaxScore));
+			long long lUserMaxScore[GAME_PLAYER];
+			memset(lUserMaxScore, 0,sizeof(lUserMaxScore));
 			//@LONGLONG lTemp = m_lTurnMaxScore;
 			for (WORD i = 0; i < GAME_PLAYER; i++)
 			{
@@ -240,7 +240,7 @@ bool GameControlOxOneByOne::OnEventSceneMessage(void * pData, WORD wDataSize){
 
 
 		//设置界面
-		LONGLONG lTableScore = 0L;
+		long long lTableScore = 0L;
 		for (WORD i = 0; i < GAME_PLAYER; i++)
 		{
 			//设置位置

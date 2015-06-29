@@ -499,4 +499,14 @@ void PopDialogBoxShop::onSubTreasure(void * pDataBuffer, unsigned short wDataSiz
 	this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 	//关闭网络
 	TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_SHOP);
+
+	if (pCBShopItems[0]->getSelectedState())
+	{
+		setShopItem(SHOP_GIFT_PACKAGE);
+	}
+	else
+	{
+		setShopItem(SHOP_PROP);
+	}
+	
 }

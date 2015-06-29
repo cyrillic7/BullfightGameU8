@@ -32,7 +32,7 @@ GameControlBase::GameControlBase()
 GameControlBase::~GameControlBase(){
 	unschedule(SEL_SCHEDULE(&GameControlBase::updateTimer));
 	unscheduleUpdate();
-
+	TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
 }
 void GameControlBase::onEnter(){
