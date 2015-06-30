@@ -2,10 +2,11 @@
 #pragma once
 #include "CardLayerBase.h"
 #include "../../GameLogic/GameLogicOneByOne.h"
+#include "IOptCard.h"
 using namespace gui;
 class CardLayerSixSwap:public CardLayerBase,GameLogicOneByOne {
 private:
-
+	CC_SYNTHESIZE(IOptCard*, pIOptCard, IOptCard);
 public:
 	CardLayerSixSwap();
 	~CardLayerSixSwap();

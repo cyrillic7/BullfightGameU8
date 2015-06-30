@@ -8,6 +8,7 @@
 #pragma once
 #include "GameControlBase.h"
 #include "../../GameLogic/GameLogic.h"
+//#include "../CardLayer/IOptCard.h"
 #define GAME_PLAYER					6										//游戏人数
 class GameControlOxSixSwap:public GameControlBase,public GameLogic
 {

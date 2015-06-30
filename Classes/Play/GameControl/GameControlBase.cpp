@@ -524,6 +524,9 @@ void GameControlBase::updateState(){
 			return;
 		}
 		pPanelSwapCard->setEnabled(true);
+
+		UIImageView *pSwapBg = (UIImageView*)pPanelSwapCard->getChildByName("ImageSwapBg");
+		pSwapBg->setEnabled(false);
 	}
 		break;
 	default:
