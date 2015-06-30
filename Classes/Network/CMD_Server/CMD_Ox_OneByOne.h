@@ -48,6 +48,8 @@ typedef char TCHAR, *PTCHAR;
 #define SUB_S_OPEN_CARD					105									//用户摊牌
 #define SUB_S_CALL_BANKER				106									//用户叫庄
 #define SUB_S_GAME_BASE					107									//发送基数
+#define SUB_S_USER_OPEN                 108									//用户开牌
+
 
 //游戏状态
 struct CMD_S_StatusFree
@@ -149,7 +151,7 @@ struct CMD_S_Open_Card
 #define SUB_C_CALL_BANKER				1									//用户叫庄
 #define SUB_C_ADD_SCORE					2									//用户加注
 #define SUB_C_OPEN_CARD					3									//用户摊牌
-
+#define SUB_C_OPEN_END                  5									//开牌结束
 //用户叫庄
 struct CMD_C_CallBanker
 {
@@ -166,6 +168,11 @@ struct CMD_C_AddScore
 struct CMD_C_OxCard
 {
 	BYTE							    	bOX;								//牛牛标志
+};
+//开牌扑克
+struct CMD_S_PlayerOpen
+{
+	BYTE							     	cbCardData[GAME_PLAYER][MAXCOUNT];	//用户扑克
 };
 #pragma pack()
 //////////////////////////////////////////////////////////////////////////

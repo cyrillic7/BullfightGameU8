@@ -77,7 +77,13 @@ LogonScene::LogonScene()
 
 
 	//CCLog("--------:%s <<%s>>", platformAction("{\"act\":100}").c_str(), __FUNCTION__);
-	
+#if(DEBUG_TEST==0||DEBUG_TEST==1)
+	CCLabelTTF *label = CCLabelTTF::create(GAME_VERSION, "Marker Felt", 20);
+	this->addChild(label, 2);
+	label->setColor(ccc3(0, 0, 0));
+	label->setPosition(ccp(0, SCENE_SIZE.height));
+	label->setAnchorPoint(ccp(0, 1));
+#endif
 }
 LogonScene::~LogonScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
@@ -153,14 +159,14 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 				break;
 			case LOGON_QQ:
 			{
-/*#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 				PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
 				this->addChild(tipInfo);
 				tipInfo->setTipInfoContent(BaseAttributes::sharedAttributes()->sWaitCodeing.c_str());
-#else*/
+#else
 				m_pWidget->setTouchEnabled(false);
 				platformAction("{\"act\":200 ,\"url\":\"http://www.999xw.com/QQLogin.aspx\"}").c_str();
-/*#endif*/
+#endif
                 
 			}
 				break;

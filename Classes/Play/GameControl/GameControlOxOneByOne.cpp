@@ -12,6 +12,7 @@
 #include "../../Network/CMD_Server/CMD_Ox_OneByOne.h"
 #include "../../Tools/Tools.h"
 GameControlOxOneByOne::GameControlOxOneByOne()
+	:isShowAllUserOx(false)
 {
 
 }
@@ -218,7 +219,7 @@ bool GameControlOxOneByOne::OnEventSceneMessage(void * pData, WORD wDataSize){
 		CopyMemory(m_lTableScore, pStatusPlay->lTableScore, sizeof(m_lTableScore));
 		CopyMemory(m_bUserOxCard, pStatusPlay->bOxCard, sizeof(m_bUserOxCard));
 		CopyMemory(m_cbPlayStatus, pStatusPlay->cbPlayStatus, sizeof(m_cbPlayStatus));
-
+		isShowAllUserOx = false;
  		for (WORD i = 0; i < GAME_PLAYER; i++)
 		{
 			//视图位置
@@ -397,6 +398,11 @@ void GameControlOxOneByOne::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, u
 	case SUB_S_GAME_BASE:
 	{
 		OnSubGameBase(pDataBuffer, wDataSize);
+	}
+		break;
+	case SUB_S_USER_OPEN:
+	{
+		onSubUserOpen(pDataBuffer, wDataSize);
 	}
 		break;
 	default:
@@ -717,6 +723,62 @@ bool GameControlOxOneByOne::OnSubOpenCard(const void * pBuffer, WORD wDataSize)
 	*/
 	return true;
 }
+//用户开牌
+void GameControlOxOneByOne::onSubUserOpen(const void * pBuffer, WORD wDataSize){
+	//效验参数
+	if (wDataSize != sizeof(CMD_S_PlayerOpen)) return;
+	CMD_S_PlayerOpen * pPlayerOpen = (CMD_S_PlayerOpen *)pBuffer;
+	showOxAllNum = 0;
+	showOxCurNum = 0;
+	isShowAllUserOx = true;
+	hideActionPrompt();
+	//显示牌型
+	bool bOxSound = false;
+	for (int i = 0; i < GAME_PLAYER; i++)
+	{
+		int index = (i + 3)%GAME_PLAYER;
+		//WORD wViewChairID=m_wViewChairID[i];
+		if (index == getMeChairID() && !IsLookonMode())
+			continue;
+		bool isCardError = false;
+		for (int j = 0; j < MAX_COUNT; j++)
+		{
+			DataModel::sharedDataModel()->card[index][j] = pPlayerOpen->cbCardData[index][j];
+			if (pPlayerOpen->cbCardData[index][j] == 0)
+			{
+				isCardError = true;
+				break;
+			}
+		}
+		if (!isCardError)
+		{
+			showOxAllNum++;
+
+			CCNode *pTempNode = CCNode::create();
+			this->addChild(pTempNode);
+			pTempNode->setTag(index);
+
+			pTempNode->runAction(CCSequence::create(
+				CCDelayTime::create(showOxAllNum)
+				,CCCallFuncN::create(this,SEL_CallFuncN(&GameControlOxOneByOne::onUserShowOx))
+				,NULL));
+		}
+	}
+	
+}
+void GameControlOxOneByOne::onUserShowOx(CCNode *pNode){
+	int i = pNode->getTag();
+	pNode->removeFromParentAndCleanup(true);
+
+	getMainScene()->cardLayer->showCard(true, getViewChairID(i), i);
+	getMainScene()->cardLayer->sortingOx(i, getViewChairID(i));
+	showOxCurNum++;
+	if (showOxCurNum>=showOxAllNum)
+	{
+		//所有用户牌都显示完了
+		getSocket()->SendData(MDM_GF_GAME, SUB_C_OPEN_END);
+	}
+}
 //游戏结束
 bool GameControlOxOneByOne::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 {
@@ -766,31 +828,36 @@ bool GameControlOxOneByOne::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 		}
 	}*/
 	//显示牌型
-	bool bOxSound = false;
-	for (int i = 0; i < GAME_PLAYER; i++)
+	if (isShowAllUserOx)
 	{
-		//WORD wViewChairID=m_wViewChairID[i];
-		if (i == getMeChairID() && !IsLookonMode())
-			continue;
-		bool isCardError = false;
-		for (int j = 0; j < MAX_COUNT; j++)
+		isShowAllUserOx = false;
+	}
+	else
+	{
+		bool bOxSound = false;
+		for (int i = 0; i < GAME_PLAYER; i++)
 		{
-			DataModel::sharedDataModel()->card[i][j] = pGameEnd->cbCardData[i][j];
-			if (pGameEnd->cbCardData[i][j] == 0)
+			//WORD wViewChairID=m_wViewChairID[i];
+			if (i == getMeChairID() && !IsLookonMode())
+				continue;
+			bool isCardError = false;
+			for (int j = 0; j < MAX_COUNT; j++)
 			{
-				isCardError = true;
-				break;
+				DataModel::sharedDataModel()->card[i][j] = pGameEnd->cbCardData[i][j];
+				if (pGameEnd->cbCardData[i][j] == 0)
+				{
+					isCardError = true;
+					break;
+				}
+			}
+			if (!isCardError)
+			{
+				getMainScene()->cardLayer->showCard(true, getViewChairID(i), i);
+				getMainScene()->cardLayer->sortingOx(i, getViewChairID(i));
 			}
 		}
-		if (!isCardError)
-		{
-			getMainScene()->cardLayer->showCard(true,getViewChairID(i),i);
-			getMainScene()->cardLayer->sortingOx(i,getViewChairID(i));
-			
-			//getMainScene()->cardLayer->showCard(getChairIndex(DataModel::sharedDataModel()->userInfo->wChairID, i), i);
-			//getMainScene()->cardLayer->sortingOx(i, getChairIndex(DataModel::sharedDataModel()->userInfo->wChairID, i));
-		}
 	}
+	
 
 
 	/*pEndLayer = GameEndLayer::create();
