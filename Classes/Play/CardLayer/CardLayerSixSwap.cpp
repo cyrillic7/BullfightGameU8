@@ -356,12 +356,39 @@ float CardLayerSixSwap::getCardScale(int index){
 }
 //显示牌
 void CardLayerSixSwap::showCard(bool isAction, int index, int dataIndex){
-	int beginCardIndex=index*MAX_COUNT;
+	/*int beginCardIndex=index*MAX_COUNT;
 	for (int i = 0; i < MAX_COUNT; i++)
 	{
 		int cardColor = GetCardColor(DataModel::sharedDataModel()->card[dataIndex][i]);
 		int cardValue = GetCardValue(DataModel::sharedDataModel()->card[dataIndex][i]);
 		pCard[beginCardIndex + i]->changeCard(isAction, cardColor, cardValue, beginCardIndex + i, getCardScale(index));
+	}*/
+	int beginCardIndex = index*MAX_COUNT;
+	//设置位置
+	CCPoint cardPos = getMainScene()->posChair[index];
+	int jg = 25;
+	if (index == 3)
+	{
+		jg = 100;
+	}
+
+	for (int i = 0; i < MAX_COUNT; i++)
+	{
+		int cardColor = GetCardColor(DataModel::sharedDataModel()->card[dataIndex][i]);
+		int cardValue = GetCardValue(DataModel::sharedDataModel()->card[dataIndex][i]);
+		pCard[beginCardIndex + i]->changeCard(isAction, cardColor, cardValue, beginCardIndex + i, getCardScale(index));
+
+
+		CCArmature *pArmature = pCard[beginCardIndex + i]->m_cpArmatureCard;
+
+		pArmature->setScale(getCardScale(index));
+
+		int offx = rand() % 3;
+		int offy = rand() % 3;
+		float offsetX = i * jg - (4 * jg / 2);
+		CCPoint offPos = ccp(offsetX, 0);
+
+		pArmature->setPosition(ccpAdd(cardPos, offPos));
 	}
 }
 //触摸牌

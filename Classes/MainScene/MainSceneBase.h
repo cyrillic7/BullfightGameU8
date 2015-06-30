@@ -32,6 +32,7 @@ public:
 		STATE_OPT_OX,				//选牛
 		STATE_END,					//结算
 		STATE_SWAP_CARD,			//换牌
+		STATE_WAIT_SWAP_CARE,		//等待其它人换牌
 		//百人牛牛////////////////////////////////////////////////////////////////////////
 		STATE_GAME_FREE ,							//空闲状态
 		STATE_GAME_PLACE_JETTON,				//下注

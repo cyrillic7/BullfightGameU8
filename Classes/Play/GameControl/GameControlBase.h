@@ -24,6 +24,14 @@ class MainSceneBase;
 class GameControlBase:public CCLayer,public MessageQueue,public CMath
 {
 public:
+	enum ActionPromptType
+	{
+		ACTION_PROMPT_CALL_BANK=1,					//等待玩家叫庄
+		ACTION_PROMPT_ADD_SCORE,					//等待玩家下注
+		ACTION_PROMPT_OPEN_CARD,					//等待玩家摊牌
+		ACTION_PROMPT_OPT_CARD,						//选择要换的牌
+		ACTION_PROMPT_WAIT_SWAP_CARD,				//等待玩家换牌
+	};
 	//配置牛牛容器
 	UIPanel *pOptOx;
 	//庄家用户
@@ -107,6 +115,8 @@ public:
 	virtual void standUpWithExit();
 	//是不是观察者
 	bool IsLookonMode();
+	//是否是游戏状态
+	virtual bool isPalyerState(){ return true; }
 private:
 	//菜单////////////////////////////////////////////////////////////////////////
 	void menuPause(CCObject* pSender, TouchEventType type);

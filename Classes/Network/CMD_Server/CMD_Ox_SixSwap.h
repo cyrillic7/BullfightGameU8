@@ -51,6 +51,7 @@ typedef char TCHAR, *PTCHAR;
 #define SUB_S_GAME_BASE					107									//发送基数
 #define SUB_S_CHANGE_CARD               108                                 //用户换牌
 #define SUB_S_CHANGE_OPEN               109                                 //开牌
+#define SUB_S_USER_OPEN                 110									//用户开牌
 
 //游戏状态
 struct CMD_S_StatusFree
@@ -165,6 +166,7 @@ struct CMD_S_ChangeCard
 #define SUB_C_OPEN_CARD					3									//用户摊牌
 #define SUB_C_LEAVE						4									//机器人离开
 #define SUB_C_CHANGE_CARD               5                                   //用户换牌
+#define SUB_C_OPEN_END                  6									//开牌结束
 
 //用户叫庄
 struct CMD_C_CallBanker
@@ -190,6 +192,11 @@ struct CMD_C_ChangeCard
 	bool                                    bChange;                            //换牌标志
 	WORD                                    wPlayer;                            //换牌用户
 	BYTE                                    cbChangeCard;                       //换牌数据
+};
+//开牌扑克
+struct CMD_S_PlayerOpen
+{
+	BYTE							     	cbCardData[GAME_PLAYER][MAXCOUNT];	//用户扑克
 };
 //////////////////////////////////////////////////////////////////////////
 #pragma pack()

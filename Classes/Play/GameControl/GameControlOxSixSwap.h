@@ -8,9 +8,19 @@
 #pragma once
 #include "GameControlBase.h"
 #include "../../GameLogic/GameLogic.h"
+#define GAME_PLAYER					6										//游戏人数
 class GameControlOxSixSwap:public GameControlBase,public GameLogic
 {
-    
+private:
+	BYTE m_cbPlayStatus[GAME_PLAYER];							//用户状态
+	long long m_lTurnMaxScore;									//最大下注
+	long long m_lTableScore[GAME_PLAYER];						//下注数目
+	BYTE m_bUserOxCard[GAME_PLAYER];							//牛牛数据	
+	BYTE m_cbHandCardData[GAME_PLAYER][MAX_COUNT];				//用户数据
+
+	int showOxAllNum;							//最多显示牛牛数
+	int showOxCurNum;							//当前显示牛牛数
+	bool isShowAllUserOx;						//是否显示全部用户牛牛
 public:
 	GameControlOxSixSwap();
 	~GameControlOxSixSwap();
@@ -47,6 +57,8 @@ private:
 	bool OnSubChangeCard(const void * pBuffer, WORD wDataSize);
 	//游戏结束
 	virtual bool OnSubGameEnd(const void * pBuffer, WORD wDataSize);
+	//用户开牌
+	void onSubUserOpen(const void * pBuffer, WORD wDataSize);
 	//////////////////////////////////////////////////////////////////////////
 	//获取视图位置
 	virtual int getViewChairID(int severChairID);
@@ -58,4 +70,10 @@ private:
 	//virtual void onUserEnterWithUpdate(tagUserInfo *user);
 	//换牌消息
 	virtual void onUserChangeCard(int wParam, long lParam);
+
+
+	//用户开牌显示牛
+	void onUserShowOx(CCNode *pNode);
+	//是否是游戏状态
+	virtual bool isPalyerState();
 };

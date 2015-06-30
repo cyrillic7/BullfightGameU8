@@ -84,6 +84,8 @@ LogonScene::LogonScene()
 	label->setPosition(ccp(0, SCENE_SIZE.height));
 	label->setAnchorPoint(ccp(0, 1));
 #endif
+
+
 }
 LogonScene::~LogonScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);

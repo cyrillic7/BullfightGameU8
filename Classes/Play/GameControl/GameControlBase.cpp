@@ -398,7 +398,7 @@ void GameControlBase::menuSwapCard(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		showActionPrompt(4, ccp(0, -DataModel::sharedDataModel()->deviceSize.height / 2 + 50));
+		showActionPrompt(ACTION_PROMPT_OPT_CARD, ccp(0, -DataModel::sharedDataModel()->deviceSize.height / 2 + 50));
 		//CCLog("swapCard------------- <<%s>>", __FUNCTION__);
 		//hideActionPrompt();
 	}
@@ -414,7 +414,7 @@ void GameControlBase::menuDontSwapCard(CCObject* pSender, TouchEventType type){
 	case TOUCH_EVENT_ENDED:
 	{
 		onUserChangeCard(0,0);
-		hideActionPrompt();
+		//hideActionPrompt();
 	}
 	break;
 	default:
@@ -454,7 +454,7 @@ void GameControlBase::updateState(){
 	case MainSceneOxTwo::STATE_CALL_BANKER:
 	{
 		resetTimer(MAX_TIMER, NULL);
-		if (IsLookonMode())
+		if (IsLookonMode() || !isPalyerState())
 		{
 			hideAllActionPanel();
 			return;
@@ -463,10 +463,18 @@ void GameControlBase::updateState(){
 		pPanelReady->setEnabled(false);
 	}
 	break;
+	case MainSceneBase::STATE_WAIT_SWAP_CARE://等待其它玩家换牌
+	{
+		resetTimer(MAX_TIMER, NULL);
+		pPanelSwapCard->setEnabled(false);
+		pFightForBanker->setEnabled(false);
+
+	}
+		break;
 	case MainSceneOxTwo::STATE_OPT_OX:
 	{
 		resetTimer(MAX_TIMER, NULL);
-		if (IsLookonMode())
+		if (IsLookonMode() || !isPalyerState())
 		{
 			hideAllActionPanel();
 			return;
@@ -479,7 +487,7 @@ void GameControlBase::updateState(){
 	case MainSceneOxTwo::STATE_BETTING:
 	{
 		resetTimer(MAX_TIMER, NULL);
-		if (IsLookonMode())
+		if (IsLookonMode()||!isPalyerState())
 		{
 			hideAllActionPanel();
 			return;
@@ -510,7 +518,7 @@ void GameControlBase::updateState(){
 	case MainSceneBase::STATE_SWAP_CARD://换牌
 	{
 		resetTimer(MAX_TIMER, NULL);
-		if (IsLookonMode())
+		if (IsLookonMode() || !isPalyerState())
 		{
 			hideAllActionPanel();
 			return;
@@ -666,7 +674,7 @@ bool GameControlBase::OnSubCallBanker(const void * pBuffer, WORD wDataSize){
 	}
 	else
 	{
-		showActionPrompt(1,CCPointZero);
+		showActionPrompt(ACTION_PROMPT_CALL_BANK,CCPointZero);
 	}
 	for (int i = 0; i < MAX_PLAYER; i++)
 	{
@@ -779,7 +787,7 @@ bool GameControlBase::OnSubGameStart(const void * pBuffer, WORD wDataSize){
 	}
 	else
 	{
-		showActionPrompt(2, CCPointZero);
+		showActionPrompt(ACTION_PROMPT_ADD_SCORE, CCPointZero);
 	}
 
 	return true;

@@ -52,7 +52,7 @@ void GameControlOxOneByOne::menuOpenCard(CCObject* pSender, TouchEventType type)
 	{
 		hideTimer(true);
 		getMainScene()->cardLayer->sortingOx(getMeChairID(),3);
-		showActionPrompt(3, CCPointZero);
+		showActionPrompt(ACTION_PROMPT_OPEN_CARD, CCPointZero);
 		pOptOx->setEnabled(false);		
 		CMD_C_OxCard OxCard;
 		OxCard.bOX=GetOxCard(DataModel::sharedDataModel()->card[getMeChairID()],5);
@@ -736,7 +736,7 @@ void GameControlOxOneByOne::onSubUserOpen(const void * pBuffer, WORD wDataSize){
 	bool bOxSound = false;
 	for (int i = 0; i < GAME_PLAYER; i++)
 	{
-		int index = (i + 3)%GAME_PLAYER;
+		int index = (i + getMeChairID())%GAME_PLAYER;
 		//WORD wViewChairID=m_wViewChairID[i];
 		if (index == getMeChairID() && !IsLookonMode())
 			continue;

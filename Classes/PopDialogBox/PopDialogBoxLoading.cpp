@@ -11,6 +11,7 @@
 #include "../Tools/BaseAttributes.h"
 #include "../Network/TCPSocket/TCPSocketControl.h"
 #include "../Tools/BaseAttributes.h"
+#include "../GameLobby/GameLobbyScene.h"
 #include "PopDialogBoxTipInfo.h"
 #define OUT_TIME			10				//超时时长
 PopDialogBoxLoading::PopDialogBoxLoading()
@@ -51,6 +52,11 @@ void PopDialogBoxLoading::outTimeExit(float dt){
 	PopDialogBoxTipInfo *pTipInfo = PopDialogBoxTipInfo::create();
 	this->getParent()->addChild(pTipInfo,100);
 	pTipInfo->setTipInfoContent(BaseAttributes::sharedAttributes()->sOutTime.c_str());
+
+	if (strcmp(sSocketName.c_str(), SOCKET_LOGON_ROOM)==0)
+	{
+		Tools::setTransitionAnimation(0,0,GameLobbyScene::scene(false));
+	}
 
 	this->removeFromParentAndCleanup(true);
 }

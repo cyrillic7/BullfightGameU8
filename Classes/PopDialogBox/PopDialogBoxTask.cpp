@@ -60,7 +60,7 @@ void PopDialogBoxTask::getTashInfoList(){
 		box->setSocketName(SOCKET_LOBBY);
 
 		CMD_GL_GetTask getTask;
-		getTask.dwOpTerminal = 1;
+		getTask.dwOpTerminal = 2;
 		bool isSend = getSocket()->SendData(MDM_GL_C_DATA, SUB_GL_C_TASK_LOAD, &getTask, sizeof(getTask));
 	}
 	break;
