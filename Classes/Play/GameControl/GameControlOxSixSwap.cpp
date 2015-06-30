@@ -28,6 +28,7 @@ void GameControlOxSixSwap::onEnter(){
 	pITimer->setPosition(ccp(DataModel::sharedDataModel()->deviceSize.width - 50, 40));
 
 	hideAllActionPanel();
+	getMainScene()->cardLayer->setIOptCard(this);
 }
 void GameControlOxSixSwap::onExit(){
 	GameControlBase::onExit();
@@ -1284,4 +1285,8 @@ bool GameControlOxSixSwap::isPalyerState(){
 		return true;
 	}
 	return false;
+}
+//选中牌
+void GameControlOxSixSwap::onUpCard(){
+	CCLog("--------------------- <<%s>>", __FUNCTION__);
 }

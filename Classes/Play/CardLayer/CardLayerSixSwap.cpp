@@ -406,6 +406,7 @@ void CardLayerSixSwap::touchCard(unsigned short beginPos, CCPoint pos){
 	}
 	for (int i = beginPos*MAX_CARD_COUNT; i < beginPos*MAX_CARD_COUNT + MAX_CARD_COUNT; i++)
 	{
+		getIOptCard()->onUpCard();
 		pCard[i]->touchCard(pos, isAction);
 	}
 }

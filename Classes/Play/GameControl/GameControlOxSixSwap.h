@@ -8,9 +8,9 @@
 #pragma once
 #include "GameControlBase.h"
 #include "../../GameLogic/GameLogic.h"
-//#include "../CardLayer/IOptCard.h"
+#include "../CardLayer/IOptCard.h"
 #define GAME_PLAYER					6										//游戏人数
-class GameControlOxSixSwap:public GameControlBase,public GameLogic
+class GameControlOxSixSwap:public GameControlBase,public GameLogic,public IOptCard
 {
 private:
 	BYTE m_cbPlayStatus[GAME_PLAYER];							//用户状态
@@ -77,4 +77,7 @@ private:
 	void onUserShowOx(CCNode *pNode);
 	//是否是游戏状态
 	virtual bool isPalyerState();
+
+	//选中牌
+	virtual void onUpCard();
 };

@@ -4,6 +4,7 @@
 #include "cocos-ext.h"
 #include "../../Tools/GameConfig.h"
 #include "../../Tools/CMath.h"
+#include "IOptCard.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 //如果是android平台需要定义宏
@@ -21,6 +22,7 @@ class  Card;
 
 class CardLayerBase:public CCLayer,public CMath {
 public:
+	CC_SYNTHESIZE(IOptCard*, pIOptCard, IOptCard);
 	//牌数据
 	BYTE card[6][5];
 	//能否发牌
