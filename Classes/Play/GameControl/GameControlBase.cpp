@@ -400,6 +400,7 @@ void GameControlBase::menuSwapCard(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
+        return;
 		showActionPrompt(ACTION_PROMPT_OPT_CARD, ccp(0, -DataModel::sharedDataModel()->deviceSize.height / 2 + 50));
 		getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_SWAP_CARD_ING);
 

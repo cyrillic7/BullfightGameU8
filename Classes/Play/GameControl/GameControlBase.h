@@ -41,7 +41,7 @@ public:
 	//换牌操作容器
 	UIPanel *pPanelSwapCard;
 	//换牌按键
-	UIImageView *pIVChangeCard;
+	ImageView *pIVChangeCard;
 	//准备容器
 	UIPanel *pPanelReady;
 private:
