@@ -78,6 +78,7 @@ void PopDialogBoxHelp::onCheckBoxSelectedStateEvent(CCObject *pSender, CheckBoxE
 					pcbHelp[i]->setTouchEnabled(true);
 				}else
 				{
+					scrollViewHelp->scrollToTop(0.1, false);
 					pcbHelp[i]->setTouchEnabled(false);
 				}
 			}

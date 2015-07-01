@@ -29,6 +29,11 @@ void GameControlOxSixSwap::onEnter(){
 
 	hideAllActionPanel();
 	getMainScene()->cardLayer->setIOptCard(this);
+
+	//换牌框背景光动画
+	UIImageView *pIVLight = static_cast<UIImageView*>(pIVChangeCard->getChildByName("ImageLight"));
+	pIVLight->runAction(CCRepeatForever::create(CCRotateBy::create(0.5,360)));
+	pIVChangeCard->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxSixSwap::onMenuChangeCard));
 }
 void GameControlOxSixSwap::onExit(){
 	GameControlBase::onExit();
@@ -115,6 +120,29 @@ void GameControlOxSixSwap::menuOpenCard(CCObject* pSender, TouchEventType type){
 		break;
 	}
 }
+//换牌
+void GameControlOxSixSwap::onMenuChangeCard(CCObject* pSender, TouchEventType type){
+	switch (type)
+	{
+	case TOUCH_EVENT_ENDED:
+	{
+		CCLog("changecard------------ <<%s>>", __FUNCTION__);
+		/*hideTimer(true);
+		getMainScene()->cardLayer->sortingOx(getMeChairID(), 3);
+		showActionPrompt(ACTION_PROMPT_OPEN_CARD, CCPointZero);
+		pOptOx->setEnabled(false);
+		CMD_C_OxCard OxCard;
+		OxCard.bOX = GetOxCard(DataModel::sharedDataModel()->card[getMeChairID()], 5);
+		//发送信息
+		bool isSend = getSocket()->SendData(MDM_GF_GAME, SUB_C_OPEN_CARD, &OxCard, sizeof(OxCard));
+		getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);*/
+	}
+	break;
+	default:
+		break;
+	}
+}
+
 //用户进入
 void GameControlOxSixSwap::onUserEnter(){
 	//CCLog("<<%s>>",__FUNCTION__);
@@ -1438,16 +1466,16 @@ bool GameControlOxSixSwap::isPalyerState(){
 	return false;
 }
 //选中牌
-void GameControlOxSixSwap::onUpCard(bool isShowSwap){
-	UIImageView *pSwapBg = (UIImageView*)pPanelSwapCard->getChildByName("ImageSwapBg");
-	pSwapBg->setEnabled(isShowSwap);
-	if (isShowSwap)
+void GameControlOxSixSwap::onUpCard(int changeCardIndex){
+	pIVChangeCard->setEnabled(changeCardIndex!=-1);
+	if (changeCardIndex!=-1)
 	{
 		hideActionPrompt();
 	}
 	else
 	{
 		showActionPrompt(ACTION_PROMPT_OPT_CARD, ccp(0, -DataModel::sharedDataModel()->deviceSize.height / 2 + 50));
+		unsigned short beginPos = getViewChairID(DataModel::sharedDataModel()->userInfo->wChairID);
+		CCLog("changeCardIndex:%d <<%s>>", changeCardIndex - beginPos*MAX_CARD_COUNT, __FUNCTION__);
 	}
-	CCLog("onUpCard --------------------- <<%s>>", __FUNCTION__);
 }

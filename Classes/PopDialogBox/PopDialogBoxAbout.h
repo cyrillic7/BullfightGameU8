@@ -11,7 +11,9 @@
 class PopDialogBoxAbout: public PopDialogBox {
 private:
 
-    
+	UILabel *pLAboutText;
+	UIScrollView *pSVAbout;
+	std::string sAboutContent;
 public:
 	PopDialogBoxAbout();
 	~PopDialogBoxAbout();
@@ -19,4 +21,5 @@ public:
 private:
 	virtual void onEnter();
 	virtual void onExit();
+	void readAboutText();
 };

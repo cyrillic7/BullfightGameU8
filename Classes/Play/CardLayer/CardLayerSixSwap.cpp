@@ -406,23 +406,21 @@ void CardLayerSixSwap::touchCard(unsigned short beginPos, CCPoint pos){
 	}
 	else
 	{	
-		if (limitCount==0)
-		{
-			getIOptCard()->onUpCard(true);
-		}
+		
 	}
-	bool isOneCardUp = false;
+	int isOneCardUp = -1;
 	for (int i = beginPos*MAX_CARD_COUNT; i < beginPos*MAX_CARD_COUNT + MAX_CARD_COUNT; i++)
 	{
 		pCard[i]->touchCard(pos, isAction);
 		if (pCard[i]->getIsUpCard())
 		{
-			isOneCardUp = true;
+			isOneCardUp = i;
 		}
 	}
-	if (!isOneCardUp&&limitCount == 0)
+	if (getMainScene()->getGameState() == MainSceneBase::STATE_SWAP_CARD)
 	{
-		getIOptCard()->onUpCard(false);
+		getIOptCard()->onUpCard(isOneCardUp);
 	}
+
 }
 

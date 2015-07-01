@@ -40,6 +40,8 @@ public:
 	Button *pbBetting[4];
 	//换牌操作容器
 	UIPanel *pPanelSwapCard;
+	//换牌按键
+	UIImageView *pIVChangeCard;
 	//准备容器
 	UIPanel *pPanelReady;
 private:

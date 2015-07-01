@@ -32,6 +32,8 @@ private:
 	int getChairIndex(int meChairID,int chairID);
 	//开牌
 	virtual void menuOpenCard(CCObject* pSender, TouchEventType type);
+	//换牌
+	void onMenuChangeCard(CCObject* pSender, TouchEventType type);
 	//用户进入
 	virtual void onUserEnter();
 
@@ -79,5 +81,5 @@ private:
 	virtual bool isPalyerState();
 
 	//选中牌
-	virtual void onUpCard(bool isShowSwap);
+	virtual void onUpCard(int changeCardIndex);
 };

@@ -69,6 +69,9 @@ void GameControlBase::onEnter(){
 	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuSwapCard));
 	button = static_cast<UIButton*>(pWidget->getWidgetByName("ButtonDontSwapCard"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuDontSwapCard));
+
+	pIVChangeCard = static_cast<UIImageView*>(pPanelSwapCard->getChildByName("ImageSwapBg"));
+
 	pPanelSwapCard->setEnabled(false);
 	//抢庄容器
 	pFightForBanker = static_cast<UIPanel*>(pWidget->getWidgetByName("fightForBankerPanel"));
