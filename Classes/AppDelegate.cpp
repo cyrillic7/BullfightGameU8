@@ -46,7 +46,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 #endif
 	//CCEGLView::sharedOpenGLView()->setDesignResolutionSize(SCENE_SIZE.width, SCENE_SIZE.height, kResolutionExactFit);//��Ļ����
 	//CCEGLView::sharedOpenGLView()->setDesignResolutionSize(SCENE_SIZE.width, SCENE_SIZE.height, kResolutionFixedHeight);//��Ļ����
-	CCEGLView::sharedOpenGLView()->setDesignResolutionSize(SCENE_SIZE.width, SCENE_SIZE.height, kResolutionFixedHeight);
+	CCEGLView::sharedOpenGLView()->setDesignResolutionSize(SCENE_SIZE.width, SCENE_SIZE.height, kResolutionFixedWidth);
 	pDirector->setProjection(kCCDirectorProjection2D);//2D投影
     // turn on display FPS
     pDirector->setDisplayStats(true);

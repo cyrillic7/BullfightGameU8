@@ -60,8 +60,8 @@ void MainSceneOxHundred::addBg(){
 	spriteBg->setPosition(ccp(deviceSize.width/2,deviceSize.height/2));
 	float scaleX=deviceSize.width/spriteBg->getContentSize().width;
 	float scaleY=deviceSize.height/spriteBg->getContentSize().height;
-	spriteBg->setScaleX(scaleX);
-	//spriteBg->setScaleY(scaleY);
+	//spriteBg->setScaleX(scaleX);
+	spriteBg->setScaleY(scaleY);
 	//spriteBg->setScale(scaleY-0.3);
 }
 void MainSceneOxHundred::initGameControl(){

@@ -256,9 +256,9 @@ void CardLayerTwo::setCanSendCard(){
 float CardLayerTwo::getCardScale(int index){
 	if (index==SELF_SEAT)
 	{
-		return 0.8-(1-DataModel::sharedDataModel()->deviceSize.height/SCENE_SIZE.height);
+		return 0.8-(1-DataModel::sharedDataModel()->deviceSize.width/SCENE_SIZE.width);
 	}
-	return 0.7-(1-DataModel::sharedDataModel()->deviceSize.height/SCENE_SIZE.height);
+	return 0.7-(1-DataModel::sharedDataModel()->deviceSize.width/SCENE_SIZE.width);
 }
 //显示牌
 void CardLayerTwo::showCard(bool isAction, int index, int dataIndex){

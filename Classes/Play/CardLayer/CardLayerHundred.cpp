@@ -105,7 +105,7 @@ void CardLayerHundred::onSendCardFinish(){
 	}
 }
 float CardLayerHundred::getCardScale(int index){
-	return 0.5-(1-DataModel::sharedDataModel()->deviceSize.height/SCENE_SIZE.height);
+	return 0.5-(1-DataModel::sharedDataModel()->deviceSize.width/SCENE_SIZE.width);
 }
 //显示牌
 void CardLayerHundred::showCard(){

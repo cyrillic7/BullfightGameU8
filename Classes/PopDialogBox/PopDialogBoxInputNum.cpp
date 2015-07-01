@@ -90,8 +90,15 @@ void PopDialogBoxInputNum::onMenuSure(CCObject *object, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		getIPopAssist()->onBuyNum(lBuyNum);
-		this->removeFromParentAndCleanup(true);
+		if (lBuyNum<=0)
+		{
+			showTipInfo(BaseAttributes::sharedAttributes()->sInputAuctionGoodsNum.c_str());
+		}
+		else
+		{
+			getIPopAssist()->onBuyNum(lBuyNum);
+			this->removeFromParentAndCleanup(true);
+		}
 	}
 		break;
 	default:
@@ -122,9 +129,5 @@ void PopDialogBoxInputNum::onTextFieldAccount(CCObject* obj, TextFiledEventType 
 void PopDialogBoxInputNum::editBoxTextChanged(cocos2d::extension::CCEditBox* editBox, const std::string& text)
 {
 	lBuyNum = strtol(text.c_str(), NULL, 10);
-	if (lBuyNum<1)
-	{
-		lBuyNum = 1;
-	}
 	updateAllPice();
 }

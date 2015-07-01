@@ -41,7 +41,7 @@ public:
 	std::string sAuctionBuyers;					//[买家]
 	std::string sSelectAuctionGoods;			//请选择要拍卖的道具
 	std::string	sInputAuctionGoodsPice;			//请正确填写拍卖单价
-	std::string sInputAuctionGoodsNum;			//请正确填写拍卖数量
+	std::string sInputAuctionGoodsNum;			//请正确填写数量
 
 	int iCardOffsetX[MAX_PLAYER];
 	int iCardOffsetY[MAX_PLAYER];

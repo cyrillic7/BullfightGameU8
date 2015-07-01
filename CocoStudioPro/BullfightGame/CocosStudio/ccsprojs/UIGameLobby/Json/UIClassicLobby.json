@@ -11,11 +11,28 @@
   "designWidth": 1136,
   "textures": [
     "UIGameLobby.plist",
+    "UIUserInfo.plist",
     "UIClassicLobby.plist",
-    "UIMode.plist",
-    "UIUserInfo.plist"
+    "UIPanel.plist",
+    "UIMode.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIGameLobby.png",
+    "UIUserInfo.png",
+    "UIClassicLobby.png",
+    "UIPanel.png",
+    "UIMode.png",
+    "UIGameLobby.png",
+    "UIUserInfo.png",
+    "UIClassicLobby.png",
+    "UIPanel.png",
+    "UIMode.png",
+    "UIGameLobby.png",
+    "UIUserInfo.png",
+    "UIClassicLobby.png",
+    "UIPanel.png",
+    "UIMode.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -46,7 +63,7 @@
           "opacity": 255,
           "positionPercentX": 0.02024648,
           "positionPercentY": 0.49375,
-          "positionType": 0,
+          "positionType": 1,
           "rotation": 0,
           "scaleX": 1,
           "scaleY": 1,

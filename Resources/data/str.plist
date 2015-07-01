@@ -59,7 +59,7 @@
 		<key>strInputAuctionGoodsPice</key>
 		<string>请正确填写拍卖单价</string>
 		<key>strInputAuctionGoodsNum</key>
-		<string>请正确填写拍卖数量</string>
+		<string>请正确填写数量</string>
 	</dict>
 
 </plist>

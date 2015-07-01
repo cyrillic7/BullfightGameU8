@@ -81,7 +81,7 @@ LogonScene::LogonScene()
 	CCLabelTTF *label = CCLabelTTF::create(GAME_VERSION, "Marker Felt", 20);
 	this->addChild(label, 2);
 	label->setColor(ccc3(0, 0, 0));
-	label->setPosition(ccp(0, SCENE_SIZE.height));
+	label->setPosition(ccp(0, DataModel::sharedDataModel()->deviceSize.height));
 	label->setAnchorPoint(ccp(0, 1));
 #endif
 

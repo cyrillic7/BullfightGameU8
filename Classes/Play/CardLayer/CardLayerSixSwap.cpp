@@ -354,9 +354,9 @@ void CardLayerSixSwap::setCanSendCard(){
 float CardLayerSixSwap::getCardScale(int index){
 	if (index==SELF_SEAT)
 	{
-		return 0.72-(1-DataModel::sharedDataModel()->deviceSize.height/SCENE_SIZE.height);
+		return 0.72-(1-DataModel::sharedDataModel()->deviceSize.width/SCENE_SIZE.width);
 	}
-	return 0.5-(1-DataModel::sharedDataModel()->deviceSize.height/SCENE_SIZE.height);
+	return 0.5-(1-DataModel::sharedDataModel()->deviceSize.width/SCENE_SIZE.width);
 }
 //改变单张牌
 void CardLayerSixSwap::changeOneCard(int i, int j, int v){

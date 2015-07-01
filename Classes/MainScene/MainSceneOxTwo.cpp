@@ -63,8 +63,8 @@ void MainSceneOxTwo::addBg(){
 	CCSprite *spriteBg=CCSprite::create("res/room1_n.jpg");
 	this->addChild(spriteBg,-1);
 	spriteBg->setPosition(ccp(deviceSize.width/2,deviceSize.height/2));
-	float scale=deviceSize.height/spriteBg->getContentSize().height;
-	spriteBg->setScale(scale);
+	float scaleY=deviceSize.height/spriteBg->getContentSize().height;
+	spriteBg->setScaleY(scaleY);
 }
 void MainSceneOxTwo::initGameControl(){
 	gameControl = GameControlOxTwo::create();

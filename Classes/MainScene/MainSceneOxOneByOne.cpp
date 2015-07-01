@@ -58,7 +58,7 @@ void MainSceneOxOneByOne::addBg(){
 	this->addChild(spriteBg,-1);
 	spriteBg->setPosition(ccp(deviceSize.width/2,deviceSize.height/2));
 	float scale=deviceSize.height/spriteBg->getContentSize().height;
-	spriteBg->setScale(scale);
+	spriteBg->setScaleY(scale);
 }
 void MainSceneOxOneByOne::initGameControl(){
 	gameControl = GameControlOxOneByOne::create();
