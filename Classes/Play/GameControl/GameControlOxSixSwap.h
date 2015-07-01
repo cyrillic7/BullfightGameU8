@@ -79,5 +79,5 @@ private:
 	virtual bool isPalyerState();
 
 	//选中牌
-	virtual void onUpCard();
+	virtual void onUpCard(bool isShowSwap);
 };

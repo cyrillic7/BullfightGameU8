@@ -610,8 +610,8 @@ void GameControlBase::frameEvent(WORD wSubCmdID, void * pDataBuffer, unsigned sh
 	{
 	case SUB_GF_GAME_STATUS:
 	{
-		OnSocketSubGameStatus(pDataBuffer,wDataSize);
-		//CCLog("游戏状态<<%s>>", __FUNCTION__);
+		CCLog("%s<<%s>>", Tools::GBKToUTF8("游戏状态 "), __FUNCTION__);
+		OnSocketSubGameStatus(pDataBuffer, wDataSize);
 	}
 	break;
 	case SUB_GF_SYSTEM_MESSAGE:
@@ -621,8 +621,8 @@ void GameControlBase::frameEvent(WORD wSubCmdID, void * pDataBuffer, unsigned sh
 	break;
 	case SUB_GF_GAME_SCENE:
 	{
+		CCLog("游戏场景<<%s>>", __FUNCTION__);
 		OnEventSceneMessage(pDataBuffer, wDataSize);
-		//CCLog("游戏场景<<%s>>", __FUNCTION__);
 	}
 	break;
 	default:

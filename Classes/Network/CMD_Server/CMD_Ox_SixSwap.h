@@ -32,6 +32,7 @@ typedef char TCHAR, *PTCHAR;
 #define GS_TK_CALL					GAME_STATUS_PLAY						//叫庄状态
 #define GS_TK_SCORE					GAME_STATUS_PLAY+1						//下注状态
 #define GS_TK_PLAYING				GAME_STATUS_PLAY+2						//游戏进行
+#define GS_TK_CHANGE                GAME_STATUS_PLAY+3                      //换牌
 
 //用户状态
 #define USEX_NULL                   0                                       //用户状态
@@ -159,6 +160,18 @@ struct CMD_S_ChangeCard
 	BYTE                                    cbCardData;                        //换牌数据
 	BYTE                                    cbOldCardData;                     //旧的扑克数据
 };
+//换牌状态
+struct CMD_S_StatusChange
+{
+	BYTE                                    cbPlayStatus[GAME_PLAYER];
+	WORD								    wBankerUser;						//庄家用户
+	LONGLONG								lTurnMaxScore;						//最大下注
+	LONGLONG								lTableScore[GAME_PLAYER];			//下注数目
+
+	//扑克信息
+	BYTE							    	cbHandCardData[GAME_PLAYER][MAXCOUNT];//桌面扑克
+};
+
 //////////////////////////////////////////////////////////////////////////
 //客户端命令结构
 #define SUB_C_CALL_BANKER				1									//用户叫庄

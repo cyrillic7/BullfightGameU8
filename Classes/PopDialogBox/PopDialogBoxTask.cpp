@@ -66,6 +66,8 @@ void PopDialogBoxTask::getTashInfoList(){
 	break;
 	default:
 	{
+		DataModel::sharedDataModel()->vecSystemMsg.clear();
+		DataModel::sharedDataModel()->vecSystemMsg.clear();
 		//显示连接失败
 		pPFailure->setVisible(true);
 		UIImageView *pIVFailure = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageFailure"));

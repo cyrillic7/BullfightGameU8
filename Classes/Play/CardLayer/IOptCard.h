@@ -9,5 +9,5 @@ struct IOptCard//弹出扑克
 {
 	virtual ~IOptCard(){}
 	//
-	virtual void onUpCard() = 0;
+	virtual void onUpCard(bool isShowSwap) = 0;
 };

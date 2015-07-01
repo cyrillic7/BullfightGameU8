@@ -404,10 +404,25 @@ void CardLayerSixSwap::touchCard(unsigned short beginPos, CCPoint pos){
 	{
 		isAction = false;
 	}
+	else
+	{	
+		if (limitCount==0)
+		{
+			getIOptCard()->onUpCard(true);
+		}
+	}
+	bool isOneCardUp = false;
 	for (int i = beginPos*MAX_CARD_COUNT; i < beginPos*MAX_CARD_COUNT + MAX_CARD_COUNT; i++)
 	{
-		getIOptCard()->onUpCard();
 		pCard[i]->touchCard(pos, isAction);
+		if (pCard[i]->getIsUpCard())
+		{
+			isOneCardUp = true;
+		}
+	}
+	if (!isOneCardUp&&limitCount == 0)
+	{
+		getIOptCard()->onUpCard(false);
 	}
 }
 
