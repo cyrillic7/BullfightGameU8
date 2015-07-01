@@ -39,19 +39,21 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     pDirector->setOpenGLView(pEGLView);
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	CCEGLView::sharedOpenGLView()->setFrameSize(SCENE_SIZE.width, SCENE_SIZE.height);
-	//CCEGLView::sharedOpenGLView()->setFrameSize(1366, 768);
-	//CCEGLView::sharedOpenGLView()->setFrameSize(960, 640);
+	//CCEGLView::sharedOpenGLView()->setFrameSize(SCENE_SIZE.width, SCENE_SIZE.height);
+	//CCEGLView::sharedOpenGLView()->setFrameSize(1024, 768);
+	CCEGLView::sharedOpenGLView()->setFrameSize(960, 640);
+	//CCEGLView::sharedOpenGLView()->setFrameSize(568, 320);
 #endif
 	//CCEGLView::sharedOpenGLView()->setDesignResolutionSize(SCENE_SIZE.width, SCENE_SIZE.height, kResolutionExactFit);//��Ļ����
-	CCEGLView::sharedOpenGLView()->setDesignResolutionSize(SCENE_SIZE.width, SCENE_SIZE.height, kResolutionFixedHeight);//��Ļ����
+	//CCEGLView::sharedOpenGLView()->setDesignResolutionSize(SCENE_SIZE.width, SCENE_SIZE.height, kResolutionFixedHeight);//��Ļ����
+	CCEGLView::sharedOpenGLView()->setDesignResolutionSize(SCENE_SIZE.width, SCENE_SIZE.height, kResolutionFixedHeight);
 	pDirector->setProjection(kCCDirectorProjection2D);//2D投影
     // turn on display FPS
     pDirector->setDisplayStats(true);
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
 	//设置缩放因子
-	//CCDirector::sharedDirector()->setContentScaleFactor(640 / SCENE_SIZE.height);
+	//CCDirector::sharedDirector()->setContentScaleFactor(SCENE_SIZE.height / pDirector->getWinSize().height);
     // create a scene. it's an autorelease object
 	CCScene *pScene = LogonScene::scene();
 	//CCScene *pScene=MainSceneOxHundred::scene();

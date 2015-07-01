@@ -2,7 +2,8 @@
 
 #include "PlayerLayerSixSwap.h"
 #include "../../Tools/GameConfig.h"
-/*#include "../../Tools/DataModel.h"
+#include "../../Tools/DataModel.h"
+/*
 #include "../../Tools/Tools.h"*/
 #include "../../MainScene/MainSceneBase.h"
 PlayerLayerSixSwap::PlayerLayerSixSwap ()
@@ -38,7 +39,7 @@ void PlayerLayerSixSwap::doSetCardMovePos(int i){
 		break;
 	case 3:
 	{
-		cardPos = ccpAdd(ccp(SCENE_SIZE.width / 2, playerPos.y), ccp(0, playerPanel->getContentSize().height / 2 + 90));
+		cardPos = ccpAdd(ccp(DataModel::sharedDataModel()->deviceSize.width / 2, playerPos.y), ccp(0, playerPanel->getContentSize().height / 2 + 90));
 	}
 		break;
 	case 4:

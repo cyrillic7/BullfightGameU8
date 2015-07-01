@@ -2,7 +2,8 @@
 
 #include "PlayerLayerOneByOne.h"
 #include "../../Tools/GameConfig.h"
-/*#include "../../Tools/DataModel.h"
+#include "../../Tools/DataModel.h"
+/*
 #include "../../Tools/Tools.h"*/
 #include "../../MainScene/MainSceneBase.h"
 PlayerLayerOneByOne::PlayerLayerOneByOne ()
@@ -38,7 +39,7 @@ void PlayerLayerOneByOne::doSetCardMovePos(int i){
 		break;
 	case 3:
 	{
-		cardPos = ccpAdd(ccp(SCENE_SIZE.width / 2, playerPos.y), ccp(0, playerPanel->getContentSize().height / 2 + 10));
+		cardPos = ccpAdd(ccp(DataModel::sharedDataModel()->deviceSize.width / 2, playerPos.y), ccp(20, playerPanel->getContentSize().height / 2 + 10));
 	}
 		break;
 	case 4:
