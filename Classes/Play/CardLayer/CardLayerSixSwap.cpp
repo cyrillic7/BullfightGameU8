@@ -296,17 +296,21 @@ void CardLayerSixSwap::moveCardAction(CCArmature *armature, float fTime, CCPoint
 	CCJumpTo *moveTo = CCJumpTo::create(moveSpeed, targetPos, 100, 1);
 	CCScaleTo *scaleTo = CCScaleTo::create(moveSpeed, getCardScale(index));
 	CCSpawn *spawn = CCSpawn::create(moveTo, scaleTo, NULL);
-	CCCallFunc *callbackFunc = CCCallFunc::create(this, SEL_CallFunc(&CardLayerSixSwap::onSendCardFinish));
+	CCCallFuncN *callbackFunc = CCCallFuncN::create(this, SEL_CallFuncN(&CardLayerSixSwap::onSendCardFinish));
 	CCSequence *seq = CCSequence::create(delayTime, spawn, callbackFunc, NULL);
+	armature->setTag(index);
 	armature->runAction(seq);
 }
 //单张牌发完回调
-void CardLayerSixSwap::onSendCardFinish(){
+void CardLayerSixSwap::onSendCardFinish(CCNode *node){
+	//CCLog("nodeTag:---------------------%d <<%s>>",node->getTag(), __FUNCTION__);
 	setSendCardState(SEND_STATE_WAIT);
 	sSendCardCount++;
-	if (sSendCardCount==getCurAllCardCount()*MAX_CARD_COUNT)
+	if (sSendCardCount%MAX_CARD_COUNT==0&&node->getTag()==3)
+	
+	//if (sSendCardCount==getCurAllCardCount()*MAX_CARD_COUNT)
 	{
-		CCLog("CardLayer::onSendCardFinish-->sendFinish");
+		//CCLog("onSendCardFinish:%d   %d <<%s>>",sSendCardCount,getCurAllCardCount()*MAX_CARD_COUNT, __FUNCTION__);
 		getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_SWAP_CARD);
 		//DataModel::sharedDataModel()->getm()->setGameStateWithUpdate(MainSceneOxTwo::STATE_OPT_OX);
 		//DataModel::sharedDataModel()->getMainSceneOxTwo()->setServerStateWithUpdate(MainScene::STATE_FIGHT_BANKER);
@@ -353,6 +357,14 @@ float CardLayerSixSwap::getCardScale(int index){
 		return 0.72-(1-DataModel::sharedDataModel()->deviceSize.height/SCENE_SIZE.height);
 	}
 	return 0.5-(1-DataModel::sharedDataModel()->deviceSize.height/SCENE_SIZE.height);
+}
+//改变单张牌
+void CardLayerSixSwap::changeOneCard(int i, int j, int v){
+	int beginCardIndex = i*MAX_COUNT;
+
+	int cardColor = GetCardColor(v);
+	int cardValue = GetCardValue(v);
+	pCard[beginCardIndex + j]->changeCard(false, cardColor, cardValue, beginCardIndex + j, getCardScale(i));
 }
 //显示牌
 void CardLayerSixSwap::showCard(bool isAction, int index, int dataIndex){
@@ -417,7 +429,7 @@ void CardLayerSixSwap::touchCard(unsigned short beginPos, CCPoint pos){
 			isOneCardUp = i;
 		}
 	}
-	if (getMainScene()->getGameState() == MainSceneBase::STATE_SWAP_CARD)
+	if (getMainScene()->getGameState() == MainSceneBase::STATE_SWAP_CARD_ING)
 	{
 		getIOptCard()->onUpCard(isOneCardUp);
 	}

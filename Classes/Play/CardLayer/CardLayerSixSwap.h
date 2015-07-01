@@ -17,7 +17,8 @@ public:
 
 	virtual void setCanSendCard();
 	
-    
+	//改变单张牌
+	virtual void changeOneCard(int i, int j, int v);
 public:
 	//更新状态
 	virtual void updateServerState();
@@ -42,7 +43,7 @@ private:
 	//移动扑克
 	virtual void moveCardAction(CCArmature *armature, float fTime, CCPoint targetPos,int index);
 	//单张牌发完回调
-	void onSendCardFinish();
+	void onSendCardFinish(CCNode *node);
 
 	//显示牛牛点数
 	void showOxType(int chairiD,int oxType);

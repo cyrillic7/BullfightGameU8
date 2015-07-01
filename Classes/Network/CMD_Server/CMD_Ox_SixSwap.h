@@ -165,9 +165,9 @@ struct CMD_S_StatusChange
 {
 	BYTE                                    cbPlayStatus[GAME_PLAYER];
 	WORD								    wBankerUser;						//庄家用户
-	LONGLONG								lTurnMaxScore;						//最大下注
-	LONGLONG								lTableScore[GAME_PLAYER];			//下注数目
-
+	long long								lTurnMaxScore;						//最大下注
+	long long								lTableScore[GAME_PLAYER];			//下注数目
+	bool                                    bChange;							//是否换过牌
 	//扑克信息
 	BYTE							    	cbHandCardData[GAME_PLAYER][MAXCOUNT];//桌面扑克
 };

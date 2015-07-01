@@ -292,15 +292,17 @@ void CardLayerOneByOne::moveCardAction(CCArmature *armature, float fTime, CCPoin
 	CCJumpTo *moveTo = CCJumpTo::create(moveSpeed, targetPos, 100, 1);
 	CCScaleTo *scaleTo = CCScaleTo::create(moveSpeed, getCardScale(index));
 	CCSpawn *spawn = CCSpawn::create(moveTo, scaleTo, NULL);
-	CCCallFunc *callbackFunc = CCCallFunc::create(this, SEL_CallFunc(&CardLayerOneByOne::onSendCardFinish));
+	CCCallFuncN *callbackFunc = CCCallFuncN::create(this, SEL_CallFuncN(&CardLayerOneByOne::onSendCardFinish));
 	CCSequence *seq = CCSequence::create(delayTime, spawn, callbackFunc, NULL);
+	armature->setTag(index);
 	armature->runAction(seq);
 }
 //单张牌发完回调
-void CardLayerOneByOne::onSendCardFinish(){
+void CardLayerOneByOne::onSendCardFinish(CCNode *node){
 	setSendCardState(SEND_STATE_WAIT);
 	sSendCardCount++;
-	if (sSendCardCount==getCurAllCardCount()*MAX_CARD_COUNT)
+	//if (sSendCardCount==getCurAllCardCount()*MAX_CARD_COUNT)
+	if (sSendCardCount%MAX_CARD_COUNT == 0 && node->getTag() == 3)
 	{
 		CCLog("CardLayer::onSendCardFinish-->sendFinish");
 		getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_OPT_OX);

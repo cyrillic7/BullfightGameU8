@@ -41,7 +41,7 @@ private:
 	//移动扑克
 	virtual void moveCardAction(CCArmature *armature, float fTime, CCPoint targetPos,int index);
 	//单张牌发完回调
-	void onSendCardFinish();
+	void onSendCardFinish(CCNode *node);
 
 	//显示牛牛点数
 	void showOxType(int chairiD,int oxType);

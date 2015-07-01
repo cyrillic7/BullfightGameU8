@@ -32,7 +32,6 @@ GameControlBase::GameControlBase()
 GameControlBase::~GameControlBase(){
 	unschedule(SEL_SCHEDULE(&GameControlBase::updateTimer));
 	unscheduleUpdate();
-	TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
 }
 void GameControlBase::onEnter(){
@@ -402,6 +401,18 @@ void GameControlBase::menuSwapCard(CCObject* pSender, TouchEventType type){
 	case TOUCH_EVENT_ENDED:
 	{
 		showActionPrompt(ACTION_PROMPT_OPT_CARD, ccp(0, -DataModel::sharedDataModel()->deviceSize.height / 2 + 50));
+		getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_SWAP_CARD_ING);
+
+		
+		WORD wMeChairID = getViewChairID(DataModel::sharedDataModel()->userInfo->wChairID);
+		getMainScene()->cardLayer->touchCard(wMeChairID, CCPointZero);
+		/*if (getMainScene()->cardLayer->getAllUpCardCount(wMeChairID)>0)
+		{
+			pIVChangeCard->setEnabled(true);
+		}*/
+		
+		
+
 		//CCLog("swapCard------------- <<%s>>", __FUNCTION__);
 		//hideActionPrompt();
 	}
@@ -1220,6 +1231,7 @@ bool GameControlBase::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 
 void GameControlBase::OnUserFree(CCObject *obj){
 	//CCMessageBox(Tools::GBKToUTF8("长时间不操作，自动退出！"), Tools::GBKToUTF8("提示"));
+	TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 	Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(!isExitGame));
 	CCLog("退出 ");
 }

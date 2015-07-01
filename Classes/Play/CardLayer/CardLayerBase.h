@@ -66,6 +66,8 @@ public:
 	//virtual void showOxType(int chairiD,int oxType){}
 	//触摸牌
 	virtual void touchCard(unsigned short beginPos, CCPoint pos);
+	//改变单张牌
+	virtual void changeOneCard(int i, int j, int v){}
 public:
 	MainSceneBase*getMainScene();
 	//获取当前局总牌数

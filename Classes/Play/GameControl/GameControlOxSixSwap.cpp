@@ -61,10 +61,11 @@ void GameControlOxSixSwap::onUserChangeCard(int wParam, long lParam)
 	BYTE bChange = (BYTE)wParam;
 
 	WORD wMeChairID = DataModel::sharedDataModel()->userInfo->wChairID;
-	WORD wViewChairID = getViewChairID(wMeChairID);
-	BYTE bMyShootCard[MAX_COUNT];
+	//WORD wViewChairID = getViewChairID(wMeChairID);
+	//BYTE bMyShootCard[MAX_COUNT];
 
-	//ZeroMemory(bMyShootCard, sizeof(bMyShootCard));
+	//memset(bMyShootCard, 0,sizeof(bMyShootCard));
+
 	CMD_C_ChangeCard ChangeCard;
 	ChangeCard.bChange = bChange;
 	ChangeCard.wPlayer = wMeChairID;
@@ -81,7 +82,7 @@ void GameControlOxSixSwap::onUserChangeCard(int wParam, long lParam)
 		else
 		m_GameClientView.OnChangeTip(false);
 		*/
-		ChangeCard.cbChangeCard = bMyShootCard[0];
+		ChangeCard.cbChangeCard = DataModel::sharedDataModel()->card[wMeChairID][lParam];
 	}
 
 	//m_GameClientView.m_btChange.ShowWindow(SW_HIDE);
@@ -126,7 +127,9 @@ void GameControlOxSixSwap::onMenuChangeCard(CCObject* pSender, TouchEventType ty
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		CCLog("changecard------------ <<%s>>", __FUNCTION__);
+		
+		//CCLog("changecard------------  %d <<%s>>",iChangeCardIndex, __FUNCTION__);
+		onUserChangeCard(1, iChangeCardIndex);
 		/*hideTimer(true);
 		getMainScene()->cardLayer->sortingOx(getMeChairID(), 3);
 		showActionPrompt(ACTION_PROMPT_OPEN_CARD, CCPointZero);
@@ -772,7 +775,22 @@ bool GameControlOxSixSwap::OnSubChangeCard(const void * pBuffer, WORD wDataSize)
 	//效验数据
 	if (wDataSize != sizeof(CMD_S_ChangeCard)) return false;
 	CMD_S_ChangeCard * pChangeCard = (CMD_S_ChangeCard *)pBuffer;
+	if (pChangeCard->wPlayerID == (DataModel::sharedDataModel()->userInfo->wChairID))
+	{
+		if (pChangeCard->bChange){
+			WORD wMeChairID = DataModel::sharedDataModel()->userInfo->wChairID;
+			DataModel::sharedDataModel()->card[wMeChairID][iChangeCardIndex] = pChangeCard->cbCardData;
 
+			//getMainScene()->cardLayer->showCard(false, getViewChairID(wMeChairID), wMeChairID);
+			getMainScene()->cardLayer->changeOneCard(getViewChairID(wMeChairID), iChangeCardIndex, pChangeCard->cbCardData);
+
+			//CCLog("%d  %d    %d <<%s>>", pChangeCard->cbCardData, GetCardColor(pChangeCard->cbCardData), GetCardValue(pChangeCard->cbCardData), __FUNCTION__);
+			//CCLog("%d  %d    %d <<%s>>", pChangeCard->cbOldCardData, GetCardColor(pChangeCard->cbOldCardData), GetCardValue(pChangeCard->cbOldCardData), __FUNCTION__);
+			//CCLog("<<%s>>", __FUNCTION__);
+		}
+		
+	}
+	
 	/*WORD wMeChairID = GetMeChairID();
 	WORD wViewChairID = SwitchViewChairID(wMeChairID);
 	WORD wChangeID = pChangeCard->wPlayerID;
@@ -933,6 +951,7 @@ bool GameControlOxSixSwap::OnSubAddScore(const void * pBuffer, WORD wDataSize)
 	if (wDataSize != sizeof(CMD_S_AddScore)) return false;
 	CMD_S_AddScore * pAddScore = (CMD_S_AddScore *)pBuffer;
 	hideActionPrompt();
+	showActionPrompt(ACTION_PROMPT_ADD_SCORE, CCPointZero);
 	/*//删除定时器/控制按钮
 	if (IsCurrentUser(pAddScore->wAddScoreUser) && m_GameClientView.m_btOneScore.IsWindowVisible() == TRUE)
 	{
@@ -994,7 +1013,7 @@ bool GameControlOxSixSwap::OnSubSendCard(const void * pBuffer, WORD wDataSize)
 	//效验数据
 	if (wDataSize != sizeof(CMD_S_SendCard)) return false;
 	CMD_S_SendCard * pSendCard = (CMD_S_SendCard *)pBuffer;
-	
+	hideActionPrompt();
 	for (int i = 0; i < MAX_PLAYER; i++)
 	{
 		int viewChair = getViewChairID(i);
@@ -1471,11 +1490,11 @@ void GameControlOxSixSwap::onUpCard(int changeCardIndex){
 	if (changeCardIndex!=-1)
 	{
 		hideActionPrompt();
+		unsigned short beginPos = getViewChairID(DataModel::sharedDataModel()->userInfo->wChairID);
+		iChangeCardIndex = changeCardIndex - beginPos*MAX_CARD_COUNT;
 	}
 	else
 	{
 		showActionPrompt(ACTION_PROMPT_OPT_CARD, ccp(0, -DataModel::sharedDataModel()->deviceSize.height / 2 + 50));
-		unsigned short beginPos = getViewChairID(DataModel::sharedDataModel()->userInfo->wChairID);
-		CCLog("changeCardIndex:%d <<%s>>", changeCardIndex - beginPos*MAX_CARD_COUNT, __FUNCTION__);
 	}
 }

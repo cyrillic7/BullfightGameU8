@@ -22,6 +22,8 @@ private:
 	int showOxAllNum;							//最多显示牛牛数
 	int showOxCurNum;							//当前显示牛牛数
 	bool isShowAllUserOx;						//是否显示全部用户牛牛
+
+	int iChangeCardIndex;						//要换的牌索引
 public:
 	GameControlOxSixSwap();
 	~GameControlOxSixSwap();
