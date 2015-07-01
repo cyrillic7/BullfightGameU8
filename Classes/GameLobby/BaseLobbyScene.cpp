@@ -51,7 +51,7 @@ void BaseLobbyScene::onEnter(){
 	//////////////////////////////////////////////////////////////////////////
 	//粒子
 	CCParticleSystemQuad *emitter1 = CCParticleSystemQuad::create("particle/sakura.plist");
-	emitter1->setPosition(ccp(deviceSize.width+20, deviceSize.height+20));    // 设置发射粒子的位置
+	emitter1->setPosition(ccp(SCENE_SIZE.width+20, SCENE_SIZE.height+20));    // 设置发射粒子的位置
 	//emitter1->setAutoRemoveOnFinish(true);                          // 完成后制动移除
 	//emitter1->setDuration(10);                                      // 设置粒子系统的持续时间秒
 	spriteBg->addChild(emitter1, 1);
@@ -274,7 +274,7 @@ void BaseLobbyScene::createCloudRandom(CCSprite *pBg){
 	pBg->addChild(pCloud);
 
 	int x = abs(rand() % (int)DataModel::sharedDataModel()->deviceSize.width);
-	int y = DataModel::sharedDataModel()->deviceSize.height-80 - (abs(rand() % 80));
+	int y =SCENE_SIZE.height-80 - (abs(rand() % 80));
 	pCloud->setPosition(ccp(x,y));
 
 	int speed = abs(rand() % 12) + 6;

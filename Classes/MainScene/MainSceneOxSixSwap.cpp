@@ -28,6 +28,9 @@ CCScene* MainSceneOxSixSwap::scene()
     MainSceneOxSixSwap *layer = MainSceneOxSixSwap::create();
     scene->addChild(layer);
 	//DataModel::sharedDataModel()->setMainSceneOxOneByOne(layer);
+
+
+
     return scene;
 }
 void MainSceneOxSixSwap::onEnter(){

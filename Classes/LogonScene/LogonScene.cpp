@@ -108,7 +108,7 @@ void LogonScene::onEnter(){
 	this->addChild(spriteBg);
 	spriteBg->setPosition(ccp(deviceSize.width/2,deviceSize.height/2));
 	float scale=deviceSize.height/spriteBg->getContentSize().height;
-	spriteBg->setScale(scale);
+	spriteBg->setScaleY(scale);
 	//////////////////////////////////////////////////////////////////////////
 	//创建UI层
     m_pWidget = UILayer::create();

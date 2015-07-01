@@ -825,7 +825,17 @@ bool GameControlOxSixSwap::OnSubGameBase(const void * pBuffer, WORD wDataSize)
 	//效验数据
 	if (wDataSize != sizeof(CMD_S_GameBase)) return false;
 	CMD_S_GameBase * pGameBase = (CMD_S_GameBase *)pBuffer;
-
+	//摊牌
+	UIButton *pBOpenCard = static_cast<UIButton*>(pOptOx->getChildByName("buttonOx"));
+	UIButton *pBPrompt = static_cast<UIButton*>(pOptOx->getChildByName("buttonPrompt"));
+	
+	//换牌
+	UIButton *pBChangeCard = static_cast<UIButton*>(pPanelSwapCard->getChildByName("ButtonSwapCard"));
+	UIButton *pBDontChangeCard = static_cast<UIButton*>(pPanelSwapCard->getChildByName("ButtonDontSwapCard"));
+	
+	//重置位置
+	pBOpenCard->setPosition(pBChangeCard->getPosition());
+	pBPrompt->setPosition(pBDontChangeCard->getPosition());
 	//m_GameClientView.lCellScore = pGameBase->lCellScore;
 	return true;
 }
