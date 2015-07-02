@@ -249,3 +249,45 @@ void CardLayerHundred::onPlayOxAnimation(CCNode *obj){
 	int tag=oxAnimation->getTag();
 	oxAnimation->getAnimation()->play(CCString::createWithFormat("Ox_gih%d",tag)->getCString());
 }
+//显示牌
+void CardLayerHundred::showCard(bool isAction, int index, int dataIndex){
+	
+	int beginCardIndex = index*MAX_COUNT;
+	//设置位置
+	CCPoint cardPos = getMainScene()->posChair[index];
+	
+
+	BYTE bcTmp[5];
+	int iType = GetCardType(card[index], 5, bcTmp);
+	if (iType == CT_POINT || iType == CT_SPECIAL_BOMEBOME)
+	{
+		CopyMemory(card[index], bcTmp, 5);
+	}
+	else
+	{
+		CopyMemory(card[index], bcTmp, 3);
+		CopyMemory(card[index] + 3, bcTmp + 3, 2);
+		//CopyMemory(card[i],bcTmp+3,2);
+		//CopyMemory(card[i]+2,bcTmp,3);
+	}
+
+	/*pAOxType[index]->setVisible(true);
+	pAOxType[index]->setPosition(cardPos);
+	pAOxType[index]->getAnimation()->play(CCString::createWithFormat("Ox_gih%d", getOxTypeWithValue(iType))->getCString());*/
+	
+
+	for (int j = 0; j < sizeof(card[0]); j++)
+	{
+		int cardColor = GetCardColor(card[index][j]);
+		int cardValue = GetCardValue(card[index][j]);
+		pCard[beginCardIndex + j]->changeCard(true, cardColor, cardValue, beginCardIndex + j, getCardScale(0));
+
+
+		float offsetX = j * 20 - (4 * 20 / 2);
+		CCPoint offPos = ccp(offsetX, 0);
+		CCArmature *pArmature = pCard[beginCardIndex + j]->m_cpArmatureCard;
+		pArmature->setScale(getCardScale(index));
+		pArmature->setPosition(ccpAdd(cardPos, offPos));
+	}
+	showOxType(index, getOxTypeWithValue(iType));
+}

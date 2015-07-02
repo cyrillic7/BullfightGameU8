@@ -56,13 +56,14 @@ protected:
 
 	
 	//庄家信息
-protected:	
+public:
 	WORD							m_wBankerUser;						//当前庄家
 	long long						m_lBankerScore;						//庄家积分
 public:
-	bool								m_bMeApplyBanker;					//申请标识(自己是不是庄家)
-private:
 
+	bool							m_bMeApplyBanker;					//申请标识(自己是不是庄家)								
+private:
+	unsigned short m_wCurrentBanker;
 	int nJetton[MAX_JETTON_BUTTON_COUNT];
 	SeatData *pSeatData[MAX_SEAT_COUNT];
 	ChairData *pChairData[MAX_USER_CHAIR];
@@ -105,6 +106,8 @@ private:
 	JettonNode *getJettonNode();
 	//获取用户信息通过椅子号
 	tagUserInfo* getUserInfo(int iChair);
+	//创建初始筹码
+	void createJettonInit(int index, long long num);
 private:
 	int getChairIndex(int meChairID,int chairID);
 	virtual void update(float delta);

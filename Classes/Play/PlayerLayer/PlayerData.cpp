@@ -38,6 +38,7 @@ void PlayerData::setUserInfo(tagUserInfo userInfo){
 	}
 	pLGoldCount->setVisible(true);
 	pLGoldCount->setText(CCString::createWithFormat("%lld",userInfoPlayer.lScore)->getCString());*/
+	userInfoPlayer.lScore = userInfo.lScore;
 	pIPlayerIcon->setVisible(true);
 	if (Tools::GBKToUTF8(userInfo.szNickName))
 	{
@@ -84,7 +85,7 @@ void PlayerData::onResultAnimationFinish(){
 }
 //设置用户金币
 void PlayerData::changePlayerGole(long long lGold){
-	userInfoPlayer.lScore+=lGold;
+	userInfoPlayer.lScore += lGold;
 	pLGoldCount->setText(CCString::createWithFormat("%lld",userInfoPlayer.lScore)->getCString());
 }
 void PlayerData::showActionType(ActionType type){

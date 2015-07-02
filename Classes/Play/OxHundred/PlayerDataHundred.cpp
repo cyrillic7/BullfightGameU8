@@ -9,13 +9,13 @@ PlayerDataHundred::PlayerDataHundred()
 PlayerDataHundred::~PlayerDataHundred() {
     
 }
-/*//隐藏用户
+//隐藏用户
 void PlayerDataHundred::hidePlayer(){
-	pIPlayerIcon->setVisible(false);
-	pLUserName->setVisible(false);
-	pLGoldCount->setVisible(false);
-	pIActionTypeBg->setVisible(false);
-}
+	//pIPlayerIcon->setVisible(false);
+	pIPlayerBg->setVisible(false);
+	//pLGoldCount->setVisible(false);
+	//pIActionTypeBg->setVisible(false);
+}/*
 //设置为庄家
 void PlayerDataHundred::setBankIcon(){
 	pIBankIcon->setScale(10);

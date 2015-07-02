@@ -28,4 +28,7 @@ public:
 	void setJettonTypeWithMove(long long lJettonValue,CCPoint posBegin,CCPoint posEnd);
 	//
 	void hideJetton();
+
+	//设置筹码数、位置
+	void setJettonTypeWithPos(long long lJettonValue, CCPoint posEnd);
 };

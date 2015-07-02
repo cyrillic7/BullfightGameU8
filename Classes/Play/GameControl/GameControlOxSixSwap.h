@@ -24,6 +24,8 @@ private:
 	bool isShowAllUserOx;						//是否显示全部用户牛牛
 
 	int iChangeCardIndex;						//要换的牌索引
+
+	long long								lScoreTax;                          //换牌手续费
 public:
 	GameControlOxSixSwap();
 	~GameControlOxSixSwap();

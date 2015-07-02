@@ -60,6 +60,7 @@ public:
 private:
 	//结算动画结束
 	void onResultAnimationFinish();
+public:
 	//改变用户金币
 	void changePlayerGole(long long lGold);
 };

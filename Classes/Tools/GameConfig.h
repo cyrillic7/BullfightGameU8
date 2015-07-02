@@ -2,7 +2,7 @@
 
 
 #define DEBUG_TEST 1 //0调试模式、1测试模式、2发布模式
-#define GAME_VERSION "Version1.0.0"//游戏版本号
+#define GAME_VERSION "Version1.0.1"//游戏版本号
 
 #define VERSION_FRAME				16777217
 #define VERSION_CLIENT				17170433
@@ -42,6 +42,7 @@
 #define TAG_POP_DIALOG_BOX						1001							//弹出框
 #define TAG_INPUT_BOX							1002							//输入框
 #define TAG_INPUT_EDIT_BOX						1003							//输入框
+#define TAG_UP_BANK								1004							//百人上庄
 
 
 

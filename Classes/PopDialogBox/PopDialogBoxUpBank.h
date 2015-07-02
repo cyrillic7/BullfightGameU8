@@ -18,6 +18,9 @@ public:
 	PopDialogBoxUpBank();
 	~PopDialogBoxUpBank();
 	CREATE_FUNC(PopDialogBoxUpBank);
+
+	//更新上庄状态
+	void updateUpBankState();
 private:
 	virtual void onEnter();
 	virtual void onExit();

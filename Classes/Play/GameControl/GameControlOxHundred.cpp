@@ -94,6 +94,7 @@ void GameControlOxHundred::onEnter(){
 	//上庄按键
 	pIUpBank = static_cast<UIImageView*>(pWidget->getWidgetByName("ImageUpBank"));
 	pIUpBank->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxHundred::onMenuUpBank));
+	//我要上庄动画
 	CCSprite *pSUpBank = CCSprite::create();
 	CCArray *animFrames = CCArray::create();
 
@@ -250,7 +251,45 @@ tagUserInfo* GameControlOxHundred::getUserInfo(int iChair){
 	}
 	return NULL;
 }
+//创建初始筹码
+void GameControlOxHundred::createJettonInit(int index,long long num){
+	//
+	long long llTempJettonScore = num;
 
+	while (llTempJettonScore>0)
+	{
+		bool isMoneyEnough = false;
+		for (int i = MAX_JETTON_BUTTON_COUNT-1; i >= 0; i--)
+		{
+			if (llTempJettonScore >= nJetton[i])
+			{
+				llTempJettonScore -= nJetton[i];
+
+				int fWidth = pSeatData[index]->seatSize.width - 31;
+				int fHeight = pSeatData[index]->seatSize.height - 70 - 31;
+
+				int offsetX = rand() % fWidth;
+				int offsetY = rand() % fHeight;
+				CCPoint randPos = ccp(offsetX, offsetY);
+				CCPoint pos = pSeatData[index]->posCenter;
+				pos = ccpAdd(pos, randPos);
+				pos = ccpSub(pos, ccp(fWidth / 2, fHeight / 2));
+
+				JettonNode *pJetton = getJettonNode();
+
+				pJetton->setJettonTypeWithPos(nJetton[i], pos);
+				isMoneyEnough = true;
+				break;
+			}
+		}
+		if (!isMoneyEnough)
+		{
+			return;
+		}
+	}
+
+	
+}
 //获得筹码对象
 JettonNode *GameControlOxHundred::getJettonNode(){
 	for (int i = 0; i < DataModel::sharedDataModel()->vecJettonNode.size(); i++)
@@ -382,7 +421,7 @@ void GameControlOxHundred::onMenuUpBank(CCObject* pSender, TouchEventType type){
 	case TOUCH_EVENT_ENDED:
 	{
 		PopDialogBoxUpBank *pDBUpBank = PopDialogBoxUpBank::create();
-		getParent()->addChild(pDBUpBank, K_Z_ORDER_POP);
+		getParent()->addChild(pDBUpBank, K_Z_ORDER_POP, TAG_UP_BANK);
 	}
 	break;
 	default:
@@ -477,9 +516,22 @@ void GameControlOxHundred::updateButtonContron(){
 	case MainSceneOxHundred::STATE_GAME_FREE:
 	{
 		bEnablePlaceJetton = false;
+
+		PopDialogBoxUpBank *pUpBank = (PopDialogBoxUpBank*)(getParent()->getChildByTag(TAG_UP_BANK));
+		if (pUpBank)
+		{
+			pUpBank->updateUpBankState();
+		}
 	}
 	break;
 	case MainSceneOxHundred::STATE_GAME_PLACE_JETTON:
+	{
+		PopDialogBoxUpBank *pUpBank = (PopDialogBoxUpBank*)(getParent()->getChildByTag(TAG_UP_BANK));
+		if (pUpBank)
+		{
+			pUpBank->updateUpBankState();
+		}
+	}
 		break;
 	case MainSceneOxHundred::STATE_GAME_SEND_CARD:
 	{
@@ -489,7 +541,8 @@ void GameControlOxHundred::updateButtonContron(){
 	default:
 		break;
 	}
-	if (m_bMeApplyBanker)
+	//if (m_bMeApplyBanker)
+	if (m_bMeApplyBanker&&m_wBankerUser == DataModel::sharedDataModel()->userInfo->wChairID)
 	{
 		return;
 	}
@@ -625,6 +678,7 @@ void GameControlOxHundred::updateState(){
 }
 //设置庄家
 void GameControlOxHundred::setBankerInfo(unsigned short  wBanker, long long lScore){
+	m_wCurrentBanker = wBanker;
 	//庄家椅子号
 	WORD wBankerUser = INVALID_CHAIR;
 
@@ -700,7 +754,7 @@ void GameControlOxHundred::onApplyBanker(bool bApplyBanker){
 	{
 		//发送消息
 		TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM)->SendData(MDM_GF_GAME, SUB_C_CANCEL_BANKER, NULL, 0);
-		m_bMeApplyBanker = false;
+		//m_bMeApplyBanker = false;
 	}
 }
 //////////////////////////////////////////////////////////////////////////
@@ -751,8 +805,60 @@ void GameControlOxHundred::onSubGameFrame(WORD wSubCmdID, void * pDataBuffer, un
 
 			//消息处理
 			CMD_S_StatusFree * pStatusFree = (CMD_S_StatusFree *)pDataBuffer;
-			CCLog("GAME_SCENE_FREE<<%s>>", __FUNCTION__);
+			//设置时间
+			resetTimer(pStatusFree->cbTimeLeave, BaseAttributes::sharedAttributes()->sGameFree.c_str());
+
+			//庄家信息
+			setBankerInfo(pStatusFree->wBankerUser, pStatusFree->lBankerScore);
+			//设置用户信息
+			tagUserInfo *uInfo = getUserInfo(pStatusFree->wBankerUser);
+			if (uInfo)
+			{
+				pPlayerData[1]->setUserInfo(*uInfo);
+			}
+			else
+			{
+				pPlayerData[1]->hidePlayer();
+			}
+			/*
+			//玩家信息
+			m_lMeMaxScore=pStatusFree->lUserMaxScore;
+			m_GameClientView.SetMeMaxScore(m_lMeMaxScore);
+
+			const tagUserInfo *pMeUserData=GetMeUserItem()->GetUserInfo();
+			m_GameClientView.SetMeChairID(SwitchViewChairID(GetMeChairID()));
+
+			//庄家信息
+			SetBankerInfo(pStatusFree->wBankerUser,pStatusFree->lBankerScore);
+			m_GameClientView.SetBankerScore(pStatusFree->cbBankerTime,pStatusFree->lBankerWinScore);
+			m_bEnableSysBanker=pStatusFree->bEnableSysBanker;
+			m_GameClientView.EnableSysBanker(m_bEnableSysBanker);
+
+			//控制信息
+			m_lApplyBankerCondition=pStatusFree->lApplyBankerCondition;
+			m_lAreaLimitScore=pStatusFree->lAreaLimitScore;
+			m_GameClientView.SetAreaLimitScore(m_lAreaLimitScore);
+
+			//播放声音
+			PlayBackGroundSound(AfxGetInstanceHandle(),TEXT("BACK_GROUND"));
+
+			//设置状态
+			if(CUserRight::IsGameCheatUser(m_pIClientKernel->GetUserAttribute()->dwUserRight)&&m_GameClientView.m_hInst)
+			m_GameClientView.m_btOpenAdmin.ShowWindow(SW_SHOW);
+
+			if(IsLookonMode()==false && GetMeChairID() == m_wCurrentBanker)
+			{
+			m_bMeApplyBanker =true;
+			}
+
+			//更新控制
+			UpdateButtonContron();
+			m_GameClientView.InvalidGameView(0,0,0,0);
+			*/
+
 			m_lAreaLimitScore = pStatusFree->lAreaLimitScore;
+			//更新控制
+			updateButtonContron();
 		}
 		break;
 		case GAME_SCENE_PLACE_JETTON:		//游戏状态
@@ -770,12 +876,124 @@ void GameControlOxHundred::onSubGameFrame(WORD wSubCmdID, void * pDataBuffer, un
 			{
 				m_lAllJettonScore[nAreaIndex] += pStatusPlay->lAllJettonScore[nAreaIndex];
 				pSeatData[nAreaIndex - 1]->setAllJettonByAdd(pStatusPlay->lAllJettonScore[nAreaIndex]);
+				createJettonInit(nAreaIndex-1, pStatusPlay->lAllJettonScore[nAreaIndex]);
 			}
-			if (pStatusPlay->cbGameStatus == GAME_SCENE_GAME_END)
+			
+			CCLog("GAME_SCENE_PLACE_JETTON|GAME_SCENE_GAME_END<<%s>>", __FUNCTION__);
+			/*
+
+
+			//玩家积分
+			m_lMeMaxScore=pStatusPlay->lUserMaxScore;
+			m_GameClientView.SetMeMaxScore(m_lMeMaxScore);
+			const tagUserInfo *pMeUserData=GetMeUserItem()->GetUserInfo();
+			m_GameClientView.SetMeChairID(SwitchViewChairID(GetMeChairID()));
+
+			//控制信息
+			m_lApplyBankerCondition=pStatusPlay->lApplyBankerCondition;
+			m_lAreaLimitScore=pStatusPlay->lAreaLimitScore;
+			m_GameClientView.SetAreaLimitScore(m_lAreaLimitScore);
+			*/
+			if (pStatusPlay->cbGameStatus==GAME_SCENE_GAME_END)
 			{
+				//扑克信息
+				//@m_GameClientView.SetCardInfo(pStatusPlay->cbTableCardArray);
+				//@m_GameClientView.FinishDispatchCard(false);
+
+				//@m_GameClientView.m_bShowGameResult = true;
+				//@m_GameClientView.m_blMoveFinish = true;
+				for (int i = 0;i<5;i++)
+				{
+					//@m_GameClientView.m_CardControl[i].m_blGameEnd = true;
+					//@m_GameClientView.m_CardControl[i].m_blhideOneCard = false;
+
+					//BYTE bcTmp[5];
+					for (int j = 0; j < 5; j++)
+					{
+						getMainScene()->cardLayer->card[i][j] = pStatusPlay->cbTableCardArray[i][j];
+					}
+					getMainScene()->cardLayer->showCard(false,i,i);
+					//@int iType = m_GameLogic.GetCardType(pStatusPlay->cbTableCardArray[i],5,bcTmp);
+
+					//@m_GameClientView.m_lUserCardType[i] = iType;
+					/*if(iType==CT_POINT||iType==CT_SPECIAL_BOMEBOME)
+					{
+						CopyMemory(m_GameClientView.m_cbTableSortCardArray[i],bcTmp,5);
+						m_GameClientView.m_CardControl[i].m_blShowLineResult = true;
+					}
+					else
+					{
+						CopyMemory(m_GameClientView.m_cbTableSortCardArray[i],bcTmp+3,2);
+						CopyMemory(m_GameClientView.m_cbTableSortCardArray[i]+2,bcTmp,3);
+					m_GameClientView.m_CardControl[i].m_blShowLineResult = false;*/
+				}
+
+				//@m_GameClientView.m_CardControl[i].SetCardData(m_GameClientView.m_cbTableSortCardArray[i],5,false);
+				//@m_GameClientView.m_CardControl[i].m_blShowResult = true;
+			}
+			
+			/*
+			//设置成绩
+			m_GameClientView.SetCurGameScore(pStatusPlay->lEndUserScore,pStatusPlay->lEndUserReturnScore,pStatusPlay->lEndBankerScore,pStatusPlay->lEndRevenue);
+			}
+			else
+			{
+			m_GameClientView.SetCardInfo(NULL);
+
+			for (int i = 0;i<5;i++)
+			{
+			m_GameClientView.m_CardControl[i].m_CardItemArray.SetSize(0);
+			}
 
 			}
-			CCLog("GAME_SCENE_PLACE_JETTON|GAME_SCENE_GAME_END<<%s>>", __FUNCTION__);
+
+			//播放声音
+			PlayBackGroundSound(AfxGetInstanceHandle(),TEXT("BACK_GROUND"));
+			*/
+			//庄家信息
+			setBankerInfo(pStatusPlay->wBankerUser,pStatusPlay->lBankerScore);
+			//设置用户信息
+			tagUserInfo *uInfo = getUserInfo(pStatusPlay->wBankerUser);
+			if (uInfo)
+			{
+				pPlayerData[1]->setUserInfo(*uInfo);
+			}
+			else
+			{
+				pPlayerData[1]->hidePlayer();
+			}
+			/*m_GameClientView.SetBankerScore(pStatusPlay->cbBankerTime,pStatusPlay->lBankerWinScore);
+			m_bEnableSysBanker=pStatusPlay->bEnableSysBanker;
+			m_GameClientView.EnableSysBanker(m_bEnableSysBanker);
+
+			if(CUserRight::IsGameCheatUser(m_pIClientKernel->GetUserAttribute()->dwUserRight)&&m_GameClientView.m_hInst)
+			m_GameClientView.m_btOpenAdmin.ShowWindow(SW_SHOW);
+			*/
+			if(IsLookonMode()==false && DataModel::sharedDataModel()->userInfo->dwUserID == m_wCurrentBanker)
+			{
+				m_bMeApplyBanker =true;
+			}
+			
+
+			//更新按钮
+			updateButtonContron();
+			/*
+
+			//设置状态
+			SetGameStatus(pStatusPlay->cbGameStatus);
+			*/
+			//设置时间
+			if (pStatusPlay->cbGameStatus == GAME_SCENE_GAME_END)
+			{
+				//resetTimer(pStatusPlay->cbTimeLeave, BaseAttributes::sharedAttributes()->sGameEnd.c_str());
+			}
+			else
+			{
+				resetTimer(pStatusPlay->cbTimeLeave, BaseAttributes::sharedAttributes()->sGameStart.c_str());
+			}
+			/*
+			m_GameClientView.InvalidGameView(0,0,0,0);
+			*/
 		}
 		break;
 		default:
@@ -950,6 +1168,10 @@ void GameControlOxHundred::onSubGameStart(const void * pBuffer, WORD wDataSize){
 	{
 		pPlayerData[1]->setUserInfo(*uInfo);
 	}
+	else
+	{
+		pPlayerData[1]->hidePlayer();
+	}
 
 	CCLog("gameStart=time--:%d<<%s>>", pGameStart->cbTimeLeave, __FUNCTION__);
 	//设置时间
@@ -1014,6 +1236,10 @@ void GameControlOxHundred::onSubUserApplyBanker(const void * pBuffer, WORD wData
 
 	//消息处理
 	CMD_S_ApplyBanker * pApplyBanker = (CMD_S_ApplyBanker *)pBuffer;
+	//自己判断
+	if (DataModel::sharedDataModel()->userInfo->wChairID == pApplyBanker->wApplyUser) {
+		m_bMeApplyBanker = true;
+	}
 	//插入庄家列表
 	if (m_wBankerUser != pApplyBanker->wApplyUser)
 	{
@@ -1033,8 +1259,8 @@ void GameControlOxHundred::onSubUserApplyBanker(const void * pBuffer, WORD wData
 		}
 		if (!isFind)
 		{
-			CCLog("=no %d   %d-----------------------------<<%s>>", pApplyBanker->wApplyUser, DataModel::sharedDataModel()->userInfo->wChairID, __FUNCTION__);
-			CCLog("<<%s>>", __FUNCTION__);
+			//CCLog("=no %d   %d-----------------------------<<%s>>", pApplyBanker->wApplyUser, DataModel::sharedDataModel()->userInfo->wChairID, __FUNCTION__);
+			//CCLog("<<%s>>", __FUNCTION__);
 		}
 
 		MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_BANK_LIST, NULL);
@@ -1069,10 +1295,7 @@ void GameControlOxHundred::onSubUserApplyBanker(const void * pBuffer, WORD wData
 	}
 	}
 	*/
-	//自己判断
-	if (DataModel::sharedDataModel()->userInfo->wChairID == pApplyBanker->wApplyUser) {
-		m_bMeApplyBanker = true;
-	}
+	
 	/*
 	//更新控件
 	UpdateButtonContron();
@@ -1109,6 +1332,12 @@ void GameControlOxHundred::onSubUserCancelBanker(const void * pBuffer, WORD wDat
 			iter++;
 		}
 	}
+	//自己判断
+	const tagUserInfo *pMeUserData = DataModel::sharedDataModel()->userInfo;
+	if (strcmp(pMeUserData->szNickName, pCancelBanker->szCancelUser) == 0)
+	{
+		m_bMeApplyBanker = false;
+	}
 	//发送更新列表通知
 	MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_BANK_LIST, NULL);
 
@@ -1133,10 +1362,7 @@ void GameControlOxHundred::onSubUserCancelBanker(const void * pBuffer, WORD wDat
 	m_GameClientView.m_btDown.EnableWindow(false);
 	}*/
 
-	//自己判断
-	const tagUserInfo *pMeUserData = DataModel::sharedDataModel()->userInfo;
-	if (strcmp(pMeUserData->szNickName, pCancelBanker->szCancelUser) == 0)
-		m_bMeApplyBanker = false;
+	
 
 
 
@@ -1176,6 +1402,10 @@ void GameControlOxHundred::onSubChangeBanker(const void * pBuffer, WORD wDataSiz
 	{
 		pPlayerData[1]->setUserInfo(*uInfo);
 	}
+	else
+	{
+		pPlayerData[1]->hidePlayer();
+	}
 	//删除玩家
 	if (m_wBankerUser != INVALID_CHAIR)
 	{
@@ -1197,7 +1427,7 @@ void GameControlOxHundred::onSubChangeBanker(const void * pBuffer, WORD wDataSiz
 		m_GameClientView.m_ApplyUser.m_AppyUserList.Invalidate(TRUE);
 		}*/
 	}
-
+	
 	//更新界面
 	updateButtonContron();
 	//m_GameClientView.InvalidGameView(0,0,0,0);

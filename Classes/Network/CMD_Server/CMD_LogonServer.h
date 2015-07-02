@@ -295,6 +295,8 @@ struct CMD_GP_ServerOnline
 #define SUB_GP_TREASURE_RANK		123									//财富排名榜
 #define	SUB_GP_VIP_POWER			124									//vip特权
 #define	SUB_GP_VIP_AWARD			125									//vip奖励
+#define	SUB_GP_GET_SIGNIN_TASK		126									//获取签到列表
+#define	SUB_GP_SIGNIN				127									//签到
 
 //修改头像
 #define SUB_GP_USER_FACE_INFO		200									//头像信息
@@ -702,6 +704,64 @@ struct CMD_GP_ConversionAuctionScore
 	long							lResultCode;						//操作代码
 	SCORE							lInsureScore;						//银行金币
 	TCHAR							szDescribeString[128];				//描述消息
+};
+//////////////////////////////////////////////////////////////////////////////////
+//获取签到列表
+struct CMD_GP_GetSignInTask
+{
+	CMD_GP_GetSignInTask()
+	{
+		//memset(this, 0, sizeof(CMD_GP_GetSignInTask));
+	}
+	DWORD	dwUserID;													//用户 I D
+	DWORD	dwOpTerminal;												//操作终端（1：pc, 2：手机牛牛 3：手机捕鱼）
+};
+
+//每天签到列表
+struct CMD_GP_SignInTask
+{
+	CMD_GP_SignInTask()
+	{
+		//memset(this, 0, sizeof(CMD_GP_SignInTask));
+	}
+	DWORD	dwDay;														//天数    1：每天  >1 累计   >27:满月
+	SCORE	lScore;														//奖励金币
+};
+//获取签到列表
+struct CMD_GP_GetSignInTaskInfo
+{
+	CMD_GP_GetSignInTaskInfo()
+	{
+		//memset(this, 0, sizeof(CMD_GP_GetSignInTaskInfo));
+	}
+	DWORD	dwDay;												//累计几天
+	CMD_GP_SignInTask   SignInTask[7];							//累计奖励，最多6个,其中一个是每天
+};
+
+//签到
+struct CMD_GP_SignIn
+{
+	CMD_GP_SignIn()
+	{
+		//memset(this, 0, sizeof(CMD_GP_SignIn));
+	}
+	DWORD	dwUserID;													//用户 I D
+	DWORD	dwOpTerminal;												//操作终端（1：pc, 2：手机牛牛 3：手机捕鱼）
+	TCHAR	szLogonPass[LEN_MD5];										//登录密码
+};
+
+//每天签到奖励
+struct CMD_GP_SignInTaskLog
+{
+	CMD_GP_SignInTaskLog()
+	{
+		//memset(this, 0, sizeof(CMD_GP_SignInTaskLog));
+	}
+	DWORD	dwRet;														//0：成功，1：失败
+	SCORE	lScore;														//每天奖励金币
+	DWORD	dwDay;														//天数    1：每天  >1 累计   >27:满月
+	SCORE	lAllScore;													//累计金币
+	TCHAR	szDescribeString[128];										//描述消息
 };
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -1118,6 +1178,8 @@ struct CMD_MB_LogonSuccess
 	SCORE								lUserInsure;						//用户银行
 
 	TCHAR							szNickName[LEN_NICKNAME];			//用户昵称
+	TCHAR							szPhone[LEN_MOBILE_PHONE];			//电话号码
+	TCHAR							szPassPortID[LEN_PASS_PORT_ID];		 //身份证号（身份证绑定使用）
 };
 
 

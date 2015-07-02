@@ -32,11 +32,15 @@ void PopDialogBoxUpBank::onEnter(){
 	//上庄
 	UIButton *pBUpBank=static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonBankAction"));
 	pBUpBank->addTouchEventListener(this, toucheventselector(PopDialogBoxUpBank::onMenuApplyBanker));
-	if (DataModel::sharedDataModel()->userInfo->lScore<1000000||DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->m_bMeApplyBanker)
+	/*if (DataModel::sharedDataModel()->userInfo->lScore<1000000
+		//||DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->m_bMeApplyBanker
+		)
 	{
 		pBUpBank->setTouchEnabled(false);
 		pBUpBank->setColor(ccc3(100,100,100));
-	}
+	}*/
+	updateUpBankState();
+
 	//初始化列表数据
 	initListBank();
 	//播放显示动画
@@ -95,6 +99,56 @@ void PopDialogBoxUpBank::insertBank(bool isInsert,int index,tagApplyUser applyUs
 	{
 		pLBank->getItem(index)->getChildByName("ImageBankIcon")->setVisible(false);
 	}
+
+
+}
+//更新上庄状态
+void PopDialogBoxUpBank::updateUpBankState(){
+	UIButton *pBUpBank = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonBankAction"));
+
+	if (DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->m_bMeApplyBanker)
+	{
+		WORD wBankerUser = DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->m_wBankerUser;
+		pBUpBank->setTitleText("我要下庄");
+		if (wBankerUser == DataModel::sharedDataModel()->userInfo->wChairID)
+		{
+			switch (DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameState())
+			{
+			case MainSceneBase::STATE_GAME_FREE:
+			{
+				pBUpBank->setTouchEnabled(true);
+				pBUpBank->setColor(ccc3(255, 255, 255));
+			}
+				break;
+			default:
+			{
+				pBUpBank->setTouchEnabled(false);
+				pBUpBank->setColor(ccc3(100, 100, 100));
+			}
+				break;
+			}
+		}
+		else
+		{
+			pBUpBank->setTouchEnabled(true);
+			pBUpBank->setColor(ccc3(255, 255, 255));
+		}
+	}
+	else
+	{
+		
+		pBUpBank->setTitleText("我要上庄");
+		if (DataModel::sharedDataModel()->userInfo->lScore < 1000000){
+			pBUpBank->setTouchEnabled(false);
+			pBUpBank->setColor(ccc3(100, 100, 100));
+		}
+		else
+		{
+			pBUpBank->setTouchEnabled(true);
+			pBUpBank->setColor(ccc3(255, 255, 255));
+		}
+	}
+	
 }
 //申请庄家
 void PopDialogBoxUpBank::onMenuApplyBanker(CCObject *object, TouchEventType type){
@@ -105,7 +159,16 @@ void PopDialogBoxUpBank::onMenuApplyBanker(CCObject *object, TouchEventType type
 			UIButton *pBUpBank=(UIButton *)object;
 			pBUpBank->setTouchEnabled(false);
 			pBUpBank->setColor(ccc3(100,100,100));
-			DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->onApplyBanker(true);
+
+			if (DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->m_bMeApplyBanker)
+			{
+				DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->onApplyBanker(false);
+			}
+			else
+			{
+				DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->onApplyBanker(true);
+			}
+			
 		}
 		break;
 	default:
@@ -115,7 +178,8 @@ void PopDialogBoxUpBank::onMenuApplyBanker(CCObject *object, TouchEventType type
 //更新列表
 void PopDialogBoxUpBank::updateBankList(CCObject *obj){
 	//initListBank();
-	//庄家列表
+	
+	//庄家列表 
 	std::list <tagApplyUser>     listApplyUser=DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->listApplyUser;
 	//增加庄家
 	if (listApplyUser.size()>pLBank->getItems()->count())
@@ -142,7 +206,8 @@ void PopDialogBoxUpBank::updateBankList(CCObject *obj){
 	{
 		updateListContent();
 	}
-	
+
+	updateUpBankState();
 }
 //更新列表内容
 void PopDialogBoxUpBank::updateListContent(){

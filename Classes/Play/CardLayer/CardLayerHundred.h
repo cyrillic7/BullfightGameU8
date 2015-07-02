@@ -33,6 +33,9 @@ private:
 	void onSendCardFinish();
 	//显示牌
 	void showCard();
+	//显示牌
+	virtual void showCard(bool isAction, int index, int dataIndex);
+
 	void updateShowCardOneByOne(float delta);  
 
 	//获取牛牛类型点数

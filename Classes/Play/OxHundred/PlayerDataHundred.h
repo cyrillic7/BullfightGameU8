@@ -44,9 +44,9 @@ public:
 	~PlayerDataHundred();
 	CREATE_FUNC(PlayerDataHundred);
 public:
-	/*//隐藏用户
+	//隐藏用户
 	void hidePlayer();
-	//设置庄家
+	/*//设置庄家
 	void setBankIcon();*/
 	//设置用户信息
 	void setUserInfo(tagUserInfo userInfo);

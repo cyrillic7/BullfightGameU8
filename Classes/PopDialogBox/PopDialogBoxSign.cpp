@@ -28,8 +28,30 @@ void PopDialogBoxSign::onEnter(){
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));
 	
+	CCLog("qiandao <<%s>>", __FUNCTION__);
 	playAnimation();
 }
 void PopDialogBoxSign::onExit(){
 	CCLayer::onExit();
+}
+
+//读取网络消息回调
+void PopDialogBoxSign::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
+	switch (wMainCmdID)
+	{
+	case MDM_MB_SOCKET://socket连接成功
+	{
+		
+
+	}
+	break;
+	case MDM_GP_USER_SERVICE://用户服务
+	{
+		//onEventUserService(wSubCmdID, pDataBuffer, wDataSize);
+	}
+	break;
+	default:
+		CCLog("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
+		break;
+	}
 }

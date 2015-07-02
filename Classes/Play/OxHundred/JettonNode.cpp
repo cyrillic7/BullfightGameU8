@@ -65,6 +65,33 @@ void JettonNode::setJettonTypeWithMove(long long lJettonValue,CCPoint posBegin,C
 	;
 	jetton->setPosition(pos);*/
 }
+//设置筹码数、位置
+void JettonNode::setJettonTypeWithPos(long long lJettonValue, CCPoint posEnd){
+	pIJetton->setVisible(true);
+	switch (lJettonValue)
+	{
+	case 1000:
+		pIJetton->loadTexture("u_gih_jetton0.png", UI_TEX_TYPE_PLIST);
+		break;
+	case 5000:
+		pIJetton->loadTexture("u_gih_jetton1.png", UI_TEX_TYPE_PLIST);
+		break;
+	case 10000:
+		pIJetton->loadTexture("u_gih_jetton2.png", UI_TEX_TYPE_PLIST);
+		break;
+	case 100000:
+		pIJetton->loadTexture("u_gih_jetton3.png", UI_TEX_TYPE_PLIST);
+		break;
+	case 500000:
+		pIJetton->loadTexture("u_gih_jetton4.png", UI_TEX_TYPE_PLIST);
+		break;
+	default:
+		pIJetton->loadTexture("u_gih_jetton0.png", UI_TEX_TYPE_PLIST);
+		break;
+	}
+	pIJetton->setScale(0.5);
+	this->setPosition(posEnd);
+}
 void JettonNode::hideJetton(){
 	pIJetton->setVisible(false);
 	isReuse=true;

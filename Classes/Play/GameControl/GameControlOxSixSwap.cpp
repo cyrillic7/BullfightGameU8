@@ -127,7 +127,6 @@ void GameControlOxSixSwap::onMenuChangeCard(CCObject* pSender, TouchEventType ty
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		
 		//CCLog("changecard------------  %d <<%s>>",iChangeCardIndex, __FUNCTION__);
 		onUserChangeCard(1, iChangeCardIndex);
 		/*hideTimer(true);
@@ -778,7 +777,11 @@ bool GameControlOxSixSwap::OnSubChangeCard(const void * pBuffer, WORD wDataSize)
 	if (pChangeCard->wPlayerID == (DataModel::sharedDataModel()->userInfo->wChairID))
 	{
 		if (pChangeCard->bChange){
+			
 			WORD wMeChairID = DataModel::sharedDataModel()->userInfo->wChairID;
+			//扣手续费
+			getMainScene()->playerLayer->pPlayerData[getViewChairID(wMeChairID)]->changePlayerGole(-lScoreTax);
+
 			DataModel::sharedDataModel()->card[wMeChairID][iChangeCardIndex] = pChangeCard->cbCardData;
 
 			//getMainScene()->cardLayer->showCard(false, getViewChairID(wMeChairID), wMeChairID);
@@ -989,6 +992,11 @@ bool GameControlOxSixSwap::OnSubGameStart(const void * pBuffer, WORD wDataSize){
 	if (wDataSize != sizeof(CMD_S_GameStart)) return false;
 	CMD_S_GameStart * pGameStart = (CMD_S_GameStart *)pBuffer;
 	wBankerUser = pGameStart->wBankerUser;
+	lScoreTax = pGameStart->lScoreTax;
+
+	UILabel *pLPice = static_cast<UILabel*>(pIVChangeCard->getChildByName("LabelPice"));
+	pLPice->setText(CCString::createWithFormat("手续费:%lld",lScoreTax)->getCString());
+
 	DataModel::sharedDataModel()->m_lTurnMaxScore = pGameStart->lTurnMaxScore;
 	//设置筹码
 	for (int i = 0; i < 4; i++)
