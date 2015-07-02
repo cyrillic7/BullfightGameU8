@@ -25,6 +25,7 @@ GameControlOxHundred::GameControlOxHundred()
 	, m_lMeMaxScore(0)
 	, m_bMeApplyBanker(false)
 	, m_wBankerUser(-100)
+	, isChangeUpBank(true)
 {
 	nJetton[0] = 1000;
 	nJetton[1] = 5000;
@@ -516,20 +517,26 @@ void GameControlOxHundred::updateButtonContron(){
 	case MainSceneOxHundred::STATE_GAME_FREE:
 	{
 		bEnablePlaceJetton = false;
-
-		PopDialogBoxUpBank *pUpBank = (PopDialogBoxUpBank*)(getParent()->getChildByTag(TAG_UP_BANK));
-		if (pUpBank)
+		if (m_wBankerUser == DataModel::sharedDataModel()->userInfo->wChairID)
 		{
-			pUpBank->updateUpBankState();
+			PopDialogBoxUpBank *pUpBank = (PopDialogBoxUpBank*)(getParent()->getChildByTag(TAG_UP_BANK));
+			if (pUpBank)
+			{
+				pUpBank->updateUpBankState();
+			}
 		}
+		
 	}
 	break;
 	case MainSceneOxHundred::STATE_GAME_PLACE_JETTON:
 	{
-		PopDialogBoxUpBank *pUpBank = (PopDialogBoxUpBank*)(getParent()->getChildByTag(TAG_UP_BANK));
-		if (pUpBank)
+		if (m_wBankerUser == DataModel::sharedDataModel()->userInfo->wChairID)
 		{
-			pUpBank->updateUpBankState();
+			PopDialogBoxUpBank *pUpBank = (PopDialogBoxUpBank*)(getParent()->getChildByTag(TAG_UP_BANK));
+			if (pUpBank)
+			{
+				pUpBank->updateUpBankState();
+			}
 		}
 	}
 		break;
@@ -1262,7 +1269,7 @@ void GameControlOxHundred::onSubUserApplyBanker(const void * pBuffer, WORD wData
 			//CCLog("=no %d   %d-----------------------------<<%s>>", pApplyBanker->wApplyUser, DataModel::sharedDataModel()->userInfo->wChairID, __FUNCTION__);
 			//CCLog("<<%s>>", __FUNCTION__);
 		}
-
+		CCLog("%s <<%s>>",Tools::GBKToUTF8("上庄切换"), __FUNCTION__);
 		MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_BANK_LIST, NULL);
 	}
 
@@ -1338,6 +1345,7 @@ void GameControlOxHundred::onSubUserCancelBanker(const void * pBuffer, WORD wDat
 	{
 		m_bMeApplyBanker = false;
 	}
+	CCLog("%s <<%s>>", Tools::GBKToUTF8("下庄切换"), __FUNCTION__);
 	//发送更新列表通知
 	MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_BANK_LIST, NULL);
 
@@ -1390,6 +1398,7 @@ void GameControlOxHundred::onSubChangeBanker(const void * pBuffer, WORD wDataSiz
 	}
 	else if (pChangeBanker->wBankerUser == DataModel::sharedDataModel()->userInfo->wChairID)
 	{
+		isChangeUpBank = false;
 		m_bMeApplyBanker = true;
 	}
 
@@ -1407,11 +1416,12 @@ void GameControlOxHundred::onSubChangeBanker(const void * pBuffer, WORD wDataSiz
 		pPlayerData[1]->hidePlayer();
 	}
 	//删除玩家
-	if (m_wBankerUser != INVALID_CHAIR)
+	//if (m_wBankerUser != INVALID_CHAIR)
 	{
 		if (listApplyUser.size() > 0)
 		{
 			listApplyUser.pop_front();
+			CCLog("%s <<%s>>", Tools::GBKToUTF8("切庄切换"), __FUNCTION__);
 			MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_BANK_LIST, NULL);
 		}
 		/*IClientUserItem *pUserItem = GetTableUserItem(m_wCurrentBanker);
@@ -1542,6 +1552,7 @@ void GameControlOxHundred::onSubGameEnd(const void * pBuffer, WORD wDataSize){
 	//消息处理
 	CMD_S_GameEnd * pGameEnd = (CMD_S_GameEnd *)pBuffer;
 	CCLog("end:%lld<<%s>>", pGameEnd->lUserScore, __FUNCTION__);
+	isChangeUpBank = true;
 	//设置时间
 	resetTimer(pGameEnd->cbTimeLeave, BaseAttributes::sharedAttributes()->sGameEnd.c_str());
 	hideTimer(false);

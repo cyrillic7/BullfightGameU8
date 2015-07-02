@@ -108,8 +108,15 @@ void PopDialogBoxUpBank::updateUpBankState(){
 
 	if (DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->m_bMeApplyBanker)
 	{
-		WORD wBankerUser = DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->m_wBankerUser;
 		pBUpBank->setTitleText("我要下庄");
+		if (!DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->isChangeUpBank)
+		{
+			pBUpBank->setTouchEnabled(false);
+			pBUpBank->setColor(ccc3(100, 100, 100));
+			return;
+		}
+		WORD wBankerUser = DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->m_wBankerUser;
+		
 		if (wBankerUser == DataModel::sharedDataModel()->userInfo->wChairID)
 		{
 			switch (DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameState())

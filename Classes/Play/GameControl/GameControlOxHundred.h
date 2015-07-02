@@ -45,6 +45,7 @@ public:
 	//tagGameRecord				m_GameRecordArrary[MAX_SCORE_HISTORY];//游戏记录
 	std::list <tagGameRecord> listGameRecord;//游戏记录
 	std::list <tagApplyUser>     listApplyUser;//申请庄家列表
+	bool isChangeUpBank;					//是否可以切换下庄
 	//限制信息
 protected:
 	long long						m_lMeMaxScore;						//最大下注
