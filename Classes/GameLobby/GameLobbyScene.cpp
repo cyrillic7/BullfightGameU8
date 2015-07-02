@@ -176,13 +176,23 @@ void GameLobbyScene::enterLobbyByMode(int mode){
 		break;
 	case MODE_Hundred:
 		{
-			PopDialogBox *pLoading = PopDialogBoxLoading::create();
-			this->addChild(pLoading,10,TAG_LOADING);
-			pLoading->setSocketName(SOCKET_LOGON_ROOM);
+			if (DataModel::sharedDataModel()->tagGameServerListOxHundred.size()<=0)
+			{
+				PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+				this->addChild(tipInfo);
+				tipInfo->setTipInfoContent(("获取房间列表失败!"));
+			}
+			else
+			{
+				PopDialogBox *pLoading = PopDialogBoxLoading::create();
+				this->addChild(pLoading, 10, TAG_LOADING);
+				pLoading->setSocketName(SOCKET_LOGON_ROOM);
 
-			TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
-			tagGameServer *tgs = DataModel::sharedDataModel()->tagGameServerListOxHundred[0];
-			getSocket()->createSocket(tgs->szServerAddr,tgs->wServerPort,new LogonGameListerner());
+				TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
+				tagGameServer *tgs = DataModel::sharedDataModel()->tagGameServerListOxHundred[0];
+				getSocket()->createSocket(tgs->szServerAddr, tgs->wServerPort, new LogonGameListerner());
+			}
+			
 			//Tools::setTransitionAnimation(0, 0, MainSceneOxHundred::scene());
 		}
 		break;
