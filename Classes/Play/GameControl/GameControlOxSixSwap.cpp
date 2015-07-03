@@ -34,6 +34,12 @@ void GameControlOxSixSwap::onEnter(){
 	UIImageView *pIVLight = static_cast<UIImageView*>(pIVChangeCard->getChildByName("ImageLight"));
 	pIVLight->runAction(CCRepeatForever::create(CCRotateBy::create(0.5,360)));
 	pIVChangeCard->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxSixSwap::onMenuChangeCard));
+
+	//手指动画
+	CCArmature *pAnimate = CCArmature::create("AnimationGameIng");
+	pIVChangeCard->addNode(pAnimate, 100);
+	pAnimate->setPosition(15, -10);
+	pAnimate->getAnimation()->play("handWave");
 }
 void GameControlOxSixSwap::onExit(){
 	GameControlBase::onExit();
@@ -787,7 +793,9 @@ bool GameControlOxSixSwap::OnSubChangeCard(const void * pBuffer, WORD wDataSize)
 
 			//getMainScene()->cardLayer->showCard(false, getViewChairID(wMeChairID), wMeChairID);
 			getMainScene()->cardLayer->changeOneCard(getViewChairID(wMeChairID), iChangeCardIndex, pChangeCard->cbCardData);
-
+			
+			
+			swapCardEffect(posCurSelectCard);
 			//CCLog("%d  %d    %d <<%s>>", pChangeCard->cbCardData, GetCardColor(pChangeCard->cbCardData), GetCardValue(pChangeCard->cbCardData), __FUNCTION__);
 			//CCLog("%d  %d    %d <<%s>>", pChangeCard->cbOldCardData, GetCardColor(pChangeCard->cbOldCardData), GetCardValue(pChangeCard->cbOldCardData), __FUNCTION__);
 			//CCLog("<<%s>>", __FUNCTION__);
@@ -1508,16 +1516,51 @@ bool GameControlOxSixSwap::isPalyerState(){
 	return false;
 }
 //选中牌
-void GameControlOxSixSwap::onUpCard(int changeCardIndex){
+void GameControlOxSixSwap::onUpCard(int changeCardIndex, CCPoint cardPos){
 	pIVChangeCard->setEnabled(changeCardIndex!=-1);
 	if (changeCardIndex!=-1)
 	{
 		hideActionPrompt();
 		unsigned short beginPos = getViewChairID(DataModel::sharedDataModel()->userInfo->wChairID);
 		iChangeCardIndex = changeCardIndex - beginPos*MAX_CARD_COUNT;
+		posCurSelectCard = cardPos;
 	}
 	else
 	{
 		showActionPrompt(ACTION_PROMPT_OPT_CARD, ccp(0, -DataModel::sharedDataModel()->deviceSize.height / 2 + 50));
+	}
+}
+//换牌效果
+void GameControlOxSixSwap::swapCardEffect(CCPoint pos){
+	CCArmature *pAnimate = CCArmature::create("AnimationGameIng");
+	this->addChild(pAnimate, 100);
+
+	pAnimate->setPosition(pos);
+
+	pAnimate->getAnimation()->setMovementEventCallFunc(this, movementEvent_selector(GameControlOxSixSwap::onAnimationEventOver));//动画播完回调用
+	pAnimate->getAnimation()->setFrameEventCallFunc(this, frameEvent_selector(GameControlOxSixSwap::onAnimationEventFrame));
+
+	pAnimate->getAnimation()->play("swapCard");
+}
+void GameControlOxSixSwap::onAnimationEventOver(CCArmature *pArmature, MovementEventType movementType, const char *movementID){
+	switch (movementType)
+	{
+	case cocos2d::extension::COMPLETE:
+	case cocos2d::extension::LOOP_COMPLETE:
+	{
+		if (strcmp(movementID, "swapCard") == 0)
+		{
+			pArmature->removeFromParentAndCleanup(true);
+		}
+	}
+	break;
+	default:
+		break;
+	}
+}
+void GameControlOxSixSwap::onAnimationEventFrame(CCBone *bone, const char *evt, int originFrameIndex, int currentFrameIndex){
+	if (strcmp(evt, "bomb1") == 0)
+	{
+
 	}
 }

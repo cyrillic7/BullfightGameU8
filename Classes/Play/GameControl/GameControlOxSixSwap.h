@@ -25,6 +25,7 @@ private:
 
 	int iChangeCardIndex;						//要换的牌索引
 
+	CCPoint posCurSelectCard;					//当前选中牌位置
 	long long								lScoreTax;                          //换牌手续费
 public:
 	GameControlOxSixSwap();
@@ -85,5 +86,11 @@ private:
 	virtual bool isPalyerState();
 
 	//选中牌
-	virtual void onUpCard(int changeCardIndex);
+	virtual void onUpCard(int changeCardIndex,CCPoint cardPos);
+	//换牌效果
+	void swapCardEffect(CCPoint pos);
+	//动画完成回调
+	void onAnimationEventOver(CCArmature *pArmature, MovementEventType movementType, const char *movementID);
+	//帧动画回调
+	void onAnimationEventFrame(CCBone *bone, const char *evt, int originFrameIndex, int currentFrameIndex);
 };

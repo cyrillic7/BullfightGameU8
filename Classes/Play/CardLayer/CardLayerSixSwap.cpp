@@ -431,7 +431,12 @@ void CardLayerSixSwap::touchCard(unsigned short beginPos, CCPoint pos){
 	}
 	if (getMainScene()->getGameState() == MainSceneBase::STATE_SWAP_CARD_ING)
 	{
-		getIOptCard()->onUpCard(isOneCardUp);
+		CCPoint cardPos = CCPointZero;
+		if (isOneCardUp!=-1)
+		{
+			cardPos = pCard[isOneCardUp]->m_cpArmatureCard->getPosition();
+		}
+		getIOptCard()->onUpCard(isOneCardUp, cardPos);
 	}
 
 }
