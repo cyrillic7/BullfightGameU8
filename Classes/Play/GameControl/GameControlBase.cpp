@@ -60,6 +60,9 @@ void GameControlBase::onEnter(){
 	//绑定准备按键
 	button = static_cast<UIButton*>(pWidget->getWidgetByName("buttonReady"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuReady));
+	//绑定换桌
+	button = static_cast<UIButton*>(pWidget->getWidgetByName("ButtonChangeChair"));
+	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuChangeChair));
 	//准备容器
 	pPanelReady = static_cast<UIPanel*>(pWidget->getWidgetByName("PanelReady"));
 	//换牌容器
@@ -281,6 +284,8 @@ void GameControlBase::menuChangeChair(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
+		getSocket()->SendData(MDM_GR_USER, SUB_GR_CHANGE_TABLE);
+		CCLog("---- <<%s>>", __FUNCTION__);
 		//CCStringMake 
 		//SUB_GR_USER_CHAIR_REQ
 	}

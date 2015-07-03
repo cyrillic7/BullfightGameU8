@@ -177,6 +177,8 @@ struct CMD_GR_ConfigUserRight
 #define SUB_GR_MATCHUSER_LIST_UPDATA_STATUS       19                                  //比赛用户列表
 #define SUB_GR_MATCHUSER_LIST_UPDATA_RANK_SCORE       20                                  //比赛用户列表
 
+#define SUB_GR_CHANGE_TABLE        19									 //换桌
+
 
 #define SUB_GR_MATCHUSER_COME			30									//参赛用户进入
 

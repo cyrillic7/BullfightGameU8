@@ -1526,7 +1526,7 @@
             "options": {
               "__type": "ButtonSurrogate:#EditorCommon.JsonModel.Component.GUI",
               "classname": "Button",
-              "name": "Button_27",
+              "name": "ButtonChangeChair",
               "ZOrder": 0,
               "actiontag": 59692219,
               "anchorPointX": 0.5,
