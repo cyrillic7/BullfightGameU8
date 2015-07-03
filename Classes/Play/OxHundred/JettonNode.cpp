@@ -58,6 +58,7 @@ void JettonNode::setJettonTypeWithMove(long long lJettonValue,CCPoint posBegin,C
 	int angle = abs(rand() % 2160);
 	CCSpawn *pSpawn = CCSpawn::create(CCMoveTo::create(fTime, posEnd),CCRotateBy::create(fTime,angle),NULL);
 	CCEaseExponentialOut  *out=CCEaseExponentialOut ::create(pSpawn);
+	this->stopAllActions();
 	this->runAction(out);
 	
 	/*UUIImageView *jetton=IImageView::create();
@@ -116,6 +117,7 @@ void JettonNode::moveJettonBankIn(CCPoint posEnd){
 	CCEaseExponentialOut  *out = CCEaseExponentialOut::create(pSpawn);
 
 	CCSequence *seq = CCSequence::create(out, CCCallFuncN::create(this, SEL_CallFuncN(&JettonNode::onMoveJettonBankIn)), NULL);
+	this->stopAllActions();
 	this->runAction(seq);
 }
 //庄家收币回调
@@ -168,6 +170,7 @@ void JettonNode::bankOutJetton(long long lJettonValue, CCPoint posBegin, CCPoint
 	CCEaseExponentialOut  *out = CCEaseExponentialOut::create(pSpawn);
 	//this->runAction(out);
 	CCSequence *seq = CCSequence::create(out, CCCallFuncN::create(this, SEL_CallFuncN(&JettonNode::onBankOutJetton)), NULL);
+	this->stopAllActions();
 	this->runAction(seq);
 }
 //庄家出币回调
@@ -194,6 +197,7 @@ void JettonNode::moveJettonPlayerIn(CCPoint posEnd){
 	CCEaseExponentialOut  *out = CCEaseExponentialOut::create(pSpawn);
 
 	CCSequence *seq = CCSequence::create(out, CCCallFuncN::create(this, SEL_CallFuncN(&JettonNode::onMoveJettonPlayerIn)), NULL);
+	this->stopAllActions();
 	this->runAction(seq);
 }
 //玩家收币回调
