@@ -78,7 +78,7 @@ void PlayerDataHundred::onResultAnimationFinish(){
 }
 
 //设置用户金币
-void PlayerDataHundred::changePlayerGole(long long lGold){
+void PlayerDataHundred::changePlayerGold(long long lGold){
 	//userInfoPlayer.lScore+=lGold;
 	pLGoldCount->setText(CCString::createWithFormat("%lld",lGold)->getCString());
 }

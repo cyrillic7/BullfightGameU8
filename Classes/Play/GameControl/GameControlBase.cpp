@@ -978,6 +978,7 @@ bool GameControlBase::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 		//m_GameClientView.SetUserTotalScore(m_wViewChairID[i],pGameEnd->lGameScore[i]);
 		long long lGameScore = pGameEnd->lGameScore[i];
 		if (i == getMeChairID()){
+			DataModel::sharedDataModel()->userInfo->lScore += lGameScore;
 			getMainScene()->playerLayer->showResultAnimation(3, lGameScore);
 			if (lGameScore != 0){
 				UIPanel *pPlayer0 = getMainScene()->playerLayer->pPlayerData[0]->pPlayerPanel;

@@ -79,6 +79,9 @@ private:
 	PlayerDataHundred *pPlayerData[MAX_PLAYER_HUNDRED_COUNT];
 	//上庄按键
 	ImageView *pIUpBank;
+	//游戏结束输赢筹码统计
+	long long lUserScore;								//玩家成绩
+	long long lBankerScore;								//庄家成绩
 	//游戏状态
 protected:
 	bool								m_bAllowLookon;						//允许旁观

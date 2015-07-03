@@ -58,7 +58,7 @@ public:
 	//隐藏行为类型
 	void hideActionType();*/
 	//改变用户金币
-	void changePlayerGole(long long lGold);
+	void changePlayerGold(long long lGold);
 private:
 	//结算动画结束
 	void onResultAnimationFinish();

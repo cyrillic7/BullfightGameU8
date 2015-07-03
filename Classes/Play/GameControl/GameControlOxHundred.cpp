@@ -26,6 +26,8 @@ GameControlOxHundred::GameControlOxHundred()
 	, m_bMeApplyBanker(false)
 	, m_wBankerUser(-100)
 	, isChangeUpBank(true)
+	, lUserScore(0)
+	, lBankerScore(0)
 {
 	nJetton[0] = 1000;
 	nJetton[1] = 5000;
@@ -277,7 +279,7 @@ void GameControlOxHundred::createJettonInit(int index,long long num){
 				pos = ccpSub(pos, ccp(fWidth / 2, fHeight / 2));
 
 				JettonNode *pJetton = getJettonNode();
-
+				pJetton->iBetArea = index;
 				pJetton->setJettonTypeWithPos(nJetton[i], pos);
 				isMoneyEnough = true;
 				break;
@@ -651,6 +653,19 @@ void GameControlOxHundred::updateState(){
 	{
 	case MainSceneOxHundred::STATE_GAME_SHOW_CARE_FINISH:
 	{
+		pPlayerData[0]->lGameScore = lUserScore;
+		DataModel::sharedDataModel()->userInfo->lScore += lUserScore;
+		pPlayerData[0]->changePlayerGold(DataModel::sharedDataModel()->userInfo->lScore);
+
+
+		pPlayerData[1]->lGameScore = lBankerScore;
+		tagUserInfo *uInfo = getUserInfo(m_wBankerUser);
+		if (uInfo)
+		{
+			uInfo->lScore += lBankerScore;
+			pPlayerData[1]->changePlayerGold(uInfo->lScore);
+		}
+		//显示结算
 		showAllResult();
 	}
 	break;
@@ -1229,7 +1244,7 @@ void GameControlOxHundred::onSubPlaceJetton(const void * pBuffer, WORD wDataSize
 	pos = ccpSub(pos, ccp(fWidth / 2, fHeight / 2));
 
 	JettonNode *pJetton = getJettonNode();
-
+	pJetton->iBetArea = pPlaceJetton->cbJettonArea - 1;
     Tools::playSound(kSoundHundredAddGold);
 	pJetton->setJettonTypeWithMove(pPlaceJetton->lJettonScore, posBegin, pos);
 	//CCLog("chair:%d jettonScore: %lld<<%s>>",pPlaceJetton->wChairID,pPlaceJetton->lJettonScore,__FUNCTION__);
@@ -1557,18 +1572,10 @@ void GameControlOxHundred::onSubGameEnd(const void * pBuffer, WORD wDataSize){
 	resetTimer(pGameEnd->cbTimeLeave, BaseAttributes::sharedAttributes()->sGameEnd.c_str());
 	hideTimer(false);
 	//设置总结算
-	pPlayerData[0]->lGameScore = pGameEnd->lUserScore;
-	DataModel::sharedDataModel()->userInfo->lScore += pGameEnd->lUserScore;
-	pPlayerData[0]->changePlayerGole(DataModel::sharedDataModel()->userInfo->lScore);
+	lUserScore = pGameEnd->lUserScore;
+	lBankerScore = pGameEnd->lBankerScore;
 
-
-	pPlayerData[1]->lGameScore = pGameEnd->lBankerScore;
-	tagUserInfo *uInfo = getUserInfo(m_wBankerUser);
-	if (uInfo)
-	{
-		uInfo->lScore += pGameEnd->lBankerScore;
-		pPlayerData[1]->changePlayerGole(uInfo->lScore);
-	}
+	
 
 
 	//设置牌数据

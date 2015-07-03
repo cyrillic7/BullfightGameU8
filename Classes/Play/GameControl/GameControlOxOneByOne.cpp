@@ -792,6 +792,10 @@ bool GameControlOxOneByOne::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 		long long lGameScore = pGameEnd->lGameScore[i];
 		if (getMainScene()->cardLayer->canSendCard[getViewChairID(i)])
 		{
+			if (getViewChairID(i)==3)
+			{
+				DataModel::sharedDataModel()->userInfo->lScore += lGameScore;
+			}
 			getMainScene()->playerLayer->showResultAnimation(getViewChairID(i), lGameScore);
 		}
 	}

@@ -13,7 +13,7 @@ using namespace ui;
 class JettonNode:public CCNode {
 public:
 	bool isReuse;
-    
+	int iBetArea;					//下注区域
 private:
 	ImageView *pIJetton;
 	//移动速度

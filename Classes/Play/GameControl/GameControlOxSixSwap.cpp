@@ -781,6 +781,7 @@ bool GameControlOxSixSwap::OnSubChangeCard(const void * pBuffer, WORD wDataSize)
 			WORD wMeChairID = DataModel::sharedDataModel()->userInfo->wChairID;
 			//扣手续费
 			getMainScene()->playerLayer->pPlayerData[getViewChairID(wMeChairID)]->changePlayerGole(-lScoreTax);
+			DataModel::sharedDataModel()->userInfo->lScore -= lScoreTax;
 
 			DataModel::sharedDataModel()->card[wMeChairID][iChangeCardIndex] = pChangeCard->cbCardData;
 
@@ -1240,6 +1241,10 @@ bool GameControlOxSixSwap::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 		long long lGameScore = pGameEnd->lGameScore[i];
 		if (getMainScene()->cardLayer->canSendCard[getViewChairID(i)])
 		{
+			if (getViewChairID(i) == 3)
+			{
+				DataModel::sharedDataModel()->userInfo->lScore += lGameScore;
+			}
 			getMainScene()->playerLayer->showResultAnimation(getViewChairID(i), lGameScore);
 		}
 	}
