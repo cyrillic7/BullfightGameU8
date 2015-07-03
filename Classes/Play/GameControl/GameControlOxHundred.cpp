@@ -61,6 +61,7 @@ void GameControlOxHundred::onEnter(){
 	//在线用户按键
 	pBOnline = static_cast<UIButton*>(pWidget->getWidgetByName("ButtonOnline"));
 	pBOnline->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxHundred::onMenuOnLine));
+	posPlayerJetton = pBOnline->getPosition();
 	//筹码按钮
 	for (int i = 0; i < MAX_JETTON_BUTTON_COUNT; i++)
 	{
@@ -78,6 +79,9 @@ void GameControlOxHundred::onEnter(){
 	//庄家牌背景
 	UIImageView *pIBankCardBg = static_cast<UIImageView*>(pWidget->getWidgetByName("ImageBankCardBg"));
 	getMainScene()->posChair[0] = ccpAdd(pIBankCardBg->getPosition(), ccp(0, -pIBankCardBg->getContentSize().height / 2));
+	//庄家头像
+	UIImageView * pBankIcon= static_cast<UIImageView*>(pWidget->getWidgetByName("ImageIcon1"));
+	posBankJetton = pBankIcon->getWorldPosition();
 	//用户数据
 	for (int i = 0; i < MAX_PLAYER_HUNDRED_COUNT; i++)
 	{
@@ -653,20 +657,8 @@ void GameControlOxHundred::updateState(){
 	{
 	case MainSceneOxHundred::STATE_GAME_SHOW_CARE_FINISH:
 	{
-		pPlayerData[0]->lGameScore = lUserScore;
-		DataModel::sharedDataModel()->userInfo->lScore += lUserScore;
-		pPlayerData[0]->changePlayerGold(DataModel::sharedDataModel()->userInfo->lScore);
-
-
-		pPlayerData[1]->lGameScore = lBankerScore;
-		tagUserInfo *uInfo = getUserInfo(m_wBankerUser);
-		if (uInfo)
-		{
-			uInfo->lScore += lBankerScore;
-			pPlayerData[1]->changePlayerGold(uInfo->lScore);
-		}
-		//显示结算
-		showAllResult();
+		//分发筹码
+		scheduleOnce(SEL_SCHEDULE(&GameControlOxHundred::bankJettonIn), 1);
 	}
 	break;
 	case MainSceneOxHundred::STATE_GAME_PLACE_JETTON:
@@ -916,6 +908,9 @@ void GameControlOxHundred::onSubGameFrame(WORD wSubCmdID, void * pDataBuffer, un
 			m_lAreaLimitScore=pStatusPlay->lAreaLimitScore;
 			m_GameClientView.SetAreaLimitScore(m_lAreaLimitScore);
 			*/
+			
+
+
 			if (pStatusPlay->cbGameStatus==GAME_SCENE_GAME_END)
 			{
 				//扑克信息
@@ -952,7 +947,30 @@ void GameControlOxHundred::onSubGameFrame(WORD wSubCmdID, void * pDataBuffer, un
 
 				//@m_GameClientView.m_CardControl[i].SetCardData(m_GameClientView.m_cbTableSortCardArray[i],5,false);
 				//@m_GameClientView.m_CardControl[i].m_blShowResult = true;
+				//推断赢家
+				bool bWinTianMen, bWinDiMen, bWinXuanMen, bWinHuang;
+				BYTE TianMultiple, diMultiple, TianXuanltiple, HuangMultiple;
+				deduceWinner(bWinTianMen, bWinDiMen, bWinXuanMen, bWinHuang, TianMultiple, diMultiple, TianXuanltiple, HuangMultiple);
+				//m_GameClientView.SetGameHistory(pServerGameRecord->bWinShunMen, pServerGameRecord->bWinDuiMen, pServerGameRecord->bWinDaoMen,pServerGameRecord->bWinHuang);
+
+				tagGameRecord tagRecord;
+				tagRecord.bWinShunMen = bWinTianMen;
+				tagRecord.bWinDuiMen = bWinDiMen;
+				tagRecord.bWinDaoMen = bWinXuanMen;
+				tagRecord.bWinHuang = bWinHuang;
+
+				insertGameHistory(tagRecord);
+				//分发筹码
+				scheduleOnce(SEL_SCHEDULE(&GameControlOxHundred::bankJettonIn), 1);
 			}
+			
+		
+			
+
+			//设置总结算
+			lUserScore = pStatusPlay->lEndUserScore;
+			lBankerScore = pStatusPlay->lEndBankerScore;
+			
 			
 			/*
 			//设置成绩
@@ -1985,4 +2003,204 @@ void GameControlOxHundred::onAnimationEventFrame(CCBone *bone, const char *evt, 
 	{
 	
 	}
+}
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+//分发筹码(庄家收)
+void GameControlOxHundred::bankJettonIn(float dt){
+	if (listGameRecord.empty())
+	{
+		return;
+	}
+	tagGameRecord gameRecord =listGameRecord.back();
+	
+	bool bankAllLost = true;
+	bool bankAllWin = true;
+	if (!gameRecord.bWinShunMen)
+	{
+		bankAllLost = false;
+		moveJettonBankIn(0, posBankJetton);
+	}
+	else
+	{
+		bankAllWin = false;
+	}
+	//////////////////////////////////////////////////////////////////////////
+	if (!gameRecord.bWinDuiMen)
+	{
+		bankAllLost = false;
+		moveJettonBankIn(1, posBankJetton);
+	}
+	else
+	{
+		bankAllWin = false;
+	}
+	//////////////////////////////////////////////////////////////////////////
+	if (!gameRecord.bWinDaoMen)
+	{
+		bankAllLost = false;
+		moveJettonBankIn(2, posBankJetton);
+	}
+	else
+	{
+		bankAllWin = false;
+	}
+	//////////////////////////////////////////////////////////////////////////
+	if (!gameRecord.bWinHuang)
+	{
+		bankAllLost = false;
+		moveJettonBankIn(3, posBankJetton);
+	}
+	else
+	{
+		bankAllWin = false;
+	}
+	//庄家全输直接出币
+	if (bankAllLost)
+	{
+		bankOutJetton();
+	}
+	//庄家全赢结束
+	if (bankAllWin)
+	{
+		splitJettonFinish();
+	}
+}
+//移动相同筹码(庄家收)
+void GameControlOxHundred::moveJettonBankIn(int chairID, CCPoint pos){
+	for (int i = 0; i < DataModel::sharedDataModel()->vecJettonNode.size(); i++)
+	{
+		JettonNode *tempJetton = DataModel::sharedDataModel()->vecJettonNode[i];
+		if (!tempJetton->isReuse)
+		{
+			if (tempJetton->iBetArea==chairID)
+			{
+				tempJetton->moveJettonBankIn(pos);
+			}
+		}
+	}
+}
+//庄家出币
+void GameControlOxHundred::bankOutJetton(){
+	if (listGameRecord.empty())
+	{
+		return;
+	}
+	tagGameRecord gameRecord = listGameRecord.back();
+	//////////////////////////////////////////////////////////////////////////
+	if (gameRecord.bWinShunMen)
+	{
+		moveJettonBankOut(0);
+	}
+	//////////////////////////////////////////////////////////////////////////
+	if (gameRecord.bWinDuiMen)
+	{
+		moveJettonBankOut(1);
+	}
+	//////////////////////////////////////////////////////////////////////////
+	if (gameRecord.bWinDaoMen)
+	{
+		moveJettonBankOut(2);
+	}
+	//////////////////////////////////////////////////////////////////////////
+	if (gameRecord.bWinHuang)
+	{
+		moveJettonBankOut(3);
+	}
+}
+//庄家出
+void GameControlOxHundred::moveJettonBankOut(int chairID){
+	CCArray *arrTemp = CCArray::create();
+	arrTemp->retain();
+	for (int i = 0; i < DataModel::sharedDataModel()->vecJettonNode.size(); i++)
+	{
+		JettonNode *tempJetton = DataModel::sharedDataModel()->vecJettonNode[i];
+		if (!tempJetton->isReuse)
+		{
+			if (tempJetton->iBetArea == chairID)
+			{
+				arrTemp->addObject(tempJetton);
+			}
+		}
+	}
+	//////////////////////////////////////////////////////////////////////////
+	CCObject *object;
+	CCARRAY_FOREACH(arrTemp, object){
+		JettonNode *pTempJettonNode = (JettonNode*)object;
+		int fWidth = pSeatData[chairID]->seatSize.width - 31;
+		int fHeight = pSeatData[chairID]->seatSize.height - 70 - 31;
+
+		int offsetX = rand() % fWidth;
+		int offsetY = rand() % fHeight;
+		CCPoint randPos = ccp(offsetX, offsetY);
+		CCPoint pos = pSeatData[chairID]->posCenter;
+		pos = ccpAdd(pos, randPos);
+		pos = ccpSub(pos, ccp(fWidth / 2, fHeight / 2));
+
+		JettonNode *pJetton = getJettonNode();
+		pJetton->iBetArea = chairID;
+		pJetton->bankOutJetton(pTempJettonNode->llJettonScore, posBankJetton, pos);
+	}
+	arrTemp->release();
+}
+//玩家收币
+void GameControlOxHundred::playerInJetton(){
+	if (listGameRecord.empty())
+	{
+		return;
+	}
+	tagGameRecord gameRecord = listGameRecord.back();
+	//////////////////////////////////////////////////////////////////////////
+	if (gameRecord.bWinShunMen)
+	{
+		moveJettonPlayerIn(0);
+	}
+	//////////////////////////////////////////////////////////////////////////
+	if (gameRecord.bWinDuiMen)
+	{
+		moveJettonPlayerIn(1);
+	}
+	//////////////////////////////////////////////////////////////////////////
+	if (gameRecord.bWinDaoMen)
+	{
+		moveJettonPlayerIn(2);
+	}
+	//////////////////////////////////////////////////////////////////////////
+	if (gameRecord.bWinHuang)
+	{
+		moveJettonPlayerIn(3);
+	}
+}
+//玩家收
+void GameControlOxHundred::moveJettonPlayerIn(int chairID){
+	for (int i = 0; i < DataModel::sharedDataModel()->vecJettonNode.size(); i++)
+	{
+		JettonNode *tempJetton = DataModel::sharedDataModel()->vecJettonNode[i];
+		if (!tempJetton->isReuse)
+		{
+			if (tempJetton->iBetArea == chairID)
+			{
+				tempJetton->moveJettonPlayerIn(posPlayerJetton);
+			}
+		}
+	}
+	
+}
+//分币完成
+void GameControlOxHundred::splitJettonFinish(){
+	pPlayerData[0]->lGameScore = lUserScore;
+	DataModel::sharedDataModel()->userInfo->lScore += lUserScore;
+	pPlayerData[0]->changePlayerGold(DataModel::sharedDataModel()->userInfo->lScore);
+
+
+	pPlayerData[1]->lGameScore = lBankerScore;
+	tagUserInfo *uInfo = getUserInfo(m_wBankerUser);
+	if (uInfo)
+	{
+		uInfo->lScore += lBankerScore;
+		pPlayerData[1]->changePlayerGold(uInfo->lScore);
+	}
+	//显示结算
+	showAllResult();
 }

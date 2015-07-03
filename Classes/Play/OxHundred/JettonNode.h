@@ -14,6 +14,9 @@ class JettonNode:public CCNode {
 public:
 	bool isReuse;
 	int iBetArea;					//下注区域
+	static int kMaxMoveJettonNum;		//最大移动筹码数
+	static int kCurMoveJettonNum;		//当前移动筹码数
+	long long llJettonScore;				//筹码数
 private:
 	ImageView *pIJetton;
 	//移动速度
@@ -31,4 +34,19 @@ public:
 
 	//设置筹码数、位置
 	void setJettonTypeWithPos(long long lJettonValue, CCPoint posEnd);
+	
+	//庄家收币
+	void moveJettonBankIn(CCPoint posEnd);
+	//庄家收币回调
+	void onMoveJettonBankIn(CCNode *node);
+
+	//庄家出币
+	void bankOutJetton(long long lJettonValue, CCPoint posBegin, CCPoint posEnd);
+	//庄家出币回调
+	void onBankOutJetton(CCNode *node);
+
+	//玩家收币
+	void moveJettonPlayerIn(CCPoint posEnd);
+	//玩家收币回调
+	void onMoveJettonPlayerIn(CCNode *node);
 };

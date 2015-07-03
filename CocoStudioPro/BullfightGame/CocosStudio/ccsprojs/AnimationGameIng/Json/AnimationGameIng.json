@@ -55,7 +55,7 @@
         {
           "name": "Layer1",
           "parent": "",
-          "dI": -978,
+          "dI": -981,
           "x": 0.0,
           "y": 0.0,
           "z": 1,
@@ -568,7 +568,7 @@
         },
         {
           "name": "enterChair",
-          "dr": 30,
+          "dr": 31,
           "lp": false,
           "to": 0,
           "drTW": 0,

@@ -82,6 +82,8 @@ private:
 	//游戏结束输赢筹码统计
 	long long lUserScore;								//玩家成绩
 	long long lBankerScore;								//庄家成绩
+	CCPoint posBankJetton;								//庄家筹码位置
+	CCPoint posPlayerJetton;							//玩家筹码位置
 	//游戏状态
 protected:
 	bool								m_bAllowLookon;						//允许旁观
@@ -196,4 +198,20 @@ public:
 	void onAnimationEventOver(CCArmature *pArmature, MovementEventType movementType, const char *movementID);
 	void onAnimationEventFrame(CCBone *bone, const char *evt, int originFrameIndex, int currentFrameIndex);
 
+private:
+	//分发筹码
+	void bankJettonIn(float dt);
+	//移动相同筹码(庄家收)
+	void moveJettonBankIn(int chairID,CCPoint pos);
+	//庄家出
+	void moveJettonBankOut(int chairID);
+	//玩家收
+	void moveJettonPlayerIn(int chairID);
+public:
+	//庄家出币
+	void bankOutJetton();
+	//玩家收币
+	void playerInJetton();
+	//分币完成
+	void splitJettonFinish();
 };
