@@ -350,7 +350,8 @@ void GameControlOxHundred::onMenuPlaceJetton(CCObject* pSender, TouchEventType t
 	case TOUCH_EVENT_ENDED:
 	{
 		if (iCurSelectJettonIndex == -1 ||
-			DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameState() != MainSceneOxHundred::STATE_GAME_PLACE_JETTON)
+			DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameState() != MainSceneOxHundred::STATE_GAME_PLACE_JETTON
+			|| m_wBankerUser == DataModel::sharedDataModel()->userInfo->wChairID)
 		{
 			CCLog("nonononon<<%s>>", __FUNCTION__);
 			return;
