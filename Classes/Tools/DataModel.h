@@ -37,6 +37,8 @@ public:
 	std::vector <tagGameServer *> tagGameServerListSixSwap;
 	//用户信息数组
 	std::map<long ,tagUserInfo>mTagUserInfo;
+	//签到记录
+	std::map < long, int  > mapSignRecord;
 	//登录成功信息
 	//CMD_MB_LogonSuccess *logonSuccessUserInfo;
 	//最大加注数

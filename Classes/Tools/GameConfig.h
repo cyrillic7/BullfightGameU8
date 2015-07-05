@@ -25,7 +25,9 @@
 #define RMS_IS_MUSIC "isMusic"
 #define RMS_IS_SOUND "isSound"
 #define RMS_LOGON_ACCOUNT					"logonAccount"				//登录帐号
-#define RMS_LOGON_PASSWORD				"logonPassword"				//登录密码
+#define RMS_LOGON_PASSWORD					"logonPassword"				//登录密码
+#define RMS_SIGN_RECORD						"signRecord"				//签到记录
+
 
 //层级////////////////////////////////////////////////////////////////////////
 #define K_Z_ORDER_POP				12			//弹出层

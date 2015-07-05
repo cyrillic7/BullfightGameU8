@@ -19,6 +19,7 @@
 //#include "../Network/CMD_Server/cmd_ox.h"
 #include "../Tools/BaseAttributes.h"
 #include "../Platform/coPlatform.h"
+#include "../extensions/spine/Json.h"
 LogonScene* LogonScene::pLScene=NULL;
 LogonScene::LogonScene()
 	:eLogonType(LOGON_ACCOUNT)
@@ -77,6 +78,8 @@ LogonScene::LogonScene()
 
 
 	//CCLog("--------:%s <<%s>>", platformAction("{\"act\":100}").c_str(), __FUNCTION__);
+	//初始化签到信息
+	initSignInfo();
 #if(DEBUG_TEST==0||DEBUG_TEST==1)
 	CCLabelTTF *label = CCLabelTTF::create(GAME_VERSION, "Marker Felt", 20);
 	this->addChild(label, 2);
@@ -135,6 +138,34 @@ void LogonScene::onExit(){
     CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
     CCTextureCache::sharedTextureCache()->removeUnusedTextures();
 	CCLayer::onExit();
+}
+//初始化签到信息
+void LogonScene::initSignInfo(){
+	std::string sSign = Tools::getStringByRMS(RMS_SIGN_RECORD);
+	Json *root = Json_create(sSign.c_str());
+	if (root)
+	{
+		Json* _date = Json_getItem(root, "signData");
+		Json* _record = root->child;
+		while (_record)
+		{
+			long userID=0;
+			int day = 0;
+			Json* _userID = Json_getItem(_record, "userId");
+			if (_userID->type == Json_Number)
+			{
+				userID = _userID->valueint;
+			}
+			Json* _day = Json_getItem(_record, "signDay");
+			if (_day->type == Json_Number)
+			{
+				day = _day->valueint;
+			}
+			DataModel::sharedDataModel()->mapSignRecord.insert(map<long, int>::value_type(userID, day));
+			_record = _record->next;
+		}
+	}
+	Json_dispose(root);
 }
 void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 	switch (type)
@@ -543,6 +574,7 @@ void LogonScene::initRSM(){
 	Tools::saveBoolByRMS(RMS_IS_SOUND, true);
 	Tools::saveStringByRMS(RMS_LOGON_ACCOUNT,"");
 	Tools::saveStringByRMS(RMS_LOGON_PASSWORD,"");
+	Tools::saveStringByRMS(RMS_SIGN_RECORD, "");
 }
 bool LogonScene::isHaveSaveFile(){
 	if (!Tools::getBoolByRMS("isHaveSaveFileXml"))

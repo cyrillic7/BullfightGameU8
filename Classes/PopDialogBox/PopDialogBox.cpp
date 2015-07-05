@@ -64,6 +64,11 @@ void PopDialogBox::playAnimation(){
 		pWidgetBg->runAction(CCEaseBackOut::create(CCScaleTo::create(0.2, 1)));
 	}
 }
+//获取loading
+PopDialogBoxLoading *PopDialogBox::getLoading(){
+	PopDialogBoxLoading *pLoading = (PopDialogBoxLoading*)this->getChildByTag(TAG_LOADING);
+	return pLoading;
+}
 //连接服务器
 void PopDialogBox::connectServer(std::string socketName){
 	PopDialogBox *box = PopDialogBoxLoading::create();

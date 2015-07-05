@@ -83,8 +83,8 @@ void GameLobbyScene::onEnter(){
 		showUpTip();
 	}
 	//是否显示签到
-	isShowSign = false;
-	if (isShowSign)
+	//isShowSign = true;
+	if (isShowSign())
 	{
 		PopDialogBoxSign *pSign = PopDialogBoxSign::create();
 		this->addChild(pSign,10);
@@ -96,6 +96,23 @@ void GameLobbyScene::onEnter(){
 		tcp->createSocket(DataModel::sharedDataModel()->sLobbyIp.c_str(), DataModel::sharedDataModel()->lLobbyProt, new LobbyGameListerner());
 		//tcp->createSocket("112.1.1.1", pLobbyIp->dwServerPort, new LobbyGameListerner());
 	}
+}
+//显示签到
+bool GameLobbyScene::isShowSign(){
+	map<long, int >::iterator l_it;
+	l_it = DataModel::sharedDataModel()->mapSignRecord.find(DataModel::sharedDataModel()->userInfo->dwUserID);
+	if (l_it != DataModel::sharedDataModel()->mapSignRecord.end())
+	{
+		if (l_it->second == Tools::getCurDay())
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return true;
+	}
+	return true;
 }
 //显示站立提示
 void GameLobbyScene::showUpTip(){
@@ -120,7 +137,11 @@ void GameLobbyScene::menuResetUser(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
 	case TOUCH_EVENT_ENDED:
+	{
 		popDialogBox();
+		//PopDialogBoxSign *pSign = PopDialogBoxSign::create();
+		//this->addChild(pSign, 10);
+	}
 		break;
 	default:
 		break;

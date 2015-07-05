@@ -15,6 +15,7 @@
 #include "PopDialogBoxTipInfo.h"
 #define OUT_TIME			10				//超时时长
 PopDialogBoxLoading::PopDialogBoxLoading()
+	:pIOutTime(NULL)
 {
 	timerIndex = 0;
 }
@@ -57,7 +58,10 @@ void PopDialogBoxLoading::outTimeExit(float dt){
 	{
 		Tools::setTransitionAnimation(0,0,GameLobbyScene::scene(false));
 	}
-
+	if (getIOutTime())
+	{
+		getIOutTime()->onOutTime();
+	}
 	this->removeFromParentAndCleanup(true);
 }
 void PopDialogBoxLoading::playAnimation(){

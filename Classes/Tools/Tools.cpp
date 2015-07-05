@@ -190,6 +190,54 @@ int Tools::getTime(){
 
 	return sec;
 }
+//获取当前天
+int Tools::getCurDay(){
+	int day = 0;
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	struct cc_timeval now;
+	CCTime::gettimeofdayCocos2d(&now, NULL);
+	struct tm *tm;
+	time_t tp = now.tv_sec;
+	tm = localtime(&tp);
+
+	int tYDay = tm->tm_yday * 24 * 60 * 60;
+	int tHour = tm->tm_hour * 60 * 60;
+	int tMin = tm->tm_min * 60;
+	int tSce = tm->tm_sec;
+
+	day = tm->tm_mday  ;
+	//char date[64] = { 0 };
+	//sprintf(date, "%d,%02d,%02d,%02d,%02d,%02d", (int)tm->tm_year + 1900,
+	//(int)tm->tm_mon + 1, (int)tm->tm_mday, (int)tm->tm_hour, (int)tm->tm_min, (int)tm->tm_sec);
+	//return std::string(date);
+#endif
+#if ( CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 )
+	struct tm *tm;
+	time_t timep;
+	time(&timep);
+	tm = localtime(&timep);
+	//int year = tm->tm_year + 1900;  
+	//int month = tm->tm_mon + 1;  
+	//int day = tm->tm_mday;  
+	//int hour=tm->tm_hour;  
+	//int minute=tm->tm_min;  
+	//int second=tm->tm_sec;
+	//char time[64] = { 0 };
+	//sprintf(time, "%d,%02d,%02d,%02d,%02d,%02d", (int)tm->tm_year + 1900,
+	//(int)tm->tm_mon + 1, (int)tm->tm_mday, (int)tm->tm_hour,
+	//(int)tm->tm_min, (int)tm->tm_sec);
+	//return std::string(time);
+	int tYDay = tm->tm_yday * 24 * 60 * 60;
+	int tHour = tm->tm_hour * 60 * 60;
+	int tMin = tm->tm_min * 60;
+	int tSce = tm->tm_sec;
+
+
+	day = tm->tm_mday;
+#endif
+
+	return day;
+}
 long Tools::getMicroSeconds(){
 	struct cc_timeval now;
 	CCTime::gettimeofdayCocos2d(&now, NULL);

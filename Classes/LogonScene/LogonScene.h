@@ -55,6 +55,8 @@ public:
 	//登录游戏(帐号登录)
 	void logonGameByAccount(float dt);
 private:
+	//初始化签到信息
+	void initSignInfo();
 	//连接服务器
 	void connectServer();
 	//登录

@@ -8,7 +8,15 @@
 #pragma once
 
 #include "PopDialogBox.h"
+struct IOutTime//连接超时
+{
+	virtual ~IOutTime(){}
+	//超时回调
+	virtual void onOutTime() = 0;
+};
 class PopDialogBoxLoading: public PopDialogBox {
+public:
+	CC_SYNTHESIZE(IOutTime*, pIOutTime,IOutTime);
 private:
     
 	UIImageView *pWidgetBg;

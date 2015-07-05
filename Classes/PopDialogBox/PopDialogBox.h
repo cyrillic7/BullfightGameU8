@@ -22,7 +22,7 @@ struct IPopAssist//弹框辅助接口
 	//购买数量回调
 	virtual void onBuyNum(long lNum) = 0;
 };
-
+class PopDialogBoxLoading;
 class PopDialogBox : public CCLayer, public CStringAide, public CCEditBoxDelegate {
 public:
 	CC_SYNTHESIZE(IPopAssist*, pIPopAssist, IPopAssist);
@@ -49,7 +49,8 @@ public:
 	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent){return true; }
 	//播放放大动画
 	void playAnimation();
-
+	//获取loading
+	PopDialogBoxLoading *getLoading();
 	TCPSocket *getSocket(){return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(sSocketName); }
 	//连接服务器
 	void connectServer(std::string socketName);

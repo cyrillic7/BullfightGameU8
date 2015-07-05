@@ -43,6 +43,8 @@ public:
 	static float myRand_0_1();*/
 	static std::string get_date_now();
 	static int getTime();
+	//获取当前天
+	static int getCurDay();
 	static long getMicroSeconds();
 	//获取字符串长度（中英混合）
 	//static int strLength(const std::string &str);
