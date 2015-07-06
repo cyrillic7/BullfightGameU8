@@ -37,6 +37,8 @@ void PopDialogBoxSign::onEnter(){
 	//签到
 	pBSign = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonSign"));
 	pBSign->addTouchEventListener(this, toucheventselector(PopDialogBoxSign::onMenuSign));
+	//签到奖励金币
+	pLSignRewardGold = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelSignRewardGold"));
 	//签到天数信息
 	pLSignDayInfo = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelSignDayInfo"));
 	//签到奖励列表
@@ -110,7 +112,9 @@ void PopDialogBoxSign::updateListSignInfo(){
 		//签到天数
 		UILabel *pLSignDay = static_cast<UILabel*>(pIVSignBg->getChildByName("LabelSignLimite"));
 		pLSignDay->setText(vecSignInfo[i].dwDay>27?"满月 ":CCString::createWithFormat("连续签到%ld天 ", vecSignInfo[i].dwDay)->getCString());
-		
+		//连续签到奖励
+		UICheckBox *pCBRewardIcon = static_cast<UICheckBox*>(pIVSignBg->getChildByName("CheckBoxRewardIcon"));
+		pCBRewardIcon->loadTextureBackGround(CCString::createWithFormat("u_s_reward_gold%d.png",i)->getCString(), UI_TEX_TYPE_PLIST);
 	}
 }
 //更新签到天数
@@ -129,6 +133,7 @@ void PopDialogBoxSign::updateSignDayPanel(int iCurSignDay){
 			pBSignCurDay->setBright(true);
 		}
 	}
+	//更新列表
 	for (int i = 0; i < vecSignInfo.size(); i++)
 	{
 		int day = vecSignInfo[i].dwDay;
@@ -136,7 +141,15 @@ void PopDialogBoxSign::updateSignDayPanel(int iCurSignDay){
 		pBSignCurDay->loadTextureNormal(CCString::createWithFormat("u_s_gem_box%d.png",i)->getCString(), UI_TEX_TYPE_PLIST);
 		pBSignCurDay->loadTextureDisabled(CCString::createWithFormat("u_s_gem_box_open%d.png", i)->getCString(), UI_TEX_TYPE_PLIST);
 
+		//连续签到奖励
+		UIImageView *pIVSignBg = static_cast<UIImageView*>(pLVSign->getItem(i)->getChildByName("ImageSignBg"));
+		UICheckBox *pCBRewardIcon = static_cast<UICheckBox*>(pIVSignBg->getChildByName("CheckBoxRewardIcon"));
+		if (iCurSignDay>=day)
+		{
+			pCBRewardIcon->setSelectedState(true);
+		}
 	}
+	pLSignDayInfo->setText(CCString::createWithFormat("%ld天后清空签到信息", 31L - iCurSignDay)->getCString());
 }
 //////////////////////////////////////////////////////////////////////////
 void PopDialogBoxSign::update(float delta){
@@ -233,16 +246,26 @@ void PopDialogBoxSign::onSubSignInfo(void * pDataBuffer, unsigned short wDataSiz
 			
 			vecSignInfo.push_back(signInTask);
 		}
+		else if (signInfo->SignInTask[i].dwDay==1)
+		{
+			pLSignRewardGold->setText(CCString::createWithFormat("签到即可领取%lld金币", signInfo->SignInTask[i].lScore)->getCString());
+		}
 	}
-	pLSignDayInfo->setText(CCString::createWithFormat("%ld天后清空签到信息", 31L-signInfo->dwDay)->getCString());
-	updateSignDayPanel(signInfo->dwDay);
+	
 	updateListSignInfo();
+
+	updateSignDayPanel(signInfo->dwDay);
+	//updateSignDayPanel(31);
 }
 //签到
 void PopDialogBoxSign::onSubSignIn(void * pDataBuffer, unsigned short wDataSize){
 	assert(wDataSize == sizeof(CMD_GP_SignInTaskLog));
 	CMD_GP_SignInTaskLog *pSignInLog = (CMD_GP_SignInTaskLog*)pDataBuffer;
-	
+	if (pSignInLog->dwRet==0)
+	{
+		updateSignDayPanel(pSignInLog->dwDay);
+		pLSignRewardGold->setText(CCString::createWithFormat("签到即可领取%lld金币", pSignInLog->lScore)->getCString());
+	}
 
 	//保存签到记录
 	saveSignRecord();

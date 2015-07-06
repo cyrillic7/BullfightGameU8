@@ -27,6 +27,8 @@ private:
 	bool isSign;
 	//签到按键
 	UIButton *pBSign;
+	//签到奖励金币
+	UILabel *pLSignRewardGold;
 	//签到天数信息
 	UILabel *pLSignDayInfo;
 public:

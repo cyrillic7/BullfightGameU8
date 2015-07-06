@@ -586,5 +586,5 @@
     <string>UIVip.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxSign.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxUserInfo.json</CurrentUIJson>
 </UIProject>

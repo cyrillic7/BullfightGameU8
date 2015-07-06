@@ -20,7 +20,7 @@
             <key>u_l_ass_icon.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{209,185},{17,17}}</string>
+                <string>{{229,185},{17,17}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -30,10 +30,23 @@
                 <key>sourceSize</key>
                 <string>{17,17}</string>
             </dict>
+            <key>u_l_ass_input.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{190,185},{18,21}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{18,21}}</string>
+                <key>sourceSize</key>
+                <string>{18,21}</string>
+            </dict>
             <key>u_l_ass_password_icon.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{190,185},{17,19}}</string>
+                <string>{{210,185},{17,19}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -131,7 +144,7 @@
             <key>size</key>
             <string>{561,249}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:4adebf3faa17a989a39883855a9f81c5:935281cbef0a012cbecad02ee1b4df1d:87b72d562358c0152c5e043a32235641$</string>
+            <string>$TexturePacker:SmartUpdate:42a035d1210c03b511783ec46938293f:232f2d5a7bc485b331c3f97895b1a78d:87b72d562358c0152c5e043a32235641$</string>
             <key>textureFileName</key>
             <string>UILogon.png</string>
         </dict>

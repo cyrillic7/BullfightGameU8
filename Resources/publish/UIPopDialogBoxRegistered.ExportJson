@@ -1124,7 +1124,7 @@
                   "customProperty": "",
                   "flipX": false,
                   "flipY": false,
-                  "height": 19,
+                  "height": 21,
                   "ignoreSize": true,
                   "layoutParameter": null,
                   "opacity": 255,
@@ -1141,7 +1141,7 @@
                   "touchAble": false,
                   "useMergedTexture": true,
                   "visible": true,
-                  "width": 17,
+                  "width": 18,
                   "x": -175,
                   "y": 0,
                   "capInsetsHeight": 1,
@@ -1150,13 +1150,13 @@
                   "capInsetsY": 0,
                   "fileName": null,
                   "fileNameData": {
-                    "path": "u_l_ass_password_icon.png",
+                    "path": "u_l_ass_input.png",
                     "plistFile": "",
                     "resourceType": 1
                   },
                   "scale9Enable": false,
-                  "scale9Height": 19,
-                  "scale9Width": 17
+                  "scale9Height": 21,
+                  "scale9Width": 18
                 }
               },
               {

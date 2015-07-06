@@ -99,7 +99,16 @@
   </GuidesProject>
   <GuidesProject>
     <Project>UIPopDialogBoxSign</Project>
-    <GuidesList />
+    <GuidesList>
+      <GuidesInfo>
+        <GuidesName>VThumb</GuidesName>
+        <GuidesPosition>284.52765570746533</GuidesPosition>
+      </GuidesInfo>
+      <GuidesInfo>
+        <GuidesName>VThumb</GuidesName>
+        <GuidesPosition>601.26509094238281</GuidesPosition>
+      </GuidesInfo>
+    </GuidesList>
   </GuidesProject>
   <GuidesProject>
     <Project>UIPopDialogBoxVip</Project>
