@@ -8,9 +8,15 @@
 #pragma once
 
 #include "PopDialogBox.h"
-class PopDialogBoxUserInfo: public PopDialogBox {
+#include "../MTNotificationQueue/MessageQueue.h"
+#include "PopDialogBoxBindingPhone.h"
+class PopDialogBoxUserInfo : public PopDialogBox, public MessageQueue,public IPopAssistBindingPhone {
 private:
-
+	enum UserInfoType
+	{
+		USER_GET_MONEY=0,					//获取财富
+	};
+	CC_SYNTHESIZE(UserInfoType, eUserInfoType, UserInfoType);
     
 	//昵称输入框
 	UITextField *pLabelNickName;
@@ -24,6 +30,14 @@ private:
 	bool isShowChange;
 
 	UIPanel *ppSexInfo,*ppSexSelect;
+	//金币数
+	UILabel *pLGoldCount;
+	//元宝数
+	UILabel *pLBigGoldCount;
+	//奖券数
+	UILabel *pLVoucherCount;
+	//绑定手机
+	UIButton *pBBindingPhone;
 public:
 	PopDialogBoxUserInfo();
 	~PopDialogBoxUserInfo();
@@ -31,7 +45,10 @@ public:
 private:
 	virtual void onEnter();
 	virtual void onExit();
-
+	//重设绑定按键
+	void resetBindingButton();
+	//关闭绑定手机回调
+	virtual void onCloseBindingPhone();
 	//virtual void playAnimation();
 	//
 	void menuChange(CCObject *object, TouchEventType type);
@@ -42,4 +59,16 @@ private:
 	void updateSex();
 	//复选框回调（选择性别）
 	void onCheckBoxSelectedStateEvent(CCObject *pSender, CheckBoxEventType type);
+
+	//////////////////////////////////////////////////////////////////////////
+	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_USER_INFO); }
+	void update(float delta);
+	//连接成功
+	void connectSuccess();
+	//网络消息
+	virtual void onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
+	//用户服务
+	void onEventUserService(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
+	//财富
+	void onSubTreasure(void * pDataBuffer, unsigned short wDataSize);
 };

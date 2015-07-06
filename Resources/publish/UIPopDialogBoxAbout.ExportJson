@@ -29,8 +29,8 @@
     "UILoadingBar.plist",
     "UIConnectFailure.plist",
     "UIGameIng.plist",
-    "UIVip.plist",
-    "UIBindingPhone.plist"
+    "UIBindingPhone.plist",
+    "UIVip.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
@@ -52,8 +52,8 @@
     "UILoadingBar.png",
     "UIConnectFailure.png",
     "UIGameIng.png",
-    "UIVip.png",
-    "UIBindingPhone.png"
+    "UIBindingPhone.png",
+    "UIVip.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

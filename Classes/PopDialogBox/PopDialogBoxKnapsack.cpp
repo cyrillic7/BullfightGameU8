@@ -68,7 +68,10 @@ void PopDialogBoxKnapsack::onEnter(){
 	}*/
 }
 void PopDialogBoxKnapsack::onExit(){
-	getIPopAssistKnapsack()->onCloseKnapsack();
+	if (getIPopAssistKnapsack())
+	{
+		getIPopAssistKnapsack()->onCloseKnapsack();
+	}
 	CCLayer::onExit();
 }
 void PopDialogBoxKnapsack::update(float delta){

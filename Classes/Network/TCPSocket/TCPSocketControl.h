@@ -28,6 +28,8 @@ USING_NS_CC;
 #define SOCKET_RANKING							"socketRanking"					//排行榜
 #define SOCKET_VIP								"socketVip"						//VIP特权
 #define SOCKET_SIGN								"socketSign"					//签到
+#define SOCKET_USER_INFO						"socketUserInfo"				//用户信息
+#define SOCKET_BINDING_PHONE					"socketBindingPhone"			//绑定手机
 //#define SOCKET_MY_PROPERTY						"myProperty"					//获取财富
 
 class TCPSocketControl {

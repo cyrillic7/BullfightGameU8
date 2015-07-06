@@ -21,6 +21,8 @@ public:
 	std::string sLogonPassword;
 	//长连接大厅地址
 	std::string sLobbyIp;
+	//手机号码
+	std::string sPhone;
 	//长连接大厅端口
 	long lLobbyProt;
 	//主场景对象

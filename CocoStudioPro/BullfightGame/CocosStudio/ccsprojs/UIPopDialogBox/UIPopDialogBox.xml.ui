@@ -62,8 +62,8 @@
     <string>UILoadingBar.plist</string>
     <string>UIConnectFailure.plist</string>
     <string>UIGameIng.plist</string>
-    <string>UIVip.plist</string>
     <string>UIBindingPhone.plist</string>
+    <string>UIVip.plist</string>
   </imageFileList>
   <imagePngList>
     <string>UIPanel.png</string>
@@ -85,8 +85,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -106,8 +106,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -127,8 +127,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -148,8 +148,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -169,8 +169,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -190,8 +190,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -211,8 +211,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -232,8 +232,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -253,8 +253,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -274,8 +274,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -295,8 +295,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -316,8 +316,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -337,8 +337,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -358,8 +358,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -379,8 +379,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -400,8 +400,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -421,8 +421,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -442,8 +442,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -463,8 +463,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -484,8 +484,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -505,8 +505,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -526,8 +526,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -547,8 +547,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -568,8 +568,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -589,8 +589,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -610,8 +610,8 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -631,9 +631,9 @@
     <string>UILoadingBar.png</string>
     <string>UIConnectFailure.png</string>
     <string>UIGameIng.png</string>
-    <string>UIVip.png</string>
     <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxBindingPhone.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxLogonAccount.json</CurrentUIJson>
 </UIProject>

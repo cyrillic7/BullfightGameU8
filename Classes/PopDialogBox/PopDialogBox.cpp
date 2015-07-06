@@ -132,7 +132,7 @@ void PopDialogBox::addEditBox(UITextField *pTextField, EditBoxInputMode eInputMo
 	pEditBox->setFontColor(pTextField->getColor());//设置文字颜色
 	
 
-	pEditBox->setPlaceHolder(pTextField->getPlaceHolder());//点位符
+	pEditBox->setPlaceHolder(pTextField->getPlaceHolder());//占位符
 	pEditBox->setPlaceholderFontSize(pTextField->getFontSize());
 
     if (pTextField->getMaxLength()>0) {

@@ -10,15 +10,19 @@
 #include "../Tools/GameConfig.h"
 #include "../Tools/BaseAttributes.h"
 #include "../Tools/Tools.h"
-#include "PopDialogBoxBindingPhone.h"
+
+#include "../Network/MD5/MD5.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxUserInfo::PopDialogBoxUserInfo()
 :isShowChange(false)
+, eUserInfoType(USER_GET_MONEY)
 {
-	
+	scheduleUpdate();
 }
 PopDialogBoxUserInfo::~PopDialogBoxUserInfo() {
 	CCLog("~ <<%s>>",__FUNCTION__);
+	unscheduleUpdate();
+	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_USER_INFO);
 }
 void PopDialogBoxUserInfo::onEnter(){
 	CCLayer::onEnter();
@@ -30,10 +34,12 @@ void PopDialogBoxUserInfo::onEnter(){
 	pWidgetBg->setScale(0.8);
 
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
-	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));
+	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::onMenuBackWithReadMsg));
 	//绑定手机
-	UIButton *pBBindingPhone = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonBindPhone"));
+	pBBindingPhone = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonBindPhone"));
 	pBBindingPhone->addTouchEventListener(this, toucheventselector(PopDialogBoxUserInfo::onMenuBindingPhone));
+	resetBindingButton();
+	
 	//设置游戏ID
 	UILabel *labelUserID=static_cast<UILabel*>(pUILayer->getWidgetByName("LabelUserID"));
 	labelUserID->setText(CCString::createWithFormat("ID:%ld",DataModel::sharedDataModel()->userInfo->dwGameID)->getCString());
@@ -48,6 +54,12 @@ void PopDialogBoxUserInfo::onEnter(){
 
 	pcbSexBoy=static_cast<UICheckBox*>(pUILayer->getWidgetByName("CheckBoxSexBoy"));
 	pcbSexBoy->addEventListenerCheckBox(this,SEL_SelectedStateEvent(&PopDialogBoxUserInfo::onCheckBoxSelectedStateEvent));
+	//金币数
+	pLGoldCount= static_cast<UILabel*>(pUILayer->getWidgetByName("LabelGoldCount"));
+	//元宝数
+	pLBigGoldCount = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelBigGoldCount"));
+	//奖券数
+	pLVoucherCount = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelVoucherCount"));
 	//修改按键
 	UIButton *bChange=static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonChange"));
 	bChange->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxUserInfo::menuChange));
@@ -60,13 +72,34 @@ void PopDialogBoxUserInfo::onEnter(){
 	ppSexSelect=static_cast<UIPanel*>(pUILayer->getWidgetByName("PanelSexSelect"));
 	updateSex();
 	setShowChangeView();
+	//设置大厅不读取数据
+	setLobbyReadMessage(false);
+	//连接服务
+	connectServer(SOCKET_USER_INFO);
 
 	playAnimation();
 }
 void PopDialogBoxUserInfo::onExit(){
 	CCLayer::onExit();
 }
-
+//重设绑定按键
+void PopDialogBoxUserInfo::resetBindingButton(){
+	UIImageView *pIVBindingFinish = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageBinding"));
+	if (DataModel::sharedDataModel()->sPhone.length() > 0)
+	{
+		pBBindingPhone->setEnabled(false);
+		pIVBindingFinish->setVisible(true);
+	}
+	else
+	{
+		pIVBindingFinish->setVisible(false);
+	}
+}
+//关闭绑定手机回调
+void PopDialogBoxUserInfo::onCloseBindingPhone(){
+	isReadMessage = true;
+	resetBindingButton();
+}
 void PopDialogBoxUserInfo::menuChange(CCObject *object, TouchEventType type){
 	if (type==TOUCH_EVENT_ENDED)
 	{
@@ -82,7 +115,9 @@ void PopDialogBoxUserInfo::menuChange(CCObject *object, TouchEventType type){
 void PopDialogBoxUserInfo::onMenuBindingPhone(CCObject *object, TouchEventType type){
 	if (type == TOUCH_EVENT_ENDED)
 	{
+		isReadMessage = false;
 		PopDialogBoxBindingPhone *pPopBoxBinding = PopDialogBoxBindingPhone::create();
+		pPopBoxBinding->setIPopAssistBindingPhone(this);
 		this->addChild(pPopBoxBinding);
 	}
 }
@@ -161,4 +196,77 @@ void PopDialogBoxUserInfo::onCheckBoxSelectedStateEvent(CCObject *pSender, Check
 	default:
 		break;
 	}
+}
+//////////////////////////////////////////////////////////////////////////
+void PopDialogBoxUserInfo::update(float delta){
+	if (isReadMessage)
+	{
+		MessageQueue::update(delta);
+	}
+}
+//读取网络消息回调
+void PopDialogBoxUserInfo::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
+	switch (wMainCmdID)
+	{
+	case MDM_MB_SOCKET://socket连接成功
+	{
+		connectSuccess();
+	}
+	break;
+	case MDM_GP_USER_SERVICE://用户服务
+	{
+		onEventUserService(wSubCmdID, pDataBuffer, wDataSize);
+		//移除loading
+		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+		//关闭网络
+		TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_USER_INFO);
+	}
+	break;
+	default:
+		CCLog("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
+		break;
+	}
+}
+//连接成功
+void PopDialogBoxUserInfo::connectSuccess(){
+	switch (eUserInfoType)
+	{
+	case PopDialogBoxUserInfo::USER_GET_MONEY:	//获取财富
+	{
+		CMD_GP_UserID userID;
+		userID.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+
+		MD5 m;
+		m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
+		std::string md5PassWord = m.GetMd5();
+		strcpy(userID.szPassword, md5PassWord.c_str());
+
+		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_TREASURE, &userID, sizeof(CMD_GP_UserID));
+	}
+		break;
+	default:
+		break;
+	}
+}
+//用户服务
+void PopDialogBoxUserInfo::onEventUserService(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
+	switch (wSubCmdID)
+	{
+	case SUB_GP_TREASURE://财富详细 
+	{
+		onSubTreasure(pDataBuffer, wDataSize);
+	}
+	break;
+	default:
+		CCLog("   %d<<%s>>", wSubCmdID, __FUNCTION__);
+		break;
+	}
+}
+//财富
+void PopDialogBoxUserInfo::onSubTreasure(void * pDataBuffer, unsigned short wDataSize){
+	if (wDataSize != sizeof(CMD_GP_UserTreasure)) return;
+	CMD_GP_UserTreasure * pUserTreasure = (CMD_GP_UserTreasure *)pDataBuffer;
+	pLGoldCount->setText(CCString::createWithFormat("%lld",DataModel::sharedDataModel()->userInfo->lScore)->getCString());
+	pLBigGoldCount->setText(CCString::createWithFormat("%lld", pUserTreasure->lIngotScore)->getCString());
+	pLVoucherCount->setText(CCString::createWithFormat("%lld",pUserTreasure->lLottery)->getCString());
 }

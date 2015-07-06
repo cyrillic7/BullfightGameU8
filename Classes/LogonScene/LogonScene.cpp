@@ -401,7 +401,8 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			DataModel::sharedDataModel()->cbInsurePwd=ls->cbInsurePwd;
 			DataModel::sharedDataModel()->userInfo->lIngot = ls->lIngot;
 			DataModel::sharedDataModel()->userInfo->lIngotScore = ls->lIngotScore;
-
+			DataModel::sharedDataModel()->sPhone = ls->szPhone;
+			
 			if (strcmp(sRegisterAccount.c_str(),"")!=0)
 			{
 				DataModel::sharedDataModel()->sLogonAccount = sRegisterAccount;

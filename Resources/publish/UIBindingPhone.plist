@@ -7,33 +7,46 @@
             <key>u_binding_get_code.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{268,2},{123,44}}</string>
+                <string>{{143,48},{156,44}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{123,44}}</string>
+                <string>{{0,0},{156,44}}</string>
                 <key>sourceSize</key>
-                <string>{123,44}</string>
+                <string>{156,44}</string>
+            </dict>
+            <key>u_binding_get_code_dis.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{301,2},{156,44}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{156,44}}</string>
+                <key>sourceSize</key>
+                <string>{156,44}</string>
             </dict>
             <key>u_binding_get_code_pre.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{143,2},{123,44}}</string>
+                <string>{{143,2},{156,44}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{123,44}}</string>
+                <string>{{0,0},{156,44}}</string>
                 <key>sourceSize</key>
-                <string>{123,44}</string>
+                <string>{156,44}</string>
             </dict>
             <key>u_binding_input_code.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{284,74},{18,18}}</string>
+                <string>{{442,48},{18,18}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +59,7 @@
             <key>u_binding_input_phone.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{284,48},{15,24}}</string>
+                <string>{{442,68},{15,24}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +85,7 @@
             <key>u_binding_reward.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{143,48},{139,39}}</string>
+                <string>{{301,48},{139,39}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -90,9 +103,9 @@
             <key>realTextureFileName</key>
             <string>UIBindingPhone.png</string>
             <key>size</key>
-            <string>{393,102}</string>
+            <string>{462,102}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:baa11a0262e68a82fe4b84067a3cca61:f6683c81c8dc5538c1ac18c1750fdd51:8b034c4d2fb53895cc075bb27d8f51e6$</string>
+            <string>$TexturePacker:SmartUpdate:c5ec878c4c7ffa86b301dbd8564ec9f1:30b095ede348cbd14fa6db1babc1a7c3:8b034c4d2fb53895cc075bb27d8f51e6$</string>
             <key>textureFileName</key>
             <string>UIBindingPhone.png</string>
         </dict>

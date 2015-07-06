@@ -120,6 +120,15 @@
   </GuidesProject>
   <GuidesProject>
     <Project>UIPopDialogBoxBindingPhone</Project>
-    <GuidesList />
+    <GuidesList>
+      <GuidesInfo>
+        <GuidesName>VThumb</GuidesName>
+        <GuidesPosition>427.05635771424454</GuidesPosition>
+      </GuidesInfo>
+      <GuidesInfo>
+        <GuidesName>VThumb</GuidesName>
+        <GuidesPosition>490.75747403231532</GuidesPosition>
+      </GuidesInfo>
+    </GuidesList>
   </GuidesProject>
 </ArrayOfGuidesProject>

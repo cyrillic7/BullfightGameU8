@@ -277,6 +277,9 @@ struct CMD_GP_ServerOnline
 #define SUB_GP_MODIFY_PASSPORT_ID	104	                                //身份证绑定
 #define SUB_GP_VERIFY_INSURE_PASS	105	                                //验证保险柜密码
 
+#define SUB_GP_GET_CAPTCHA			106									//获取验证码
+#define SUB_GP_SEND_CAPTCHA			107									//发送验证码
+
 #define SUB_GP_GIFT 				108									//礼品包
 #define SUB_GP_PROPERTY				109									//道具
 #define SUB_GP_BUYGIFT				110									//购买礼品包,道具
@@ -336,7 +339,42 @@ struct CMD_GP_ServerOnline
 #define	 DESPICT_LEN		32
 #define  GIFT_COUNT			30
 #define  NOTE_LEN			64
+//////////////////////////////////////////////////////////////////////////
+//获取验证码
+struct CMD_GP_Get_Captcha
+{
+	CMD_GP_Get_Captcha()
+	{
+		//memset(this, 0, sizeof(CMD_GP_Get_Captcha));
+	}
+	DWORD							dwUserID;							//用户 I D
+	TCHAR							szLogonPass[LEN_MD5];				//登录密码
+	TCHAR							szPhone[LEN_MOBILE_PHONE];			//移动电话
+	TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
+};
 
+
+//发送验证码
+struct CMD_GP_Send_Captcha
+{
+	CMD_GP_Send_Captcha()
+	{
+		//memset(this, 0, sizeof(CMD_GP_Send_Captcha));
+	}
+	DWORD							dwUserID;							//用户 I D
+	DWORD							dwCaptcha;							//验证码
+};
+
+//验证码失败
+struct CMD_GP_CaptchaRet
+{
+	CMD_GP_CaptchaRet()
+	{
+		//memset(this, 0, sizeof(CMD_GP_CaptchaRet));
+	}
+	long							lResultCode;						//错误代码
+	TCHAR							szDescribeString[128];				//描述消息
+};
 //商店////////////////////////////////////////礼品/////////////////////////////
 //通过什么途径购买
 struct CMD_GP_Buy_Price
