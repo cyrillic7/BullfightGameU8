@@ -29,7 +29,8 @@
     "UILoadingBar.plist",
     "UIConnectFailure.plist",
     "UIGameIng.plist",
-    "UIVip.plist"
+    "UIVip.plist",
+    "UIBindingPhone.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
@@ -52,6 +53,7 @@
     "UIConnectFailure.png",
     "UIGameIng.png",
     "UIVip.png",
+    "UIBindingPhone.png",
     "UIPanel.png",
     "UIButton.png",
     "UIRanking.png",
@@ -72,6 +74,7 @@
     "UIConnectFailure.png",
     "UIGameIng.png",
     "UIVip.png",
+    "UIBindingPhone.png",
     "UIPanel.png",
     "UIButton.png",
     "UIRanking.png",
@@ -92,6 +95,7 @@
     "UIConnectFailure.png",
     "UIGameIng.png",
     "UIVip.png",
+    "UIBindingPhone.png",
     "UIPanel.png",
     "UIButton.png",
     "UIRanking.png",
@@ -111,7 +115,8 @@
     "UILoadingBar.png",
     "UIConnectFailure.png",
     "UIGameIng.png",
-    "UIVip.png"
+    "UIVip.png",
+    "UIBindingPhone.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

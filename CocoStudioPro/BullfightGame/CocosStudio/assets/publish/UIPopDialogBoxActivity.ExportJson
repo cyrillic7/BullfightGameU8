@@ -29,7 +29,8 @@
     "UILoadingBar.plist",
     "UIConnectFailure.plist",
     "UIGameIng.plist",
-    "UIVip.plist"
+    "UIVip.plist",
+    "UIBindingPhone.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
@@ -52,6 +53,7 @@
     "UIConnectFailure.png",
     "UIGameIng.png",
     "UIVip.png",
+    "UIBindingPhone.png",
     "UIPanel.png",
     "UIButton.png",
     "UIRanking.png",
@@ -71,7 +73,8 @@
     "UILoadingBar.png",
     "UIConnectFailure.png",
     "UIGameIng.png",
-    "UIVip.png"
+    "UIVip.png",
+    "UIBindingPhone.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -636,8 +639,8 @@
                     "type": 1
                   },
                   "opacity": 255,
-                  "positionPercentX": 0,
-                  "positionPercentY": 0.7507246,
+                  "positionPercentX": 0.00370370364,
+                  "positionPercentY": 1.49275362,
                   "positionType": 0,
                   "rotation": 0,
                   "scaleX": 1,
@@ -650,8 +653,8 @@
                   "useMergedTexture": true,
                   "visible": true,
                   "width": 540,
-                  "x": 0,
-                  "y": 259,
+                  "x": 2,
+                  "y": 515,
                   "adaptScreen": false,
                   "backGroundImage": null,
                   "backGroundImageData": null,

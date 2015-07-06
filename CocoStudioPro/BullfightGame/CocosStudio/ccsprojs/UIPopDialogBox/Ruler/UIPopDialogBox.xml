@@ -118,4 +118,8 @@
     <Project>UIPopDialogBoxRegistered</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxBindingPhone</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

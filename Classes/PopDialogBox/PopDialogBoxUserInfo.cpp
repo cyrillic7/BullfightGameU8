@@ -10,6 +10,7 @@
 #include "../Tools/GameConfig.h"
 #include "../Tools/BaseAttributes.h"
 #include "../Tools/Tools.h"
+#include "PopDialogBoxBindingPhone.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxUserInfo::PopDialogBoxUserInfo()
 :isShowChange(false)
@@ -30,6 +31,9 @@ void PopDialogBoxUserInfo::onEnter(){
 
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));
+	//绑定手机
+	UIButton *pBBindingPhone = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonBindPhone"));
+	pBBindingPhone->addTouchEventListener(this, toucheventselector(PopDialogBoxUserInfo::onMenuBindingPhone));
 	//设置游戏ID
 	UILabel *labelUserID=static_cast<UILabel*>(pUILayer->getWidgetByName("LabelUserID"));
 	labelUserID->setText(CCString::createWithFormat("ID:%ld",DataModel::sharedDataModel()->userInfo->dwGameID)->getCString());
@@ -72,6 +76,14 @@ void PopDialogBoxUserInfo::menuChange(CCObject *object, TouchEventType type){
 			DataModel::sharedDataModel()->userInfo->cbGender=pcbSexBoy->getSelectedState()?1:2;
 		}
 		setShowChangeView();
+	}
+}
+//绑定手机按键
+void PopDialogBoxUserInfo::onMenuBindingPhone(CCObject *object, TouchEventType type){
+	if (type == TOUCH_EVENT_ENDED)
+	{
+		PopDialogBoxBindingPhone *pPopBoxBinding = PopDialogBoxBindingPhone::create();
+		this->addChild(pPopBoxBinding);
 	}
 }
 //设置显示修改窗口

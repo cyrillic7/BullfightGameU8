@@ -35,6 +35,8 @@ private:
 	//virtual void playAnimation();
 	//
 	void menuChange(CCObject *object, TouchEventType type);
+	//绑定手机按键
+	void onMenuBindingPhone(CCObject *object, TouchEventType type);
 	void setShowChangeView();
 	//更新性别
 	void updateSex();
