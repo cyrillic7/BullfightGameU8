@@ -131,4 +131,8 @@
       </GuidesInfo>
     </GuidesList>
   </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxForgetPassword</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

@@ -23,4 +23,6 @@ private:
 
 	void onTextFieldAccount(CCObject* obj, TextFiledEventType type);
 	void onMenuLogon(CCObject *object, TouchEventType type);
+	//找回密码
+	void onMenuRetrievePwd(CCObject *object, TouchEventType type);
 };

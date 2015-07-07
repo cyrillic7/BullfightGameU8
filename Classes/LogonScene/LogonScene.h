@@ -36,6 +36,7 @@ private:
     UILayer *m_pWidget;
 public:
     static LogonScene* pLScene;
+	bool isReadMessage;
 public:
     LogonScene();
     ~LogonScene();

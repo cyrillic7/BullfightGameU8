@@ -23,6 +23,7 @@
 LogonScene* LogonScene::pLScene=NULL;
 LogonScene::LogonScene()
 	:eLogonType(LOGON_ACCOUNT)
+	, isReadMessage(true)
 {
 	DataModel *m = DataModel::sharedDataModel();
 	CC_SAFE_RELEASE_NULL(m);
@@ -222,7 +223,10 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 	}
 }
 void LogonScene::update(float delta){
-	MessageQueue::update(delta);
+	if (isReadMessage)
+	{
+		MessageQueue::update(delta);
+	}
 }
 //连接服务器
 void LogonScene::connectServer(){

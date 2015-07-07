@@ -10,6 +10,7 @@
 #include "../Tools/GameConfig.h"
 #include "../Tools/Tools.h"
 #include "../LogonScene/LogonScene.h"
+#include "PopDialogBoxForgetPassword.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxLogonAccount::PopDialogBoxLogonAccount()
 {
@@ -30,6 +31,9 @@ void PopDialogBoxLogonAccount::onEnter(){
 	//绑定关闭按键
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));
+	//找回密码
+	UILabel *pLRetrievePwd = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelRetrievePwd"));
+	pLRetrievePwd->addTouchEventListener(this, toucheventselector(PopDialogBoxLogonAccount::onMenuRetrievePwd));
 	//绑定登录按键
 	backButton=static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonLogonAccount"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxLogonAccount::onMenuLogon));
@@ -95,5 +99,13 @@ void PopDialogBoxLogonAccount::onMenuLogon(CCObject *object, TouchEventType type
 		break;
 	default:
 		break;
+	}
+}
+//找回密码
+void PopDialogBoxLogonAccount::onMenuRetrievePwd(CCObject *object, TouchEventType type){
+	if (type==TOUCH_EVENT_ENDED)
+	{
+		PopDialogBoxForgetPassword *pFPwd = PopDialogBoxForgetPassword::create();
+		((LogonScene*)this->getParent())->addChild(pFPwd);
 	}
 }
