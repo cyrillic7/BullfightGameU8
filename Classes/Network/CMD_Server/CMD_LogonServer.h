@@ -301,6 +301,9 @@ struct CMD_GP_ServerOnline
 #define	SUB_GP_GET_SIGNIN_TASK		126									//获取签到列表
 #define	SUB_GP_SIGNIN				127									//签到
 
+#define SUB_GP_SET_INSUREPASS_GET_CAPTCHA			128					//获取验证码
+#define SUB_GP_SET_INSUREPASS_SEND_CAPTCHA			129					//发送验证码
+
 #define SUB_GP_CHECK_ACCOUNT		140									//核对账号
 #define SUB_GP_GET_CAPTCHA_BY_ID	141									//根据ID获取验证码
 #define SUB_GP_SET_LOGIN_PASS		142									//设置新登录密码
@@ -329,6 +332,8 @@ struct CMD_GP_ServerOnline
 #define SUB_GP_GET_ALMS             409                                 //领取救济金     
 #define SUB_GP_INSURE_RECORD        410                                 //银行记录   
 
+#define SUB_GP_EXCHANGE_INGOT       411                                 //元宝兑换 
+
 #define SUB_GP_TREASURE					413                             //财富详细 
 #define SUB_GP_CONVERSION_AUCTIONSCORE   414                            //拍卖所得兑换 
 
@@ -344,6 +349,57 @@ struct CMD_GP_ServerOnline
 #define	 DESPICT_LEN		32
 #define  GIFT_COUNT			30
 #define  NOTE_LEN			64
+//////////////////////////////////////////////////////////////////////////
+//元宝兑换
+struct CMD_GP_UserExchangeIngot
+{
+	DWORD							dwUserID;							//用户 I D
+	DWORD							dwIngot;							//元宝
+	TCHAR							szPassword[LEN_MD5];				//登录密码
+	TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
+};
+
+//元宝兑换成功
+struct CMD_GP_ExchangeIngotSuccess
+{
+	DWORD							dwUserID;							//用户 I D
+	SCORE							lInsure;							//银行
+	SCORE							lIngot;								//元宝
+	TCHAR							szDescribeString[128];				//描述消息
+};
+//////////////////////////////////////////////////////////////////////////
+//重设银行密码---获取验证码
+struct CMD_GP_SetInsurePassGetCaptcha
+{
+	CMD_GP_SetInsurePassGetCaptcha()
+	{
+		//memset(this, 0, sizeof(CMD_GP_SetInsurePassGetCaptcha));
+	}
+	DWORD							dwUserID;							//用户 I D
+	TCHAR							szLogonPass[LEN_MD5];				//登录密码
+	TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
+};
+
+//验证码失败
+struct CMD_GP_CaptchaRet
+{
+	CMD_GP_CaptchaRet()
+	{
+		//memset(this, 0, sizeof(CMD_GP_CaptchaRet));
+	}
+	long							lResultCode;						//错误代码
+	TCHAR							szDescribeString[128];				//描述消息
+};
+//重设密码返回
+struct CMD_GP_SetPassRet
+{
+	CMD_GP_SetPassRet()
+	{
+		//memset(this, 0, sizeof(CMD_GP_SetPassRet));
+	}
+	long							lResultCode;						//错误代码
+	TCHAR							szDescribeString[128];				//描述消息
+};
 //////////////////////////////////////////////////////////////////////////
 //获取帐号
 struct CMD_GP_Accounts
@@ -387,16 +443,7 @@ struct CMD_GP_SetPass
 	DWORD							dwCaptcha;							//验证码
 	TCHAR							szLogonPass[LEN_MD5];				//登录密码
 };
-//重设密码返回
-struct CMD_GP_SetPassRet
-{
-	CMD_GP_SetPassRet()
-	{
-		//memset(this, 0, sizeof(CMD_GP_SetPassRet));
-	}
-	long							lResultCode;						//错误代码
-	TCHAR							szDescribeString[128];				//描述消息
-};
+
 
 
 //解梆主机
@@ -446,7 +493,7 @@ struct CMD_GP_Send_Captcha
 	DWORD							dwCaptcha;							//验证码
 };
 
-//验证码失败
+/*//验证码失败
 struct CMD_GP_CaptchaRet
 {
 	CMD_GP_CaptchaRet()
@@ -455,8 +502,16 @@ struct CMD_GP_CaptchaRet
 	}
 	long							lResultCode;						//错误代码
 	TCHAR							szDescribeString[128];				//描述消息
-};
+};*/
 //商店////////////////////////////////////////礼品/////////////////////////////
+struct CMD_GP_GetGift
+{
+	CMD_GP_GetGift()
+	{
+		//memset(this, 0, sizeof(CMD_GP_GetGift));
+	}
+	DWORD	dwOpTerminal;												//操作终端（0：公用 1：pc, 2：手机牛牛 3：手机捕鱼）
+};
 //通过什么途径购买
 struct CMD_GP_Buy_Price
 {
@@ -475,6 +530,7 @@ struct CMD_GP_Gift
 		//memset(this, 0, sizeof(CMD_GP_Gift));
 	}
 	DWORD				dwID;
+	DWORD				dwShowType;
 	TCHAR				szName[GIFT_NAME_LEN];
 	TCHAR				szImgName[GIFT_IMGNAME];
 	CMD_GP_Buy_Price	price[BUY_PRICE_COUNT];

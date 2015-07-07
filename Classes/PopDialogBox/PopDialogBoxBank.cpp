@@ -11,6 +11,7 @@
 #include "../Tools/BaseAttributes.h"
 #include "../Network/MD5/MD5.h"
 #include "../GameLobby/BaseLobbyScene.h"
+#include "PopDialogBoxForgetBankPwd.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxBank::PopDialogBoxBank()
 	:isGetBankInfo(false)
@@ -68,7 +69,9 @@ void PopDialogBoxBank::onEnter(){
 
 	pBDeposit = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonSaveMoney"));
 	pBDeposit->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxBank::onMenuChangeOperationType));
-
+	//忘记密码
+	UILabel *pLForgetPwd = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelForgetPwd"));
+	pLForgetPwd->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxBank::onMenuForgetPassword));
 	//
 	pLInput = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelInput"));
 	pLOutput = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelOutputMoney"));
@@ -325,6 +328,15 @@ void PopDialogBoxBank::onMenuQuickSelectMoney(CCObject *object, TouchEventType t
 		break;
 	}
 }
+//忘记密码
+void PopDialogBoxBank::onMenuForgetPassword(CCObject *object, TouchEventType type){
+	if (type==TOUCH_EVENT_ENDED)
+	{
+		isReadMessage = false;
+		PopDialogBoxForgetBankPwd *pFPwd = PopDialogBoxForgetBankPwd::create();
+		this->addChild(pFPwd);
+	}
+}
 //更新快捷款项选择键
 void PopDialogBoxBank::updateQuickButton(){
 	CCEditBox *pEBInputMoney = (CCEditBox*)pTFInputMoney->getNodeByTag(TAG_INPUT_EDIT_BOX);
@@ -368,7 +380,10 @@ void PopDialogBoxBank::updateQuickButton(){
 }
 //更新
 void PopDialogBoxBank::update(float delta){
-	MessageQueue::update(delta);
+	if (isReadMessage)
+	{
+		MessageQueue::update(delta);
+	}
 }
 //读取网络消息回调
 void PopDialogBoxBank::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){

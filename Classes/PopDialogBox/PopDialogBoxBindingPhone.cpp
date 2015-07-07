@@ -174,9 +174,9 @@ void PopDialogBoxBindingPhone::connectSuccess(){
 		if (isSend)
 		{
 			//移除loading
-			this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+			//this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 			//关闭网络
-			TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_BINDING_PHONE);
+			//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_BINDING_PHONE);
 		}
 	}
 	break;
@@ -214,7 +214,10 @@ void PopDialogBoxBindingPhone::onEventUserService(WORD wSubCmdID, void * pDataBu
 	{
 		assert(wDataSize <= sizeof(CMD_GP_CaptchaRet));
 		CMD_GP_CaptchaRet *catchaRet = (CMD_GP_CaptchaRet*)pDataBuffer;
-		showTipInfo(GBKToUTF8(catchaRet->szDescribeString));
+		if (catchaRet->lResultCode!=0)
+		{
+			showTipInfo(GBKToUTF8(catchaRet->szDescribeString));
+		}
 	}
 		break;
 	default:

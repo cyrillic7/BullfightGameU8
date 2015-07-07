@@ -54,6 +54,7 @@ private:
 	bool isGetBankInfo;
 	//临时密码
 	std::string sTempPassword;
+	
 public:
 	PopDialogBoxBank();
 	~PopDialogBoxBank();
@@ -75,6 +76,8 @@ private:
 	void onMenuOperationMoney(CCObject *object, TouchEventType type);
 	//快捷选择款项
 	void onMenuQuickSelectMoney(CCObject *object, TouchEventType type);
+	//忘记密码
+	void onMenuForgetPassword(CCObject *object, TouchEventType type);
 	//更新快捷款项选择键
 	void updateQuickButton();
 	//更新

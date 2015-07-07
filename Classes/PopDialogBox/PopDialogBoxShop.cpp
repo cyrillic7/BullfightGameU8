@@ -360,12 +360,16 @@ void PopDialogBoxShop::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void 
 		{
 		case PopDialogBoxShop::SHOP_GIFT_PACKAGE:
 		{
-			getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_GIFT);
+			CMD_GP_GetGift getGift;
+			getGift.dwOpTerminal = 2;
+			getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_GIFT, &getGift, sizeof(getGift));
 		}
 			break;
 		case PopDialogBoxShop::SHOP_PROP:
 		{
-			getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_PROPERTY);
+			CMD_GP_GetGift getGift;
+			getGift.dwOpTerminal = 2;
+			getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_PROPERTY, &getGift, sizeof(getGift));
 		}
 			break;
 		case PopDialogBoxShop::SHOP_BUY_GIFT:

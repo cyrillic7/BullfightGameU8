@@ -1058,7 +1058,7 @@
                   "touchAble": false,
                   "useMergedTexture": true,
                   "visible": true,
-                  "width": 99,
+                  "width": 117,
                   "x": 0,
                   "y": -5,
                   "areaHeight": 0,
@@ -1067,7 +1067,7 @@
                   "fontName": "微软雅黑",
                   "fontSize": 20,
                   "hAlignment": 0,
-                  "text": "___________",
+                  "text": "_____________",
                   "touchScaleEnable": false,
                   "vAlignment": 0
                 }
@@ -1105,7 +1105,7 @@
               "touchAble": true,
               "useMergedTexture": true,
               "visible": true,
-              "width": 96,
+              "width": 108,
               "x": 219,
               "y": -76,
               "areaHeight": 0,
@@ -1114,7 +1114,7 @@
               "fontName": "微软雅黑",
               "fontSize": 24,
               "hAlignment": 0,
-              "text": "找回密码",
+              "text": "找回密码?",
               "touchScaleEnable": false,
               "vAlignment": 0
             }

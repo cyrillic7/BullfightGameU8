@@ -1,31 +1,33 @@
 /*
- * PopDialogBoxForgetPassword.cpp
+ * PopDialogBoxForgetBankPwd.cpp
  *
  *  Created on: 2015年3月17日
  *      Author: 恒
  */
 
-#include "PopDialogBoxForgetPassword.h"
+#include "PopDialogBoxForgetBankPwd.h"
 #include "../Tools/DataModel.h"
 #include "../Tools/GameConfig.h"
 #include "../LogonScene/LogonScene.h"
 #include "../Network/MD5/MD5.h"
+#include "../Platform/coPlatform.h"
+#include "PopDialogBoxBank.h"
 //////////////////////////////////////////////////////////////////////////
-PopDialogBoxForgetPassword::PopDialogBoxForgetPassword()
-	:isInputId(true)
-	, eForgetPwdType(FORGET_GET_ID)
+PopDialogBoxForgetBankPwd::PopDialogBoxForgetBankPwd()
+	:isInputId(false)
+	, eForgetPwdType(FORGET_CODE)
 	, dwUserID(0)
 {
 	scheduleUpdate();
 }
-PopDialogBoxForgetPassword::~PopDialogBoxForgetPassword() {
+PopDialogBoxForgetBankPwd::~PopDialogBoxForgetBankPwd() {
 	CCLog("~ <<%s>>",__FUNCTION__);
 	//
 	
 	unscheduleUpdate();
 	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_FORGET_PWD);
 }
-void PopDialogBoxForgetPassword::onEnter(){
+void PopDialogBoxForgetBankPwd::onEnter(){
 	CCLayer::onEnter();
 	Layout* layoutPauseUI = static_cast<Layout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UIPopDialogBoxForgetPassword.ExportJson)));
 	pUILayer->addWidget(layoutPauseUI);
@@ -37,10 +39,10 @@ void PopDialogBoxForgetPassword::onEnter(){
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));
 	//下一步按键
 	pBNext = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonForgetPwd"));
-	pBNext->addTouchEventListener(this, toucheventselector(PopDialogBoxForgetPassword::onMenuForgetPassword));
+	pBNext->addTouchEventListener(this, toucheventselector(PopDialogBoxForgetBankPwd::onMenuForgetPassword));
 	//获取验证码
 	pBGetCode = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonGetCode"));
-	pBGetCode->addTouchEventListener(this, toucheventselector(PopDialogBoxForgetPassword::onMenuGetCode));
+	pBGetCode->addTouchEventListener(this, toucheventselector(PopDialogBoxForgetBankPwd::onMenuGetCode));
 	//输入帐号容器
 	pPInputId = static_cast<UIPanel*>(pUILayer->getWidgetByName("PanelInputId"));
 	pPInputId->setEnabled(true);
@@ -55,6 +57,7 @@ void PopDialogBoxForgetPassword::onEnter(){
 	addEditBox(pTFPhone, kEditBoxInputModePhoneNumber);
 	pEBInputPhone = (CCEditBox*)pTFPhone->getNodeByTag(TAG_INPUT_EDIT_BOX);
 	pEBInputPhone->setEnabled(false);
+	pEBInputPhone->setText(DataModel::sharedDataModel()->sPhone.c_str());
 	//输入新密码
 	UITextField *pTFNewPwd = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldNewPwd"));
 	addEditBox(pTFNewPwd, kEditBoxInputModeAny);
@@ -67,14 +70,24 @@ void PopDialogBoxForgetPassword::onEnter(){
 	pEBInputCode->setEnabled(false);
 	
 
+	pPInputId->setEnabled(false);
+	pPForgetPwd->setEnabled(true);
+	pPForgetPwd->setVisible(true);
+	pBNext->setTitleText(" 修 改 ");
+	CCEditBox *pEBInputID = (CCEditBox*)pTFInputId->getNodeByTag(TAG_INPUT_EDIT_BOX);
+	pEBInputID->setEnabled(false);
+	isInputId = false;
+	pEBInputNewPwd->setEnabled(true);
+	pEBInputCode->setEnabled(true);
+
 	playAnimation();
 }
-void PopDialogBoxForgetPassword::onExit(){
-	((LogonScene*)this->getParent())->isReadMessage = true;
+void PopDialogBoxForgetBankPwd::onExit(){
+	((PopDialogBoxBank*)this->getParent())->isReadMessage = true;
 	CCLayer::onExit();
 }
 //找回密码////////////////////////////////////////////////////////////////////////
-void PopDialogBoxForgetPassword::onMenuForgetPassword(CCObject *object, TouchEventType type){
+void PopDialogBoxForgetBankPwd::onMenuForgetPassword(CCObject *object, TouchEventType type){
 	if (type==TOUCH_EVENT_ENDED)
 	{
 		if (isInputId)
@@ -114,7 +127,7 @@ void PopDialogBoxForgetPassword::onMenuForgetPassword(CCObject *object, TouchEve
 	}
 }
 //获取验证码
-void PopDialogBoxForgetPassword::onMenuGetCode(CCObject *object, TouchEventType type){
+void PopDialogBoxForgetBankPwd::onMenuGetCode(CCObject *object, TouchEventType type){
 	if (type == TOUCH_EVENT_ENDED)
 	{
 		setForgetPwdType(FORGET_CODE);
@@ -125,10 +138,10 @@ void PopDialogBoxForgetPassword::onMenuGetCode(CCObject *object, TouchEventType 
 		pBGetCode->setTouchEnabled(false);
 		pBGetCode->setTitleColor(ccc3(100, 100, 100));
 		pBGetCode->setTitleText(CCString::createWithFormat("重新获取(%d秒)", iCurTimeCount)->getCString());
-		schedule(SEL_SCHEDULE(&PopDialogBoxForgetPassword::updateResetGetCode), 1);
+		schedule(SEL_SCHEDULE(&PopDialogBoxForgetBankPwd::updateResetGetCode), 1);
 	}
 }
-void PopDialogBoxForgetPassword::updateResetGetCode(float dt){
+void PopDialogBoxForgetBankPwd::updateResetGetCode(float dt){
 	iCurTimeCount--;
 	if (iCurTimeCount <= 0)
 	{
@@ -137,7 +150,7 @@ void PopDialogBoxForgetPassword::updateResetGetCode(float dt){
 		pBGetCode->setTitleColor(ccc3(255, 255, 255));
 		pBGetCode->setTitleText(" 获取验证码 ");
 
-		unschedule(SEL_SCHEDULE(&PopDialogBoxForgetPassword::updateResetGetCode));
+		unschedule(SEL_SCHEDULE(&PopDialogBoxForgetBankPwd::updateResetGetCode));
 	}
 	else
 	{
@@ -145,7 +158,7 @@ void PopDialogBoxForgetPassword::updateResetGetCode(float dt){
 	}
 }
 //更新
-void PopDialogBoxForgetPassword::update(float delta){
+void PopDialogBoxForgetBankPwd::update(float delta){
 	if (isReadMessage)
 	{
 		MessageQueue::update(delta);
@@ -153,7 +166,7 @@ void PopDialogBoxForgetPassword::update(float delta){
 }
 //////////////////////////////////////////////////////////////////////////
 //读取网络消息回调
-void PopDialogBoxForgetPassword::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
+void PopDialogBoxForgetBankPwd::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
 	switch (wMainCmdID)
 	{
 	case MDM_MB_SOCKET://连接成功
@@ -176,24 +189,23 @@ void PopDialogBoxForgetPassword::onEventReadMessage(WORD wMainCmdID, WORD wSubCm
 	}
 }
 //连接成功
-void PopDialogBoxForgetPassword::connectSuccess(){
+void PopDialogBoxForgetBankPwd::connectSuccess(){
 	switch (eForgetPwdType)
 	{
-	case PopDialogBoxForgetPassword::FORGET_GET_ID://获取ID
+	case PopDialogBoxForgetBankPwd::FORGET_CODE://获取验证码
 	{
-		CMD_GP_Accounts acc;
-		CCEditBox *pEBInputID = (CCEditBox*)pTFInputId->getNodeByTag(TAG_INPUT_EDIT_BOX);
-		strcpy(acc.szAccounts, pEBInputID->getText());
+		CMD_GP_SetInsurePassGetCaptcha pInsurePassGetCaptcha;
+		pInsurePassGetCaptcha.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+
+		MD5 m;
+		m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
+		std::string md5PassWord = m.GetMd5();
+		strcpy(pInsurePassGetCaptcha.szLogonPass,md5PassWord.c_str());
+
+		strcpy(pInsurePassGetCaptcha.szMachineID, platformAction("{\"act\":100}").c_str());
+
 		//发送数据
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_CHECK_ACCOUNT, &acc, sizeof(acc));
-	}
-		break;
-	case PopDialogBoxForgetPassword::FORGET_CODE://获取验证码
-	{
-		CMD_GP_GetCaptchaByUserID captchaByUserID;
-		captchaByUserID.dwUserID = dwUserID;
-		//发送数据
-		bool isSend = getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_GET_CAPTCHA_BY_ID, &captchaByUserID, sizeof(captchaByUserID));
+		bool isSend = getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_SET_INSUREPASS_GET_CAPTCHA, &pInsurePassGetCaptcha, sizeof(pInsurePassGetCaptcha));
 		if (isSend)
 		{
 			//移除loading
@@ -203,10 +215,10 @@ void PopDialogBoxForgetPassword::connectSuccess(){
 		}
 	}
 		break;
-	case PopDialogBoxForgetPassword::FORGET_CHANGE_PWD://修改密码
+	case PopDialogBoxForgetBankPwd::FORGET_CHANGE_PWD://修改密码
 	{
 		CMD_GP_SetPass setPwd;
-		setPwd.dwUserID = dwUserID;
+		setPwd.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
 
 		std::string sNewPwd = pEBInputNewPwd->getText();
 		MD5 m;
@@ -216,7 +228,7 @@ void PopDialogBoxForgetPassword::connectSuccess(){
 		strcpy(setPwd.szLogonPass, md5PassWord.c_str());
 		setPwd.dwCaptcha = strtol(pEBInputCode->getText(),NULL,10);
 		//发送数据
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_SET_LOGIN_PASS, &setPwd, sizeof(setPwd));
+		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_SET_INSUREPASS_SEND_CAPTCHA, &setPwd, sizeof(setPwd));
 	}
 		break;
 	default:
@@ -224,7 +236,7 @@ void PopDialogBoxForgetPassword::connectSuccess(){
 	}
 }
 //用户服务
-void PopDialogBoxForgetPassword::onEventUserService(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
+void PopDialogBoxForgetBankPwd::onEventUserService(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
 	switch (wSubCmdID)
 	{
 	case SUB_GP_CHECK_ACCOUNT:
@@ -232,12 +244,12 @@ void PopDialogBoxForgetPassword::onEventUserService(WORD wSubCmdID, void * pData
 		onSubGetID(pDataBuffer, wDataSize);
 	}
 	break;
-	case SUB_GP_GET_CAPTCHA_BY_ID:
+	case SUB_GP_SET_INSUREPASS_GET_CAPTCHA://获取验证码
 	{
 		onSubGetCode(pDataBuffer, wDataSize);
 	}
 		break;
-	case SUB_GP_SET_LOGIN_PASS:
+	case SUB_GP_SET_INSUREPASS_SEND_CAPTCHA:
 	{
 		onSubChangePwd(pDataBuffer, wDataSize);
 	}
@@ -248,7 +260,7 @@ void PopDialogBoxForgetPassword::onEventUserService(WORD wSubCmdID, void * pData
 	}
 }
 //获取ID
-void PopDialogBoxForgetPassword::onSubGetID(void * pDataBuffer, unsigned short wDataSize){
+void PopDialogBoxForgetBankPwd::onSubGetID(void * pDataBuffer, unsigned short wDataSize){
 	CMD_GP_AccountsRet *accRet = (CMD_GP_AccountsRet*)pDataBuffer;
 	if (accRet->lResultCode == 0)
 	{
@@ -270,11 +282,15 @@ void PopDialogBoxForgetPassword::onSubGetID(void * pDataBuffer, unsigned short w
 	}
 }
 //获取验证码
-void PopDialogBoxForgetPassword::onSubGetCode(void * pDataBuffer, unsigned short wDataSize){
-
+void PopDialogBoxForgetBankPwd::onSubGetCode(void * pDataBuffer, unsigned short wDataSize){
+	CMD_GP_CaptchaRet *pCaptchaRet = (CMD_GP_CaptchaRet*)pDataBuffer;
+	if (pCaptchaRet->lResultCode!=0)
+	{
+		showTipInfo(GBKToUTF8(pCaptchaRet->szDescribeString));
+	}
 }
 //修改密码
-void PopDialogBoxForgetPassword::onSubChangePwd(void * pDataBuffer, unsigned short wDataSize){
+void PopDialogBoxForgetBankPwd::onSubChangePwd(void * pDataBuffer, unsigned short wDataSize){
 	CMD_GP_SetPassRet*setPassRet = (CMD_GP_SetPassRet*)pDataBuffer;
 	if (setPassRet->lResultCode==0)
 	{
@@ -287,9 +303,8 @@ void PopDialogBoxForgetPassword::onSubChangePwd(void * pDataBuffer, unsigned sho
 	
 }
 //关闭提示回调
-void PopDialogBoxForgetPassword::onCloseTipInfo(){
+void PopDialogBoxForgetBankPwd::onCloseTipInfo(){
 	//this->removeAllChildrenWithCleanup(true);
 	
 	this->removeFromParentAndCleanup(true);
-	CCLog("==============================11111111111111 <<%s>>", __FUNCTION__);
 }
