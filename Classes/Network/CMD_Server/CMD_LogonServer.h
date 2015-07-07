@@ -451,7 +451,7 @@ struct CMD_GP_UnMoorMachine
 {
 	CMD_GP_UnMoorMachine()
 	{
-		memset(this, 0, sizeof(CMD_GP_UnMoorMachine));
+		//memset(this, 0, sizeof(CMD_GP_UnMoorMachine));
 	}
 	DWORD							dwUserID;							//用户 I D
 	DWORD							dwCaptcha;							//验证码
@@ -462,9 +462,9 @@ struct CMD_GP_UnMoorMachineRet
 {
 	CMD_GP_UnMoorMachineRet()
 	{
-		memset(this, 0, sizeof(CMD_GP_UnMoorMachineRet));
+		//memset(this, 0, sizeof(CMD_GP_UnMoorMachineRet));
 	}
-	LONG							lResultCode;						//错误代码
+	long							lResultCode;						//错误代码
 	TCHAR							szDescribeString[128];				//描述消息
 };
 //////////////////////////////////////////////////////////////////////////

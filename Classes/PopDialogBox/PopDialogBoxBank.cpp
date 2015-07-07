@@ -332,9 +332,14 @@ void PopDialogBoxBank::onMenuQuickSelectMoney(CCObject *object, TouchEventType t
 void PopDialogBoxBank::onMenuForgetPassword(CCObject *object, TouchEventType type){
 	if (type==TOUCH_EVENT_ENDED)
 	{
-		isReadMessage = false;
-		PopDialogBoxForgetBankPwd *pFPwd = PopDialogBoxForgetBankPwd::create();
-		this->addChild(pFPwd);
+        if (strcmp(DataModel::sharedDataModel()->sPhone.c_str(), "")==0) {
+            showTipInfo("您未绑定手机，请联系客服！");
+        }else{
+            isReadMessage = false;
+            PopDialogBoxForgetBankPwd *pFPwd = PopDialogBoxForgetBankPwd::create();
+            this->addChild(pFPwd);
+        }
+		
 	}
 }
 //更新快捷款项选择键
