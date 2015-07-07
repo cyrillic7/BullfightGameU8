@@ -15,6 +15,7 @@ private:
 	enum UserInfoType
 	{
 		USER_GET_MONEY=0,					//获取财富
+		USER_CHANGE_INFO,					//修改信息
 	};
 	CC_SYNTHESIZE(UserInfoType, eUserInfoType, UserInfoType);
     
@@ -25,6 +26,9 @@ private:
 	UICheckBox *pcbSexBoy;
 	//UILabel *plSexBoy;
 	//UILabel *plSexGirl;
+	//修改按键
+	UIButton *bChange;
+
 	UIImageView *piSexIcon;
 	UILabel *plSexBoyInfo;
 	bool isShowChange;
@@ -51,7 +55,7 @@ private:
 	virtual void onCloseBindingPhone();
 	//virtual void playAnimation();
 	//
-	void menuChange(CCObject *object, TouchEventType type);
+	void onMenuChange(CCObject *object, TouchEventType type);
 	//绑定手机按键
 	void onMenuBindingPhone(CCObject *object, TouchEventType type);
 	void setShowChangeView();

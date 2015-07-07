@@ -61,8 +61,8 @@ void PopDialogBoxUserInfo::onEnter(){
 	//奖券数
 	pLVoucherCount = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelVoucherCount"));
 	//修改按键
-	UIButton *bChange=static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonChange"));
-	bChange->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxUserInfo::menuChange));
+	bChange=static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonChange"));
+	bChange->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxUserInfo::onMenuChange));
 	//修改昵称时背景
 	piNickNameBg=static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageChangeBg"));
 
@@ -74,6 +74,7 @@ void PopDialogBoxUserInfo::onEnter(){
 	setShowChangeView();
 	//设置大厅不读取数据
 	setLobbyReadMessage(false);
+
 	//连接服务
 	connectServer(SOCKET_USER_INFO);
 
@@ -100,13 +101,19 @@ void PopDialogBoxUserInfo::onCloseBindingPhone(){
 	isReadMessage = true;
 	resetBindingButton();
 }
-void PopDialogBoxUserInfo::menuChange(CCObject *object, TouchEventType type){
+void PopDialogBoxUserInfo::onMenuChange(CCObject *object, TouchEventType type){
 	if (type==TOUCH_EVENT_ENDED)
 	{
 		isShowChange=!isShowChange;
 		if (!isShowChange)
 		{
-			DataModel::sharedDataModel()->userInfo->cbGender=pcbSexBoy->getSelectedState()?1:2;
+			
+			setUserInfoType(USER_CHANGE_INFO);
+			connectServer(SOCKET_USER_INFO);
+		}
+		else
+		{
+			
 		}
 		setShowChangeView();
 	}
@@ -126,23 +133,29 @@ void PopDialogBoxUserInfo::setShowChangeView(){
 	
 	if (isShowChange)
 	{
-		pLabelNickName->setTouchEnabled(true);
-		pLabelNickName->setColor(ccc3(118,65,20));
-		piNickNameBg->setVisible(true);
+		//pLabelNickName->setTouchEnabled(true);
+		//pLabelNickName->setColor(ccc3(118,65,20));onCheckBoxSelectedStateEvent
+		//piNickNameBg->setVisible(true);
+		onCheckBoxSelectedStateEvent(pcbSexBoy, DataModel::sharedDataModel()->userInfo->cbGender == 1 ? CHECKBOX_STATE_EVENT_SELECTED : CHECKBOX_STATE_EVENT_UNSELECTED);
+		onCheckBoxSelectedStateEvent(pcbSexGirl, DataModel::sharedDataModel()->userInfo->cbGender == 2 ? CHECKBOX_STATE_EVENT_SELECTED : CHECKBOX_STATE_EVENT_UNSELECTED);
 
+
+		bChange->setTitleText("保存");
 
 		ppSexInfo->setEnabled(false);
 		ppSexSelect->setEnabled(true);
 		ppSexSelect->setVisible(true);
 	}else
 	{
-		pLabelNickName->setTouchEnabled(false);
-		pLabelNickName->setColor(ccc3(255,255,255));
-		piNickNameBg->setVisible(false);
+		//pLabelNickName->setTouchEnabled(false);
+		//pLabelNickName->setColor(ccc3(255,255,255));
+		//piNickNameBg->setVisible(false);
+		
+		bChange->setTitleText("修改");
 
 		ppSexInfo->setEnabled(true);
 		ppSexSelect->setEnabled(false);
-
+		
 		
 	}
 	updateSex();
@@ -244,6 +257,21 @@ void PopDialogBoxUserInfo::connectSuccess(){
 		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_TREASURE, &userID, sizeof(CMD_GP_UserID));
 	}
 		break;
+	case PopDialogBoxUserInfo::USER_CHANGE_INFO:
+	{
+		CMD_GP_ModifyIndividual modifyIndividual;
+		modifyIndividual.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+		//modifyIndividual.dwUserID = 0;
+		MD5 m;
+		m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
+		std::string md5PassWord = m.GetMd5();
+		strcpy(modifyIndividual.szPassword, md5PassWord.c_str());
+		
+		modifyIndividual.cbGender = DataModel::sharedDataModel()->userInfo->cbGender;
+
+		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_INDIVIDUAL, &modifyIndividual, sizeof(modifyIndividual));
+	}
+		break;
 	default:
 		break;
 	}
@@ -257,6 +285,22 @@ void PopDialogBoxUserInfo::onEventUserService(WORD wSubCmdID, void * pDataBuffer
 		onSubTreasure(pDataBuffer, wDataSize);
 	}
 	break;
+	case SUB_GP_OPERATE_SUCCESS:
+	{
+		CMD_GP_OperateSuccess *pSuccess = (CMD_GP_OperateSuccess*)pDataBuffer;
+		showTipInfo(GBKToUTF8(pSuccess->szDescribeString));
+
+		DataModel::sharedDataModel()->userInfo->cbGender = pcbSexBoy->getSelectedState() ? 1 : 2;
+		setShowChangeView();
+
+	}
+		break;
+	case SUB_GP_OPERATE_FAILURE:
+	{
+		CMD_GP_OperateFailure *pFailure = (CMD_GP_OperateFailure*)pDataBuffer;
+		showTipInfo(GBKToUTF8(pFailure->szDescribeString));
+	}
+		break;
 	default:
 		CCLog("   %d<<%s>>", wSubCmdID, __FUNCTION__);
 		break;
