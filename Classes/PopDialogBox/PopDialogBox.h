@@ -23,6 +23,7 @@ struct IPopAssist//弹框辅助接口
 	virtual void onBuyNum(long lNum) = 0;
 };
 class PopDialogBoxLoading;
+class IPopAssistTipInfo;
 class PopDialogBox : public CCLayer, public CStringAide, public CCEditBoxDelegate {
 public:
 	CC_SYNTHESIZE(IPopAssist*, pIPopAssist, IPopAssist);
@@ -57,6 +58,8 @@ public:
 	void setSocketName(std::string sName);
 	//显示提示语
 	void showTipInfo(const char* sInfo);
+	////显示提示语
+	void PopDialogBox::showTipInfo(const char* sInfo, IPopAssistTipInfo *pITipInfo);
 	//设置大厅是否读取网络消息
 	void setLobbyReadMessage(bool isRead);
 	//显示数量输入框

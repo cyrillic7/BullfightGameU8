@@ -106,6 +106,7 @@ void PopDialogBoxLogonAccount::onMenuRetrievePwd(CCObject *object, TouchEventTyp
 	if (type==TOUCH_EVENT_ENDED)
 	{
 		PopDialogBoxForgetPassword *pFPwd = PopDialogBoxForgetPassword::create();
+		((LogonScene*)this->getParent())->isReadMessage = false;
 		((LogonScene*)this->getParent())->addChild(pFPwd);
 	}
 }

@@ -301,6 +301,11 @@ struct CMD_GP_ServerOnline
 #define	SUB_GP_GET_SIGNIN_TASK		126									//获取签到列表
 #define	SUB_GP_SIGNIN				127									//签到
 
+#define SUB_GP_CHECK_ACCOUNT		140									//核对账号
+#define SUB_GP_GET_CAPTCHA_BY_ID	141									//根据ID获取验证码
+#define SUB_GP_SET_LOGIN_PASS		142									//设置新登录密码
+#define SUB_GP_UN_MOOR_MACHINE		143									//解梆主机
+
 //修改头像
 #define SUB_GP_USER_FACE_INFO		200									//头像信息
 #define SUB_GP_SYSTEM_FACE_INFO		201									//系统头像
@@ -339,6 +344,82 @@ struct CMD_GP_ServerOnline
 #define	 DESPICT_LEN		32
 #define  GIFT_COUNT			30
 #define  NOTE_LEN			64
+//////////////////////////////////////////////////////////////////////////
+//获取帐号
+struct CMD_GP_Accounts
+{
+	CMD_GP_Accounts()
+	{
+		//memset(this, 0, sizeof(CMD_GP_Accounts));
+	}
+	TCHAR							szAccounts[LEN_ACCOUNTS];			//帐号
+};
+//获取帐号返回
+struct CMD_GP_AccountsRet
+{
+	CMD_GP_AccountsRet()
+	{
+		//memset(this, 0, sizeof(CMD_GP_AccountsRet));
+	}
+	long							lResultCode;						//错误代码
+	DWORD							dwUserID;
+	TCHAR							szPhone[LEN_MOBILE_PHONE];			//移动电话
+	TCHAR							szDescribeString[128];				//描述消息
+};
+//根据ID获取验证码
+struct CMD_GP_GetCaptchaByUserID
+{
+	CMD_GP_GetCaptchaByUserID()
+	{
+		//memset(this, 0, sizeof(CMD_GP_GetCaptchaByUserID));
+	}
+	DWORD							dwUserID;
+};
+
+//重置密码
+struct CMD_GP_SetPass
+{
+	CMD_GP_SetPass()
+	{
+		//memset(this, 0, sizeof(CMD_GP_SetPass));
+	}
+	DWORD							dwUserID;							//用户 I D
+	DWORD							dwCaptcha;							//验证码
+	TCHAR							szLogonPass[LEN_MD5];				//登录密码
+};
+//重设密码返回
+struct CMD_GP_SetPassRet
+{
+	CMD_GP_SetPassRet()
+	{
+		//memset(this, 0, sizeof(CMD_GP_SetPassRet));
+	}
+	long							lResultCode;						//错误代码
+	TCHAR							szDescribeString[128];				//描述消息
+};
+
+
+//解梆主机
+struct CMD_GP_UnMoorMachine
+{
+	CMD_GP_UnMoorMachine()
+	{
+		memset(this, 0, sizeof(CMD_GP_UnMoorMachine));
+	}
+	DWORD							dwUserID;							//用户 I D
+	DWORD							dwCaptcha;							//验证码
+	TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
+};
+//解梆主机返回
+struct CMD_GP_UnMoorMachineRet
+{
+	CMD_GP_UnMoorMachineRet()
+	{
+		memset(this, 0, sizeof(CMD_GP_UnMoorMachineRet));
+	}
+	LONG							lResultCode;						//错误代码
+	TCHAR							szDescribeString[128];				//描述消息
+};
 //////////////////////////////////////////////////////////////////////////
 //获取验证码
 struct CMD_GP_Get_Captcha
