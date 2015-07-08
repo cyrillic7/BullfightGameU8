@@ -30,7 +30,8 @@
     "UIConnectFailure.plist",
     "UIGameIng.plist",
     "UIBindingPhone.plist",
-    "UIVip.plist"
+    "UIVip.plist",
+    "UIRecharge.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
@@ -53,7 +54,8 @@
     "UIConnectFailure.png",
     "UIGameIng.png",
     "UIBindingPhone.png",
-    "UIVip.png"
+    "UIVip.png",
+    "UIRecharge.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

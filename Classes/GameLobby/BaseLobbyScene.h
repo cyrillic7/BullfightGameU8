@@ -33,6 +33,7 @@ public:
 		POP_MSG,					//消息
 		POP_VIP,					//VIP
 		POP_KNAPSACK,				//背包
+		POP_RECHARGE,				//充值
 	};
 public:
     BaseLobbyScene();

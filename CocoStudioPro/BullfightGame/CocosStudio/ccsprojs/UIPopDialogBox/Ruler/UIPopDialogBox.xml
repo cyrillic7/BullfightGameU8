@@ -127,12 +127,16 @@
       </GuidesInfo>
       <GuidesInfo>
         <GuidesName>VThumb</GuidesName>
-        <GuidesPosition>490.75747403231532</GuidesPosition>
+        <GuidesPosition>490.75747403231526</GuidesPosition>
       </GuidesInfo>
     </GuidesList>
   </GuidesProject>
   <GuidesProject>
     <Project>UIPopDialogBoxForgetPassword</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxRecharge</Project>
     <GuidesList />
   </GuidesProject>
 </ArrayOfGuidesProject>

@@ -30,7 +30,8 @@
     "UIConnectFailure.plist",
     "UIGameIng.plist",
     "UIBindingPhone.plist",
-    "UIVip.plist"
+    "UIVip.plist",
+    "UIRecharge.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
@@ -54,6 +55,7 @@
     "UIGameIng.png",
     "UIBindingPhone.png",
     "UIVip.png",
+    "UIRecharge.png",
     "UIPanel.png",
     "UIButton.png",
     "UIRanking.png",
@@ -75,6 +77,7 @@
     "UIGameIng.png",
     "UIBindingPhone.png",
     "UIVip.png",
+    "UIRecharge.png",
     "UIPanel.png",
     "UIButton.png",
     "UIRanking.png",
@@ -96,6 +99,7 @@
     "UIGameIng.png",
     "UIBindingPhone.png",
     "UIVip.png",
+    "UIRecharge.png",
     "UIPanel.png",
     "UIButton.png",
     "UIRanking.png",
@@ -117,6 +121,7 @@
     "UIGameIng.png",
     "UIBindingPhone.png",
     "UIVip.png",
+    "UIRecharge.png",
     "UIPanel.png",
     "UIButton.png",
     "UIRanking.png",
@@ -138,6 +143,7 @@
     "UIGameIng.png",
     "UIBindingPhone.png",
     "UIVip.png",
+    "UIRecharge.png",
     "UIPanel.png",
     "UIButton.png",
     "UIRanking.png",
@@ -159,6 +165,7 @@
     "UIGameIng.png",
     "UIBindingPhone.png",
     "UIVip.png",
+    "UIRecharge.png",
     "UIPanel.png",
     "UIButton.png",
     "UIRanking.png",
@@ -180,6 +187,7 @@
     "UIGameIng.png",
     "UIBindingPhone.png",
     "UIVip.png",
+    "UIRecharge.png",
     "UIPanel.png",
     "UIButton.png",
     "UIRanking.png",
@@ -200,7 +208,8 @@
     "UIConnectFailure.png",
     "UIGameIng.png",
     "UIBindingPhone.png",
-    "UIVip.png"
+    "UIVip.png",
+    "UIRecharge.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

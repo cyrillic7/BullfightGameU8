@@ -21,6 +21,7 @@
 #include "../PopDialogBox/PopDialogBoxTipInfo.h"
 #include "../PopDialogBox/PopDialogBoxMsg.h"
 #include "../PopDialogBox/PopDialogBoxVip.h"
+#include "../PopDialogBox/PopDialogBoxRecharge.h"
 
 #include "../Tools/DataModel.h"
 BaseLobbyScene::BaseLobbyScene()
@@ -106,6 +107,9 @@ void BaseLobbyScene::onEnter(){
 	//绑定背包
 	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonKnapsack"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
+	//绑定充值
+	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonRecharge"));
+	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
 	//绑定VIP
 	UIImageView *pIVip = static_cast<UIImageView*>(m_pWidget->getWidgetByName("ImageVip"));
 	pIVip->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuVip));
@@ -130,7 +134,6 @@ void BaseLobbyScene::popDialogBox(PopType type){
 		pdb = PopDialogBoxUserInfo::create();
 		((PopDialogBoxUserInfo *)pdb)->setIPopDialogBoxAssist(this);
 	}
-		
 		break;
 	case BaseLobbyScene::POP_SETUP:
 		pdb=PopDialogBoxSetUp::create();
@@ -173,6 +176,13 @@ void BaseLobbyScene::popDialogBox(PopType type){
 		((PopDialogBoxKnapsack *)pdb)->setIPopAssistKnapsack(this);
 	}
 		break;
+	case BaseLobbyScene::POP_RECHARGE:
+	{
+		pdb = PopDialogBoxRecharge::create();
+		//((PopDialogBoxRecharge *)pdb)->setIPopDialogBoxAssist(this);
+	}
+
+	break;
 	default:
 		break;
 	}
@@ -228,6 +238,10 @@ void BaseLobbyScene::onMenuCallback(CCObject* pSender, TouchEventType type){
 			else if (strcmp(button->getName(), "ButtonKnapsack") == 0)
 			{
 				popDialogBox(POP_KNAPSACK);
+			}
+			else if (strcmp(button->getName(), "ButtonRecharge") == 0)
+			{
+				popDialogBox(POP_RECHARGE);
 			}
 			else
 			{

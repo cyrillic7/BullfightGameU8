@@ -30,7 +30,8 @@
     "UIConnectFailure.plist",
     "UIGameIng.plist",
     "UIBindingPhone.plist",
-    "UIVip.plist"
+    "UIVip.plist",
+    "UIRecharge.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
@@ -54,6 +55,7 @@
     "UIGameIng.png",
     "UIBindingPhone.png",
     "UIVip.png",
+    "UIRecharge.png",
     "UIPanel.png",
     "UIButton.png",
     "UIRanking.png",
@@ -75,6 +77,7 @@
     "UIGameIng.png",
     "UIBindingPhone.png",
     "UIVip.png",
+    "UIRecharge.png",
     "UIPanel.png",
     "UIButton.png",
     "UIRanking.png",
@@ -95,7 +98,8 @@
     "UIConnectFailure.png",
     "UIGameIng.png",
     "UIBindingPhone.png",
-    "UIVip.png"
+    "UIVip.png",
+    "UIRecharge.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -1010,7 +1014,7 @@
                       },
                       "opacity": 255,
                       "positionPercentX": 0,
-                      "positionPercentY": 1.8931818,
+                      "positionPercentY": 0.852272749,
                       "positionType": 0,
                       "rotation": 0,
                       "scaleX": 1,
@@ -1024,7 +1028,7 @@
                       "visible": true,
                       "width": 193,
                       "x": 0,
-                      "y": 416,
+                      "y": 187,
                       "capInsetsHeight": 5,
                       "capInsetsWidth": 9,
                       "capInsetsX": 5,
@@ -3712,8 +3716,8 @@
                     "type": 1
                   },
                   "opacity": 255,
-                  "positionPercentX": -1,
-                  "positionPercentY": 1.6239655,
+                  "positionPercentX": 0,
+                  "positionPercentY": 0.8853868,
                   "positionType": 0,
                   "rotation": 0,
                   "scaleX": 1,
@@ -3726,8 +3730,8 @@
                   "useMergedTexture": true,
                   "visible": true,
                   "width": 888,
-                  "x": -888,
-                  "y": 639,
+                  "x": 0,
+                  "y": 348,
                   "capInsetsHeight": 9,
                   "capInsetsWidth": 2,
                   "capInsetsX": 4,
