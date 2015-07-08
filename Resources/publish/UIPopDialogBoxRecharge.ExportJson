@@ -1184,7 +1184,7 @@
                   "customProperty": "",
                   "flipX": false,
                   "flipY": false,
-                  "height": 37,
+                  "height": 39,
                   "ignoreSize": true,
                   "layoutParameter": null,
                   "opacity": 255,
@@ -1201,7 +1201,7 @@
                   "touchAble": false,
                   "useMergedTexture": true,
                   "visible": true,
-                  "width": 35,
+                  "width": 34,
                   "x": 8,
                   "y": 0,
                   "capInsetsHeight": 1,
@@ -1210,13 +1210,13 @@
                   "capInsetsY": 0,
                   "fileName": null,
                   "fileNameData": {
-                    "path": "u_a_icon_gold.png",
+                    "path": "u_a_icon_yh.png",
                     "plistFile": "",
                     "resourceType": 1
                   },
                   "scale9Enable": false,
-                  "scale9Height": 37,
-                  "scale9Width": 35
+                  "scale9Height": 39,
+                  "scale9Width": 34
                 }
               },
               {

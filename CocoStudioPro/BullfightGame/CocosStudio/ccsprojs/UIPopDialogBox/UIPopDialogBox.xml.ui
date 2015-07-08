@@ -709,5 +709,5 @@
     <string>UIRecharge.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxRecharge.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxUserInfo.json</CurrentUIJson>
 </UIProject>

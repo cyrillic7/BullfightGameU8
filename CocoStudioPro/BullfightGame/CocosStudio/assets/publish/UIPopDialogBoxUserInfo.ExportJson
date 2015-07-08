@@ -2710,7 +2710,7 @@
                 "options": {
                   "__type": "ButtonSurrogate:#EditorCommon.JsonModel.Component.GUI",
                   "classname": "Button",
-                  "name": "ButtonAddGold",
+                  "name": "ButtonAddBigGold",
                   "ZOrder": 0,
                   "actiontag": 46843206,
                   "anchorPointX": 0.5,

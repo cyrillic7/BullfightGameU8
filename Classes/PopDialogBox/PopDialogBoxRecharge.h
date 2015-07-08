@@ -39,12 +39,14 @@ private:
 	UILabel *pLCurGoldCount;
 	//我的当前元宝
 	UILabel *pLCurBigGoldCount;
+	//当前按键索引
+	int iCurSelectIndex;
 private:
 	struct RechargeData
 	{
 		std::string sImageIconName;						//图片名称
 		std::string sExchangeNum;						//兑换数
-		std::string sExchangePice;						//兑换价格
+		long lExchangePice;								//兑换价格
 	};
 	std::vector<RechargeData> vecRechargeGold;			//金币
 	std::vector<RechargeData> vecRechargeBigGold;		//元宝
@@ -76,4 +78,6 @@ private:
 	void onEventUserService(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
 	//财富
 	void onSubTreasure(void * pDataBuffer, unsigned short wDataSize);
+	//兑换元宝
+	void onSubExchangeBigGold(void * pDataBuffer, unsigned short wDataSize);
 };

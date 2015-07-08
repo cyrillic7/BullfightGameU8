@@ -9,18 +9,18 @@
 #include "../Tools/DataModel.h"
 #include "../Tools/GameConfig.h"
 #include "../Network/MD5/MD5.h"
+#include "../Platform/coPlatform.h"
 
 #define MAX_GOLD_COUNT    6
 
 std::string sGoldIconName[MAX_GOLD_COUNT] = { "u_recharge_gold0.png", "u_recharge_gold1.png", "u_recharge_gold2.png", "u_recharge_gold3.png", "u_recharge_gold4.png", "u_recharge_gold5.png" };
 std::string sGoldExchangeNum[MAX_GOLD_COUNT] = { " 1万 ", " 3万 ", " 5万 ", " 10万 ", " 50万 ", " 100万 " };
-std::string sGoldPice[MAX_GOLD_COUNT] = { "1", "3", "5", "10", "50", "100" };
+long lGoldPice[MAX_GOLD_COUNT] = { 1, 3, 5, 10, 50, 100 };
 
 #define MAX_BIG_GOLD_COUNT    6
 std::string sBigGoldIconName[MAX_BIG_GOLD_COUNT] = { "u_recharge_gold0.png", "u_recharge_gold1.png", "u_recharge_gold2.png", "u_recharge_gold3.png", "u_recharge_gold4.png", "u_recharge_gold5.png" };
 std::string sBigGoldExchangeNum[MAX_BIG_GOLD_COUNT] = { " 1个 ", " 3个 ", " 5个 ", " 10个 ", " 50个 ", " 100个 " };
-std::string sBigGoldPice[MAX_BIG_GOLD_COUNT] = { "10", "30", "50", "100", "500", "1000" };
-
+long lBigGoldPice[MAX_GOLD_COUNT] = { 1, 3, 5, 10, 50, 100 };
 
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxRecharge::PopDialogBoxRecharge()
@@ -33,7 +33,7 @@ PopDialogBoxRecharge::PopDialogBoxRecharge()
 		RechargeData rData;
 		rData.sImageIconName = sGoldIconName[i];
 		rData.sExchangeNum = sGoldExchangeNum[i];
-		rData.sExchangePice = sGoldPice[i];
+		rData.lExchangePice = lGoldPice[i];
 		vecRechargeGold.push_back(rData);
 	}
 	/*for (int i = 0; i < MAX_BIG_GOLD_COUNT; i++)
@@ -144,7 +144,20 @@ void PopDialogBoxRecharge::onMenuExchange(CCObject *object, TouchEventType type)
 	if (type==TOUCH_EVENT_ENDED)
 	{
 		UIButton *pBTemp = (UIButton*)object;
-		CCLog("tag:%d <<%s>>",pBTemp->getTag(), __FUNCTION__);
+		iCurSelectIndex = pBTemp->getTag();
+		switch (eRechargeType)
+		{
+		case PopDialogBoxRecharge::RECHARGE_GOLD:
+		{
+			setRechargeActionType(R_Action_EXCHANGE);
+			connectServer(SOCKET_RECHARGE);
+		}
+			break;
+		case PopDialogBoxRecharge::RECHARGE_BIG_GOLD:
+			break;
+		default:
+			break;
+		}
 	}
 }
 //更新兑换列表
@@ -173,7 +186,7 @@ void PopDialogBoxRecharge::updateListRecharge(std::vector<RechargeData> qMsg){
 		
 		//价格
 		UILabel *pLPice = static_cast<UILabel*>(pButton->getChildByName("LabelExchangePice"));
-		pLPice->setText(qMsg[i].sExchangePice.c_str());
+		pLPice->setText(CCString::createWithFormat("%ld", qMsg[i].lExchangePice)->getCString());
 		//兑换币种
 		UIImageView *pPiceType = static_cast<UIImageView*>(pButton->getChildByName("ImageExchangeIcon"));
 		if (eRechargeType == RECHARGE_GOLD)
@@ -241,6 +254,23 @@ void PopDialogBoxRecharge::connectSuccess(){
 		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_TREASURE, &userID, sizeof(CMD_GP_UserID));
 	}
 	break;
+	case R_Action_EXCHANGE:
+	{
+		CMD_GP_UserExchangeIngot userExchange;
+		userExchange.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+		userExchange.dwIngot = lGoldPice[iCurSelectIndex];
+
+		MD5 m;
+		m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
+		std::string md5PassWord = m.GetMd5();
+		strcpy(userExchange.szPassword, md5PassWord.c_str());
+
+
+		strcpy(userExchange.szMachineID, platformAction("{\"act\":100}").c_str());
+
+		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_EXCHANGE_INGOT, &userExchange, sizeof(userExchange));
+	}
+		break;
 	default:
 		break;
 	}
@@ -254,12 +284,11 @@ void PopDialogBoxRecharge::onEventUserService(WORD wSubCmdID, void * pDataBuffer
 		onSubTreasure(pDataBuffer, wDataSize);
 	}
 	break;
-	case SUB_GP_OPERATE_SUCCESS:
+	case SUB_GP_EXCHANGE_INGOT://兑换元宝
 	{
-		CMD_GP_OperateSuccess *pSuccess = (CMD_GP_OperateSuccess*)pDataBuffer;
-		showTipInfo(GBKToUTF8(pSuccess->szDescribeString));
+		onSubExchangeBigGold(pDataBuffer, wDataSize);
 	}
-	break;
+		break;
 	case SUB_GP_OPERATE_FAILURE:
 	{
 		CMD_GP_OperateFailure *pFailure = (CMD_GP_OperateFailure*)pDataBuffer;
@@ -275,7 +304,18 @@ void PopDialogBoxRecharge::onEventUserService(WORD wSubCmdID, void * pDataBuffer
 void PopDialogBoxRecharge::onSubTreasure(void * pDataBuffer, unsigned short wDataSize){
 	if (wDataSize != sizeof(CMD_GP_UserTreasure)) return;
 	CMD_GP_UserTreasure * pUserTreasure = (CMD_GP_UserTreasure *)pDataBuffer;
-	pLCurGoldCount->setText(CCString::createWithFormat("%lld", DataModel::sharedDataModel()->userInfo->lScore)->getCString());
+	pLCurGoldCount->setText(CCString::createWithFormat("%lld", pUserTreasure->lInsureScore)->getCString());
 	pLCurBigGoldCount->setText(CCString::createWithFormat("%lld", pUserTreasure->lIngotScore)->getCString());
 	//pLVoucherCount->setText(CCString::createWithFormat("%lld", pUserTreasure->lLottery)->getCString());
+}
+//兑换元宝
+void PopDialogBoxRecharge::onSubExchangeBigGold(void * pDataBuffer, unsigned short wDataSize){
+	if (wDataSize > sizeof(CMD_GP_ExchangeIngotSuccess)) return;
+	CMD_GP_ExchangeIngotSuccess *pExchangeSuccess = (CMD_GP_ExchangeIngotSuccess*)pDataBuffer;
+
+	pLCurGoldCount->setText(CCString::createWithFormat("%lld", pExchangeSuccess->lInsure)->getCString());
+	pLCurBigGoldCount->setText(CCString::createWithFormat("%lld", pExchangeSuccess->lIngot)->getCString());
+
+	showTipInfo(GBKToUTF8(pExchangeSuccess->szDescribeString));
+
 }
