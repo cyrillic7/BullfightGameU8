@@ -457,7 +457,7 @@ void GameControlOxHundred::onMenuChangeChair(CCObject* pSender, TouchEventType t
 	}
 }
 void GameControlOxHundred::update(float delta){
-	MessageQueue::update(delta);
+	MessageQueueGameIng::update(delta);
 }
 void GameControlOxHundred::delayedAction(){
 	switch (DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameState())

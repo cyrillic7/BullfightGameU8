@@ -22,6 +22,7 @@
 #include "../Network/MD5/MD5.h"
 #include "../Network/CMD_Server/PacketAide.h"
 #include "../Network/ListernerThread/LobbyGameListerner.h"
+#include "../Network/ListernerThread/GameIngListerner.h"
 bool GameLobbyScene::isShowUpTip = false;
 GameLobbyScene::GameLobbyScene()
 {
@@ -212,7 +213,8 @@ void GameLobbyScene::enterLobbyByMode(int mode){
 
 				TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
 				tagGameServer *tgs = DataModel::sharedDataModel()->tagGameServerListOxHundred[0];
-				getSocket()->createSocket(tgs->szServerAddr, tgs->wServerPort, new LogonGameListerner());
+				//getSocket()->createSocket(tgs->szServerAddr, tgs->wServerPort, new LogonGameListerner());
+				getSocket()->createSocket(tgs->szServerAddr, tgs->wServerPort, new GameIngListerner());
 			}
 			
 			//Tools::setTransitionAnimation(0, 0, MainSceneOxHundred::scene());
@@ -242,6 +244,7 @@ void GameLobbyScene::update(float delta){
 	if (isReadMessage)
 	{
 		MessageQueue::update(delta);
+		MessageQueueGameIng::update(delta);
 	}
 }
 void GameLobbyScene::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){

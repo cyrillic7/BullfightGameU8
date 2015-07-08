@@ -14,14 +14,14 @@
 #include "../../Network/TCPSocket/TCPSocket.h"
 #include "../../Network/TCPSocket/TCPSocketControl.h"
 #include "../GameEndLayer.h"
-#include "../../MTNotificationQueue/MessageQueue.h"
+#include "../../MTNotificationQueue/MessageQueueGameIng.h"
 #include "../../Tools/CMath.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
 #define MAX_TIMER		10		//计时器最大值
 class MainSceneBase;
-class GameControlBase:public CCLayer,public MessageQueue,public CMath
+class GameControlBase :public CCLayer, public MessageQueueGameIng, public CMath
 {
 public:
 	enum ActionPromptType

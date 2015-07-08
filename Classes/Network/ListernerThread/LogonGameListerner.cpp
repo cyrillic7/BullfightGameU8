@@ -13,6 +13,7 @@
 #include "cocos2d.h"
 #include "../../MTNotificationQueue/MTNotificationQueue.h"
 #include "../SEvent.h"
+#include "../../MTNotificationQueue/MessageQueue.h"
 using namespace std;
 LogonGameListerner::LogonGameListerner()
 {

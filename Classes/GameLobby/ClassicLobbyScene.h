@@ -6,11 +6,12 @@
 #include "cocos-ext.h"
 #include "BaseLobbyScene.h"
 #include "../MTNotificationQueue/MessageQueue.h"
+#include "../MTNotificationQueue/MessageQueueGameIng.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
 #define MAX_LEVEL_COUNT				4					//最大等级数
-class ClassicLobbyScene:public BaseLobbyScene,public MessageQueue
+class ClassicLobbyScene:public BaseLobbyScene,public MessageQueue,public MessageQueueGameIng
 {
 private:
 	UIButton* pBLevel[MAX_LEVEL_COUNT];

@@ -579,7 +579,7 @@ int GameControlBase::getMeChairID(){
 
 
 void GameControlBase::update(float delta){
-	MessageQueue::update(delta);
+	MessageQueueGameIng::update(delta);
 	//OnEventGameMessage(NULL);
 }
 //////////////////////////////////////////////////////////////////////////

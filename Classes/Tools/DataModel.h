@@ -51,6 +51,8 @@ public:
 	bool cbInsurePwd;
 	//变量定义
 	tagUserInfo *userInfo;
+	//消息队列游戏中
+	std::queue<ReadData>readDataQueueGameIng;
 	//消息队列
 	std::queue<ReadData>readDataQueue;
 	//大厅消息队列
