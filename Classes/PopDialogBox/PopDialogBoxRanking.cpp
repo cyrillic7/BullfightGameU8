@@ -9,6 +9,7 @@
 #include "../Tools/DataModel.h"
 #include "../Tools/GameConfig.h"
 #include "../Tools/Tools.h"
+#include "PopDialogBoxRecharge.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxRanking::PopDialogBoxRanking()
 	:iMyRankingNum(-1)
@@ -30,6 +31,10 @@ void PopDialogBoxRanking::onEnter(){
 	//关闭
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::onMenuBackWithReadMsg));
+	//充值
+	UIButton *pBRecharge = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonRecharge"));
+	pBRecharge->addTouchEventListener(this, toucheventselector(PopDialogBoxRanking::onMenuRecharge));
+	
 	//列表
 	pLVRanking = static_cast<UIListView*>(pUILayer->getWidgetByName("ListViewRanking"));
 	//获奖者
@@ -58,6 +63,21 @@ void PopDialogBoxRanking::onEnter(){
 void PopDialogBoxRanking::onExit(){
 	CCLayer::onExit();
 }
+//关闭窗口回调
+void PopDialogBoxRanking::onCloseView(){
+	isReadMessage = true;
+}
+//充值
+void PopDialogBoxRanking::onMenuRecharge(CCObject *object, TouchEventType type){
+	if (type == TOUCH_EVENT_ENDED)
+	{
+		isReadMessage = false;
+		PopDialogBoxRecharge *pRecharge = PopDialogBoxRecharge::create();
+		this->addChild(pRecharge);
+		pRecharge->setIPopDialogBoxAssistCloseView(this);
+	}
+}
+
 //更新列表
 void PopDialogBoxRanking::updateListRanking(){
 	UIListView *pLVTemp = pLVRanking;
@@ -135,7 +155,10 @@ void PopDialogBoxRanking::updateListRanking(){
 }
 //更新
 void PopDialogBoxRanking::update(float delta){
-	MessageQueue::update(delta);
+	if (isReadMessage)
+	{
+		MessageQueue::update(delta);
+	}
 }
 //////////////////////////////////////////////////////////////////////////
 //网络消息

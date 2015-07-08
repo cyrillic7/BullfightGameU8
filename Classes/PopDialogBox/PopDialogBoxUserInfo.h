@@ -10,7 +10,8 @@
 #include "PopDialogBox.h"
 #include "../MTNotificationQueue/MessageQueue.h"
 #include "PopDialogBoxBindingPhone.h"
-class PopDialogBoxUserInfo : public PopDialogBox, public MessageQueue,public IPopAssistBindingPhone {
+class PopDialogBoxUserInfo : public PopDialogBox, public MessageQueue, public IPopAssistBindingPhone
+	, public IPopDialogBoxAssistCloseView {
 public:
 	CC_SYNTHESIZE(IPopDialogBoxAssist *, pIPopDialogBoxAssist, IPopDialogBoxAssist);
 private:
@@ -57,6 +58,8 @@ private:
 	void resetBindingButton();
 	//关闭绑定手机回调
 	virtual void onCloseBindingPhone();
+	//关闭窗口回调
+	virtual void onCloseView();
 	//virtual void playAnimation();
 	//
 	void onMenuChange(CCObject *object, TouchEventType type);
@@ -64,6 +67,8 @@ private:
 	void onMenuBindingPhone(CCObject *object, TouchEventType type);
 	//兑换
 	void onMenuExchange(CCObject *object, TouchEventType type);
+	//充值
+	void onMenuRecharge(CCObject *object, TouchEventType type);
 
 	void setShowChangeView();
 	//更新性别

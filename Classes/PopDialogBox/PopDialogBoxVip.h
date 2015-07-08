@@ -10,7 +10,7 @@
 #include "PopDialogBox.h"
 #include "../MTNotificationQueue/MessageQueue.h"
 #include "../Network/CMD_Server/CMD_LogonServer.h"
-class PopDialogBoxVip: public PopDialogBox ,public MessageQueue{
+class PopDialogBoxVip : public PopDialogBox, public MessageQueue, public IPopDialogBoxAssistCloseView{
 private:
 	CC_SYNTHESIZE(IPopDialogBoxAssist *, iIPopAssistVip, IPopDialogBoxAssist);
 
@@ -53,6 +53,10 @@ private:
 
 	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_VIP); }
 	
+	//关闭窗口回调
+	virtual void onCloseView(){ isReadMessage = true; }
+	//充值
+	void onMenuRecharge(CCObject *object, TouchEventType type);
 	//领取奖励按键
 	void onMenuReward(CCObject *object, TouchEventType type);
 	//设置VIP等级

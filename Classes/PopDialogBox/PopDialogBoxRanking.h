@@ -10,7 +10,7 @@
 #include "PopDialogBox.h"
 #include "../MTNotificationQueue/MessageQueue.h"
 #include "../Network/CMD_Server/CMD_LogonServer.h"
-class PopDialogBoxRanking: public PopDialogBox,public MessageQueue {
+class PopDialogBoxRanking : public PopDialogBox, public MessageQueue, public IPopDialogBoxAssistCloseView {
     
 private:
 	//排名列表
@@ -32,6 +32,11 @@ public:
 private:
 	virtual void onEnter();
 	virtual void onExit();
+
+	//充值
+	void onMenuRecharge(CCObject *object, TouchEventType type);
+	//关闭窗口回调
+	virtual void onCloseView();
 
 	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_RANKING); }
 

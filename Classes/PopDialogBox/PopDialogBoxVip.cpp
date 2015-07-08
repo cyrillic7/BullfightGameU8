@@ -9,6 +9,7 @@
 #include "../Tools/DataModel.h"
 #include "../Tools/GameConfig.h"
 #include "../Network/MD5/MD5.h"
+#include "PopDialogBoxRecharge.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxVip::PopDialogBoxVip()
 	:eVipActionType(VIP_GET_LIST)
@@ -30,6 +31,9 @@ void PopDialogBoxVip::onEnter(){
 	//关闭
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::onMenuBackWithReadMsg));
+	//充值
+	UIButton *pBRecharge = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonRecharge"));
+	pBRecharge->addTouchEventListener(this, toucheventselector(PopDialogBoxVip::onMenuRecharge));
 
 	//VIP等级icon
 	pIVVipGradeIcon = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageVipGrade"));
@@ -58,6 +62,16 @@ void PopDialogBoxVip::onEnter(){
 }
 void PopDialogBoxVip::onExit(){
 	CCLayer::onExit();
+}
+//充值
+void PopDialogBoxVip::onMenuRecharge(CCObject *object, TouchEventType type){
+	if (type == TOUCH_EVENT_ENDED)
+	{
+		isReadMessage = false;
+		PopDialogBoxRecharge *pRecharge = PopDialogBoxRecharge::create();
+		this->addChild(pRecharge);
+		pRecharge->setIPopDialogBoxAssistCloseView(this);
+	}
 }
 //领取奖励按键
 void PopDialogBoxVip::onMenuReward(CCObject *object, TouchEventType type){
@@ -197,7 +211,10 @@ void PopDialogBoxVip::updateListVip(){
 }
 //更新
 void PopDialogBoxVip::update(float delta){
-	MessageQueue::update(delta);
+	if (isReadMessage)
+	{
+		MessageQueue::update(delta);
+	}
 }
 //////////////////////////////////////////////////////////////////////////
 //网络消息

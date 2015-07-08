@@ -10,7 +10,7 @@
 #include "../Tools/GameConfig.h"
 #include "../Tools/BaseAttributes.h"
 #include "../Tools/Tools.h"
-
+#include "PopDialogBoxRecharge.h"
 #include "../Network/MD5/MD5.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxUserInfo::PopDialogBoxUserInfo()
@@ -38,6 +38,12 @@ void PopDialogBoxUserInfo::onEnter(){
 	//兑换
 	UIButton *pBExchange = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonExchange"));
 	pBExchange->addTouchEventListener(this, toucheventselector(PopDialogBoxUserInfo::onMenuExchange));
+	//充值
+	UIButton *pBRecharge = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonAddGold"));
+	pBRecharge->addTouchEventListener(this, toucheventselector(PopDialogBoxUserInfo::onMenuRecharge));
+
+	pBRecharge = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonAddBigGold"));
+	pBRecharge->addTouchEventListener(this, toucheventselector(PopDialogBoxUserInfo::onMenuRecharge));
 	//绑定手机
 	pBBindingPhone = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonBindPhone"));
 	pBBindingPhone->addTouchEventListener(this, toucheventselector(PopDialogBoxUserInfo::onMenuBindingPhone));
@@ -104,6 +110,10 @@ void PopDialogBoxUserInfo::onCloseBindingPhone(){
 	isReadMessage = true;
 	resetBindingButton();
 }
+//关闭窗口回调
+void PopDialogBoxUserInfo::onCloseView(){
+	isReadMessage = true;
+}
 //兑换
 void PopDialogBoxUserInfo::onMenuExchange(CCObject *object, TouchEventType type){
 	if (type==TOUCH_EVENT_ENDED)
@@ -113,6 +123,16 @@ void PopDialogBoxUserInfo::onMenuExchange(CCObject *object, TouchEventType type)
 			getIPopDialogBoxAssist()->onCloseViewToShop();
 		}
 		this->removeFromParentAndCleanup(true);
+	}
+}
+//充值
+void PopDialogBoxUserInfo::onMenuRecharge(CCObject *object, TouchEventType type){
+	if (type==TOUCH_EVENT_ENDED)
+	{
+		isReadMessage = false;
+		PopDialogBoxRecharge *pRecharge = PopDialogBoxRecharge::create();
+		this->addChild(pRecharge);
+		pRecharge->setIPopDialogBoxAssistCloseView(this);
 	}
 }
 void PopDialogBoxUserInfo::onMenuChange(CCObject *object, TouchEventType type){
