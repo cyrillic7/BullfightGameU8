@@ -31,6 +31,7 @@ USING_NS_CC;
 #define SOCKET_USER_INFO						"socketUserInfo"				//用户信息
 #define SOCKET_BINDING_PHONE					"socketBindingPhone"			//绑定手机
 #define SOCKET_FORGET_PWD						"socketForgetPws"				//找回密码
+#define SOCKET_RECHARGE							"socketRecharge"				//兑换充值
 //#define SOCKET_MY_PROPERTY						"myProperty"					//获取财富
 
 class TCPSocketControl {

@@ -8,22 +8,46 @@
 #pragma once
 
 #include "PopDialogBox.h"
-class PopDialogBoxRecharge: public PopDialogBox {
+#include "../MTNotificationQueue/MessageQueue.h"
+#include "IPopDialogBoxAssist.h"
+class PopDialogBoxRecharge : public PopDialogBox, public MessageQueue{
+public:
+	CC_SYNTHESIZE(IPopDialogBoxAssistCloseView*, pIPopDialogBoxAssistCloseView, IPopDialogBoxAssistCloseView);
 private:
-	enum MsgType
+	enum RechargeActionType
 	{
-		MSG_SYSTEM=1,				//系统消息
-		MSG_MY,						//我的消息
+		R_Action_GET_MONEY = 0,					//获取财富
+		R_Action_EXCHANGE,						//兑换
 	};
-	CC_SYNTHESIZE(MsgType, eMsgType, MsgType);
+	CC_SYNTHESIZE(RechargeActionType, eRechargeActionType, RechargeActionType);
+
+private:
+	enum RechargeType
+	{
+		RECHARGE_GOLD=1,				//金币
+		RECHARGE_BIG_GOLD,				//元宝
+	};
+	CC_SYNTHESIZE(RechargeType, eRechargeType, RechargeType);
 	//游标
 	UIImageView *pIVCursor;
-	//消息名称
-	UILabel *pLMsgName;
-	//没有消息
-	UIImageView *pIVNothing;
-	//消息列表
-	UIListView *pLVMsgList;
+	//兑换名称
+	UILabel *pLRechargeName;
+	//兑换列表
+	UIListView *pLVRechargeList;
+
+	//我的当前金币
+	UILabel *pLCurGoldCount;
+	//我的当前元宝
+	UILabel *pLCurBigGoldCount;
+private:
+	struct RechargeData
+	{
+		std::string sImageIconName;						//图片名称
+		std::string sExchangeNum;						//兑换数
+		std::string sExchangePice;						//兑换价格
+	};
+	std::vector<RechargeData> vecRechargeGold;			//金币
+	std::vector<RechargeData> vecRechargeBigGold;		//元宝
 public:
 	PopDialogBoxRecharge();
 	~PopDialogBoxRecharge();
@@ -31,9 +55,25 @@ public:
 private:
 	virtual void onEnter();
 	virtual void onExit();
-	//消息按键回调
-	void onMenuMsg(CCObject *object, TouchEventType type);
 
-	//更新消息列表
-	void updateListMsg(std::vector<std::string> qMsg);
+	//关闭窗口
+	void onMenuCloseView(CCObject *object, TouchEventType type);
+	//更改兑换类型
+	void onMenuChangeExchangeType(CCObject *object, TouchEventType type);
+	//兑换按键
+	void onMenuExchange(CCObject *object, TouchEventType type);
+
+	//更新兑换列表
+	void updateListRecharge(std::vector<RechargeData> qMsg);
+
+	//////////////////////////////////////////////////////////////////////////
+	void update(float delta);
+	//连接成功
+	void connectSuccess();
+	//网络消息
+	virtual void onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
+	//用户服务
+	void onEventUserService(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
+	//财富
+	void onSubTreasure(void * pDataBuffer, unsigned short wDataSize);
 };

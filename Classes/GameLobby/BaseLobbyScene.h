@@ -11,7 +11,7 @@
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
-class BaseLobbyScene :public CCLayer, public CStringAide, public IPopAssistKnapsack, public IPopDialogBoxAssist
+class BaseLobbyScene :public CCLayer, public CStringAide, public IPopAssistKnapsack, public IPopDialogBoxAssist,public IPopDialogBoxAssistCloseView
 {
 public:
 	UILabel *userName;
@@ -59,6 +59,8 @@ private:
 	virtual void onCloseKnapsack();
 	//关闭VIP回调
 	virtual void onCloseViewToShop();
+	//关闭窗口回调
+	virtual void onCloseView(){ isReadMessage = true; }
 	//随机生成云
 	void createCloudRandom(CCSprite *pBg);
 	//去回调

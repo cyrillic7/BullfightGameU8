@@ -176,10 +176,11 @@ void BaseLobbyScene::popDialogBox(PopType type){
 		((PopDialogBoxKnapsack *)pdb)->setIPopAssistKnapsack(this);
 	}
 		break;
-	case BaseLobbyScene::POP_RECHARGE:
+	case BaseLobbyScene::POP_RECHARGE://充值、兑换
 	{
+		isReadMessage = false;
 		pdb = PopDialogBoxRecharge::create();
-		//((PopDialogBoxRecharge *)pdb)->setIPopDialogBoxAssist(this);
+		((PopDialogBoxRecharge *)pdb)->setIPopDialogBoxAssistCloseView(this);
 	}
 
 	break;
