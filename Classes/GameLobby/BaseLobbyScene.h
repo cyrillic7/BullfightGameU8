@@ -7,11 +7,11 @@
 #include "../Tools/CStringAide.h"
 #include "../Network/TCPSocket/TCPSocketControl.h"
 #include "../PopDialogBox/PopDialogBoxKnapsack.h"
-#include "../PopDialogBox/PopDialogBoxVip.h"
+#include "../PopDialogBox/IPopDialogBoxAssist.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
-class BaseLobbyScene:public CCLayer,public CStringAide,public IPopAssistKnapsack,public IPopAssistVip
+class BaseLobbyScene :public CCLayer, public CStringAide, public IPopAssistKnapsack, public IPopDialogBoxAssist
 {
 public:
 	UILabel *userName;
@@ -19,7 +19,6 @@ public:
 	UIButton *pBUserInfo;
 	bool isReadMessage;
     
-private:
 	enum PopType
 	{
 		POP_USER_INFO=0,			//用户信息
@@ -46,9 +45,10 @@ public:
 	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM); }
 	//VIP
 	void onMenuVip(CCObject* pSender, TouchEventType type);
-private:
 	//弹出框
 	void popDialogBox(PopType type);
+private:
+	
 	//菜单回调（由于菜单回调处理逻辑简单，可设为同一个回调）
 	void onMenuCallback(CCObject* pSender, TouchEventType type);
 	//菜单（设置用户信息）
@@ -57,7 +57,7 @@ private:
 	//关闭背包回调
 	virtual void onCloseKnapsack();
 	//关闭VIP回调
-	virtual void onCloseVipToShop();
+	virtual void onCloseViewToShop();
 	//随机生成云
 	void createCloudRandom(CCSprite *pBg);
 	//去回调

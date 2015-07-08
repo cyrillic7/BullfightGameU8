@@ -78,7 +78,7 @@ void PopDialogBoxVip::onMenuReward(CCObject *object, TouchEventType type){
 			break;
 		case REWARD_SHOP:
 		{
-			getIPopAssistVip()->onCloseVipToShop();
+			getIPopDialogBoxAssist()->onCloseViewToShop();
 			this->removeFromParentAndCleanup(true);
 		}
 			break;

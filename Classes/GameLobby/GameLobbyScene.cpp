@@ -138,7 +138,7 @@ void GameLobbyScene::menuResetUser(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		popDialogBox();
+		popDialogBoxUserInfo();
 		//PopDialogBoxSign *pSign = PopDialogBoxSign::create();
 		//this->addChild(pSign, 10);
 	}
@@ -183,9 +183,10 @@ void GameLobbyScene::menuSelectMode(CCObject* pSender, TouchEventType type){
 	}
 }
 
-void GameLobbyScene::popDialogBox(){
-	PopDialogBox *pdb = PopDialogBoxUserInfo::create();
-	this->addChild(pdb);
+void GameLobbyScene::popDialogBoxUserInfo(){
+	popDialogBox(POP_USER_INFO);
+	//PopDialogBox *pdb = PopDialogBoxUserInfo::create();
+	//this->addChild(pdb);
 }
 void GameLobbyScene::enterLobbyByMode(int mode){
 	switch (mode)

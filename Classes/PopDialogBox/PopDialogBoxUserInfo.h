@@ -11,7 +11,11 @@
 #include "../MTNotificationQueue/MessageQueue.h"
 #include "PopDialogBoxBindingPhone.h"
 class PopDialogBoxUserInfo : public PopDialogBox, public MessageQueue,public IPopAssistBindingPhone {
+public:
+	CC_SYNTHESIZE(IPopDialogBoxAssist *, pIPopDialogBoxAssist, IPopDialogBoxAssist);
 private:
+	
+
 	enum UserInfoType
 	{
 		USER_GET_MONEY=0,					//获取财富
@@ -58,6 +62,9 @@ private:
 	void onMenuChange(CCObject *object, TouchEventType type);
 	//绑定手机按键
 	void onMenuBindingPhone(CCObject *object, TouchEventType type);
+	//兑换
+	void onMenuExchange(CCObject *object, TouchEventType type);
+
 	void setShowChangeView();
 	//更新性别
 	void updateSex();

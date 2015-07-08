@@ -126,7 +126,11 @@ void BaseLobbyScene::popDialogBox(PopType type){
 	switch (type)
 	{
 	case BaseLobbyScene::POP_USER_INFO:
-		pdb=PopDialogBoxUserInfo::create();
+	{
+		pdb = PopDialogBoxUserInfo::create();
+		((PopDialogBoxUserInfo *)pdb)->setIPopDialogBoxAssist(this);
+	}
+		
 		break;
 	case BaseLobbyScene::POP_SETUP:
 		pdb=PopDialogBoxSetUp::create();
@@ -158,7 +162,7 @@ void BaseLobbyScene::popDialogBox(PopType type){
 	case BaseLobbyScene::POP_VIP:
 	{
 		pdb = PopDialogBoxVip::create();
-		((PopDialogBoxVip *)pdb)->setIPopAssistVip(this);
+		((PopDialogBoxVip *)pdb)->setIPopDialogBoxAssist(this);
 	}
 		
 		break;
@@ -264,7 +268,7 @@ void BaseLobbyScene::onCloseKnapsack(){
 	isReadMessage = true;
 }
 //关闭VIP回调
-void BaseLobbyScene::onCloseVipToShop(){
+void BaseLobbyScene::onCloseViewToShop(){
 	popDialogBox(POP_SHOP);
 }
 //随机生成云

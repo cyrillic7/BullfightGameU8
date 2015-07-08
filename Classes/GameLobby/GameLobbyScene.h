@@ -38,7 +38,7 @@ public:
 private:
 	
 	//弹出框
-	void popDialogBox();
+	void popDialogBoxUserInfo();
 	//菜单设置用户信息
 	void menuResetUser(CCObject* pSender, TouchEventType type);
 	//菜单设置

@@ -10,15 +10,9 @@
 #include "PopDialogBox.h"
 #include "../MTNotificationQueue/MessageQueue.h"
 #include "../Network/CMD_Server/CMD_LogonServer.h"
-struct IPopAssistVip//VIP辅助接口
-{
-	virtual ~IPopAssistVip(){}
-	//关闭VIP跳转到商城
-	virtual void onCloseVipToShop() = 0;
-};
 class PopDialogBoxVip: public PopDialogBox ,public MessageQueue{
 private:
-	CC_SYNTHESIZE(IPopAssistVip *, iIPopAssistVip, IPopAssistVip);
+	CC_SYNTHESIZE(IPopDialogBoxAssist *, iIPopAssistVip, IPopDialogBoxAssist);
 
 	enum VipActionType
 	{

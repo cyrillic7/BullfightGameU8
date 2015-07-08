@@ -35,6 +35,9 @@ void PopDialogBoxUserInfo::onEnter(){
 
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::onMenuBackWithReadMsg));
+	//兑换
+	UIButton *pBExchange = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonExchange"));
+	pBExchange->addTouchEventListener(this, toucheventselector(PopDialogBoxUserInfo::onMenuExchange));
 	//绑定手机
 	pBBindingPhone = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonBindPhone"));
 	pBBindingPhone->addTouchEventListener(this, toucheventselector(PopDialogBoxUserInfo::onMenuBindingPhone));
@@ -101,6 +104,17 @@ void PopDialogBoxUserInfo::onCloseBindingPhone(){
 	isReadMessage = true;
 	resetBindingButton();
 }
+//兑换
+void PopDialogBoxUserInfo::onMenuExchange(CCObject *object, TouchEventType type){
+	if (type==TOUCH_EVENT_ENDED)
+	{
+		if (getIPopDialogBoxAssist())
+		{
+			getIPopDialogBoxAssist()->onCloseViewToShop();
+		}
+		this->removeFromParentAndCleanup(true);
+	}
+}
 void PopDialogBoxUserInfo::onMenuChange(CCObject *object, TouchEventType type){
 	if (type==TOUCH_EVENT_ENDED)
 	{
@@ -137,7 +151,7 @@ void PopDialogBoxUserInfo::setShowChangeView(){
 		//pLabelNickName->setColor(ccc3(118,65,20));onCheckBoxSelectedStateEvent
 		//piNickNameBg->setVisible(true);
 		onCheckBoxSelectedStateEvent(pcbSexBoy, DataModel::sharedDataModel()->userInfo->cbGender == 1 ? CHECKBOX_STATE_EVENT_SELECTED : CHECKBOX_STATE_EVENT_UNSELECTED);
-		onCheckBoxSelectedStateEvent(pcbSexGirl, DataModel::sharedDataModel()->userInfo->cbGender == 2 ? CHECKBOX_STATE_EVENT_SELECTED : CHECKBOX_STATE_EVENT_UNSELECTED);
+		onCheckBoxSelectedStateEvent(pcbSexGirl, DataModel::sharedDataModel()->userInfo->cbGender == 0 ? CHECKBOX_STATE_EVENT_SELECTED : CHECKBOX_STATE_EVENT_UNSELECTED);
 
 
 		bChange->setTitleText("保存");
@@ -267,7 +281,8 @@ void PopDialogBoxUserInfo::connectSuccess(){
 		std::string md5PassWord = m.GetMd5();
 		strcpy(modifyIndividual.szPassword, md5PassWord.c_str());
 		
-		modifyIndividual.cbGender = DataModel::sharedDataModel()->userInfo->cbGender;
+		modifyIndividual.cbGender = pcbSexBoy->getSelectedState() ? 1 : 0;
+		//modifyIndividual.cbGender = DataModel::sharedDataModel()->userInfo->cbGender;
 
 		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_INDIVIDUAL, &modifyIndividual, sizeof(modifyIndividual));
 	}
@@ -290,7 +305,7 @@ void PopDialogBoxUserInfo::onEventUserService(WORD wSubCmdID, void * pDataBuffer
 		CMD_GP_OperateSuccess *pSuccess = (CMD_GP_OperateSuccess*)pDataBuffer;
 		showTipInfo(GBKToUTF8(pSuccess->szDescribeString));
 
-		DataModel::sharedDataModel()->userInfo->cbGender = pcbSexBoy->getSelectedState() ? 1 : 2;
+		DataModel::sharedDataModel()->userInfo->cbGender = pcbSexBoy->getSelectedState() ? 1 :0;
 		setShowChangeView();
 
 	}
