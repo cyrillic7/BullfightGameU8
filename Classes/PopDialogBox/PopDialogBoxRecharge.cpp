@@ -26,6 +26,7 @@ std::string sBigGoldPice[MAX_BIG_GOLD_COUNT] = { "10", "30", "50", "100", "500",
 PopDialogBoxRecharge::PopDialogBoxRecharge()
 	:eRechargeType(RECHARGE_GOLD)
 	, eRechargeActionType(R_Action_GET_MONEY)
+	, pIPopDialogBoxAssistCloseView(NULL)
 {
 	for (int i = 0; i < MAX_GOLD_COUNT; i++)
 	{

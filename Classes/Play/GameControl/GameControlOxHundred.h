@@ -163,6 +163,8 @@ private:
 private:
 	//菜单返回////////////////////////////////////////////////////////////////////////
 	void onMenuBack(CCObject* pSender, TouchEventType type);
+	//充值
+	void onMenuOnRecharge(CCObject* pSender, TouchEventType type);
 	//在线用户
 	void onMenuOnLine(CCObject* pSender, TouchEventType type);
 	//趋势图

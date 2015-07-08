@@ -19,6 +19,7 @@
 #include "../../PopDialogBox/PopDialogBoxLoading.h"
 #include "../../Network/SEvent.h"
 #include "../../MTNotificationQueue/MTNotificationQueue.h"
+#include "../../PopDialogBox/PopDialogBoxRecharge.h"
 using namespace std;
 GameControlOxHundred::GameControlOxHundred()
 	:iCurSelectJettonIndex(0)
@@ -55,6 +56,9 @@ void GameControlOxHundred::onEnter(){
 
 	UIButton* button = static_cast<UIButton*>(pWidget->getWidgetByName("ButtonBack"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxHundred::onMenuBack));
+	//充值
+	button = static_cast<UIButton*>(pWidget->getWidgetByName("ButtonAdd"));
+	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxHundred::onMenuOnRecharge));
 	//趋势图按键
 	button = static_cast<UIButton*>(pWidget->getWidgetByName("ButtonTrend"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxHundred::onMenuTrend));
@@ -329,6 +333,14 @@ int GameControlOxHundred::getChairIndex(int meChairID, int chairID){
 		}
 	}
 	return 0;
+}
+//充值
+void GameControlOxHundred::onMenuOnRecharge(CCObject* pSender, TouchEventType type){
+	if (type==TOUCH_EVENT_ENDED)
+	{
+		PopDialogBoxRecharge *pPDBRecharge = PopDialogBoxRecharge::create();
+		getMainScene()->addChild(pPDBRecharge, K_Z_ORDER_POP);
+	}
 }
 //菜单回调（返回）
 void GameControlOxHundred::onMenuBack(CCObject* pSender, TouchEventType type){
