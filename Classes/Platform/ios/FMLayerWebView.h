@@ -20,7 +20,7 @@ USING_NS_CC;
 class FMLayerWebView : public CCLayer{
 
 public:
-    
+    int iCurAction;
     FMLayerWebView();
     
     ~FMLayerWebView();

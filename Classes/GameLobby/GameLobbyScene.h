@@ -23,8 +23,8 @@ public:
 		MODE_SIX_SWAP,					//六人换牌
 	};
 private:
-	UILabel *pLabelGoldCount;
-	UIScrollView *scroll;
+	Label *pLabelGoldCount;
+	ScrollView *scroll;
 	//是否显示站立提示
 	static bool isShowUpTip;
 	//是否显示签到

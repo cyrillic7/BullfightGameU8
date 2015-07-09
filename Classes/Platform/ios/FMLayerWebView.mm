@@ -10,6 +10,7 @@
 
 #include "FMUIWebViewBridge.h"
 #include "../../LogonScene/LogonScene.h"
+#include "../../GameLobby/GameLobbyScene.h"
 static FMUIWebViewBridge *g_FMUIWebViewBridge=nil;
 
 FMLayerWebView::FMLayerWebView(){
@@ -27,7 +28,21 @@ void FMLayerWebView::webViewDidFinishLoad(){
 }
 
 void FMLayerWebView::onBackbuttonClick(){
-    LogonScene::pLScene->closeWebView();
+    switch (iCurAction) {
+        case 200:
+        {
+            LogonScene::pLScene->closeWebView();
+        }
+            break;
+        case 201:
+        {
+            GameLobbyScene::lobbyScene->closeWebView();
+        }
+            break;
+        default:
+            break;
+    }
+    
     this->removeFromParentAndCleanup(true);
     
 }

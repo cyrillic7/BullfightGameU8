@@ -49,10 +49,12 @@ std::string platformAction(const std::string& jsonString)
         }
             break;
         case 200:
+        case 201:
         {
             std::string url=aide.getString("url");
             //LogonScene *pLS;
             FMLayerWebView* web = FMLayerWebView::create();
+            web->iCurAction=act;
             //CCSize winSize=CCDirector::sharedDirector()->getWinSize();
             //web->setContentSize(CCSize(winSize.width/2,winSize.height/2));
             //web->setPosition(CCPoint(100,50));

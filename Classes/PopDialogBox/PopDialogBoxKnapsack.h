@@ -37,15 +37,15 @@ private:
 	//物品列表
 	UIListView *pListViewGoods;
 	//信息背景
-	UIImageView *pIInfoBg;
+	ImageView *pIInfoBg;
 	//空包背景
-	UIImageView *pINothing;
+	ImageView *pINothing;
 	//当前选择物品索引
 	int iCurSelectIndex;
 	//物品名称
-	UILabel *pLGoodsName;
+	Label *pLGoodsName;
 	//物品图片
-	UIImageView *pIVGoods;
+	ImageView *pIVGoods;
 public:
 	PopDialogBoxKnapsack();
 	~PopDialogBoxKnapsack();

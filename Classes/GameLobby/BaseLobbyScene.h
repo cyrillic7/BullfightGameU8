@@ -14,9 +14,9 @@ using namespace gui;
 class BaseLobbyScene :public CCLayer, public CStringAide, public IPopAssistKnapsack, public IPopDialogBoxAssist,public IPopDialogBoxAssistCloseView
 {
 public:
-	UILabel *userName;
-	UILabel *pLabelGoldCount;
-	UIButton *pBUserInfo;
+	Label *userName;
+	Label *pLabelGoldCount;
+	Button *pBUserInfo;
 	bool isReadMessage;
 	UILayer *m_pWidget;
 	//创建UI层
