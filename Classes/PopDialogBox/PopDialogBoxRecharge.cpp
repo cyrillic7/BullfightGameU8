@@ -36,14 +36,14 @@ PopDialogBoxRecharge::PopDialogBoxRecharge()
 		rData.lExchangePice = lGoldPice[i];
 		vecRechargeGold.push_back(rData);
 	}
-	/*for (int i = 0; i < MAX_BIG_GOLD_COUNT; i++)
+	for (int i = 0; i < MAX_BIG_GOLD_COUNT; i++)
 	{
 		RechargeData rData;
 		rData.sImageIconName = sBigGoldIconName[i];
 		rData.sExchangeNum = sBigGoldExchangeNum[i];
-		rData.sExchangePice = sBigGoldPice[i];
+		rData.lExchangePice = lBigGoldPice[i];
 		vecRechargeBigGold.push_back(rData);
-	}*/
+	}
 	
 
 	
@@ -154,6 +154,9 @@ void PopDialogBoxRecharge::onMenuExchange(CCObject *object, TouchEventType type)
 		}
 			break;
 		case PopDialogBoxRecharge::RECHARGE_BIG_GOLD:
+		{
+			platformAction("{\"act\":300}");
+		}
 			break;
 		default:
 			break;

@@ -37,6 +37,14 @@ void PopDialogBoxSetUp::onEnter(){
 	//关闭
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::onMenuBackWithReadMsg));
+	//音乐
+	UIButton *pBMusic = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonMusic"));
+	pBMusic->addTouchEventListener(this, toucheventselector(PopDialogBoxSetUp::onMenuMusic));
+	changeMusicButtonState(pBMusic, DataModel::isMusic);
+	//音效
+	UIButton *pBSound = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonSound"));
+	pBSound->addTouchEventListener(this, toucheventselector(PopDialogBoxSetUp::onMenuSound));
+	changeMusicButtonState(pBSound, DataModel::isSound);
 	//帮助按键
 	backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonHelp"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxSetUp::onMenuHelp));
@@ -104,5 +112,51 @@ void PopDialogBoxSetUp::onMenuChangeAccount(CCObject *object, TouchEventType typ
 	if (type == TOUCH_EVENT_ENDED)
 	{
 		Tools::setTransitionAnimation(0, 0, LogonScene::scene());
+	}
+}
+//音乐开关
+void PopDialogBoxSetUp::onMenuMusic(CCObject *object, TouchEventType type){
+	if (type == TOUCH_EVENT_ENDED)
+	{
+		DataModel::isMusic = !DataModel::isMusic;
+		if (DataModel::isMusic)
+		{
+		}
+		else
+		{
+
+		}
+		changeMusicButtonState((UIButton*)object, DataModel::isMusic);
+		Tools::saveBoolByRMS(RMS_IS_MUSIC, DataModel::isMusic);
+	}
+}
+//音效开关
+void PopDialogBoxSetUp::onMenuSound(CCObject *object, TouchEventType type){
+	if (type == TOUCH_EVENT_ENDED)
+	{
+		DataModel::isSound = !DataModel::isSound;
+		if (DataModel::isSound)
+		{
+		}
+		else
+		{
+
+		}
+		changeMusicButtonState((UIButton*)object, DataModel::isSound);
+		Tools::saveBoolByRMS(RMS_IS_SOUND, DataModel::isSound);
+	}
+}
+
+//更改音乐状态
+void PopDialogBoxSetUp::changeMusicButtonState(UIButton *pButton, bool isOpen){
+	if (isOpen)
+	{
+		pButton->loadTextureNormal("on.png",UI_TEX_TYPE_PLIST);
+		pButton->loadTexturePressed("on.png", UI_TEX_TYPE_PLIST);
+	}
+	else
+	{
+		pButton->loadTextureNormal("off.png", UI_TEX_TYPE_PLIST);
+		pButton->loadTexturePressed("off.png", UI_TEX_TYPE_PLIST);
 	}
 }
