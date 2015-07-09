@@ -22,7 +22,7 @@
 #include "../PopDialogBox/PopDialogBoxMsg.h"
 #include "../PopDialogBox/PopDialogBoxVip.h"
 #include "../PopDialogBox/PopDialogBoxRecharge.h"
-
+#include "../Platform/coPlatform.h"
 #include "../Tools/DataModel.h"
 BaseLobbyScene::BaseLobbyScene()
 	:isReadMessage(true){
@@ -69,55 +69,55 @@ void BaseLobbyScene::onEnter(){
 	pDoor1->setPosition(ccp(0, SCENE_SIZE.height));
 	pDoor1->setScaleX(-1);
 	//创建UI层
-	UILayer *m_pWidget = UILayer::create();
-	this->addChild(m_pWidget);
+	m_pWidgetBase = UILayer::create();
+	this->addChild(m_pWidgetBase);
 	//加载UI层
 	UILayout *pWidget = dynamic_cast<UILayout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UIBaseLobby.ExportJson)));
-	m_pWidget->addWidget(pWidget);
+	m_pWidgetBase->addWidget(pWidget);
 	//绑定设置按键
-	UIButton* button  = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonSetUp"));
+	UIButton* button  = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonSetUp"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
 	//绑定用户信息按键
-	pBUserInfo= static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonUser"));
+	pBUserInfo= static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("buttonUser"));
 	pBUserInfo->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::menuResetUser));
 	//绑定更多按键
-	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonMore"));
+	button = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonMore"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
 	//绑定活动按键
-	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonActivity"));
+	button = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonActivity"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
 	//绑定任务按键
-	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonTask"));
+	button = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonTask"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
 	//绑定银行按键
-	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonBank"));
+	button = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonBank"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
 	//绑定商店按键
-	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonShop"));
+	button = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonShop"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
 	//绑定拍卖按键
-	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonAuction"));
+	button = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonAuction"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
 	//绑定排行按键
-	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonRanking"));
+	button = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonRanking"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
 	//绑定消息
-	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonMsg"));
+	button = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonMsg"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
 	//绑定背包
-	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonKnapsack"));
+	button = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonKnapsack"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
 	//绑定充值
-	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonRecharge"));
+	button = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonRecharge"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
 	//绑定VIP
-	UIImageView *pIVip = static_cast<UIImageView*>(m_pWidget->getWidgetByName("ImageVip"));
+	UIImageView *pIVip = static_cast<UIImageView*>(m_pWidgetBase->getWidgetByName("ImageVip"));
 	pIVip->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuVip));
 	
 	//用户名
-	userName=static_cast<UILabel*>(m_pWidget->getWidgetByName("labelUserName"));
+	userName=static_cast<UILabel*>(m_pWidgetBase->getWidgetByName("labelUserName"));
 	//金币
-	pLabelGoldCount=static_cast<UILabel*>(m_pWidget->getWidgetByName("LabelGoldCount"));
+	pLabelGoldCount=static_cast<UILabel*>(m_pWidgetBase->getWidgetByName("LabelGoldCount"));
 	pLabelGoldCount->setText(CCString::createWithFormat("%lld",DataModel::sharedDataModel()->userInfo->lScore)->getCString());
 }
 //退出场景
@@ -142,7 +142,12 @@ void BaseLobbyScene::popDialogBox(PopType type){
 		pdb=PopDialogBoxMore::create();
 		break;
 	case BaseLobbyScene::POP_ACTIVITY:
-		pdb=PopDialogBoxActivity::create();
+	{
+		m_pWidget->setTouchEnabled(false);
+		m_pWidgetBase->setTouchEnabled(false);
+		platformAction("{\"act\":201 ,\"url\":\"http://www.baidu.com/\"}").c_str();
+		//pdb = PopDialogBoxActivity::create();
+	}
 		break;
 	case BaseLobbyScene::POP_TASK:
 		pdb=PopDialogBoxTask::create();
@@ -187,7 +192,10 @@ void BaseLobbyScene::popDialogBox(PopType type){
 	default:
 		break;
 	}
-	this->addChild(pdb);
+	if (pdb)
+	{
+		this->addChild(pdb);
+	}
 }
 //菜单回调
 void BaseLobbyScene::onMenuCallback(CCObject* pSender, TouchEventType type){

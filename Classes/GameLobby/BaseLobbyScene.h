@@ -18,7 +18,9 @@ public:
 	UILabel *pLabelGoldCount;
 	UIButton *pBUserInfo;
 	bool isReadMessage;
-    
+	UILayer *m_pWidget;
+	//创建UI层
+	UILayer *m_pWidgetBase;
 	enum PopType
 	{
 		POP_USER_INFO=0,			//用户信息

@@ -60,7 +60,7 @@ void ClassicLobbyScene::onEnter(){
 
 	pBUserInfo->getChildByName("Image_23")->setVisible(false);
 
-	UILayer *m_pWidget = UILayer::create();
+	m_pWidget = UILayer::create();
 	this->addChild(m_pWidget);
 
 

@@ -24,6 +24,7 @@
 #include "../Network/ListernerThread/LobbyGameListerner.h"
 #include "../Network/ListernerThread/GameIngListerner.h"
 bool GameLobbyScene::isShowUpTip = false;
+GameLobbyScene * GameLobbyScene::lobbyScene = NULL;
 GameLobbyScene::GameLobbyScene()
 {
 	scheduleUpdate();
@@ -37,6 +38,7 @@ CCScene* GameLobbyScene::scene(bool showUpTip)
     CCScene *scene = CCScene::create();
     GameLobbyScene *layer = GameLobbyScene::create();
     scene->addChild(layer);
+    lobbyScene = layer;
 	isShowUpTip = showUpTip;
     return scene;
 }
@@ -49,7 +51,7 @@ void GameLobbyScene::onEnter(){
 	spriteBg->setPosition(ccp(deviceSize.width/2,deviceSize.height/2));
 	float scale=deviceSize.height/spriteBg->getContentSize().height;
 	spriteBg->setScale(scale);*/
-	UILayer *m_pWidget = UILayer::create();
+	m_pWidget = UILayer::create();
 	this->addChild(m_pWidget);
 
 
@@ -709,3 +711,37 @@ void GameLobbyScene::onSubUserState(void * pDataBuffer, unsigned short wDataSize
 		break;
 	}
 }
+
+//关闭wap网站
+void GameLobbyScene::closeWebView(){
+	m_pWidget->setTouchEnabled(true);
+	m_pWidgetBase->setTouchEnabled(true);
+}
+/////////////////////////////////////////////////////////////////////////////
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#include <jni.h>
+
+//call c
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+
+	//java 调用(签名验证)
+	JNIEXPORT void JNICALL Java_com_xw_BullfightGame_BullfightGame_JniOnActivity(JNIEnv* env, jobject job, jint type)
+	{
+		switch (type)
+		{
+		default:
+		{
+			GameLobbyScene::lobbyScene->closeWebView();
+		}
+		break;
+		}
+	}
+#ifdef __cplusplus
+}
+#endif
+//////////////////////////////////////////////////////////////////////////
+#endif // #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
