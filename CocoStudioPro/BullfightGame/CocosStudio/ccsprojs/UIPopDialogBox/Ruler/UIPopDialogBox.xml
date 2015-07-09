@@ -139,4 +139,8 @@
     <Project>UIPopDialogBoxRecharge</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxFirstRecharge</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

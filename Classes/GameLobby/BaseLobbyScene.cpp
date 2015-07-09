@@ -22,6 +22,7 @@
 #include "../PopDialogBox/PopDialogBoxMsg.h"
 #include "../PopDialogBox/PopDialogBoxVip.h"
 #include "../PopDialogBox/PopDialogBoxRecharge.h"
+#include "../PopDialogBox/PopDialogBoxFirstRecharge.h"
 #include "../Platform/coPlatform.h"
 #include "../Tools/DataModel.h"
 BaseLobbyScene::BaseLobbyScene()
@@ -195,6 +196,14 @@ void BaseLobbyScene::popDialogBox(PopType type){
 	if (pdb)
 	{
 		this->addChild(pdb);
+	}
+}
+//首充值
+void BaseLobbyScene::onMenuFirstRecharge(CCObject* pSender, TouchEventType type){
+	if (type==TOUCH_EVENT_ENDED)
+	{
+		PopDialogBoxFirstRecharge *pPDBFirstRecharge = PopDialogBoxFirstRecharge::create();
+		this->addChild(pPDBFirstRecharge);
 	}
 }
 //菜单回调

@@ -36,6 +36,7 @@
     <string>UIPopDialogBoxBindingPhone.json</string>
     <string>UIPopDialogBoxForgetPassword.json</string>
     <string>UIPopDialogBoxRecharge.json</string>
+    <string>UIPopDialogBoxFirstRecharge.json</string>
   </JsonList>
   <CanvasSize>
     <Width>1136</Width>
@@ -67,6 +68,7 @@
     <string>UIBindingPhone.plist</string>
     <string>UIVip.plist</string>
     <string>UIRecharge.plist</string>
+    <string>UIFirstRecharge.plist</string>
   </imageFileList>
   <imagePngList>
     <string>UIPanel.png</string>
@@ -91,6 +93,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -113,6 +116,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -135,6 +139,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -157,6 +162,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -179,6 +185,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -201,6 +208,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -223,6 +231,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -245,6 +254,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -267,6 +277,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -289,6 +300,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -311,6 +323,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -333,6 +346,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -355,6 +369,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -377,6 +392,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -399,6 +415,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -421,6 +438,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -443,6 +461,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -465,6 +484,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -487,6 +507,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -509,6 +530,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -531,6 +553,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -553,6 +576,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -575,6 +599,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -597,6 +622,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -619,6 +645,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -641,6 +668,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -663,6 +691,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -685,6 +714,7 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
     <string>UIRanking.png</string>
@@ -707,7 +737,31 @@
     <string>UIBindingPhone.png</string>
     <string>UIVip.png</string>
     <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
+    <string>UIPanel.png</string>
+    <string>UIButton.png</string>
+    <string>UIRanking.png</string>
+    <string>UIUserInfo.png</string>
+    <string>UICheckBox.png</string>
+    <string>UIActivity.png</string>
+    <string>Font.png</string>
+    <string>UIAuction.png</string>
+    <string>UIShop.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
+    <string>UIKnapsack.png</string>
+    <string>UIMsg.png</string>
+    <string>UIGameIngHundred.png</string>
+    <string>UISign.png</string>
+    <string>UITask.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
+    <string>UIGameIng.png</string>
+    <string>UIBindingPhone.png</string>
+    <string>UIVip.png</string>
+    <string>UIRecharge.png</string>
+    <string>UIFirstRecharge.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxAuction.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxFirstRecharge.json</CurrentUIJson>
 </UIProject>

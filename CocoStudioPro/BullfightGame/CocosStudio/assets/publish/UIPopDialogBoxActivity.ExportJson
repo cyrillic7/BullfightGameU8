@@ -31,7 +31,8 @@
     "UIGameIng.plist",
     "UIBindingPhone.plist",
     "UIVip.plist",
-    "UIRecharge.plist"
+    "UIRecharge.plist",
+    "UIFirstRecharge.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
@@ -56,6 +57,7 @@
     "UIBindingPhone.png",
     "UIVip.png",
     "UIRecharge.png",
+    "UIFirstRecharge.png",
     "UIPanel.png",
     "UIButton.png",
     "UIRanking.png",
@@ -77,7 +79,8 @@
     "UIGameIng.png",
     "UIBindingPhone.png",
     "UIVip.png",
-    "UIRecharge.png"
+    "UIRecharge.png",
+    "UIFirstRecharge.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

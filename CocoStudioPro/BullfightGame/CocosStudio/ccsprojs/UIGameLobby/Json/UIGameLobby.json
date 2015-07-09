@@ -11,11 +11,28 @@
   "designWidth": 1136,
   "textures": [
     "UIGameLobby.plist",
+    "UIUserInfo.plist",
     "UIClassicLobby.plist",
-    "UIMode.plist",
-    "UIUserInfo.plist"
+    "UIPanel.plist",
+    "UIMode.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIGameLobby.png",
+    "UIUserInfo.png",
+    "UIClassicLobby.png",
+    "UIPanel.png",
+    "UIMode.png",
+    "UIGameLobby.png",
+    "UIUserInfo.png",
+    "UIClassicLobby.png",
+    "UIPanel.png",
+    "UIMode.png",
+    "UIGameLobby.png",
+    "UIUserInfo.png",
+    "UIClassicLobby.png",
+    "UIPanel.png",
+    "UIMode.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -605,7 +622,7 @@
         "options": {
           "__type": "ButtonSurrogate:#EditorCommon.JsonModel.Component.GUI",
           "classname": "Button",
-          "name": "Button_24",
+          "name": "ButtonRecharge",
           "ZOrder": 0,
           "actiontag": 47123949,
           "anchorPointX": 0.5,

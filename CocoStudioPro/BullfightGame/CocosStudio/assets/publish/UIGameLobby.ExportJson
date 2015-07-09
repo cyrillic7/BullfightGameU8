@@ -622,7 +622,7 @@
         "options": {
           "__type": "ButtonSurrogate:#EditorCommon.JsonModel.Component.GUI",
           "classname": "Button",
-          "name": "Button_24",
+          "name": "ButtonRecharge",
           "ZOrder": 0,
           "actiontag": 47123949,
           "anchorPointX": 0.5,

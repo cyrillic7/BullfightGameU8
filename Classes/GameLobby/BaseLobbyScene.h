@@ -50,6 +50,8 @@ public:
 	void onMenuVip(CCObject* pSender, TouchEventType type);
 	//弹出框
 	void popDialogBox(PopType type);
+	//首充值
+	void onMenuFirstRecharge(CCObject* pSender, TouchEventType type);
 private:
 	
 	//菜单回调（由于菜单回调处理逻辑简单，可设为同一个回调）

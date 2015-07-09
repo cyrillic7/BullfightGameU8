@@ -58,6 +58,9 @@ void GameLobbyScene::onEnter(){
 	UILayout *pWidget = dynamic_cast<UILayout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UIGameLobby.ExportJson)));
 	m_pWidget->addWidget(pWidget);
 
+
+	UIButton* pBRecharge = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonRecharge"));
+	pBRecharge->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuFirstRecharge));
 	/*UIButton* button = static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonUser"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&GameLobbyScene::menuResetUser));
 
