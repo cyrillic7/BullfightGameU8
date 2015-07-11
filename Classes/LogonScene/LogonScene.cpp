@@ -651,6 +651,7 @@ void LogonScene::onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned s
 	case SUB_MB_LIST_FINISH:
 		{
 			unscheduleUpdate();
+            gameSocket.Destroy();
 			TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_GAME);
 			Tools::setTransitionAnimation(0,0,GameLobbyScene::scene(false));
 		}
