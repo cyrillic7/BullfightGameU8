@@ -227,6 +227,69 @@ void LogonScene::update(float delta){
 	{
 		MessageQueue::update(delta);
 	}
+
+
+	
+	if (gameSocket.getSocketState() != CGameSocket::SOCKET_CONNECT_SUCCESS) {
+		return;
+	}
+
+	if (!gameSocket.Check()) {
+		//gameSocket = NULL;
+		//onConnectionAbort();
+		// 掉线了
+		CCLog("abort------------- <<%s>>", __FUNCTION__);
+
+		return;
+	}
+	gameSocket.Flush();
+	// 接收数据（取得缓冲区中的所有消息，直到缓冲区为空）
+	while (true)
+	{
+		char buffer[_MAX_MSGSIZE] = { 0 };
+		int nSize = sizeof(buffer);
+		char* pbufMsg = buffer;
+		if (gameSocket.getSocketState() != CGameSocket::SOCKET_CONNECT_SUCCESS)
+		{
+			break;
+		}
+		if (!gameSocket.ReceiveMsg(pbufMsg, nSize)) {
+			break;
+		}
+		// 接收数据（取得缓冲区中的所有消息，直到缓冲区为空）
+		TCP_Head* pHead = (TCP_Head*)pbufMsg;
+
+		WORD wDataSize = nSize - sizeof(TCP_Head);
+		void * pDataBuffer = pbufMsg + sizeof(TCP_Head);
+
+		/*ReadData rData;
+		rData.wMainCmdID = pHead->CommandInfo.wMainCmdID;
+		rData.wSubCmdID = pHead->CommandInfo.wSubCmdID;
+		rData.wDataSize = nSize;
+		memcpy(rData.sReadData, pbufMsg, nSize);
+		MessageQueue::pushQueue(rData);*/
+
+		onEventReadMessage(pHead->CommandInfo.wMainCmdID, pHead->CommandInfo.wSubCmdID, pDataBuffer,wDataSize);
+		//CCLog("%d %d<<%s>>", pHead->CommandInfo.wMainCmdID, pHead->CommandInfo.wSubCmdID, __FUNCTION__);
+		/*MsgHead* pReceiveMsg = (MsgHead*)(pbufMsg);
+		uint16	dwCurMsgSize = pReceiveMsg->usSize;
+		//			CCLOG("msgsize: %d", dwCurMsgSize);
+
+		if ((int)dwCurMsgSize > nSize || dwCurMsgSize <= 0) {	// broken msg
+		break;
+		}
+
+		//CMessageSubject::instance().OnMessage((const char*)pReceiveMsg, pReceiveMsg->usSize);
+
+		pbufMsg += dwCurMsgSize;
+		nSize -= dwCurMsgSize;
+		if (nSize <= 0) {
+		break;
+		}*/
+
+	}
+
+
 }
 //连接服务器
 void LogonScene::connectServer(){
@@ -243,7 +306,50 @@ void LogonScene::connectServer(){
 }
 //登录游戏////////////////////////////////////////////////////////////////////////
 void LogonScene::logonGameByAccount(float dt){
-	connectServer();
+	//connectServer();
+	PopDialogBox *box = PopDialogBoxLoading::create();
+	this->addChild(box, 10, TAG_LOADING);
+	box->setSocketName(SOCKET_LOGON_GAME);
+
+	bool isCreate = gameSocket.Create(GAME_IP, PORT_LOGON);
+	//if (isCreate)
+	{
+		CMD_MB_LogonAccounts logonAccounts;
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+		logonAccounts.cbDeviceType = 2;
+#elif(CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
+		logonAccounts.cbDeviceType = 3;
+#else
+		logonAccounts.cbDeviceType = 2;
+#endif
+
+		logonAccounts.dwPlazaVersion = VERSION_PLAZA;
+		strcpy(logonAccounts.szAccounts, DataModel::sharedDataModel()->sLogonAccount.c_str());
+		//strcpy(logonAccounts.szAccounts,"zhangh189");
+		strcpy(logonAccounts.szMachineID, "12");
+		strcpy(logonAccounts.szMobilePhone, "32");
+		strcpy(logonAccounts.szPassPortID, "12");
+		strcpy(logonAccounts.szPhoneVerifyID, "1");
+		//游戏标识
+		for (int i = 0; i < 10; i++)
+		{
+			logonAccounts.wModuleID[i] = 0;
+		}
+		logonAccounts.wModuleID[0] = 210; //210为二人牛牛标示
+		logonAccounts.wModuleID[1] = 30; //30为百人牛牛标示
+		logonAccounts.wModuleID[2] = 130; //1002为通比牛牛标示
+		logonAccounts.wModuleID[3] = 430; //六人换牌
+
+		MD5 m;
+		//std::string passWord = GBKToUTF8(DataModel::sharedDataModel()->sLogonPassword.c_str());
+		//m.ComputMd5(passWord.c_str(), passWord.length());
+		m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
+		std::string md5PassWord = m.GetMd5();
+		strcpy(logonAccounts.szPassword, md5PassWord.c_str());
+		gameSocket.SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &logonAccounts, sizeof(logonAccounts));
+		
+	}
 }
 //读取网络消息回调
 void LogonScene::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){

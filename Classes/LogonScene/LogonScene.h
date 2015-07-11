@@ -13,8 +13,10 @@
 #include "../MTNotificationQueue/MessageQueue.h"
 #include "../Tools/DataModel.h"
 #include "../Tools/CStringAide.h"
-#include "../Network/TCPSocket/TCPSocketControl.h"
 #include "../PopDialogBox/PopDialogBoxRegistered.h"
+
+#include "../Network/TCPSocket/TCPSocketControl.h"
+#include "../Network/TCPSocket/CGameSocket.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace ui;
@@ -34,6 +36,8 @@ private:
 	std::string sRegisterPasswrod;
     
     UILayer *m_pWidget;
+
+	CGameSocket gameSocket;
 public:
     static LogonScene* pLScene;
 	bool isReadMessage;
