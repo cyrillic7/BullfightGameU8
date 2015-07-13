@@ -174,7 +174,7 @@ void PopDialogBoxForgetBankPwd::onEventReadMessage(WORD wMainCmdID, WORD wSubCmd
 	{
 	case MDM_MB_SOCKET://连接成功
 	{
-		connectSuccess();
+		//connectSuccess();
 	}
 	break;
 	case MDM_GP_USER_SERVICE://用户服务
@@ -182,6 +182,7 @@ void PopDialogBoxForgetBankPwd::onEventReadMessage(WORD wMainCmdID, WORD wSubCmd
 		onEventUserService(wSubCmdID, pDataBuffer, wDataSize);
 		//移除loading
 		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+		gameSocket.Destroy(true);
 		//关闭网络
 		//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_FORGET_PWD);
 	}

@@ -23,6 +23,7 @@ public:
 		MODE_SIX_SWAP,					//六人换牌
 	};
 private:
+	//CGameSocket gameSocket;
 	Label *pLabelGoldCount;
 	ScrollView *scroll;
 	//是否显示站立提示

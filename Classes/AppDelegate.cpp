@@ -4,6 +4,7 @@
 #include "Tools/BaseAttributes.h"
 #include "Tools/DataModel.h"
 #include "Network/TCPSocket/TCPSocketControl.h"
+#include "Network/TCPSocket/CSocketControl.h"
 #include "MTNotificationQueue/MTNotificationQueue.h"
 #include "MainScene/MainSceneOxHundred.h"
 #include "GameLobby/GameLobbyScene.h"
@@ -30,6 +31,10 @@ AppDelegate::~AppDelegate()
 	CC_SAFE_DELETE(tcp);
 	MTNotificationQueue *mtQueue=MTNotificationQueue::sharedNotificationQueue();
 	CC_SAFE_DELETE(mtQueue);
+
+	CSocketControl *pSocketControl = CSocketControl::sharedSocketControl();
+	pSocketControl->removeTCPSocket(SOCKET_LOBBY);
+	CC_SAFE_DELETE(pSocketControl);
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
@@ -64,6 +69,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 		MTNotificationQueue::sharedNotificationQueue(),  
 		1.0 / 60.0,  
 		false);
+	
     return true;
 }
 

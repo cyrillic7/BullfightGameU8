@@ -14,7 +14,8 @@ USING_NS_CC;
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-#define SOCKET int
+typedef int				SOCKET;
+//#define SOCKET int
 #define SOCKET_ERROR -1
 #define INVALID_SOCKET -1
 

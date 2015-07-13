@@ -23,6 +23,8 @@
 #include "../Network/CMD_Server/PacketAide.h"
 #include "../Network/ListernerThread/LobbyGameListerner.h"
 #include "../Network/ListernerThread/GameIngListerner.h"
+#include "../Network/TCPSocket/CSocketControl.h"
+//#include "../Network/TCPSocket/CGameSocket.h"
 bool GameLobbyScene::isShowUpTip = false;
 GameLobbyScene * GameLobbyScene::lobbyScene = NULL;
 GameLobbyScene::GameLobbyScene()
@@ -97,11 +99,28 @@ void GameLobbyScene::onEnter(){
 	}
 
 
-	TCPSocket *tcp = TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOBBY);
+	/*TCPSocket *tcp = TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOBBY);
 	if (tcp&&tcp->eSocketState != TCPSocket::SOCKET_STATE_CONNECT_SUCCESS){
 		tcp->createSocket(DataModel::sharedDataModel()->sLobbyIp.c_str(), DataModel::sharedDataModel()->lLobbyProt, new LobbyGameListerner());
 		//tcp->createSocket("112.1.1.1", pLobbyIp->dwServerPort, new LobbyGameListerner());
+	}*/
+	
+	if (CSocketControl::sharedSocketControl()->getTCPSocket(SOCKET_LOBBY)->getSocketState() != CGameSocket::SOCKET_STATE_CONNECT_SUCCESS)
+	{
+		CSocketControl::sharedSocketControl()->getTCPSocket(SOCKET_LOBBY)->Create(DataModel::sharedDataModel()->sLobbyIp.c_str(), DataModel::sharedDataModel()->lLobbyProt);
 	}
+	{
+		CMD_GL_LogonAccounts LogonAccounts;
+		strcpy(LogonAccounts.szAccounts, DataModel::sharedDataModel()->sLogonAccount.c_str());
+		strcpy(LogonAccounts.szMachineID, "12");
+
+		MD5 m;
+		m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
+		std::string md5PassWord = m.GetMd5();
+		strcpy(LogonAccounts.szPassword, md5PassWord.c_str());
+		CSocketControl::sharedSocketControl()->getTCPSocket(SOCKET_LOBBY)->SendData(MDM_GL_C_DATA, SUB_GL_MB_LOGON_ACCOUNTS, &LogonAccounts, sizeof(LogonAccounts));
+	}
+	CSocketControl::sharedSocketControl()->startSendThread();
 }
 //显示签到
 bool GameLobbyScene::isShowSign(){
