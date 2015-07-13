@@ -37,6 +37,11 @@ void CGameSocket::resetData(){
 	m_dwSendPacketCount = 0;
 	m_dwRecvPacketCount = 0;
 
+	m_sockClient = INVALID_SOCKET;
+	m_nInbufLen = 0;
+	m_nInbufStart = 0;
+	m_nOutbufLen = 0;
+
 	setSocketState(SOCKET_STATE_FREE);
 }
 void CGameSocket::closeSocket()

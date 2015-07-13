@@ -8,9 +8,9 @@
 #pragma once
 
 #include "PopDialogBox.h"
-#include "../MTNotificationQueue/MessageQueue.h"
+
 #include "PopDialogBoxTipInfo.h"
-class PopDialogBoxForgetPassword : public PopDialogBox, public MessageQueue,public IPopAssistTipInfo {
+class PopDialogBoxForgetPassword : public PopDialogBox,public IPopAssistTipInfo {
 private:
 	enum ForgetPwdType
 	{
@@ -19,7 +19,7 @@ private:
 		FORGET_CHANGE_PWD,					//修改密码
 	};
 	CC_SYNTHESIZE(ForgetPwdType, eForgetPwdType, ForgetPwdType);
-	
+
 	//是否是输入帐号界面
 	bool isInputId;
 	//输入帐号容器
@@ -61,6 +61,8 @@ private:
 	void updateResetGetCode(float dt);
 	//更新
 	void update(float delta);
+	//更新socket收发数据
+	void updateSocketData();
 	//////////////////////////////////////////////////////////////////////////
 	//网络消息
 	virtual void onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);

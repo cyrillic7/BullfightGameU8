@@ -8,7 +8,9 @@
 #include "PopDialogBox.h"
 #include "../Network/ListernerThread/LogonGameListerner.h"
 #include "../Network/HttpDownload/ImageDownloader.h"
+#include "../Network/TCPSocket/CGameSocket.h"
 #include "PopDialogBoxLoading.h"
+#include "PopDialogBoxOtherLoading.h"
 #include "PopDialogBoxTipInfo.h"
 #include "PopDialogBoxInputNum.h"
 #include "../GameLobby/BaseLobbyScene.h"
@@ -82,6 +84,16 @@ void PopDialogBox::connectServer(std::string socketName){
 	if (tcp)
 	{
 		tcp->createSocket(GAME_IP, PORT_LOGON, new LogonGameListerner());
+	}
+}
+//连接服务器
+void PopDialogBox::connectServer(){
+	PopDialogBox *box = PopDialogBoxOtherLoading::create();
+	this->addChild(box, 10, TAG_LOADING);
+
+	if (gameSocket.getSocketState() != CGameSocket::SOCKET_STATE_CONNECT_SUCCESS)
+	{
+		gameSocket.Create(GAME_IP, PORT_LOGON);
 	}
 }
 void PopDialogBox::setSocketName(std::string sName){

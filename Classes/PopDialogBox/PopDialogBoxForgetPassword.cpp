@@ -23,7 +23,7 @@ PopDialogBoxForgetPassword::~PopDialogBoxForgetPassword() {
 	//
 	
 	unscheduleUpdate();
-	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_FORGET_PWD);
+	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_FORGET_PWD);
 }
 void PopDialogBoxForgetPassword::onEnter(){
 	CCLayer::onEnter();
@@ -86,7 +86,9 @@ void PopDialogBoxForgetPassword::onMenuForgetPassword(CCObject *object, TouchEve
 			}
 			else
 			{
-				connectServer(SOCKET_FORGET_PWD);
+				connectServer();
+				connectSuccess();
+				//connectServer(SOCKET_FORGET_PWD);
 			}
 		}
 		else
@@ -107,7 +109,9 @@ void PopDialogBoxForgetPassword::onMenuForgetPassword(CCObject *object, TouchEve
 			else
 			{
 				setForgetPwdType(FORGET_CHANGE_PWD);
-				connectServer(SOCKET_FORGET_PWD);
+				connectServer();
+				connectSuccess();
+				//connectServer(SOCKET_FORGET_PWD);
 			}
 			
 		}
@@ -118,7 +122,9 @@ void PopDialogBoxForgetPassword::onMenuGetCode(CCObject *object, TouchEventType 
 	if (type == TOUCH_EVENT_ENDED)
 	{
 		setForgetPwdType(FORGET_CODE);
-		connectServer(SOCKET_FORGET_PWD);
+		//connectServer(SOCKET_FORGET_PWD);
+		connectServer();
+		connectSuccess();
 
 		iCurTimeCount = 60;
 		pBGetCode->setBright(false);
@@ -144,12 +150,81 @@ void PopDialogBoxForgetPassword::updateResetGetCode(float dt){
 		pBGetCode->setTitleText(CCString::createWithFormat("重新获取(%d秒)", iCurTimeCount)->getCString());
 	}
 }
+//更新socket收发数据
+void PopDialogBoxForgetPassword::updateSocketData(){
+	if (gameSocket.getSocketState() == CGameSocket::SOCKET_STATE_FREE) {
+		return;
+	}
+	if (gameSocket.getSocketState() == CGameSocket::SOCKET_STATE_ERROR) {
+		PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+		this->addChild(tipInfo);
+		tipInfo->setTipInfoContent("与服务器断开连接");
+
+		//移除loading
+		if (this->getChildByTag(TAG_LOADING))
+		{
+			this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+		}
+		
+
+		gameSocket.setSocketState(CGameSocket::SOCKET_STATE_FREE);
+		//gameSocket.End();
+		return;
+	}
+	if (gameSocket.getSocketState() == CGameSocket::SOCKET_STATE_CONNECT_FAILURE) {
+		PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+		this->addChild(tipInfo);
+		tipInfo->setTipInfoContent(" 连接服务器失败 ");
+
+		//移除loading
+		if (this->getChildByTag(TAG_LOADING))
+		{
+			this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+		}
+
+		gameSocket.setSocketState(CGameSocket::SOCKET_STATE_FREE);
+		//gameSocket.End();
+		return;
+	}
+
+
+	if (!gameSocket.Check()) {
+		//gameSocket = NULL;
+		//onConnectionAbort();
+		gameSocket.setSocketState(CGameSocket::SOCKET_STATE_ERROR);
+		// 掉线了
+		CCLog("abort------------- <<%s>>", __FUNCTION__);
+		return;
+	}
+	gameSocket.Flush();
+	// 接收数据（取得缓冲区中的所有消息，直到缓冲区为空）
+	while (true)
+	{
+		char buffer[_MAX_MSGSIZE] = { 0 };
+		int nSize = sizeof(buffer);
+		char* pbufMsg = buffer;
+		if (gameSocket.getSocketState() != CGameSocket::SOCKET_STATE_CONNECT_SUCCESS)
+		{
+			if (gameSocket.getSocketState() != CGameSocket::SOCKET_STATE_FREE)
+			{
+				gameSocket.setSocketState(CGameSocket::SOCKET_STATE_ERROR);
+			}
+			break;
+		}
+		if (!gameSocket.ReceiveMsg(pbufMsg, nSize)) {
+			break;
+		}
+		// 接收数据（取得缓冲区中的所有消息，直到缓冲区为空）
+		TCP_Head* pHead = (TCP_Head*)pbufMsg;
+		WORD wDataSize = nSize - sizeof(TCP_Head);
+		void * pDataBuffer = pbufMsg + sizeof(TCP_Head);
+
+		onEventReadMessage(pHead->CommandInfo.wMainCmdID, pHead->CommandInfo.wSubCmdID, pDataBuffer, wDataSize);
+	}
+}
 //更新
 void PopDialogBoxForgetPassword::update(float delta){
-	if (isReadMessage)
-	{
-		MessageQueue::update(delta);
-	}
+	updateSocketData();
 }
 //////////////////////////////////////////////////////////////////////////
 //读取网络消息回调
@@ -158,16 +233,20 @@ void PopDialogBoxForgetPassword::onEventReadMessage(WORD wMainCmdID, WORD wSubCm
 	{
 	case MDM_MB_SOCKET://连接成功
 	{
-		connectSuccess();
+		//connectSuccess();
 	}
 	break;
 	case MDM_GP_USER_SERVICE://用户服务
 	{
 		onEventUserService(wSubCmdID, pDataBuffer, wDataSize);
 		//移除loading
-		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+		if (this->getChildByTag(TAG_LOADING))
+		{
+			this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+		}
+		gameSocket.Destroy(true);
 		//关闭网络
-		TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_FORGET_PWD);
+		//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_FORGET_PWD);
 	}
 	break;
 	default:
@@ -185,7 +264,7 @@ void PopDialogBoxForgetPassword::connectSuccess(){
 		CCEditBox *pEBInputID = (CCEditBox*)pTFInputId->getNodeByTag(TAG_INPUT_EDIT_BOX);
 		strcpy(acc.szAccounts, pEBInputID->getText());
 		//发送数据
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_CHECK_ACCOUNT, &acc, sizeof(acc));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_CHECK_ACCOUNT, &acc, sizeof(acc));
 	}
 		break;
 	case PopDialogBoxForgetPassword::FORGET_CODE://获取验证码
@@ -193,7 +272,7 @@ void PopDialogBoxForgetPassword::connectSuccess(){
 		CMD_GP_GetCaptchaByUserID captchaByUserID;
 		captchaByUserID.dwUserID = dwUserID;
 		//发送数据
-		bool isSend = getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_GET_CAPTCHA_BY_ID, &captchaByUserID, sizeof(captchaByUserID));
+		bool isSend = gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_GET_CAPTCHA_BY_ID, &captchaByUserID, sizeof(captchaByUserID));
 		if (isSend)
 		{
 			//移除loading
@@ -216,7 +295,7 @@ void PopDialogBoxForgetPassword::connectSuccess(){
 		strcpy(setPwd.szLogonPass, md5PassWord.c_str());
 		setPwd.dwCaptcha = strtol(pEBInputCode->getText(),NULL,10);
 		//发送数据
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_SET_LOGIN_PASS, &setPwd, sizeof(setPwd));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_SET_LOGIN_PASS, &setPwd, sizeof(setPwd));
 	}
 		break;
 	default:

@@ -12,6 +12,7 @@
 #include "../Tools/GameConfig.h"
 #include "../Tools/CStringAide.h"
 #include "../Network/TCPSocket/TCPSocketControl.h"
+#include "../Network/TCPSocket/CGameSocket.h"
 #include "IPopDialogBoxAssist.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -40,6 +41,7 @@ public:
 	UILayer * pUILayer;
 	ImageView *pWidgetBg;
 	static std::string sSocketName;
+	CGameSocket gameSocket;
 public:
 	PopDialogBox();
 	~PopDialogBox();
@@ -56,6 +58,8 @@ public:
 	TCPSocket *getSocket(){return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(sSocketName); }
 	//连接服务器
 	void connectServer(std::string socketName);
+	//创建连接
+	void connectServer();
 	void setSocketName(std::string sName);
 	//显示提示语
 	void showTipInfo(const char* sInfo);
