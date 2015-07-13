@@ -137,6 +137,7 @@ void Thread::End()
         #endif
 		
 		sem = NULL;
+		status = UNINITIALIZED;
 	}
 }
 

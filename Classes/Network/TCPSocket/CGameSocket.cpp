@@ -16,6 +16,9 @@ typedef struct _GUID
 
 CGameSocket::CGameSocket()
 {
+	resetData();
+}
+void CGameSocket::resetData(){
 	// 初始化
 	memset(m_bufOutput, 0, sizeof(m_bufOutput));
 	memset(m_bufInput, 0, sizeof(m_bufInput));
@@ -23,7 +26,7 @@ CGameSocket::CGameSocket()
 	//////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////
-	
+
 	m_cbSendRound = 0;
 	m_cbRecvRound = 0;
 	m_dwSendXorKey = 0;
@@ -34,9 +37,8 @@ CGameSocket::CGameSocket()
 	m_dwSendPacketCount = 0;
 	m_dwRecvPacketCount = 0;
 
-	setSocketState(SOCKET_FREE);
+	setSocketState(SOCKET_STATE_FREE);
 }
-
 void CGameSocket::closeSocket()
 {
 #ifdef WIN32
@@ -45,15 +47,69 @@ void CGameSocket::closeSocket()
 #else
 	close(m_sockClient);
 #endif
+	End();
 }
+void CGameSocket::Run(){
+	sockaddr_in	addr_in;
+	memset((void *)&addr_in, 0, sizeof(addr_in));
+	addr_in.sin_family = AF_INET;
+	addr_in.sin_port = htons(port);
+	addr_in.sin_addr.s_addr = ip;
 
+	if (connect(m_sockClient, (sockaddr *)&addr_in, sizeof(addr_in)) == SOCKET_ERROR) {
+		if (hasError()) {
+			closeSocket();
+			setSocketState(SOCKET_STATE_CONNECT_FAILURE);
+			return ;
+		}
+		else	// WSAWOLDBLOCK
+		{
+			timeval timeout;
+			timeout.tv_sec = iBlockSec;
+			timeout.tv_usec = 0;
+			fd_set writeset, exceptset;
+			FD_ZERO(&writeset);
+			FD_ZERO(&exceptset);
+			FD_SET(m_sockClient, &writeset);
+			FD_SET(m_sockClient, &exceptset);
+
+			int ret = select(FD_SETSIZE, NULL, &writeset, &exceptset, &timeout);
+			if (ret == 0 || ret < 0) {
+				closeSocket();
+				setSocketState(SOCKET_STATE_CONNECT_FAILURE);
+				return ;
+			}
+			else	// ret > 0
+			{
+				ret = FD_ISSET(m_sockClient, &exceptset);
+				if (ret)		// or (!FD_ISSET(m_sockClient, &writeset)
+				{
+					closeSocket();
+					setSocketState(SOCKET_STATE_CONNECT_FAILURE);
+					return ;
+				}
+			}
+		}
+	}
+
+
+
+	struct linger so_linger;
+	so_linger.l_onoff = 1;
+	so_linger.l_linger = 500;
+	setsockopt(m_sockClient, SOL_SOCKET, SO_LINGER, (const char*)&so_linger, sizeof(so_linger));
+
+	//设置socket状态为连接成功
+	setSocketState(SOCKET_STATE_CONNECT_SUCCESS);
+	CCLog("createSocket----------------- <<%s>>", __FUNCTION__);
+}
 bool CGameSocket::Create(const char* pszServerIP, int nServerPort, int nBlockSec, bool bKeepAlive /*= FALSE*/)
 {
 	// 检查参数
 	if (pszServerIP == 0 || strlen(pszServerIP) > 15) {
 		return false;
 	}
-
+	resetData();
 #ifdef WIN32
 	WSADATA wsaData;
 	WORD version = MAKEWORD(2, 0);
@@ -67,6 +123,7 @@ bool CGameSocket::Create(const char* pszServerIP, int nServerPort, int nBlockSec
 	m_sockClient = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (m_sockClient == INVALID_SOCKET) {
 		closeSocket();
+		setSocketState(SOCKET_STATE_CONNECT_FAILURE);
 		return false;
 	}
 
@@ -77,6 +134,7 @@ bool CGameSocket::Create(const char* pszServerIP, int nServerPort, int nBlockSec
 		if (setsockopt(m_sockClient, SOL_SOCKET, SO_KEEPALIVE, (char *)&optval, sizeof(optval)))
 		{
 			closeSocket();
+			setSocketState(SOCKET_STATE_CONNECT_FAILURE);
 			return false;
 		}
 	}
@@ -86,6 +144,7 @@ bool CGameSocket::Create(const char* pszServerIP, int nServerPort, int nBlockSec
 	int nRes = ioctlsocket(m_sockClient, FIONBIO, &nMode);
 	if (nRes == SOCKET_ERROR) {
 		closeSocket();
+		setSocketState(SOCKET_STATE_CONNECT_FAILURE);
 		return false;
 	}
 #else
@@ -97,9 +156,18 @@ bool CGameSocket::Create(const char* pszServerIP, int nServerPort, int nBlockSec
 	if (serveraddr == INADDR_NONE)	// 检查IP地址格式错误
 	{
 		closeSocket();
+		setSocketState(SOCKET_STATE_CONNECT_FAILURE);
 		return false;
 	}
+	ip = serveraddr;
+	port = nServerPort;
+	iBlockSec = nBlockSec;
 
+	m_nInbufLen = 0;
+	m_nInbufStart = 0;
+	m_nOutbufLen = 0;
+	Start();
+	/*
 	sockaddr_in	addr_in;
 	memset((void *)&addr_in, 0, sizeof(addr_in));
 	addr_in.sin_family = AF_INET;
@@ -148,7 +216,8 @@ bool CGameSocket::Create(const char* pszServerIP, int nServerPort, int nBlockSec
 	so_linger.l_linger = 500;
 	setsockopt(m_sockClient, SOL_SOCKET, SO_LINGER, (const char*)&so_linger, sizeof(so_linger));
 
-	setSocketState(SOCKET_CONNECT_SUCCESS);
+	//设置socket状态为连接成功
+	setSocketState(SOCKET_CONNECT_SUCCESS);*/
 	return true;
 }
 
@@ -172,7 +241,7 @@ bool CGameSocket::SendMsg(void* pBuf, int nSize)
 		Flush();
 		if (m_nOutbufLen + nSize > OUTBUFSIZE) {
 			// 出错了
-			Destroy();
+			Destroy(false);
 			return false;
 		}
 	}
@@ -338,26 +407,26 @@ bool CGameSocket::recvFromSock(void)
 				}
 			}
 			else if (inlen == 0) {
-				Destroy();
+				Destroy(false);
 				return false;
 			}
 			else {
 				// 连接已断开或者错误（包括阻塞）
 				if (hasError()) {
-					Destroy();
+					Destroy(false);
 					return false;
 				}
 			}
 		}
 	}
 	else if (inlen == 0) {
-		Destroy();
+		Destroy(false);
 		return false;
 	}
 	else {
 		// 连接已断开或者错误（包括阻塞）
 		if (hasError()) {
-			Destroy();
+			Destroy(false);
 			return false;
 		}
 	}
@@ -392,7 +461,7 @@ bool CGameSocket::Flush(void)		//? 如果 OUTBUF > SENDBUF 则需要多次SEND�
 	}
 	else {
 		if (hasError()) {
-			Destroy();
+			Destroy(false);
 			return false;
 		}
 	}
@@ -409,12 +478,12 @@ bool CGameSocket::Check(void)
 	char buf[1];
 	int	ret = recv(m_sockClient, buf, 1, MSG_PEEK);
 	if (ret == 0) {
-		Destroy();
+		Destroy(false);
 		return false;
 	}
 	else if (ret < 0) {
 		if (hasError()) {
-			Destroy();
+			Destroy(false);
 			return false;
 		}
 		else {	// 阻塞
@@ -427,8 +496,12 @@ bool CGameSocket::Check(void)
 	return true;
 }
 
-void CGameSocket::Destroy(void)
+void CGameSocket::Destroy(bool isActive)
 {
+	if (isActive)
+	{
+		setSocketState(SOCKET_STATE_FREE);
+	}
 	// 关闭
 	struct linger so_linger;
 	so_linger.l_onoff = 1;
@@ -444,6 +517,7 @@ void CGameSocket::Destroy(void)
 
 	memset(m_bufOutput, 0, sizeof(m_bufOutput));
 	memset(m_bufInput, 0, sizeof(m_bufInput));
+
 }
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////

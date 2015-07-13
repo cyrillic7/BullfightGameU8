@@ -9,6 +9,7 @@
 #include "LogonScene.h"
 #include "../Tools/Tools.h"
 #include "../PopDialogBox/PopDialogBoxLoading.h"
+#include "../PopDialogBox/PopDialogBoxOtherLoading.h"
 #include "../PopDialogBox/PopDialogBoxLogonAccount.h"
 #include "../PopDialogBox/PopDialogBoxTipInfo.h"
 
@@ -93,7 +94,7 @@ LogonScene::LogonScene()
 }
 LogonScene::~LogonScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
-	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_GAME);
+	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_GAME);
 	
 }
 CCScene* LogonScene::scene()
@@ -222,24 +223,49 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 		break;
 	}
 }
-void LogonScene::update(float delta){
-	if (isReadMessage)
-	{
-		MessageQueue::update(delta);
-	}
-
-
-	
-	if (gameSocket.getSocketState() != CGameSocket::SOCKET_CONNECT_SUCCESS) {
+//更新socket收发数据
+void LogonScene::updateSocketData(){
+	if (gameSocket.getSocketState() == CGameSocket::SOCKET_STATE_FREE) {
 		return;
 	}
+	if (gameSocket.getSocketState() == CGameSocket::SOCKET_STATE_ERROR) {
+		PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+		this->addChild(tipInfo);
+		tipInfo->setTipInfoContent("与服务器断开连接");
+
+		PopDialogBoxOtherLoading *pLoading =(PopDialogBoxOtherLoading*)this->getChildByTag(TAG_LOADING);
+		if (pLoading)
+		{
+			pLoading->removeFromParentAndCleanup(true);
+		}
+
+		gameSocket.setSocketState(CGameSocket::SOCKET_STATE_FREE);
+		//gameSocket.End();
+		return;
+	}
+	if (gameSocket.getSocketState() == CGameSocket::SOCKET_STATE_CONNECT_FAILURE) {
+		PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+		this->addChild(tipInfo);
+		tipInfo->setTipInfoContent(" 连接服务器失败 ");
+
+		PopDialogBoxOtherLoading *pLoading = (PopDialogBoxOtherLoading*)this->getChildByTag(TAG_LOADING);
+		if (pLoading)
+		{
+			pLoading->removeFromParentAndCleanup(true);
+		}
+
+		gameSocket.setSocketState(CGameSocket::SOCKET_STATE_FREE);
+		//gameSocket.End();
+		return;
+	}
+
 
 	if (!gameSocket.Check()) {
 		//gameSocket = NULL;
 		//onConnectionAbort();
+		gameSocket.setSocketState(CGameSocket::SOCKET_STATE_ERROR);
 		// 掉线了
 		CCLog("abort------------- <<%s>>", __FUNCTION__);
-
 		return;
 	}
 	gameSocket.Flush();
@@ -249,8 +275,12 @@ void LogonScene::update(float delta){
 		char buffer[_MAX_MSGSIZE] = { 0 };
 		int nSize = sizeof(buffer);
 		char* pbufMsg = buffer;
-		if (gameSocket.getSocketState() != CGameSocket::SOCKET_CONNECT_SUCCESS)
+		if (gameSocket.getSocketState() != CGameSocket::SOCKET_STATE_CONNECT_SUCCESS)
 		{
+			if (gameSocket.getSocketState() != CGameSocket::SOCKET_STATE_FREE)
+			{
+				gameSocket.setSocketState(CGameSocket::SOCKET_STATE_ERROR);
+			}
 			break;
 		}
 		if (!gameSocket.ReceiveMsg(pbufMsg, nSize)) {
@@ -258,42 +288,30 @@ void LogonScene::update(float delta){
 		}
 		// 接收数据（取得缓冲区中的所有消息，直到缓冲区为空）
 		TCP_Head* pHead = (TCP_Head*)pbufMsg;
-
 		WORD wDataSize = nSize - sizeof(TCP_Head);
 		void * pDataBuffer = pbufMsg + sizeof(TCP_Head);
 
-		/*ReadData rData;
-		rData.wMainCmdID = pHead->CommandInfo.wMainCmdID;
-		rData.wSubCmdID = pHead->CommandInfo.wSubCmdID;
-		rData.wDataSize = nSize;
-		memcpy(rData.sReadData, pbufMsg, nSize);
-		MessageQueue::pushQueue(rData);*/
-
-		onEventReadMessage(pHead->CommandInfo.wMainCmdID, pHead->CommandInfo.wSubCmdID, pDataBuffer,wDataSize);
-		//CCLog("%d %d<<%s>>", pHead->CommandInfo.wMainCmdID, pHead->CommandInfo.wSubCmdID, __FUNCTION__);
-		/*MsgHead* pReceiveMsg = (MsgHead*)(pbufMsg);
-		uint16	dwCurMsgSize = pReceiveMsg->usSize;
-		//			CCLOG("msgsize: %d", dwCurMsgSize);
-
-		if ((int)dwCurMsgSize > nSize || dwCurMsgSize <= 0) {	// broken msg
-		break;
-		}
-
-		//CMessageSubject::instance().OnMessage((const char*)pReceiveMsg, pReceiveMsg->usSize);
-
-		pbufMsg += dwCurMsgSize;
-		nSize -= dwCurMsgSize;
-		if (nSize <= 0) {
-		break;
-		}*/
-
+		onEventReadMessage(pHead->CommandInfo.wMainCmdID, pHead->CommandInfo.wSubCmdID, pDataBuffer, wDataSize);
 	}
-
-
+}
+void LogonScene::update(float delta){
+	/*if (isReadMessage)
+	{
+		MessageQueue::update(delta);
+	}*/
+	updateSocketData();
 }
 //连接服务器
 void LogonScene::connectServer(){
-	PopDialogBox *box = PopDialogBoxLoading::create();
+	PopDialogBox *box = PopDialogBoxOtherLoading::create();
+	this->addChild(box, 10, TAG_LOADING);
+	//box->setSocketName(SOCKET_LOGON_GAME);
+
+	if (gameSocket.getSocketState() != CGameSocket::SOCKET_STATE_CONNECT_SUCCESS)
+	{
+		gameSocket.Create(GAME_IP, PORT_LOGON);
+	}
+	/*PopDialogBox *box = PopDialogBoxLoading::create();
 	this->addChild(box, 10, TAG_LOADING);
 	box->setSocketName(SOCKET_LOGON_GAME);
 
@@ -302,16 +320,12 @@ void LogonScene::connectServer(){
 	if (tcp)
 	{
 		tcp->createSocket(GAME_IP, PORT_LOGON, new LogonGameListerner());
-	}
+	}*/
 }
 //登录游戏////////////////////////////////////////////////////////////////////////
 void LogonScene::logonGameByAccount(float dt){
-	//connectServer();
-	PopDialogBox *box = PopDialogBoxLoading::create();
-	this->addChild(box, 10, TAG_LOADING);
-	box->setSocketName(SOCKET_LOGON_GAME);
-
-	bool isCreate = gameSocket.Create(GAME_IP, PORT_LOGON);
+	connectServer();
+	
 	//if (isCreate)
 	{
 		CMD_MB_LogonAccounts logonAccounts;
@@ -356,7 +370,7 @@ void LogonScene::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataB
 	switch (wMainCmdID)
 	{
 		case MDM_MB_SOCKET://socket连接成功
-			onEventConnect(wSubCmdID,pDataBuffer,wDataSize);
+			//onEventConnect(wSubCmdID,pDataBuffer,wDataSize);
 			break;
 		case MDM_MB_LOGON://登录 
 			onEventLogon(wSubCmdID,pDataBuffer,wDataSize);
@@ -405,8 +419,8 @@ void LogonScene::logonGame(){
 	std::string md5PassWord = m.GetMd5();
 	strcpy(logonAccounts.szPassword, md5PassWord.c_str());
 	CCLog("%s  --  :%s   %d<<%s>>", logonAccounts.szAccounts, logonAccounts.szPassword, sizeof(logonAccounts), __FUNCTION__);
-	bool isSend = getSocket()->SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &logonAccounts, sizeof(logonAccounts));
-	CCLog("Logon:send:%d", isSend);
+	gameSocket.SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &logonAccounts, sizeof(logonAccounts));
+	
 }
 //注册游戏
 void LogonScene::registeredGame(){
@@ -453,9 +467,9 @@ void LogonScene::registeredGame(){
 	strcpy(registeredAccount.szMobilePhone, "");//电话号码
 
 
-	getSocket()->SendData(MDM_MB_LOGON, SUB_MB_REGISTER_ACCOUNTS, &registeredAccount, sizeof(CMD_GP_RegisterAccounts));
+	gameSocket.SendData(MDM_MB_LOGON, SUB_MB_REGISTER_ACCOUNTS, &registeredAccount, sizeof(CMD_GP_RegisterAccounts));
 }
-//连接成功
+/*//连接成功
 void LogonScene::onEventConnect(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
 	switch (wSubCmdID)
 	{
@@ -489,7 +503,7 @@ void LogonScene::onEventConnect(WORD wSubCmdID,void * pDataBuffer, unsigned shor
 	default:
 		break;
 	}
-}
+}*/
 //登录消息
 void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
 	switch (wSubCmdID)
@@ -537,7 +551,9 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			char *describeStr = lf->szDescribeString;
 			this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 			CCLog("登录失败:%s",GBKToUTF8(describeStr));
-			TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_GAME);
+			//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_GAME);
+		
+			gameSocket.Destroy(true);
 			
 			PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
 			this->addChild(tipInfo);
@@ -651,8 +667,8 @@ void LogonScene::onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned s
 	case SUB_MB_LIST_FINISH:
 		{
 			unscheduleUpdate();
-            gameSocket.Destroy();
-			TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_GAME);
+            gameSocket.Destroy(true);
+			//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_GAME);
 			Tools::setTransitionAnimation(0,0,GameLobbyScene::scene(false));
 		}
 		break;
@@ -667,6 +683,7 @@ void LogonScene::onRegistered(const char *sAccount, const char*sNickname, const 
 	sRegisterNickname = sNickname;
 	sRegisterPasswrod = sPassword;
 	connectServer();
+	registeredGame();
 }
 /************************************************************************/
 /* 存档                                                                     */

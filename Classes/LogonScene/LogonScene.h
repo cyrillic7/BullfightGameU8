@@ -10,7 +10,6 @@
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
-#include "../MTNotificationQueue/MessageQueue.h"
 #include "../Tools/DataModel.h"
 #include "../Tools/CStringAide.h"
 #include "../PopDialogBox/PopDialogBoxRegistered.h"
@@ -20,7 +19,7 @@
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace ui;
-class LogonScene:public CCLayer,public MessageQueue,public CStringAide,public IPopAssistRegistered
+class LogonScene:public CCLayer,public CStringAide,public IPopAssistRegistered
 {
 private:
 	enum LogonType
@@ -55,7 +54,6 @@ private:
 	void onMenuLogon(CCObject* pSender, TouchEventType type);
 
 	void update(float delta);
-	TCPSocket *getSocket(){return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_GAME);}
 public:
 	//登录游戏(帐号登录)
 	void logonGameByAccount(float dt);
@@ -68,10 +66,12 @@ private:
 	void logonGame();
 	//注册
 	void registeredGame();
+	//更新socket收发数据
+	void updateSocketData();
 	//网络回调////////////////////////////////////////////////////////////////////////
 	void onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//socket连接成功
-	void onEventConnect(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
+	//void onEventConnect(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//登录回调
 	void onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//获取列表

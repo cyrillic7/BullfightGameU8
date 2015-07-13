@@ -43,5 +43,5 @@
     <string>UIMode.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIGameLobby.json</CurrentUIJson>
+  <CurrentUIJson>UIClassicLobby.json</CurrentUIJson>
 </UIProject>

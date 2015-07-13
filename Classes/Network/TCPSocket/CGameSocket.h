@@ -2,6 +2,7 @@
 
 #include "cocos2d.h"
 USING_NS_CC;
+#include "../ListernerThread/Thread.h"
 
 #ifdef WIN32
 #include <windows.h>
@@ -52,14 +53,21 @@ typedef char TCHAR, *PTCHAR;
 #define INBUFSIZE	(64*1024)		//?	具体尺寸根据剖面报告调整  接收数据的缓存
 #define OUTBUFSIZE	(8*1024)		//? 具体尺寸根据剖面报告调整。 发送数据的缓存，当不超过8K时，FLUSH只需要SEND一次
 
-class CGameSocket {
+class CGameSocket:public Thread {
 public:
 	enum SocketState
 	{
-		SOCKET_FREE=0,							//空闲
-		SOCKET_CONNECT_SUCCESS,					//连接成功
+		SOCKET_STATE_FREE=0,							//空闲
+		SOCKET_STATE_CONNECT_SUCCESS,					//连接成功
+		SOCKET_STATE_CONNECT_FAILURE,					//连接失败
+		SOCKET_STATE_ERROR,								//错误
+		SOCKET_,
 	};
 	CC_SYNTHESIZE(SocketState, eSocketState, SocketState);
+private:
+	unsigned long ip;
+	unsigned short port;
+	int iBlockSec;
 public:
 	CGameSocket(void);
 	bool	Create(const char* pszServerIP, int nServerPort, int nBlockSec = BLOCKSECONDS, bool bKeepAlive = false);
@@ -67,9 +75,12 @@ public:
 	bool	ReceiveMsg(void* pBuf, int& nSize);
 	bool	Flush(void);
 	bool	Check(void);
-	void	Destroy(void);
+	void	Destroy(bool isActive);
 	SOCKET	GetSocket(void) const { return m_sockClient; }
 private:
+	void resetData();
+	virtual void Run();
+
 	bool	recvFromSock(void);		// 从网络中读取尽可能多的数据
 	bool    hasError();			// 是否发生错误，注意，异步模式未完成非错误
 	void    closeSocket();

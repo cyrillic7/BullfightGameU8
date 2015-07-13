@@ -24,7 +24,7 @@ AppDelegate::~AppDelegate()
 	BaseAttributes *base=BaseAttributes::sharedAttributes();
 	CC_SAFE_DELETE(base);
 	TCPSocketControl *tcp=TCPSocketControl::sharedTCPSocketControl();
-	tcp->removeTCPSocket(SOCKET_LOGON_GAME);
+	//tcp->removeTCPSocket(SOCKET_LOGON_GAME);
 	tcp->stopSocket(SOCKET_LOBBY);
 	tcp->removeTCPSocket(SOCKET_LOBBY);
 	CC_SAFE_DELETE(tcp);
