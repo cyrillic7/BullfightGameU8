@@ -49,10 +49,12 @@ public:
 	void menuBack(CCObject *object, TouchEventType type);
 	//关闭并设置父结点获取数据
 	void onMenuBackWithReadMsg(CCObject *object, TouchEventType type);
+	
 
 	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent){return true; }
 	//播放放大动画
 	void playAnimation();
+	
 	//获取loading
 	PopDialogBoxLoading *getLoading();
 	TCPSocket *getSocket(){return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(sSocketName); }
@@ -80,4 +82,10 @@ public:
 	virtual void editBoxEditingDidEnd(cocos2d::extension::CCEditBox* editBox);
 	virtual void editBoxTextChanged(cocos2d::extension::CCEditBox* editBox, const std::string& text);
 	virtual void editBoxReturn(cocos2d::extension::CCEditBox* editBox);
+
+
+	//更新socket收发数据
+	void updateSocketData();
+	//网络消息
+	virtual void onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){}
 };

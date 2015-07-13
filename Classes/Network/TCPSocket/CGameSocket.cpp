@@ -52,7 +52,6 @@ void CGameSocket::closeSocket()
 #else
 	close(m_sockClient);
 #endif
-	End();
 }
 void CGameSocket::Run(){
 	sockaddr_in	addr_in;

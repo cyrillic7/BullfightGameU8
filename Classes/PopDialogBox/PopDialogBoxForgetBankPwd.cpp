@@ -25,7 +25,7 @@ PopDialogBoxForgetBankPwd::~PopDialogBoxForgetBankPwd() {
 	//
 	
 	unscheduleUpdate();
-	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_FORGET_PWD);
+	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_FORGET_PWD);
 }
 void PopDialogBoxForgetBankPwd::onEnter(){
 	CCLayer::onEnter();
@@ -99,7 +99,9 @@ void PopDialogBoxForgetBankPwd::onMenuForgetPassword(CCObject *object, TouchEven
 			}
 			else
 			{
-				connectServer(SOCKET_FORGET_PWD);
+				connectServer();
+				connectSuccess();
+				//connectServer(SOCKET_FORGET_PWD);
 			}
 		}
 		else
@@ -120,7 +122,9 @@ void PopDialogBoxForgetBankPwd::onMenuForgetPassword(CCObject *object, TouchEven
 			else
 			{
 				setForgetPwdType(FORGET_CHANGE_PWD);
-				connectServer(SOCKET_FORGET_PWD);
+				//connectServer(SOCKET_FORGET_PWD);
+				connectServer();
+				connectSuccess();
 			}
 			
 		}
@@ -131,7 +135,9 @@ void PopDialogBoxForgetBankPwd::onMenuGetCode(CCObject *object, TouchEventType t
 	if (type == TOUCH_EVENT_ENDED)
 	{
 		setForgetPwdType(FORGET_CODE);
-		connectServer(SOCKET_FORGET_PWD);
+		//connectServer(SOCKET_FORGET_PWD);
+		connectServer();
+		connectSuccess();
 
 		iCurTimeCount = 60;
 		pBGetCode->setBright(false);
@@ -159,10 +165,7 @@ void PopDialogBoxForgetBankPwd::updateResetGetCode(float dt){
 }
 //更新
 void PopDialogBoxForgetBankPwd::update(float delta){
-	if (isReadMessage)
-	{
-		MessageQueue::update(delta);
-	}
+	updateSocketData();
 }
 //////////////////////////////////////////////////////////////////////////
 //读取网络消息回调
@@ -180,7 +183,7 @@ void PopDialogBoxForgetBankPwd::onEventReadMessage(WORD wMainCmdID, WORD wSubCmd
 		//移除loading
 		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 		//关闭网络
-		TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_FORGET_PWD);
+		//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_FORGET_PWD);
 	}
 	break;
 	default:
@@ -205,7 +208,7 @@ void PopDialogBoxForgetBankPwd::connectSuccess(){
 		strcpy(pInsurePassGetCaptcha.szMachineID, platformAction("{\"act\":100}").c_str());
 
 		//发送数据
-		bool isSend = getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_SET_INSUREPASS_GET_CAPTCHA, &pInsurePassGetCaptcha, sizeof(pInsurePassGetCaptcha));
+		bool isSend = gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_SET_INSUREPASS_GET_CAPTCHA, &pInsurePassGetCaptcha, sizeof(pInsurePassGetCaptcha));
 		if (isSend)
 		{
 			//移除loading
@@ -228,7 +231,7 @@ void PopDialogBoxForgetBankPwd::connectSuccess(){
 		strcpy(setPwd.szLogonPass, md5PassWord.c_str());
 		setPwd.dwCaptcha = strtol(pEBInputCode->getText(),NULL,10);
 		//发送数据
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_SET_INSUREPASS_SEND_CAPTCHA, &setPwd, sizeof(setPwd));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_SET_INSUREPASS_SEND_CAPTCHA, &setPwd, sizeof(setPwd));
 	}
 		break;
 	default:

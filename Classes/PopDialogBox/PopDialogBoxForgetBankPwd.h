@@ -8,9 +8,8 @@
 #pragma once
 
 #include "PopDialogBox.h"
-#include "../MTNotificationQueue/MessageQueue.h"
 #include "PopDialogBoxTipInfo.h"
-class PopDialogBoxForgetBankPwd : public PopDialogBox, public MessageQueue,public IPopAssistTipInfo {
+class PopDialogBoxForgetBankPwd : public PopDialogBox,public IPopAssistTipInfo {
 private:
 	enum ForgetPwdType
 	{

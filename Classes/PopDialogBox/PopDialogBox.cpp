@@ -203,3 +203,63 @@ void PopDialogBox::editBoxReturn(CCEditBox* editBox)
 		m_pTTFShowEditReturn->setString("Email EditBox return !");
 	}*/
 }
+
+//更新socket收发数据
+void PopDialogBox::updateSocketData(){
+	if (gameSocket.getSocketState() == CGameSocket::SOCKET_STATE_FREE) {
+		return;
+	}
+	if (gameSocket.getSocketState() == CGameSocket::SOCKET_STATE_ERROR) {
+		showTipInfo("与服务器断开连接");
+		//移除loading
+		if (this->getChildByTag(TAG_LOADING))
+		{
+			this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+		}
+		gameSocket.setSocketState(CGameSocket::SOCKET_STATE_FREE);
+		return;
+	}
+	if (gameSocket.getSocketState() == CGameSocket::SOCKET_STATE_CONNECT_FAILURE) {
+		showTipInfo(" 连接服务器失败 ");
+		//移除loading
+		if (this->getChildByTag(TAG_LOADING))
+		{
+			this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+		}
+		gameSocket.setSocketState(CGameSocket::SOCKET_STATE_FREE);
+		return;
+	}
+	//检查
+	if (!gameSocket.Check()) {
+		//gameSocket = NULL;
+		//onConnectionAbort();
+		gameSocket.setSocketState(CGameSocket::SOCKET_STATE_ERROR);
+		// 掉线了
+		CCLog("abort------------- <<%s>>", __FUNCTION__);
+		return;
+	}
+	gameSocket.Flush();
+	// 接收数据（取得缓冲区中的所有消息，直到缓冲区为空）
+	while (true)
+	{
+		char buffer[_MAX_MSGSIZE] = { 0 };
+		int nSize = sizeof(buffer);
+		char* pbufMsg = buffer;
+		if (gameSocket.getSocketState() != CGameSocket::SOCKET_STATE_CONNECT_SUCCESS)
+		{
+			if (gameSocket.getSocketState() != CGameSocket::SOCKET_STATE_FREE)
+			{
+				gameSocket.setSocketState(CGameSocket::SOCKET_STATE_ERROR);
+			}
+			break;
+		}
+		if (!gameSocket.ReceiveMsg(pbufMsg, nSize)) {
+			break;
+		}
+		// 接收数据（取得缓冲区中的所有消息，直到缓冲区为空）
+		TCP_Head* pHead = (TCP_Head*)pbufMsg;
+		WORD wDataSize = nSize - sizeof(TCP_Head);
+		void * pDataBuffer = pbufMsg + sizeof(TCP_Head);
+		onEventReadMessage(pHead->CommandInfo.wMainCmdID, pHead->CommandInfo.wSubCmdID, pDataBuffer, wDataSize);
+	}
+}

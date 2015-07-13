@@ -102,6 +102,7 @@ void * Thread::DoRun(void* context)
 		thread->Run();
 	}
 	thread->status = QUITED;
+	thread->status = UNINITIALIZED;//新加
 	return (void *) 0;
 }
 
@@ -137,7 +138,6 @@ void Thread::End()
         #endif
 		
 		sem = NULL;
-		status = UNINITIALIZED;
 	}
 }
 

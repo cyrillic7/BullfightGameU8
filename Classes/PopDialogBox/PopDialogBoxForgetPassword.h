@@ -61,8 +61,7 @@ private:
 	void updateResetGetCode(float dt);
 	//更新
 	void update(float delta);
-	//更新socket收发数据
-	void updateSocketData();
+	
 	//////////////////////////////////////////////////////////////////////////
 	//网络消息
 	virtual void onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
