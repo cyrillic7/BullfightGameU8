@@ -4,10 +4,10 @@
 #include "Tools/BaseAttributes.h"
 #include "Tools/DataModel.h"
 #include "Network/TCPSocket/TCPSocketControl.h"
-#include "Network/TCPSocket/CSocketControl.h"
 #include "MTNotificationQueue/MTNotificationQueue.h"
 #include "MainScene/MainSceneOxHundred.h"
 #include "GameLobby/GameLobbyScene.h"
+#include "MTNotificationQueue/LobbyMsgHandler.h"
 USING_NS_CC;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include "vld.h"
@@ -26,15 +26,15 @@ AppDelegate::~AppDelegate()
 	CC_SAFE_DELETE(base);
 	TCPSocketControl *tcp=TCPSocketControl::sharedTCPSocketControl();
 	//tcp->removeTCPSocket(SOCKET_LOGON_GAME);
-	tcp->stopSocket(SOCKET_LOBBY);
-	tcp->removeTCPSocket(SOCKET_LOBBY);
+	//tcp->stopSocket(SOCKET_LOBBY);
+	//tcp->removeTCPSocket(SOCKET_LOBBY);
 	CC_SAFE_DELETE(tcp);
 	MTNotificationQueue *mtQueue=MTNotificationQueue::sharedNotificationQueue();
 	CC_SAFE_DELETE(mtQueue);
 
-	CSocketControl *pSocketControl = CSocketControl::sharedSocketControl();
-	pSocketControl->removeTCPSocket(SOCKET_LOBBY);
-	CC_SAFE_DELETE(pSocketControl);
+
+	LobbyMsgHandler *pLobbyMsgHandler=LobbyMsgHandler::sharedLobbyMsgHandler();
+	CC_SAFE_DELETE(pLobbyMsgHandler);
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
@@ -64,6 +64,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	//CCScene *pScene=MainSceneOxHundred::scene();
     //run
     pDirector->runWithScene(pScene);
+	//////////////////////////////////////////////////////////////////////////
+	LobbyMsgHandler::sharedLobbyMsgHandler();
 	CCDirector::sharedDirector()->getScheduler()->scheduleSelector(  
 		schedule_selector(MTNotificationQueue::postNotifications),  
 		MTNotificationQueue::sharedNotificationQueue(),  

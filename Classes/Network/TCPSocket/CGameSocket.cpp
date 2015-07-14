@@ -13,8 +13,8 @@ typedef struct _GUID
 	unsigned char Data4[8];
 } GUID, UUID;
 #endif
-
 CGameSocket::CGameSocket()
+	:pIGameSocket(NULL)
 {
 	resetData();
 }
@@ -52,8 +52,10 @@ void CGameSocket::closeSocket()
 #else
 	close(m_sockClient);
 #endif
+	End();
 }
 void CGameSocket::Run(){
+	
 	sockaddr_in	addr_in;
 	memset((void *)&addr_in, 0, sizeof(addr_in));
 	addr_in.sin_family = AF_INET;
@@ -105,6 +107,8 @@ void CGameSocket::Run(){
 
 	//设置socket状态为连接成功
 	setSocketState(SOCKET_STATE_CONNECT_SUCCESS);
+
+	End();
 	CCLog("createSocket----------------- <<%s>>", __FUNCTION__);
 }
 bool CGameSocket::Create(const char* pszServerIP, int nServerPort, int nBlockSec, bool bKeepAlive /*= FALSE*/)
@@ -733,4 +737,53 @@ BYTE CGameSocket::MapRecvByte(BYTE const cbData)
 	BYTE cbMap = g_RecvByteMap[cbData] - m_cbRecvRound;
 	m_cbRecvRound += 3;
 	return cbMap;
+}
+
+//更新socket收发数据
+void CGameSocket::updateSocketData(){
+	if (getSocketState() == SOCKET_STATE_FREE) {
+		return;
+	}
+	if (getSocketState() == SOCKET_STATE_ERROR) {
+		pIGameSocket->onError("与服务器断开连接");
+		setSocketState(CGameSocket::SOCKET_STATE_FREE);
+		return;
+	}
+	if (getSocketState() == SOCKET_STATE_CONNECT_FAILURE) {
+		pIGameSocket->onError(" 连接服务器失败 ");
+		setSocketState(CGameSocket::SOCKET_STATE_FREE);
+		return;
+	}
+	if (!Check()) {
+		//gameSocket = NULL;
+		//onConnectionAbort();
+		setSocketState(CGameSocket::SOCKET_STATE_ERROR);
+		// 掉线了
+		CCLog("abort------------- <<%s>>", __FUNCTION__);
+		return;
+	}
+	Flush();
+	// 接收数据（取得缓冲区中的所有消息，直到缓冲区为空）
+	while (true)
+	{
+		char buffer[_MAX_MSGSIZE] = { 0 };
+		int nSize = sizeof(buffer);
+		char* pbufMsg = buffer;
+		if (getSocketState() != SOCKET_STATE_CONNECT_SUCCESS)
+		{
+			if (getSocketState() != SOCKET_STATE_FREE)
+			{
+				setSocketState(SOCKET_STATE_ERROR);
+			}
+			break;
+		}
+		if (!ReceiveMsg(pbufMsg, nSize)) {
+			break;
+		}
+		// 接收数据（取得缓冲区中的所有消息，直到缓冲区为空）
+		TCP_Head* pHead = (TCP_Head*)pbufMsg;
+		WORD wDataSize = nSize - sizeof(TCP_Head);
+		void * pDataBuffer = pbufMsg + sizeof(TCP_Head);
+		pIGameSocket->onMessage(pHead->CommandInfo.wMainCmdID, pHead->CommandInfo.wSubCmdID, pDataBuffer, wDataSize);
+	}
 }

@@ -26,7 +26,7 @@ struct IPopAssist//弹框辅助接口
 };
 class PopDialogBoxLoading;
 class IPopAssistTipInfo;
-class PopDialogBox : public CCLayer, public CStringAide, public CCEditBoxDelegate {
+class PopDialogBox : public CCLayer, public CStringAide, public CCEditBoxDelegate,public IGameSocket {
 public:
 	CC_SYNTHESIZE(IPopAssist*, pIPopAssist, IPopAssist);
 
@@ -84,8 +84,11 @@ public:
 	virtual void editBoxReturn(cocos2d::extension::CCEditBox* editBox);
 
 
-	//更新socket收发数据
-	void updateSocketData();
+
 	//网络消息
 	virtual void onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){}
+
+	virtual void onError(const char* e);
+	virtual bool onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
+	virtual void onOpen();
 };

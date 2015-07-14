@@ -11,6 +11,7 @@
 #include "PopDialogBoxLoading.h"
 #include "../Network/ListernerThread/LobbyGameListerner.h"
 #include "../Network/MD5/MD5.h"
+#include "../MTNotificationQueue/LobbyMsgHandler.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxTask::PopDialogBoxTask()
 {
@@ -51,7 +52,37 @@ void PopDialogBoxTask::onExit(){
 }
 //获取任务列表
 void PopDialogBoxTask::getTashInfoList(){
-	switch (getSocket()->eSocketState)
+
+	//CGameSocket gameSokcet= ;//
+	switch (LobbyMsgHandler::sharedLobbyMsgHandler()->gameSocket.getSocketState())
+	{
+	case CGameSocket::SOCKET_STATE_CONNECT_SUCCESS:
+		{
+			PopDialogBox *box = PopDialogBoxLoading::create();
+			this->addChild(box, 10, TAG_LOADING);
+			//box->setSocketName(SOCKET_LOBBY);
+
+			CMD_GL_GetTask getTask;
+			getTask.dwOpTerminal = 2;
+			LobbyMsgHandler::sharedLobbyMsgHandler()->gameSocket.SendData(MDM_GL_C_DATA, SUB_GL_C_TASK_LOAD, &getTask, sizeof(getTask));
+		}
+			break;
+	default:
+	{
+		DataModel::sharedDataModel()->vecSystemMsg.clear();
+		DataModel::sharedDataModel()->vecSystemMsg.clear();
+		//显示连接失败
+		pPFailure->setVisible(true);
+		UIImageView *pIVFailure = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageFailure"));
+		CCSequence *pSeq = CCSequence::create(CCRotateTo::create(1, 3), CCRotateTo::create(1, -3), NULL);
+		CCRepeatForever *pRForever = CCRepeatForever::create(pSeq);
+		pIVFailure->runAction(pRForever);
+		
+		LobbyMsgHandler::sharedLobbyMsgHandler()->connectServer(DataModel::sharedDataModel()->sLobbyIp, DataModel::sharedDataModel()->lLobbyProt);
+	}
+		break;
+	}
+	/*switch (getSocket()->eSocketState)
 	{
 	case TCPSocket::SOCKET_STATE_CONNECT_SUCCESS:
 	{
@@ -61,6 +92,7 @@ void PopDialogBoxTask::getTashInfoList(){
 
 		CMD_GL_GetTask getTask;
 		getTask.dwOpTerminal = 2;
+
 		bool isSend = getSocket()->SendData(MDM_GL_C_DATA, SUB_GL_C_TASK_LOAD, &getTask, sizeof(getTask));
 	}
 	break;
@@ -88,7 +120,7 @@ void PopDialogBoxTask::getTashInfoList(){
 
 	}
 	break;
-	}
+	}*/
 }
 //更新任务列表
 void PopDialogBoxTask::updateListTask(){
@@ -152,7 +184,7 @@ void PopDialogBoxTask::onMenuReward(CCObject *object, TouchEventType type){
 		//CCLog("tag:%d <<%s>>",pBTemp->getTag(), __FUNCTION__);
 		PopDialogBox *box = PopDialogBoxLoading::create();
 		this->addChild(box, 10, TAG_LOADING);
-		box->setSocketName(SOCKET_LOBBY);
+		//box->setSocketName(SOCKET_LOBBY);
 
 		CMD_GL_TaskID taskID;
 		taskID.dwTaskID = vecTaskInfo[pBTemp->getTag()].dwTaskID;
@@ -163,7 +195,8 @@ void PopDialogBoxTask::onMenuReward(CCObject *object, TouchEventType type){
 		std::string md5PassWord = m.GetMd5();
 		strcpy(taskID.szPassword, md5PassWord.c_str());
 
-		getSocket()->SendData(MDM_GL_C_DATA, SUB_GL_C_TASK_REWARD, &taskID, sizeof(taskID));
+		//getSocket()->SendData(MDM_GL_C_DATA, SUB_GL_C_TASK_REWARD, &taskID, sizeof(taskID));
+		LobbyMsgHandler::sharedLobbyMsgHandler()->gameSocket.SendData(MDM_GL_C_DATA, SUB_GL_C_TASK_REWARD, &taskID, sizeof(taskID));
 	}
 }
 //更新

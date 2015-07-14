@@ -25,7 +25,7 @@ public:
 private:
 	virtual void onEnter();
 	virtual void onExit();
-	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOBBY); }
+	//TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOBBY); }
 	//获取任务列表
 	void getTashInfoList();
 	//领取奖励按键

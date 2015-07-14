@@ -53,9 +53,18 @@ typedef char TCHAR, *PTCHAR;
 #define BLOCKSECONDS	30			// INIT函数阻塞时间
 #define INBUFSIZE	(64*1024)		//?	具体尺寸根据剖面报告调整  接收数据的缓存
 #define OUTBUFSIZE	(8*1024)		//? 具体尺寸根据剖面报告调整。 发送数据的缓存，当不超过8K时，FLUSH只需要SEND一次
-
+struct IGameSocket//socket回调接口
+{
+	virtual ~IGameSocket(){}
+	//virtual void onClose(bool fromRemote)=0;
+	virtual void onError(const char* e)=0;
+	//virtual void onIdle()=0;
+	virtual bool onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize) = 0;
+	virtual void onOpen()=0;
+};
 class CGameSocket:public Thread {
 public:
+	CC_SYNTHESIZE(IGameSocket*, pIGameSocket, IGameSocket);
 	enum SocketState
 	{
 		SOCKET_STATE_FREE=0,							//空闲
@@ -77,6 +86,7 @@ public:
 	bool	Flush(void);
 	bool	Check(void);
 	void	Destroy(bool isActive);
+	void	updateSocketData();			//更新socket收发数据
 	SOCKET	GetSocket(void) const { return m_sockClient; }
 private:
 	void resetData();

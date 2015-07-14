@@ -88,7 +88,7 @@ bool LobbyGameListerner::OnMessage(TCPSocket* so,unsigned short	wSocketID, TCP_C
 }
 void LobbyGameListerner::OnOpen(TCPSocket* so)
 {
-	CMD_GL_LogonAccounts LogonAccounts;
+	/*CMD_GL_LogonAccounts LogonAccounts;
 	strcpy(LogonAccounts.szAccounts, DataModel::sharedDataModel()->sLogonAccount.c_str());
 	strcpy(LogonAccounts.szMachineID, "12");
 
@@ -100,7 +100,7 @@ void LobbyGameListerner::OnOpen(TCPSocket* so)
 	//连接大厅长连接
 	TCPSocket *tcp = TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOBBY);
 	tcp->SendData(MDM_GL_C_DATA, SUB_GL_MB_LOGON_ACCOUNTS, &LogonAccounts, sizeof(LogonAccounts));
-	
+	*/
 	
 	/*//////////////////////////////////////////////////////////////////////////
 	ReadData rData;

@@ -16,6 +16,7 @@
 #include "../GameLobby/GameLobbyScene.h"
 #include "../Network/ListernerThread/LogonGameListerner.h"
 #include "../Network/ListernerThread/LobbyGameListerner.h"
+#include "../MTNotificationQueue/LobbyMsgHandler.h"
 #include "../Network/MD5/MD5.h"
 //#include "../Network/CMD_Server/cmd_ox.h"
 #include "../Tools/BaseAttributes.h"
@@ -223,83 +224,13 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 		break;
 	}
 }
-//更新socket收发数据
-void LogonScene::updateSocketData(){
-	if (gameSocket.getSocketState() == CGameSocket::SOCKET_STATE_FREE) {
-		return;
-	}
-	if (gameSocket.getSocketState() == CGameSocket::SOCKET_STATE_ERROR) {
-		PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
-		this->addChild(tipInfo);
-		tipInfo->setTipInfoContent("与服务器断开连接");
 
-		PopDialogBoxOtherLoading *pLoading =(PopDialogBoxOtherLoading*)this->getChildByTag(TAG_LOADING);
-		if (pLoading)
-		{
-			pLoading->removeFromParentAndCleanup(true);
-		}
-
-		gameSocket.setSocketState(CGameSocket::SOCKET_STATE_FREE);
-		//gameSocket.End();
-		return;
-	}
-	if (gameSocket.getSocketState() == CGameSocket::SOCKET_STATE_CONNECT_FAILURE) {
-		PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
-		this->addChild(tipInfo);
-		tipInfo->setTipInfoContent(" 连接服务器失败 ");
-
-		PopDialogBoxOtherLoading *pLoading = (PopDialogBoxOtherLoading*)this->getChildByTag(TAG_LOADING);
-		if (pLoading)
-		{
-			pLoading->removeFromParentAndCleanup(true);
-		}
-
-		gameSocket.setSocketState(CGameSocket::SOCKET_STATE_FREE);
-		//gameSocket.End();
-		return;
-	}
-
-
-	if (!gameSocket.Check()) {
-		//gameSocket = NULL;
-		//onConnectionAbort();
-		gameSocket.setSocketState(CGameSocket::SOCKET_STATE_ERROR);
-		// 掉线了
-		CCLog("abort------------- <<%s>>", __FUNCTION__);
-		return;
-	}
-	gameSocket.Flush();
-	// 接收数据（取得缓冲区中的所有消息，直到缓冲区为空）
-	while (true)
-	{
-		char buffer[_MAX_MSGSIZE] = { 0 };
-		int nSize = sizeof(buffer);
-		char* pbufMsg = buffer;
-		if (gameSocket.getSocketState() != CGameSocket::SOCKET_STATE_CONNECT_SUCCESS)
-		{
-			if (gameSocket.getSocketState() != CGameSocket::SOCKET_STATE_FREE)
-			{
-				gameSocket.setSocketState(CGameSocket::SOCKET_STATE_ERROR);
-			}
-			break;
-		}
-		if (!gameSocket.ReceiveMsg(pbufMsg, nSize)) {
-			break;
-		}
-		// 接收数据（取得缓冲区中的所有消息，直到缓冲区为空）
-		TCP_Head* pHead = (TCP_Head*)pbufMsg;
-		WORD wDataSize = nSize - sizeof(TCP_Head);
-		void * pDataBuffer = pbufMsg + sizeof(TCP_Head);
-
-		onEventReadMessage(pHead->CommandInfo.wMainCmdID, pHead->CommandInfo.wSubCmdID, pDataBuffer, wDataSize);
-	}
-}
 void LogonScene::update(float delta){
 	/*if (isReadMessage)
 	{
 		MessageQueue::update(delta);
 	}*/
-	updateSocketData();
+	gameSocket.updateSocketData();
 }
 //连接服务器
 void LogonScene::connectServer(){
@@ -310,6 +241,7 @@ void LogonScene::connectServer(){
 	if (gameSocket.getSocketState() != CGameSocket::SOCKET_STATE_CONNECT_SUCCESS)
 	{
 		gameSocket.Create(GAME_IP, PORT_LOGON);
+		gameSocket.setIGameSocket(this);
 	}
 	/*PopDialogBox *box = PopDialogBoxLoading::create();
 	this->addChild(box, 10, TAG_LOADING);
@@ -583,6 +515,7 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			tcp->createSocket(pLobbyIp->szServerIP, pLobbyIp->dwServerPort, new LobbyGameListerner());
 			//tcp->createSocket("112.1.1.1", pLobbyIp->dwServerPort, new LobbyGameListerner());
 		}*/
+		LobbyMsgHandler::sharedLobbyMsgHandler()->connectServer(DataModel::sharedDataModel()->sLobbyIp, DataModel::sharedDataModel()->lLobbyProt);
 	}
 		break;
 	default:
@@ -676,6 +609,25 @@ void LogonScene::onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned s
 		CCLog("other:%d<<%s>>",wSubCmdID,__FUNCTION__);
 		break;
 	}
+}
+void LogonScene::onOpen(){
+	CCLog("open <<%s>>", __FUNCTION__);
+}
+void LogonScene::onError(const char* sError){
+	
+	PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+	this->addChild(tipInfo);
+	tipInfo->setTipInfoContent(sError);
+
+	PopDialogBoxOtherLoading *pLoading = (PopDialogBoxOtherLoading*)this->getChildByTag(TAG_LOADING);
+	if (pLoading)
+	{
+		pLoading->removeFromParentAndCleanup(true);
+	}
+}
+bool LogonScene::onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
+	onEventReadMessage(wMainCmdID, wSubCmdID, pDataBuffer, wDataSize);
+	return true;
 }
 //注册回调
 void LogonScene::onRegistered(const char *sAccount, const char*sNickname, const char*sPassword){

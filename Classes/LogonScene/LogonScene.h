@@ -19,7 +19,7 @@
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace ui;
-class LogonScene:public CCLayer,public CStringAide,public IPopAssistRegistered
+class LogonScene:public CCLayer,public CStringAide,public IPopAssistRegistered,public IGameSocket
 {
 private:
 	enum LogonType
@@ -66,9 +66,12 @@ private:
 	void logonGame();
 	//注册
 	void registeredGame();
-	//更新socket收发数据
-	void updateSocketData();
+	
 	//网络回调////////////////////////////////////////////////////////////////////////
+	virtual void onOpen();
+	virtual void onError(const char* e);
+	virtual bool onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
+
 	void onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//socket连接成功
 	//void onEventConnect(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);

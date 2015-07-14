@@ -153,7 +153,7 @@ void PopDialogBoxForgetPassword::updateResetGetCode(float dt){
 
 //更新
 void PopDialogBoxForgetPassword::update(float delta){
-	updateSocketData();
+	gameSocket.updateSocketData();
 }
 //////////////////////////////////////////////////////////////////////////
 //读取网络消息回调

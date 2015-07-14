@@ -93,6 +93,7 @@ void PopDialogBox::connectServer(){
 
 	if (gameSocket.getSocketState() != CGameSocket::SOCKET_STATE_CONNECT_SUCCESS)
 	{
+		gameSocket.setIGameSocket(this);
 		gameSocket.Create(GAME_IP, PORT_LOGON);
 	}
 }
@@ -204,7 +205,7 @@ void PopDialogBox::editBoxReturn(CCEditBox* editBox)
 	}*/
 }
 
-//更新socket收发数据
+/*//更新socket收发数据
 void PopDialogBox::updateSocketData(){
 	if (gameSocket.getSocketState() == CGameSocket::SOCKET_STATE_FREE) {
 		return;
@@ -262,4 +263,19 @@ void PopDialogBox::updateSocketData(){
 		void * pDataBuffer = pbufMsg + sizeof(TCP_Head);
 		onEventReadMessage(pHead->CommandInfo.wMainCmdID, pHead->CommandInfo.wSubCmdID, pDataBuffer, wDataSize);
 	}
+}*/
+void PopDialogBox::onError(const char* sErroe){
+	showTipInfo(sErroe);
+	//移除loading
+	if (this->getChildByTag(TAG_LOADING))
+	{
+		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+	}
+}
+bool PopDialogBox::onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
+	onEventReadMessage(wMainCmdID,wSubCmdID,pDataBuffer,wDataSize);
+	return true;
+}
+void PopDialogBox::onOpen(){
+
 }

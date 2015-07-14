@@ -165,7 +165,7 @@ void PopDialogBoxForgetBankPwd::updateResetGetCode(float dt){
 }
 //更新
 void PopDialogBoxForgetBankPwd::update(float delta){
-	updateSocketData();
+	gameSocket.updateSocketData();
 }
 //////////////////////////////////////////////////////////////////////////
 //读取网络消息回调
