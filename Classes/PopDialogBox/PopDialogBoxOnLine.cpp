@@ -25,22 +25,22 @@ void PopDialogBoxOnLine::onEnter(){
 	pLOnLine=static_cast<UIListView*>(pUILayer->getWidgetByName("ListViewOnLine"));
 	fPosX=pLOnLine->getPositionX();
 	pLOnLine->setItemModel(pLOnLine->getItem(0));
-	if (DataModel::sharedDataModel()->mTagUserInfo.size()==0)
+	//if (DataModel::sharedDataModel()->mTagUserInfo.size()==0)
 	{
 		pLOnLine->removeAllItems();
 	}
-	int i=0;
+	//int i=0;
 	std::map<long,tagUserInfo>::iterator iter;
 	for (iter = DataModel::sharedDataModel()->mTagUserInfo.begin(); iter != DataModel::sharedDataModel()->mTagUserInfo.end(); iter++)
 	{
-		if (i==0)
-		{
-			setOnLineUserInfo(false,iter->second);
-		}else
+		//if (i==0)
+		//{
+			//setOnLineUserInfo(false,iter->second);
+		//}else
 		{
 			setOnLineUserInfo(true,iter->second);
 		}
-		i++;
+		//i++;
 	}
 	//动画
 	CCEaseExponentialOut  *out=CCEaseExponentialOut ::create(CCMoveTo::create(0.5,ccp(0,pLOnLine->getPositionY())));
@@ -87,4 +87,54 @@ void PopDialogBoxOnLine::setOnLineUserInfo(bool isInsert,tagUserInfo userInfo){
 //移除自己
 void PopDialogBoxOnLine::removSelf(){
 	this->removeFromParentAndCleanup(true);
+}
+//刷新在线列表
+void PopDialogBoxOnLine::updateOnLineList(){
+	std::map<long, tagUserInfo> mTestUserInfo = DataModel::sharedDataModel()->mTagUserInfo;
+
+	/*int i = 0;
+	std::map<long, tagUserInfo>::iterator iter;
+	for (iter = DataModel::sharedDataModel()->mTagUserInfo.begin(); iter != DataModel::sharedDataModel()->mTagUserInfo.end(); iter++)
+	{
+		if (i == 0)
+		{
+			//setOnLineUserInfo(false, iter->second);
+		}
+		else
+		{
+			//setOnLineUserInfo(true, iter->second);
+		}
+		i++;
+	}*/
+	/*//增加庄家
+	if (mTestUserInfo.size() > pLOnLine->getItems()->count())
+	{
+		int i = 0;
+		std::map<long, tagUserInfo>::iterator iter;
+		for (iter = mTestUserInfo.begin(); iter != mTestUserInfo.end(); iter++)
+		{
+			if (i < pLOnLine->getItems()->count())
+			{
+				i++;
+				continue;
+			}
+			setOnLineUserInfo(true, iter->second);
+			//insertBank(true, i, (tagApplyUser)*iter);
+		}
+	}
+	else if (mTestUserInfo.size() < pLOnLine->getItems()->count())//取消庄家
+	{
+	
+	}
+	else//抢庄更新列表
+	{
+		//updateListContent();
+	}*/
+	/*pLOnLine->removeAllItems();
+
+	std::map<long,tagUserInfo>::iterator iter;
+	for (iter = DataModel::sharedDataModel()->mTagUserInfo.begin(); iter != DataModel::sharedDataModel()->mTagUserInfo.end(); iter++)
+	{
+		setOnLineUserInfo(true,iter->second);
+	}*/
 }

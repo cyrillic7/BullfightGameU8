@@ -45,7 +45,7 @@
 #define TAG_INPUT_BOX							1002							//输入框
 #define TAG_INPUT_EDIT_BOX						1003							//输入框
 #define TAG_UP_BANK								1004							//百人上庄
-
+#define TAG_ONLINE								1005							//百人在线玩家
 
 
 

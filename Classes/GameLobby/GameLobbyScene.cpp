@@ -268,7 +268,7 @@ void GameLobbyScene::enterLobbyByMode(int mode){
 void GameLobbyScene::update(float delta){
 	if (isReadMessage)
 	{
-		MessageQueue::update(delta);
+		//MessageQueue::update(delta);
 		MessageQueueGameIng::update(delta);
 	}
 }

@@ -5,12 +5,11 @@
 #pragma once
 #include "cocos-ext.h"
 #include "BaseLobbyScene.h"
-#include "../MTNotificationQueue/MessageQueue.h"
 #include "../MTNotificationQueue/MessageQueueGameIng.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
-class GameLobbyScene:public BaseLobbyScene,public MessageQueue,public MessageQueueGameIng
+class GameLobbyScene:public BaseLobbyScene,public MessageQueueGameIng
 {
     
 public:

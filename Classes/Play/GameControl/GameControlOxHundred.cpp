@@ -414,7 +414,7 @@ void GameControlOxHundred::onMenuOnLine(CCObject* pSender, TouchEventType type){
 	case TOUCH_EVENT_ENDED:
 	{
 		PopDialogBoxOnLine *pDBUpBank = PopDialogBoxOnLine::create();
-		getParent()->addChild(pDBUpBank, K_Z_ORDER_POP);
+		getParent()->addChild(pDBUpBank, K_Z_ORDER_POP, TAG_ONLINE);
 	}
 	break;
 	default:
@@ -1713,6 +1713,12 @@ void GameControlOxHundred::onSubUserEnter(void * pDataBuffer, unsigned short wDa
 	else
 	{
 		DataModel::sharedDataModel()->mTagUserInfo.insert(map<long, tagUserInfo>::value_type(pUserInfoHead->dwUserID, UserInfo));
+	}
+
+	if (getParent()->getChildByTag(TAG_ONLINE))
+	{
+		PopDialogBoxOnLine *pOnLine = (PopDialogBoxOnLine*)getParent()->getChildByTag(TAG_ONLINE);
+		pOnLine->updateOnLineList();
 	}
 	/*
 	//效验参数

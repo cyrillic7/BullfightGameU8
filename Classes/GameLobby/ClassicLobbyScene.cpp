@@ -273,7 +273,7 @@ void ClassicLobbyScene::enterMainSceneByMode(int mode){
 void ClassicLobbyScene::update(float delta){
 	if (isReadMessage)
 	{
-		MessageQueue::update(delta);
+		//MessageQueue::update(delta);
 		MessageQueueGameIng::update(delta);
 	}
 	/*if (DataModel::sharedDataModel()->isSit)

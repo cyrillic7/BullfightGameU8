@@ -18,6 +18,9 @@ public:
 	PopDialogBoxOnLine();
 	~PopDialogBoxOnLine();
 	CREATE_FUNC(PopDialogBoxOnLine);
+
+	//刷新在线列表
+	void updateOnLineList();
 private:
 	virtual void onEnter();
 	virtual void onExit();
