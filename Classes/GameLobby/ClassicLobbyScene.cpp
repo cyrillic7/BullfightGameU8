@@ -112,11 +112,11 @@ void ClassicLobbyScene::initTCPLogon(int index){
 	PopDialogBox *pdb = PopDialogBoxLoading::create();
 	this->addChild(pdb);
 	pdb->setTag(TAG_LOADING);
-	pdb->setSocketName(SOCKET_LOGON_ROOM);
+	//pdb->setSocketName(SOCKET_LOGON_ROOM);
 
-	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
+	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
 
-	char *ip = "";
+	std::string ip = "";
 	short port = 0;
 	//TCPSocketControl *tcp=TCPSocketControl::sharedTCPSocketControl();
 	switch (getGameItem())
@@ -145,7 +145,9 @@ void ClassicLobbyScene::initTCPLogon(int index){
 	//tcp->listerner=new GameListerner();
 	//tcp->listerner = new LogonGameListerner();
 	//tcp->startSendThread();
-	getSocket()->createSocket(ip, port, new GameIngListerner());
+	GameIngMsgHandler::sharedGameIngMsgHandler()->connectServer(ip, port);
+	onEventConnect(1, NULL, 0);
+	//getSocket()->createSocket(ip, port, new GameIngListerner());
 }
 //更新房间列表
 void  ClassicLobbyScene::updateRoomList(){
@@ -244,10 +246,11 @@ void ClassicLobbyScene::menuStar(CCObject* pSender, TouchEventType type){
 	}
 }
 void ClassicLobbyScene::popDialogBox(){
-	if (TCPSocketControl::sharedTCPSocketControl()->listerner)
+	/*if (TCPSocketControl::sharedTCPSocketControl()->listerner)
 	{
 		TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
-	}
+	}*/
+	GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
 
 	Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(false));
 }
@@ -392,7 +395,7 @@ void ClassicLobbyScene::onEventConnect(WORD wSubCmdID, void * pDataBuffer, unsig
 
 		strcpy(logonMobile.szMachineID, "123");
 
-		bool isSend = getSocket()->SendData(MDM_GR_LOGON, SUB_GR_LOGON_MOBILE, &logonMobile, sizeof(logonMobile));
+		bool isSend = GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GR_LOGON, SUB_GR_LOGON_MOBILE, &logonMobile, sizeof(logonMobile));
 #endif						 
 	}
 	break;
@@ -490,7 +493,8 @@ void ClassicLobbyScene::onEventLogon(WORD wSubCmdID, void * pDataBuffer, unsigne
 
 		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 		//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_GAME);
-		TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
+		//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
+		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
 
 		PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
 		this->addChild(tipInfo);

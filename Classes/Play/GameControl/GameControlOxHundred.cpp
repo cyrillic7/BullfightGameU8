@@ -383,8 +383,8 @@ void GameControlOxHundred::onMenuPlaceJetton(CCObject* pSender, TouchEventType t
 
 
 		//发送消息
-		TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM)->SendData(MDM_GF_GAME, SUB_C_PLACE_JETTON, &PlaceJetton, sizeof(PlaceJetton));
-
+		//TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM)->SendData(MDM_GF_GAME, SUB_C_PLACE_JETTON, &PlaceJetton, sizeof(PlaceJetton));
+		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GF_GAME, SUB_C_PLACE_JETTON, &PlaceJetton, sizeof(PlaceJetton));
 	}
 	break;
 	default:
@@ -460,7 +460,7 @@ void GameControlOxHundred::onMenuChangeChair(CCObject* pSender, TouchEventType t
 		userSit.wUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
 		userSit.cbSitID = pBTemp->getTag();
 		//发送消息
-		TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM)->SendData(MDM_GF_GAME, SUB_C_USER_SIT, &userSit, sizeof(userSit));
+		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GF_GAME, SUB_C_USER_SIT, &userSit, sizeof(userSit));
 
 	}
 		break;
@@ -774,13 +774,13 @@ void GameControlOxHundred::onApplyBanker(bool bApplyBanker){
 	if (bApplyBanker)
 	{
 		//发送消息
-		TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM)->SendData(MDM_GF_GAME, SUB_C_APPLY_BANKER);
+		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GF_GAME, SUB_C_APPLY_BANKER);
 		//m_bMeApplyBanker=true;
 	}
 	else
 	{
 		//发送消息
-		TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM)->SendData(MDM_GF_GAME, SUB_C_CANCEL_BANKER, NULL, 0);
+		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GF_GAME, SUB_C_CANCEL_BANKER, NULL, 0);
 		//m_bMeApplyBanker = false;
 	}
 }
@@ -1934,7 +1934,8 @@ void GameControlOxHundred::onSubUserState(void * pDataBuffer, unsigned short wDa
 		}*/
 		if (info->dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID)
 		{
-			TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
+			GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
+			//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 			Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(false));
 			//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_US_FREE,NULL);
 		}

@@ -6,6 +6,7 @@
 #include "cocos-ext.h"
 #include "../Tools/CStringAide.h"
 #include "../Network/TCPSocket/TCPSocketControl.h"
+#include "../MTNotificationQueue/GameIngMsgHandler.h"
 #include "../PopDialogBox/PopDialogBoxKnapsack.h"
 #include "../PopDialogBox/IPopDialogBoxAssist.h"
 USING_NS_CC;
@@ -45,7 +46,7 @@ public:
     CREATE_FUNC(BaseLobbyScene);
 
 	//获取socket
-	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM); }
+	//TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM); }
 	//VIP
 	void onMenuVip(CCObject* pSender, TouchEventType type);
 	//弹出框

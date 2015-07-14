@@ -98,7 +98,7 @@ void GameControlOxSixSwap::onUserChangeCard(int wParam, long lParam)
 
 	showActionPrompt(ACTION_PROMPT_WAIT_SWAP_CARD, CCPointZero);
 
-	bool isSend = getSocket()->SendData(MDM_GF_GAME, SUB_C_CHANGE_CARD, &ChangeCard, sizeof(ChangeCard));
+	bool isSend = GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GF_GAME, SUB_C_CHANGE_CARD, &ChangeCard, sizeof(ChangeCard));
 	if (isSend)
 	{
 		
@@ -119,7 +119,7 @@ void GameControlOxSixSwap::menuOpenCard(CCObject* pSender, TouchEventType type){
 		CMD_C_OxCard OxCard;
 		OxCard.bOX = GetOxCard(DataModel::sharedDataModel()->card[getMeChairID()], 5);
 		//发送信息
-		bool isSend = getSocket()->SendData(MDM_GF_GAME, SUB_C_OPEN_CARD, &OxCard, sizeof(OxCard));
+		bool isSend = GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GF_GAME, SUB_C_OPEN_CARD, &OxCard, sizeof(OxCard));
 		getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
 	}
 	break;
@@ -1233,7 +1233,7 @@ void GameControlOxSixSwap::onUserShowOx(CCNode *pNode){
 	if (showOxCurNum >= showOxAllNum)
 	{
 		//所有用户牌都显示完了
-		getSocket()->SendData(MDM_GF_GAME, SUB_C_OPEN_END);
+		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GF_GAME, SUB_C_OPEN_END);
 	}
 }
 //游戏结束

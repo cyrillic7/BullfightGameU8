@@ -18,8 +18,8 @@ MainSceneOxSixSwap::MainSceneOxSixSwap()
 }
 MainSceneOxSixSwap::~MainSceneOxSixSwap(){
 	CCLog("~ <<%s>>", __FUNCTION__);
-	TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
-
+	//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
+	GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
 
 }
 CCScene* MainSceneOxSixSwap::scene()

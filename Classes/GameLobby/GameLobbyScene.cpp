@@ -231,12 +231,14 @@ void GameLobbyScene::enterLobbyByMode(int mode){
 			{
 				PopDialogBox *pLoading = PopDialogBoxLoading::create();
 				this->addChild(pLoading, 10, TAG_LOADING);
-				pLoading->setSocketName(SOCKET_LOGON_ROOM);
+				//pLoading->setSocketName(SOCKET_LOGON_ROOM);
 
-				TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
+				/*TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
 				tagGameServer *tgs = DataModel::sharedDataModel()->tagGameServerListOxHundred[0];
-				//getSocket()->createSocket(tgs->szServerAddr, tgs->wServerPort, new LogonGameListerner());
-				getSocket()->createSocket(tgs->szServerAddr, tgs->wServerPort, new GameIngListerner());
+				getSocket()->createSocket(tgs->szServerAddr, tgs->wServerPort, new GameIngListerner());*/
+				tagGameServer *tgs = DataModel::sharedDataModel()->tagGameServerListOxHundred[0];
+				GameIngMsgHandler::sharedGameIngMsgHandler()->connectServer(tgs->szServerAddr,tgs->wServerPort);
+				onEventConnect(1, NULL, 0);
 			}
 			
 			//Tools::setTransitionAnimation(0, 0, MainSceneOxHundred::scene());
@@ -312,7 +314,8 @@ void GameLobbyScene::onEventConnect(WORD wSubCmdID,void * pDataBuffer, unsigned 
 			m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(),DataModel::sharedDataModel()->sLogonPassword.length());
 			std::string md5PassWord = m.GetMd5();
 			strcpy(logonMobile.szPassword,md5PassWord.c_str());
-			bool isSend = getSocket()->SendData(MDM_GR_LOGON, SUB_GR_LOGON_MOBILE, &logonMobile, sizeof(logonMobile));
+			//bool isSend = getSocket()->SendData(MDM_GR_LOGON, SUB_GR_LOGON_MOBILE, &logonMobile, sizeof(logonMobile));
+			GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GR_LOGON, SUB_GR_LOGON_MOBILE, &logonMobile, sizeof(logonMobile));
 		}
 		break;
 	default:
@@ -360,7 +363,8 @@ void GameLobbyScene::onSubLogon(WORD wSubCmdID,void * pDataBuffer, unsigned shor
 			this->addChild(tipInfo);
 			tipInfo->setTipInfoContent(GBKToUTF8(lf->szDescribeString));
 
-			TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
+			GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
+			//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 		}
 		break;
 	default:
@@ -395,7 +399,8 @@ void GameLobbyScene::onSubConfig(WORD wSubCmdID,void * pDataBuffer, unsigned sho
 			GameOption.cbAllowLookon=0;
 			GameOption.dwClientVersion=VERSION_CLIENT;
 			//发送
-			bool isSend = getSocket()->SendData(MDM_GF_FRAME, SUB_GF_GAME_OPTION, &GameOption, sizeof(GameOption));
+			//bool isSend = getSocket()->SendData(MDM_GF_FRAME, SUB_GF_GAME_OPTION, &GameOption, sizeof(GameOption));
+			bool isSend = GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GF_FRAME, SUB_GF_GAME_OPTION, &GameOption, sizeof(GameOption));
 			if (isSend)
 			{
 				

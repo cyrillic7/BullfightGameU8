@@ -54,10 +54,10 @@ void PopDialogBoxLoading::outTimeExit(float dt){
 	this->getParent()->addChild(pTipInfo,100);
 	pTipInfo->setTipInfoContent(BaseAttributes::sharedAttributes()->sOutTime.c_str());
 
-	if (strcmp(sSocketName.c_str(), SOCKET_LOGON_ROOM)==0)
+	/*if (strcmp(sSocketName.c_str(), SOCKET_LOGON_ROOM)==0)
 	{
 		Tools::setTransitionAnimation(0,0,GameLobbyScene::scene(false));
-	}
+	}*/
 	if (getIOutTime())
 	{
 		getIOutTime()->onOutTime();

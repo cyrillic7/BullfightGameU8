@@ -15,6 +15,7 @@
 #include "../../Network/TCPSocket/TCPSocketControl.h"
 #include "../GameEndLayer.h"
 #include "../../MTNotificationQueue/MessageQueueGameIng.h"
+#include "../../MTNotificationQueue/GameIngMsgHandler.h"
 #include "../../Tools/CMath.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -83,7 +84,7 @@ public:
 	//获取主场景
 	MainSceneBase*getMainScene();
 	//获取socket
-	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM); }
+	//TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM); }
 public:
 	//显示指定索引提示动画
 	void showActionPrompt(int promptIndex, CCPoint offsetPos);

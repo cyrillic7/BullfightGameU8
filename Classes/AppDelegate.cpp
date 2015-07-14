@@ -8,6 +8,7 @@
 #include "MainScene/MainSceneOxHundred.h"
 #include "GameLobby/GameLobbyScene.h"
 #include "MTNotificationQueue/LobbyMsgHandler.h"
+#include "MTNotificationQueue/GameIngMsgHandler.h"
 USING_NS_CC;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include "vld.h"
@@ -35,6 +36,9 @@ AppDelegate::~AppDelegate()
 
 	LobbyMsgHandler *pLobbyMsgHandler=LobbyMsgHandler::sharedLobbyMsgHandler();
 	CC_SAFE_DELETE(pLobbyMsgHandler);
+
+	GameIngMsgHandler *pGameIngMsgHandler = GameIngMsgHandler::sharedGameIngMsgHandler();
+	CC_SAFE_DELETE(pGameIngMsgHandler);
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
@@ -66,6 +70,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     pDirector->runWithScene(pScene);
 	//////////////////////////////////////////////////////////////////////////
 	LobbyMsgHandler::sharedLobbyMsgHandler();
+	GameIngMsgHandler::sharedGameIngMsgHandler();
+
 	CCDirector::sharedDirector()->getScheduler()->scheduleSelector(  
 		schedule_selector(MTNotificationQueue::postNotifications),  
 		MTNotificationQueue::sharedNotificationQueue(),  

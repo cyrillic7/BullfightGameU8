@@ -57,7 +57,7 @@ void GameControlOxOneByOne::menuOpenCard(CCObject* pSender, TouchEventType type)
 		CMD_C_OxCard OxCard;
 		OxCard.bOX=GetOxCard(DataModel::sharedDataModel()->card[getMeChairID()],5);
 		//发送信息
-		bool isSend=getSocket()->SendData(MDM_GF_GAME,SUB_C_OPEN_CARD,&OxCard,sizeof(OxCard));
+		bool isSend = GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GF_GAME, SUB_C_OPEN_CARD, &OxCard, sizeof(OxCard));
 		getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_WAIT);
 	}
 		break;
@@ -573,7 +573,7 @@ bool GameControlOxOneByOne::OnSubGameStart(const void * pBuffer, WORD wDataSize)
 	//发送消息
 	CMD_C_AddScore AddScore;
 	AddScore.lScore = DataModel::sharedDataModel()->m_lTurnMaxScore;
-	getSocket()->SendData(MDM_GF_GAME,SUB_C_ADD_SCORE, &AddScore, sizeof(AddScore));
+	GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GF_GAME, SUB_C_ADD_SCORE, &AddScore, sizeof(AddScore));
 	return true;
 }
 //发牌消息
@@ -776,7 +776,7 @@ void GameControlOxOneByOne::onUserShowOx(CCNode *pNode){
 	if (showOxCurNum>=showOxAllNum)
 	{
 		//所有用户牌都显示完了
-		getSocket()->SendData(MDM_GF_GAME, SUB_C_OPEN_END);
+		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GF_GAME, SUB_C_OPEN_END);
 	}
 }
 //游戏结束

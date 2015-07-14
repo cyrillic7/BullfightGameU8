@@ -32,7 +32,8 @@ GameControlBase::GameControlBase()
 GameControlBase::~GameControlBase(){
 	unschedule(SEL_SCHEDULE(&GameControlBase::updateTimer));
 	unscheduleUpdate();
-	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
+	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
+	GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
 }
 void GameControlBase::onEnter(){
 	CCLayer::onEnter();
@@ -284,7 +285,7 @@ void GameControlBase::menuChangeChair(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		getSocket()->SendData(MDM_GR_USER, SUB_GR_CHANGE_TABLE);
+		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GR_USER, SUB_GR_CHANGE_TABLE);
 		CCLog("---- <<%s>>", __FUNCTION__);
 		//CCStringMake 
 		//SUB_GR_USER_CHAIR_REQ
@@ -304,7 +305,7 @@ void GameControlBase::menuReady(CCObject* pSender, TouchEventType type){
 		//隐藏准备
 		pPanelReady->setEnabled(false);
 		//发送准备指使
-		bool isSend = getSocket()->SendData(MDM_GF_FRAME, SUB_GF_USER_READY);
+		bool isSend = GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GF_FRAME, SUB_GF_USER_READY);
 		//设置主状态为准备状态
 		getMainScene()->setGameState(MainSceneOxTwo::STATE_READY);
 		/*//获取按键子控件并隐藏
@@ -338,7 +339,7 @@ void GameControlBase::menuNotFight(CCObject* pSender, TouchEventType type){
 		CMD_C_CallBanker CallBanker;
 		CallBanker.bBanker = (BYTE)0;
 		//发送信息
-		getSocket()->SendData(MDM_GF_GAME, SUB_C_CALL_BANKER, &CallBanker, sizeof(CallBanker));
+		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GF_GAME, SUB_C_CALL_BANKER, &CallBanker, sizeof(CallBanker));
 	}
 	break;
 	default:
@@ -361,7 +362,7 @@ void GameControlBase::menuFight(CCObject* pSender, TouchEventType type){
 		CallBanker.bBanker = (BYTE)1;
 
 		//发送信息
-		getSocket()->SendData(MDM_GF_GAME, SUB_C_CALL_BANKER, &CallBanker, sizeof(CallBanker));
+		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GF_GAME, SUB_C_CALL_BANKER, &CallBanker, sizeof(CallBanker));
 		//SendSocketData(SUB_C_CALL_BANKER,&CallBanker,sizeof(CallBanker));
 	}
 	break;
@@ -392,7 +393,7 @@ void GameControlBase::menuBetting(CCObject* pSender, TouchEventType type){
 		CMD_C_AddScore AddScore;
 		AddScore.lScore = lCurrentScore;
 		//发送信息
-		getSocket()->SendData(MDM_GF_GAME, SUB_C_ADD_SCORE, &AddScore, sizeof(AddScore));
+		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GF_GAME, SUB_C_ADD_SCORE, &AddScore, sizeof(AddScore));
 	}
 	break;
 	default:
@@ -1237,7 +1238,8 @@ bool GameControlBase::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 
 void GameControlBase::OnUserFree(CCObject *obj){
 	//CCMessageBox(Tools::GBKToUTF8("长时间不操作，自动退出！"), Tools::GBKToUTF8("提示"));
-	TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
+	//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
+	GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
 	Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(!isExitGame));
 	CCLog("退出 ");
 }
@@ -1297,7 +1299,7 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 					GameOption.cbAllowLookon = 0;
 					GameOption.dwClientVersion = VERSION_CLIENT;
 					//发送
-					bool isSend =getSocket()->SendData(MDM_GF_FRAME, SUB_GF_GAME_OPTION, &GameOption, sizeof(GameOption));
+					bool isSend = GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GF_FRAME, SUB_GF_GAME_OPTION, &GameOption, sizeof(GameOption));
 					if (isSend)
 					{
 					}
@@ -1540,14 +1542,15 @@ void GameControlBase::standUpWithExit(){
 	userStandUp.cbForceLeave = true;
 	if (userStandUp.wChairID == -10 || userStandUp.wChairID > MAX_CHAIR)
 	{
-		TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
+		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
+		//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 		Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(false));
 	}
 	else
 	{
-		getMainScene()->addLoadingLayer(SOCKET_LOGON_ROOM);
+		getMainScene()->addLoadingLayer("");
 		CCLog("-------userStandUp.wChairID :%d<<%s>>", userStandUp.wChairID, __FUNCTION__);
 		//发送消息
-		TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM)->SendData(MDM_GR_USER, SUB_GR_USER_STANDUP, &userStandUp, sizeof(userStandUp));
+		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GR_USER, SUB_GR_USER_STANDUP, &userStandUp, sizeof(userStandUp));
 	}
 }

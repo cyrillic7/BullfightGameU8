@@ -17,8 +17,8 @@ MainSceneOxTwo::MainSceneOxTwo()
 }
 MainSceneOxTwo::~MainSceneOxTwo(){
 	CCLog("~ <<%s>>", __FUNCTION__);
-	TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
-
+	//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
+	GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
 	
 
 }
