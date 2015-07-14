@@ -8,9 +8,8 @@
 #pragma once
 
 #include "PopDialogBox.h"
-#include "../MTNotificationQueue/MessageQueue.h"
 #include "PopDialogBoxBindingPhone.h"
-class PopDialogBoxUserInfo : public PopDialogBox, public MessageQueue, public IPopAssistBindingPhone
+class PopDialogBoxUserInfo : public PopDialogBox, public IPopAssistBindingPhone
 	, public IPopDialogBoxAssistCloseView {
 public:
 	CC_SYNTHESIZE(IPopDialogBoxAssist *, pIPopDialogBoxAssist, IPopDialogBoxAssist);
@@ -77,7 +76,7 @@ private:
 	void onCheckBoxSelectedStateEvent(CCObject *pSender, CheckBoxEventType type);
 
 	//////////////////////////////////////////////////////////////////////////
-	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_USER_INFO); }
+	//TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_USER_INFO); }
 	void update(float delta);
 	//连接成功
 	void connectSuccess();

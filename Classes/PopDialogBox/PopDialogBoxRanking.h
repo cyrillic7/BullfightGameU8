@@ -1,6 +1,6 @@
 /*
  * PopDialogBoxRanking.h
- *
+ *	排行
  *  Created on: 2015年3月17日
  *      Author: 恒
  */
@@ -8,9 +8,8 @@
 #pragma once
 
 #include "PopDialogBox.h"
-#include "../MTNotificationQueue/MessageQueue.h"
 #include "../Network/CMD_Server/CMD_LogonServer.h"
-class PopDialogBoxRanking : public PopDialogBox, public MessageQueue, public IPopDialogBoxAssistCloseView {
+class PopDialogBoxRanking : public PopDialogBox, public IPopDialogBoxAssistCloseView {
     
 private:
 	//排名列表
@@ -38,7 +37,7 @@ private:
 	//关闭窗口回调
 	virtual void onCloseView();
 
-	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_RANKING); }
+	//TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_RANKING); }
 
 	//更新列表
 	void updateListRanking();

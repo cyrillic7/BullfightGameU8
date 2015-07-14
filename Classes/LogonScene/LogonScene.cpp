@@ -14,8 +14,9 @@
 #include "../PopDialogBox/PopDialogBoxTipInfo.h"
 
 #include "../GameLobby/GameLobbyScene.h"
-#include "../Network/ListernerThread/LogonGameListerner.h"
-#include "../Network/ListernerThread/LobbyGameListerner.h"
+//#include "../Network/ListernerThread/LogonGameListerner.h"
+//#include "../Network/ListernerThread/LobbyGameListerner.h"
+#include "../Network/CMD_Server/Packet.h"
 #include "../MTNotificationQueue/LobbyMsgHandler.h"
 #include "../Network/MD5/MD5.h"
 //#include "../Network/CMD_Server/cmd_ox.h"

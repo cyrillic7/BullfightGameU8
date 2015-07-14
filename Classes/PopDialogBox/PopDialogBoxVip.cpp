@@ -19,7 +19,8 @@ PopDialogBoxVip::PopDialogBoxVip()
 PopDialogBoxVip::~PopDialogBoxVip() {
 	CCLog("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
-	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_VIP);
+	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_VIP);
+	gameSocket.Destroy(true);
 }
 void PopDialogBoxVip::onEnter(){
 	CCLayer::onEnter();
@@ -56,7 +57,8 @@ void PopDialogBoxVip::onEnter(){
 	//设置父节点不读取网络数据
 	setLobbyReadMessage(false);
 	//连接服务器
-	connectServer(SOCKET_VIP);
+	connectServer();
+	connectSuccess();
 	//播放动画
 	playAnimation();
 }
@@ -87,7 +89,8 @@ void PopDialogBoxVip::onMenuReward(CCObject *object, TouchEventType type){
 		{
 			setVipActionType(VIP_REWARD);
 			setRewardType((RewardType)pBTemp->getTag());
-			connectServer(SOCKET_VIP);
+			connectServer();
+			connectSuccess();
 		}
 			break;
 		case REWARD_SHOP:
@@ -213,8 +216,9 @@ void PopDialogBoxVip::updateListVip(){
 void PopDialogBoxVip::update(float delta){
 	if (isReadMessage)
 	{
-		MessageQueue::update(delta);
+		//MessageQueue::update(delta);
 	}
+	gameSocket.updateSocketData();
 }
 //////////////////////////////////////////////////////////////////////////
 //网络消息
@@ -233,7 +237,8 @@ void PopDialogBoxVip::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void *
 		//移除loading
 		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 		//关闭网络
-		TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_VIP);
+		//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_VIP);
+		gameSocket.Destroy(true);
 	}
 		break;
 	default:
@@ -270,7 +275,7 @@ void PopDialogBoxVip::connectSuccess(){
 		CMD_GP_VipUserID vipUserID;
 		vipUserID.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
 		vipUserID.dwOpTerminal = 2;
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_VIP_POWER, &vipUserID, sizeof(vipUserID));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_VIP_POWER, &vipUserID, sizeof(vipUserID));
 	}
 		break;
 	case PopDialogBoxVip::VIP_REWARD:
@@ -285,7 +290,7 @@ void PopDialogBoxVip::connectSuccess(){
 		std::string md5PassWord = m.GetMd5();
 		strcpy(vipAward.szLogonPass, md5PassWord.c_str());
 
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_VIP_AWARD, &vipAward, sizeof(vipAward));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_VIP_AWARD, &vipAward, sizeof(vipAward));
 	}
 		break;
 	default:

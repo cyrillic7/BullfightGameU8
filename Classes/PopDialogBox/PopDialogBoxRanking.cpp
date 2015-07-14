@@ -10,6 +10,7 @@
 #include "../Tools/GameConfig.h"
 #include "../Tools/Tools.h"
 #include "PopDialogBoxRecharge.h"
+#include "../Network/CMD_Server/Packet.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxRanking::PopDialogBoxRanking()
 	:iMyRankingNum(-1)
@@ -19,7 +20,8 @@ PopDialogBoxRanking::PopDialogBoxRanking()
 PopDialogBoxRanking::~PopDialogBoxRanking() {
 	CCLog("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
-	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_RANKING);
+	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_RANKING);
+	gameSocket.Destroy(true);
 }
 void PopDialogBoxRanking::onEnter(){
 	CCLayer::onEnter();
@@ -56,7 +58,8 @@ void PopDialogBoxRanking::onEnter(){
 	//设置父结点不读取网络数据
 	setLobbyReadMessage(false);
 	//连接服务器
-	connectServer(SOCKET_RANKING);
+	connectServer();
+	gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_TREASURE_RANK);
 	//播放动画
 	playAnimation();
 }
@@ -157,8 +160,9 @@ void PopDialogBoxRanking::updateListRanking(){
 void PopDialogBoxRanking::update(float delta){
 	if (isReadMessage)
 	{
-		MessageQueue::update(delta);
+		//MessageQueue::update(delta);
 	}
+	gameSocket.updateSocketData();
 }
 //////////////////////////////////////////////////////////////////////////
 //网络消息
@@ -167,7 +171,7 @@ void PopDialogBoxRanking::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, vo
 	{
 	case MDM_MB_SOCKET://socket连接成功
 	{
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_TREASURE_RANK);
+		
 	}
 		break;
 	case MDM_GP_USER_SERVICE://用户服务
@@ -218,5 +222,6 @@ void PopDialogBoxRanking::onSubRankingList(void * pDataBuffer, unsigned short wD
 	//移除loading
 	this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 	//关闭网络
-	TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_RANKING);
+	//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_RANKING);
+	gameSocket.Destroy(true);
 }

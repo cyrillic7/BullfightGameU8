@@ -12,12 +12,11 @@
 #include "cocos-ext.h"
 #include "MainSceneBase.h"
 #include "../Play/GameControl/GameControlOxHundred.h"
-#include "../Network/TCPSocket/TCPSocket.h"
 #include "../Play/PlayerLayer/PlayerLayer.h"
 
 USING_NS_CC;
 USING_NS_CC_EXT;
-class MainSceneOxHundred:public TCPSocket,public MainSceneBase
+class MainSceneOxHundred:public MainSceneBase
 {
 public:
 	/*//游戏状态

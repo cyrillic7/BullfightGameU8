@@ -13,7 +13,6 @@
 #include "cocos-ext.h"
 #include "MainSceneBase.h"
 #include "../Play/GameControl/GameControlOxTwo.h"
-#include "../Network/TCPSocket/TCPSocket.h"
 #include "../GameLogic/GameLogic.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
@@ -32,7 +31,7 @@ typedef void* THREAD_VOID;
 
 USING_NS_CC;
 USING_NS_CC_EXT;
-class MainSceneOxTwo:public TCPSocket,public MainSceneBase
+class MainSceneOxTwo:public MainSceneBase
 {
 public:
 

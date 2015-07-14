@@ -8,9 +8,8 @@
 #pragma once
 
 #include "PopDialogBox.h"
-#include "../MTNotificationQueue/MessageQueue.h"
 #include "../Network/CMD_Server/CMD_LogonServer.h"
-class PopDialogBoxVip : public PopDialogBox, public MessageQueue, public IPopDialogBoxAssistCloseView{
+class PopDialogBoxVip : public PopDialogBox, public IPopDialogBoxAssistCloseView{
 private:
 	CC_SYNTHESIZE(IPopDialogBoxAssist *, iIPopAssistVip, IPopDialogBoxAssist);
 
@@ -51,7 +50,7 @@ private:
 	virtual void onEnter();
 	virtual void onExit();
 
-	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_VIP); }
+	//TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_VIP); }
 	
 	//关闭窗口回调
 	virtual void onCloseView(){ isReadMessage = true; }

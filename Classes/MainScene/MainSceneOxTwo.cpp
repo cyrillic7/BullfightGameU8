@@ -10,7 +10,6 @@
 #include "../Tools/GameConfig.h"
 #include "../Tools/DataModel.h"
 #include "../Tools/BaseAttributes.h"
-#include "../Network/TCPSocket/TCPSocketControl.h"
 #include "../Play/CardLayer/CardLayerTwo.h"
 MainSceneOxTwo::MainSceneOxTwo()
 {

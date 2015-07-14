@@ -8,7 +8,6 @@
 
 #include "GameControlOxOneByOne.h"
 #include "../../Tools/DataModel.h"
-#include "../../Network/TCPSocket/TCPSocketControl.h"
 #include "../../Network/CMD_Server/CMD_Ox_OneByOne.h"
 #include "../../Tools/Tools.h"
 GameControlOxOneByOne::GameControlOxOneByOne()

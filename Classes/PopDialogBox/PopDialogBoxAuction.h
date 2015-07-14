@@ -8,11 +8,9 @@
 #pragma once
 #include "PopDialogBox.h"
 #include "../Network/CMD_Server/CMD_LogonServer.h"
-#include "../MTNotificationQueue/MessageQueue.h"
-#include "../Network/TCPSocket/TCPSocketControl.h"
 #include "PopDialogBoxKnapsack.h"
 #define MAX_AUCTION_ITEM_COUNT			3			//最大拍卖项总数
-class PopDialogBoxAuction: public PopDialogBox,public MessageQueue,public IPopAssist,public IPopAssistKnapsack {
+class PopDialogBoxAuction: public PopDialogBox,public IPopAssist,public IPopAssistKnapsack {
 private:
 	enum AuctionItem
 	{
@@ -141,7 +139,7 @@ private:
 	void updateListMyAuctionGoods();
 	//////////////////////////////////////////////////////////////////////////
 	void update(float delta);
-	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_AUCTION_INFO); }
+	//TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_AUCTION_INFO); }
 	//网络消息
 	virtual void onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
 	//连接成功

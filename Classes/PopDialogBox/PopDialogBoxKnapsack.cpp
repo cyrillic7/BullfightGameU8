@@ -11,7 +11,8 @@
 #include "PopDialogBoxLoading.h"
 #include "PopDialogBoxShop.h"
 #include "PopDialogBoxTipInfo.h"
-#include "../Network/ListernerThread/LogonGameListerner.h"
+//#include "../Network/ListernerThread/LogonGameListerner.h"
+#include "../Network/CMD_Server/Packet.h"
 #include "../Network/MD5/MD5.h"
 #include "../GameLobby/BaseLobbyScene.h"
 #define MAX_KNAPSACK_ROW_COUNT			4			//物品横排数
@@ -26,7 +27,8 @@ PopDialogBoxKnapsack::PopDialogBoxKnapsack()
 PopDialogBoxKnapsack::~PopDialogBoxKnapsack() {
 	CCLog("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
-	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_KNAPSACK);
+	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_KNAPSACK);
+	gameSocket.Destroy(true);
 }
 void PopDialogBoxKnapsack::onEnter(){
 	CCLayer::onEnter();
@@ -55,7 +57,8 @@ void PopDialogBoxKnapsack::onEnter(){
 
 	playAnimation();
 	
-	connectServer(SOCKET_KNAPSACK);
+	connectServer();
+	connectSuccess();
 	/*TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_SHOP);
 	PopDialogBox *box = PopDialogBoxLoading::create();
 	this->addChild(box, 10, TAG_LOADING);
@@ -75,7 +78,57 @@ void PopDialogBoxKnapsack::onExit(){
 	CCLayer::onExit();
 }
 void PopDialogBoxKnapsack::update(float delta){
-	MessageQueue::update(delta);
+	//MessageQueue::update(delta);
+	gameSocket.updateSocketData();
+}
+//连接成功
+void PopDialogBoxKnapsack::connectSuccess(){
+	switch (knapsackItem)
+	{
+	case PopDialogBoxKnapsack::KNAPSACK_LIST:
+	{
+		CMD_GP_UserID userInfo;
+		userInfo.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+
+		MD5 m;
+		m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
+		std::string md5PassWord = m.GetMd5();
+		strcpy(userInfo.szPassword, md5PassWord.c_str());
+
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_KNAPSACK, &userInfo, sizeof(CMD_GP_UserID));
+	}
+	break;
+	case PopDialogBoxKnapsack::KNAPSACK_EXCHANGE:
+	{
+		CMD_GP_UseKnapsack useKnapsack;
+		useKnapsack.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+		useKnapsack.dwOpTerminal = 2;
+
+		MD5 m;
+		m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
+		std::string md5PassWord = m.GetMd5();
+		strcpy(useKnapsack.szPassword, md5PassWord.c_str());
+
+		useKnapsack.dwID = vecGoods[iCurSelectIndex].dwID;
+		useKnapsack.dwNum = 1;
+
+		strcpy(useKnapsack.szNote, "");
+		strcpy(useKnapsack.szMachineID, "12");
+
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_USE_KNAPSACKLOG, &useKnapsack, sizeof(CMD_GP_UseKnapsack));
+
+		/*DWORD							dwUserID;							//用户 I D
+		DWORD							dwOpTerminal;						//操作终端（1：pc, 2：手机）
+		TCHAR							szPassword[LEN_PASSWORD];			//用户密码
+		DWORD							dwID;								//背包id
+		DWORD							dwNum;								//数量
+		TCHAR							szNote[NOTE_LEN];					//描述消息
+		TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列*/
+	}
+	break;
+	default:
+		break;
+	}
 }
 //读取网络消息回调
 void PopDialogBoxKnapsack::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
@@ -83,52 +136,7 @@ void PopDialogBoxKnapsack::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, v
 	{
 	case MDM_MB_SOCKET://socket连接成功
 	{
-		switch (knapsackItem)
-		{
-		case PopDialogBoxKnapsack::KNAPSACK_LIST:
-		{
-			CMD_GP_UserID userInfo;
-			userInfo.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
-			
-			MD5 m;
-			m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
-			std::string md5PassWord = m.GetMd5();
-			strcpy(userInfo.szPassword, md5PassWord.c_str());
-			
-			getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_KNAPSACK, &userInfo, sizeof(CMD_GP_UserID));
-		}
-		break;
-		case PopDialogBoxKnapsack::KNAPSACK_EXCHANGE:
-		{
-			CMD_GP_UseKnapsack useKnapsack;
-			useKnapsack.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
-			useKnapsack.dwOpTerminal = 2;
-
-			MD5 m;
-			m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
-			std::string md5PassWord = m.GetMd5();
-			strcpy(useKnapsack.szPassword, md5PassWord.c_str());
-
-			useKnapsack.dwID = vecGoods[iCurSelectIndex].dwID;
-			useKnapsack.dwNum = 1;
-
-			strcpy(useKnapsack.szNote, "");
-			strcpy(useKnapsack.szMachineID, "12");
-
-			getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_USE_KNAPSACKLOG, &useKnapsack, sizeof(CMD_GP_UseKnapsack));
-			
-			/*DWORD							dwUserID;							//用户 I D
-			DWORD							dwOpTerminal;						//操作终端（1：pc, 2：手机）
-			TCHAR							szPassword[LEN_PASSWORD];			//用户密码
-			DWORD							dwID;								//背包id
-			DWORD							dwNum;								//数量
-			TCHAR							szNote[NOTE_LEN];					//描述消息
-			TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列*/
-		}
-			break;
-		default:
-			break;
-		}
+		connectSuccess();
 	}
 	break;
 	case MDM_GP_USER_SERVICE://用户服务
@@ -138,7 +146,8 @@ void PopDialogBoxKnapsack::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, v
 		//移除loading
 		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 		//关闭网络
-		TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_KNAPSACK);
+		//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_KNAPSACK);
+		gameSocket.Destroy(true);
 	}
 	break;
 	default:
@@ -359,7 +368,8 @@ void PopDialogBoxKnapsack::onMenuExchange(CCObject *object, TouchEventType type)
 	case TOUCH_EVENT_ENDED:
 	{
 		setKnapsackItem(KNAPSACK_EXCHANGE);
-		connectServer(SOCKET_KNAPSACK);
+		connectServer();
+		connectSuccess();
 	}
 		break;
 	default:

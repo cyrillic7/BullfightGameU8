@@ -8,14 +8,13 @@
 #pragma once
 
 #include "PopDialogBox.h"
-#include "../MTNotificationQueue/MessageQueue.h"
 struct IPopAssistBindingPhone//弹框绑定手机辅助接口
 {
 	virtual ~IPopAssistBindingPhone(){}
 	//关闭绑定phone
 	virtual void onCloseBindingPhone() = 0;
 };
-class PopDialogBoxBindingPhone: public PopDialogBox,public MessageQueue {
+class PopDialogBoxBindingPhone: public PopDialogBox {
 private:
 	CC_SYNTHESIZE(IPopAssistBindingPhone*, pIPopAssistBindingPhone, IPopAssistBindingPhone);
 
@@ -50,7 +49,7 @@ private:
 	//绑定按键
 	void onMenuBinding(CCObject *object, TouchEventType type);
 	//////////////////////////////////////////////////////////////////////////
-	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_BINDING_PHONE); }
+	//TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_BINDING_PHONE); }
 	void update(float delta);
 	//连接成功
 	void connectSuccess();

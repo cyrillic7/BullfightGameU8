@@ -18,7 +18,8 @@ PopDialogBoxChangePassword::PopDialogBoxChangePassword()
 PopDialogBoxChangePassword::~PopDialogBoxChangePassword() {
 	CCLog("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
-	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_CHANGE_PASSWORD);
+	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_CHANGE_PASSWORD);
+	gameSocket.Destroy(true);
 }
 void PopDialogBoxChangePassword::onEnter(){
 	CCLayer::onEnter();
@@ -96,7 +97,8 @@ void PopDialogBoxChangePassword::onMenuChangePassword(CCObject *object, TouchEve
 		}
 		else
 		{
-			connectServer(SOCKET_CHANGE_PASSWORD);
+			connectServer();
+			connectSuccess();
 		}
 	}
 }
@@ -108,7 +110,8 @@ void PopDialogBoxChangePassword::setTitle(const char * sTitle){
 
 //更新
 void PopDialogBoxChangePassword::update(float delta){
-	MessageQueue::update(delta);
+	//MessageQueue::update(delta);
+	gameSocket.updateSocketData();
 }
 //////////////////////////////////////////////////////////////////////////
 //读取网络消息回调
@@ -126,7 +129,8 @@ void PopDialogBoxChangePassword::onEventReadMessage(WORD wMainCmdID, WORD wSubCm
 		//移除loading
 		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 		//关闭网络
-		TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_CHANGE_PASSWORD);
+		//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_CHANGE_PASSWORD);
+		gameSocket.Destroy(true);
 	}
 		break;
 	default:
@@ -160,7 +164,7 @@ void PopDialogBoxChangePassword::connectSuccess(){
 		md5PassWord = m.GetMd5();
 		strcpy(mLogonPassword.szDesPassword, md5PassWord.c_str());
 		//发送数据
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_LOGON_PASS, &mLogonPassword, sizeof(mLogonPassword));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_LOGON_PASS, &mLogonPassword, sizeof(mLogonPassword));
 	}
 		break;
 	case PopDialogBoxChangePassword::CHANGE_BANK_PASSWORD:
@@ -185,7 +189,7 @@ void PopDialogBoxChangePassword::connectSuccess(){
 		md5PassWord = m.GetMd5();
 		strcpy(mInsurePassword.szDesPassword, md5PassWord.c_str());
 		//发送数据
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_INSURE_PASS, &mInsurePassword, sizeof(mInsurePassword));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_INSURE_PASS, &mInsurePassword, sizeof(mInsurePassword));
 	}
 		break;
 	default:

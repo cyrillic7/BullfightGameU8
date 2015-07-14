@@ -11,7 +11,6 @@
 #include "cocos-ext.h"
 #include "../Tools/GameConfig.h"
 #include "../Tools/CStringAide.h"
-#include "../Network/TCPSocket/TCPSocketControl.h"
 #include "../Network/TCPSocket/CGameSocket.h"
 #include "IPopDialogBoxAssist.h"
 USING_NS_CC;
@@ -57,9 +56,7 @@ public:
 	
 	//获取loading
 	PopDialogBoxLoading *getLoading();
-	TCPSocket *getSocket(){return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(sSocketName); }
-	//连接服务器
-	void connectServer(std::string socketName);
+	//TCPSocket *getSocket(){return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(sSocketName); }
 	//创建连接
 	void connectServer();
 	void setSocketName(std::string sName);

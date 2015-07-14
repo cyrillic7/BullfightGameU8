@@ -11,7 +11,8 @@
 #include "PopDialogBoxLoading.h"
 
 #include "PopDialogBoxTipInfo.h"
-#include "../Network/ListernerThread/LogonGameListerner.h"
+//#include "../Network/ListernerThread/LogonGameListerner.h"
+#include "../Network/CMD_Server/Packet.h"
 #include "../Network/MD5/MD5.h"
 #include "../GameLobby/BaseLobbyScene.h"
 
@@ -28,7 +29,8 @@ PopDialogBoxShop::PopDialogBoxShop()
 PopDialogBoxShop::~PopDialogBoxShop() {
 	CCLog("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
-	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_SHOP);
+	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_SHOP);
+	gameSocket.Destroy(true);
 }
 void PopDialogBoxShop::onEnter(){
 	CCLayer::onEnter();
@@ -118,7 +120,8 @@ void PopDialogBoxShop::setInsure(long long llInsure){
 //购买数量回调
 void PopDialogBoxShop::onBuyNum(long lNum){
 	lCurBuyNum = lNum;
-	connectServer(SOCKET_SHOP);
+	connectServer();
+	connectSuccess();
 }
 //我的背包////////////////////////////////////////////////////////////////////////
 void PopDialogBoxShop::onMenuMyPackaga(CCObject *object, TouchEventType type){
@@ -227,7 +230,8 @@ void PopDialogBoxShop::changeSelectItem(ShopItem eItem){
 		if (vecGift.size()<=0)
 		{
 			//连接服务器
-			connectServer(SOCKET_SHOP);
+			connectServer();
+			connectSuccess();
 		}
 		else
 		{
@@ -242,7 +246,8 @@ void PopDialogBoxShop::changeSelectItem(ShopItem eItem){
 		if (vecProp.size()<=0)
 		{
 			//连接服务器
-			connectServer(SOCKET_SHOP);
+			connectServer();
+			connectSuccess();
 		}
 		else
 		{
@@ -309,8 +314,9 @@ void PopDialogBoxShop::updateListCommodity(std::vector<CMD_GP_Gift> *vec){
 void PopDialogBoxShop::update(float delta){
 	if (isReadMessage)
 	{
-		MessageQueue::update(delta);
+		//MessageQueue::update(delta);
 	}
+	gameSocket.updateSocketData();
 }
 //购买道具
 void PopDialogBoxShop::buyPropForType(){
@@ -347,8 +353,49 @@ void PopDialogBoxShop::buyPropForType(){
 //	strcpy(buyGift.szNote, "");
 	strcpy(buyGift.szMachineID, "12");
 
-	bool isSend=getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_BUYGIFT, &buyGift, sizeof(CMD_GP_BuyGift));
+	bool isSend=gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_BUYGIFT, &buyGift, sizeof(CMD_GP_BuyGift));
 	CCLog("send: %d  <<%s>>",isSend, __FUNCTION__);
+}
+//连接成功
+void PopDialogBoxShop::connectSuccess(){
+	switch (shopItem)
+	{
+	case PopDialogBoxShop::SHOP_GIFT_PACKAGE:
+	{
+		CMD_GP_GetGift getGift;
+		getGift.dwOpTerminal = 2;
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_GIFT, &getGift, sizeof(getGift));
+	}
+	break;
+	case PopDialogBoxShop::SHOP_PROP:
+	{
+		CMD_GP_GetGift getGift;
+		getGift.dwOpTerminal = 2;
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_PROPERTY, &getGift, sizeof(getGift));
+	}
+	break;
+	case PopDialogBoxShop::SHOP_BUY_GIFT:
+	case PopDialogBoxShop::SHOP_BUY_PROP:
+	{
+		buyPropForType();
+	}
+	break;
+	case PopDialogBoxShop::SHOP_GET_PROPERTY://获取财产
+	{
+		CMD_GP_UserID userID;
+		userID.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+
+		MD5 m;
+		m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
+		std::string md5PassWord = m.GetMd5();
+		strcpy(userID.szPassword, md5PassWord.c_str());
+
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_TREASURE, &userID, sizeof(CMD_GP_UserID));
+	}
+	break;
+	default:
+		break;
+	}
 }
 //读取网络消息回调
 void PopDialogBoxShop::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
@@ -356,45 +403,7 @@ void PopDialogBoxShop::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void 
 	{
 	case MDM_MB_SOCKET://socket连接成功
 	{
-		switch (shopItem)
-		{
-		case PopDialogBoxShop::SHOP_GIFT_PACKAGE:
-		{
-			CMD_GP_GetGift getGift;
-			getGift.dwOpTerminal = 2;
-			getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_GIFT, &getGift, sizeof(getGift));
-		}
-			break;
-		case PopDialogBoxShop::SHOP_PROP:
-		{
-			CMD_GP_GetGift getGift;
-			getGift.dwOpTerminal = 2;
-			getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_PROPERTY, &getGift, sizeof(getGift));
-		}
-			break;
-		case PopDialogBoxShop::SHOP_BUY_GIFT:
-		case PopDialogBoxShop::SHOP_BUY_PROP:
-		{
-			buyPropForType();
-		}
-			break;
-		case PopDialogBoxShop::SHOP_GET_PROPERTY://获取财产
-		{
-			CMD_GP_UserID userID;
-			userID.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
-			
-			MD5 m;
-			m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
-			std::string md5PassWord = m.GetMd5();
-			strcpy(userID.szPassword, md5PassWord.c_str());
-
-			getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_TREASURE, &userID, sizeof(CMD_GP_UserID));
-		}
-			break;
-		default:
-			break;
-		}
-		
+		connectSuccess();
 	}
 		break;
 	case MDM_GP_USER_SERVICE://用户服务
@@ -453,11 +462,13 @@ void PopDialogBoxShop::onSubGiftList(void * pDataBuffer, unsigned short wDataSiz
 	//移除loading
 	this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 	//关闭网络
-	TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_SHOP);
+	//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_SHOP);
+	gameSocket.Destroy(true);
 
 	//刷新财富
 	setShopItem(SHOP_GET_PROPERTY);
-	connectServer(SOCKET_SHOP);
+	connectServer();
+	connectSuccess();
 }
 
 //购买礼品
@@ -481,13 +492,15 @@ void PopDialogBoxShop::onSubBuyGift(void * pDataBuffer, unsigned short wDataSize
 	 //移除loading
 	 this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 	 //关闭网络
-	 TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_SHOP);
+	 //TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_SHOP);
+	 gameSocket.Destroy(true);
 	 //购买成功刷新财富
 	 if (pBuyGiftLog->dwRet==0)
 	 {
 		 //刷新财富
 		 setShopItem(SHOP_GET_PROPERTY);
-		 connectServer(SOCKET_SHOP);
+		 connectServer();
+		 connectSuccess();
 	 }
 }
 //财富
@@ -502,7 +515,8 @@ void PopDialogBoxShop::onSubTreasure(void * pDataBuffer, unsigned short wDataSiz
 	//移除loading
 	this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 	//关闭网络
-	TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_SHOP);
+	//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_SHOP);
+	gameSocket.Destroy(true);
 
 	if (pCBShopItems[0]->getSelectedState())
 	{

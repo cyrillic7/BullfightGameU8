@@ -9,7 +9,6 @@
 #include "GameControlOxTwo.h"
 #include "../../Tools/DataModel.h"
 #include "../../Network/CMD_Server/cmd_ox.h"
-#include "../../Network/TCPSocket/TCPSocketControl.h"
 GameControlOxTwo::GameControlOxTwo()
 {
 

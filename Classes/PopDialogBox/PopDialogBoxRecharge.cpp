@@ -52,7 +52,8 @@ PopDialogBoxRecharge::PopDialogBoxRecharge()
 PopDialogBoxRecharge::~PopDialogBoxRecharge() {
 	CCLog("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
-	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_RECHARGE);
+	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_RECHARGE);
+	gameSocket.Destroy(true);
 }
 void PopDialogBoxRecharge::onEnter(){
 	CCLayer::onEnter();																					
@@ -90,7 +91,8 @@ void PopDialogBoxRecharge::onEnter(){
 	//更新列表
 	updateListRecharge(vecRechargeGold);
 	//获取财富 
-	connectServer(SOCKET_RECHARGE);
+	connectServer();
+	connectSuccess();
 
 	playAnimation();
 }
@@ -150,7 +152,8 @@ void PopDialogBoxRecharge::onMenuExchange(CCObject *object, TouchEventType type)
 		case PopDialogBoxRecharge::RECHARGE_GOLD:
 		{
 			setRechargeActionType(R_Action_EXCHANGE);
-			connectServer(SOCKET_RECHARGE);
+			connectServer();
+			connectSuccess();
 		}
 			break;
 		case PopDialogBoxRecharge::RECHARGE_BIG_GOLD:
@@ -214,8 +217,9 @@ void PopDialogBoxRecharge::updateListRecharge(std::vector<RechargeData> qMsg){
 void PopDialogBoxRecharge::update(float delta){
 	if (isReadMessage)
 	{
-		MessageQueue::update(delta);
+		//MessageQueue::update(delta);
 	}
+	gameSocket.updateSocketData();
 }
 //读取网络消息回调
 void PopDialogBoxRecharge::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
@@ -232,7 +236,8 @@ void PopDialogBoxRecharge::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, v
 		//移除loading
 		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 		//关闭网络
-		TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_RECHARGE);
+		//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_RECHARGE);
+		gameSocket.Destroy(true);
 	}
 	break;
 	default:
@@ -254,7 +259,7 @@ void PopDialogBoxRecharge::connectSuccess(){
 		std::string md5PassWord = m.GetMd5();
 		strcpy(userID.szPassword, md5PassWord.c_str());
 
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_TREASURE, &userID, sizeof(CMD_GP_UserID));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_TREASURE, &userID, sizeof(CMD_GP_UserID));
 	}
 	break;
 	case R_Action_EXCHANGE:
@@ -271,7 +276,7 @@ void PopDialogBoxRecharge::connectSuccess(){
 
 		strcpy(userExchange.szMachineID, platformAction("{\"act\":100}").c_str());
 
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_EXCHANGE_INGOT, &userExchange, sizeof(userExchange));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_EXCHANGE_INGOT, &userExchange, sizeof(userExchange));
 	}
 		break;
 	default:

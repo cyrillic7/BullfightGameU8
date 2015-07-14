@@ -8,9 +8,8 @@
 #pragma once
 
 #include "PopDialogBox.h"
-#include "../MTNotificationQueue/MessageQueue.h"
 #include "IPopDialogBoxAssist.h"
-class PopDialogBoxRecharge : public PopDialogBox, public MessageQueue{
+class PopDialogBoxRecharge : public PopDialogBox{
 public:
 	CC_SYNTHESIZE(IPopDialogBoxAssistCloseView*, pIPopDialogBoxAssistCloseView, IPopDialogBoxAssistCloseView);
 private:

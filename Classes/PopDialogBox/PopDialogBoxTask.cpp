@@ -9,7 +9,8 @@
 #include "../Tools/DataModel.h"
 #include "../Tools/GameConfig.h"
 #include "PopDialogBoxLoading.h"
-#include "../Network/ListernerThread/LobbyGameListerner.h"
+//#include "../Network/ListernerThread/LobbyGameListerner.h"
+#include "../Network/CMD_Server/Packet.h"
 #include "../Network/MD5/MD5.h"
 #include "../MTNotificationQueue/LobbyMsgHandler.h"
 //////////////////////////////////////////////////////////////////////////

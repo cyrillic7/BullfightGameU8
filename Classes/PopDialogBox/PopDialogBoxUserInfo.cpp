@@ -22,7 +22,8 @@ PopDialogBoxUserInfo::PopDialogBoxUserInfo()
 PopDialogBoxUserInfo::~PopDialogBoxUserInfo() {
 	CCLog("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
-	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_USER_INFO);
+	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_USER_INFO);
+	gameSocket.Destroy(true);
 }
 void PopDialogBoxUserInfo::onEnter(){
 	CCLayer::onEnter();
@@ -85,7 +86,8 @@ void PopDialogBoxUserInfo::onEnter(){
 	setLobbyReadMessage(false);
 
 	//连接服务
-	connectServer(SOCKET_USER_INFO);
+	connectServer();
+	connectSuccess();
 
 	playAnimation();
 }
@@ -143,7 +145,8 @@ void PopDialogBoxUserInfo::onMenuChange(CCObject *object, TouchEventType type){
 		{
 			
 			setUserInfoType(USER_CHANGE_INFO);
-			connectServer(SOCKET_USER_INFO);
+			connectServer();
+			connectSuccess();
 		}
 		else
 		{
@@ -248,8 +251,9 @@ void PopDialogBoxUserInfo::onCheckBoxSelectedStateEvent(CCObject *pSender, Check
 void PopDialogBoxUserInfo::update(float delta){
 	if (isReadMessage)
 	{
-		MessageQueue::update(delta);
+		//MessageQueue::update(delta);
 	}
+	gameSocket.updateSocketData();
 }
 //读取网络消息回调
 void PopDialogBoxUserInfo::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
@@ -266,7 +270,8 @@ void PopDialogBoxUserInfo::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, v
 		//移除loading
 		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 		//关闭网络
-		TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_USER_INFO);
+		//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_USER_INFO);
+		gameSocket.Destroy(true);
 	}
 	break;
 	default:
@@ -288,7 +293,7 @@ void PopDialogBoxUserInfo::connectSuccess(){
 		std::string md5PassWord = m.GetMd5();
 		strcpy(userID.szPassword, md5PassWord.c_str());
 
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_TREASURE, &userID, sizeof(CMD_GP_UserID));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_TREASURE, &userID, sizeof(CMD_GP_UserID));
 	}
 		break;
 	case PopDialogBoxUserInfo::USER_CHANGE_INFO:
@@ -304,7 +309,7 @@ void PopDialogBoxUserInfo::connectSuccess(){
 		modifyIndividual.cbGender = pcbSexBoy->getSelectedState() ? 1 : 0;
 		//modifyIndividual.cbGender = DataModel::sharedDataModel()->userInfo->cbGender;
 
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_INDIVIDUAL, &modifyIndividual, sizeof(modifyIndividual));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_INDIVIDUAL, &modifyIndividual, sizeof(modifyIndividual));
 	}
 		break;
 	default:

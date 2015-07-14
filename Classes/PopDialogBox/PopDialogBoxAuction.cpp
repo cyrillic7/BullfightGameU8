@@ -12,7 +12,8 @@
 #include "../Tools/BaseAttributes.h"
 #include "PopDialogBoxLoading.h"
 
-#include "../Network/ListernerThread/LogonGameListerner.h"
+//#include "../Network/ListernerThread/LogonGameListerner.h"
+#include "../Network/CMD_Server/Packet.h"
 #include "../Network/MD5/MD5.h"
 #define MAX_PAGE_SIZE		10			//每页最大数
 //////////////////////////////////////////////////////////////////////////
@@ -27,7 +28,8 @@ PopDialogBoxAuction::PopDialogBoxAuction()
 PopDialogBoxAuction::~PopDialogBoxAuction() {
 	CCLog("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
-	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_AUCTION_INFO);
+	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_AUCTION_INFO);
+	gameSocket.Destroy(true);
 }
 void PopDialogBoxAuction::onEnter(){
 	CCLayer::onEnter();
@@ -183,7 +185,8 @@ void PopDialogBoxAuction::onMenuCancelAuction(CCObject *object, TouchEventType t
 		UIButton *pTempButton = (UIButton*)object;
 		iAuctionBuyIndex = pTempButton->getTag();
 		setAuctionItem(AUCTION_CANCEL);
-		connectServer(SOCKET_AUCTION_INFO);
+		connectServer();
+		connectSuccess();
 		//CCLog("auction:%d <<%s>>",auctionBuyIndex, __FUNCTION__);
 		//showInputNumBox(BUY_AUCTION, GBKToUTF8(vecAuctionInfo[auctionBuyIndex].szAuctionName), "", vecAuctionInfo[auctionBuyIndex].dwPropNum, vecAuctionInfo[auctionBuyIndex].lGold, this);
 	}
@@ -235,7 +238,8 @@ void PopDialogBoxAuction::onMenuSellAuctionGoods(CCObject *object, TouchEventTyp
 		else
 		{
 			setAuctionItem(AUCTION_SELL_AUCTION);
-			connectServer(SOCKET_AUCTION_INFO);
+			connectServer();
+			connectSuccess();
 		}
 	}
 	break;
@@ -296,7 +300,8 @@ void PopDialogBoxAuction::onMenuSearchByID(CCObject *object, TouchEventType type
 			iCurPage[AUCTION_INFO] = 1;
 			isCurSearchInfo = true;
 			setAuctionItem(AUCTION_SEARCH);
-			connectServer(SOCKET_AUCTION_INFO);
+			connectServer();
+			connectSuccess();
 		}
 		else
 		{
@@ -318,7 +323,8 @@ void PopDialogBoxAuction::onMenuTakeOut(CCObject *object, TouchEventType type){
 		if (llGold>0)
 		{
 			setAuctionItem(AUCTION_TAKE_OUT);
-			connectServer(SOCKET_AUCTION_INFO);
+			connectServer();
+			connectSuccess();
 		}
 	}
 	break;
@@ -330,7 +336,8 @@ void PopDialogBoxAuction::onMenuTakeOut(CCObject *object, TouchEventType type){
 void PopDialogBoxAuction::onBuyNum(long lNum){
 	lCurBuyNum = lNum;
 	setAuctionItem(AUCTION_BUY);
-	connectServer(SOCKET_AUCTION_INFO);
+	connectServer();
+	connectSuccess();
 }
 //关闭背包回调
 void PopDialogBoxAuction::onCloseKnapsack(){
@@ -356,7 +363,8 @@ void PopDialogBoxAuction::onScrollViewEvent(CCObject*obj, ScrollviewEventType ty
 				setAuctionItem((AuctionItem)index);
 			}
 			
-			connectServer(SOCKET_AUCTION_INFO);
+			connectServer();
+			connectSuccess();
 		}
 	}
 		
@@ -449,7 +457,8 @@ void PopDialogBoxAuction::changeSelectItem(AuctionItem eItem){
 		iCurPage[AUCTION_INFO] = 1;
 		vecAuctionInfo.clear();
 		isCurSearchInfo = false;
-		connectServer(SOCKET_AUCTION_INFO);
+		connectServer();
+		connectSuccess();
 	}
 		break;
 	case PopDialogBoxAuction::AUCTION_MY:
@@ -457,7 +466,8 @@ void PopDialogBoxAuction::changeSelectItem(AuctionItem eItem){
 		showSearch(false);
 		iCurPage[AUCTION_MY] = 1;
 		vecMyAuction.clear();
-		connectServer(SOCKET_AUCTION_INFO);
+		connectServer();
+		connectSuccess();
 	}
 		break;
 	case PopDialogBoxAuction::AUCTION_RECORD:
@@ -465,7 +475,8 @@ void PopDialogBoxAuction::changeSelectItem(AuctionItem eItem){
 		showSearch(false);
 		iCurPage[AUCTION_RECORD] = 1;
 		vecHistoryAuction.clear();
-		connectServer(SOCKET_AUCTION_INFO);
+		connectServer();
+		connectSuccess();
 	}
 		break;
 	default:
@@ -643,8 +654,9 @@ void PopDialogBoxAuction::updateListMyAuctionGoods(){
 void PopDialogBoxAuction::update(float delta){
 	if (isReadMessage)
 	{
-		MessageQueue::update(delta);
+		//MessageQueue::update(delta);
 	}
+	gameSocket.updateSocketData();
 }
 //读取网络消息回调
 void PopDialogBoxAuction::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
@@ -676,7 +688,7 @@ void PopDialogBoxAuction::connectSuccess(){
  		qAuction.dwPageSize = MAX_PAGE_SIZE;
 		qAuction.dwUserID = 0;
  		qAuction.dwLastDay=12;
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_AUCTION_RECORD, &qAuction, sizeof(qAuction));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_AUCTION_RECORD, &qAuction, sizeof(qAuction));
 	}
 		break;
 	case PopDialogBoxAuction::AUCTION_MY:
@@ -686,7 +698,7 @@ void PopDialogBoxAuction::connectSuccess(){
 		qAuction.dwPageSize = MAX_PAGE_SIZE;
 		qAuction.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
 		qAuction.dwLastDay = 12;
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_MYAUCTION_RECORD, &qAuction, sizeof(qAuction));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_MYAUCTION_RECORD, &qAuction, sizeof(qAuction));
 	}
 		break;
 	case PopDialogBoxAuction::AUCTION_RECORD:
@@ -696,7 +708,7 @@ void PopDialogBoxAuction::connectSuccess(){
 		qAuction.dwPageSize = MAX_PAGE_SIZE;
 		qAuction.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
 		qAuction.dwLastDay = 12;
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_AUCTION_HISTORY_RECORD, &qAuction, sizeof(qAuction));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_AUCTION_HISTORY_RECORD, &qAuction, sizeof(qAuction));
 	}
 		break;
 	case PopDialogBoxAuction::AUCTION_BUY:
@@ -714,7 +726,7 @@ void PopDialogBoxAuction::connectSuccess(){
 		buyAuction.dwNum = lCurBuyNum;
 
 		strcpy(buyAuction.szMachineID, "12");
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_BUY_AUCTION, &buyAuction, sizeof(buyAuction));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_BUY_AUCTION, &buyAuction, sizeof(buyAuction));
 	}
 		break;
 	case PopDialogBoxAuction::AUCTION_CANCEL://取消拍卖
@@ -731,7 +743,7 @@ void PopDialogBoxAuction::connectSuccess(){
 		cancel.dwID = vecMyAuction[iAuctionBuyIndex].dwIndex;
 
 		strcpy(cancel.szMachineID, "12");
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_CANCEL_AUCTION, &cancel, sizeof(cancel));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_CANCEL_AUCTION, &cancel, sizeof(cancel));
 	}
 		break;
 	case AUCTION_MY_GOODS://我的拍卖物品列表
@@ -744,7 +756,7 @@ void PopDialogBoxAuction::connectSuccess(){
 		std::string md5PassWord = m.GetMd5();
 		strcpy(gpUserID.szPassword, md5PassWord.c_str());
 		
-		bool isSend=getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_AUCTION, &gpUserID, sizeof(gpUserID));
+		bool isSend=gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_AUCTION, &gpUserID, sizeof(gpUserID));
 		CCLog("send <<%s>>", __FUNCTION__);
 	}
 		break;
@@ -766,7 +778,7 @@ void PopDialogBoxAuction::connectSuccess(){
 		sellAuction.dwNum = strtol(pEBGoodsNum->getText(), NULL, 10);
 
 		strcpy(sellAuction.szMachineID, "12");
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_SELL_AUCTION, &sellAuction, sizeof(sellAuction));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_SELL_AUCTION, &sellAuction, sizeof(sellAuction));
 	}
 		break;
 	case AUCTION_SEARCH://搜索
@@ -778,7 +790,7 @@ void PopDialogBoxAuction::connectSuccess(){
 		queryAuction.dwPage = iCurPage[AUCTION_INFO];
 		queryAuction.dwPageSize = MAX_PAGE_SIZE;
 		queryAuction.dwLastDay = 1;
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_QUERY_AUCTION, &queryAuction, sizeof(queryAuction));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_QUERY_AUCTION, &queryAuction, sizeof(queryAuction));
 	}
 		break;
 	case PopDialogBoxAuction::AUCTION_MY_PROPERTY://我的财富
@@ -791,7 +803,7 @@ void PopDialogBoxAuction::connectSuccess(){
 		std::string md5PassWord = m.GetMd5();
 		strcpy(userID.szPassword, md5PassWord.c_str());
 
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_TREASURE, &userID, sizeof(CMD_GP_UserID));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_TREASURE, &userID, sizeof(CMD_GP_UserID));
 	}
 		break;
 	case PopDialogBoxAuction::AUCTION_TAKE_OUT://提取拍卖金币
@@ -804,7 +816,7 @@ void PopDialogBoxAuction::connectSuccess(){
 		std::string md5PassWord = m.GetMd5();
 		strcpy(userID.szPassword, md5PassWord.c_str());
 
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_CONVERSION_AUCTIONSCORE, &userID, sizeof(CMD_GP_UserID));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_CONVERSION_AUCTIONSCORE, &userID, sizeof(CMD_GP_UserID));
 	}
 		break;
 	default:
@@ -816,7 +828,8 @@ void PopDialogBoxAuction::messageFinish(){
 	//移除loading
 	this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 	//关闭网络
-	TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_AUCTION_INFO);
+	//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_AUCTION_INFO);
+	gameSocket.Destroy(true);
 }
 
 //用户服务
@@ -918,7 +931,8 @@ void PopDialogBoxAuction::onEventUserService(WORD wSubCmdID, void * pDataBuffer,
 	case PopDialogBoxAuction::AGAIN_MY_AUCTION_GOODS:
 	{
 		setAuctionItem(AUCTION_MY_GOODS);
-		connectServer(SOCKET_AUCTION_INFO);
+		connectServer();
+		connectSuccess();
 		
 		setAgainGetData(AGAIN_MY_PROPERTY);
 	}
@@ -938,7 +952,8 @@ void PopDialogBoxAuction::onEventUserService(WORD wSubCmdID, void * pDataBuffer,
 	case AGAIN_MY_PROPERTY://我的财富
 	{
 		setAuctionItem(AUCTION_MY_PROPERTY);
-		connectServer(SOCKET_AUCTION_INFO);
+		connectServer();
+		connectSuccess();
 
 		setAgainGetData(AGAIN_NOTHING);
 	}

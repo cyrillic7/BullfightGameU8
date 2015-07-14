@@ -27,7 +27,8 @@ PopDialogBoxBank::PopDialogBoxBank()
 PopDialogBoxBank::~PopDialogBoxBank() {
 	CCLog("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
-	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_BANK);
+	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_BANK);
+	gameSocket.Destroy(true);
 }
 void PopDialogBoxBank::onEnter(){
 	CCLayer::onEnter();
@@ -154,7 +155,8 @@ void PopDialogBoxBank::onMenuCreatePassword(CCObject *object, TouchEventType typ
 		}
 		else
 		{
-			connectServer(SOCKET_BANK);
+			connectServer();
+			connectSuccess();
 		}
 		
 	}
@@ -177,7 +179,8 @@ void PopDialogBoxBank::onMenuInputPassword(CCObject *object, TouchEventType type
 		else
 		{
 			setBankState(BANK_STATE_ENTER);
-			connectServer(SOCKET_BANK);
+			connectServer();
+			connectSuccess();
 		}
 	}
 	break;
@@ -247,7 +250,8 @@ void PopDialogBoxBank::onMenuOperationMoney(CCObject *object, TouchEventType typ
 				showTipInfo(BaseAttributes::sharedAttributes()->sInsureNotEnough.c_str());
 			}
 			else{
-				connectServer(SOCKET_BANK);
+				connectServer();
+				connectSuccess();
 			}
 		}
 		break;
@@ -264,7 +268,8 @@ void PopDialogBoxBank::onMenuOperationMoney(CCObject *object, TouchEventType typ
 				showTipInfo(BaseAttributes::sharedAttributes()->sScoreNotEnough.c_str());
 			}
 			else{
-				connectServer(SOCKET_BANK);
+				connectServer();
+				connectSuccess();
 			}
 		}
 		break;
@@ -387,7 +392,115 @@ void PopDialogBoxBank::updateQuickButton(){
 void PopDialogBoxBank::update(float delta){
 	if (isReadMessage)
 	{
-		MessageQueue::update(delta);
+		//MessageQueue::update(delta);
+	}
+	gameSocket.updateSocketData();
+}
+//连接成功
+void PopDialogBoxBank::connectSuccess(){
+	switch (bankState)
+	{
+	case PopDialogBoxBank::BANK_STATE_CREATE://创建密码
+	{
+		//变量定义
+		CMD_GP_ModifyInsurePass ModifyInsurePass;
+
+		//加密密码
+		std::string szSrcPassword = DataModel::sharedDataModel()->sLogonPassword;
+		CCEditBox *pEBCreatePassword1 = (CCEditBox*)pTFCreatePassword1->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		std::string szDesPassword = pEBCreatePassword1->getText();
+
+
+
+
+		//构造数据
+		ModifyInsurePass.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+
+		MD5 m;
+		m.ComputMd5(szSrcPassword.c_str(), szSrcPassword.length());
+		std::string md5PassWord = m.GetMd5();
+		strcpy(ModifyInsurePass.szScrPassword, md5PassWord.c_str());
+
+		m.ComputMd5(szDesPassword.c_str(), szDesPassword.length());
+		md5PassWord = m.GetMd5();
+		strcpy(ModifyInsurePass.szDesPassword, md5PassWord.c_str());
+
+
+		//发送数据
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_INSURE_PASS, &ModifyInsurePass, sizeof(ModifyInsurePass));
+	}
+	break;
+	case BANK_STATE_ENTER://输入密码
+	{
+		/*//验证保险柜密码
+		struct CMD_GP_VERIFY_INSUREPASS
+		{
+		DWORD                           dwUserID;
+		TCHAR							szInsurePass[LEN_MD5];			    //保险柜密码
+		TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
+		};*/
+		CMD_GP_VERIFY_INSUREPASS insurePass;
+		insurePass.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+
+		CCEditBox *pEBInputPassword = (CCEditBox*)pTFInputPassword->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		//密码
+		std::string sPassword = pEBInputPassword->getText();
+
+		MD5 m;
+		m.ComputMd5(sPassword.c_str(), sPassword.length());
+		std::string md5PassWord = m.GetMd5();
+		strcpy(insurePass.szInsurePass, md5PassWord.c_str());
+		sTempPassword = md5PassWord;
+
+		strcpy(insurePass.szMachineID, "12");
+		//发送数据
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_VERIFY_INSURE_PASS, &insurePass, sizeof(insurePass));
+	}
+	break;
+	case BANK_STATE_GET:
+	{
+		CMD_GP_QueryInsureInfo queryBank;
+		queryBank.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+
+		//密码
+		std::string sPassword = DataModel::sharedDataModel()->sLogonPassword;
+		MD5 m;
+		m.ComputMd5(sPassword.c_str(), sPassword.length());
+		std::string md5PassWord = m.GetMd5();
+		strcpy(queryBank.szPassword, md5PassWord.c_str());
+		//发送数据
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_QUERY_INSURE_INFO, &queryBank, sizeof(queryBank));
+	}
+	break;
+	case BANK_STATE_TAKE_OUT://取款
+	{
+		CMD_GP_UserTakeScore takeScore;
+		takeScore.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+		CCEditBox *pEBInputMoney = (CCEditBox*)pTFInputMoney->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		takeScore.lTakeScore = strtoll(pEBInputMoney->getText(), NULL, 10);
+
+		//密码
+		strcpy(takeScore.szPassword, sTempPassword.c_str());
+
+		strcpy(takeScore.szMachineID, "12");
+		//发送数据
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_USER_TAKE_SCORE, &takeScore, sizeof(takeScore));
+	}
+	break;
+	case BANK_STATE_SAVE://存款
+	{
+		CMD_GP_UserSaveScore saveScore;
+		saveScore.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+		CCEditBox *pEBInputMoney = (CCEditBox*)pTFInputMoney->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		saveScore.lSaveScore = strtoll(pEBInputMoney->getText(), NULL, 10);
+		strcpy(saveScore.szMachineID, "12");
+		//发送数据
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_USER_SAVE_SCORE, &saveScore, sizeof(saveScore));
+
+	}
+	break;
+	default:
+		break;
 	}
 }
 //读取网络消息回调
@@ -396,110 +509,7 @@ void PopDialogBoxBank::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void 
 	{
 	case MDM_MB_SOCKET://socket连接成功
 	{
-		switch (bankState)
-		{
-		case PopDialogBoxBank::BANK_STATE_CREATE://创建密码
-		{
-			//变量定义
-			CMD_GP_ModifyInsurePass ModifyInsurePass;
-
-			//加密密码
-			std::string szSrcPassword = DataModel::sharedDataModel()->sLogonPassword;
-			CCEditBox *pEBCreatePassword1 = (CCEditBox*)pTFCreatePassword1->getNodeByTag(TAG_INPUT_EDIT_BOX);
-			std::string szDesPassword = pEBCreatePassword1->getText();
-
-
-			
-
-			//构造数据
-			ModifyInsurePass.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
-
-			MD5 m;
-			m.ComputMd5(szSrcPassword.c_str(), szSrcPassword.length());
-			std::string md5PassWord = m.GetMd5();
-			strcpy(ModifyInsurePass.szScrPassword, md5PassWord.c_str());
-
-			m.ComputMd5(szDesPassword.c_str(), szDesPassword.length());
-			md5PassWord = m.GetMd5();
-			strcpy(ModifyInsurePass.szDesPassword, md5PassWord.c_str());
-
-			
-			//发送数据
-			getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_INSURE_PASS, &ModifyInsurePass, sizeof(ModifyInsurePass));
-		}
-		break;
-		case BANK_STATE_ENTER://输入密码
-		{
-			/*//验证保险柜密码
-			struct CMD_GP_VERIFY_INSUREPASS
-			{
-				DWORD                           dwUserID;
-				TCHAR							szInsurePass[LEN_MD5];			    //保险柜密码
-				TCHAR							szMachineID[LEN_MACHINE_ID];		//机器序列
-			};*/
-			CMD_GP_VERIFY_INSUREPASS insurePass;
-			insurePass.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
-
-			CCEditBox *pEBInputPassword = (CCEditBox*)pTFInputPassword->getNodeByTag(TAG_INPUT_EDIT_BOX);
-			//密码
-			std::string sPassword = pEBInputPassword->getText();
-			
-			MD5 m;
-			m.ComputMd5(sPassword.c_str(), sPassword.length());
-			std::string md5PassWord = m.GetMd5();
-			strcpy(insurePass.szInsurePass, md5PassWord.c_str());
-			sTempPassword = md5PassWord;
-
-			strcpy(insurePass.szMachineID, "12");
-			//发送数据
-			getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_VERIFY_INSURE_PASS, &insurePass, sizeof(insurePass));
-		}
-			break;
-		case BANK_STATE_GET:
-		{
-			CMD_GP_QueryInsureInfo queryBank;
-			queryBank.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
-
-			//密码
-			std::string sPassword = DataModel::sharedDataModel()->sLogonPassword;
-			MD5 m;
-			m.ComputMd5(sPassword.c_str(), sPassword.length());
-			std::string md5PassWord = m.GetMd5();
-			strcpy(queryBank.szPassword, md5PassWord.c_str());
-			//发送数据
-			getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_QUERY_INSURE_INFO, &queryBank, sizeof(queryBank));
-		}
-			break;
-		case BANK_STATE_TAKE_OUT://取款
-		{
-			CMD_GP_UserTakeScore takeScore;
-			takeScore.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
-			CCEditBox *pEBInputMoney = (CCEditBox*)pTFInputMoney->getNodeByTag(TAG_INPUT_EDIT_BOX);
-			takeScore.lTakeScore = strtoll(pEBInputMoney->getText(), NULL, 10);
-
-			//密码
-			strcpy(takeScore.szPassword, sTempPassword.c_str());
-
-			strcpy(takeScore.szMachineID, "12");
-			//发送数据
-			getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_USER_TAKE_SCORE, &takeScore, sizeof(takeScore));
-		}
-			break;
-		case BANK_STATE_SAVE://存款
-		{
-			CMD_GP_UserSaveScore saveScore;
-			saveScore.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
-			CCEditBox *pEBInputMoney = (CCEditBox*)pTFInputMoney->getNodeByTag(TAG_INPUT_EDIT_BOX);
-			saveScore.lSaveScore = strtoll(pEBInputMoney->getText(), NULL, 10);
-			strcpy(saveScore.szMachineID, "12");
-			//发送数据
-			getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_USER_SAVE_SCORE, &saveScore, sizeof(saveScore));
-
-		}
-			break;
-		default:
-			break;
-		}
+		connectSuccess();
 	}
 	break;
 	case MDM_GP_USER_SERVICE://用户服务
@@ -509,7 +519,8 @@ void PopDialogBoxBank::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void 
 		//移除loading
 		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 		//关闭网络
-		TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_BANK);
+		//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_BANK);
+		gameSocket.Destroy(true);
 
 		if (getBankState() == BANK_STATE_ENTER || getBankState() == BANK_STATE_CREATE)
 		{
@@ -517,7 +528,8 @@ void PopDialogBoxBank::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void 
 			{
 				isGetBankInfo = false;
 				setBankState(BANK_STATE_GET);
-				connectServer(SOCKET_BANK);
+				connectServer();
+				connectSuccess();
 			}
 		}
 		

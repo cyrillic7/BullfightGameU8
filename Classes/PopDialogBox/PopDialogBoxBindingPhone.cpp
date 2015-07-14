@@ -20,7 +20,8 @@ PopDialogBoxBindingPhone::PopDialogBoxBindingPhone()
 PopDialogBoxBindingPhone::~PopDialogBoxBindingPhone() {
 	CCLog("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
-	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_BINDING_PHONE);
+	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_BINDING_PHONE);
+	gameSocket.Destroy(true);
 }
 void PopDialogBoxBindingPhone::onEnter(){
 	CCLayer::onEnter();
@@ -93,7 +94,8 @@ void PopDialogBoxBindingPhone::onMenuGetCode(CCObject *object, TouchEventType ty
 			
 			schedule(SEL_SCHEDULE(&PopDialogBoxBindingPhone::updateResetGetCode),1);
 			setBindingPhoneType(BINDING_GET_CODE);
-			connectServer(SOCKET_BINDING_PHONE);
+			connectServer();
+			connectSuccess();
 		}
 		
 	}
@@ -111,7 +113,8 @@ void PopDialogBoxBindingPhone::onMenuBinding(CCObject *object, TouchEventType ty
 		else
 		{
 			setBindingPhoneType(BINDING_PHONE);
-			connectServer(SOCKET_BINDING_PHONE);
+			connectServer();
+			connectSuccess();
 		}
 		
 	}
@@ -120,8 +123,9 @@ void PopDialogBoxBindingPhone::onMenuBinding(CCObject *object, TouchEventType ty
 void PopDialogBoxBindingPhone::update(float delta){
 	if (isReadMessage)
 	{
-		MessageQueue::update(delta);
+		//MessageQueue::update(delta);
 	}
+	gameSocket.updateSocketData();
 }
 //读取网络消息回调
 void PopDialogBoxBindingPhone::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
@@ -138,7 +142,8 @@ void PopDialogBoxBindingPhone::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdI
 		//移除loading
 		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 		//关闭网络
-		TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_BINDING_PHONE);
+		//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_BINDING_PHONE);
+		gameSocket.Destroy(true);
 	}
 	break;
 	default:
@@ -170,7 +175,7 @@ void PopDialogBoxBindingPhone::connectSuccess(){
 
 		strcpy(getCaptcha.szMachineID, platformAction("{\"act\":100}").c_str());
 
-		bool isSend=getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_GET_CAPTCHA, &getCaptcha, sizeof(getCaptcha));
+		bool isSend=gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_GET_CAPTCHA, &getCaptcha, sizeof(getCaptcha));
 		if (isSend)
 		{
 			//移除loading
@@ -188,7 +193,7 @@ void PopDialogBoxBindingPhone::connectSuccess(){
 		CMD_GP_Send_Captcha sendCaptcha;
 		sendCaptcha.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
 		sendCaptcha.dwCaptcha = strtoll(sCode.c_str(), NULL, 10);
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_SEND_CAPTCHA, &sendCaptcha, sizeof(sendCaptcha));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_SEND_CAPTCHA, &sendCaptcha, sizeof(sendCaptcha));
 	}
 		break;
 	default:

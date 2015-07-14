@@ -9,7 +9,6 @@
 #include "../Tools/DataModel.h"
 #include "../Tools/Tools.h"
 #include "../Tools/BaseAttributes.h"
-#include "../Network/TCPSocket/TCPSocketControl.h"
 #include "../Tools/BaseAttributes.h"
 #include "../GameLobby/GameLobbyScene.h"
 #include "PopDialogBoxTipInfo.h"
@@ -49,7 +48,7 @@ void PopDialogBoxLoading::onExit(){
 //超时关闭
 void PopDialogBoxLoading::outTimeExit(float dt){
 	//关闭网络
-	TCPSocketControl::sharedTCPSocketControl()->stopSocket(sSocketName);
+	//TCPSocketControl::sharedTCPSocketControl()->stopSocket(sSocketName);
 	PopDialogBoxTipInfo *pTipInfo = PopDialogBoxTipInfo::create();
 	this->getParent()->addChild(pTipInfo,100);
 	pTipInfo->setTipInfoContent(BaseAttributes::sharedAttributes()->sOutTime.c_str());

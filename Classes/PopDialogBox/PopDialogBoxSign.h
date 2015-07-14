@@ -8,10 +8,9 @@
 #pragma once
 
 #include "PopDialogBox.h"
-#include "../MTNotificationQueue/MessageQueue.h"
 #include "../Network/CMD_Server/CMD_LogonServer.h"
 #include "PopDialogBoxLoading.h"
-class PopDialogBoxSign : public PopDialogBox, public MessageQueue,public IOutTime {
+class PopDialogBoxSign : public PopDialogBox,public IOutTime {
 private:
 	enum SignState
 	{
@@ -51,7 +50,7 @@ private:
 	void updateSignDayPanel(int iCurSignDay);
 	//////////////////////////////////////////////////////////////////////////
 	void update(float delta);
-	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_SIGN); }
+	//TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_SIGN); }
 	//网络消息
 	virtual void onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
 	//连接成功

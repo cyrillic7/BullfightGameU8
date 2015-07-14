@@ -8,8 +8,7 @@
 #pragma once
 
 #include "PopDialogBox.h"
-#include "../MTNotificationQueue/MessageQueue.h"
-class PopDialogBoxChangePassword : public PopDialogBox, public MessageQueue {
+class PopDialogBoxChangePassword : public PopDialogBox {
 private:
 	enum ChangePasswordType
 	{

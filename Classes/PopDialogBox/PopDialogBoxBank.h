@@ -8,9 +8,8 @@
 #pragma once
 
 #include "PopDialogBox.h"
-#include "../MTNotificationQueue/MessageQueue.h"
 #define MAX_QUICK_BUTTON_COUNT				6				//最大选择款项数
-class PopDialogBoxBank: public PopDialogBox,public MessageQueue {
+class PopDialogBoxBank: public PopDialogBox {
 private:
 	enum BankState
 	{
@@ -83,6 +82,8 @@ private:
 	//更新
 	void update(float delta);
 	//////////////////////////////////////////////////////////////////////////
+	//连接成功
+	void connectSuccess();
 	//网络消息
 	virtual void onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
 	//用户服务

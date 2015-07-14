@@ -12,7 +12,6 @@
 #include "../Tools/BaseAttributes.h"
 #include "../Tools/Tools.h"
 #include "../Tools/SoundConfig.h"
-#include "../Network/TCPSocket/TCPSocketControl.h"
 #include "../Play/CardLayer/CardLayerHundred.h"
 MainSceneOxHundred::MainSceneOxHundred()
 :gameState(STATE_GAME_FREE)

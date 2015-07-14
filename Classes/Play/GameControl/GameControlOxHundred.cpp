@@ -20,6 +20,7 @@
 #include "../../Network/SEvent.h"
 #include "../../MTNotificationQueue/MTNotificationQueue.h"
 #include "../../PopDialogBox/PopDialogBoxRecharge.h"
+#include "../../Network/CMD_Server/Packet.h"
 using namespace std;
 GameControlOxHundred::GameControlOxHundred()
 	:iCurSelectJettonIndex(0)

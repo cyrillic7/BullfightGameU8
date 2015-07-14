@@ -21,7 +21,8 @@ PopDialogBoxSign::PopDialogBoxSign()
 PopDialogBoxSign::~PopDialogBoxSign() {
 	CCLog("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
-	TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_SIGN);
+	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_SIGN);
+	gameSocket.Destroy(true);
 }
 void PopDialogBoxSign::onEnter(){
 	CCLayer::onEnter();
@@ -57,11 +58,12 @@ void PopDialogBoxSign::onExit(){
 }
 //连接服务器
 void PopDialogBoxSign::connectSignServer(){
-	connectServer(SOCKET_SIGN);
+	connectServer();
 	if (getLoading())
 	{
 		getLoading()->setIOutTime(this);
 	}
+	connectSuccess();
 }
 //签到按键
 void PopDialogBoxSign::onMenuSign(CCObject *object, TouchEventType type){
@@ -155,8 +157,9 @@ void PopDialogBoxSign::updateSignDayPanel(int iCurSignDay){
 void PopDialogBoxSign::update(float delta){
 	if (isReadMessage)
 	{
-		MessageQueue::update(delta);
+		//MessageQueue::update(delta);
 	}
+	gameSocket.updateSocketData();
 }
 //读取网络消息回调
 void PopDialogBoxSign::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
@@ -173,7 +176,8 @@ void PopDialogBoxSign::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void 
 		//移除loading
 		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 		//关闭网络
-		TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_SIGN);
+		//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_SIGN);
+		gameSocket.Destroy(true);
 	}
 	break;
 	default:
@@ -190,7 +194,7 @@ void PopDialogBoxSign::connectSuccess(){
 		CMD_GP_GetSignInTask getSignInTask;
 		getSignInTask.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
 		getSignInTask.dwOpTerminal = 2;
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_GET_SIGNIN_TASK, &getSignInTask, sizeof(getSignInTask));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_GET_SIGNIN_TASK, &getSignInTask, sizeof(getSignInTask));
 	}
 		break;
 	case PopDialogBoxSign::SIGN_ING:
@@ -206,7 +210,7 @@ void PopDialogBoxSign::connectSuccess(){
 		strcpy(signIn.szLogonPass, md5PassWord.c_str());
 
 											
-		getSocket()->SendData(MDM_GP_USER_SERVICE, SUB_GP_SIGNIN, &signIn, sizeof(signIn));
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_SIGNIN, &signIn, sizeof(signIn));
 	}
 		break;
 	default:

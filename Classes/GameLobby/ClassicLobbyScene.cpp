@@ -15,8 +15,8 @@
 #include "../MainScene/MainSceneOxOneByOne.h"
 #include "../MainScene/MainSceneOxSixSwap.h"
 #include "../Network/CMD_Server/CMD_GameServer.h"
-#include "../Network/TCPSocket/TCPSocketControl.h"
-#include "../Network/ListernerThread/GameIngListerner.h"
+//#include "../Network/ListernerThread/GameIngListerner.h"
+#include "../Network/CMD_Server/Packet.h"
 #include "../Tools/DataModel.h"
 #include "../PopDialogBox/PopDialogBoxLoading.h"
 #include "../PopDialogBox/PopDialogBoxTipInfo.h"
@@ -536,7 +536,7 @@ void ClassicLobbyScene::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsig
 				GameOption.cbAllowLookon = 0;
 				GameOption.dwClientVersion = VERSION_CLIENT;
 				//发送
-				bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GF_FRAME, SUB_GF_GAME_OPTION, &GameOption, sizeof(GameOption));
+				bool isSend = GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GF_FRAME, SUB_GF_GAME_OPTION, &GameOption, sizeof(GameOption));
 				if (isSend)
 				{
 					enterMainSceneByMode(getGameItem());

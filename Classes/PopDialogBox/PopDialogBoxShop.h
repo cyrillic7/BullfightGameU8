@@ -8,12 +8,10 @@
 #pragma once
 
 #include "PopDialogBox.h"
-#include "../Network/TCPSocket/TCPSocketControl.h"
 #include "../Network/CMD_Server/CMD_LogonServer.h"
-#include "../MTNotificationQueue/MessageQueue.h"
 #include "PopDialogBoxKnapsack.h"
 #define MAX_SHOP_ITEM_COUNT				2			//最大商店项总数
-class PopDialogBoxShop: public PopDialogBox,public MessageQueue,public IPopAssist,public IPopAssistKnapsack {
+class PopDialogBoxShop: public PopDialogBox,public IPopAssist,public IPopAssistKnapsack {
 
 private:
     
@@ -55,7 +53,7 @@ public:
 private:
 	virtual void onEnter();
 	virtual void onExit();
-	TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_SHOP); }
+	//TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_SHOP); }
 	//初始化商品列表
 	void initListCommodity();
 	//设置奖券
@@ -89,6 +87,8 @@ private:
 	void buyPropForType();
 
 	//////////////////////////////////////////////////////////////////////////
+	//连接成功
+	void connectSuccess();
 	//网络消息
 	virtual void onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
 	//用户服务

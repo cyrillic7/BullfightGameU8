@@ -11,8 +11,6 @@
 
 #include "cocos2d.h"
 #include "cocos-ext.h"
-#include "../../Network/TCPSocket/TCPSocket.h"
-#include "../../Network/TCPSocket/TCPSocketControl.h"
 #include "../GameEndLayer.h"
 #include "../../MTNotificationQueue/MessageQueueGameIng.h"
 #include "../../MTNotificationQueue/GameIngMsgHandler.h"

@@ -18,11 +18,12 @@
 #include "../Tools/DataModel.h"
 #include "../PopDialogBox/PopDialogBoxSetUp.h"
 #include "../MainScene/MainSceneOxHundred.h"
-#include "../Network/ListernerThread/LogonGameListerner.h"
+//#include "../Network/ListernerThread/LogonGameListerner.h"
 #include "../Network/MD5/MD5.h"
 #include "../Network/CMD_Server/PacketAide.h"
-#include "../Network/ListernerThread/LobbyGameListerner.h"
-#include "../Network/ListernerThread/GameIngListerner.h"
+//#include "../Network/ListernerThread/LobbyGameListerner.h"
+//#include "../Network/ListernerThread/GameIngListerner.h"
+#include "../Network/CMD_Server/Packet.h"
 bool GameLobbyScene::isShowUpTip = false;
 GameLobbyScene * GameLobbyScene::lobbyScene = NULL;
 GameLobbyScene::GameLobbyScene()

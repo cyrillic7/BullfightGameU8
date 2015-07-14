@@ -10,7 +10,6 @@
 #include "PopDialogBox.h"
 //#include "../Network/TCPSocket/TCPSocketControl.h"
 #include "../Network/CMD_Server/CMD_LogonServer.h"
-#include "../MTNotificationQueue/MessageQueue.h"
 
 struct IPopAssistKnapsack//弹框背包辅助接口
 {
@@ -19,7 +18,7 @@ struct IPopAssistKnapsack//弹框背包辅助接口
 	virtual void onCloseKnapsack() = 0;
 };
 
-class PopDialogBoxKnapsack: public PopDialogBox,public MessageQueue {
+class PopDialogBoxKnapsack: public PopDialogBox  {
 public:
 	//背包接口
 	CC_SYNTHESIZE(IPopAssistKnapsack*, pIPopAssistKnapsack, IPopAssistKnapsack);
@@ -68,6 +67,8 @@ private:
 	//兑换按键
 	void onMenuExchange(CCObject *object, TouchEventType type);
 	//////////////////////////////////////////////////////////////////////////
+	//连接成功
+	void connectSuccess();
 	//网络消息
 	virtual void onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
 	//用户服务
