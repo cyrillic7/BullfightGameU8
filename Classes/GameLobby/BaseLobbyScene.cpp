@@ -25,6 +25,7 @@
 #include "../PopDialogBox/PopDialogBoxFirstRecharge.h"
 #include "../Platform/coPlatform.h"
 #include "../Tools/DataModel.h"
+BaseLobbyScene * BaseLobbyScene::lobbyScene = NULL;
 BaseLobbyScene::BaseLobbyScene()
 	:isReadMessage(true){
 	
@@ -36,6 +37,7 @@ BaseLobbyScene::~BaseLobbyScene(){
 //进入场景
 void BaseLobbyScene::onEnter(){
 	CCLayer::onEnter();
+	lobbyScene = this;
 	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("res/cloud.plist");
 	//添加背景
 	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
@@ -144,9 +146,13 @@ void BaseLobbyScene::popDialogBox(PopType type){
 		break;
 	case BaseLobbyScene::POP_ACTIVITY:
 	{
+#ifdef WIN32
+
+#else
 		m_pWidget->setTouchEnabled(false);
 		m_pWidgetBase->setTouchEnabled(false);
 		platformAction("{\"act\":201 ,\"url\":\"http://www.baidu.com/\"}").c_str();
+#endif
 		//pdb = PopDialogBoxActivity::create();
 	}
 		break;
@@ -337,4 +343,9 @@ void BaseLobbyScene::onMoveFinsh(CCNode *node){
 		CCMoveTo::create(time, ccp(-node->getContentSize().width / 2, node->getPositionY())),
 		CCCallFuncN::create(this, SEL_CallFuncN(&BaseLobbyScene::onMoveFinsh)),
 		NULL));
+}
+//关闭wap网站
+void BaseLobbyScene::closeWebView(){
+	m_pWidget->setTouchEnabled(true);
+	m_pWidgetBase->setTouchEnabled(true);
 }

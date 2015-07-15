@@ -1715,11 +1715,7 @@ void GameControlOxHundred::onSubUserEnter(void * pDataBuffer, unsigned short wDa
 		DataModel::sharedDataModel()->mTagUserInfo.insert(map<long, tagUserInfo>::value_type(pUserInfoHead->dwUserID, UserInfo));
 	}
 
-	if (getParent()->getChildByTag(TAG_ONLINE))
-	{
-		PopDialogBoxOnLine *pOnLine = (PopDialogBoxOnLine*)getParent()->getChildByTag(TAG_ONLINE);
-		pOnLine->updateOnLineList();
-	}
+
 	/*
 	//效验参数
 	ASSERT(wDataSize>=sizeof(tagUserInfoHead));
@@ -2090,6 +2086,7 @@ void GameControlOxHundred::bankJettonIn(float dt){
 }
 //移动相同筹码(庄家收)
 void GameControlOxHundred::moveJettonBankIn(int chairID, CCPoint pos){
+	bool notJetton = true;//没有币
 	for (int i = 0; i < DataModel::sharedDataModel()->vecJettonNode.size(); i++)
 	{
 		JettonNode *tempJetton = DataModel::sharedDataModel()->vecJettonNode[i];
@@ -2098,8 +2095,13 @@ void GameControlOxHundred::moveJettonBankIn(int chairID, CCPoint pos){
 			if (tempJetton->iBetArea==chairID)
 			{
 				tempJetton->moveJettonBankIn(pos);
+				notJetton = false;
 			}
 		}
+	}
+	if (notJetton)
+	{
+		bankOutJetton();
 	}
 }
 //庄家出币
@@ -2224,4 +2226,18 @@ void GameControlOxHundred::splitJettonFinish(){
 	}
 	//显示结算
 	showAllResult();
+	//刷新在线玩家信息
+	if (getParent()->getChildByTag(TAG_ONLINE))
+	{
+		map<long, tagUserInfo >::iterator l_it;
+		l_it = DataModel::sharedDataModel()->mTagUserInfo.find(DataModel::sharedDataModel()->userInfo->dwUserID);
+		if (l_it != DataModel::sharedDataModel()->mTagUserInfo.end())
+		{
+			l_it->second = *DataModel::sharedDataModel()->userInfo;
+		}
+
+
+		PopDialogBoxOnLine *pOnLine = (PopDialogBoxOnLine*)getParent()->getChildByTag(TAG_ONLINE);
+		pOnLine->updateOnLineList();
+	}
 }

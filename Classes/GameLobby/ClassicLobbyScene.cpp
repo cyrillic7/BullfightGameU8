@@ -41,6 +41,7 @@ CCScene* ClassicLobbyScene::scene()
 	CCScene *scene = CCScene::create();
 	ClassicLobbyScene *layer = ClassicLobbyScene::create();
 	scene->addChild(layer);
+	
 	return scene;
 }
 void ClassicLobbyScene::onEnter(){

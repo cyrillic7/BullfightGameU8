@@ -91,3 +91,36 @@ void AppDelegate::applicationWillEnterForeground() {
     // if you use SimpleAudioEngine, it must resume here
     // SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
 }
+/////////////////////////////////////////////////////////////////////////////
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#include <jni.h>
+
+//call c
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+
+	//java 调用(签名验证)
+	JNIEXPORT void JNICALL Java_com_xw_BullfightGame_BullfightGame_JniOnActivity(JNIEnv* env, jobject job, jint type)
+	{
+		switch (type)
+		{
+		case 0://关闭web视图
+		{
+			BaseLobbyScene::lobbyScene->closeWebView();
+		}
+			break;
+		default:
+		{
+
+		}
+		break;
+		}
+	}
+#ifdef __cplusplus
+}
+#endif
+//////////////////////////////////////////////////////////////////////////
+#endif // #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)

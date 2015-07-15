@@ -13,7 +13,7 @@ class GameLobbyScene:public BaseLobbyScene,public MessageQueueGameIng
 {
     
 public:
-	static GameLobbyScene *lobbyScene;
+	
 	enum ModeType
 	{
 		MODE_CLASSIC=1,					//经典模式
@@ -38,8 +38,7 @@ public:
 
 	static CCScene* scene(bool showUpTip);
     CREATE_FUNC(GameLobbyScene);
-    //关闭wap网站
-    void closeWebView();
+
 private:
 	
 	//弹出框

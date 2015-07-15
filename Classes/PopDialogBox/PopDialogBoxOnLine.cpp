@@ -130,11 +130,11 @@ void PopDialogBoxOnLine::updateOnLineList(){
 	{
 		//updateListContent();
 	}*/
-	/*pLOnLine->removeAllItems();
+	pLOnLine->removeAllItems();
 
 	std::map<long,tagUserInfo>::iterator iter;
 	for (iter = DataModel::sharedDataModel()->mTagUserInfo.begin(); iter != DataModel::sharedDataModel()->mTagUserInfo.end(); iter++)
 	{
 		setOnLineUserInfo(true,iter->second);
-	}*/
+	}
 }

@@ -14,6 +14,7 @@ using namespace gui;
 class BaseLobbyScene :public CCLayer, public CStringAide, public IPopAssistKnapsack, public IPopDialogBoxAssist,public IPopDialogBoxAssistCloseView
 {
 public:
+	static BaseLobbyScene *lobbyScene;
 	Label *userName;
 	Label *pLabelGoldCount;
 	Button *pBUserInfo;
@@ -44,6 +45,8 @@ public:
 	virtual void onExit();
     CREATE_FUNC(BaseLobbyScene);
 
+	//关闭wap网站
+	void closeWebView();
 	//获取socket
 	//TCPSocket *getSocket(){ return TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM); }
 	//VIP
