@@ -526,6 +526,12 @@ void PopDialogBoxAuction::updateListAuctionInfo(){
 		UIButton *pButton = static_cast<UIButton*>(pLVTemp->getItem(inserterPos)->getChildByName("ButtonBuy"));
 		pButton->setTag(inserterPos);
 		pButton->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxAuction::onMenuBuyProp));
+		if (vecAuctionInfo[i].dwGameID==DataModel::sharedDataModel()->userInfo->dwGameID)
+		{
+			pButton->setColor(ccc3(100, 100, 100));
+			pButton->setTitleColor(ccc3(100, 100, 100));
+			pButton->setTouchEnabled(false);
+		}
 	}
 }
 // 更新我的列表
