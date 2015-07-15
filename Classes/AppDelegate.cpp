@@ -112,6 +112,16 @@ extern "C"
 			BaseLobbyScene::lobbyScene->closeWebView();
 		}
 			break;
+		case 1://网络连接
+		{
+			CGameSocket::isConnect=true;
+		}
+			break;//网络断开
+		case 2:
+		{
+			CGameSocket::isConnect=false;
+		}
+			break;
 		default:
 		{
 

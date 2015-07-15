@@ -15,12 +15,13 @@
 #include "../../MTNotificationQueue/MessageQueueGameIng.h"
 #include "../../MTNotificationQueue/GameIngMsgHandler.h"
 #include "../../Tools/CMath.h"
+#include "../../PopDialogBox/PopDialogBoxTipInfo.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
 #define MAX_TIMER		10		//计时器最大值
 class MainSceneBase;
-class GameControlBase :public CCLayer, public MessageQueueGameIng, public CMath
+class GameControlBase :public CCLayer, public MessageQueueGameIng, public CMath,public IPopAssistTipInfo
 {
 public:
 	enum ActionPromptType
@@ -107,6 +108,8 @@ private:
 	void updateTimer(float dt);
 	//延时操作
 	virtual void delayedAction();
+	//关闭回调
+	virtual void onCloseTipInfo();
 public:
 	//获取我的椅子位置
 	int getMeChairID();
@@ -185,7 +188,8 @@ public:
 	//virtual void onUserEnterWithUpdate(tagUserInfo *user){}
 	//用户状态
 	void OnEventUserState(WORD	 wSubCmdID,const void * pBuffer, WORD wDataSize);
-
+	//断开连接
+	void onUnconnect(WORD wSubCmdID);
     
 	//用户状态
 	virtual void onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);

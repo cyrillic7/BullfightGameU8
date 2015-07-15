@@ -350,8 +350,10 @@ struct ReadData
 	char sReadData[MAX_TCP_LENGTH];
 };
 #define MDM_MB_SOCKET						9999					//socket			
-#define SUB_GP_SOCKET_OPEN			1							//连接成功
+#define SUB_GP_SOCKET_OPEN			1								//连接成功
 #define MDM_MB_SOCKET_FAILURE				9998					//连接失败
+#define MDM_MB_UNCONNECT					9997					//断开连接
+#define SUB_MB_SOCKET_NETWORK_ERROR			1						//网络出错断开
 
 //////////////////////////////////////////////////////////////////////////
 #endif

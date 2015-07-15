@@ -38,6 +38,13 @@ void GameIngMsgHandler::onOpen(){
 }
 void GameIngMsgHandler::onError(const char* sError){
 	CCLog("error <<%s>>", __FUNCTION__);
+	ReadData rData;
+	rData.wMainCmdID = MDM_MB_UNCONNECT;
+	rData.wSubCmdID = SUB_MB_SOCKET_NETWORK_ERROR;
+	rData.wDataSize = 0;
+	memcpy(rData.sReadData, 0, 0);
+	//MessageQueue::pushQueue(rData);
+	MessageQueueGameIng::pushQueue(rData);
 }
 bool GameIngMsgHandler::onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
 	//onEventReadMessage(wMainCmdID, wSubCmdID, pDataBuffer, wDataSize);

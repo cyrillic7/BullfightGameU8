@@ -790,6 +790,9 @@ void GameControlOxHundred::onApplyBanker(bool bApplyBanker){
 void GameControlOxHundred::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
 	switch (wMainCmdID)
 	{
+	case MDM_MB_UNCONNECT:
+		onUnconnect(wSubCmdID);
+		break;
 	case MDM_GR_USER://用户信息
 		onSubUserInfo(wSubCmdID, pDataBuffer, wDataSize);
 		break;

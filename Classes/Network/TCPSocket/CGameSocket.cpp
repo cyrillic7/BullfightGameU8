@@ -13,6 +13,7 @@ typedef struct _GUID
 	unsigned char Data4[8];
 } GUID, UUID;
 #endif
+bool CGameSocket::isConnect = true;
 CGameSocket::CGameSocket()
 	:pIGameSocket(NULL)
 {
@@ -109,7 +110,7 @@ void CGameSocket::Run(){
 	setSocketState(SOCKET_STATE_CONNECT_SUCCESS);
 
 	End();
-	CCLog("createSocket----------------- <<%s>>", __FUNCTION__);
+	//CCLog("createSocket----------------- <<%s>>", __FUNCTION__);
 }
 bool CGameSocket::Create(const char* pszServerIP, int nServerPort, int nBlockSec, bool bKeepAlive /*= FALSE*/)
 {
@@ -483,6 +484,11 @@ bool CGameSocket::Check(void)
 	if (m_sockClient == INVALID_SOCKET) {
 		return false;
 	}
+	if (!isConnect)
+	{
+		Destroy(false);
+		return false;
+	}
 	char buf[1];
 	int	ret = recv(m_sockClient, buf, 1, MSG_PEEK);
 	if (ret == 0) {
@@ -762,6 +768,7 @@ void CGameSocket::updateSocketData(){
 		CCLog("abort------------- <<%s>>", __FUNCTION__);
 		return;
 	}
+
 	Flush();
 	// 接收数据（取得缓冲区中的所有消息，直到缓冲区为空）
 	while (true)

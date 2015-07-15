@@ -18,6 +18,7 @@
 #include "../../Network/SEvent.h"
 #include "../../MainScene/MainSceneBase.h"
 #include "../../Network/CMD_Server/PacketAide.h"
+
 GameControlBase::GameControlBase()
 	:pEndLayer(NULL)
 	, pLTimerPromptContent(NULL)
@@ -609,6 +610,9 @@ DataModel::sharedDataModel()->readDataQueue.pop();
 void GameControlBase::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
 	switch (wMainCmdID)
 	{
+	case MDM_MB_UNCONNECT:
+		onUnconnect(wSubCmdID);
+		break;
 	case MDM_GF_GAME:
 		onEventGameIng(wSubCmdID, pDataBuffer, wDataSize);
 		break;
@@ -623,7 +627,17 @@ void GameControlBase::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void *
 		break;
 	}
 }
-
+//断开连接
+void GameControlBase::onUnconnect(WORD wSubCmdID){
+	PopDialogBoxTipInfo *pTipInfo = PopDialogBoxTipInfo::create();
+	this->addChild(pTipInfo, K_Z_ORDER_POP);
+	pTipInfo->setTipInfoContent("与服务器断开连接");
+	pTipInfo->setIPopAssistTipInfo(this);
+}
+//关闭回调
+void GameControlBase::onCloseTipInfo(){
+	Tools::setTransitionAnimation(0,0,GameLobbyScene::scene(false));
+}
 void GameControlBase::frameEvent(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
 	switch (wSubCmdID)
 	{

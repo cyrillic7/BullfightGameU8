@@ -65,6 +65,7 @@ struct IGameSocket//socket回调接口
 class CGameSocket:public Thread {
 public:
 	CC_SYNTHESIZE(IGameSocket*, pIGameSocket, IGameSocket);
+	static bool isConnect;
 	enum SocketState
 	{
 		SOCKET_STATE_FREE=0,							//空闲
