@@ -41,7 +41,7 @@ void PlayerDataHundred::setUserInfo(tagUserInfo userInfo){
 		pLUserName->setText(Tools::subUTF8(nickName, 0, 4));
 	}
 	//pLGoldCount->setVisible(true);
-	pLGoldCount->setText(CCString::createWithFormat("%lld",userInfoPlayer.lScore)->getCString());
+	pLGoldCount->setText(formatNumber(CCString::createWithFormat("%lld",userInfoPlayer.lScore)->getCString()));
 }
 //显示结算动画
 void PlayerDataHundred::showResultAnimation(){
@@ -80,7 +80,7 @@ void PlayerDataHundred::onResultAnimationFinish(){
 //设置用户金币
 void PlayerDataHundred::changePlayerGold(long long lGold){
 	//userInfoPlayer.lScore+=lGold;
-	pLGoldCount->setText(CCString::createWithFormat("%lld",lGold)->getCString());
+	pLGoldCount->setText(formatNumber(CCString::createWithFormat("%lld",lGold)->getCString()));
 }
 /*
 void PlayerDataHundred::showActionType(ActionType type){

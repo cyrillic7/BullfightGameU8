@@ -3,11 +3,12 @@
 #include "cocos2d.h"
 #include "cocos-ext.h"
 #include "../../Network/CMD_Server/Struct.h"
+#include "../../Tools/CMath.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
 class MainSceneBase;
-class PlayerData:public CCNode {
+class PlayerData:public CCNode,public CMath {
 public:
 	enum ActionType
 	{

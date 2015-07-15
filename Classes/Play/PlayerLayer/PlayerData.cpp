@@ -47,7 +47,8 @@ void PlayerData::setUserInfo(tagUserInfo userInfo){
 		pLUserName->setText(Tools::subUTF8(nickName, 0, 4));
 	}
 	pLGoldCount->setVisible(true);
-	pLGoldCount->setText(CCString::createWithFormat("%lld", userInfo.lScore)->getCString());
+	pLGoldCount->setText(formatNumber(CCString::createWithFormat("%lld", userInfo.lScore)->getCString()));
+	//pLGoldCount->setText(CCString::createWithFormat("%lld", userInfo.lScore)->getCString());
 }
 
 //显示结算动画
