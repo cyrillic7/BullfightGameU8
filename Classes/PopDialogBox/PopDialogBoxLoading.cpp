@@ -38,7 +38,7 @@ void PopDialogBoxLoading::onEnter(){
 	
 	//pLLoading->setText("正在转入.");
 	schedule(SEL_SCHEDULE(&PopDialogBoxLoading::updateLoadingLabel),0.5);
-	scheduleOnce(SEL_SCHEDULE(&PopDialogBoxLoading::outTimeExit), OUT_TIME);
+	//scheduleOnce(SEL_SCHEDULE(&PopDialogBoxLoading::outTimeExit), OUT_TIME);
 }
 void PopDialogBoxLoading::onExit(){
 	CCLayer::onExit();
