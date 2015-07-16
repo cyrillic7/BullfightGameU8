@@ -17,7 +17,7 @@ class PopDialogBoxTipInfo :public PopDialogBox{
 public:
 	CC_SYNTHESIZE(IPopAssistTipInfo*, pIPopAssistTipInfo, IPopAssistTipInfo);
 private:
-	UILabel *pLInfo;
+	Label *pLInfo;
 public:
 	PopDialogBoxTipInfo();
 	virtual ~PopDialogBoxTipInfo();
