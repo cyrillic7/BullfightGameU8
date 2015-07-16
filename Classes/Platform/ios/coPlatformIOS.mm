@@ -20,7 +20,7 @@ std::string platformAction(const std::string& jsonString)
 	//判断读取成功与否
 	if (aide.hasError())
 	{
-		CCLog("--jniCcAction-----------\n%s\n----------------- <<%s>>", aide.getError(), __FUNCTION__);
+		CCLOG("--jniCcAction-----------\n%s\n----------------- <<%s>>", aide.getError(), __FUNCTION__);
 		return false;
 	}
 
@@ -68,7 +68,7 @@ std::string platformAction(const std::string& jsonString)
         default:
             break;
     }
-	CCLog("ios.............................  %d",act);
+	CCLOG("ios.............................  %d",act);
 
 	return "";
 }

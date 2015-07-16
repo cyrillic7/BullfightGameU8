@@ -10,7 +10,7 @@ CardLayerTwo::CardLayerTwo()
 {
 }
 CardLayerTwo::~CardLayerTwo() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 	this->removeAllChildrenWithCleanup(true);
 }
 void CardLayerTwo::onEnter(){
@@ -54,7 +54,7 @@ bool CardLayerTwo::promptOx(int oxIndex){
 				}
 			}
 		}
-		CCLog("niu:%d",GetCardType(tempCard,5));
+		CCLOG("niu:%d",GetCardType(tempCard,5));
 	}
 	return isOxCard;
 }
@@ -206,7 +206,7 @@ void CardLayerTwo::onSendCardFinish(){
 	sSendCardCount++;
 	if (sSendCardCount==getCurAllCardCount()*MAX_CARD_COUNT)
 	{
-		CCLog("CardLayer::onSendCardFinish-->sendFinish");
+		CCLOG("CardLayer::onSendCardFinish-->sendFinish");
 		DataModel::sharedDataModel()->getMainSceneOxTwo()->setGameStateWithUpdate(MainSceneOxTwo::STATE_OPT_OX);
 		//DataModel::sharedDataModel()->getMainSceneOxTwo()->setServerStateWithUpdate(MainScene::STATE_FIGHT_BANKER);
 		showCard(true,SELF_SEAT,DataModel::sharedDataModel()->userInfo->wChairID);

@@ -32,7 +32,7 @@ ClassicLobbyScene::ClassicLobbyScene()
 	scheduleUpdate();
 }
 ClassicLobbyScene::~ClassicLobbyScene(){
-	CCLog("~ <<%s>>", __FUNCTION__);
+	CCLOG("~ <<%s>>", __FUNCTION__);
 	//
 
 }
@@ -296,7 +296,7 @@ void ClassicLobbyScene::onConfigFinish(CCObject *obj){
 	//sit.wChairID=abs(rand()%2);
 	sit.wChairID=1;
 	bool isSend=TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GR_USER,SUB_GR_USER_SITDOWN,&sit, sizeof(sit));
-	CCLog("Classic 坐下:%d",isSend);
+	CCLOG("Classic 坐下:%d",isSend);
 #endif
 	//	enterMainSceneByMode(1);
 }
@@ -317,7 +317,7 @@ void ClassicLobbyScene::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void
 		return configEvent(wSubCmdID, pDataBuffer, wDataSize);
 		break;
 	default:
-		CCLog("main:%d  sub:%d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
+		CCLOG("main:%d  sub:%d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -345,11 +345,11 @@ void ClassicLobbyScene::onEventConnect(WORD wSubCmdID, void * pDataBuffer, unsig
 		strcpy(logonUserID.szPhoneVerifyID, "1");
 		logonUserID.wKindID = DataModel::sharedDataModel()->tagGameServerListOxTwo[0]->wKindID;
 
-		CCLog("房间名:%d", DataModel::sharedDataModel()->tagGameServerListOxTwo[0]->wServerPort);
+		CCLOG("房间名:%d", DataModel::sharedDataModel()->tagGameServerListOxTwo[0]->wServerPort);
 
 		int luidSize = sizeof(CMD_GR_LogonUserID);
 		bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GR_LOGON, SUB_GR_LOGON_USERID, &logonUserID, sizeof(logonUserID));
-		CCLog("send:%d", isSend);
+		CCLOG("send:%d", isSend);
 #endif
 #if (DEBUG_TEST==1)
 		CMD_GR_LogonMobile logonMobile;
@@ -416,7 +416,7 @@ void ClassicLobbyScene::configEvent(WORD wSubCmdID, void * pDataBuffer, unsigned
 		if (wDataSize < sizeof(CMD_GR_ConfigColumn)) return false;
 		*/
 		CMD_GR_ConfigColumn *lf = (CMD_GR_ConfigColumn*)pDataBuffer;
-		CCLog("列表配置");
+		CCLOG("列表配置");
 	}
 	break;
 	case SUB_GR_CONFIG_SERVER:
@@ -427,18 +427,18 @@ void ClassicLobbyScene::configEvent(WORD wSubCmdID, void * pDataBuffer, unsigned
 		if (wDataSize < sizeof(CMD_GR_ConfigServer)) return;
 
 		CMD_GR_ConfigServer *lf = (CMD_GR_ConfigServer*)pDataBuffer;
-		CCLog("房间配置");
+		CCLOG("房间配置");
 	}
 	break;
 	case SUB_GR_CONFIG_PROPERTY:
 	{
 		CMD_GR_ConfigProperty *lf = (CMD_GR_ConfigProperty*)pDataBuffer;
-		CCLog("道具配置");
+		CCLOG("道具配置");
 	}
 	break;
 	case SUB_GR_CONFIG_FINISH:
 	{
-		CCLog("配置完成");
+		CCLOG("配置完成");
 		unscheduleUpdate();
 		enterMainSceneByMode(getGameItem());
 		//构造数据
@@ -469,8 +469,8 @@ void ClassicLobbyScene::onEventLogon(WORD wSubCmdID, void * pDataBuffer, unsigne
 		if (wDataSize < sizeof(CMD_GR_UpdateNotify)) return;
 
 		CMD_GR_UpdateNotify *lf = (CMD_GR_UpdateNotify*)pDataBuffer;
-		//CCLog("升级提示 %d");
-		CCLog("升级提示:%ld  %ld  %ld<<%s>>", lf->dwCurrentClientVersion, lf->dwCurrentFrameVersion, lf->dwCurrentPlazaVersion, __FUNCTION__);
+		//CCLOG("升级提示 %d");
+		CCLOG("升级提示:%ld  %ld  %ld<<%s>>", lf->dwCurrentClientVersion, lf->dwCurrentFrameVersion, lf->dwCurrentPlazaVersion, __FUNCTION__);
 	}
 	break;
 	case SUB_GR_LOGON_SUCCESS:
@@ -480,17 +480,17 @@ void ClassicLobbyScene::onEventLogon(WORD wSubCmdID, void * pDataBuffer, unsigne
 		if (wDataSize < sizeof(CMD_GR_LogonSuccess)) return;
 
 		CMD_GR_LogonSuccess *lf = (CMD_GR_LogonSuccess*)pDataBuffer;
-		CCLog("登录成功");
+		CCLOG("登录成功");
 	}
 	break;
 	case SUB_GR_LOGON_FINISH:{
-		CCLog("登录完成");
+		CCLOG("登录完成");
 	}
 							 break;
 	case SUB_GR_LOGON_FAILURE:
 	{
 		CMD_GR_LogonFailure *lf = (CMD_GR_LogonFailure*)pDataBuffer;
-		CCLog("登录失败:%s", Tools::GBKToUTF8(lf->szDescribeString));
+		CCLOG("登录失败:%s", Tools::GBKToUTF8(lf->szDescribeString));
 
 		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 		//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_GAME);
@@ -522,11 +522,11 @@ void ClassicLobbyScene::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsig
 		{
 		case US_SIT://坐下
 		{
-			CCLog("state==sit-----------%ld<<%s>>", info->dwUserID, __FUNCTION__);
+			CCLOG("state==sit-----------%ld<<%s>>", info->dwUserID, __FUNCTION__);
 			if (info->dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID){
 				unscheduleUpdate();
 				//DataModel::sharedDataModel()->isSit=true;
-				CCLog("坐下:table: %d desk:%d", info->UserStatus.wTableID, info->UserStatus.wChairID);
+				CCLOG("坐下:table: %d desk:%d", info->UserStatus.wTableID, info->UserStatus.wChairID);
 				DataModel::sharedDataModel()->userInfo->wTableID = info->UserStatus.wTableID;
 				DataModel::sharedDataModel()->userInfo->wChairID = info->UserStatus.wChairID;
 
@@ -547,7 +547,7 @@ void ClassicLobbyScene::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsig
 		break;
 		case US_FREE://站立
 		{
-			CCLog("state==free-----------%ld", info->dwUserID);
+			CCLOG("state==free-----------%ld", info->dwUserID);
 			if (info->dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID)
 			{
 				//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_US_FREE,NULL);
@@ -560,7 +560,7 @@ void ClassicLobbyScene::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsig
 		break;
 		case US_READY://同意
 		{
-			CCLog("state==ready-----------%ld<<%s>>", info->dwUserID, __FUNCTION__);
+			CCLOG("state==ready-----------%ld<<%s>>", info->dwUserID, __FUNCTION__);
 		}
 		break;
 		case US_PLAYING:
@@ -569,11 +569,11 @@ void ClassicLobbyScene::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsig
 			{
 				//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_CONFIG_FINISH,NULL);
 			}
-			CCLog("state==playing-----------%ld", info->dwUserID);
+			CCLOG("state==playing-----------%ld", info->dwUserID);
 		}
 		break;
 		default:
-			CCLog("state==Other userID:%ld 状态：%d<<%s>>", info->dwUserID, info->UserStatus.cbUserStatus, __FUNCTION__);
+			CCLOG("state==Other userID:%ld 状态：%d<<%s>>", info->dwUserID, info->UserStatus.cbUserStatus, __FUNCTION__);
 			break;
 		}
 	}

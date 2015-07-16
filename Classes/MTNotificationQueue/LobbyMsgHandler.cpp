@@ -46,7 +46,7 @@ void LobbyMsgHandler::update(float dt){
 	gameSocket.updateSocketData();
 }
 void LobbyMsgHandler::onOpen(){
-	CCLog("open <<%s>>", __FUNCTION__);
+	CCLOG("open <<%s>>", __FUNCTION__);
 }
 void LobbyMsgHandler::onError(const char* sError){
 
@@ -79,11 +79,11 @@ bool LobbyMsgHandler::onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuf
 			{
 				DataModel::sharedDataModel()->vecMyMsg.push_back(msg);
 			}
-			CCLog("msg main:%d sub:%d %s<<%s>>", wMainCmdID, wSubCmdID,(msgNode->szMsgcontent), __FUNCTION__);
+			CCLOG("msg main:%d sub:%d %s<<%s>>", wMainCmdID, wSubCmdID,(msgNode->szMsgcontent), __FUNCTION__);
 		}
 		else
 		{
-			CCLog("else main:%d sub:%d <<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
+			CCLOG("else main:%d sub:%d <<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
 		}
 	}
 	return true;

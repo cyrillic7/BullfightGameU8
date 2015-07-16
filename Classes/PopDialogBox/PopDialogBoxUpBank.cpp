@@ -17,7 +17,7 @@ PopDialogBoxUpBank::PopDialogBoxUpBank()
 	
 }
 PopDialogBoxUpBank::~PopDialogBoxUpBank() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 }
 void PopDialogBoxUpBank::onEnter(){
 	CCLayer::onEnter();

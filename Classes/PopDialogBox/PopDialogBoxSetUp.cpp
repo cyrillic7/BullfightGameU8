@@ -22,7 +22,7 @@ PopDialogBoxSetUp::PopDialogBoxSetUp()
     
 }
 PopDialogBoxSetUp::~PopDialogBoxSetUp() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 }
 void PopDialogBoxSetUp::onEnter(){
 	CCLayer::onEnter();

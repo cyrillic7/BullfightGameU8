@@ -366,7 +366,7 @@ void GameControlOxHundred::onMenuPlaceJetton(CCObject* pSender, TouchEventType t
 			DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameState() != MainSceneOxHundred::STATE_GAME_PLACE_JETTON
 			|| m_wBankerUser == DataModel::sharedDataModel()->userInfo->wChairID)
 		{
-			CCLog("nonononon<<%s>>", __FUNCTION__);
+			CCLOG("nonononon<<%s>>", __FUNCTION__);
 			return;
 		}
 		UIImageView *pIButton = (UIImageView*)pSender;
@@ -498,13 +498,13 @@ long long GameControlOxHundred::getUserMaxJetton()
 	long long lBankerScore = 2147483647;
 	//if (m_wBankerUser!=INVALID_CHAIR) 
 	lBankerScore = m_lBankerScore;
-	//CCLog("=lBankerScore:%lld    %lld<<%s>>",lBankerScore,m_lBankerScore,__FUNCTION__);
+	//CCLOG("=lBankerScore:%lld    %lld<<%s>>",lBankerScore,m_lBankerScore,__FUNCTION__);
 	for (int nAreaIndex = 1; nAreaIndex <= AREA_COUNT; ++nAreaIndex)
 	{
 		lBankerScore -= m_lAllJettonScore[nAreaIndex] * iTimer;
-		//CCLog("%d ---------%lld          <<%s>>",nAreaIndex,m_lAllJettonScore[nAreaIndex],__FUNCTION__);
+		//CCLOG("%d ---------%lld          <<%s>>",nAreaIndex,m_lAllJettonScore[nAreaIndex],__FUNCTION__);
 	}
-	//CCLog("===lBankerScore:%lld<<%s>>",lBankerScore,__FUNCTION__);
+	//CCLOG("===lBankerScore:%lld<<%s>>",lBankerScore,__FUNCTION__);
 	//区域限制
 	long long lMeMaxScore = 0;
 	if ((m_lMeMaxScore - lNowJetton) / iTimer > m_lAreaLimitScore)
@@ -595,10 +595,10 @@ void GameControlOxHundred::updateButtonContron(){
 
 		//最大下注
 		long long lUserMaxJetton = getUserMaxJetton();
-		//CCLog("---最大下注:%lld<<%s>>",lUserMaxJetton,__FUNCTION__);
+		//CCLOG("---最大下注:%lld<<%s>>",lUserMaxJetton,__FUNCTION__);
 		//设置光标
 		lLeaveScore = MIN((lLeaveScore / 10), lUserMaxJetton); //用户可下分 和最大分比较 由于是五倍 
-		//CCLog("---lLeaveScore:%lld<<%s>>",lLeaveScore,__FUNCTION__);
+		//CCLOG("---lLeaveScore:%lld<<%s>>",lLeaveScore,__FUNCTION__);
 		if (lCurrentJetton > lLeaveScore)
 		{
 			/*if (lLeaveScore>=5000000L) m_GameClientView.SetCurrentJetton(5000000L);
@@ -642,7 +642,7 @@ void GameControlOxHundred::updateButtonContron(){
 		pIJettonButton[2]->setVisible((lLeaveScore>=10000*iTimer && lUserMaxJetton>=10000*iTimer)?true:false);
 		pIJettonButton[3]->setVisible((lLeaveScore>=100000*iTimer && lUserMaxJetton>=100000*iTimer)?true:false);
 		pIJettonButton[4]->setVisible((lLeaveScore>=500000*iTimer && lUserMaxJetton>=500000*iTimer)?true:false);
-		CCLog("%lld    %lld<<%s>>",lLeaveScore,lUserMaxJetton,__FUNCTION__);*/
+		CCLOG("%lld    %lld<<%s>>",lLeaveScore,lUserMaxJetton,__FUNCTION__);*/
 		/*m_GameClientView.m_btJetton100.EnableWindow((lLeaveScore>=100*iTimer && lUserMaxJetton>=100*iTimer)?TRUE:FALSE);
 		m_GameClientView.m_btJetton1000.EnableWindow((lLeaveScore>=1000*iTimer && lUserMaxJetton>=1000*iTimer)?TRUE:FALSE);
 		m_GameClientView.m_btJetton10000.EnableWindow((lLeaveScore>=10000*iTimer && lUserMaxJetton>=10000*iTimer)?TRUE:FALSE);
@@ -760,7 +760,7 @@ void GameControlOxHundred::standUpWithExit(){
 	else
 	{
 		getMainScene()->addLoadingLayer(SOCKET_LOGON_ROOM);
-		CCLog("-------userStandUp.wChairID :%d<<%s>>", userStandUp.wChairID, __FUNCTION__);
+		CCLOG("-------userStandUp.wChairID :%d<<%s>>", userStandUp.wChairID, __FUNCTION__);
 		//发送消息
 		TCPSocketControl::sharedTCPSocketControl()->getTCPSocket(SOCKET_LOGON_ROOM)->SendData(MDM_GR_USER, SUB_GR_USER_STANDUP, &userStandUp, sizeof(userStandUp));
 	}
@@ -803,7 +803,7 @@ void GameControlOxHundred::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, v
 		onSubGameFrame(wSubCmdID, pDataBuffer, wDataSize);
 		break;
 	default:
-		CCLog("----------------main:%d sub:%d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
+		CCLOG("----------------main:%d sub:%d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -910,7 +910,7 @@ void GameControlOxHundred::onSubGameFrame(WORD wSubCmdID, void * pDataBuffer, un
 				createJettonInit(nAreaIndex-1, pStatusPlay->lAllJettonScore[nAreaIndex]);
 			}
 			
-			CCLog("GAME_SCENE_PLACE_JETTON|GAME_SCENE_GAME_END<<%s>>", __FUNCTION__);
+			CCLOG("GAME_SCENE_PLACE_JETTON|GAME_SCENE_GAME_END<<%s>>", __FUNCTION__);
 			/*
 
 
@@ -1065,7 +1065,7 @@ void GameControlOxHundred::onSubGameFrame(WORD wSubCmdID, void * pDataBuffer, un
 	}
 	break;
 	default:
-		CCLog("-:%d<<%s>>", wSubCmdID, __FUNCTION__);
+		CCLOG("-:%d<<%s>>", wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -1091,20 +1091,20 @@ void GameControlOxHundred::onSocketSubSystemMessage(void * pData, unsigned short
 
 		//中断连接
 		IntermitConnect();*/
-		CCLog("%s<<%s>>", Tools::GBKToUTF8("关闭处理"), __FUNCTION__);
+		CCLOG("%s<<%s>>", Tools::GBKToUTF8("关闭处理"), __FUNCTION__);
 	}
 	//显示消息
 	if ((pSystemMessage->wType&SMT_CHAT))
 		//if ((pSystemMessage->wType&SMT_CHAT) && (m_pIStringMessage != NULL))
 	{
-		CCLog("%s<<%s>>", Tools::GBKToUTF8(pSystemMessage->szString), __FUNCTION__);
+		CCLOG("%s<<%s>>", Tools::GBKToUTF8(pSystemMessage->szString), __FUNCTION__);
 		//m_pIStringMessage->InsertSystemString(pSystemMessage->szString);
 	}
 
 	//弹出消息
 	if (pSystemMessage->wType&SMT_EJECT)
 	{
-		CCLog("----%s<<%s>>", Tools::GBKToUTF8("弹出消息"), __FUNCTION__);
+		CCLOG("----%s<<%s>>", Tools::GBKToUTF8("弹出消息"), __FUNCTION__);
 		/*CString sErrorMsg = pSystemMessage->szString;
 		CInformation Information(AfxGetMainWnd());
 		if (pSystemMessage->wType&SMT_NOGOLD)
@@ -1125,7 +1125,7 @@ void GameControlOxHundred::onSocketSubSystemMessage(void * pData, unsigned short
 	//关闭房间
 	if (pSystemMessage->wType&SMT_CLOSE_GAME)
 	{
-		CCLog("----%s<<%s>>", Tools::GBKToUTF8("关闭房间"), __FUNCTION__);
+		CCLOG("----%s<<%s>>", Tools::GBKToUTF8("关闭房间"), __FUNCTION__);
 		//m_pIClientKernelSink->CloseGameClient();
 	}
 }
@@ -1177,7 +1177,7 @@ void GameControlOxHundred::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, un
 		onSubUserUpState(pDataBuffer, wDataSize);
 		break;
 	default:
-		CCLog("===========sub:%d<<%s>>", wSubCmdID, __FUNCTION__);
+		CCLOG("===========sub:%d<<%s>>", wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -1192,7 +1192,7 @@ void GameControlOxHundred::onSubGameFree(const void * pBuffer, WORD wDataSize)
 	CMD_S_GameFree * pGameFree = (CMD_S_GameFree *)pBuffer;
 	//设置时间
 	resetTimer(pGameFree->cbTimeLeave, BaseAttributes::sharedAttributes()->sGameFree.c_str());
-	CCLog("time:%d   count:%lld<<%s>>", pGameFree->cbTimeLeave, pGameFree->nListUserCount, __FUNCTION__);
+	CCLOG("time:%d   count:%lld<<%s>>", pGameFree->cbTimeLeave, pGameFree->nListUserCount, __FUNCTION__);
 	resetData();
 	for (int i = 0; i < MAX_SEAT_COUNT; i++)
 	{
@@ -1230,7 +1230,7 @@ void GameControlOxHundred::onSubGameStart(const void * pBuffer, WORD wDataSize){
 		pPlayerData[1]->hidePlayer();
 	}
 
-	CCLog("gameStart=time--:%d<<%s>>", pGameStart->cbTimeLeave, __FUNCTION__);
+	CCLOG("gameStart=time--:%d<<%s>>", pGameStart->cbTimeLeave, __FUNCTION__);
 	//设置时间
 	resetTimer(pGameStart->cbTimeLeave, BaseAttributes::sharedAttributes()->sGameStart.c_str());
 	hideTimer(false);
@@ -1282,7 +1282,7 @@ void GameControlOxHundred::onSubPlaceJetton(const void * pBuffer, WORD wDataSize
 	pJetton->iBetArea = pPlaceJetton->cbJettonArea - 1;
     Tools::playSound(kSoundHundredAddGold);
 	pJetton->setJettonTypeWithMove(pPlaceJetton->lJettonScore, posBegin, pos);
-	//CCLog("chair:%d jettonScore: %lld<<%s>>",pPlaceJetton->wChairID,pPlaceJetton->lJettonScore,__FUNCTION__);
+	//CCLOG("chair:%d jettonScore: %lld<<%s>>",pPlaceJetton->wChairID,pPlaceJetton->lJettonScore,__FUNCTION__);
 	updateButtonContron();
 }
 //申请庄家
@@ -1316,15 +1316,15 @@ void GameControlOxHundred::onSubUserApplyBanker(const void * pBuffer, WORD wData
 		}
 		if (!isFind)
 		{
-			//CCLog("=no %d   %d-----------------------------<<%s>>", pApplyBanker->wApplyUser, DataModel::sharedDataModel()->userInfo->wChairID, __FUNCTION__);
-			//CCLog("<<%s>>", __FUNCTION__);
+			//CCLOG("=no %d   %d-----------------------------<<%s>>", pApplyBanker->wApplyUser, DataModel::sharedDataModel()->userInfo->wChairID, __FUNCTION__);
+			//CCLOG("<<%s>>", __FUNCTION__);
 		}
-		CCLog("%s <<%s>>",Tools::GBKToUTF8("上庄切换"), __FUNCTION__);
+		CCLOG("%s <<%s>>",Tools::GBKToUTF8("上庄切换"), __FUNCTION__);
 		MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_BANK_LIST, NULL);
 	}
 
 
-	//CCLog("11============================  %d<<%s>>",pApplyBanker->wApplyUser,__FUNCTION__);
+	//CCLOG("11============================  %d<<%s>>",pApplyBanker->wApplyUser,__FUNCTION__);
 	/*
 	IClientUserItem *pUserItem = GetTableUserItem(pApplyBanker->wApplyUser);
 	tagUserInfo		*pUserData = NULL;
@@ -1372,7 +1372,7 @@ void GameControlOxHundred::onSubUserCancelBanker(const void * pBuffer, WORD wDat
 	ApplyUser.strUserName = pCancelBanker->szCancelUser;
 
 	//remove_if(listApplyUser.begin(),listApplyUser.end(),(std::string i){return strcmp(i.c_str(),ApplyUser.strUserName.c_str());});
-	CCLog("%d<<%s>>", listApplyUser.size(), __FUNCTION__);
+	CCLOG("%d<<%s>>", listApplyUser.size(), __FUNCTION__);
 	std::list <tagApplyUser> ::iterator iter;
 	for (iter = listApplyUser.begin(); iter != listApplyUser.end();)
 	{
@@ -1381,7 +1381,7 @@ void GameControlOxHundred::onSubUserCancelBanker(const void * pBuffer, WORD wDat
 			//std::list<tagApplyUser>::iterator iter_e=iter;
 
 			//listApplyUser.remove(ApplyUser);
-			//CCLog("%s<<%s>>",iter->strUserName.c_str(),__FUNCTION__);
+			//CCLOG("%s<<%s>>",iter->strUserName.c_str(),__FUNCTION__);
 			listApplyUser.erase(iter++);
 		}
 		else
@@ -1395,7 +1395,7 @@ void GameControlOxHundred::onSubUserCancelBanker(const void * pBuffer, WORD wDat
 	{
 		m_bMeApplyBanker = false;
 	}
-	CCLog("%s <<%s>>", Tools::GBKToUTF8("下庄切换"), __FUNCTION__);
+	CCLOG("%s <<%s>>", Tools::GBKToUTF8("下庄切换"), __FUNCTION__);
 	//发送更新列表通知
 	MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_BANK_LIST, NULL);
 
@@ -1471,7 +1471,7 @@ void GameControlOxHundred::onSubChangeBanker(const void * pBuffer, WORD wDataSiz
 		if (listApplyUser.size() > 0)
 		{
 			listApplyUser.pop_front();
-			CCLog("%s <<%s>>", Tools::GBKToUTF8("切庄切换"), __FUNCTION__);
+			CCLOG("%s <<%s>>", Tools::GBKToUTF8("切庄切换"), __FUNCTION__);
 			MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_BANK_LIST, NULL);
 		}
 		/*IClientUserItem *pUserItem = GetTableUserItem(m_wCurrentBanker);
@@ -1501,7 +1501,7 @@ void GameControlOxHundred::onQiangZhuanRet(const void *pBuffer, WORD wDataSize)
 
 	//消息处理
 	CMD_S_QiangZhuan * pCmd = (CMD_S_QiangZhuan *)pBuffer;
-	CCLog("---<<%s>>", __FUNCTION__);
+	CCLOG("---<<%s>>", __FUNCTION__);
 	for (int nIndex = pCmd->wSwap1; nIndex > pCmd->wSwap2; nIndex--)
 	{
 		list<tagApplyUser>::iterator iterSwap1 = listApplyUser.begin();  advance(iterSwap1, nIndex);
@@ -1544,7 +1544,7 @@ void GameControlOxHundred::onSubGameRecord(const void * pBuffer, WORD wDataSize)
 		tagGameRecord tRecord;
 		memcpy(&tRecord, pServerGameRecord, sizeof(tagServerGameRecord));
 		insertGameHistory(tRecord);
-		//CCLog("==--::%d %d %d %d<<%s>>",pServerGameRecord->bWinShunMen, pServerGameRecord->bWinDuiMen, pServerGameRecord->bWinDaoMen,pServerGameRecord->bWinHuang,__FUNCTION__);
+		//CCLOG("==--::%d %d %d %d<<%s>>",pServerGameRecord->bWinShunMen, pServerGameRecord->bWinDuiMen, pServerGameRecord->bWinDaoMen,pServerGameRecord->bWinHuang,__FUNCTION__);
 		//m_GameClientView.SetGameHistory(pServerGameRecord->bWinShunMen, pServerGameRecord->bWinDuiMen, pServerGameRecord->bWinDaoMen,pServerGameRecord->bWinHuang);
 	}
 	MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_LIST, NULL);
@@ -1568,14 +1568,14 @@ void GameControlOxHundred::deduceWinner(bool &bWinTian, bool &bWinDi, bool &bWin
 }
 //下注失败
 void GameControlOxHundred::onSubPlaceJettonFail(const void * pBuffer, WORD wDataSize){
-	CCLog("======================jettonFail------------<<%s>>", __FUNCTION__);
+	CCLOG("======================jettonFail------------<<%s>>", __FUNCTION__);
 	//效验数据
 	assert(wDataSize == sizeof(CMD_S_PlaceJettonFail));
 	if (wDataSize != sizeof(CMD_S_PlaceJettonFail)) return;
 
 	//消息处理
 	CMD_S_PlaceJettonFail * pPlaceJettonFail = (CMD_S_PlaceJettonFail *)pBuffer;
-	CCLog("%d<<%s>>", pPlaceJettonFail->wPlaceUser, __FUNCTION__);
+	CCLOG("%d<<%s>>", pPlaceJettonFail->wPlaceUser, __FUNCTION__);
 	m_lAllJettonScore[pPlaceJettonFail->lJettonArea] -= pPlaceJettonFail->lPlaceScore;
 	//自己判断
 	if (DataModel::sharedDataModel()->userInfo->wChairID == pPlaceJettonFail->wPlaceUser
@@ -1601,7 +1601,7 @@ void GameControlOxHundred::onSubGameEnd(const void * pBuffer, WORD wDataSize){
 	if (wDataSize != sizeof(CMD_S_GameEnd)) return;
 	//消息处理
 	CMD_S_GameEnd * pGameEnd = (CMD_S_GameEnd *)pBuffer;
-	CCLog("end:%lld<<%s>>", pGameEnd->lUserScore, __FUNCTION__);
+	CCLOG("end:%lld<<%s>>", pGameEnd->lUserScore, __FUNCTION__);
 	isChangeUpBank = true;
 	//设置时间
 	resetTimer(pGameEnd->cbTimeLeave, BaseAttributes::sharedAttributes()->sGameEnd.c_str());
@@ -1685,19 +1685,19 @@ void GameControlOxHundred::onSubUserEnter(void * pDataBuffer, unsigned short wDa
 		{
 			CopyMemory(&UserInfo.szNickName, cbDataBuffer + wPacketSize, DataDescribe->wDataSize);
 			UserInfo.szNickName[CountArray(UserInfo.szNickName) - 1] = 0;
-			//CCLog("nick:%s  ch:%d<<%s>>",Tools::GBKToUTF8(UserInfo.szNickName),UserInfo.wChairID,__FUNCTION__);
+			//CCLOG("nick:%s  ch:%d<<%s>>",Tools::GBKToUTF8(UserInfo.szNickName),UserInfo.wChairID,__FUNCTION__);
 		}
 		break;
 		case DTP_GR_GROUP_NAME:
 		{
-			CCLog("社团");
+			CCLOG("社团");
 		}
 		break;
 		case DTP_GR_UNDER_WRITE:
 		{
 			CopyMemory(UserInfo.szUnderWrite, cbDataBuffer + wPacketSize, DataDescribe->wDataSize);
 			UserInfo.szUnderWrite[CountArray(UserInfo.szUnderWrite) - 1] = 0;
-			CCLog("签名:%s", Tools::GBKToUTF8(UserInfo.szUnderWrite));
+			CCLOG("签名:%s", Tools::GBKToUTF8(UserInfo.szUnderWrite));
 		}
 		break;
 		}
@@ -1908,7 +1908,7 @@ void GameControlOxHundred::onSubUserState(void * pDataBuffer, unsigned short wDa
 		if (info->dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID){
 			DataModel::sharedDataModel()->userInfo->wTableID = info->UserStatus.wTableID;
 			DataModel::sharedDataModel()->userInfo->wChairID = info->UserStatus.wChairID;
-			CCLog("--%s------------------<<%s>>", Tools::GBKToUTF8("百人牛牛坐下"), __FUNCTION__);
+			CCLOG("--%s------------------<<%s>>", Tools::GBKToUTF8("百人牛牛坐下"), __FUNCTION__);
 		}
 	}
 	break;
@@ -1933,10 +1933,10 @@ void GameControlOxHundred::onSubUserState(void * pDataBuffer, unsigned short wDa
 		{
 		DataModel::sharedDataModel()->mTagUserInfo.erase(tVecRemove[i]);
 		}
-		CCLog("tagSize:%d<<%s>>",DataModel::sharedDataModel()->mTagUserInfo.size(),__FUNCTION__);*/
+		CCLOG("tagSize:%d<<%s>>",DataModel::sharedDataModel()->mTagUserInfo.size(),__FUNCTION__);*/
 		/*if (info->dwUserID==4947)
 		{
-		CCLog("-----------------------<<%s>>",__FUNCTION__);
+		CCLOG("-----------------------<<%s>>",__FUNCTION__);
 		}*/
 		if (info->dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID)
 		{
@@ -1960,7 +1960,7 @@ void GameControlOxHundred::onSubUserState(void * pDataBuffer, unsigned short wDa
 	}
 	break;
 	default:
-		CCLog("state==Other userID:%ld 状态：%d<<%s>>", info->dwUserID, info->UserStatus.cbUserStatus, __FUNCTION__);
+		CCLOG("state==Other userID:%ld 状态：%d<<%s>>", info->dwUserID, info->UserStatus.cbUserStatus, __FUNCTION__);
 		break;
 	}
 }

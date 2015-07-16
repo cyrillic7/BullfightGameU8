@@ -18,7 +18,7 @@ PopDialogBoxTrend::PopDialogBoxTrend()
     
 }
 PopDialogBoxTrend::~PopDialogBoxTrend() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 }
 void PopDialogBoxTrend::onEnter(){
 	CCLayer::onEnter();

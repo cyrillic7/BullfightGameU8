@@ -110,7 +110,7 @@ void CGameSocket::Run(){
 	setSocketState(SOCKET_STATE_CONNECT_SUCCESS);
 
 	End();
-	//CCLog("createSocket----------------- <<%s>>", __FUNCTION__);
+	//CCLOG("createSocket----------------- <<%s>>", __FUNCTION__);
 }
 bool CGameSocket::Create(const char* pszServerIP, int nServerPort, int nBlockSec, bool bKeepAlive /*= FALSE*/)
 {
@@ -717,7 +717,7 @@ WORD CGameSocket::CrevasseBuffer(BYTE pcbDataBuffer[], WORD wDataSize)
 	//if (cbCheckCode != 0) throw TEXT("数据包效验码错误");//注：先不做处理
 	if (cbCheckCode != 0)
 	{
-		CCLog("数据包效验码错误");
+		CCLOG("数据包效验码错误");
 	}
 
 	return wDataSize;
@@ -765,7 +765,7 @@ void CGameSocket::updateSocketData(){
 		//onConnectionAbort();
 		setSocketState(CGameSocket::SOCKET_STATE_ERROR);
 		// 掉线了
-		CCLog("abort------------- <<%s>>", __FUNCTION__);
+		CCLOG("abort------------- <<%s>>", __FUNCTION__);
 		return;
 	}
 

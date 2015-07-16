@@ -19,12 +19,12 @@ std::string platformAction(const std::string& jsonString)
 		//判断读取成功与否
 		if (aide.hasError())
 		{
-			CCLog("--jniCcAction-----------\n%s\n----------------- <<%s>>", aide.getError(), __FUNCTION__);
+			CCLOG("--jniCcAction-----------\n%s\n----------------- <<%s>>", aide.getError(), __FUNCTION__);
 			return false;
 		}
 
 		int act = aide.getInt("act", -1);
-		CCLog("win32................................................... %d<<%s>>", act,__FUNCTION__);
+		CCLOG("win32................................................... %d<<%s>>", act,__FUNCTION__);
 
 		/*
 		switch (act)

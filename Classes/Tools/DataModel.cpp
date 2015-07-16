@@ -29,7 +29,7 @@ DataModel::DataModel()
 	// pthread_mutex_init(&sResponseQueueMutex, NULL);
 }
 DataModel::~DataModel() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 	m_aTagGameKind->removeAllObjects();
 	m_aTagGameKind->release();
 

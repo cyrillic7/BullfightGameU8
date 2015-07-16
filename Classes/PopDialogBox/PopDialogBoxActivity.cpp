@@ -15,7 +15,7 @@ PopDialogBoxActivity::PopDialogBoxActivity()
     
 }
 PopDialogBoxActivity::~PopDialogBoxActivity() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 }
 void PopDialogBoxActivity::onEnter(){
 	CCLayer::onEnter();

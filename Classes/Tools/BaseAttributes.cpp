@@ -18,7 +18,7 @@ BaseAttributes *  BaseAttributes::sharedAttributes(){
 }
 BaseAttributes::~BaseAttributes(){
 	_sharedAttributes = NULL;
-	CCLog("~ <<%s>>", __FUNCTION__);
+	CCLOG("~ <<%s>>", __FUNCTION__);
 }
 void BaseAttributes::initBaseAttrobutes(){
  	this->initStr();

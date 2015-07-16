@@ -18,7 +18,7 @@ PopDialogBoxBindingPhone::PopDialogBoxBindingPhone()
 	scheduleUpdate();
 }
 PopDialogBoxBindingPhone::~PopDialogBoxBindingPhone() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_BINDING_PHONE);
 	gameSocket.Destroy(true);
@@ -147,7 +147,7 @@ void PopDialogBoxBindingPhone::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdI
 	}
 	break;
 	default:
-		CCLog("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
+		CCLOG("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -167,7 +167,7 @@ void PopDialogBoxBindingPhone::connectSuccess(){
 		std::string md5PassWord = m.GetMd5();
 		strcpy(getCaptcha.szLogonPass, md5PassWord.c_str());
 
-		CCLog("pass:%s <<%s>>",getCaptcha.szLogonPass, __FUNCTION__);//5afb7b5360ab76ae55734560b574845d
+		CCLOG("pass:%s <<%s>>",getCaptcha.szLogonPass, __FUNCTION__);//5afb7b5360ab76ae55734560b574845d
 
 		CCEditBox *pEBPhone = (CCEditBox*)pTFPhone->getNodeByTag(TAG_INPUT_EDIT_BOX);
 		sPhone = pEBPhone->getText();
@@ -226,7 +226,7 @@ void PopDialogBoxBindingPhone::onEventUserService(WORD wSubCmdID, void * pDataBu
 	}
 		break;
 	default:
-		CCLog("   %d<<%s>>", wSubCmdID, __FUNCTION__);
+		CCLOG("   %d<<%s>>", wSubCmdID, __FUNCTION__);
 		break;
 	}
 }

@@ -15,7 +15,7 @@ PopDialogBoxHelp::PopDialogBoxHelp()
     
 }
 PopDialogBoxHelp::~PopDialogBoxHelp() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 }
 void PopDialogBoxHelp::onEnter(){
 	CCLayer::onEnter();

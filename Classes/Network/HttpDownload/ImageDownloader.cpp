@@ -50,18 +50,18 @@ void ImageDownloader::HttpRequestComplete(CCHttpClient *sender, CCHttpResponse *
 	// You can get original request type from: response->request->reqType
 	if (0 != strlen(response->getHttpRequest()->getTag()))
 	{
-		CCLog("%s completed", response->getHttpRequest()->getTag());
+		CCLOG("%s completed", response->getHttpRequest()->getTag());
 	}
 
 	int statusCode = response->getResponseCode();
 	char statusString[64] = {};
 	sprintf(statusString, "HTTP Status Code: %d, tag = %s", statusCode, response->getHttpRequest()->getTag());
-	CCLog("response code: %d", statusCode);
+	CCLOG("response code: %d", statusCode);
 
 	if (!response->isSucceed())
 	{
-		CCLog("response failed");
-		CCLog("error buffer: %s", response->getErrorBuffer());
+		CCLOG("response failed");
+		CCLOG("error buffer: %s", response->getErrorBuffer());
 		return;
 	}
 

@@ -20,7 +20,7 @@ PopDialogBoxUserInfo::PopDialogBoxUserInfo()
 	scheduleUpdate();
 }
 PopDialogBoxUserInfo::~PopDialogBoxUserInfo() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_USER_INFO);
 	gameSocket.Destroy(true);
@@ -275,7 +275,7 @@ void PopDialogBoxUserInfo::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, v
 	}
 	break;
 	default:
-		CCLog("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
+		CCLOG("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -342,7 +342,7 @@ void PopDialogBoxUserInfo::onEventUserService(WORD wSubCmdID, void * pDataBuffer
 	}
 		break;
 	default:
-		CCLog("   %d<<%s>>", wSubCmdID, __FUNCTION__);
+		CCLOG("   %d<<%s>>", wSubCmdID, __FUNCTION__);
 		break;
 	}
 }

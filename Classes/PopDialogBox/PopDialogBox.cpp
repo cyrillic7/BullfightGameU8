@@ -31,7 +31,7 @@ PopDialogBox::PopDialogBox()
 
 
 PopDialogBox::~PopDialogBox() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 	//GUIReader::purge();
 	//this->removeFromParentAndCleanup(true);
 	//CCTextureCache::sharedTextureCache()->removeUnusedTextures();
@@ -161,22 +161,22 @@ void PopDialogBox::addEditBox(UITextField *pTextField, EditBoxInputMode eInputMo
 }
 void PopDialogBox::editBoxEditingDidBegin(cocos2d::extension::CCEditBox* editBox)
 {
-	CCLog("editBox %p DidBegin !", editBox);
+	CCLOG("editBox %p DidBegin !", editBox);
 }
 
 void PopDialogBox::editBoxEditingDidEnd(cocos2d::extension::CCEditBox* editBox)
 {
-	CCLog("editBox %p DidEnd !", editBox);
+	CCLOG("editBox %p DidEnd !", editBox);
 }
 
 void PopDialogBox::editBoxTextChanged(cocos2d::extension::CCEditBox* editBox, const std::string& text)
 {
-	CCLog("editBox %p TextChanged, text: %s ", editBox, text.c_str());
+	CCLOG("editBox %p TextChanged, text: %s ", editBox, text.c_str());
 }
 
 void PopDialogBox::editBoxReturn(CCEditBox* editBox)
 {
-	CCLog("editBox %p was returned !", editBox);
+	CCLOG("editBox %p was returned !", editBox);
 
 	/*if (m_pEditName == editBox)
 	{
@@ -223,7 +223,7 @@ void PopDialogBox::updateSocketData(){
 		//onConnectionAbort();
 		gameSocket.setSocketState(CGameSocket::SOCKET_STATE_ERROR);
 		// 掉线了
-		CCLog("abort------------- <<%s>>", __FUNCTION__);
+		CCLOG("abort------------- <<%s>>", __FUNCTION__);
 		return;
 	}
 	gameSocket.Flush();

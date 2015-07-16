@@ -10,7 +10,7 @@ CardLayerOneByOne::CardLayerOneByOne()
 {
 }
 CardLayerOneByOne::~CardLayerOneByOne() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 	this->removeAllChildrenWithCleanup(true);
 }
 void CardLayerOneByOne::onEnter(){
@@ -55,7 +55,7 @@ bool CardLayerOneByOne::promptOx(int oxIndex){
 				}
 			}
 		}
-		CCLog("niu:%d",GetCardType(tempCard,5));
+		CCLOG("niu:%d",GetCardType(tempCard,5));
 	}
 	return bCardValue>0;
 }
@@ -72,7 +72,7 @@ void CardLayerOneByOne::sortingOx(int chairID,int showChairiD){
 	BYTE bCardData[MAX_COUNT];
 	memcpy(bCardData, DataModel::sharedDataModel()->card[chairID], sizeof(bCardData));
 	BYTE bCardValue = GetCardType(bCardData, MAX_COUNT, bCardData);
-	CCLog("====:%d<<%s>>",bCardValue,__FUNCTION__);
+	CCLOG("====:%d<<%s>>",bCardValue,__FUNCTION__);
 	//assert(bCardValue > 0);
 	//float orgCradY = 2000;
 	//重排牛牛牌顺序
@@ -304,7 +304,7 @@ void CardLayerOneByOne::onSendCardFinish(CCNode *node){
 	//if (sSendCardCount==getCurAllCardCount()*MAX_CARD_COUNT)
 	if (sSendCardCount%MAX_CARD_COUNT == 0 && node->getTag() == 3)
 	{
-		CCLog("CardLayer::onSendCardFinish-->sendFinish");
+		CCLOG("CardLayer::onSendCardFinish-->sendFinish");
 		getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_OPT_OX);
 		//DataModel::sharedDataModel()->getm()->setGameStateWithUpdate(MainSceneOxTwo::STATE_OPT_OX);
 		//DataModel::sharedDataModel()->getMainSceneOxTwo()->setServerStateWithUpdate(MainScene::STATE_FIGHT_BANKER);

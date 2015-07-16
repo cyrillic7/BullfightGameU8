@@ -32,7 +32,7 @@ BaseLobbyScene::BaseLobbyScene()
 }
 
 BaseLobbyScene::~BaseLobbyScene(){
-	CCLog("~ <<%s>>", __FUNCTION__);
+	CCLOG("~ <<%s>>", __FUNCTION__);
 }
 //进入场景
 void BaseLobbyScene::onEnter(){

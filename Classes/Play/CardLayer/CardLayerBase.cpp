@@ -110,7 +110,7 @@ void CardLayerBase::sendCard(){
 			{
 				if (tempCard[i]==mCrad[j])
 				{
-					CCLog("--%d", j);
+					CCLOG("--%d", j);
 					Card *card = (Card*)this->getChildByTag(j);
 					float y = card->m_cpArmatureCard->getPositionY() + 30;
 					card->m_cpArmatureCard->setPositionY(y);

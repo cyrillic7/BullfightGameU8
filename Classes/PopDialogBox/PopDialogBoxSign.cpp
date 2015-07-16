@@ -19,7 +19,7 @@ PopDialogBoxSign::PopDialogBoxSign()
 	scheduleUpdate();
 }
 PopDialogBoxSign::~PopDialogBoxSign() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_SIGN);
 	gameSocket.Destroy(true);
@@ -181,7 +181,7 @@ void PopDialogBoxSign::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void 
 	}
 	break;
 	default:
-		CCLog("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
+		CCLOG("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -232,7 +232,7 @@ void PopDialogBoxSign::onEventUserService(WORD wSubCmdID, void * pDataBuffer, un
 	}
 		break;
 	default:
-		CCLog("   %d<<%s>>", wSubCmdID, __FUNCTION__);
+		CCLOG("   %d<<%s>>", wSubCmdID, __FUNCTION__);
 	break;
 	}
 }

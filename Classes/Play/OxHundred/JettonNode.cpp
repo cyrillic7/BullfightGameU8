@@ -18,7 +18,7 @@ JettonNode::JettonNode()
     
 }
 JettonNode::~JettonNode() {
-	CCLog("~<<%s>>",__FUNCTION__);
+	CCLOG("~<<%s>>",__FUNCTION__);
 	this->removeAllChildrenWithCleanup(true);
 }
 void JettonNode::resetData(){

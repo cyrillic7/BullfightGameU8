@@ -15,7 +15,7 @@ PopDialogBoxRegistered::PopDialogBoxRegistered()
     
 }
 PopDialogBoxRegistered::~PopDialogBoxRegistered() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 }
 void PopDialogBoxRegistered::onEnter(){
 	CCLayer::onEnter();

@@ -21,7 +21,7 @@ PopDialogBoxForgetBankPwd::PopDialogBoxForgetBankPwd()
 	scheduleUpdate();
 }
 PopDialogBoxForgetBankPwd::~PopDialogBoxForgetBankPwd() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 	//
 	
 	unscheduleUpdate();
@@ -188,7 +188,7 @@ void PopDialogBoxForgetBankPwd::onEventReadMessage(WORD wMainCmdID, WORD wSubCmd
 	}
 	break;
 	default:
-		CCLog("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
+		CCLOG("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -259,7 +259,7 @@ void PopDialogBoxForgetBankPwd::onEventUserService(WORD wSubCmdID, void * pDataB
 	}
 		break;
 	default:
-		CCLog("--------------sub:%d <<%s>>", wSubCmdID, __FUNCTION__);
+		CCLOG("--------------sub:%d <<%s>>", wSubCmdID, __FUNCTION__);
 		break;
 	}
 }

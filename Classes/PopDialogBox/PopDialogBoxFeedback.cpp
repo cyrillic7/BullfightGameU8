@@ -15,7 +15,7 @@ PopDialogBoxFeedback::PopDialogBoxFeedback()
     
 }
 PopDialogBoxFeedback::~PopDialogBoxFeedback() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 }
 void PopDialogBoxFeedback::onEnter(){
 	CCLayer::onEnter();

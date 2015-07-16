@@ -50,7 +50,7 @@ PopDialogBoxRecharge::PopDialogBoxRecharge()
 	scheduleUpdate();
 }
 PopDialogBoxRecharge::~PopDialogBoxRecharge() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_RECHARGE);
 	gameSocket.Destroy(true);
@@ -241,7 +241,7 @@ void PopDialogBoxRecharge::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, v
 	}
 	break;
 	default:
-		CCLog("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
+		CCLOG("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -304,7 +304,7 @@ void PopDialogBoxRecharge::onEventUserService(WORD wSubCmdID, void * pDataBuffer
 	}
 	break;
 	default:
-		CCLog("   %d<<%s>>", wSubCmdID, __FUNCTION__);
+		CCLOG("   %d<<%s>>", wSubCmdID, __FUNCTION__);
 		break;
 	}
 }

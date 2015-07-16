@@ -25,7 +25,7 @@ PopDialogBoxBank::PopDialogBoxBank()
 	llQuickLimitNum[5] = 100000000;
 }
 PopDialogBoxBank::~PopDialogBoxBank() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_BANK);
 	gameSocket.Destroy(true);
@@ -536,7 +536,7 @@ void PopDialogBoxBank::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void 
 	}
 	break;
 	default:
-		CCLog("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
+		CCLOG("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -628,7 +628,7 @@ void PopDialogBoxBank::onEventUserService(WORD wSubCmdID, void * pDataBuffer, un
 	}
 		break;
 	default:
-		CCLog("--------------sub:%d <<%s>>",wSubCmdID, __FUNCTION__);
+		CCLOG("--------------sub:%d <<%s>>",wSubCmdID, __FUNCTION__);
 		break;
 	}
 }

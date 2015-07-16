@@ -34,10 +34,10 @@ void GameIngMsgHandler::update(float dt){
 	gameSocket.updateSocketData();
 }
 void GameIngMsgHandler::onOpen(){
-	CCLog("open <<%s>>", __FUNCTION__);
+	CCLOG("open <<%s>>", __FUNCTION__);
 }
 void GameIngMsgHandler::onError(const char* sError){
-	CCLog("error <<%s>>", __FUNCTION__);
+	CCLOG("error <<%s>>", __FUNCTION__);
 	ReadData rData;
 	rData.wMainCmdID = MDM_MB_UNCONNECT;
 	rData.wSubCmdID = SUB_MB_SOCKET_NETWORK_ERROR;

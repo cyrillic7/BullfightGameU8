@@ -13,7 +13,7 @@ PopDialogBoxFirstRecharge::PopDialogBoxFirstRecharge()
 {
 }
 PopDialogBoxFirstRecharge::~PopDialogBoxFirstRecharge() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 }
 void PopDialogBoxFirstRecharge::onEnter(){
 	CCLayer::onEnter();

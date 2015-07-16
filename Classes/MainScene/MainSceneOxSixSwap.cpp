@@ -16,7 +16,7 @@ MainSceneOxSixSwap::MainSceneOxSixSwap()
 {
 }
 MainSceneOxSixSwap::~MainSceneOxSixSwap(){
-	CCLog("~ <<%s>>", __FUNCTION__);
+	CCLOG("~ <<%s>>", __FUNCTION__);
 	//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 	GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
 
@@ -77,7 +77,7 @@ void MainSceneOxSixSwap::initPlayerLayer(){
 }
 //收到准备完成回调
 void MainSceneOxSixSwap::onEventReadyFnish(){
-	CCLog("准备完成等待服务端响应.");
+	CCLOG("准备完成等待服务端响应.");
 	setServerStateWithUpdate(STATE_WAIT);
 }
 

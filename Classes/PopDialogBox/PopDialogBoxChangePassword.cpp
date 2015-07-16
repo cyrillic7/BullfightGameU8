@@ -16,7 +16,7 @@ PopDialogBoxChangePassword::PopDialogBoxChangePassword()
 	scheduleUpdate();
 }
 PopDialogBoxChangePassword::~PopDialogBoxChangePassword() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_CHANGE_PASSWORD);
 	gameSocket.Destroy(true);
@@ -134,7 +134,7 @@ void PopDialogBoxChangePassword::onEventReadMessage(WORD wMainCmdID, WORD wSubCm
 	}
 		break;
 	default:
-		CCLog("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
+		CCLOG("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -233,7 +233,7 @@ void PopDialogBoxChangePassword::onEventUserService(WORD wSubCmdID, void * pData
 	}
 		break;
 	default:
-		CCLog("--------------sub:%d <<%s>>", wSubCmdID, __FUNCTION__);
+		CCLOG("--------------sub:%d <<%s>>", wSubCmdID, __FUNCTION__);
 		break;
 	}
 }

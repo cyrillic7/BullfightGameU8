@@ -17,7 +17,7 @@ PopDialogBoxVip::PopDialogBoxVip()
 	scheduleUpdate();
 }
 PopDialogBoxVip::~PopDialogBoxVip() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_VIP);
 	gameSocket.Destroy(true);
@@ -242,7 +242,7 @@ void PopDialogBoxVip::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void *
 	}
 		break;
 	default:
-		CCLog("main:%d <<%s>>",wMainCmdID, __FUNCTION__);
+		CCLOG("main:%d <<%s>>",wMainCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -262,7 +262,7 @@ void PopDialogBoxVip::onEventUserService(WORD wSubCmdID, void * pDataBuffer, uns
 	}
 		break;
 	default:
-		CCLog("wSubCmdID:%d <<%s>>", wSubCmdID, __FUNCTION__);
+		CCLOG("wSubCmdID:%d <<%s>>", wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -328,5 +328,5 @@ void PopDialogBoxVip::onSubVipReward(void * pDataBuffer, unsigned short wDataSiz
 		updateListVip();
 	}
 	showTipInfo(GBKToUTF8(pVipLog->szDescribeString));
-	CCLog(" <<%s>>", __FUNCTION__);
+	CCLOG(" <<%s>>", __FUNCTION__);
 }

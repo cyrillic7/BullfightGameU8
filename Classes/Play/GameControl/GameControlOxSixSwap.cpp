@@ -132,7 +132,7 @@ void GameControlOxSixSwap::onMenuChangeCard(CCObject* pSender, TouchEventType ty
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		//CCLog("changecard------------  %d <<%s>>",iChangeCardIndex, __FUNCTION__);
+		//CCLOG("changecard------------  %d <<%s>>",iChangeCardIndex, __FUNCTION__);
 		onUserChangeCard(1, iChangeCardIndex);
 		/*hideTimer(true);
 		getMainScene()->cardLayer->sortingOx(getMeChairID(), 3);
@@ -152,7 +152,7 @@ void GameControlOxSixSwap::onMenuChangeCard(CCObject* pSender, TouchEventType ty
 
 //用户进入
 void GameControlOxSixSwap::onUserEnter(){
-	//CCLog("<<%s>>",__FUNCTION__);
+	//CCLOG("<<%s>>",__FUNCTION__);
 	/*std::map<long, tagUserInfo>::iterator iter;
 	for (iter = DataModel::sharedDataModel()->mTagUserInfo.begin(); iter != DataModel::sharedDataModel()->mTagUserInfo.end(); iter++)
 	{
@@ -160,7 +160,7 @@ void GameControlOxSixSwap::onUserEnter(){
 	{
 	continue;
 	}
-	CCLog("server:%d  view位置 :%d   me:%d %s<<%s>>", iter->second.wChairID, getViewChairID(iter->second.wChairID), DataModel::sharedDataModel()->userInfo->wChairID, Tools::GBKToUTF8(iter->second.szNickName), __FUNCTION__);
+	CCLOG("server:%d  view位置 :%d   me:%d %s<<%s>>", iter->second.wChairID, getViewChairID(iter->second.wChairID), DataModel::sharedDataModel()->userInfo->wChairID, Tools::GBKToUTF8(iter->second.szNickName), __FUNCTION__);
 	getMainScene()->playerLayer->setUserInfo(getViewChairID(iter->second.wChairID), iter->second);
 
 	}*/
@@ -225,7 +225,7 @@ bool GameControlOxSixSwap::OnSocketSubGameStatus(void * pData, WORD wDataSize)
 	//设置变量
 	m_cbGameStatus = pGameStatus->cbGameStatus;
 
-	CCLog("m_cbGameStatus:%d <<%s>>", m_cbGameStatus, __FUNCTION__);
+	CCLOG("m_cbGameStatus:%d <<%s>>", m_cbGameStatus, __FUNCTION__);
 
 	m_bAllowLookon = pGameStatus->cbAllowLookon ? true : false;
 	//US_LOOKON
@@ -241,7 +241,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 		int size = sizeof(CMD_S_StatusFree);
 		if (wDataSize != sizeof(CMD_S_StatusFree)) return false;
 		CMD_S_StatusFree * pStatusFree = (CMD_S_StatusFree *)pData;
-		CCLog("%s <<%s>>", Tools::GBKToUTF8("空闲状态"), __FUNCTION__);
+		CCLOG("%s <<%s>>", Tools::GBKToUTF8("空闲状态"), __FUNCTION__);
 		hideAllActionPanel();
 		pPanelReady->setEnabled(true);
 		/*//设置控件
@@ -261,7 +261,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 		int size = sizeof(CMD_S_StatusCall);
 		if (wDataSize != sizeof(CMD_S_StatusCall)) return false;
 		CMD_S_StatusCall * pStatusCall = (CMD_S_StatusCall *)pData;
-		CCLog("%s <<%s>>", Tools::GBKToUTF8("叫庄状态"), __FUNCTION__);
+		CCLOG("%s <<%s>>", Tools::GBKToUTF8("叫庄状态"), __FUNCTION__);
 		hideAllActionPanel();
 		//getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_CALL_BANKER);
 		//游戏信息
@@ -327,7 +327,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 		if (wDataSize != sizeof(CMD_S_StatusScore1)) return false;
 		CMD_S_StatusScore1 * pStatusScore = (CMD_S_StatusScore1 *)pData;
 		hideAllActionPanel();
-		CCLog("%s <<%s>>", Tools::GBKToUTF8("下注状态"), __FUNCTION__);
+		CCLOG("%s <<%s>>", Tools::GBKToUTF8("下注状态"), __FUNCTION__);
 		//getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_BETTING);
 		//设置变量
 		m_lTurnMaxScore = pStatusScore->lTurnMaxScore;
@@ -404,7 +404,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 
 		isShowAllUserOx = false;
 		hideAllActionPanel();
-		CCLog("%s <<%s>>", Tools::GBKToUTF8("游戏状态"), __FUNCTION__);
+		CCLOG("%s <<%s>>", Tools::GBKToUTF8("游戏状态"), __FUNCTION__);
 
 
 
@@ -553,7 +553,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 
 		isShowAllUserOx = false;
 		hideAllActionPanel();
-		CCLog("%s <<%s>>", Tools::GBKToUTF8("换牌状态"), __FUNCTION__);
+		CCLOG("%s <<%s>>", Tools::GBKToUTF8("换牌状态"), __FUNCTION__);
 
 
 		//设置变量
@@ -692,7 +692,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 		break;
 		
 	default:
-		CCLog("%s %d<<%s>>", Tools::GBKToUTF8("其它状态"), m_cbGameStatus, __FUNCTION__);
+		CCLOG("%s %d<<%s>>", Tools::GBKToUTF8("其它状态"), m_cbGameStatus, __FUNCTION__);
 		break;
 	}
 	return true;
@@ -760,7 +760,7 @@ void GameControlOxSixSwap::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, un
 		hideActionPrompt();
 		getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_OPT_OX);
 		//getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_END);
-		CCLog("%s <<%s>>", Tools::GBKToUTF8("所有人都换完牌了，显示摊牌"), __FUNCTION__);
+		CCLOG("%s <<%s>>", Tools::GBKToUTF8("所有人都换完牌了，显示摊牌"), __FUNCTION__);
 	}
 	break;
 	case SUB_S_USER_OPEN:
@@ -769,7 +769,7 @@ void GameControlOxSixSwap::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, un
 	}
 		break;
 	default:
-		CCLog("--------------------gameIng:%d<<%s>>", wSubCmdID, __FUNCTION__);
+		CCLOG("--------------------gameIng:%d<<%s>>", wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -795,9 +795,9 @@ bool GameControlOxSixSwap::OnSubChangeCard(const void * pBuffer, WORD wDataSize)
 			
 			
 			swapCardEffect(posCurSelectCard);
-			//CCLog("%d  %d    %d <<%s>>", pChangeCard->cbCardData, GetCardColor(pChangeCard->cbCardData), GetCardValue(pChangeCard->cbCardData), __FUNCTION__);
-			//CCLog("%d  %d    %d <<%s>>", pChangeCard->cbOldCardData, GetCardColor(pChangeCard->cbOldCardData), GetCardValue(pChangeCard->cbOldCardData), __FUNCTION__);
-			//CCLog("<<%s>>", __FUNCTION__);
+			//CCLOG("%d  %d    %d <<%s>>", pChangeCard->cbCardData, GetCardColor(pChangeCard->cbCardData), GetCardValue(pChangeCard->cbCardData), __FUNCTION__);
+			//CCLOG("%d  %d    %d <<%s>>", pChangeCard->cbOldCardData, GetCardColor(pChangeCard->cbOldCardData), GetCardValue(pChangeCard->cbOldCardData), __FUNCTION__);
+			//CCLOG("<<%s>>", __FUNCTION__);
 		}
 		
 	}
@@ -872,7 +872,7 @@ bool GameControlOxSixSwap::OnSubCallBanker(const void * pBuffer, WORD wDataSize)
 	CMD_S_CallBanker * pCallBanker = (CMD_S_CallBanker *)pBuffer;
 	/*if(!pCallBanker->bFirstTimes && pCallBanker->wCallBanker==getMeChairID())
 	{
-	CCLog("推庄");
+	CCLOG("推庄");
 	}*/
 	//始叫用户
 	if (!IsLookonMode() && pCallBanker->wCallBanker == getMeChairID())
@@ -1185,7 +1185,7 @@ void GameControlOxSixSwap::onSubUserOpen(const void * pBuffer, WORD wDataSize){
 	showOxCurNum = 0;
 	isShowAllUserOx = true;
 	hideActionPrompt();
-	CCLog("showUserOpenCard------ <<%s>>", __FUNCTION__);
+	CCLOG("showUserOpenCard------ <<%s>>", __FUNCTION__);
 	//显示牌型
 	bool bOxSound = false;
 	for (int i = 0; i < GAME_PLAYER; i++)
@@ -1322,7 +1322,7 @@ bool GameControlOxSixSwap::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 
 	}
 	
-	CCLog("end============================ <<%s>>", __FUNCTION__);
+	CCLOG("end============================ <<%s>>", __FUNCTION__);
 	/*pEndLayer = GameEndLayer::create();
 	this->addChild(pEndLayer);
 	pEndLayer->showEnd(pGameEnd->lGameScore[getMeChairID()] >= 0);*/

@@ -77,7 +77,7 @@ void MessageQueueGameIng::update(float dt){
 		break;
 	
 	default:
-		CCLog("other---------- %d    %d<<%s>>",iter.wMainCmdID,iter.wSubCmdID,__FUNCTION__);
+		CCLOG("other---------- %d    %d<<%s>>",iter.wMainCmdID,iter.wSubCmdID,__FUNCTION__);
 		break;
 	}*/
 	DataModel::sharedDataModel()->readDataQueueGameIng.pop();

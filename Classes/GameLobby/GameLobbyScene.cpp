@@ -31,7 +31,7 @@ GameLobbyScene::GameLobbyScene()
 	scheduleUpdate();
 }
 GameLobbyScene::~GameLobbyScene(){
-	CCLog("~ <<%s>>", __FUNCTION__);
+	CCLOG("~ <<%s>>", __FUNCTION__);
     
 }
 CCScene* GameLobbyScene::scene(bool showUpTip)
@@ -287,7 +287,7 @@ void GameLobbyScene::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pD
 		onSubUserState(wSubCmdID,pDataBuffer,wDataSize);
 		break;
 	default:
-		CCLog("main:%d  sub:%d<<%s>>",wMainCmdID,wSubCmdID,__FUNCTION__);
+		CCLOG("main:%d  sub:%d<<%s>>",wMainCmdID,wSubCmdID,__FUNCTION__);
 		break;
 	}
 }
@@ -333,7 +333,7 @@ void GameLobbyScene::onSubLogon(WORD wSubCmdID,void * pDataBuffer, unsigned shor
 			if (wDataSize < sizeof(CMD_GR_UpdateNotify)) return;
 
 			CMD_GR_UpdateNotify *lf = (CMD_GR_UpdateNotify*)pDataBuffer;
-			CCLog("升级提示");
+			CCLOG("升级提示");
 		}
 		break;
 	case SUB_GR_LOGON_SUCCESS:
@@ -343,19 +343,19 @@ void GameLobbyScene::onSubLogon(WORD wSubCmdID,void * pDataBuffer, unsigned shor
 			if (wDataSize < sizeof(CMD_GR_LogonSuccess)) return;
 
 			CMD_GR_LogonSuccess *lf = (CMD_GR_LogonSuccess*)pDataBuffer;
-			CCLog("登录成功");
+			CCLOG("登录成功");
 		}
 		break;
 	case SUB_GR_LOGON_FINISH:
 		{
-			CCLog("登录完成");
+			CCLOG("登录完成");
 		
 		}
 		break;
 	case SUB_GR_LOGON_FAILURE:
 		{
 			CMD_GR_LogonFailure *lf = (CMD_GR_LogonFailure*)pDataBuffer;
-			CCLog("登录失败:%s",Tools::GBKToUTF8(lf->szDescribeString));
+			CCLOG("登录失败:%s",Tools::GBKToUTF8(lf->szDescribeString));
 
 			this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 			//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_GAME);
@@ -376,22 +376,22 @@ void GameLobbyScene::onSubConfig(WORD wSubCmdID,void * pDataBuffer, unsigned sho
 	{
 	case SUB_GR_CONFIG_COLUMN://列表配置
 		{
-			CCLog("列表配置<<%s>>",__FUNCTION__);
+			CCLOG("列表配置<<%s>>",__FUNCTION__);
 		}
 		break;			
 	case SUB_GR_CONFIG_SERVER://房间配置
 		{
-			CCLog("房间配置<<%s>>",__FUNCTION__);
+			CCLOG("房间配置<<%s>>",__FUNCTION__);
 		}
 		break;		
 	case SUB_GR_CONFIG_PROPERTY://道具配置
 		{
-			CCLog("道具配置<<%s>>",__FUNCTION__);
+			CCLOG("道具配置<<%s>>",__FUNCTION__);
 		}
 		break;
 	case SUB_GR_CONFIG_FINISH://配置完成
 		{
-			CCLog("配置完成<<%s>>",__FUNCTION__);
+			CCLOG("配置完成<<%s>>",__FUNCTION__);
 			unscheduleUpdate();
 			//构造数据
 			CMD_GF_GameOption GameOption;
@@ -411,11 +411,11 @@ void GameLobbyScene::onSubConfig(WORD wSubCmdID,void * pDataBuffer, unsigned sho
 		break;
 	case SUB_GR_CONFIG_USER_RIGHT://玩家权限
 		{
-			CCLog("玩家权限<<%s>>",__FUNCTION__);
+			CCLOG("玩家权限<<%s>>",__FUNCTION__);
 		}
 		break;							
 	default:
-		CCLog("sub:%d<<%s>>",wSubCmdID,__FUNCTION__);
+		CCLOG("sub:%d<<%s>>",wSubCmdID,__FUNCTION__);
 		break;
 	}
 }
@@ -424,23 +424,23 @@ void GameLobbyScene::onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned 
 	{
 	case SUB_GR_USER_ENTER://用户进入
 		{
-			CCLog("用户进入<<%s>>",__FUNCTION__);
+			CCLOG("用户进入<<%s>>",__FUNCTION__);
 			onSubUserEnter(pDataBuffer,wDataSize);
 		}
 		break;
 	case SUB_GR_USER_SCORE://用户分数
 		{
-			CCLog("用户分数<<%s>>",__FUNCTION__);
+			CCLOG("用户分数<<%s>>",__FUNCTION__);
 		}
 		break;
 	case SUB_GR_USER_STATUS://用户状态
 		{
-			 CCLog("用户状态<<%s>>",__FUNCTION__);
+			 CCLOG("用户状态<<%s>>",__FUNCTION__);
 			onSubUserState(pDataBuffer,wDataSize);
 		}
 		break;
 	default:
-		CCLog("sub:%d<<%s>>",wSubCmdID,__FUNCTION__);
+		CCLOG("sub:%d<<%s>>",wSubCmdID,__FUNCTION__);
 		break;
 	}
 }
@@ -459,8 +459,8 @@ void GameLobbyScene::onSubUserEnter(void * pDataBuffer, unsigned short wDataSize
 	UserInfo.lScore=pUserInfoHead->lScore;
 	BYTE cbDataBuffer[SOCKET_TCP_PACKET + sizeof(TCP_Head)];
 	CopyMemory(cbDataBuffer, pDataBuffer, wDataSize);
-	//CCLog("-------------------------%d",wDataSize);
-	//CCLog("userID:%ld , state:%d <<%s>>",pUserInfoHead->dwUserID,pUserInfoHead->cbUserStatus,__FUNCTION__);
+	//CCLOG("-------------------------%d",wDataSize);
+	//CCLOG("userID:%ld , state:%d <<%s>>",pUserInfoHead->dwUserID,pUserInfoHead->cbUserStatus,__FUNCTION__);
 	wPacketSize+=sizeof(tagMobileUserInfoHead);
 	while (true)
 	{
@@ -473,23 +473,23 @@ void GameLobbyScene::onSubUserEnter(void * pDataBuffer, unsigned short wDataSize
 			{
 				CopyMemory(&UserInfo.szNickName, cbDataBuffer + wPacketSize,DataDescribe->wDataSize);
 				UserInfo.szNickName[CountArray(UserInfo.szNickName)-1]=0;
-				CCLog("nick:%s  %s",UserInfo.szNickName,Tools::GBKToUTF8(UserInfo.szNickName));
+				CCLOG("nick:%s  %s",UserInfo.szNickName,Tools::GBKToUTF8(UserInfo.szNickName));
 				//if (strcmp(Tools::GBKToUTF8(UserInfo.szNickName),"(null)")==0)
 				{
-					//CCLog("null"); 
+					//CCLOG("null"); 
 				}
 			}
 			break;
 		case DTP_GR_GROUP_NAME:
 			{
-				CCLog("社团");
+				CCLOG("社团");
 			}
 			break;
 		case DTP_GR_UNDER_WRITE:
 			{
 				CopyMemory(UserInfo.szUnderWrite,cbDataBuffer + wPacketSize,DataDescribe->wDataSize);
 				UserInfo.szUnderWrite[CountArray(UserInfo.szUnderWrite)-1]=0;
-				CCLog("签名:%s",Tools::GBKToUTF8(UserInfo.szUnderWrite));
+				CCLOG("签名:%s",Tools::GBKToUTF8(UserInfo.szUnderWrite));
 			}
 			break;
 		}
@@ -693,11 +693,11 @@ void GameLobbyScene::onSubUserState(void * pDataBuffer, unsigned short wDataSize
 	{
 	case US_SIT://坐下
 		{
-			CCLog("state==sit-----------%ld<<%s>>",info->dwUserID,__FUNCTION__);
+			CCLOG("state==sit-----------%ld<<%s>>",info->dwUserID,__FUNCTION__);
 			if (info->dwUserID==DataModel::sharedDataModel()->userInfo->dwUserID){
 			
 				//DataModel::sharedDataModel()->isSit=true;
-				CCLog("坐下:table: %d desk:%d",info->UserStatus.wTableID,info->UserStatus.wChairID);
+				CCLOG("坐下:table: %d desk:%d",info->UserStatus.wTableID,info->UserStatus.wChairID);
 				DataModel::sharedDataModel()->userInfo->wTableID=info->UserStatus.wTableID;
 				DataModel::sharedDataModel()->userInfo->wChairID=info->UserStatus.wChairID;
 				
@@ -707,7 +707,7 @@ void GameLobbyScene::onSubUserState(void * pDataBuffer, unsigned short wDataSize
 		break;
 	case US_FREE://站立
 		{
-			CCLog("state==free-----------%ld",info->dwUserID);
+			CCLOG("state==free-----------%ld",info->dwUserID);
 			if (info->dwUserID==DataModel::sharedDataModel()->userInfo->dwUserID)
 			{
 				//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_US_FREE,NULL);
@@ -719,7 +719,7 @@ void GameLobbyScene::onSubUserState(void * pDataBuffer, unsigned short wDataSize
 		break;
 	case US_READY://同意
 		{
-			CCLog("state==ready-----------%ld<<%s>>",info->dwUserID,__FUNCTION__);
+			CCLOG("state==ready-----------%ld<<%s>>",info->dwUserID,__FUNCTION__);
 		}
 		break;
 	case US_PLAYING:
@@ -728,11 +728,11 @@ void GameLobbyScene::onSubUserState(void * pDataBuffer, unsigned short wDataSize
 			{
 				//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_CONFIG_FINISH,NULL);
 			}
-			CCLog("state==playing-----------%ld",info->dwUserID);
+			CCLOG("state==playing-----------%ld",info->dwUserID);
 		}
 		break;
 	default:
-		CCLog("state==Other userID:%ld 状态：%d",info->dwUserID,info->UserStatus.cbUserStatus);
+		CCLOG("state==Other userID:%ld 状态：%d",info->dwUserID,info->UserStatus.cbUserStatus);
 		break;
 	}
 }

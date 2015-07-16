@@ -16,7 +16,7 @@ Thread::Thread() : status(UNINITIALIZED), sem(NULL)
 
 Thread::~Thread()
 {
-	CCLog("~Thread");
+	CCLOG("~Thread");
 	End();
 }
 

@@ -12,7 +12,7 @@ PopDialogBoxOtherLoading::PopDialogBoxOtherLoading()
 	timerIndex = 0;
 }
 PopDialogBoxOtherLoading::~PopDialogBoxOtherLoading() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 }
 void PopDialogBoxOtherLoading::onEnter(){
 	CCLayer::onEnter();

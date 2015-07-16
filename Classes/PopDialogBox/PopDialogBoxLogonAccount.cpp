@@ -18,7 +18,7 @@ PopDialogBoxLogonAccount::PopDialogBoxLogonAccount()
 	DataModel::sharedDataModel()->sLogonPassword = Tools::getStringByRMS(RMS_LOGON_PASSWORD);
 }
 PopDialogBoxLogonAccount::~PopDialogBoxLogonAccount() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 }
 void PopDialogBoxLogonAccount::onEnter(){
 	CCLayer::onEnter();
@@ -57,7 +57,7 @@ void PopDialogBoxLogonAccount::onTextFieldAccount(CCObject* obj, TextFiledEventT
 	switch (type)
 	{
 	case TEXTFIELD_EVENT_ATTACH_WITH_IME:
-		//CCLog("attach<<%s>>",__FUNCTION__);
+		//CCLOG("attach<<%s>>",__FUNCTION__);
 		break;
 	case TEXTFIELD_EVENT_INSERT_TEXT:
 	case TEXTFIELD_EVENT_DETACH_WITH_IME:
@@ -72,7 +72,7 @@ void PopDialogBoxLogonAccount::onTextFieldAccount(CCObject* obj, TextFiledEventT
 				DataModel::sharedDataModel()->sLogonPassword=pTF->getStringValue();
 			}
 		}
-		CCLog("detach<<%s>>",__FUNCTION__);
+		CCLOG("detach<<%s>>",__FUNCTION__);
 		break;
 	default:
 		break;
@@ -87,7 +87,7 @@ void PopDialogBoxLogonAccount::onMenuLogon(CCObject *object, TouchEventType type
 			CCEditBox *pEBPassword = (CCEditBox*)pTPassword->getNodeByTag(TAG_INPUT_EDIT_BOX);
 			if (strcmp(pEBAccount->getText(), "") == 0 || strcmp(pEBPassword->getText(), "") == 0)
 			{
-				CCLog("帐号、密码不能为空<<%s>>",__FUNCTION__);
+				CCLOG("帐号、密码不能为空<<%s>>",__FUNCTION__);
 			}else
 			{
 				DataModel::sharedDataModel()->sLogonAccount = pEBAccount->getText();

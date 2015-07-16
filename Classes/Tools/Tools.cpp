@@ -367,14 +367,14 @@ std::string Tools::createStringToLength(const std::string &str,int begin,int len
 			{
 				continue;
 			}
-			CCLog("%s<<%s>>", dump[i].c_str(), __FUNCTION__);
+			CCLOG("%s<<%s>>", dump[i].c_str(), __FUNCTION__);
 			str=CCString::createWithFormat("%s%s",str->getCString(),dump[i].c_str());
 		}
 		if (dump.size()>length)
 		{
 			str=CCString::createWithFormat("%s...",str->getCString());
 		}
-		CCLog("lengStr:%d<<%s>>",dump.size(),__FUNCTION__);
+		CCLOG("lengStr:%d<<%s>>",dump.size(),__FUNCTION__);
 		return str->getCString();
 	} else {
 		printf("str is not string\n");

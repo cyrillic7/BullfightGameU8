@@ -14,7 +14,7 @@ PopDialogBoxAbout::PopDialogBoxAbout()
 	readAboutText();
 }
 PopDialogBoxAbout::~PopDialogBoxAbout() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 }
 void PopDialogBoxAbout::onEnter(){
 	CCLayer::onEnter();

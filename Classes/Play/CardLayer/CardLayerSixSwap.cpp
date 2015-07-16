@@ -10,7 +10,7 @@ CardLayerSixSwap::CardLayerSixSwap()
 {
 }
 CardLayerSixSwap::~CardLayerSixSwap() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 	this->removeAllChildrenWithCleanup(true);
 }
 void CardLayerSixSwap::onEnter(){
@@ -55,7 +55,7 @@ bool CardLayerSixSwap::promptOx(int oxIndex){
 				}
 			}
 		}
-		CCLog("niu:%d",GetCardType(tempCard,5));
+		CCLOG("niu:%d",GetCardType(tempCard,5));
 	}
 	return bCardValue>0;
 }
@@ -72,7 +72,7 @@ void CardLayerSixSwap::sortingOx(int chairID,int showChairiD){
 	BYTE bCardData[MAX_COUNT];
 	memcpy(bCardData, DataModel::sharedDataModel()->card[chairID], sizeof(bCardData));
 	BYTE bCardValue = GetCardType(bCardData, MAX_COUNT, bCardData);
-	CCLog("====:%d<<%s>>",bCardValue,__FUNCTION__);
+	CCLOG("====:%d<<%s>>",bCardValue,__FUNCTION__);
 	//assert(bCardValue > 0);
 	//float orgCradY = 2000;
 	//重排牛牛牌顺序
@@ -303,14 +303,14 @@ void CardLayerSixSwap::moveCardAction(CCArmature *armature, float fTime, CCPoint
 }
 //单张牌发完回调
 void CardLayerSixSwap::onSendCardFinish(CCNode *node){
-	//CCLog("nodeTag:---------------------%d <<%s>>",node->getTag(), __FUNCTION__);
+	//CCLOG("nodeTag:---------------------%d <<%s>>",node->getTag(), __FUNCTION__);
 	setSendCardState(SEND_STATE_WAIT);
 	sSendCardCount++;
 	if (sSendCardCount%MAX_CARD_COUNT==0&&node->getTag()==3)
 	
 	//if (sSendCardCount==getCurAllCardCount()*MAX_CARD_COUNT)
 	{
-		//CCLog("onSendCardFinish:%d   %d <<%s>>",sSendCardCount,getCurAllCardCount()*MAX_CARD_COUNT, __FUNCTION__);
+		//CCLOG("onSendCardFinish:%d   %d <<%s>>",sSendCardCount,getCurAllCardCount()*MAX_CARD_COUNT, __FUNCTION__);
 		getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_SWAP_CARD);
 		//DataModel::sharedDataModel()->getm()->setGameStateWithUpdate(MainSceneOxTwo::STATE_OPT_OX);
 		//DataModel::sharedDataModel()->getMainSceneOxTwo()->setServerStateWithUpdate(MainScene::STATE_FIGHT_BANKER);

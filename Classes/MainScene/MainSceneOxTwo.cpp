@@ -15,7 +15,7 @@ MainSceneOxTwo::MainSceneOxTwo()
 {
 }
 MainSceneOxTwo::~MainSceneOxTwo(){
-	CCLog("~ <<%s>>", __FUNCTION__);
+	CCLOG("~ <<%s>>", __FUNCTION__);
 	//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 	GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
 	
@@ -83,7 +83,7 @@ void MainSceneOxTwo::onEventSendCardFnish(){
 /*void MainScene::testLogic(){
 	BYTE tempCard[5] = { 2, 2, 3, 8, 6 };
 	bool ox = GetOxCard(tempCard, 5);
-	CCLog("ox:%d", ox);
+	CCLOG("ox:%d", ox);
 	BYTE tempCard[5] = {2,2,3,8,6};
 	BYTE tempFristCard[5] = { 2, 2, 2, 4, 5 };
 	BYTE tempNextCard[5] = { 2, 2, 2, 4, 6 };
@@ -92,12 +92,12 @@ void MainSceneOxTwo::onEventSendCardFnish(){
 
 	for (int i = 0; i < 5; i++)
 	{
-		CCLog("--==:%d", tempCard[i]);
+		CCLOG("--==:%d", tempCard[i]);
 	}
-	CCLog("%d", ox);
+	CCLOG("%d", ox);
 
 	bool compare=logic->CompareCard(tempFristCard, tempNextCard, 5);
-	CCLog("--:%d", compare);
+	CCLOG("--:%d", compare);
 
 	CC_SAFE_DELETE(logic);
 }*/

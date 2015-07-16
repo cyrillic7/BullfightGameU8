@@ -66,7 +66,7 @@ void GameControlOxOneByOne::menuOpenCard(CCObject* pSender, TouchEventType type)
 }
 //用户进入
 void GameControlOxOneByOne::onUserEnter(){
-	//CCLog("<<%s>>",__FUNCTION__);
+	//CCLOG("<<%s>>",__FUNCTION__);
 	/*std::map<long, tagUserInfo>::iterator iter;
 	for (iter = DataModel::sharedDataModel()->mTagUserInfo.begin(); iter != DataModel::sharedDataModel()->mTagUserInfo.end(); iter++)
 	{
@@ -74,7 +74,7 @@ void GameControlOxOneByOne::onUserEnter(){
 		{
 			continue;
 		}
-		CCLog("server:%d  view位置 :%d   me:%d %s<<%s>>", iter->second.wChairID, getViewChairID(iter->second.wChairID), DataModel::sharedDataModel()->userInfo->wChairID, Tools::GBKToUTF8(iter->second.szNickName), __FUNCTION__);
+		CCLOG("server:%d  view位置 :%d   me:%d %s<<%s>>", iter->second.wChairID, getViewChairID(iter->second.wChairID), DataModel::sharedDataModel()->userInfo->wChairID, Tools::GBKToUTF8(iter->second.szNickName), __FUNCTION__);
 		getMainScene()->playerLayer->setUserInfo(getViewChairID(iter->second.wChairID), iter->second);
 
 	}*/
@@ -100,14 +100,14 @@ void GameControlOxOneByOne::onUserEnter(){
 	{
 		if (iter->second.wChairID > 5 || iter->second.wChairID < 0)
 		{
-			CCLog("------------->6 <1 %d<<%s>>",iter->second.wChairID,__FUNCTION__);
+			CCLOG("------------->6 <1 %d<<%s>>",iter->second.wChairID,__FUNCTION__);
 			//tempTagUserInfo.erase(iter++);
 			continue;
 		}
-		CCLog("server:%d  view位置 :%d   me:%d %s<<%s>>",iter->second.wChairID, getViewChairID(iter->second.wChairID),DataModel::sharedDataModel()->userInfo->wChairID,Tools::GBKToUTF8(iter->second.szNickName), __FUNCTION__);
+		CCLOG("server:%d  view位置 :%d   me:%d %s<<%s>>",iter->second.wChairID, getViewChairID(iter->second.wChairID),DataModel::sharedDataModel()->userInfo->wChairID,Tools::GBKToUTF8(iter->second.szNickName), __FUNCTION__);
 		getMainScene()->playerLayer->setUserInfo(getViewChairID(iter->second.wChairID), iter->second);
 	}
-	CCLog("=======================================<<%s>>",__FUNCTION__);
+	CCLOG("=======================================<<%s>>",__FUNCTION__);
 	//DataModel::sharedDataModel()->mTagUserInfo.clear();
 }
 /*void GameControlOxOneByOne::onUserEnterWithUpdate(tagUserInfo *user){
@@ -405,7 +405,7 @@ void GameControlOxOneByOne::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, u
 	}
 		break;
 	default:
-		CCLog("--------------------gameIng:%d<<%s>>", wSubCmdID, __FUNCTION__);
+		CCLOG("--------------------gameIng:%d<<%s>>", wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -439,7 +439,7 @@ bool GameControlOxOneByOne::OnSubAddScore(const void * pBuffer, WORD wDataSize)
 	//效验数据
 	if (wDataSize != sizeof(CMD_S_AddScore)) return false;
 	CMD_S_AddScore * pAddScore = (CMD_S_AddScore *)pBuffer;
-	CCLog("userScore : %lld<<%s>>",pAddScore->lAddScoreCount,__FUNCTION__);
+	CCLOG("userScore : %lld<<%s>>",pAddScore->lAddScoreCount,__FUNCTION__);
 	/*//删除定时器/控制按钮
 	if (IsCurrentUser(pAddScore->wAddScoreUser) && m_GameClientView.m_btOneScore.IsWindowVisible() == TRUE)
 	{
@@ -581,7 +581,7 @@ bool GameControlOxOneByOne::OnSubSendCard(const void * pBuffer, WORD wDataSize)
 	//效验数据
 	if (wDataSize != sizeof(CMD_S_SendCard)) return false;
 	CMD_S_SendCard * pSendCard = (CMD_S_SendCard *)pBuffer;
-	CCLog("-----------------------------------发牌");
+	CCLOG("-----------------------------------发牌");
 	for (int i = 0; i < MAX_PLAYER; i++)
 	{
 		int viewChair = getViewChairID(i);
@@ -596,9 +596,9 @@ bool GameControlOxOneByOne::OnSubSendCard(const void * pBuffer, WORD wDataSize)
 				getMainScene()->cardLayer->canSendCard[viewChair] = false;
 			}
 		}
-		CCLog("----------static %d<<%s>>", pSendCard->cbPlayStatus[i], __FUNCTION__);
+		CCLOG("----------static %d<<%s>>", pSendCard->cbPlayStatus[i], __FUNCTION__);
 	}
-	CCLog("-++++++++++++++----------------------------------发牌");
+	CCLOG("-++++++++++++++----------------------------------发牌");
 	getMainScene()->setServerStateWithUpdate(MainSceneOxTwo::STATE_SEND_CARD);
 	/*
 	//效验数据
@@ -670,7 +670,7 @@ bool GameControlOxOneByOne::OnSubOpenCard(const void * pBuffer, WORD wDataSize)
 	//效验数据
 	if (wDataSize != sizeof(CMD_S_Open_Card)) return false;
 	CMD_S_Open_Card * pOpenCard = (CMD_S_Open_Card *)pBuffer;
-	CCLog("openCardID:%d  bOpen:%d", pOpenCard->wPlayerID, pOpenCard->bOpen);
+	CCLOG("openCardID:%d  bOpen:%d", pOpenCard->wPlayerID, pOpenCard->bOpen);
 	/*
 	//设置变量
 	WORD wMeChairID=GetMeChairID();

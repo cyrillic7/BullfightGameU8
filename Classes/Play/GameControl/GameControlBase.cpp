@@ -134,7 +134,7 @@ void GameControlBase::initTimer(UILayer *pWidget){
 //触摸
 bool GameControlBase::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent){
 	CCPoint touchPoint = this->convertTouchToNodeSpace(pTouch);
-	CCLog("meChiarID:%d <<%s>>", DataModel::sharedDataModel()->userInfo->wChairID, __FUNCTION__);
+	CCLOG("meChiarID:%d <<%s>>", DataModel::sharedDataModel()->userInfo->wChairID, __FUNCTION__);
 	unsigned short beginPos = getViewChairID(DataModel::sharedDataModel()->userInfo->wChairID);
 	getMainScene()->cardLayer->touchCard(beginPos,touchPoint);
 	return true;
@@ -286,7 +286,7 @@ void GameControlBase::menuChangeChair(CCObject* pSender, TouchEventType type){
 	case TOUCH_EVENT_ENDED:
 	{
 		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GR_USER, SUB_GR_CHANGE_TABLE);
-		CCLog("---- <<%s>>", __FUNCTION__);
+		CCLOG("---- <<%s>>", __FUNCTION__);
 		//CCStringMake 
 		//SUB_GR_USER_CHAIR_REQ
 	}
@@ -419,7 +419,7 @@ void GameControlBase::menuSwapCard(CCObject* pSender, TouchEventType type){
 		
 		
 
-		//CCLog("swapCard------------- <<%s>>", __FUNCTION__);
+		//CCLOG("swapCard------------- <<%s>>", __FUNCTION__);
 		//hideActionPrompt();
 	}
 	break;
@@ -623,7 +623,7 @@ void GameControlBase::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void *
 		frameEvent(wSubCmdID, pDataBuffer, wDataSize);
 		break;
 	default:
-		CCLog("---------------- %d  %d <<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
+		CCLOG("---------------- %d  %d <<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -643,23 +643,23 @@ void GameControlBase::frameEvent(WORD wSubCmdID, void * pDataBuffer, unsigned sh
 	{
 	case SUB_GF_GAME_STATUS:
 	{
-		CCLog("%s<<%s>>", Tools::GBKToUTF8("游戏状态 "), __FUNCTION__);
+		CCLOG("%s<<%s>>", Tools::GBKToUTF8("游戏状态 "), __FUNCTION__);
 		OnSocketSubGameStatus(pDataBuffer, wDataSize);
 	}
 	break;
 	case SUB_GF_SYSTEM_MESSAGE:
 	{
-		CCLog("系统消息<<%s>>", __FUNCTION__);
+		CCLOG("系统消息<<%s>>", __FUNCTION__);
 	}
 	break;
 	case SUB_GF_GAME_SCENE:
 	{
-		CCLog("游戏场景<<%s>>", __FUNCTION__);
+		CCLOG("游戏场景<<%s>>", __FUNCTION__);
 		OnEventSceneMessage(pDataBuffer, wDataSize);
 	}
 	break;
 	default:
-		CCLog("----------------sub:%d<<%s>>", wSubCmdID, __FUNCTION__);
+		CCLOG("----------------sub:%d<<%s>>", wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -700,7 +700,7 @@ bool GameControlBase::OnSubCallBanker(const void * pBuffer, WORD wDataSize){
 	CMD_S_CallBanker * pCallBanker = (CMD_S_CallBanker *)pBuffer;
 	/*if(!pCallBanker->bFirstTimes && pCallBanker->wCallBanker==getMeChairID())
 	{
-	CCLog("推庄");
+	CCLOG("推庄");
 	}*/
 	//始叫用户
 	if (!IsLookonMode() && pCallBanker->wCallBanker == getMeChairID())
@@ -799,7 +799,7 @@ bool GameControlBase::OnSubGameStart(const void * pBuffer, WORD wDataSize){
 	if (wDataSize != sizeof(CMD_S_GameStart)) return false;
 	CMD_S_GameStart * pGameStart = (CMD_S_GameStart *)pBuffer;
 	wBankerUser = pGameStart->wBankerUser;
-	//CCLog("开始游戏--庄家:%d   最大:::%lld",pGameStart->wBankerUser,pGameStart->lTurnMaxScore);
+	//CCLOG("开始游戏--庄家:%d   最大:::%lld",pGameStart->wBankerUser,pGameStart->lTurnMaxScore);
 	DataModel::sharedDataModel()->m_lTurnMaxScore = pGameStart->lTurnMaxScore;
 	//设置筹码
 	for (int i = 0; i < 4; i++)
@@ -835,7 +835,7 @@ bool GameControlBase::OnSubAddScore(const void * pBuffer, WORD wDataSize)
 	//效验数据
 	if (wDataSize != sizeof(CMD_S_AddScore)) return false;
 	CMD_S_AddScore * pAddScore = (CMD_S_AddScore *)pBuffer;
-	//CCLog("用户下注 %d  %lld",pAddScore->wAddScoreUser,pAddScore->lAddScoreCount);
+	//CCLOG("用户下注 %d  %lld",pAddScore->wAddScoreUser,pAddScore->lAddScoreCount);
 	hideActionPrompt();
 	/*
 	//变量定义
@@ -871,7 +871,7 @@ bool GameControlBase::OnSubSendCard(const void * pBuffer, WORD wDataSize)
 	//效验数据
 	if (wDataSize != sizeof(CMD_S_SendCard)) return false;
 	CMD_S_SendCard * pSendCard = (CMD_S_SendCard *)pBuffer;
-	CCLog("发牌");
+	CCLOG("发牌");
 
 	for (int i = 0; i < MAX_COUNT; i++)
 	{
@@ -933,7 +933,7 @@ bool GameControlBase::OnSubOpenCard(const void * pBuffer, WORD wDataSize)
 	//效验数据
 	if (wDataSize != sizeof(CMD_S_Open_Card)) return false;
 	CMD_S_Open_Card * pOpenCard = (CMD_S_Open_Card *)pBuffer;
-	CCLog("openCardID:%d  bOpen:%d", pOpenCard->wPlayerID, pOpenCard->bOpen);
+	CCLOG("openCardID:%d  bOpen:%d", pOpenCard->wPlayerID, pOpenCard->bOpen);
 
 	//hideActionPrompt();
 	//游戏信息
@@ -959,7 +959,7 @@ bool GameControlBase::OnSubPlayerExit(const void * pBuffer, WORD wDataSize)
 	//效验数据
 	if (wDataSize != sizeof(CMD_S_PlayerExit)) return false;
 	CMD_S_PlayerExit * pPlayerExit = (CMD_S_PlayerExit *)pBuffer;
-	CCLog("用户强退<<%s>>", __FUNCTION__);
+	CCLOG("用户强退<<%s>>", __FUNCTION__);
 	/*
 	WORD wID=pPlayerExit->wPlayerID;
 
@@ -991,7 +991,7 @@ bool GameControlBase::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 	//显示积分
 	for (WORD i = 0; i < GAME_PLAYER; i++)
 	{
-		//CCLog("%d  %lld",i,pGameEnd->lGameScore[i]);
+		//CCLOG("%d  %lld",i,pGameEnd->lGameScore[i]);
 		//if(GetTableUserItem(i)!=NULL)m_GameClientView.ShowScore(m_wViewChairID[i],true);
 		//m_GameClientView.SetUserTableScore(m_wViewChairID[i],pGameEnd->lGameScore[i]);
 		//m_GameClientView.SetUserTotalScore(m_wViewChairID[i],pGameEnd->lGameScore[i]);
@@ -1254,7 +1254,7 @@ void GameControlBase::OnUserFree(CCObject *obj){
 	//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 	GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
 	Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(!isExitGame));
-	CCLog("退出 ");
+	CCLOG("退出 ");
 }
 //用户进入
 void GameControlBase::onUserEnter(){
@@ -1263,7 +1263,7 @@ void GameControlBase::onUserEnter(){
 	{
 		if (iter->second.dwUserID != DataModel::sharedDataModel()->userInfo->dwUserID)
 		{
-			CCLog("ID:%ld otherID:%ld   name:%s<<%s>>", iter->second.dwUserID, DataModel::sharedDataModel()->userInfo->dwUserID,
+			CCLOG("ID:%ld otherID:%ld   name:%s<<%s>>", iter->second.dwUserID, DataModel::sharedDataModel()->userInfo->dwUserID,
 				Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName), __FUNCTION__);
 			getMainScene()->playerLayer->setUserInfo(0, iter->second);
 			//DataModel::sharedDataModel()->getMainSceneOxOneByOne()->playerLayer->setUserInfo(0,iter->second);
@@ -1273,7 +1273,7 @@ void GameControlBase::onUserEnter(){
 			getMainScene()->playerLayer->setUserInfo(3, iter->second);
 			//DataModel::sharedDataModel()->getMainSceneOxOneByOne()->playerLayer->setUserInfo(3, iter->second);
 		}
-		//CCLog("--mm----------------nick:%s",Tools::GBKToUTF8(iter->second.szNickName));
+		//CCLOG("--mm----------------nick:%s",Tools::GBKToUTF8(iter->second.szNickName));
 	}
 	DataModel::sharedDataModel()->mTagUserInfo.clear();
 }
@@ -1297,10 +1297,10 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 				iterUser->second.wTableID = info->UserStatus.wTableID;
 				onUserEnter();
 			}
-			//CCLog("state==sit-----------%ld", info->dwUserID);
+			//CCLOG("state==sit-----------%ld", info->dwUserID);
 			if (info->dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID){
 				//DataModel::sharedDataModel()->isSit=true;
-				//CCLog("======================坐下:table: %d desk:%d", info->UserStatus.wTableID, info->UserStatus.wChairID);
+				//CCLOG("======================坐下:table: %d desk:%d", info->UserStatus.wTableID, info->UserStatus.wChairID);
 				DataModel::sharedDataModel()->userInfo->wTableID = info->UserStatus.wTableID;
 				DataModel::sharedDataModel()->userInfo->wChairID = info->UserStatus.wChairID;
 				if (getMainScene()->getGameState() == MainSceneBase::STATE_OBSERVER)
@@ -1351,11 +1351,11 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 
 				//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_CONFIG_FINISH,NULL);
 			}
-			//CCLog("state==playing-----------%ld",info->dwUserID);
+			//CCLOG("state==playing-----------%ld",info->dwUserID);
 		}
 		break;
 		default:
-			CCLog("state==Other userID:%ld 状态：%d", info->dwUserID, info->UserStatus.cbUserStatus);
+			CCLOG("state==Other userID:%ld 状态：%d", info->dwUserID, info->UserStatus.cbUserStatus);
 			break;
 		}
 	}
@@ -1370,7 +1370,7 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 	case SUB_GR_USER_SCORE://用户分数
 		break;
 	default:
-		CCLog("-------------------subCmdID: %d<<%s>>", wSubCmdID, __FUNCTION__);
+		CCLOG("-------------------subCmdID: %d<<%s>>", wSubCmdID, __FUNCTION__);
 		break;
 	}
 
@@ -1385,7 +1385,7 @@ void GameControlBase::onUserReady(CMD_GR_UserStatus *info){
 	{
 		getMainScene()->playerLayer->pPlayerData[0]->showActionType(PlayerData::ACTION_READY);
 	}
-	//CCLog("state==ready-----------%ld",info->dwUserID);
+	//CCLOG("state==ready-----------%ld",info->dwUserID);
 }
 //用户进入
 void GameControlBase::onSubUserEnter(void * pDataBuffer, unsigned short wDataSize){
@@ -1404,7 +1404,7 @@ void GameControlBase::onSubUserEnter(void * pDataBuffer, unsigned short wDataSiz
 	tagUserInfo UserInfo;
 	BYTE cbDataBuffer[SOCKET_TCP_PACKET + sizeof(TCP_Head)];
 	CopyMemory(cbDataBuffer, pDataBuffer, wDataSize);
-	//CCLog("--------------------------");
+	//CCLOG("--------------------------");
 	wPacketSize += sizeof(tagUserInfoHead);
 	while (true)
 	{
@@ -1418,23 +1418,23 @@ void GameControlBase::onSubUserEnter(void * pDataBuffer, unsigned short wDataSiz
 			CopyMemory(&UserInfo.szNickName, cbDataBuffer + wPacketSize, DataDescribe->wDataSize);
 			UserInfo.szNickName[CountArray(UserInfo.szNickName) - 1] = 0;
 			//std::string name=UserInfo.szNickName;
-			//CCLog("gameId:%ld nick:%s",pUserInfoHead->dwGameID,Tools::GBKToUTF8(UserInfo.szNickName));
+			//CCLOG("gameId:%ld nick:%s",pUserInfoHead->dwGameID,Tools::GBKToUTF8(UserInfo.szNickName));
 			//if (strcmp(Tools::GBKToUTF8(UserInfo.szNickName),"(null)")==0)
 			{
-				//CCLog("null"); 
+				//CCLOG("null"); 
 			}
 		}
 		break;
 		case DTP_GR_GROUP_NAME:
 		{
-			CCLog("社团");
+			CCLOG("社团");
 		}
 		break;
 		case DTP_GR_UNDER_WRITE:
 		{
 			CopyMemory(UserInfo.szUnderWrite, cbDataBuffer + wPacketSize, DataDescribe->wDataSize);
 			UserInfo.szUnderWrite[CountArray(UserInfo.szUnderWrite) - 1] = 0;
-			CCLog("签名:%s", Tools::GBKToUTF8(UserInfo.szUnderWrite));
+			CCLOG("签名:%s", Tools::GBKToUTF8(UserInfo.szUnderWrite));
 		}
 		break;
 		}
@@ -1461,8 +1461,8 @@ void GameControlBase::onSubUserEnter(void * pDataBuffer, unsigned short wDataSiz
 	UserInfo.wTableID = pUserInfoHead->wTableID;
 	BYTE cbDataBuffer[SOCKET_TCP_PACKET + sizeof(TCP_Head)];
 	CopyMemory(cbDataBuffer, pDataBuffer, wDataSize);
-	//CCLog("-------------------------%d",wDataSize);
-	//CCLog("userID:%ld , state:%d <<%s>>",pUserInfoHead->dwUserID,pUserInfoHead->cbUserStatus,__FUNCTION__);
+	//CCLOG("-------------------------%d",wDataSize);
+	//CCLOG("userID:%ld , state:%d <<%s>>",pUserInfoHead->dwUserID,pUserInfoHead->cbUserStatus,__FUNCTION__);
 	wPacketSize += sizeof(tagMobileUserInfoHead);
 	while (true)
 	{
@@ -1479,14 +1479,14 @@ void GameControlBase::onSubUserEnter(void * pDataBuffer, unsigned short wDataSiz
 		break;
 		case DTP_GR_GROUP_NAME:
 		{
-			CCLog("社团");
+			CCLOG("社团");
 		}
 		break;
 		case DTP_GR_UNDER_WRITE:
 		{
 			CopyMemory(UserInfo.szUnderWrite, cbDataBuffer + wPacketSize, DataDescribe->wDataSize);
 			UserInfo.szUnderWrite[CountArray(UserInfo.szUnderWrite) - 1] = 0;
-			CCLog("签名:%s", Tools::GBKToUTF8(UserInfo.szUnderWrite));
+			CCLOG("签名:%s", Tools::GBKToUTF8(UserInfo.szUnderWrite));
 		}
 		break;
 		}
@@ -1562,7 +1562,7 @@ void GameControlBase::standUpWithExit(){
 	else
 	{
 		getMainScene()->addLoadingLayer("");
-		CCLog("-------userStandUp.wChairID :%d<<%s>>", userStandUp.wChairID, __FUNCTION__);
+		CCLOG("-------userStandUp.wChairID :%d<<%s>>", userStandUp.wChairID, __FUNCTION__);
 		//发送消息
 		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GR_USER, SUB_GR_USER_STANDUP, &userStandUp, sizeof(userStandUp));
 	}

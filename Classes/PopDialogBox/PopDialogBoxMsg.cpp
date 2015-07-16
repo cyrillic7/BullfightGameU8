@@ -15,7 +15,7 @@ PopDialogBoxMsg::PopDialogBoxMsg()
     
 }
 PopDialogBoxMsg::~PopDialogBoxMsg() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 }
 void PopDialogBoxMsg::onEnter(){
 	CCLayer::onEnter();
@@ -113,7 +113,7 @@ void PopDialogBoxMsg::updateListMsg(std::vector<std::string> qMsg){
 		pButton->setEnabled(false);
 				
 		UILabel *pLContent = static_cast<UILabel*>(pIVItem->getChildByName("LabelContent"));
-		CCLog("-:%s <<%s>>", GBKToUTF8(qMsg[i].c_str()), __FUNCTION__);
+		CCLOG("-:%s <<%s>>", GBKToUTF8(qMsg[i].c_str()), __FUNCTION__);
 		pLContent->setText(GBKToUTF8(qMsg[i].c_str()));
 		
 		

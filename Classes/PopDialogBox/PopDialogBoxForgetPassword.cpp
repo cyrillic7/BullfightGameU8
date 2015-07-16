@@ -19,7 +19,7 @@ PopDialogBoxForgetPassword::PopDialogBoxForgetPassword()
 	scheduleUpdate();
 }
 PopDialogBoxForgetPassword::~PopDialogBoxForgetPassword() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 	//
 	
 	unscheduleUpdate();
@@ -179,7 +179,7 @@ void PopDialogBoxForgetPassword::onEventReadMessage(WORD wMainCmdID, WORD wSubCm
 	}
 	break;
 	default:
-		CCLog("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
+		CCLOG("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -251,7 +251,7 @@ void PopDialogBoxForgetPassword::onEventUserService(WORD wSubCmdID, void * pData
 	}
 		break;
 	default:
-		CCLog("--------------sub:%d <<%s>>", wSubCmdID, __FUNCTION__);
+		CCLOG("--------------sub:%d <<%s>>", wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -299,5 +299,5 @@ void PopDialogBoxForgetPassword::onCloseTipInfo(){
 	//this->removeAllChildrenWithCleanup(true);
 	
 	this->removeFromParentAndCleanup(true);
-	CCLog("==============================11111111111111 <<%s>>", __FUNCTION__);
+	CCLOG("==============================11111111111111 <<%s>>", __FUNCTION__);
 }

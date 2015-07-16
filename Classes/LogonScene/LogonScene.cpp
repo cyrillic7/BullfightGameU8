@@ -50,7 +50,7 @@ LogonScene::LogonScene()
 		for (int i = 0; i <Json_getSize(_date); i++)
 		{
 			Json *s=Json_getItemAt(_date,i);
-			CCLog("--------===================== %s<<%s>>",s->valuestring, __FUNCTION__);
+			CCLOG("--------===================== %s<<%s>>",s->valuestring, __FUNCTION__);
 		}
 	}
 	Json* _record = root->child;
@@ -81,7 +81,7 @@ LogonScene::LogonScene()
 
 
 
-	//CCLog("--------:%s <<%s>>", platformAction("{\"act\":100}").c_str(), __FUNCTION__);
+	//CCLOG("--------:%s <<%s>>", platformAction("{\"act\":100}").c_str(), __FUNCTION__);
 	//初始化签到信息
 	initSignInfo();
 #if(DEBUG_TEST==0||DEBUG_TEST==1)
@@ -95,7 +95,7 @@ LogonScene::LogonScene()
 
 }
 LogonScene::~LogonScene(){
-	CCLog("~ <<%s>>", __FUNCTION__);
+	CCLOG("~ <<%s>>", __FUNCTION__);
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_GAME);
 	
 }
@@ -312,7 +312,7 @@ void LogonScene::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataB
 			onEventServerList(wSubCmdID,pDataBuffer,wDataSize);
 			break;
 	default:
-		CCLog("other:%d   %d<<%s>>",wMainCmdID,wSubCmdID,__FUNCTION__);
+		CCLOG("other:%d   %d<<%s>>",wMainCmdID,wSubCmdID,__FUNCTION__);
 		break;
 	}
 }
@@ -351,7 +351,7 @@ void LogonScene::logonGame(){
 	m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
 	std::string md5PassWord = m.GetMd5();
 	strcpy(logonAccounts.szPassword, md5PassWord.c_str());
-	CCLog("%s  --  :%s   %d<<%s>>", logonAccounts.szAccounts, logonAccounts.szPassword, sizeof(logonAccounts), __FUNCTION__);
+	CCLOG("%s  --  :%s   %d<<%s>>", logonAccounts.szAccounts, logonAccounts.szPassword, sizeof(logonAccounts), __FUNCTION__);
 	gameSocket.SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &logonAccounts, sizeof(logonAccounts));
 	
 }
@@ -385,7 +385,7 @@ void LogonScene::registeredGame(){
 	std::string md5PassWord = m.GetMd5();
 	strcpy(registeredAccount.szLogonPass, md5PassWord.c_str());//登录密码
 	strcpy(registeredAccount.szInsurePass, md5PassWord.c_str());//银行密码
-	CCLog("registeredPassword:%s <<%s>>",registeredAccount.szLogonPass, __FUNCTION__);
+	CCLOG("registeredPassword:%s <<%s>>",registeredAccount.szLogonPass, __FUNCTION__);
 
 	registeredAccount.wFaceID = 1;//头像标识
 	registeredAccount.cbGender = 1;//用户性别
@@ -447,7 +447,7 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			//if (wDataSize != sizeof(CMD_MB_LogonSuccess)) return ;
 			if (wDataSize < sizeof(CMD_MB_LogonSuccess)) return;
 			CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)pDataBuffer;
-			CCLog("登录成功 %ld %s",ls->dwUserID,GBKToUTF8(ls->szNickName));
+			CCLOG("登录成功 %ld %s",ls->dwUserID,GBKToUTF8(ls->szNickName));
 			//赋值
 			strcpy(DataModel::sharedDataModel()->userInfo->szNickName,ls->szNickName);
 			DataModel::sharedDataModel()->userInfo->lScore=ls->lUserScore;
@@ -483,7 +483,7 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			long code = lf->lResultCode;
 			char *describeStr = lf->szDescribeString;
 			this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
-			CCLog("登录失败:%s",GBKToUTF8(describeStr));
+			CCLOG("登录失败:%s",GBKToUTF8(describeStr));
 			//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_GAME);
 		
 			gameSocket.Destroy(true);
@@ -501,7 +501,7 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			assert(wDataSize >= sizeof(CMD_MB_UpdateNotify));
 			if (wDataSize < sizeof(CMD_MB_UpdateNotify)) return;
 			CMD_MB_UpdateNotify *lf = (CMD_MB_UpdateNotify*)pDataBuffer;
-			CCLog("升级提示");
+			CCLOG("升级提示");
 		}
 		break;
 	case SUB_GP_LOBBY_IP:
@@ -520,7 +520,7 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 	}
 		break;
 	default:
-		CCLog("--------%d <<%s>>", wSubCmdID, __FUNCTION__);
+		CCLOG("--------%d <<%s>>", wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -540,9 +540,9 @@ void LogonScene::onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned s
 			for (int i = 0; i < count; i++)
 			{
 				tagGameKind *gs = (tagGameKind*)(cbDataBuffer + i*sizeof(tagGameKind));
-				CCLog("---<<%s>>",__FUNCTION__);
+				CCLOG("---<<%s>>",__FUNCTION__);
 			}
-			CCLog("获取游戏种类");
+			CCLOG("获取游戏种类");
 		}
 		break;
 	case SUB_MB_LIST_SERVER://房间列表
@@ -574,23 +574,23 @@ void LogonScene::onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned s
 				else if (tempTag->wKindID == 130)
 				{
 					DataModel::sharedDataModel()->tagGameServerListOxOneByOne.push_back(tempTag);
-					CCLog("port %d  %d  %s<<%s>>", tempTag->wServerPort, tempTag->wSortID, GBKToUTF8(tempTag->szDescription), __FUNCTION__);
+					CCLOG("port %d  %d  %s<<%s>>", tempTag->wServerPort, tempTag->wSortID, GBKToUTF8(tempTag->szDescription), __FUNCTION__);
 
 				}
 				else if (tempTag->wKindID == 430)
 				{
 					DataModel::sharedDataModel()->tagGameServerListSixSwap.push_back(tempTag);
-					CCLog("port %d  %d  six swap %s<<%s>>", tempTag->wServerPort, tempTag->wSortID, GBKToUTF8(tempTag->szDescription), __FUNCTION__);
+					CCLOG("port %d  %d  six swap %s<<%s>>", tempTag->wServerPort, tempTag->wSortID, GBKToUTF8(tempTag->szDescription), __FUNCTION__);
 
 				}
 				else
 				{
-					CCLog("port %d  %d  %s<<%s>>", tempTag->wServerPort, tempTag->wSortID, GBKToUTF8(tempTag->szDescription), __FUNCTION__);
+					CCLOG("port %d  %d  %s<<%s>>", tempTag->wServerPort, tempTag->wSortID, GBKToUTF8(tempTag->szDescription), __FUNCTION__);
 				}
 				
 				//sort(DataModel::sharedDataModel()->tagGameServerList.begin(), DataModel::sharedDataModel()->tagGameServerList.end(), less_second);
 				
-              //  CCLog("port-----:%d ",tempTag->wServerPort);
+              //  CCLOG("port-----:%d ",tempTag->wServerPort);
 			}
 			DataModel::sharedDataModel()->sortVector(DataModel::sharedDataModel()->tagGameServerListOxTwo);
 			DataModel::sharedDataModel()->sortVector(DataModel::sharedDataModel()->tagGameServerListOxHundred);
@@ -607,12 +607,12 @@ void LogonScene::onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned s
 		}
 		break;
 	default:
-		CCLog("other:%d<<%s>>",wSubCmdID,__FUNCTION__);
+		CCLOG("other:%d<<%s>>",wSubCmdID,__FUNCTION__);
 		break;
 	}
 }
 void LogonScene::onOpen(){
-	CCLog("open <<%s>>", __FUNCTION__);
+	CCLOG("open <<%s>>", __FUNCTION__);
 }
 void LogonScene::onError(const char* sError){
 	

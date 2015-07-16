@@ -20,7 +20,7 @@ PopDialogBoxTask::PopDialogBoxTask()
 	scheduleUpdate();
 }
 PopDialogBoxTask::~PopDialogBoxTask() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
 }
 void PopDialogBoxTask::onEnter(){
@@ -142,7 +142,7 @@ void PopDialogBoxTask::updateListTask(){
 		UILabel *pTaskName = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("ImageTitle")->getChildByName("LabelTitle"));
 		pTaskName->setText(GBKToUTF8(vecTaskInfo[i].szTitle));
 		//vecTaskInfo[i].szImgName
-		//CCLog("%s <<%s>>", IMAGE_URL(vecTaskInfo[inserterPos].szImgName), __FUNCTION__);
+		//CCLOG("%s <<%s>>", IMAGE_URL(vecTaskInfo[inserterPos].szImgName), __FUNCTION__);
 		UIImageView *pIVRewardIconBg = static_cast<UIImageView*>(pLVTemp->getItem(inserterPos)->getChildByName("ImageRewardIconBg"));
 
 		addDownloadImage(pIVRewardIconBg, vecTaskInfo[inserterPos].szImgName, CCPointZero, 1, 0, false);
@@ -182,7 +182,7 @@ void PopDialogBoxTask::updateListTask(){
 void PopDialogBoxTask::onMenuReward(CCObject *object, TouchEventType type){
 	if (type == TOUCH_EVENT_ENDED){
 		UIButton *pBTemp = (UIButton*)object;
-		//CCLog("tag:%d <<%s>>",pBTemp->getTag(), __FUNCTION__);
+		//CCLOG("tag:%d <<%s>>",pBTemp->getTag(), __FUNCTION__);
 		PopDialogBox *box = PopDialogBoxLoading::create();
 		this->addChild(box, 10, TAG_LOADING);
 		//box->setSocketName(SOCKET_LOBBY);
@@ -215,7 +215,7 @@ void PopDialogBoxTask::onEventReadMessageLobby(WORD wMainCmdID, WORD wSubCmdID, 
 	}
 		break;
 	default:
-		CCLog("main:%d %d<<%s>>",wMainCmdID,wSubCmdID, __FUNCTION__);
+		CCLOG("main:%d %d<<%s>>",wMainCmdID,wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -234,7 +234,7 @@ void PopDialogBoxTask::onEventTask(WORD wSubCmdID, void * pDataBuffer, unsigned 
 	}
 		break;
 	default:
-		CCLog("sub:%d <<%s>>",wSubCmdID, __FUNCTION__);
+		CCLOG("sub:%d <<%s>>",wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -282,7 +282,7 @@ void PopDialogBoxTask::onSubReward(void * pDataBuffer, unsigned short wDataSize)
 	CMD_GL_TaskIDLog * pTaskIDLog= (CMD_GL_TaskIDLog*)pDataBuffer;
 	if (pTaskIDLog->lResultCode==0)
 	{
-		//CCLog(" <<%s>>", __FUNCTION__);
+		//CCLOG(" <<%s>>", __FUNCTION__);
 	}
 	showTipInfo(GBKToUTF8(pTaskIDLog->szDescribeString));
 	//移除loading

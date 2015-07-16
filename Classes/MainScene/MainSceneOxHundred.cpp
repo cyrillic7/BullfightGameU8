@@ -19,7 +19,7 @@ MainSceneOxHundred::MainSceneOxHundred()
 	//Tools::playMusic(kMusicHundred);
 }
 MainSceneOxHundred::~MainSceneOxHundred(){
-	CCLog("~ <<%s>>", __FUNCTION__);
+	CCLOG("~ <<%s>>", __FUNCTION__);
     Tools::stopMusic();
 	//TCPSocketControl::sharedTCPSocketControl()->stopSocket();
 	

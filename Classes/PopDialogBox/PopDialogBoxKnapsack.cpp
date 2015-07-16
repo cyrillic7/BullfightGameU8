@@ -25,7 +25,7 @@ PopDialogBoxKnapsack::PopDialogBoxKnapsack()
 	scheduleUpdate();
 }
 PopDialogBoxKnapsack::~PopDialogBoxKnapsack() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_KNAPSACK);
 	gameSocket.Destroy(true);
@@ -151,7 +151,7 @@ void PopDialogBoxKnapsack::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, v
 	}
 	break;
 	default:
-		CCLog("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
+		CCLOG("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -191,7 +191,7 @@ void PopDialogBoxKnapsack::onSubGoodsList(void * pDataBuffer, unsigned short wDa
 		memcpy(&gpGoods, pGoods, sizeof(CMD_GP_Knapsack));
 		vecGoods.push_back(gpGoods);
 
-		//CCLog("%ld  %s<<%s>>", gpGoods.dwSortID,GBKToUTF8(gpGoods.szName), __FUNCTION__);
+		//CCLOG("%ld  %s<<%s>>", gpGoods.dwSortID,GBKToUTF8(gpGoods.szName), __FUNCTION__);
 		/*DWORD				dwID;
 		DWORD				dwPackType;								//类别1:礼包，2:道具
 		DWORD				dwPropID;								//礼包或道具id

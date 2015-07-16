@@ -26,7 +26,7 @@ PopDialogBoxAuction::PopDialogBoxAuction()
 	scheduleUpdate();
 }
 PopDialogBoxAuction::~PopDialogBoxAuction() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_AUCTION_INFO);
 	gameSocket.Destroy(true);
@@ -187,7 +187,7 @@ void PopDialogBoxAuction::onMenuCancelAuction(CCObject *object, TouchEventType t
 		setAuctionItem(AUCTION_CANCEL);
 		connectServer();
 		connectSuccess();
-		//CCLog("auction:%d <<%s>>",auctionBuyIndex, __FUNCTION__);
+		//CCLOG("auction:%d <<%s>>",auctionBuyIndex, __FUNCTION__);
 		//showInputNumBox(BUY_AUCTION, GBKToUTF8(vecAuctionInfo[auctionBuyIndex].szAuctionName), "", vecAuctionInfo[auctionBuyIndex].dwPropNum, vecAuctionInfo[auctionBuyIndex].lGold, this);
 	}
 	break;
@@ -280,7 +280,7 @@ void PopDialogBoxAuction::onMenuSelectMyAuctionCell(CCObject *object, TouchEvent
 				pIVTempCell->setOpacity(30);
 			}
 		}
-		CCLog("%d <<%s>>",pIVCell->getTag(), __FUNCTION__);
+		CCLOG("%d <<%s>>",pIVCell->getTag(), __FUNCTION__);
 	}
 	break;
 	default:
@@ -585,8 +585,8 @@ void PopDialogBoxAuction::updateListHistoryAuctionRecord(){
 		//状态
 		UILabel *pAuctionState = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("Label1"));
 		pAuctionState->setText(vecHistoryAuction[i].dwType == 1 ? BaseAttributes::sharedAttributes()->sAuctionBuy.c_str() : BaseAttributes::sharedAttributes()->sAuctionSell.c_str());
-		CCLog("%ld <<%s>>",vecHistoryAuction[i].dwType, __FUNCTION__);
-		CCLog(" <<%s>>", __FUNCTION__);
+		CCLOG("%ld <<%s>>",vecHistoryAuction[i].dwType, __FUNCTION__);
+		CCLOG(" <<%s>>", __FUNCTION__);
 		/*//拍卖数量
 		UILabel *pGoodsCount = static_cast<UILabel*>(pLVAuction[0]->getItem(inserterPos)->getChildByName("Label1"));
 		pGoodsCount->setText(CCString::createWithFormat("%ld", vecAuctionInfo[i].dwPropNum)->getCString());*/
@@ -679,7 +679,7 @@ void PopDialogBoxAuction::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, vo
 	}
 		break;
 	default:
-		CCLog("sub:%d <<%s>>", wSubCmdID, __FUNCTION__);
+		CCLOG("sub:%d <<%s>>", wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -763,7 +763,7 @@ void PopDialogBoxAuction::connectSuccess(){
 		strcpy(gpUserID.szPassword, md5PassWord.c_str());
 		
 		bool isSend=gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_AUCTION, &gpUserID, sizeof(gpUserID));
-		CCLog("send <<%s>>", __FUNCTION__);
+		CCLOG("send <<%s>>", __FUNCTION__);
 	}
 		break;
 	case AUCTION_SELL_AUCTION://卖拍卖品
@@ -899,7 +899,7 @@ void PopDialogBoxAuction::onEventUserService(WORD wSubCmdID, void * pDataBuffer,
 	{
 		
 		CMD_GP_AuctionLog *Log = (CMD_GP_AuctionLog *)pDataBuffer;
-		CCLog(" <<%s>>", __FUNCTION__);
+		CCLOG(" <<%s>>", __FUNCTION__);
 		//showTipInfo(GBKToUTF8(Log->szDescribeString));
 	}
 		break;
@@ -924,7 +924,7 @@ void PopDialogBoxAuction::onEventUserService(WORD wSubCmdID, void * pDataBuffer,
 	}
 		break;
 	default:
-		CCLog("sub:%d <<%s>>", wSubCmdID, __FUNCTION__);
+		CCLOG("sub:%d <<%s>>", wSubCmdID, __FUNCTION__);
 		break;
 	}
 	//关掉scoket
@@ -1073,7 +1073,7 @@ void PopDialogBoxAuction::onSubSellAuction(void * pDataBuffer, unsigned short wD
 
 	}
 	showTipInfo(GBKToUTF8(pSellAuction->szDescribeString));
-	CCLog(" <<%s>>", __FUNCTION__);
+	CCLOG(" <<%s>>", __FUNCTION__);
 }
 //取消拍卖
 void PopDialogBoxAuction::onSubCancelAuction(void * pDataBuffer, unsigned short wDataSize){

@@ -27,7 +27,7 @@ PopDialogBoxShop::PopDialogBoxShop()
 	scheduleUpdate();
 }
 PopDialogBoxShop::~PopDialogBoxShop() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_SHOP);
 	gameSocket.Destroy(true);
@@ -135,7 +135,7 @@ void PopDialogBoxShop::onMenuMyPackaga(CCObject *object, TouchEventType type){
 		box->setIPopAssistKnapsack(this);
 		//tempSize++;
 		//updateListCommodity();
-		//CCLog(" <<%s>>", __FUNCTION__);
+		//CCLOG(" <<%s>>", __FUNCTION__);
 	}
 		break;
 	default:
@@ -226,7 +226,7 @@ void PopDialogBoxShop::changeSelectItem(ShopItem eItem){
 	{
 	case PopDialogBoxShop::SHOP_GIFT_PACKAGE:
 	{
-		//CCLog("gift <<%s>>", __FUNCTION__);
+		//CCLOG("gift <<%s>>", __FUNCTION__);
 		if (vecGift.size()<=0)
 		{
 			//连接服务器
@@ -242,7 +242,7 @@ void PopDialogBoxShop::changeSelectItem(ShopItem eItem){
 		break;
 	case PopDialogBoxShop::SHOP_PROP:
 	{
-		//CCLog("prop <<%s>>", __FUNCTION__);
+		//CCLOG("prop <<%s>>", __FUNCTION__);
 		if (vecProp.size()<=0)
 		{
 			//连接服务器
@@ -354,7 +354,7 @@ void PopDialogBoxShop::buyPropForType(){
 	strcpy(buyGift.szMachineID, "12");
 
 	bool isSend=gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_BUYGIFT, &buyGift, sizeof(CMD_GP_BuyGift));
-	CCLog("send: %d  <<%s>>",isSend, __FUNCTION__);
+	CCLOG("send: %d  <<%s>>",isSend, __FUNCTION__);
 }
 //连接成功
 void PopDialogBoxShop::connectSuccess(){
@@ -412,7 +412,7 @@ void PopDialogBoxShop::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void 
 	}
 		break;
 	default:
-		CCLog("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
+		CCLOG("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -433,7 +433,7 @@ void PopDialogBoxShop::onEventUserService(WORD wSubCmdID, void * pDataBuffer, un
 		onSubTreasure(pDataBuffer, wDataSize);
 		break;
 	default:
-		CCLog("sub:%d <<%s>>",wSubCmdID, __FUNCTION__);
+		CCLOG("sub:%d <<%s>>",wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
@@ -454,7 +454,7 @@ void PopDialogBoxShop::onSubGiftList(void * pDataBuffer, unsigned short wDataSiz
 		CMD_GP_Gift *pGPGift = (CMD_GP_Gift*)pDataBuffer;
 		CMD_GP_Gift gpGift;
 		memcpy(&gpGift, pGPGift, sizeof(CMD_GP_Gift));
-		//CCLog("propName:%s <<%s>>",GBKToUTF8(gpGift.szName), __FUNCTION__);
+		//CCLOG("propName:%s <<%s>>",GBKToUTF8(gpGift.szName), __FUNCTION__);
 		vec.push_back(gpGift);
 	}
 	updateListCommodity(&vec);

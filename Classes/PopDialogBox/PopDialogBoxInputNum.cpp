@@ -16,7 +16,7 @@ PopDialogBoxInputNum::PopDialogBoxInputNum()
     
 }
 PopDialogBoxInputNum::~PopDialogBoxInputNum() {
-	CCLog("~ <<%s>>",__FUNCTION__);
+	CCLOG("~ <<%s>>",__FUNCTION__);
 }
 void PopDialogBoxInputNum::onEnter(){
 	CCLayer::onEnter();
@@ -110,7 +110,7 @@ void PopDialogBoxInputNum::onTextFieldAccount(CCObject* obj, TextFiledEventType 
 	switch (type)
 	{
 	case TEXTFIELD_EVENT_ATTACH_WITH_IME:
-		//CCLog("attach<<%s>>",__FUNCTION__);
+		//CCLOG("attach<<%s>>",__FUNCTION__);
 		break;
 	case TEXTFIELD_EVENT_INSERT_TEXT:
 	case TEXTFIELD_EVENT_DETACH_WITH_IME:
