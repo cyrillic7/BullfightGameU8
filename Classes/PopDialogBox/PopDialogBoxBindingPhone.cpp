@@ -21,7 +21,7 @@ PopDialogBoxBindingPhone::~PopDialogBoxBindingPhone() {
 	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_BINDING_PHONE);
-	gameSocket.Destroy(true);
+	//gameSocket.Destroy(true);
 }
 void PopDialogBoxBindingPhone::onEnter(){
 	CCLayer::onEnter();

@@ -118,6 +118,12 @@ bool CGameSocket::Create(const char* pszServerIP, int nServerPort, int nBlockSec
 	if (pszServerIP == 0 || strlen(pszServerIP) > 15) {
 		return false;
 	}
+	if (eSocketState == SOCKET_STATE_CONNECT_ING)
+	{
+		return true;
+	}
+	setSocketState(SOCKET_STATE_CONNECT_ING);
+
 	resetData();
 #ifdef WIN32
 	WSADATA wsaData;

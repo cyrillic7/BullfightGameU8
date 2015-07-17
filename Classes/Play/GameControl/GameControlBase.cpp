@@ -33,7 +33,7 @@ GameControlBase::~GameControlBase(){
 	unschedule(SEL_SCHEDULE(&GameControlBase::updateTimer));
 	unscheduleUpdate();
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
-	GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
+	//GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
 }
 void GameControlBase::onEnter(){
 	CCLayer::onEnter();

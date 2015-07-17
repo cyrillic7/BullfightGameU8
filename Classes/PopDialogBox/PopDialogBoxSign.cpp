@@ -22,7 +22,7 @@ PopDialogBoxSign::~PopDialogBoxSign() {
 	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_SIGN);
-	gameSocket.Destroy(true);
+	//gameSocket.Destroy(true);
 }
 void PopDialogBoxSign::onEnter(){
 	CCLayer::onEnter();

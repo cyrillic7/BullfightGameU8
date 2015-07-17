@@ -21,7 +21,7 @@ PopDialogBoxRanking::~PopDialogBoxRanking() {
 	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_RANKING);
-	gameSocket.Destroy(true);
+	//gameSocket.Destroy(true);
 }
 void PopDialogBoxRanking::onEnter(){
 	CCLayer::onEnter();

@@ -325,9 +325,9 @@
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{54,57}}</string>
+                <string>{{10,10},{54,57}}</string>
                 <key>sourceSize</key>
-                <string>{54,57}</string>
+                <string>{74,77}</string>
             </dict>
             <key>u_user_info_btn_close_press.png</key>
             <dict>
@@ -338,9 +338,9 @@
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{54,57}}</string>
+                <string>{{10,10},{54,57}}</string>
                 <key>sourceSize</key>
-                <string>{54,57}</string>
+                <string>{74,77}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -352,7 +352,7 @@
             <key>size</key>
             <string>{248,822}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:8cdff83a421201ca264643c933208cfb:0eb2f2ace9b19d70bf6be7279e219575:06f34c26449d3ad34eefd08acebf5191$</string>
+            <string>$TexturePacker:SmartUpdate:22074279f49ee9bf735fdf1d1ce73b30:533c0b93324a0936f32fa4fac0c7cd98:06f34c26449d3ad34eefd08acebf5191$</string>
             <key>textureFileName</key>
             <string>UIButton.png</string>
         </dict>

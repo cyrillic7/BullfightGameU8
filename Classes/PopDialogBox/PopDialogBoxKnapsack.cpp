@@ -28,7 +28,7 @@ PopDialogBoxKnapsack::~PopDialogBoxKnapsack() {
 	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_KNAPSACK);
-	gameSocket.Destroy(true);
+	//gameSocket.Destroy(true);
 }
 void PopDialogBoxKnapsack::onEnter(){
 	CCLayer::onEnter();

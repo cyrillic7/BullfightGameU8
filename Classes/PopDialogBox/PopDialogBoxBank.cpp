@@ -28,7 +28,7 @@ PopDialogBoxBank::~PopDialogBoxBank() {
 	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_BANK);
-	gameSocket.Destroy(true);
+	//gameSocket.Destroy(true);
 }
 void PopDialogBoxBank::onEnter(){
 	CCLayer::onEnter();

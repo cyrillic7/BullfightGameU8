@@ -53,7 +53,7 @@ PopDialogBoxRecharge::~PopDialogBoxRecharge() {
 	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_RECHARGE);
-	gameSocket.Destroy(true);
+	//gameSocket.Destroy(true);
 }
 void PopDialogBoxRecharge::onEnter(){
 	CCLayer::onEnter();																					

@@ -23,7 +23,7 @@ PopDialogBoxUserInfo::~PopDialogBoxUserInfo() {
 	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_USER_INFO);
-	gameSocket.Destroy(true);
+	//gameSocket.Destroy(true);
 }
 void PopDialogBoxUserInfo::onEnter(){
 	CCLayer::onEnter();

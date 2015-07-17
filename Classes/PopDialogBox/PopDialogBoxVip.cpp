@@ -20,7 +20,7 @@ PopDialogBoxVip::~PopDialogBoxVip() {
 	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_VIP);
-	gameSocket.Destroy(true);
+	//gameSocket.Destroy(true);
 }
 void PopDialogBoxVip::onEnter(){
 	CCLayer::onEnter();

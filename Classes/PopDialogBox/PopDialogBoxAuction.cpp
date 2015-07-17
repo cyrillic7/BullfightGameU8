@@ -29,7 +29,7 @@ PopDialogBoxAuction::~PopDialogBoxAuction() {
 	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_AUCTION_INFO);
-	gameSocket.Destroy(true);
+	//gameSocket.Destroy(true);
 }
 void PopDialogBoxAuction::onEnter(){
 	CCLayer::onEnter();

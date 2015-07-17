@@ -30,7 +30,7 @@ PopDialogBoxShop::~PopDialogBoxShop() {
 	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_SHOP);
-	gameSocket.Destroy(true);
+	//gameSocket.Destroy(true);
 }
 void PopDialogBoxShop::onEnter(){
 	CCLayer::onEnter();

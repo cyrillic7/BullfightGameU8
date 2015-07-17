@@ -19,7 +19,7 @@ PopDialogBoxChangePassword::~PopDialogBoxChangePassword() {
 	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_CHANGE_PASSWORD);
-	gameSocket.Destroy(true);
+	//gameSocket.Destroy(true);
 }
 void PopDialogBoxChangePassword::onEnter(){
 	CCLayer::onEnter();

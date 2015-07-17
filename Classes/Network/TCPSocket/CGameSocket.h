@@ -71,6 +71,7 @@ public:
 		SOCKET_STATE_FREE=0,							//空闲
 		SOCKET_STATE_CONNECT_SUCCESS,					//连接成功
 		SOCKET_STATE_CONNECT_FAILURE,					//连接失败
+		SOCKET_STATE_CONNECT_ING,						//连接中
 		SOCKET_STATE_ERROR,								//错误
 		SOCKET_,
 	};
