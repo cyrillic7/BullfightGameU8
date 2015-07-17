@@ -265,7 +265,7 @@ const char * Tools::GBKToUTF8(const char * strChar){
 /*#ifdef WIN32*/
 	iconv_t iconvH;
 	//iconvH = iconv_open("unicode","ascii");
-	iconvH = iconv_open("utf-8","gb2312");
+	iconvH = iconv_open("utf-8","gbk");
 	//iconvH = iconv_open("gbk","utf-8");
 	if (iconvH == 0)
 	{

@@ -11,7 +11,7 @@
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{1,0},{174,309}}</string>
                 <key>sourceSize</key>
@@ -20,7 +20,7 @@
             <key>u_task_gold_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,423},{123,38}}</string>
+                <string>{{129,178},{123,38}}</string>
                 <key>offset</key>
                 <string>{0,-32}</string>
                 <key>rotated</key>
@@ -33,24 +33,37 @@
             <key>u_task_reward_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,313},{133,108}}</string>
+                <string>{{313,95},{133,108}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{1,1},{133,108}}</string>
                 <key>sourceSize</key>
                 <string>{135,110}</string>
             </dict>
+            <key>u_task_reword_bg.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{313,2},{126,91}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{126,91}}</string>
+                <key>sourceSize</key>
+                <string>{126,91}</string>
+            </dict>
             <key>u_task_title_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{137,313},{125,39}}</string>
+                <string>{{2,178},{125,39}}</string>
                 <key>offset</key>
                 <string>{0,1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,0},{125,39}}</string>
                 <key>sourceSize</key>
@@ -64,9 +77,9 @@
             <key>realTextureFileName</key>
             <string>UITask.png</string>
             <key>size</key>
-            <string>{178,463}</string>
+            <string>{441,230}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:2e937b4edaeee234d41dc9f9b304c799:ef8a8c380b81ea58dab16782bbd6f9a7:cb645da95b7066f070f8beb516c19937$</string>
+            <string>$TexturePacker:SmartUpdate:e70bf5dbb44edb5084bcc15d23d25103:3b6a4060dfe78b4330d03e6fd106d8ca:cb645da95b7066f070f8beb516c19937$</string>
             <key>textureFileName</key>
             <string>UITask.png</string>
         </dict>

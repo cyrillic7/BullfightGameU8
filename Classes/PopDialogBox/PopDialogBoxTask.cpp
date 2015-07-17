@@ -149,8 +149,27 @@ void PopDialogBoxTask::updateListTask(){
 		//任务说明
 		UILabel *pTaskEcplain = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("LabelExplain"));
 		pTaskEcplain->setText(GBKToUTF8(vecTaskInfo[i].szRemarks));
+		//任务奖励说明
+		UILabel *pLRewordContent = static_cast<UILabel*>(pIVRewardIconBg->getChildByName("ImageGoldBg ")->getChildByName("LabelRewordContent")); 
+		std::string sRewordContent = "";
+		if (vecTaskInfo[i].Award.dwAward1>0)
+		{
+			sRewordContent += CCString::createWithFormat("%s:%ld", GBKToUTF8(vecTaskInfo[i].Award.szAward1), vecTaskInfo[i].Award.dwAward1)->getCString();
+		}
+		if (vecTaskInfo[i].Award.dwAward2 > 0)
+		{
+			sRewordContent += CCString::createWithFormat("\n%s:%ld", GBKToUTF8(vecTaskInfo[i].Award.szAward2), vecTaskInfo[i].Award.dwAward2)->getCString();
+		}
+		if (vecTaskInfo[i].Award.dwAward3 > 0)
+		{
+			sRewordContent += CCString::createWithFormat("\n%s:%ld", GBKToUTF8(vecTaskInfo[i].Award.szAward3), vecTaskInfo[i].Award.dwAward3)->getCString();
+		}
+		pLRewordContent->setText(sRewordContent.c_str());
+		
+		//进度条背景
+		UIImageView *pIVProgressBar = static_cast<UIImageView*>(pLVTemp->getItem(inserterPos)->getChildByName("ImageProgressBar"));
 		//进度条
-		UILoadingBar *pLBTask = static_cast<UILoadingBar*>(pLVTemp->getItem(inserterPos)->getChildByName("ImageProgressBar")->getChildByName("ProgressBarTask"));
+		UILoadingBar *pLBTask = static_cast<UILoadingBar*>(pIVProgressBar->getChildByName("ProgressBarTask"));
 		float fCurProgress = vecTaskInfo[i].dwCurProgress;
 		float fPercent = fCurProgress / vecTaskInfo[i].dwProgress;
 		if (fPercent>1)
@@ -161,6 +180,8 @@ void PopDialogBoxTask::updateListTask(){
 		//当前进度
 		UILabel *pLCurProgress = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("LabelCurProgress"));
 		pLCurProgress->setText(CCString::createWithFormat("%ld/%ld",vecTaskInfo[i].dwCurProgress,vecTaskInfo[i].dwProgress)->getCString());
+		//“进度”字
+		UILabel *pLProgress = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("LabelProgress")); 
 		//领取按键
 		UIButton *pButton = static_cast<UIButton*>(pLVTemp->getItem(inserterPos)->getChildByName("ButtonReward"));
 		pButton->setTag(inserterPos);
@@ -170,11 +191,15 @@ void PopDialogBoxTask::updateListTask(){
 		{
 			pButton->setEnabled(true);
 			pLCurProgress->setVisible(false);
+			pIVProgressBar->setVisible(false);
+			pLProgress->setVisible(false);
 		}
 		else
 		{
 			pButton->setEnabled(false);
 			pLCurProgress->setVisible(true);
+			pIVProgressBar->setVisible(true);
+			pLProgress->setVisible(true);
 		}
 	}
 }
