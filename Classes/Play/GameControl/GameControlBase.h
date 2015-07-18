@@ -44,6 +44,7 @@ public:
 	ImageView *pIVChangeCard;
 	//准备容器
 	UIPanel *pPanelReady;
+	
 private:
 	//操作者提示动画
 	CCArmature *pArmatureActionPrompt;
@@ -58,6 +59,14 @@ private:
 	
 	//游戏结算层
 	GameEndLayer *pEndLayer;
+	//更多框
+	UIImageView *pIVMoer;
+	//是否显示更多
+	bool isShowMoer;
+	//设置
+	UIButton *pBSetting;
+	//退出
+	UIButton *pBExit;
 	//游戏状态
 protected:
 	bool							m_bAllowLookon;						//允许旁观
@@ -124,6 +133,10 @@ public:
 private:
 	//菜单////////////////////////////////////////////////////////////////////////
 	void menuPause(CCObject* pSender, TouchEventType type);
+	//设置
+	void onMenuSetting(CCObject* pSender, TouchEventType type);
+	//退出
+	void onMenuExit(CCObject* pSender, TouchEventType type);
 	//开牌
 	virtual void menuOpenCard(CCObject* pSender, TouchEventType type);
 	//提示按键

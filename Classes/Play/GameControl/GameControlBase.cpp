@@ -18,11 +18,13 @@
 #include "../../Network/SEvent.h"
 #include "../../MainScene/MainSceneBase.h"
 #include "../../Network/CMD_Server/PacketAide.h"
+#include "../../PopDialogBox/PopDialogBoxGISetting.h"
 
 GameControlBase::GameControlBase()
 	:pEndLayer(NULL)
 	, pLTimerPromptContent(NULL)
 	, isExitGame(false)
+	, isShowMoer(false)
 	{
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationActionPrompt.ExportJson));
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationGameIng.ExportJson));
@@ -47,7 +49,17 @@ void GameControlBase::onEnter(){
 
 	UIButton* button = static_cast<UIButton*>(pWidget->getWidgetByName("buttonPause"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuPause));
-
+	//更多
+	pIVMoer = static_cast<UIImageView*>(pWidget->getWidgetByName("ImageMoer"));
+	pIVMoer->setVisible(false);
+	//设置
+	pBSetting = static_cast<UIButton*>(pWidget->getWidgetByName("ButtonSetting"));
+	pBSetting->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::onMenuSetting));
+	pBSetting->setTouchEnabled(false);
+	//退出
+	pBExit = static_cast<UIButton*>(pWidget->getWidgetByName("ButtonExit"));
+	pBExit->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::onMenuExit));
+	pBExit->setTouchEnabled(false);
 	//设置牛牛容器
 	pOptOx = static_cast<UIPanel*>(pWidget->getWidgetByName("optOxPanel"));
 	pOptOx->setEnabled(false);
@@ -229,14 +241,35 @@ void GameControlBase::menuPause(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		//TCPSocketControl::sharedTCPSocketControl()->stopSocket();
-		
-		standUpWithExit();
-		//Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(false));
+		isShowMoer = !isShowMoer;
+		pIVMoer->setVisible(isShowMoer);
+		pBSetting->setTouchEnabled(isShowMoer);
+		pBExit->setTouchEnabled(isShowMoer);
+		//standUpWithExit();
 	}
 	break;
 	default:
 		break;
+	}
+}
+//设置
+void GameControlBase::onMenuSetting(CCObject* pSender, TouchEventType type){
+	if (type==TOUCH_EVENT_ENDED)
+	{
+		isShowMoer = !isShowMoer;
+		pIVMoer->setVisible(isShowMoer);
+		pBSetting->setTouchEnabled(isShowMoer);
+		pBExit->setTouchEnabled(isShowMoer);
+
+		PopDialogBoxGISetting *pPDBSetting = PopDialogBoxGISetting::create();
+		this->addChild(pPDBSetting, K_Z_ORDER_POP);
+	}
+}
+//退出
+void GameControlBase::onMenuExit(CCObject* pSender, TouchEventType type){
+	if (type == TOUCH_EVENT_ENDED)
+	{
+		standUpWithExit();
 	}
 }
 //开牌
