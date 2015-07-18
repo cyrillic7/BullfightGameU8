@@ -216,7 +216,7 @@ void GameLobbyScene::enterLobbyByMode(int mode){
 	{
 	case MODE_CLASSIC:
 		{
-				Tools::setTransitionAnimation(0, 0, ClassicLobbyScene::scene());
+				Tools::setTransitionAnimation(0, 0, ClassicLobbyScene::scene(false));
 		}
 		break;
 	case MODE_Hundred:
@@ -229,16 +229,13 @@ void GameLobbyScene::enterLobbyByMode(int mode){
 			}
 			else
 			{
-				PopDialogBox *pLoading = PopDialogBoxLoading::create();
+				Tools::setTransitionAnimation(0, 0, ClassicLobbyScene::scene(true));
+				/*PopDialogBox *pLoading = PopDialogBoxLoading::create();
 				this->addChild(pLoading, 10, TAG_LOADING);
-				//pLoading->setSocketName(SOCKET_LOGON_ROOM);
 
-				/*TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_ROOM);
-				tagGameServer *tgs = DataModel::sharedDataModel()->tagGameServerListOxHundred[0];
-				getSocket()->createSocket(tgs->szServerAddr, tgs->wServerPort, new GameIngListerner());*/
 				tagGameServer *tgs = DataModel::sharedDataModel()->tagGameServerListOxHundred[0];
 				GameIngMsgHandler::sharedGameIngMsgHandler()->connectServer(tgs->szServerAddr,tgs->wServerPort);
-				onEventConnect(1, NULL, 0);
+				onEventConnect(1, NULL, 0);*/
 			}
 			
 			//Tools::setTransitionAnimation(0, 0, MainSceneOxHundred::scene());

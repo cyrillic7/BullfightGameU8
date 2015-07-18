@@ -36,10 +36,19 @@ ClassicLobbyScene::~ClassicLobbyScene(){
 	//
 
 }
-CCScene* ClassicLobbyScene::scene()
+CCScene* ClassicLobbyScene::scene(bool isHundred)
 {
 	CCScene *scene = CCScene::create();
 	ClassicLobbyScene *layer = ClassicLobbyScene::create();
+	if (isHundred)
+	{
+		layer->setGameItem(ITEM_3);
+	}
+	else
+	{
+		layer->setGameItem(ITEM_0);
+	}
+	
 	scene->addChild(layer);
 	
 	return scene;
@@ -94,7 +103,16 @@ void ClassicLobbyScene::onEnter(){
 	pLVItems = static_cast<UIListView*>(m_pWidget->getWidgetByName("ListViewItems"));
 	//初始化游戏选项触摸事件
 	initItemTouchEvent();
-	selectGameItem(0);
+	if (getGameItem()!=ITEM_3)
+	{
+		selectGameItem(0);
+	}
+	else
+	{
+		pLVItems->setEnabled(false);
+		pLVItems->getParent()->setVisible(false);
+	}
+	
 	//添加监听事件
 	//CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::onPlay),S_L_PLAY,NULL);
 	//CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::onConfigFinish),S_L_CONFIG_FINISH,NULL);
@@ -146,6 +164,12 @@ void ClassicLobbyScene::initTCPLogon(int index){
 		port = DataModel::sharedDataModel()->tagGameServerListSixSwap[index]->wServerPort;
 	}
 	break;
+	case ITEM_3:
+	{
+		ip = DataModel::sharedDataModel()->tagGameServerListOxHundred[index]->szServerAddr;
+		port = DataModel::sharedDataModel()->tagGameServerListOxHundred[index]->wServerPort;
+	}
+	break;
 	default:
 		break;
 	}
@@ -175,6 +199,11 @@ void  ClassicLobbyScene::updateRoomList(){
 		updateRoom(DataModel::sharedDataModel()->tagGameServerListSixSwap);
 	}
 	break;
+	case ITEM_3://百人牛牛
+	{
+		updateRoom(DataModel::sharedDataModel()->tagGameServerListOxHundred);
+	}
+		break;
 	default:
 		break;
 	}
@@ -302,14 +331,19 @@ void ClassicLobbyScene::popDialogBox(){
 void ClassicLobbyScene::enterMainSceneByMode(int mode){
 	switch (mode)
 	{
-	case LEVEL_0:
+	case ITEM_0:
 		Tools::setTransitionAnimation(0, 0, MainSceneOxTwo::scene());
 		break;
-	case LEVEL_1:
+	case ITEM_1:
 		Tools::setTransitionAnimation(0, 0, MainSceneOxOneByOne::scene());
 		break;
-	case LEVEL_2:
+	case ITEM_2:
 		Tools::setTransitionAnimation(0, 0, MainSceneOxSixSwap::scene());
+		break;
+	case ITEM_3:
+	{
+		Tools::setTransitionAnimation(0, 0, MainSceneOxHundred::scene());
+	}
 		break;
 	default:
 		break;
@@ -371,31 +405,6 @@ void ClassicLobbyScene::onEventConnect(WORD wSubCmdID, void * pDataBuffer, unsig
 	{
 	case SUB_GP_SOCKET_OPEN:
 	{
-#if (DEBUG_TEST==0)
-		CMD_GR_LogonUserID logonUserID;
-		memset(&logonUserID, 0, sizeof(CMD_GR_LogonUserID));
-		logonUserID.dwFrameVersion = VERSION_FRAME;
-		logonUserID.dwPlazaVersion = VERSION_PLAZA;
-		logonUserID.dwProcessVersion = VERSION_CLIENT;
-		logonUserID.dwUserID = DataModel::sharedDataModel()->logonSuccessUserInfo->dwUserID;
-		strcpy(logonUserID.szMachineID, "12");
-		strcpy(logonUserID.szPassPortID, "12");
-		MD5 m;
-		MD5::char8 str[] = "z12345678";
-		m.ComputMd5(str, sizeof(str)-1);
-		std::string md5PassWord = m.GetMd5();
-		strcpy(logonUserID.szPassword, md5PassWord.c_str());
-
-		strcpy(logonUserID.szPhoneVerifyID, "1");
-		logonUserID.wKindID = DataModel::sharedDataModel()->tagGameServerListOxTwo[0]->wKindID;
-
-		CCLOG("房间名:%d", DataModel::sharedDataModel()->tagGameServerListOxTwo[0]->wServerPort);
-
-		int luidSize = sizeof(CMD_GR_LogonUserID);
-		bool isSend = TCPSocketControl::sharedTCPSocketControl()->SendData(MDM_GR_LOGON, SUB_GR_LOGON_USERID, &logonUserID, sizeof(logonUserID));
-		CCLOG("send:%d", isSend);
-#endif
-#if (DEBUG_TEST==1)
 		CMD_GR_LogonMobile logonMobile;
 		memset(&logonMobile, 0, sizeof(CMD_GR_LogonMobile));
 
@@ -417,6 +426,14 @@ void ClassicLobbyScene::onEventConnect(WORD wSubCmdID, void * pDataBuffer, unsig
 		{
 			logonMobile.wGameID = 430;
 			logonMobile.dwProcessVersion = 17235969;
+		}
+		break;
+		case ITEM_3:
+		{
+			logonMobile.wGameID = 30;
+			logonMobile.dwProcessVersion = 17039361;
+			//logonMobile.wGameID = 430;
+			//logonMobile.dwProcessVersion = 17235969;
 		}
 		break;
 		default:
@@ -441,7 +458,7 @@ void ClassicLobbyScene::onEventConnect(WORD wSubCmdID, void * pDataBuffer, unsig
 		strcpy(logonMobile.szMachineID, "123");
 
 		bool isSend = GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GR_LOGON, SUB_GR_LOGON_MOBILE, &logonMobile, sizeof(logonMobile));
-#endif						 
+					 
 	}
 	break;
 	default:
@@ -484,7 +501,32 @@ void ClassicLobbyScene::configEvent(WORD wSubCmdID, void * pDataBuffer, unsigned
 	{
 		CCLOG("配置完成");
 		unscheduleUpdate();
-		enterMainSceneByMode(getGameItem());
+
+		if (getGameItem()==ITEM_3)
+		{
+			//构造数据
+			CMD_GF_GameOption GameOption;
+			GameOption.dwFrameVersion = VERSION_FRAME;
+			GameOption.cbAllowLookon = 0;
+			GameOption.dwClientVersion = VERSION_CLIENT;
+			//发送
+			//bool isSend = getSocket()->SendData(MDM_GF_FRAME, SUB_GF_GAME_OPTION, &GameOption, sizeof(GameOption));
+			bool isSend = GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GF_FRAME, SUB_GF_GAME_OPTION, &GameOption, sizeof(GameOption));
+			if (isSend)
+			{
+
+				Tools::setTransitionAnimation(0, 0, MainSceneOxHundred::scene());
+				//enterMainSceneByMode(1);
+			}
+		}
+		else
+		{
+			enterMainSceneByMode(getGameItem());
+		}
+		/*unscheduleUpdate();
+		*/
+
+		
 		//构造数据
 		/*CMD_GF_GameOption GameOption;
 		GameOption.dwFrameVersion=VERSION_FRAME;

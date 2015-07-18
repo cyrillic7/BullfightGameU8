@@ -13,19 +13,20 @@ class ClassicLobbyScene:public BaseLobbyScene,public MessageQueueGameIng
 {
 private:
 	UIListView *pLVViewRoom;
-	enum GameLevel
+	/*enum GameLevel
 	{
         
 		LEVEL_0=1,					//初级
 		LEVEL_1,					//中级
 		LEVEL_2,					//高级
 		LEVEL_3,					//大师
-	};
+	};*/
 	enum GameItem
 	{
 		ITEM_0=1,							//二人牛牛
 		ITEM_1,								//通比牛牛
 		ITEM_2,								//六人换牌
+		ITEM_3,								//百人牛牛
 	};
 	CC_SYNTHESIZE(GameItem,gameItem,GameItem);
 
@@ -39,7 +40,7 @@ public:
 	virtual void onEnter();
 	virtual void onExit();
 
-    static CCScene* scene();
+    static CCScene* scene(bool isHundred);
     CREATE_FUNC(ClassicLobbyScene);
 private:
 	void update(float delta);
