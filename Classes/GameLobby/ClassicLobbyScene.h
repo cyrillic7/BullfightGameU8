@@ -9,11 +9,10 @@
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
-#define MAX_LEVEL_COUNT				4					//最大等级数
 class ClassicLobbyScene:public BaseLobbyScene,public MessageQueueGameIng
 {
 private:
-	UIButton* pBLevel[MAX_LEVEL_COUNT];
+	UIListView *pLVViewRoom;
 	enum GameLevel
 	{
         

@@ -16,23 +16,7 @@
     "UIPanel.plist",
     "UIMode.plist"
   ],
-  "texturesPng": [
-    "UIGameLobby.png",
-    "UIUserInfo.png",
-    "UIClassicLobby.png",
-    "UIPanel.png",
-    "UIMode.png",
-    "UIGameLobby.png",
-    "UIUserInfo.png",
-    "UIClassicLobby.png",
-    "UIPanel.png",
-    "UIMode.png",
-    "UIGameLobby.png",
-    "UIUserInfo.png",
-    "UIClassicLobby.png",
-    "UIPanel.png",
-    "UIMode.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",

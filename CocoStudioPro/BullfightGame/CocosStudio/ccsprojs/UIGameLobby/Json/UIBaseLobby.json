@@ -11,11 +11,28 @@
   "designWidth": 1136,
   "textures": [
     "UIGameLobby.plist",
+    "UIUserInfo.plist",
     "UIClassicLobby.plist",
-    "UIMode.plist",
-    "UIUserInfo.plist"
+    "UIPanel.plist",
+    "UIMode.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIGameLobby.png",
+    "UIUserInfo.png",
+    "UIClassicLobby.png",
+    "UIPanel.png",
+    "UIMode.png",
+    "UIGameLobby.png",
+    "UIUserInfo.png",
+    "UIClassicLobby.png",
+    "UIPanel.png",
+    "UIMode.png",
+    "UIGameLobby.png",
+    "UIUserInfo.png",
+    "UIClassicLobby.png",
+    "UIPanel.png",
+    "UIMode.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -695,7 +712,7 @@
                   "visible": true,
                   "width": 40,
                   "x": 98,
-                  "y": -27,
+                  "y": -26,
                   "areaHeight": 0,
                   "areaWidth": 0,
                   "fontFile": null,

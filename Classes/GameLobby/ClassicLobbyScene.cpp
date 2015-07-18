@@ -77,11 +77,17 @@ void ClassicLobbyScene::onEnter(){
 	/*UIButton* button = static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonUser"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&ClassicLobbyScene::menuResetUser));*/
 
-	for (int i = 0; i < MAX_LEVEL_COUNT; i++)
+	/*for (int i = 0; i < MAX_LEVEL_COUNT; i++)
 	{
 		pBLevel[i] = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("ButtonScene%d", i + 1)->getCString()));
 		pBLevel[i]->addTouchEventListener(this, SEL_TouchEvent(&ClassicLobbyScene::menuStar));
-	}
+	}*/
+	pLVViewRoom = static_cast<UIListView*>(m_pWidget->getWidgetByName("ListViewRoom"));
+	//设置cell样式
+	pLVViewRoom->setItemModel(pLVViewRoom->getItem(0));
+	pLVViewRoom->removeAllItems();
+
+
 	//更新房间列表
 	updateRoomList();
 	//游戏选择卡列表视图
@@ -175,7 +181,45 @@ void  ClassicLobbyScene::updateRoomList(){
 }
 //更新房间列表
 void  ClassicLobbyScene::updateRoom(std::vector<tagGameServer *> vec){
-	for (int i = 0; i < MAX_LEVEL_COUNT; i++)
+	pLVViewRoom->scrollToLeft(0.3, true);
+	UIListView *pLVTemp = pLVViewRoom;
+	pLVTemp->removeAllItems();
+
+	int tempSize = vec.size();
+	if (tempSize == 0)
+	{
+		return;
+	}
+
+	for (int i = 0; i < tempSize; i++)
+	{
+		int inserterPos = pLVTemp->getItems()->count();
+		pLVTemp->insertDefaultItem(inserterPos);
+		//按键
+		UIButton *pBScene = static_cast<UIButton*>(pLVTemp->getItem(inserterPos)->getChildByName("ButtonScene"));
+		pBScene->setTag(i+1);
+		pBScene->addTouchEventListener(this, SEL_TouchEvent(&ClassicLobbyScene::menuStar));
+		//icon
+		UIImageView *pIVIcon = static_cast<UIImageView*>(pBScene->getChildByName("ImageItemIcon"));
+		pIVIcon->loadTexture(CCString::createWithFormat("u_c_scene_%d.png",(i%4)+1)->getCString(), UI_TEX_TYPE_PLIST);
+		//房间名
+		UILabel *pLRoomName0 = static_cast<UILabel*>(pBScene->getChildByName("LabelRoomName0"));
+		UILabel *pLRoomName1 = static_cast<UILabel*>(pBScene->getChildByName("LabelRoomName1"));
+		pLRoomName0->setText(GBKToUTF8(vec[i]->szGameLevel));
+		pLRoomName1->setText(GBKToUTF8(vec[i]->szGameLevel));
+		//限制条件
+	
+		UILabel *description = static_cast<UILabel*>(pBScene->getChildByName("ImageLabelBg")->getChildByName("LabelDescription"));
+		description->setText(Tools::GBKToUTF8(vec[i]->szDescription));
+
+		/*//拍卖物品名称
+		UILabel *pGoodsName = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("LabelGoodsContent"));
+		
+		pIVCell->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxAuction::onMenuSelectMyAuctionCell));
+		pIVCell->setTag(i);*/
+	}
+
+	/*for (int i = 0; i < MAX_LEVEL_COUNT; i++)
 	{
 		if (i < vec.size())
 		{
@@ -188,7 +232,7 @@ void  ClassicLobbyScene::updateRoom(std::vector<tagGameServer *> vec){
 		{
 			pBLevel[i]->setEnabled(false);
 		}
-	}
+	}*/
 }
 //初始化游戏选项触摸事件
 void ClassicLobbyScene::initItemTouchEvent(){
