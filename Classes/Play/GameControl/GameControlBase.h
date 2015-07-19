@@ -60,13 +60,13 @@ private:
 	//游戏结算层
 	GameEndLayer *pEndLayer;
 	//更多框
-	UIImageView *pIVMoer;
+	ImageView *pIVMoer;
 	//是否显示更多
 	bool isShowMoer;
 	//设置
-	UIButton *pBSetting;
+	Button *pBSetting;
 	//退出
-	UIButton *pBExit;
+	Button *pBExit;
 	//游戏状态
 protected:
 	bool							m_bAllowLookon;						//允许旁观
