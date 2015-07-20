@@ -131,8 +131,18 @@ void PopDialogBoxUserInfo::onMenuExchange(CCObject *object, TouchEventType type)
 void PopDialogBoxUserInfo::onMenuRecharge(CCObject *object, TouchEventType type){
 	if (type==TOUCH_EVENT_ENDED)
 	{
+		UIButton *pBTemp = (UIButton*)object;
 		isReadMessage = false;
 		PopDialogBoxRecharge *pRecharge = PopDialogBoxRecharge::create();
+		if (strcmp(pBTemp->getName(), "ButtonAddGold") == 0)
+		{
+			pRecharge->isShowExchangeGold = true;
+		}
+		else
+		{
+			pRecharge->isShowExchangeGold = false;
+		}
+		
 		this->addChild(pRecharge);
 		pRecharge->setIPopDialogBoxAssistCloseView(this);
 	}

@@ -107,6 +107,14 @@ void PopDialogBox::setLobbyReadMessage(bool isRead){
 //显示数量输入框
 void PopDialogBox::showInputNumBox(BuyType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, long long lPice, IPopAssist* pIPop){
 	PopDialogBoxInputNum *box = PopDialogBoxInputNum::create();
+	if (eBuyType==BUY_AUCTION)
+	{
+		box->isShowVipDiscount = false;
+	}
+	else
+	{
+		box->isShowVipDiscount = true;
+	}
 	this->addChild(box, 10, TAG_INPUT_BOX);
 	box->setInputData(eBuyType, cPropName, cPropImagePuth, lMaxNum, lPice);
 	box->setIPopAssist(pIPop);

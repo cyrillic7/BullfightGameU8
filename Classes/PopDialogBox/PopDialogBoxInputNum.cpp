@@ -11,6 +11,7 @@
 #include "../Tools/BaseAttributes.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxInputNum::PopDialogBoxInputNum()
+	:isShowVipDiscount(true)
 {
 	
     
@@ -40,6 +41,9 @@ void PopDialogBoxInputNum::onEnter(){
 	pLCurrencyName = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelPice"));
 	//总价
 	pAllPice = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelAllPice"));
+	//vip折扣
+	pLVipDiscount = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelVip"));
+	pLVipDiscount->setVisible(isShowVipDiscount);
 	//输入数量
 	pTFInputCount = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldCount")); 
 	pTFInputCount->addEventListenerTextField(this, SEL_TextFieldEvent(&PopDialogBoxInputNum::onTextFieldAccount));

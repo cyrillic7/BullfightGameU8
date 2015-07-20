@@ -71,6 +71,7 @@ void PopDialogBoxVip::onMenuRecharge(CCObject *object, TouchEventType type){
 	{
 		isReadMessage = false;
 		PopDialogBoxRecharge *pRecharge = PopDialogBoxRecharge::create();
+		pRecharge->isShowExchangeGold = false;
 		this->addChild(pRecharge);
 		pRecharge->setIPopDialogBoxAssistCloseView(this);
 	}

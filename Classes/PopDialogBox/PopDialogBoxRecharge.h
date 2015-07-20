@@ -12,6 +12,7 @@
 class PopDialogBoxRecharge : public PopDialogBox{
 public:
 	CC_SYNTHESIZE(IPopDialogBoxAssistCloseView*, pIPopDialogBoxAssistCloseView, IPopDialogBoxAssistCloseView);
+	bool isShowExchangeGold;				//是否显示兑换金币
 private:
 	enum RechargeActionType
 	{

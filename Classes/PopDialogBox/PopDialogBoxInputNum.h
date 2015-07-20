@@ -9,6 +9,8 @@
 
 #include "PopDialogBox.h"
 class PopDialogBoxInputNum: public PopDialogBox {
+public:
+	bool isShowVipDiscount;
 private:
 	//最大商品数
 	long lMaxPropsNum;
@@ -22,6 +24,8 @@ private:
 	UILabel *pLPropName;
 	//购买类型
 	UILabel *pLBuyType;
+	//vip折扣
+	UILabel *pLVipDiscount;
 	//代币图标
 	UIImageView *pICurrencyIcon;
 	//贷币名称

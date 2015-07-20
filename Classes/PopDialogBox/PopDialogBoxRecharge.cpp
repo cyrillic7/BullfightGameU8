@@ -27,6 +27,7 @@ PopDialogBoxRecharge::PopDialogBoxRecharge()
 	:eRechargeType(RECHARGE_GOLD)
 	, eRechargeActionType(R_Action_GET_MONEY)
 	, pIPopDialogBoxAssistCloseView(NULL)
+	, isShowExchangeGold(true)
 {
 	for (int i = 0; i < MAX_GOLD_COUNT; i++)
 	{
@@ -65,14 +66,14 @@ void PopDialogBoxRecharge::onEnter(){
 	//关闭
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxRecharge::onMenuCloseView));
-	//系统消息按键
-	UIButton *pBSystemMsg = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonGold"));
-	pBSystemMsg->addTouchEventListener(this, toucheventselector(PopDialogBoxRecharge::onMenuChangeExchangeType));
-	pBSystemMsg->setVisible(false);
-	//我的消息
-	UIButton *pBSystemMy = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonBigGold"));
-	pBSystemMy->addTouchEventListener(this, toucheventselector(PopDialogBoxRecharge::onMenuChangeExchangeType));
-	pBSystemMy->setVisible(false);
+	//兑换金币
+	UIButton *pBExchangeGold = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonGold"));
+	pBExchangeGold->addTouchEventListener(this, toucheventselector(PopDialogBoxRecharge::onMenuChangeExchangeType));
+	pBExchangeGold->setVisible(false);
+	//兑换元宝
+	UIButton *pBExchangeBigGold = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonBigGold"));
+	pBExchangeBigGold->addTouchEventListener(this, toucheventselector(PopDialogBoxRecharge::onMenuChangeExchangeType));
+	pBExchangeBigGold->setVisible(false);
 	//游标
 	pIVCursor = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageCursor"));
 	//类型名称
@@ -87,6 +88,14 @@ void PopDialogBoxRecharge::onEnter(){
 	pLVRechargeList->setItemModel(pLVRechargeList->getItem(0));
 	pLVRechargeList->removeAllItems();
 
+	if (isShowExchangeGold)
+	{
+		onMenuChangeExchangeType(pBExchangeGold, TOUCH_EVENT_ENDED);
+	}
+	else
+	{
+		onMenuChangeExchangeType(pBExchangeBigGold, TOUCH_EVENT_ENDED);
+	}
 	//DataModel::sharedDataModel()->vecSystemMsg.push_back("1233");
 	//更新列表
 	updateListRecharge(vecRechargeGold);

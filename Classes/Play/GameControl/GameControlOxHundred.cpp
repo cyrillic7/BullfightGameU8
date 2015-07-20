@@ -340,6 +340,7 @@ void GameControlOxHundred::onMenuOnRecharge(CCObject* pSender, TouchEventType ty
 	if (type==TOUCH_EVENT_ENDED)
 	{
 		PopDialogBoxRecharge *pPDBRecharge = PopDialogBoxRecharge::create();
+		pPDBRecharge->isShowExchangeGold = false;
 		getMainScene()->addChild(pPDBRecharge, K_Z_ORDER_POP);
 	}
 }
