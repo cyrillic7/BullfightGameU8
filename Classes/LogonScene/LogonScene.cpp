@@ -131,6 +131,8 @@ void LogonScene::onEnter(){
 		button->addTouchEventListener(this, SEL_TouchEvent(&LogonScene::onMenuLogon));
 	}
 	//logonGameByAccount();
+	//默认登录
+	defaultLogon();
 }
 void LogonScene::onExit(){
     //移除对象
@@ -171,6 +173,26 @@ void LogonScene::initSignInfo(){
 	}
 	Json_dispose(root);
 }
+//默认登录
+void LogonScene::defaultLogon(){
+	switch (DataModel::sharedDataModel()->logonType)
+	{
+	case LOGON_ACCOUNT:
+	{
+		UIButton *pBLogon = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("ButtonLogon%d", 0)->getCString()));
+		onMenuLogon(pBLogon,TOUCH_EVENT_ENDED);
+	}
+		break;
+	case LOGON_QQ:
+	{
+		UIButton *pBLogon = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("ButtonLogon%d", 1)->getCString()));
+		onMenuLogon(pBLogon, TOUCH_EVENT_ENDED);
+	}
+		break;
+	default:
+		break;
+	}
+}
 void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 	switch (type)
 	{
@@ -185,6 +207,7 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 					//logonGame();
 					PopDialogBox *pLogon = PopDialogBoxLogonAccount::create();
 					this->addChild(pLogon);
+					DataModel::sharedDataModel()->logonType = LOGON_ACCOUNT;
 				}
 				break;
 			case LOGON_REGISTER://注册
@@ -196,6 +219,7 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 				break;
 			case LOGON_QQ:
 			{
+				DataModel::sharedDataModel()->logonType = LOGON_QQ;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 				PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
 				this->addChild(tipInfo);
@@ -604,6 +628,9 @@ void LogonScene::onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned s
             gameSocket.Destroy(true);
 			LobbyMsgHandler::sharedLobbyMsgHandler()->connectServer(DataModel::sharedDataModel()->sLobbyIp, DataModel::sharedDataModel()->lLobbyProt);
 			//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_GAME);
+
+			Tools::saveIntByRMS(RMS_LOGON_TYPE, DataModel::sharedDataModel()->logonType);
+
 			Tools::setTransitionAnimation(0,0,GameLobbyScene::scene(false));
 		}
 		break;
@@ -646,6 +673,7 @@ void LogonScene::readRMS(){
 	if (isHaveSaveFile()) {
 		DataModel::isMusic = Tools::getBoolByRMS(RMS_IS_MUSIC);
 		DataModel::isSound = Tools::getBoolByRMS(RMS_IS_SOUND);
+		DataModel::sharedDataModel()->logonType = Tools::getIntByRMS(RMS_LOGON_TYPE);
 	}
 	else{
 		this->initRSM();
@@ -655,6 +683,7 @@ void LogonScene::readRMS(){
 void LogonScene::initRSM(){
 	Tools::saveBoolByRMS(RMS_IS_MUSIC, true);
 	Tools::saveBoolByRMS(RMS_IS_SOUND, true);
+	Tools::saveIntByRMS(RMS_LOGON_TYPE, 0);
 	Tools::saveStringByRMS(RMS_LOGON_ACCOUNT,"");
 	Tools::saveStringByRMS(RMS_LOGON_PASSWORD,"");
 	Tools::saveStringByRMS(RMS_SIGN_RECORD, "");

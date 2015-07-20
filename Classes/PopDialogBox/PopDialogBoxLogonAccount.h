@@ -25,4 +25,8 @@ private:
 	void onMenuLogon(CCObject *object, TouchEventType type);
 	//找回密码
 	void onMenuRetrievePwd(CCObject *object, TouchEventType type);
+
+	//输入框回调
+	virtual void editBoxEditingDidBegin(cocos2d::extension::CCEditBox* editBox);
+	virtual void editBoxEditingDidEnd(cocos2d::extension::CCEditBox* editBox);
 };

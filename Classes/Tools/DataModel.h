@@ -12,6 +12,8 @@ public:
 	static bool isSound;
 	//音乐开关
 	static bool isMusic;
+	//登录模式
+	int logonType;
 	//是否坐下
 	bool isSit;
 	CCSize deviceSize;

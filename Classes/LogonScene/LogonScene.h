@@ -53,6 +53,8 @@ private:
 	void onMenuLogon(CCObject* pSender, TouchEventType type);
 
 	void update(float delta);
+	//默认登录
+	void defaultLogon();
 public:
 	//登录游戏(帐号登录)
 	void logonGameByAccount(float dt);

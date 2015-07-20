@@ -110,3 +110,23 @@ void PopDialogBoxLogonAccount::onMenuRetrievePwd(CCObject *object, TouchEventTyp
 		((LogonScene*)this->getParent())->addChild(pFPwd);
 	}
 }
+//输入框回调
+void PopDialogBoxLogonAccount::editBoxEditingDidBegin(cocos2d::extension::CCEditBox* editBox)
+{
+	CCEditBox *pEBPassword = (CCEditBox*)pTPassword->getNodeByTag(TAG_INPUT_EDIT_BOX);
+	if (editBox==pEBPassword)
+	{
+		pEBPassword->setText("");
+	}
+}
+void PopDialogBoxLogonAccount::editBoxEditingDidEnd(cocos2d::extension::CCEditBox* editBox)
+{
+	CCEditBox *pEBPassword = (CCEditBox*)pTPassword->getNodeByTag(TAG_INPUT_EDIT_BOX);
+	if (editBox == pEBPassword)
+	{
+		if(strcmp(pEBPassword->getText(),"")==0)
+		{
+			pEBPassword->setText(DataModel::sharedDataModel()->sLogonPassword.c_str());
+		}
+	}
+}
