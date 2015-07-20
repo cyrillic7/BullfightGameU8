@@ -105,7 +105,7 @@ void CGameSocket::Run(){
 	so_linger.l_onoff = 1;
 	so_linger.l_linger = 500;
 	setsockopt(m_sockClient, SOL_SOCKET, SO_LINGER, (const char*)&so_linger, sizeof(so_linger));
-
+	fTime = 0;
 	//设置socket状态为连接成功
 	setSocketState(SOCKET_STATE_CONNECT_SUCCESS);
 
@@ -752,15 +752,25 @@ BYTE CGameSocket::MapRecvByte(BYTE const cbData)
 }
 
 //更新socket收发数据
-void CGameSocket::updateSocketData(){
+void CGameSocket::updateSocketData(float delta){
+	
 	if (getSocketState() == SOCKET_STATE_FREE) {
 		return;
 	}
+	//超时判断
+	fTime += delta;
+	if (fTime >= OUT_TIME)
+	{
+		fTime = 0;
+		setSocketState(SOCKET_STATE_ERROR);
+	}
+	//断开连接
 	if (getSocketState() == SOCKET_STATE_ERROR) {
 		pIGameSocket->onError("与服务器断开连接");
 		setSocketState(CGameSocket::SOCKET_STATE_FREE);
 		return;
 	}
+	//连接失败
 	if (getSocketState() == SOCKET_STATE_CONNECT_FAILURE) {
 		pIGameSocket->onError(" 连接服务器失败 ");
 		setSocketState(CGameSocket::SOCKET_STATE_FREE);
@@ -793,10 +803,12 @@ void CGameSocket::updateSocketData(){
 		if (!ReceiveMsg(pbufMsg, nSize)) {
 			break;
 		}
+		fTime = 0;
 		// 接收数据（取得缓冲区中的所有消息，直到缓冲区为空）
 		TCP_Head* pHead = (TCP_Head*)pbufMsg;
 		WORD wDataSize = nSize - sizeof(TCP_Head);
 		void * pDataBuffer = pbufMsg + sizeof(TCP_Head);
 		pIGameSocket->onMessage(pHead->CommandInfo.wMainCmdID, pHead->CommandInfo.wSubCmdID, pDataBuffer, wDataSize);
+		
 	}
 }

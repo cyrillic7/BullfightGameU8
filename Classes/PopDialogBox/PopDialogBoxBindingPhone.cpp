@@ -125,7 +125,7 @@ void PopDialogBoxBindingPhone::update(float delta){
 	{
 		//MessageQueue::update(delta);
 	}
-	gameSocket.updateSocketData();
+	gameSocket.updateSocketData(delta);
 }
 //读取网络消息回调
 void PopDialogBoxBindingPhone::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){

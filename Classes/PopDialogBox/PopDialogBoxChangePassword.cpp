@@ -111,7 +111,7 @@ void PopDialogBoxChangePassword::setTitle(const char * sTitle){
 //更新
 void PopDialogBoxChangePassword::update(float delta){
 	//MessageQueue::update(delta);
-	gameSocket.updateSocketData();
+	gameSocket.updateSocketData(delta);
 }
 //////////////////////////////////////////////////////////////////////////
 //读取网络消息回调

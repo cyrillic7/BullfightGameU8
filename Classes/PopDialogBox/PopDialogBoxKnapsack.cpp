@@ -79,7 +79,7 @@ void PopDialogBoxKnapsack::onExit(){
 }
 void PopDialogBoxKnapsack::update(float delta){
 	//MessageQueue::update(delta);
-	gameSocket.updateSocketData();
+	gameSocket.updateSocketData(delta);
 }
 //连接成功
 void PopDialogBoxKnapsack::connectSuccess(){

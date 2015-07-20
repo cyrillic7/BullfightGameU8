@@ -162,7 +162,7 @@ void PopDialogBoxRanking::update(float delta){
 	{
 		//MessageQueue::update(delta);
 	}
-	gameSocket.updateSocketData();
+	gameSocket.updateSocketData(delta);
 }
 //////////////////////////////////////////////////////////////////////////
 //网络消息

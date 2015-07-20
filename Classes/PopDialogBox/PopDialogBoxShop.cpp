@@ -316,7 +316,7 @@ void PopDialogBoxShop::update(float delta){
 	{
 		//MessageQueue::update(delta);
 	}
-	gameSocket.updateSocketData();
+	gameSocket.updateSocketData(delta);
 }
 //购买道具
 void PopDialogBoxShop::buyPropForType(){

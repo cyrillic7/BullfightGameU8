@@ -394,7 +394,7 @@ void PopDialogBoxBank::update(float delta){
 	{
 		//MessageQueue::update(delta);
 	}
-	gameSocket.updateSocketData();
+	gameSocket.updateSocketData(delta);
 }
 //连接成功
 void PopDialogBoxBank::connectSuccess(){

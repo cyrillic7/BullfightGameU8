@@ -43,7 +43,7 @@ void LobbyMsgHandler::connectServer(std::string sLobbyIp, long lLobbyProt){
 	}
 }
 void LobbyMsgHandler::update(float dt){
-	gameSocket.updateSocketData();
+	gameSocket.updateSocketData(dt);
 }
 void LobbyMsgHandler::onOpen(){
 	CCLOG("open <<%s>>", __FUNCTION__);

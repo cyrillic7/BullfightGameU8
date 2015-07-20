@@ -231,7 +231,7 @@ void LogonScene::update(float delta){
 	{
 		MessageQueue::update(delta);
 	}*/
-	gameSocket.updateSocketData();
+	gameSocket.updateSocketData(delta);
 }
 //连接服务器
 void LogonScene::connectServer(){

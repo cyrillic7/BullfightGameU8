@@ -53,6 +53,7 @@ typedef char TCHAR, *PTCHAR;
 #define BLOCKSECONDS	30			// INIT函数阻塞时间
 #define INBUFSIZE	(64*1024)		//?	具体尺寸根据剖面报告调整  接收数据的缓存
 #define OUTBUFSIZE	(8*1024)		//? 具体尺寸根据剖面报告调整。 发送数据的缓存，当不超过8K时，FLUSH只需要SEND一次
+#define OUT_TIME		35			//超时断开
 struct IGameSocket//socket回调接口
 {
 	virtual ~IGameSocket(){}
@@ -80,6 +81,8 @@ private:
 	unsigned long ip;
 	unsigned short port;
 	int iBlockSec;
+	//计时
+	float fTime;
 public:
 	CGameSocket(void);
 	bool	Create(const char* pszServerIP, int nServerPort, int nBlockSec = BLOCKSECONDS, bool bKeepAlive = false);
@@ -88,7 +91,7 @@ public:
 	bool	Flush(void);
 	bool	Check(void);
 	void	Destroy(bool isActive);
-	void	updateSocketData();			//更新socket收发数据
+	void	updateSocketData(float delta);			//更新socket收发数据
 	SOCKET	GetSocket(void) const { return m_sockClient; }
 private:
 	void resetData();

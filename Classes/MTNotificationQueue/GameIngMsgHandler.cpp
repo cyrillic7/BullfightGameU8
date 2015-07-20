@@ -31,7 +31,7 @@ void GameIngMsgHandler::connectServer(std::string sLobbyIp, long lLobbyProt){
 	}
 }
 void GameIngMsgHandler::update(float dt){
-	gameSocket.updateSocketData();
+	gameSocket.updateSocketData(dt);
 }
 void GameIngMsgHandler::onOpen(){
 	CCLOG("open <<%s>>", __FUNCTION__);

@@ -219,7 +219,7 @@ void PopDialogBoxRecharge::update(float delta){
 	{
 		//MessageQueue::update(delta);
 	}
-	gameSocket.updateSocketData();
+	gameSocket.updateSocketData(delta);
 }
 //读取网络消息回调
 void PopDialogBoxRecharge::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
