@@ -73,5 +73,5 @@
   </imageFileList>
   <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxSetting.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxBuyCount.json</CurrentUIJson>
 </UIProject>

@@ -27,9 +27,9 @@ private:
 		ITEM_1,								//通比牛牛
 		ITEM_2,								//六人换牌
 		ITEM_3,								//百人牛牛
-	};
+	}backGameItem;
 	CC_SYNTHESIZE(GameItem,gameItem,GameItem);
-
+	
 	bool isDeleteList;
 	bool isEnterGame;
 	//游戏选择卡列表视图
@@ -77,4 +77,7 @@ private:
 	void onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//复选框回调（选择游戏）
 	void onCheckBoxSelectedStateEvent(CCObject *pSender, CheckBoxEventType type);
+
+	//快速游戏
+	virtual void quickGame();
 };

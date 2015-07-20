@@ -48,7 +48,7 @@ CCScene* ClassicLobbyScene::scene(bool isHundred)
 	{
 		layer->setGameItem(ITEM_0);
 	}
-	
+	layer->backGameItem = layer->getGameItem();
 	scene->addChild(layer);
 	
 	return scene;
@@ -285,6 +285,7 @@ void ClassicLobbyScene::selectGameItem(int iItemIndex){
 			pCheckBox->setTouchEnabled(false);
 			pIGameName->setColor(ccc3(255, 255, 255));
 			setGameItem((GameItem)(iItemIndex + 1));
+			backGameItem = getGameItem();
 			updateRoomList();
 		}
 		else
@@ -382,6 +383,20 @@ void ClassicLobbyScene::onConfigFinish(CCObject *obj){
 void ClassicLobbyScene::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
 	switch (wMainCmdID)
 	{
+	case MDM_MB_UNCONNECT:
+	{
+		setGameItem(backGameItem);
+		PopDialogBoxLoading *pLoading = (PopDialogBoxLoading*)this->getChildByTag(TAG_LOADING);
+		if (pLoading)
+		{
+			pLoading->removeFromParentAndCleanup(true);
+		}
+		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(false);
+		PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+		this->addChild(tipInfo);
+		tipInfo->setTipInfoContent("与服务器断开连接");
+	}
+		break;
 	case MDM_MB_SOCKET://socket连接成功
 		onEventConnect(wSubCmdID, pDataBuffer, wDataSize);
 		break;
@@ -556,6 +571,7 @@ void ClassicLobbyScene::onEventLogon(WORD wSubCmdID, void * pDataBuffer, unsigne
 
 		CMD_GR_UpdateNotify *lf = (CMD_GR_UpdateNotify*)pDataBuffer;
 		//CCLOG("升级提示 %d");
+		setGameItem(backGameItem);
 		CCLOG("升级提示:%ld  %ld  %ld<<%s>>", lf->dwCurrentClientVersion, lf->dwCurrentFrameVersion, lf->dwCurrentPlazaVersion, __FUNCTION__);
 	}
 	break;
@@ -586,6 +602,7 @@ void ClassicLobbyScene::onEventLogon(WORD wSubCmdID, void * pDataBuffer, unsigne
 		PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
 		this->addChild(tipInfo);
 		tipInfo->setTipInfoContent(GBKToUTF8(lf->szDescribeString));
+		setGameItem(backGameItem);
 	}
 	break;
 	default:
@@ -687,4 +704,10 @@ void ClassicLobbyScene::onCheckBoxSelectedStateEvent(CCObject *pSender, CheckBox
 	default:
 		break;
 	}
+}
+//快速游戏
+void ClassicLobbyScene::quickGame(){
+	backGameItem = getGameItem();
+	setGameItem(ITEM_1);
+	initTCPLogon(0);
 }

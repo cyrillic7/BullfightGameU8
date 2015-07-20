@@ -69,4 +69,7 @@ private:
 	void onSubUserState(void * pDataBuffer, unsigned short wDataSize);
 	//显示站立提示
 	void showUpTip();
+
+	//快速游戏
+	virtual void quickGame();
 };

@@ -113,6 +113,9 @@ void BaseLobbyScene::onEnter(){
 	//绑定充值
 	button = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonRecharge"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
+	//立即游戏
+	UIButton *pBStartGame = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonStartGame"));
+	pBStartGame->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuQuickGame));
 	//绑定VIP
 	UIImageView *pIVip = static_cast<UIImageView*>(m_pWidgetBase->getWidgetByName("ImageVip"));
 	pIVip->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuVip));
@@ -202,6 +205,13 @@ void BaseLobbyScene::popDialogBox(PopType type){
 	if (pdb)
 	{
 		this->addChild(pdb);
+	}
+}
+//立即游戏
+void BaseLobbyScene::onMenuQuickGame(CCObject* pSender, TouchEventType type){
+	if (type==TOUCH_EVENT_ENDED)
+	{
+		quickGame();
 	}
 }
 //首充值

@@ -56,7 +56,8 @@ public:
 	//首充值
 	void onMenuFirstRecharge(CCObject* pSender, TouchEventType type);
 private:
-	
+	//立即游戏
+	void onMenuQuickGame(CCObject* pSender, TouchEventType type);
 	//菜单回调（由于菜单回调处理逻辑简单，可设为同一个回调）
 	void onMenuCallback(CCObject* pSender, TouchEventType type);
 	//菜单（设置用户信息）
@@ -72,4 +73,7 @@ private:
 	void createCloudRandom(CCSprite *pBg);
 	//去回调
 	void onMoveFinsh(CCNode *node);
+
+	//快速游戏
+	virtual void quickGame(){}
 };

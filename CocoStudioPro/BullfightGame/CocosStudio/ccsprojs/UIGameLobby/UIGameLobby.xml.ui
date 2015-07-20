@@ -25,23 +25,7 @@
     <string>UIPanel.plist</string>
     <string>UIMode.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>UIGameLobby.png</string>
-    <string>UIUserInfo.png</string>
-    <string>UIClassicLobby.png</string>
-    <string>UIPanel.png</string>
-    <string>UIMode.png</string>
-    <string>UIGameLobby.png</string>
-    <string>UIUserInfo.png</string>
-    <string>UIClassicLobby.png</string>
-    <string>UIPanel.png</string>
-    <string>UIMode.png</string>
-    <string>UIGameLobby.png</string>
-    <string>UIUserInfo.png</string>
-    <string>UIClassicLobby.png</string>
-    <string>UIPanel.png</string>
-    <string>UIMode.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIClassicLobby.json</CurrentUIJson>
+  <CurrentUIJson>UIGameLobby.json</CurrentUIJson>
 </UIProject>

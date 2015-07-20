@@ -271,6 +271,19 @@ void GameLobbyScene::update(float delta){
 void GameLobbyScene::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
 	switch (wMainCmdID)
 	{
+	case MDM_MB_UNCONNECT:
+	{
+		PopDialogBoxLoading *pLoading = (PopDialogBoxLoading*)this->getChildByTag(TAG_LOADING);
+		if (pLoading)
+		{
+			pLoading->removeFromParentAndCleanup(true);
+		}
+		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(false);
+		PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+		this->addChild(tipInfo);
+		tipInfo->setTipInfoContent("与服务器断开连接");
+	}
+	break;
 	case MDM_MB_SOCKET:
 		onEventConnect(wSubCmdID,pDataBuffer,wDataSize);
 		break;
@@ -295,7 +308,7 @@ void GameLobbyScene::onEventConnect(WORD wSubCmdID,void * pDataBuffer, unsigned 
 	{
 	case SUB_GP_SOCKET_OPEN:
 		{
-			CMD_GR_LogonMobile logonMobile;
+			/*CMD_GR_LogonMobile logonMobile;
 			memset(&logonMobile, 0, sizeof(CMD_GR_LogonMobile));
 
 			logonMobile.wGameID=30;
@@ -313,6 +326,32 @@ void GameLobbyScene::onEventConnect(WORD wSubCmdID,void * pDataBuffer, unsigned 
 			strcpy(logonMobile.szPassword,md5PassWord.c_str());
 			//bool isSend = getSocket()->SendData(MDM_GR_LOGON, SUB_GR_LOGON_MOBILE, &logonMobile, sizeof(logonMobile));
 			GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GR_LOGON, SUB_GR_LOGON_MOBILE, &logonMobile, sizeof(logonMobile));
+			*/
+
+			CMD_GR_LogonMobile logonMobile;
+			memset(&logonMobile, 0, sizeof(CMD_GR_LogonMobile));
+
+			logonMobile.wGameID = 130;
+			logonMobile.dwProcessVersion = 17235969;
+			
+			//设备类型
+			logonMobile.cbDeviceType = DEVICE_TYPE_ANDROID;
+			logonMobile.wBehaviorFlags = BEHAVIOR_LOGON_IMMEDIATELY;
+			logonMobile.wPageTableCount = 10;
+
+			logonMobile.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+
+			MD5 m;
+			//MD5::char8 str[] = "z12345678";
+			//m.ComputMd5(str,sizeof(str)-1);
+			m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
+			std::string md5PassWord = m.GetMd5();
+			strcpy(logonMobile.szPassword, md5PassWord.c_str());
+
+			strcpy(logonMobile.szMachineID, "123");
+
+			bool isSend = GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GR_LOGON, SUB_GR_LOGON_MOBILE, &logonMobile, sizeof(logonMobile));
+
 		}
 		break;
 	default:
@@ -390,7 +429,7 @@ void GameLobbyScene::onSubConfig(WORD wSubCmdID,void * pDataBuffer, unsigned sho
 		{
 			CCLOG("配置完成<<%s>>",__FUNCTION__);
 			unscheduleUpdate();
-			//构造数据
+			/*//构造数据
 			CMD_GF_GameOption GameOption;
 			GameOption.dwFrameVersion=VERSION_FRAME;
 			GameOption.cbAllowLookon=0;
@@ -403,7 +442,8 @@ void GameLobbyScene::onSubConfig(WORD wSubCmdID,void * pDataBuffer, unsigned sho
 				
 				Tools::setTransitionAnimation(0,0,MainSceneOxHundred::scene());
 				//enterMainSceneByMode(1);
-			}
+			}*/
+			Tools::setTransitionAnimation(0, 0, MainSceneOxOneByOne::scene());
 		}
 		break;
 	case SUB_GR_CONFIG_USER_RIGHT://玩家权限
@@ -734,5 +774,13 @@ void GameLobbyScene::onSubUserState(void * pDataBuffer, unsigned short wDataSize
 	}
 }
 
+//快速游戏
+void GameLobbyScene::quickGame(){
+	PopDialogBox *pLoading = PopDialogBoxLoading::create();
+	this->addChild(pLoading, 10, TAG_LOADING);
 
+	tagGameServer *tgs = DataModel::sharedDataModel()->tagGameServerListOxOneByOne[0];
+	GameIngMsgHandler::sharedGameIngMsgHandler()->connectServer(tgs->szServerAddr, tgs->wServerPort);
+	onEventConnect(1, NULL, 0);
+}
 
