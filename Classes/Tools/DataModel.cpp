@@ -115,9 +115,10 @@ void DataModel::initDataModel(){
 	//_bulletMagicWands->retain();*/
 }
 bool lessSecond(const tagGameServer * m1, const tagGameServer * m2) {
+	//CCLOG("m1:%d  m2:%d <<%s>>",m1->wSortID,m2->wSortID, __FUNCTION__);
 	return m1->wSortID < m2->wSortID;
 }
-void DataModel::sortVector(std::vector <tagGameServer *> vTagGameServer){
+void DataModel::sortVector(std::vector <tagGameServer *> &vTagGameServer){
 	std::sort(vTagGameServer.begin(),vTagGameServer.end(),lessSecond);
 }
 void DataModel::removeTagGameServerList(std::vector <tagGameServer *> vTagGameServer){

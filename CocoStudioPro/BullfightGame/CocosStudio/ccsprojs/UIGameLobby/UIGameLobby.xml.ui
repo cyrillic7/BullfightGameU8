@@ -27,5 +27,5 @@
   </imageFileList>
   <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIGameLobby.json</CurrentUIJson>
+  <CurrentUIJson>UIBaseLobby.json</CurrentUIJson>
 </UIProject>

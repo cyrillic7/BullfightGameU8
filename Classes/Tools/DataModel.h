@@ -75,7 +75,7 @@ private:
 	void initDataModel();
 public:
 	//排序vector
-	void sortVector(std::vector <tagGameServer *> vTagGameServer);
+	void sortVector(std::vector <tagGameServer *> &vTagGameServer);
 	//移除服务列表
 	void removeTagGameServerList(std::vector <tagGameServer *> vTagGameServer);
 };
