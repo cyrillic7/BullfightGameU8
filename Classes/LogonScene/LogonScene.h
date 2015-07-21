@@ -86,6 +86,8 @@ private:
 	void readRMS();
 	void initRSM();
 	bool isHaveSaveFile();
+
+	virtual void keyBackClicked();  //响应返回键  
 };
 
 #endif /* defined(__BullfightGame__LogonScene__) */

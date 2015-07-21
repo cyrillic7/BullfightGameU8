@@ -92,7 +92,7 @@ LogonScene::LogonScene()
 	label->setAnchorPoint(ccp(0, 1));
 #endif
 
-
+	setKeypadEnabled(true);//设置相应按键消息 
 }
 LogonScene::~LogonScene(){
 	CCLOG("~ <<%s>>", __FUNCTION__);
@@ -699,6 +699,10 @@ bool LogonScene::isHaveSaveFile(){
 	}
 }
 
+
+void LogonScene::keyBackClicked(){
+	platformAction("{\"act\":400}");
+}
 
 void LogonScene::closeWebView(){
     m_pWidget->setTouchEnabled(true);

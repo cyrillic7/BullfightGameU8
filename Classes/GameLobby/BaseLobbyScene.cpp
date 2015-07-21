@@ -28,7 +28,7 @@
 BaseLobbyScene * BaseLobbyScene::lobbyScene = NULL;
 BaseLobbyScene::BaseLobbyScene()
 	:isReadMessage(true){
-	
+	setKeypadEnabled(true);//设置相应按键消息 
 }
 
 BaseLobbyScene::~BaseLobbyScene(){
@@ -358,4 +358,8 @@ void BaseLobbyScene::onMoveFinsh(CCNode *node){
 void BaseLobbyScene::closeWebView(){
 	m_pWidget->setTouchEnabled(true);
 	m_pWidgetBase->setTouchEnabled(true);
+}
+//android返回键 
+void BaseLobbyScene::keyBackClicked(){
+	platformAction("{\"act\":400}");
 }

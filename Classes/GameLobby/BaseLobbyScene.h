@@ -76,4 +76,5 @@ private:
 
 	//快速游戏
 	virtual void quickGame(){}
+	virtual void keyBackClicked();  //响应返回键  
 };
