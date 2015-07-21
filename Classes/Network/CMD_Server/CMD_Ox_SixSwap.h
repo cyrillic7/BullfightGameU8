@@ -58,12 +58,14 @@ typedef char TCHAR, *PTCHAR;
 struct CMD_S_StatusFree
 {
 	long long							lCellScore;							//基础积分
+	long long								lScoreTax;                          //手续费
 };
 
 //游戏状态
 struct CMD_S_GameBase
 {
 	long long							lCellScore;							//基础积分
+	long long								lScoreTax;                          //手续费
 };
 
 //游戏状态
@@ -71,6 +73,7 @@ struct CMD_S_StatusCall
 {
 	WORD							    	wCallBanker;						//叫庄用户
 	BYTE							        cbPlayStatus[GAME_PLAYER];          //用户状态
+	long long								lScoreTax;                          //手续费
 };
 
 //游戏状态
@@ -82,6 +85,7 @@ struct CMD_S_StatusScore1
 	long long								lTableScore[GAME_PLAYER];			//下注数目
 	BYTE								    cbPlayStatus[GAME_PLAYER];          //用户状态
 	WORD							    	wBankerUser;						//庄家用户
+	long long								lScoreTax;                          //手续费
 };
 
 //游戏状态
@@ -93,6 +97,7 @@ struct CMD_S_StatusPlay
 	//long long								lTurnLessScore;						//最小下注
 	long long								lTableScore[GAME_PLAYER];			//下注数目
 	WORD								    wBankerUser;						//庄家用户
+	long long								lScoreTax;                          //手续费
 
 	//扑克信息
 	BYTE							    	cbHandCardData[GAME_PLAYER][MAXCOUNT];//桌面扑克
@@ -168,6 +173,7 @@ struct CMD_S_StatusChange
 	long long								lTurnMaxScore;						//最大下注
 	long long								lTableScore[GAME_PLAYER];			//下注数目
 	bool                                    bChange;							//是否换过牌
+	long long								lScoreTax;                          //手续费
 	//扑克信息
 	BYTE							    	cbHandCardData[GAME_PLAYER][MAXCOUNT];//桌面扑克
 };

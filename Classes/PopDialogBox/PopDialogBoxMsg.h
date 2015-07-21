@@ -24,6 +24,14 @@ private:
 	UIImageView *pIVNothing;
 	//消息列表
 	UIListView *pLVMsgList;
+	//详细消息返回键
+	UIButton *pBBackMsg;
+	//详细内容
+	UIScrollView *pSVMsgContent;
+	//标题
+	UIImageView *pIVTitle;
+	//内容标题
+	UIImageView *pIVTitleContent;
 public:
 	PopDialogBoxMsg();
 	~PopDialogBoxMsg();
@@ -33,7 +41,10 @@ private:
 	virtual void onExit();
 	//消息按键回调
 	void onMenuMsg(CCObject *object, TouchEventType type);
-
+	//消息返回按键回调
+	void onMenuBackMsg(CCObject *object, TouchEventType type);
+	//选择消息项
+	void onMenuSelectMsgItem(CCObject *object, TouchEventType type);
 	//更新消息列表
 	void updateListMsg(std::vector<std::string> qMsg);
 };

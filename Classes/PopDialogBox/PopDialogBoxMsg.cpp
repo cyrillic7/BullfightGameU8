@@ -35,6 +35,18 @@ void PopDialogBoxMsg::onEnter(){
 	UIButton *pBSystemMy = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonMy"));
 	pBSystemMy->addTouchEventListener(this, toucheventselector(PopDialogBoxMsg::onMenuMsg));
 	pBSystemMy->setVisible(false);
+	//标题
+	pIVTitle = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageTitle"));
+	//内容标题
+	pIVTitleContent = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageTitleContent"));
+	pIVTitleContent->setEnabled(false);
+	//详细消息返回键
+	pBBackMsg = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonBack"));
+	pBBackMsg->addTouchEventListener(this, toucheventselector(PopDialogBoxMsg::onMenuBackMsg));
+	pBBackMsg->setEnabled(false);
+	//详细内容
+	pSVMsgContent=static_cast<UIScrollView*>(pUILayer->getWidgetByName("ScrollViewContent"));
+	pSVMsgContent->setEnabled(false);
 	//游标
 	pIVCursor = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageCursor"));
 	//消息名称
@@ -89,7 +101,41 @@ void PopDialogBoxMsg::onMenuMsg(CCObject *object, TouchEventType type){
 		}
 	}
 }
+//消息返回按键回调
+void PopDialogBoxMsg::onMenuBackMsg(CCObject *object, TouchEventType type){
+	if (type==TOUCH_EVENT_ENDED)
+	{
+		pLVMsgList->setEnabled(true);
+		pSVMsgContent->setEnabled(false);
+		pBBackMsg->setEnabled(false);
 
+		pIVTitle->setEnabled(true);
+		pIVTitleContent->setEnabled(false);
+	}
+}
+//选择消息项
+void PopDialogBoxMsg::onMenuSelectMsgItem(CCObject *object, TouchEventType type){
+	if (type == TOUCH_EVENT_ENDED)
+	{
+		UIImageView *pIVTemp = (UIImageView*)object;
+		UILabel *pLContent = static_cast<UILabel*>(pIVTemp->getChildByName("LabelContent"));
+		//CCLOG("-:%s <<%s>>", pLContent->getStringValue(), __FUNCTION__);
+		pLVMsgList->setEnabled(false);
+		pSVMsgContent->setEnabled(true);
+		pBBackMsg->setEnabled(true);
+
+		pIVTitle->setEnabled(false);
+		pIVTitleContent->setEnabled(true);
+		//设置内容
+		UILabel *pLMsgContent = static_cast<UILabel*>(pSVMsgContent->getChildByName("LabelMsgContent"));
+		pLMsgContent->ignoreContentAdaptWithSize(true);
+		pLMsgContent->setTextAreaSize(CCSize(608, 0));
+
+		pLMsgContent->setText(pLContent->getStringValue());
+		
+		pSVMsgContent->setInnerContainerSize(pLMsgContent->getContentSize());
+	}
+}
 //更新消息列表
 void PopDialogBoxMsg::updateListMsg(std::vector<std::string> qMsg){
 	pLVMsgList->removeAllItems();
@@ -106,11 +152,11 @@ void PopDialogBoxMsg::updateListMsg(std::vector<std::string> qMsg){
 	{
 		pLVMsgList->insertDefaultItem(pLVMsgList->getItems()->count());
 		
-		//加载商品图片
+		//
 		UIImageView *pIVItem = static_cast<UIImageView*>(pLVMsgList->getItem(pLVMsgList->getItems()->count() - 1)->getChildByName("ImageBg"));
+		pIVItem->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxMsg::onMenuSelectMsgItem));
+
 		
-		UIButton *pButton = static_cast<UIButton*>(pIVItem->getChildByName("ButtonAction"));
-		pButton->setEnabled(false);
 				
 		UILabel *pLContent = static_cast<UILabel*>(pIVItem->getChildByName("LabelContent"));
 		CCLOG("-:%s <<%s>>", GBKToUTF8(qMsg[i].c_str()), __FUNCTION__);

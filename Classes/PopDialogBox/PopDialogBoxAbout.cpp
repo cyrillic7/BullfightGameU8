@@ -37,7 +37,7 @@ void PopDialogBoxAbout::onEnter(){
 	pLAboutText->setText(sAboutContent.c_str());
 
 	pSVAbout->setInnerContainerSize(pLAboutText->getContentSize());
-	pSVAbout->scrollToTop(0.1, false);
+
 
 	playAnimation();
 }
