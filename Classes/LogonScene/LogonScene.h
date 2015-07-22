@@ -58,9 +58,13 @@ private:
 public:
 	//登录游戏(帐号登录)
 	void logonGameByAccount(float dt);
+	//保存帐号
+	void saveAccount();
 private:
 	//初始化签到信息
 	void initSignInfo();
+	//初始化更多帐号
+	void initMoreAccount();
 	//连接服务器
 	void connectServer();
 	//登录
@@ -82,6 +86,9 @@ private:
 	void onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//注册回调
 	virtual void onRegistered(const char *sAccount, const char*sNickname, const char*sPassword);
+	//是否是新帐号
+	bool isNewAccount(const char *sAccount);
+	
 	//存档
 	void readRMS();
 	void initRSM();

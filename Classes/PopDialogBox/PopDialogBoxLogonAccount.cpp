@@ -47,6 +47,16 @@ void PopDialogBoxLogonAccount::onEnter(){
 	pTPassword->addEventListenerTextField(this,SEL_TextFieldEvent(&PopDialogBoxLogonAccount::onTextFieldAccount));
 	pTPassword->setText(DataModel::sharedDataModel()->sLogonPassword);
 	addEditBox(pTPassword, kEditBoxInputModeSingleLine);
+	//更多帐号
+	UIButton *pBMoreAccount = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonMoreAccount"));
+	pBMoreAccount->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxLogonAccount::onMenuMoreAccount));
+	//更多帐号列表
+	pLVMoreAccount = static_cast<UIListView*>(pUILayer->getWidgetByName("ListViewMoreAccount"));
+	pLVMoreAccount->setEnabled(false);
+	pLVMoreAccount->setItemModel(pLVMoreAccount->getItem(0));
+	pLVMoreAccount->removeAllItems();
+
+	updateListViewMoreAccount();
 	//播放显示动画
 	playAnimation();
 }
@@ -101,6 +111,104 @@ void PopDialogBoxLogonAccount::onMenuLogon(CCObject *object, TouchEventType type
 		break;
 	}
 }
+//更多帐号
+void PopDialogBoxLogonAccount::onMenuMoreAccount(CCObject *object, TouchEventType type){
+	if (type==TOUCH_EVENT_ENDED)
+	{
+		showMoreAccount(true);
+	}
+}
+//选择帐号
+void PopDialogBoxLogonAccount::onMenuSelectAccount(CCObject *object, TouchEventType type){
+	if (type == TOUCH_EVENT_ENDED)
+	{
+		UIButton *pBTemp = (UIButton*)object;
+		MoreAccount moreAccount = DataModel::sharedDataModel()->vecMoreAccount[pBTemp->getTag()];
+		
+		CCEditBox *pEBAccount = (CCEditBox*)pTAccount->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		CCEditBox *pEBPassword = (CCEditBox*)pTPassword->getNodeByTag(TAG_INPUT_EDIT_BOX);
+
+		pEBAccount->setText(moreAccount.userAccount.c_str());
+		pEBPassword->setText(moreAccount.userPwd.c_str());
+		
+		showMoreAccount(false);
+	}
+}
+//删除更多帐号
+void PopDialogBoxLogonAccount::onMenuDeleteAccount(CCObject *object, TouchEventType type){
+	if (type == TOUCH_EVENT_ENDED)
+	{
+		UIButton *pBTemp = (UIButton*)object;
+		int iTag = pBTemp->getTag();
+		std::vector<MoreAccount>::iterator it = DataModel::sharedDataModel()->vecMoreAccount.begin() + iTag;
+		DataModel::sharedDataModel()->vecMoreAccount.erase(it);
+		
+		pLVMoreAccount->removeItem(iTag);
+		//更新tag
+		for (int i = iTag; i < DataModel::sharedDataModel()->vecMoreAccount.size(); i++)
+		{
+			//容器单元
+			UIPanel *pPanelCell = static_cast<UIPanel*>(pLVMoreAccount->getItem(i));
+			pPanelCell->setTag(i);
+			//删除
+			UIButton *pBDelete = static_cast<UIButton*>(pLVMoreAccount->getItem(i)->getChildByName("ButtonDelete"));
+			pBDelete->setTag(i);
+		}
+		((LogonScene*)this->getParent())->saveAccount();
+	}
+}
+//显示更多帐号
+void PopDialogBoxLogonAccount::showMoreAccount(bool isShow){
+	CCEditBox *pEBAccount = (CCEditBox*)pTAccount->getNodeByTag(TAG_INPUT_EDIT_BOX);
+	CCEditBox *pEBPassword = (CCEditBox*)pTPassword->getNodeByTag(TAG_INPUT_EDIT_BOX);
+	//登录按键
+	UIButton *pBLogon = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonLogonAccount"));
+	//找回密码
+	UILabel *pLRetrievePwd = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelRetrievePwd"));
+	if (isShow)
+	{
+		pLVMoreAccount->setEnabled(true);
+
+		
+		pEBAccount->setTouchEnabled(false);
+		pEBPassword->setTouchEnabled(false);
+		pBLogon->setTouchEnabled(false);
+		pLRetrievePwd->setTouchEnabled(false);
+		//重设置下，否则会被覆盖事件
+		this->setTouchEnabled(true);
+		this->setTouchPriority(0);
+		this->setTouchMode(kCCTouchesOneByOne);
+	}
+	else
+	{
+		pEBAccount->setTouchEnabled(true);
+		pEBPassword->setTouchEnabled(true);
+		pBLogon->setTouchEnabled(true);
+		pLRetrievePwd->setTouchEnabled(true);
+
+		pLVMoreAccount->setEnabled(false);
+		this->setTouchEnabled(false);
+	}
+}
+bool PopDialogBoxLogonAccount::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent){
+	CCPoint touchPoint = this->convertTouchToNodeSpace(pTouch);
+	CCRect rect = CCRect(pLVMoreAccount->getWorldPosition().x, pLVMoreAccount->getWorldPosition().y, pLVMoreAccount->getSize().width, pLVMoreAccount->getSize().height);
+	if (rect.containsPoint(touchPoint))
+	{
+		return false;
+	}
+	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
+	CCRect rectClose = CCRect(backButton->getWorldPosition().x - backButton->getSize().width/2,
+		backButton->getWorldPosition().y - backButton->getSize().height/2,
+		backButton->getSize().width, 
+		backButton->getSize().height);
+	if (rectClose.containsPoint(touchPoint))
+	{
+		return false;
+	}
+	showMoreAccount(false);
+	return true;
+}
 //找回密码
 void PopDialogBoxLogonAccount::onMenuRetrievePwd(CCObject *object, TouchEventType type){
 	if (type==TOUCH_EVENT_ENDED)
@@ -128,5 +236,36 @@ void PopDialogBoxLogonAccount::editBoxEditingDidEnd(cocos2d::extension::CCEditBo
 		{
 			pEBPassword->setText(DataModel::sharedDataModel()->sLogonPassword.c_str());
 		}
+	}
+}
+//更新更多帐号列表
+void PopDialogBoxLogonAccount::updateListViewMoreAccount(){
+	UIListView *pLVTemp = pLVMoreAccount;
+	pLVTemp->removeAllItems();
+
+	int tempSize = DataModel::sharedDataModel()->vecMoreAccount.size();
+	if (tempSize == 0)
+	{
+		return;
+	}
+
+
+
+	for (int i = 0; i < tempSize; i++)
+	{
+		int inserterPos = pLVTemp->getItems()->count();
+		pLVTemp->insertDefaultItem(inserterPos);
+		//容器单元
+		UIPanel *pPanelCell = static_cast<UIPanel*>(pLVTemp->getItem(inserterPos));
+		pPanelCell->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxLogonAccount::onMenuSelectAccount));
+		pPanelCell->setTag(i);
+		//帐号
+		UILabel *pGoodsName = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("LabelAccountCell"));
+		pGoodsName->setText(DataModel::sharedDataModel()->vecMoreAccount[i].userAccount.c_str());
+		//删除
+		UIButton *pBDelete = static_cast<UIButton*>(pLVTemp->getItem(inserterPos)->getChildByName("ButtonDelete"));
+		pBDelete->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxLogonAccount::onMenuDeleteAccount));
+		pBDelete->setTag(i);
+		
 	}
 }

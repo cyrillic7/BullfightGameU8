@@ -2,7 +2,7 @@
 
 
 #define DEBUG_TEST 1 //0调试模式、1测试模式、2发布模式
-#define GAME_VERSION "Version1.1.1"//游戏版本号
+#define GAME_VERSION "Version1.1.2"//游戏版本号
 
 #define VERSION_FRAME				16777217
 #define VERSION_CLIENT				17170433
@@ -28,6 +28,7 @@
 #define RMS_LOGON_ACCOUNT					"logonAccount"				//登录帐号
 #define RMS_LOGON_PASSWORD					"logonPassword"				//登录密码
 #define RMS_SIGN_RECORD						"signRecord"				//签到记录
+#define RMS_MORE_ACCOUNT					"moreAccount"				//更多帐号
 
 
 //层级////////////////////////////////////////////////////////////////////////

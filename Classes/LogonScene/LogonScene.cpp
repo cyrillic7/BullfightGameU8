@@ -84,6 +84,8 @@ LogonScene::LogonScene()
 	//CCLOG("--------:%s <<%s>>", platformAction("{\"act\":100}").c_str(), __FUNCTION__);
 	//初始化签到信息
 	initSignInfo();
+	//初始化更多帐号
+	initMoreAccount();
 #if(DEBUG_TEST==0||DEBUG_TEST==1)
 	CCLabelTTF *label = CCLabelTTF::create(GAME_VERSION, "Marker Felt", 20);
 	this->addChild(label, 2);
@@ -168,6 +170,33 @@ void LogonScene::initSignInfo(){
 				day = _day->valueint;
 			}
 			DataModel::sharedDataModel()->mapSignRecord.insert(map<long, int>::value_type(userID, day));
+			_record = _record->next;
+		}
+	}
+	Json_dispose(root);
+}
+//初始化更多帐号
+void LogonScene::initMoreAccount(){
+	std::string sMore = Tools::getStringByRMS(RMS_MORE_ACCOUNT);
+	Json *root = Json_create(sMore.c_str());
+	if (root)
+	{
+		Json* _date = Json_getItem(root, "moreAccount");
+		Json* _record = root->child;
+		while (_record)
+		{
+			MoreAccount moreAccount;
+			Json* _userID = Json_getItem(_record, "userId");
+			if (_userID->type == Json_String)
+			{
+				moreAccount.userAccount = _userID->valuestring;
+			}
+			Json* _pwd = Json_getItem(_record, "userPwd");
+			if (_pwd->type == Json_String)
+			{
+				moreAccount.userPwd = _pwd->valuestring;
+			}
+			DataModel::sharedDataModel()->vecMoreAccount.push_back(moreAccount);
 			_record = _record->next;
 		}
 	}
@@ -493,6 +522,18 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 				DataModel::sharedDataModel()->sLogonPassword = sRegisterPasswrod;
 			}
 			
+			
+			//保存更多帐号
+			if (isNewAccount(DataModel::sharedDataModel()->sLogonAccount.c_str()))
+			{
+				MoreAccount moreAccount;
+				moreAccount.userAccount = DataModel::sharedDataModel()->sLogonAccount;
+				moreAccount.userPwd = DataModel::sharedDataModel()->sLogonPassword;
+				DataModel::sharedDataModel()->vecMoreAccount.push_back(moreAccount);
+				saveAccount();
+			}
+			
+			
 
 			Tools::saveStringByRMS(RMS_LOGON_ACCOUNT,DataModel::sharedDataModel()->sLogonAccount);
 			Tools::saveStringByRMS(RMS_LOGON_PASSWORD,DataModel::sharedDataModel()->sLogonPassword);
@@ -687,6 +728,7 @@ void LogonScene::initRSM(){
 	Tools::saveStringByRMS(RMS_LOGON_ACCOUNT,"");
 	Tools::saveStringByRMS(RMS_LOGON_PASSWORD,"");
 	Tools::saveStringByRMS(RMS_SIGN_RECORD, "");
+	Tools::saveStringByRMS(RMS_MORE_ACCOUNT,"");
 }
 bool LogonScene::isHaveSaveFile(){
 	if (!Tools::getBoolByRMS("isHaveSaveFileXml"))
@@ -698,7 +740,31 @@ bool LogonScene::isHaveSaveFile(){
 		return true;
 	}
 }
-
+//是否是新帐号
+bool LogonScene::isNewAccount(const char *sAccount){
+	for (int i = 0; i < DataModel::sharedDataModel()->vecMoreAccount.size(); i++)
+	{
+		MoreAccount moreAccount = DataModel::sharedDataModel()->vecMoreAccount[i];
+		if (strcmp(moreAccount.userAccount.c_str(),sAccount)==0)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+//保存帐号
+void LogonScene::saveAccount(){
+	//保存
+	std::string saveStr = "{";
+	for (int i = 0; i < DataModel::sharedDataModel()->vecMoreAccount.size(); i++)
+	{
+		MoreAccount moreAccount = DataModel::sharedDataModel()->vecMoreAccount[i];
+		saveStr += CCString::createWithFormat("\"AccountData\":{\"userId\":\"%s\",\"userPwd\":\"%s\"},", moreAccount.userAccount.c_str(), moreAccount.userPwd.c_str())->getCString();
+	}
+	saveStr.erase(saveStr.end() - 1);
+	saveStr += "}";
+	Tools::saveStringByRMS(RMS_MORE_ACCOUNT, saveStr.c_str());
+}
 
 void LogonScene::keyBackClicked(){
 	platformAction("{\"act\":400}");

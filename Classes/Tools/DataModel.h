@@ -6,6 +6,11 @@
 #include "../Network/CMD_Server/CMD_LogonServer.h"
 #include "../Play/OxHundred/JettonNode.h"
 USING_NS_CC;
+struct MoreAccount
+{
+	std::string userAccount;
+	std::string userPwd;
+};
 class DataModel:public CCObject{
 public:
 	//音效开关
@@ -21,6 +26,8 @@ public:
 	std::string sLogonAccount;
 	//登录密码
 	std::string sLogonPassword;
+	//更多帐号
+	std::vector <MoreAccount> vecMoreAccount;
 	//长连接大厅地址
 	std::string sLobbyIp;
 	//手机号码
