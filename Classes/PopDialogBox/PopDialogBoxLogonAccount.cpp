@@ -238,6 +238,34 @@ void PopDialogBoxLogonAccount::editBoxEditingDidEnd(cocos2d::extension::CCEditBo
 		}
 	}
 }
+void PopDialogBoxLogonAccount::editBoxTextChanged(cocos2d::extension::CCEditBox* editBox, const std::string& text){
+ 	/*if (isAllChniese(text))
+ 	{
+		editBox->setText(sTempAccount.c_str());
+	}
+	else
+	{
+		sTempAccount = text;
+	}*/
+}
+bool PopDialogBoxLogonAccount::isAllChniese(std::string string){
+	if (string.size()<4)
+	{
+		return false;
+	}
+	for (std::string::iterator iter=string.begin(); iter!=string.end(); ++iter)
+	{
+		if (*iter>0&&*iter<127)
+		{
+			return false;
+		}
+		else
+		{
+			iter += 2;
+		}
+	}
+	return true;
+}
 //更新更多帐号列表
 void PopDialogBoxLogonAccount::updateListViewMoreAccount(){
 	UIListView *pLVTemp = pLVMoreAccount;

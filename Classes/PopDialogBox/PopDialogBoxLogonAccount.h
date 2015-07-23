@@ -15,6 +15,7 @@ private:
 	UITextField *pTPassword; 
 	//更多帐号列表
 	UIListView *pLVMoreAccount;
+	//std::string sTempAccount;
 public:
 	PopDialogBoxLogonAccount();
 	~PopDialogBoxLogonAccount();
@@ -44,4 +45,6 @@ private:
 	//输入框回调
 	virtual void editBoxEditingDidBegin(cocos2d::extension::CCEditBox* editBox);
 	virtual void editBoxEditingDidEnd(cocos2d::extension::CCEditBox* editBox);
+	virtual void editBoxTextChanged(cocos2d::extension::CCEditBox* editBox, const std::string& text);
+	bool isAllChniese(std::string string);
 };
