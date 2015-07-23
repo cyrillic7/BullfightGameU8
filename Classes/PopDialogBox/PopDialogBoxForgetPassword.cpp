@@ -295,7 +295,7 @@ void PopDialogBoxForgetPassword::onSubChangePwd(void * pDataBuffer, unsigned sho
 	
 }
 //关闭提示回调
-void PopDialogBoxForgetPassword::onCloseTipInfo(){
+void PopDialogBoxForgetPassword::onCloseTipInfo(CCLayer *pTipInfo){
 	//this->removeAllChildrenWithCleanup(true);
 	
 	this->removeFromParentAndCleanup(true);

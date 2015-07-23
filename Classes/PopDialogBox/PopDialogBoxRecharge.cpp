@@ -309,7 +309,12 @@ void PopDialogBoxRecharge::onEventUserService(WORD wSubCmdID, void * pDataBuffer
 	case SUB_GP_OPERATE_FAILURE:
 	{
 		CMD_GP_OperateFailure *pFailure = (CMD_GP_OperateFailure*)pDataBuffer;
-		showTipInfo(GBKToUTF8(pFailure->szDescribeString));
+		//showTipInfo(GBKToUTF8(pFailure->szDescribeString));
+		PopDialogBoxTipInfo *pTipInfo = PopDialogBoxTipInfo::create();
+		this->addChild(pTipInfo, 10);
+		pTipInfo->setTipInfoContent(GBKToUTF8(pFailure->szDescribeString));
+		pTipInfo->setIPopAssistTipInfo(this);
+		pTipInfo->pBClose->setTitleText(" 前往充值 ");
 	}
 	break;
 	default:
@@ -335,4 +340,11 @@ void PopDialogBoxRecharge::onSubExchangeBigGold(void * pDataBuffer, unsigned sho
 
 	showTipInfo(GBKToUTF8(pExchangeSuccess->szDescribeString));
 
+}
+//关闭回调
+void PopDialogBoxRecharge::onCloseTipInfo(CCLayer *pTipInfo){
+	pTipInfo->removeFromParentAndCleanup(true);
+
+	UIButton *pBExchangeBigGold = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonBigGold"));
+	onMenuChangeExchangeType(pBExchangeBigGold, TOUCH_EVENT_ENDED);
 }

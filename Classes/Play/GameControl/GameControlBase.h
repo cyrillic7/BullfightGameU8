@@ -118,7 +118,7 @@ private:
 	//延时操作
 	virtual void delayedAction();
 	//关闭回调
-	virtual void onCloseTipInfo();
+	virtual void onCloseTipInfo(CCLayer *pTipInfo);
 public:
 	//获取我的椅子位置
 	int getMeChairID();

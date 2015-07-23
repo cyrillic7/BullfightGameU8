@@ -26,8 +26,8 @@ void PopDialogBoxTipInfo::onEnter(){
 	pWidgetBg = static_cast<UIImageView*>(pUILayer->getWidgetByName("bg"));
 	
 	//关闭
-	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
-	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxTipInfo::onMenuCloseTipInfo));
+	pBClose = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
+	pBClose->addTouchEventListener(this, toucheventselector(PopDialogBoxTipInfo::onMenuCloseTipInfo));
 
 	pLInfo = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelInfo"));
 	pLInfo->ignoreContentAdaptWithSize(true);
@@ -44,7 +44,7 @@ void PopDialogBoxTipInfo::onMenuCloseTipInfo(CCObject *object, TouchEventType ty
 	{
 		if (getIPopAssistTipInfo())
 		{
-			getIPopAssistTipInfo()->onCloseTipInfo();
+			getIPopAssistTipInfo()->onCloseTipInfo(this);
 		}
 		else
 		{

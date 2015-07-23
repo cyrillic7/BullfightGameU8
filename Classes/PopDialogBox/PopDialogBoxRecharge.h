@@ -9,7 +9,8 @@
 
 #include "PopDialogBox.h"
 #include "IPopDialogBoxAssist.h"
-class PopDialogBoxRecharge : public PopDialogBox{
+#include "PopDialogBoxTipInfo.h"
+class PopDialogBoxRecharge : public PopDialogBox, public IPopAssistTipInfo{
 public:
 	CC_SYNTHESIZE(IPopDialogBoxAssistCloseView*, pIPopDialogBoxAssistCloseView, IPopDialogBoxAssistCloseView);
 	bool isShowExchangeGold;				//是否显示兑换金币
@@ -57,7 +58,8 @@ public:
 private:
 	virtual void onEnter();
 	virtual void onExit();
-
+	//关闭回调
+	void onCloseTipInfo(CCLayer *pTipInfo);
 	//关闭窗口
 	void onMenuCloseView(CCObject *object, TouchEventType type);
 	//更改兑换类型

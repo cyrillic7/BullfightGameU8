@@ -62,13 +62,6 @@ void ClassicLobbyScene::onEnter(){
 	spriteBg->setPosition(ccp(deviceSize.width/2,deviceSize.height/2));
 	float scale=deviceSize.height/spriteBg->getContentSize().height;
 	spriteBg->setScale(scale);*/
-	pBUserInfo->loadTextureNormal("back.png", UI_TEX_TYPE_PLIST);
-	pBUserInfo->loadTexturePressed("back_press.png", UI_TEX_TYPE_PLIST);
-	pBUserInfo->setScale9Enabled(false);
-	pBUserInfo->ignoreContentAdaptWithSize(true);
-	pBUserInfo->setSize(CCSize(51, 40));
-
-	pBUserInfo->getChildByName("Image_23")->setVisible(false);
 
 	m_pWidget = UILayer::create();
 	this->addChild(m_pWidget);
@@ -76,6 +69,15 @@ void ClassicLobbyScene::onEnter(){
 
 	UILayout *pWidget = dynamic_cast<UILayout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UIClassicLobby.ExportJson)));
 	m_pWidget->addWidget(pWidget);
+
+
+	pBUserInfo->loadTextureNormal("back.png", UI_TEX_TYPE_PLIST);
+	pBUserInfo->loadTexturePressed("back_press.png", UI_TEX_TYPE_PLIST);
+	pBUserInfo->setScale9Enabled(false);
+	pBUserInfo->ignoreContentAdaptWithSize(true);
+	pBUserInfo->setSize(CCSize(51, 40));
+	pBUserInfo->getChildByName("Image_23")->setVisible(false);
+
 
 	UIButton* pBRecharge = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonRecharge"));
 	pBRecharge->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuFirstRecharge));

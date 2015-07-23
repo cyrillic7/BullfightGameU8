@@ -48,7 +48,7 @@ private:
 	virtual void onEnter();
 	virtual void onExit();
 	//关闭提示回调
-	virtual void onCloseTipInfo();
+	virtual void onCloseTipInfo(CCLayer *pTipInfo);
 	//找回密码////////////////////////////////////////////////////////////////////////
 	void onMenuForgetPassword(CCObject *object, TouchEventType type);
 	//获取验证码

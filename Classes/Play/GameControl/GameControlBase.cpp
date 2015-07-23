@@ -668,7 +668,7 @@ void GameControlBase::onUnconnect(WORD wSubCmdID){
 	pTipInfo->setIPopAssistTipInfo(this);
 }
 //关闭回调
-void GameControlBase::onCloseTipInfo(){
+void GameControlBase::onCloseTipInfo(CCLayer *pTipInfo){
 	Tools::setTransitionAnimation(0,0,GameLobbyScene::scene(false));
 }
 void GameControlBase::frameEvent(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){

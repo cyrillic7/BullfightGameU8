@@ -307,7 +307,7 @@ void PopDialogBoxForgetBankPwd::onSubChangePwd(void * pDataBuffer, unsigned shor
 	
 }
 //关闭提示回调
-void PopDialogBoxForgetBankPwd::onCloseTipInfo(){
+void PopDialogBoxForgetBankPwd::onCloseTipInfo(CCLayer *pTipInfo){
 	//this->removeAllChildrenWithCleanup(true);
 	
 	this->removeFromParentAndCleanup(true);

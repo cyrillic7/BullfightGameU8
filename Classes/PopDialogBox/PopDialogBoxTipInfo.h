@@ -11,11 +11,14 @@ struct IPopAssistTipInfo//提示语回调
 {
 	virtual ~IPopAssistTipInfo(){}
 	//关闭回调
-	virtual void onCloseTipInfo() = 0;
+	virtual void onCloseTipInfo(CCLayer *pTipInfo) = 0;
 };
 class PopDialogBoxTipInfo :public PopDialogBox{
 public:
 	CC_SYNTHESIZE(IPopAssistTipInfo*, pIPopAssistTipInfo, IPopAssistTipInfo);
+
+	//关闭
+	UIButton *pBClose;
 private:
 	Label *pLInfo;
 public:
