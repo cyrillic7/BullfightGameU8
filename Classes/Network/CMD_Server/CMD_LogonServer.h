@@ -583,12 +583,15 @@ struct CMD_GP_Knapsack
 		//memset(this, 0, sizeof(CMD_GP_Knapsack));
 	}
 	DWORD				dwID;
+	DWORD				dwExchangeType;							//兑换方式1：不能使用 2：使用 3：兑换(查看兑换描述)
+	DWORD				dwUseType;								//使用类型5：话费  6：Q币
 	DWORD				dwPackType;								//类别1:礼包，2:道具
 	DWORD				dwPropID;								//礼包或道具id
 	DWORD				dwNum;									//数量
 	DWORD				dwSortID;								//顺序
 	TCHAR				szName[GIFT_NAME_LEN];					//名称
 	TCHAR				szImgName[GIFT_IMGNAME];				//图片
+	TCHAR				szRemark[GIFT_IMGNAME];					//兑换描述
 };
 struct CMD_GP_KnapsackLog
 {

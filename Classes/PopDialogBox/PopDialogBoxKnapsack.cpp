@@ -45,6 +45,7 @@ void PopDialogBoxKnapsack::onEnter(){
 	pIInfoBg = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageInfoBg")); 
 	//空包背景
 	pINothing = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageNothing"));
+	pINothing->setVisible(false);
 	//兑换
 	UIButton *pBExchange = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonExchange"));
 	pBExchange->addTouchEventListener(this, toucheventselector(PopDialogBoxKnapsack::onMenuExchange));

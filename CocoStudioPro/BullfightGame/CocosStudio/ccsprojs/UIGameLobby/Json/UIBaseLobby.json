@@ -731,11 +731,11 @@
                       "customProperty": "",
                       "flipX": false,
                       "flipY": false,
-                      "height": 27,
+                      "height": 37,
                       "ignoreSize": true,
                       "layoutParameter": null,
                       "opacity": 255,
-                      "positionPercentX": 0.0959596,
+                      "positionPercentX": 0.08080808,
                       "positionPercentY": 0,
                       "positionType": 0,
                       "rotation": 0,
@@ -748,8 +748,8 @@
                       "touchAble": false,
                       "useMergedTexture": false,
                       "visible": true,
-                      "width": 27,
-                      "x": 19,
+                      "width": 35,
+                      "x": 16,
                       "y": 0,
                       "capInsetsHeight": 1,
                       "capInsetsWidth": 1,
@@ -757,13 +757,13 @@
                       "capInsetsY": 0,
                       "fileName": null,
                       "fileNameData": {
-                        "path": "dou.png",
-                        "plistFile": "UIGameLobby.plist",
+                        "path": "u_a_icon_gold.png",
+                        "plistFile": "UIAuction.plist",
                         "resourceType": 1
                       },
                       "scale9Enable": false,
-                      "scale9Height": 27,
-                      "scale9Width": 27
+                      "scale9Height": 37,
+                      "scale9Width": 35
                     }
                   },
                   {

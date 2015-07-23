@@ -326,6 +326,10 @@ void PopDialogBoxAuction::onMenuTakeOut(CCObject *object, TouchEventType type){
 			connectServer();
 			connectSuccess();
 		}
+		else
+		{
+			showTipInfo(" 您还没有可提取的金币！ ");
+		}
 	}
 	break;
 	default:
@@ -1126,4 +1130,24 @@ void PopDialogBoxAuction::onSubTakeOut(void * pDataBuffer, unsigned short wDataS
 	}
 	showTipInfo(GBKToUTF8(pTakeOut->szDescribeString));
 	//setAgainGetData(AGAIN_MY_PROPERTY);
+}
+//输入改变
+void PopDialogBoxAuction::editBoxTextChanged(cocos2d::extension::CCEditBox* editBox, const std::string& text)
+{
+	CCEditBox *pEBGoodsNum = (CCEditBox*)pTFAuctionGoodsNum->getNodeByTag(TAG_INPUT_EDIT_BOX);
+	if (editBox==pEBGoodsNum)
+	{
+		long lGoosdNum = strtol(editBox->getText(), NULL, 10);
+		editBox->setText(CCString::createWithFormat("%ld", lGoosdNum)->getCString());
+	}
+	else
+	{
+		long long llGoosdPice = strtol(editBox->getText(), NULL, 10);
+		editBox->setText(CCString::createWithFormat("%lld", llGoosdPice)->getCString());
+	}
+	
+
+	
+	//lBuyNum = strtol(text.c_str(), NULL, 10);
+	//updateAllPice();
 }

@@ -12,16 +12,12 @@
   "textures": [
     "UIGameLobby.plist",
     "UIUserInfo.plist",
-    "UIClassicLobby.plist",
-    "UIPanel.plist",
-    "UIMode.plist"
+    "UIAuction.plist"
   ],
   "texturesPng": [
     "UIGameLobby.png",
     "UIUserInfo.png",
-    "UIClassicLobby.png",
-    "UIPanel.png",
-    "UIMode.png"
+    "UIAuction.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -688,7 +684,7 @@
                   "layoutParameter": null,
                   "opacity": 255,
                   "positionPercentX": 0.200819671,
-                  "positionPercentY": -0.2783505,
+                  "positionPercentY": -0.268041223,
                   "positionType": 1,
                   "rotation": 0,
                   "scaleX": 1,
@@ -737,11 +733,11 @@
                       "customProperty": "",
                       "flipX": false,
                       "flipY": false,
-                      "height": 27,
+                      "height": 37,
                       "ignoreSize": true,
                       "layoutParameter": null,
                       "opacity": 255,
-                      "positionPercentX": 0.0959596,
+                      "positionPercentX": 0.08080808,
                       "positionPercentY": 0,
                       "positionType": 0,
                       "rotation": 0,
@@ -754,8 +750,8 @@
                       "touchAble": false,
                       "useMergedTexture": true,
                       "visible": true,
-                      "width": 27,
-                      "x": 19,
+                      "width": 35,
+                      "x": 16,
                       "y": 0,
                       "capInsetsHeight": 1,
                       "capInsetsWidth": 1,
@@ -763,13 +759,13 @@
                       "capInsetsY": 0,
                       "fileName": null,
                       "fileNameData": {
-                        "path": "dou.png",
+                        "path": "u_a_icon_gold.png",
                         "plistFile": "",
                         "resourceType": 1
                       },
                       "scale9Enable": false,
-                      "scale9Height": 27,
-                      "scale9Width": 27
+                      "scale9Height": 37,
+                      "scale9Width": 35
                     }
                   },
                   {

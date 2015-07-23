@@ -164,4 +164,6 @@ private:
 	void onSubTreasure(void * pDataBuffer, unsigned short wDataSize);
 	//提取拍卖所得
 	void onSubTakeOut(void * pDataBuffer, unsigned short wDataSize);
+private:
+	void editBoxTextChanged(cocos2d::extension::CCEditBox* editBox, const std::string& text);
 };

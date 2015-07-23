@@ -24,4 +24,11 @@ private:
 	virtual void onExit();
 	//反馈////////////////////////////////////////////////////////////////////////
 	void onMenuFeedback(CCObject *object, TouchEventType type);
+	//输入内容
+	void onMenuInputContent(CCObject *object, TouchEventType type);
+	//输入联系方式
+	void onMenuInputContact(CCObject *object, TouchEventType type);
+
+	//输入回调
+	virtual void editBoxTextChanged(cocos2d::extension::CCEditBox* editBox, const std::string& text);
 };
