@@ -262,10 +262,12 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 				break;
 			case LOGON_QUICK://快速登录
 				{
-					PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+					quickLogon();
+					/*PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
 					this->addChild(tipInfo);
 					tipInfo->setTipInfoContent(BaseAttributes::sharedAttributes()->sWaitCodeing.c_str());
 					//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_GAME);
+					*/
 				}
 				break;
 			default:
@@ -278,7 +280,46 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 		break;
 	}
 }
-
+//快速登录
+void LogonScene::quickLogon(){
+	switch (DataModel::sharedDataModel()->logonType)
+	{
+	case LOGON_ACCOUNT:
+	{
+		if (strcmp(DataModel::sharedDataModel()->sLogonAccount.c_str(), "") == 0)
+		{
+			PopDialogBoxRegistered *pRegistered = PopDialogBoxRegistered::create();
+			this->addChild(pRegistered);
+			pRegistered->setIPopAssistRegistered(this);
+		}
+		else
+		{
+			logonGameByAccount(0);
+		}
+	}
+		break;
+	case LOGON_QQ:
+	{
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+		PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+		this->addChild(tipInfo);
+		tipInfo->setTipInfoContent(BaseAttributes::sharedAttributes()->sWaitCodeing.c_str());
+#else
+		m_pWidget->setTouchEnabled(false);
+		platformAction("{\"act\":200 ,\"url\":\"http://www.999xw.com/QQLogin.aspx\"}").c_str();
+#endif
+	}
+		break;
+	default:
+		if (strcmp(DataModel::sharedDataModel()->sLogonAccount.c_str(), "") == 0)
+		{
+			PopDialogBoxRegistered *pRegistered = PopDialogBoxRegistered::create();
+			this->addChild(pRegistered);
+			pRegistered->setIPopAssistRegistered(this);
+		}
+		break;
+	}
+}
 void LogonScene::update(float delta){
 	/*if (isReadMessage)
 	{
@@ -521,22 +562,23 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			{
 				DataModel::sharedDataModel()->sLogonPassword = sRegisterPasswrod;
 			}
-			
-			
-			//保存更多帐号
-			if (isNewAccount(DataModel::sharedDataModel()->sLogonAccount.c_str()))
+			//是帐号登录，保存登录信息
+			if (DataModel::sharedDataModel()->logonType==LOGON_ACCOUNT)
 			{
-				MoreAccount moreAccount;
-				moreAccount.userAccount = DataModel::sharedDataModel()->sLogonAccount;
-				moreAccount.userPwd = DataModel::sharedDataModel()->sLogonPassword;
-				DataModel::sharedDataModel()->vecMoreAccount.push_back(moreAccount);
-				saveAccount();
+				//保存更多帐号
+				if (isNewAccount(DataModel::sharedDataModel()->sLogonAccount.c_str()))
+				{
+					MoreAccount moreAccount;
+					moreAccount.userAccount = DataModel::sharedDataModel()->sLogonAccount;
+					moreAccount.userPwd = DataModel::sharedDataModel()->sLogonPassword;
+					DataModel::sharedDataModel()->vecMoreAccount.push_back(moreAccount);
+					saveAccount();
+				}
+
+				Tools::saveStringByRMS(RMS_LOGON_ACCOUNT, DataModel::sharedDataModel()->sLogonAccount);
+				Tools::saveStringByRMS(RMS_LOGON_PASSWORD, DataModel::sharedDataModel()->sLogonPassword);
 			}
 			
-			
-
-			Tools::saveStringByRMS(RMS_LOGON_ACCOUNT,DataModel::sharedDataModel()->sLogonAccount);
-			Tools::saveStringByRMS(RMS_LOGON_PASSWORD,DataModel::sharedDataModel()->sLogonPassword);
 		}
 		break;
 	case SUB_MB_LOGON_FAILURE:
@@ -795,6 +837,8 @@ extern "C"
 	{
 		const char * sAccount= env->GetStringUTFChars(account, NULL);
 		const char * sPwd= env->GetStringUTFChars(password, NULL);
+		//const char * sAccount= "zh1236";
+		//const char * sPwd= "z12345678";
 		switch(type)
 		{
 		case 1:

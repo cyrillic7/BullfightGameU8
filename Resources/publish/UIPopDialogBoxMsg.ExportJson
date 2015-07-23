@@ -903,7 +903,7 @@
                           "fontName": "微软雅黑",
                           "fontSize": 22,
                           "hAlignment": 0,
-                          "text": "来顺可顺来顺可顺来顺可顺来顺可顺来顺可顺来顺可顺来顺可顺来顺可顺来顺可顺",
+                          "text": "",
                           "touchScaleEnable": false,
                           "vAlignment": 1
                         }
@@ -996,8 +996,8 @@
                     "type": 1
                   },
                   "opacity": 255,
-                  "positionPercentX": 0.123355262,
-                  "positionPercentY": 2.66666675,
+                  "positionPercentX": 0,
+                  "positionPercentY": 0.7076023,
                   "positionType": 0,
                   "rotation": 0,
                   "scaleX": 1,
@@ -1010,8 +1010,8 @@
                   "useMergedTexture": true,
                   "visible": true,
                   "width": 608,
-                  "x": 75,
-                  "y": 912,
+                  "x": 0,
+                  "y": 242,
                   "adaptScreen": false,
                   "backGroundImage": null,
                   "backGroundImageData": null,
@@ -1274,7 +1274,7 @@
                   "fontName": "微软雅黑",
                   "fontSize": 20,
                   "hAlignment": 0,
-                  "text": "Text Label",
+                  "text": "",
                   "touchScaleEnable": false,
                   "vAlignment": 0
                 }

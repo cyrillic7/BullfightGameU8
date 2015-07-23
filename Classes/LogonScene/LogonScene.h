@@ -94,6 +94,9 @@ private:
 	void initRSM();
 	bool isHaveSaveFile();
 
+	//快速登录
+	void quickLogon();
+
 	virtual void keyBackClicked();  //响应返回键  
 };
 

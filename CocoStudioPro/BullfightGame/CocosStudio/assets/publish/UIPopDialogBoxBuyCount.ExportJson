@@ -845,7 +845,7 @@
                   "customProperty": "",
                   "flipX": false,
                   "flipY": false,
-                  "height": 27,
+                  "height": 0,
                   "ignoreSize": true,
                   "layoutParameter": null,
                   "opacity": 255,
@@ -862,7 +862,7 @@
                   "touchAble": false,
                   "useMergedTexture": true,
                   "visible": true,
-                  "width": 36,
+                  "width": 0,
                   "x": 8,
                   "y": 0,
                   "areaHeight": 0,
@@ -871,7 +871,7 @@
                   "fontName": "微软雅黑",
                   "fontSize": 20,
                   "hAlignment": 0,
-                  "text": "123",
+                  "text": "",
                   "touchScaleEnable": false,
                   "vAlignment": 0
                 }

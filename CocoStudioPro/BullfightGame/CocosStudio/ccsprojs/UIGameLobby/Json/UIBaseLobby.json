@@ -12,11 +12,13 @@
   "textures": [
     "UIGameLobby.plist",
     "UIUserInfo.plist",
-    "UIClassicLobby.plist",
-    "UIPanel.plist",
-    "UIMode.plist"
+    "UIAuction.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIGameLobby.png",
+    "UIUserInfo.png",
+    "UIAuction.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",

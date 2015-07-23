@@ -13,13 +13,15 @@
     "UIPanel.plist",
     "UIButton.plist",
     "UIUserInfo.plist",
-    "UILogon.plist"
+    "UILogon.plist",
+    "UIBank.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
     "UIUserInfo.png",
-    "UILogon.png"
+    "UILogon.png",
+    "UIBank.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -2295,7 +2297,7 @@
                       "customProperty": "",
                       "flipX": false,
                       "flipY": false,
-                      "height": 31,
+                      "height": 0,
                       "ignoreSize": true,
                       "layoutParameter": null,
                       "opacity": 255,
@@ -2312,7 +2314,7 @@
                       "touchAble": false,
                       "useMergedTexture": false,
                       "visible": true,
-                      "width": 14,
+                      "width": 0,
                       "x": -140,
                       "y": 104,
                       "areaHeight": 0,
@@ -2321,7 +2323,7 @@
                       "fontName": "微软雅黑",
                       "fontSize": 24,
                       "hAlignment": 0,
-                      "text": "0",
+                      "text": "",
                       "touchScaleEnable": false,
                       "vAlignment": 0
                     }
