@@ -53,8 +53,8 @@ void PopDialogBoxInputExchange::onExit(){
 	CCLayer::onExit();
 }
 //设置数据
-void PopDialogBoxInputExchange::setInputData(ExchangeType eTExchangeType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, long long lPice){
-	setExchangeType(eTExchangeType);
+void PopDialogBoxInputExchange::setInputData(UseType eTExchangeType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, std::string sInfoContent){
+	setUseType(eTExchangeType);
 	
 	lMaxPropsNum = lMaxNum;
 	lBuyNum = lMaxNum;
@@ -70,7 +70,7 @@ void PopDialogBoxInputExchange::setInputData(ExchangeType eTExchangeType, const 
 	UILabel *pLTempTitle1 = static_cast<UILabel*>(pUILayer->getWidgetByName("Label_4"));
 	switch (eTExchangeType)
 	{
-	case PopDialogBox::EXCHANGE_PHONE_COST:
+	case PopDialogBox::USE_PHONE_COST:
 	{
 		pLBuyType->setText("手机号码:");
 		pLExchangeContent->setText("请确认手机号码输入无误!");
@@ -78,7 +78,7 @@ void PopDialogBoxInputExchange::setInputData(ExchangeType eTExchangeType, const 
 		pLTempTitle1->setText("使用");
 	}
 			break;
-	case PopDialogBox::EXCHANGE_QQ:
+	case PopDialogBox::USE_QQ_COST:
 	{
 		pLBuyType->setText("QQ号码:");
 		pLExchangeContent->setText("请确认QQ号码输入无误!");
@@ -89,7 +89,7 @@ void PopDialogBoxInputExchange::setInputData(ExchangeType eTExchangeType, const 
 	default:
 	{
 		pLBuyType->setText("兑换数量:");
-		pLExchangeContent->setText("");
+		pLExchangeContent->setText(sInfoContent.c_str());
 		pLTempTitle0->setText("兑换");
 		pLTempTitle1->setText("兑换");
 	}
@@ -100,10 +100,10 @@ void PopDialogBoxInputExchange::setInputData(ExchangeType eTExchangeType, const 
 //更新总价
 void PopDialogBoxInputExchange::updateAllPice(){
 	CCEditBox *pEBInputCount = (CCEditBox *)pTFInputCount->getNodeByTag(TAG_INPUT_EDIT_BOX);
-	switch (getExchangeType())
+	switch (getUseType())
 	{
-	case PopDialogBox::EXCHANGE_QQ:
-	case PopDialogBox::EXCHANGE_PHONE_COST:
+	case PopDialogBox::USE_QQ_COST:
+	case PopDialogBox::USE_PHONE_COST:
 		break;
 	default:
 	{
@@ -121,9 +121,9 @@ void PopDialogBoxInputExchange::onMenuSure(CCObject *object, TouchEventType type
 	case TOUCH_EVENT_ENDED:
 	{
 		CCEditBox *pEBInputCount = (CCEditBox *)pTFInputCount->getNodeByTag(TAG_INPUT_EDIT_BOX);
-		switch (getExchangeType())
+		switch (getUseType())
 		{
-		case PopDialogBox::EXCHANGE_QQ:
+		case PopDialogBox::USE_QQ_COST:
 		{
 			if (strcmp(pEBInputCount->getText(), "") == 0)
 			{
@@ -133,13 +133,13 @@ void PopDialogBoxInputExchange::onMenuSure(CCObject *object, TouchEventType type
 			{
 				if (getIPopDialogBoxExchange())
 				{
-					getIPopDialogBoxExchange()->onExchangeNumWithContent(getExchangeType(), pEBInputCount->getText());
+					getIPopDialogBoxExchange()->onExchangeNumWithContent(getUseType(), pEBInputCount->getText());
 				}
 				this->removeFromParentAndCleanup(true);
 			}
 		}
 			break;
-		case PopDialogBox::EXCHANGE_PHONE_COST:
+		case PopDialogBox::USE_PHONE_COST:
 		{
 			if (strcmp(pEBInputCount->getText(), "") == 0)
 			{
@@ -149,7 +149,7 @@ void PopDialogBoxInputExchange::onMenuSure(CCObject *object, TouchEventType type
 			{
 				if (getIPopDialogBoxExchange())
 				{
-					getIPopDialogBoxExchange()->onExchangeNumWithContent(getExchangeType(), pEBInputCount->getText());
+					getIPopDialogBoxExchange()->onExchangeNumWithContent(getUseType(), pEBInputCount->getText());
 				}
 				this->removeFromParentAndCleanup(true);
 			}
@@ -165,7 +165,7 @@ void PopDialogBoxInputExchange::onMenuSure(CCObject *object, TouchEventType type
 			{
 				if (getIPopDialogBoxExchange())
 				{
-					getIPopDialogBoxExchange()->onExchangeNumWithContent(getExchangeType(), pEBInputCount->getText());
+					getIPopDialogBoxExchange()->onExchangeNumWithContent(getUseType(), pEBInputCount->getText());
 				}
 				this->removeFromParentAndCleanup(true);
 			}

@@ -31,7 +31,7 @@ public:
 	CREATE_FUNC(PopDialogBoxInputExchange);
 public:
 	//设置数据
-	void setInputData(ExchangeType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, long long lPice);
+	void setInputData(UseType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, std::string sInfoContent);
 private:
 	virtual void onEnter();
 	virtual void onExit();

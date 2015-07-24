@@ -410,8 +410,8 @@ void PopDialogBoxKnapsack::onMenuExchange(CCObject *object, TouchEventType type)
 	case TOUCH_EVENT_ENDED:
 	{
 		if (vecGoods[iCurSelectIndex].dwExchangeType == USE_STATE
-			&&vecGoods[iCurSelectIndex].dwUseType != EXCHANGE_PHONE_COST
-			&&vecGoods[iCurSelectIndex].dwUseType != EXCHANGE_QQ)
+			&&vecGoods[iCurSelectIndex].dwUseType != USE_PHONE_COST
+			&&vecGoods[iCurSelectIndex].dwUseType != USE_QQ_COST)
 		{
 			lExchangeNum = 1;
 			sExchangeContent = "";
@@ -423,7 +423,16 @@ void PopDialogBoxKnapsack::onMenuExchange(CCObject *object, TouchEventType type)
 		{
 			PopDialogBoxInputExchange *box = PopDialogBoxInputExchange::create();
 			this->addChild(box, 10, TAG_INPUT_BOX);
-			box->setInputData((ExchangeType)vecGoods[iCurSelectIndex].dwUseType, GBKToUTF8(vecGoods[iCurSelectIndex].szName), vecGoods[iCurSelectIndex].szImgName, 1, 2);
+			int iUseType = 0;
+			if (vecGoods[iCurSelectIndex].dwExchangeType==EXCHANGE_STATE)
+			{
+				iUseType = USE_EXCHANGE_OTHER;
+			}
+			else
+			{
+				iUseType=vecGoods[iCurSelectIndex].dwUseType;
+			}
+			box->setInputData((UseType)(iUseType), GBKToUTF8(vecGoods[iCurSelectIndex].szName), vecGoods[iCurSelectIndex].szImgName, 1, GBKToUTF8(vecGoods[iCurSelectIndex].szRemark));
 			box->setIPopDialogBoxExchange(this);
 		}
 		
@@ -438,8 +447,8 @@ void PopDialogBoxKnapsack::onExchangeNumWithContent(int type, std::string sConte
 	//CCLOG("%ld  %s <<%s>>",num,sContent.c_str(), __FUNCTION__);
 	switch (type)
 	{
-	case EXCHANGE_QQ:
-	case EXCHANGE_PHONE_COST:
+	case USE_QQ_COST:
+	case USE_PHONE_COST:
 	{
 		lExchangeNum = 1;
 		sExchangeContent = sContent;

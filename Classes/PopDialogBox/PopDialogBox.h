@@ -38,12 +38,13 @@ public:
 	};
 	CC_SYNTHESIZE(BuyType, buyType, BuyType);
 	//兑换类型
-	enum ExchangeType
+	enum UseType
 	{
-		EXCHANGE_PHONE_COST=5,				//兑换手机话费
-		EXCHANGE_QQ,						//兑换QQ
+		USE_PHONE_COST=5,				//使用手机话费
+		USE_QQ_COST,					//使用QQ
+		USE_EXCHANGE_OTHER,				//兑换其它
 	};
-	CC_SYNTHESIZE(ExchangeType, eExchangeType, ExchangeType);
+	CC_SYNTHESIZE(UseType, eUseType, UseType);
 	UILayer * pUILayer;
 	ImageView *pWidgetBg;
 	static std::string sSocketName;
