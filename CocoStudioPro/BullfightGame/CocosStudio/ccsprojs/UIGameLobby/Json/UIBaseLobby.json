@@ -12,13 +12,11 @@
   "textures": [
     "UIGameLobby.plist",
     "UIUserInfo.plist",
-    "UIAuction.plist"
+    "UIClassicLobby.plist",
+    "UIPanel.plist",
+    "UIMode.plist"
   ],
-  "texturesPng": [
-    "UIGameLobby.png",
-    "UIUserInfo.png",
-    "UIAuction.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -743,8 +741,8 @@
                       "rotation": 0,
                       "scaleX": 1,
                       "scaleY": 1,
-                      "sizePercentX": 0.13636364,
-                      "sizePercentY": 0.8181818,
+                      "sizePercentX": 0.176767677,
+                      "sizePercentY": 1.12121212,
                       "sizeType": 0,
                       "tag": 7,
                       "touchAble": false,

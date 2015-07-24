@@ -54,7 +54,8 @@ void PopDialogBoxKnapsack::onEnter(){
 	initListGoods();
 	initGoodsInfo();
 
-	updateListGoods();
+	pIInfoBg->setEnabled(false);
+	//updateListGoods();
 
 	playAnimation();
 	
@@ -165,6 +166,13 @@ void PopDialogBoxKnapsack::onEventUserService(WORD wSubCmdID, void * pDataBuffer
 		onSubGoodsList(pDataBuffer, wDataSize);
 	}
 		break;
+	case SUB_GP_KNAPSACKLOG:
+	{
+		updateListGoods();
+		//CMD_GP_KnapsackLog *pGoods = (CMD_GP_KnapsackLog*)pDataBuffer;
+		//showTipInfo(GBKToUTF8(pGoods->szDescribeString));
+	}
+		break;
 	case SUB_GP_USE_KNAPSACKLOG:
 	{
 		onSubUseGoods(pDataBuffer, wDataSize);
@@ -240,6 +248,7 @@ void PopDialogBoxKnapsack::initListGoods(){
 	pListViewGoods = static_cast<UIListView*>(pUILayer->getWidgetByName("ListViewKnapsack"));
 	//设置cell模式
 	pListViewGoods->setItemModel(pListViewGoods->getItem(0));
+	pListViewGoods->removeAllItems();
 }
 //更新物品列表
 void PopDialogBoxKnapsack::updateListGoods(){
