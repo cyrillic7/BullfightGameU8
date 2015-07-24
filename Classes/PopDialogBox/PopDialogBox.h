@@ -41,7 +41,7 @@ public:
 	enum ExchangeType
 	{
 		EXCHANGE_PHONE_COST=5,				//兑换手机话费
-		EXCHNAGE_QQ,						//兑换QQ
+		EXCHANGE_QQ,						//兑换QQ
 	};
 	CC_SYNTHESIZE(ExchangeType, eExchangeType, ExchangeType);
 	UILayer * pUILayer;

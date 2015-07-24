@@ -78,7 +78,7 @@ void PopDialogBoxInputExchange::setInputData(ExchangeType eTExchangeType, const 
 		pLTempTitle1->setText("使用");
 	}
 			break;
-	case PopDialogBox::EXCHNAGE_QQ:
+	case PopDialogBox::EXCHANGE_QQ:
 	{
 		pLBuyType->setText("QQ号码:");
 		pLExchangeContent->setText("请确认QQ号码输入无误!");
@@ -102,7 +102,7 @@ void PopDialogBoxInputExchange::updateAllPice(){
 	CCEditBox *pEBInputCount = (CCEditBox *)pTFInputCount->getNodeByTag(TAG_INPUT_EDIT_BOX);
 	switch (getExchangeType())
 	{
-	case PopDialogBox::EXCHNAGE_QQ:
+	case PopDialogBox::EXCHANGE_QQ:
 	case PopDialogBox::EXCHANGE_PHONE_COST:
 		break;
 	default:
@@ -123,7 +123,7 @@ void PopDialogBoxInputExchange::onMenuSure(CCObject *object, TouchEventType type
 		CCEditBox *pEBInputCount = (CCEditBox *)pTFInputCount->getNodeByTag(TAG_INPUT_EDIT_BOX);
 		switch (getExchangeType())
 		{
-		case PopDialogBox::EXCHNAGE_QQ:
+		case PopDialogBox::EXCHANGE_QQ:
 		{
 			if (strcmp(pEBInputCount->getText(), "") == 0)
 			{

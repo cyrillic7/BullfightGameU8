@@ -20,6 +20,7 @@
 
 #define NOT_USE							1			//道具不能使用
 #define USE_STATE						2			//使用
+#define EXCHANGE_STATE					3			//兑换
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxKnapsack::PopDialogBoxKnapsack()
 	:knapsackItem(KNAPSACK_LIST)
@@ -340,12 +341,16 @@ void PopDialogBoxKnapsack::updateGoodInfo(int index){
 	case USE_STATE:
 	{
 		pBExchange->setTitleText("使用");
+		pBExchange->setEnabled(true);
+	}
+		break;
+	case EXCHANGE_STATE:
+	{
+		pBExchange->setTitleText("兑换");
+		pBExchange->setEnabled(true);
 	}
 		break;
 	default:
-	{
-		pBExchange->setTitleText("兑换");
-	}
 		break;
 	}
 
@@ -404,12 +409,24 @@ void PopDialogBoxKnapsack::onMenuExchange(CCObject *object, TouchEventType type)
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		PopDialogBoxInputExchange *box = PopDialogBoxInputExchange::create();
-		this->addChild(box, 10, TAG_INPUT_BOX);
-
-		box->setInputData((ExchangeType)vecGoods[iCurSelectIndex].dwUseType, GBKToUTF8(vecGoods[iCurSelectIndex].szName), vecGoods[iCurSelectIndex].szImgName, 1, 2);
+		if (vecGoods[iCurSelectIndex].dwExchangeType == USE_STATE
+			&&vecGoods[iCurSelectIndex].dwUseType != EXCHANGE_PHONE_COST
+			&&vecGoods[iCurSelectIndex].dwUseType != EXCHANGE_QQ)
+		{
+			lExchangeNum = 1;
+			sExchangeContent = "";
+			setKnapsackItem(KNAPSACK_EXCHANGE);
+			connectServer();
+			connectSuccess();
+		}
+		else
+		{
+			PopDialogBoxInputExchange *box = PopDialogBoxInputExchange::create();
+			this->addChild(box, 10, TAG_INPUT_BOX);
+			box->setInputData((ExchangeType)vecGoods[iCurSelectIndex].dwUseType, GBKToUTF8(vecGoods[iCurSelectIndex].szName), vecGoods[iCurSelectIndex].szImgName, 1, 2);
+			box->setIPopDialogBoxExchange(this);
+		}
 		
-		box->setIPopDialogBoxExchange(this);
 	}
 		break;
 	default:
@@ -421,7 +438,7 @@ void PopDialogBoxKnapsack::onExchangeNumWithContent(int type, std::string sConte
 	//CCLOG("%ld  %s <<%s>>",num,sContent.c_str(), __FUNCTION__);
 	switch (type)
 	{
-	case EXCHNAGE_QQ:
+	case EXCHANGE_QQ:
 	case EXCHANGE_PHONE_COST:
 	{
 		lExchangeNum = 1;
