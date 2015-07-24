@@ -32,7 +32,10 @@ private:
 	CC_SYNTHESIZE(KnapsackItem, knapsackItem, KnapsackItem);
 	
 	std::vector<CMD_GP_Knapsack> vecGoods;
-
+	//兑换数量
+	long lExchangeNum;
+	//兑换内容（QQ号或手机号）
+	std::string sExchangeContent;
 	//物品列表
 	UIListView *pListViewGoods;
 	//信息背景
@@ -55,7 +58,7 @@ private:
 	virtual void onEnter();
 	virtual void onExit();
 	//数量输入回调
-	virtual void onExchangeNumWithContent(long num, std::string sContent);
+	virtual void onExchangeNumWithContent(int type, std::string sContent);
 	//更新网络消息
 	void update(float delta);
 	//初始化物品列表

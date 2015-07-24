@@ -9,14 +9,10 @@
 
 #include "PopDialogBox.h"
 class PopDialogBoxInputExchange: public PopDialogBox {
-public:
-	bool isShowVipDiscount;
 private:
 	CC_SYNTHESIZE(IPopDialogBoxExchange*, pIPopDialogBoxExchange, IPopDialogBoxExchange);
 	//最大商品数
 	long lMaxPropsNum;
-    //单价
-	long long lPropPice;
 	//购买数量
 	long lBuyNum;
 	//商品图片框
@@ -25,14 +21,9 @@ private:
 	UILabel *pLPropName;
 	//购买类型
 	UILabel *pLBuyType;
-	//vip折扣
-	UILabel *pLVipDiscount;
-	//代币图标
-	UIImageView *pICurrencyIcon;
-	//贷币名称
-	UILabel *pLCurrencyName;
-	//总价
-	UILabel *pAllPice;
+	//兑换说明
+	UILabel *pLExchangeContent;
+	
 	UITextField *pTFInputCount;
 public:
 	PopDialogBoxInputExchange();
@@ -40,7 +31,7 @@ public:
 	CREATE_FUNC(PopDialogBoxInputExchange);
 public:
 	//设置数据
-	void setInputData(BuyType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, long long lPice);
+	void setInputData(ExchangeType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, long long lPice);
 private:
 	virtual void onEnter();
 	virtual void onExit();

@@ -25,5 +25,5 @@ struct IPopDialogBoxExchange
 {
 	virtual ~IPopDialogBoxExchange(){}
 	
-	virtual void onExchangeNumWithContent(long num,std::string sContent) = 0;
+	virtual void onExchangeNumWithContent(int type,std::string sContent) = 0;
 };

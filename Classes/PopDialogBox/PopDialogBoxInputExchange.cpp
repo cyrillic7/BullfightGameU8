@@ -11,8 +11,8 @@
 #include "../Tools/BaseAttributes.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxInputExchange::PopDialogBoxInputExchange()
-	:isShowVipDiscount(true)
-	, pIPopDialogBoxExchange(NULL)
+	:pIPopDialogBoxExchange(NULL)
+	, lBuyNum(0)
 {
 	
     
@@ -22,7 +22,7 @@ PopDialogBoxInputExchange::~PopDialogBoxInputExchange() {
 }
 void PopDialogBoxInputExchange::onEnter(){
 	CCLayer::onEnter();
-	Layout* layoutPauseUI = static_cast<Layout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UIPopDialogBoxBuyCount.ExportJson)));
+	Layout* layoutPauseUI = static_cast<Layout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UIPopDialogBoxInputExchange.ExportJson)));
 	pUILayer->addWidget(layoutPauseUI);
 	
 	pWidgetBg = static_cast<UIImageView*>(pUILayer->getWidgetByName("bg"));
@@ -34,17 +34,11 @@ void PopDialogBoxInputExchange::onEnter(){
 	pIVPropIcon = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImagePropIcon"));
 	//道具名
 	pLPropName = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelPropName"));
+	//兑换说明
+	pLExchangeContent = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelInfoContent"));
+	pLExchangeContent->setText("");
 	//购买类型
 	pLBuyType = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelCount"));
-	//贷币图标
-	pICurrencyIcon = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImagePiceIcon"));
-	//贷币名称
-	pLCurrencyName = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelPice"));
-	//总价
-	pAllPice = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelAllPice"));
-	//vip折扣
-	pLVipDiscount = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelVip"));
-	pLVipDiscount->setVisible(isShowVipDiscount);
 	//输入数量
 	pTFInputCount = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldCount")); 
 	pTFInputCount->addEventListenerTextField(this, SEL_TextFieldEvent(&PopDialogBoxInputExchange::onTextFieldAccount));
@@ -59,26 +53,46 @@ void PopDialogBoxInputExchange::onExit(){
 	CCLayer::onExit();
 }
 //设置数据
-void PopDialogBoxInputExchange::setInputData(BuyType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, long long lPice){
+void PopDialogBoxInputExchange::setInputData(ExchangeType eTExchangeType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, long long lPice){
+	setExchangeType(eTExchangeType);
+	
 	lMaxPropsNum = lMaxNum;
 	lBuyNum = lMaxNum;
-	lPropPice = lPice;
+
+
 	pLPropName->setText(cPropName);
 	if (strcmp(cPropImagePuth,"")!=0)
 	{
 		addDownloadImage(pIVPropIcon, cPropImagePuth, CCPointZero, 1, 0, false);
 	}
-	
-	switch (eBuyType)
+	//设置标题////////////////////////////////////////////////////////////////////////
+	UILabel *pLTempTitle0 = static_cast<UILabel*>(pUILayer->getWidgetByName("Label_3"));
+	UILabel *pLTempTitle1 = static_cast<UILabel*>(pUILayer->getWidgetByName("Label_4"));
+	switch (eTExchangeType)
 	{
-	case PopDialogBox::BUY_AUCTION:
+	case PopDialogBox::EXCHANGE_PHONE_COST:
 	{
-		pLBuyType->setText(BaseAttributes::sharedAttributes()->sBuyTypeAuction.c_str());
-		pICurrencyIcon->loadTexture("u_u_info_gold_icon.png", UI_TEX_TYPE_PLIST);
-		pLCurrencyName->setText(BaseAttributes::sharedAttributes()->sAllPice.c_str());
+		pLBuyType->setText("手机号码:");
+		pLExchangeContent->setText("请确认手机号码输入无误!");
+		pLTempTitle0->setText("使用");
+		pLTempTitle1->setText("使用");
+	}
+			break;
+	case PopDialogBox::EXCHNAGE_QQ:
+	{
+		pLBuyType->setText("QQ号码:");
+		pLExchangeContent->setText("请确认QQ号码输入无误!");
+		pLTempTitle0->setText("使用");
+		pLTempTitle1->setText("使用");
 	}
 		break;
 	default:
+	{
+		pLBuyType->setText("兑换数量:");
+		pLExchangeContent->setText("");
+		pLTempTitle0->setText("兑换");
+		pLTempTitle1->setText("兑换");
+	}
 		break;
 	}
 	updateAllPice();
@@ -86,8 +100,19 @@ void PopDialogBoxInputExchange::setInputData(BuyType eBuyType, const char* cProp
 //更新总价
 void PopDialogBoxInputExchange::updateAllPice(){
 	CCEditBox *pEBInputCount = (CCEditBox *)pTFInputCount->getNodeByTag(TAG_INPUT_EDIT_BOX);
-	pEBInputCount->setText(CCString::createWithFormat("%ld", lBuyNum)->getCString());
-	pAllPice->setText(CCString::createWithFormat("%lld", lPropPice*lBuyNum)->getCString());
+	switch (getExchangeType())
+	{
+	case PopDialogBox::EXCHNAGE_QQ:
+	case PopDialogBox::EXCHANGE_PHONE_COST:
+		break;
+	default:
+	{
+		pEBInputCount->setText(CCString::createWithFormat("%ld", lBuyNum)->getCString());
+	}
+		
+		break;
+	}
+	
 }
 //确定按键
 void PopDialogBoxInputExchange::onMenuSure(CCObject *object, TouchEventType type){
@@ -95,15 +120,70 @@ void PopDialogBoxInputExchange::onMenuSure(CCObject *object, TouchEventType type
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		if (lBuyNum<=0)
+		CCEditBox *pEBInputCount = (CCEditBox *)pTFInputCount->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		switch (getExchangeType())
+		{
+		case PopDialogBox::EXCHNAGE_QQ:
+		{
+			if (strcmp(pEBInputCount->getText(), "") == 0)
+			{
+				showTipInfo("QQ号不能为空!");
+			}
+			else
+			{
+				if (getIPopDialogBoxExchange())
+				{
+					getIPopDialogBoxExchange()->onExchangeNumWithContent(getExchangeType(), pEBInputCount->getText());
+				}
+				this->removeFromParentAndCleanup(true);
+			}
+		}
+			break;
+		case PopDialogBox::EXCHANGE_PHONE_COST:
+		{
+			if (strcmp(pEBInputCount->getText(), "") == 0)
+			{
+				showTipInfo("手机号码不能为空!");
+			}
+			else
+			{
+				if (getIPopDialogBoxExchange())
+				{
+					getIPopDialogBoxExchange()->onExchangeNumWithContent(getExchangeType(), pEBInputCount->getText());
+				}
+				this->removeFromParentAndCleanup(true);
+			}
+		}
+			break;
+		default:
+		{
+			if (lBuyNum <= 0)
+			{
+				showTipInfo(BaseAttributes::sharedAttributes()->sInputAuctionGoodsNum.c_str());
+			}
+			else
+			{
+				if (getIPopDialogBoxExchange())
+				{
+					getIPopDialogBoxExchange()->onExchangeNumWithContent(getExchangeType(), pEBInputCount->getText());
+				}
+				this->removeFromParentAndCleanup(true);
+			}
+		}
+			break;
+		}
+		/*if (lBuyNum<=-10)
 		{
 			showTipInfo(BaseAttributes::sharedAttributes()->sInputAuctionGoodsNum.c_str());
 		}
 		else
 		{
-			getIPopAssist()->onBuyNum(lBuyNum);
+			if (getIPopDialogBoxExchange())
+			{
+				getIPopDialogBoxExchange()->onExchangeNumWithContent(lBuyNum+1,"测试");
+			}
 			this->removeFromParentAndCleanup(true);
-		}
+		}*/
 	}
 		break;
 	default:

@@ -37,6 +37,13 @@ public:
 		BUY_SHOP,						//商城购买
 	};
 	CC_SYNTHESIZE(BuyType, buyType, BuyType);
+	//兑换类型
+	enum ExchangeType
+	{
+		EXCHANGE_PHONE_COST=5,				//兑换手机话费
+		EXCHNAGE_QQ,						//兑换QQ
+	};
+	CC_SYNTHESIZE(ExchangeType, eExchangeType, ExchangeType);
 	UILayer * pUILayer;
 	ImageView *pWidgetBg;
 	static std::string sSocketName;

@@ -116,9 +116,9 @@ void PopDialogBoxKnapsack::connectSuccess(){
 		strcpy(useKnapsack.szPassword, md5PassWord.c_str());
 
 		useKnapsack.dwID = vecGoods[iCurSelectIndex].dwID;
-		useKnapsack.dwNum = 1;
+		useKnapsack.dwNum = lExchangeNum;
 
-		strcpy(useKnapsack.szNote, "");//qq号或手机号
+		strcpy(useKnapsack.szNote, sExchangeContent.c_str());//qq号或手机号
 		strcpy(useKnapsack.szMachineID, "12");
 
 		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_USE_KNAPSACKLOG, &useKnapsack, sizeof(CMD_GP_UseKnapsack));
@@ -404,12 +404,11 @@ void PopDialogBoxKnapsack::onMenuExchange(CCObject *object, TouchEventType type)
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		/*setKnapsackItem(KNAPSACK_EXCHANGE);
-		connectServer();
-		connectSuccess();*/
 		PopDialogBoxInputExchange *box = PopDialogBoxInputExchange::create();
 		this->addChild(box, 10, TAG_INPUT_BOX);
-		//box->setInputData(eBuyType, cPropName, cPropImagePuth, lMaxNum, lPice);
+
+		box->setInputData((ExchangeType)vecGoods[iCurSelectIndex].dwUseType, GBKToUTF8(vecGoods[iCurSelectIndex].szName), vecGoods[iCurSelectIndex].szImgName, 1, 2);
+		
 		box->setIPopDialogBoxExchange(this);
 	}
 		break;
@@ -418,6 +417,24 @@ void PopDialogBoxKnapsack::onMenuExchange(CCObject *object, TouchEventType type)
 	}
 }
 //数量输入回调
-void PopDialogBoxKnapsack::onExchangeNumWithContent(long num, std::string sContent){
-	CCLOG("%ld  %s <<%s>>",num,sContent.c_str(), __FUNCTION__);
+void PopDialogBoxKnapsack::onExchangeNumWithContent(int type, std::string sContent){
+	//CCLOG("%ld  %s <<%s>>",num,sContent.c_str(), __FUNCTION__);
+	switch (type)
+	{
+	case EXCHNAGE_QQ:
+	case EXCHANGE_PHONE_COST:
+	{
+		lExchangeNum = 1;
+		sExchangeContent = sContent;
+	}
+		break;
+	default:
+	{
+		sExchangeContent = "";
+	}
+		break;
+	}
+	setKnapsackItem(KNAPSACK_EXCHANGE);
+	connectServer();
+	connectSuccess();
 }
