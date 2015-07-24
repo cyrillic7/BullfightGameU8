@@ -11,11 +11,15 @@
 #include "PopDialogBoxLoading.h"
 #include "PopDialogBoxShop.h"
 #include "PopDialogBoxTipInfo.h"
+#include "PopDialogBoxInputExchange.h"
 //#include "../Network/ListernerThread/LogonGameListerner.h"
 #include "../Network/CMD_Server/Packet.h"
 #include "../Network/MD5/MD5.h"
 #include "../GameLobby/BaseLobbyScene.h"
 #define MAX_KNAPSACK_ROW_COUNT			4			//物品横排数
+
+#define NOT_USE							1			//道具不能使用
+#define USE_STATE						2			//使用
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxKnapsack::PopDialogBoxKnapsack()
 	:knapsackItem(KNAPSACK_LIST)
@@ -114,7 +118,7 @@ void PopDialogBoxKnapsack::connectSuccess(){
 		useKnapsack.dwID = vecGoods[iCurSelectIndex].dwID;
 		useKnapsack.dwNum = 1;
 
-		strcpy(useKnapsack.szNote, "");
+		strcpy(useKnapsack.szNote, "");//qq号或手机号
 		strcpy(useKnapsack.szMachineID, "12");
 
 		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_USE_KNAPSACKLOG, &useKnapsack, sizeof(CMD_GP_UseKnapsack));
@@ -317,10 +321,33 @@ void PopDialogBoxKnapsack::updateListGoods(){
 void PopDialogBoxKnapsack::initGoodsInfo(){
 	//物品列表
 	pLGoodsName = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelGoodsName"));
+	pLInfoContent = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelInfoContent"));
 }
 //更新物品信息
 void PopDialogBoxKnapsack::updateGoodInfo(int index){
 	pLGoodsName->setText(GBKToUTF8(vecGoods[index].szName));
+	pLInfoContent->setText(GBKToUTF8(vecGoods[index].szRemark));
+
+	//兑换
+	UIButton *pBExchange = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonExchange"));
+	switch (vecGoods[index].dwExchangeType)
+	{
+	case NOT_USE:
+	{
+		pBExchange->setEnabled(false);
+	}
+		break;
+	case USE_STATE:
+	{
+		pBExchange->setTitleText("使用");
+	}
+		break;
+	default:
+	{
+		pBExchange->setTitleText("兑换");
+	}
+		break;
+	}
 
 	addDownloadImage(pIVGoods, vecGoods[index].szImgName, CCPointZero, 1,-100, false);
 }
@@ -377,12 +404,20 @@ void PopDialogBoxKnapsack::onMenuExchange(CCObject *object, TouchEventType type)
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		setKnapsackItem(KNAPSACK_EXCHANGE);
+		/*setKnapsackItem(KNAPSACK_EXCHANGE);
 		connectServer();
-		connectSuccess();
+		connectSuccess();*/
+		PopDialogBoxInputExchange *box = PopDialogBoxInputExchange::create();
+		this->addChild(box, 10, TAG_INPUT_BOX);
+		//box->setInputData(eBuyType, cPropName, cPropImagePuth, lMaxNum, lPice);
+		box->setIPopDialogBoxExchange(this);
 	}
 		break;
 	default:
 		break;
 	}
+}
+//数量输入回调
+void PopDialogBoxKnapsack::onExchangeNumWithContent(long num, std::string sContent){
+	CCLOG("%ld  %s <<%s>>",num,sContent.c_str(), __FUNCTION__);
 }

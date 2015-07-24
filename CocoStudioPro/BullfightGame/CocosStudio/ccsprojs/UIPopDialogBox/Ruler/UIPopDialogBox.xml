@@ -147,4 +147,8 @@
     <Project>UIPopDialogBoxSetting</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxInputExchange</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

@@ -20,3 +20,10 @@ struct IPopDialogBoxAssistCloseView
 	//关闭窗口
 	virtual void onCloseView() = 0;
 };
+//兑换
+struct IPopDialogBoxExchange
+{
+	virtual ~IPopDialogBoxExchange(){}
+	
+	virtual void onExchangeNumWithContent(long num,std::string sContent) = 0;
+};

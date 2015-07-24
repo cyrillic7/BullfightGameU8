@@ -38,6 +38,7 @@
     <string>UIPopDialogBoxRecharge.json</string>
     <string>UIPopDialogBoxFirstRecharge.json</string>
     <string>UIPopDialogBoxSetting.json</string>
+    <string>UIPopDialogBoxInputExchange.json</string>
   </JsonList>
   <CanvasSize>
     <Width>1136</Width>
@@ -73,5 +74,5 @@
   </imageFileList>
   <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxForgetPassword.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxInputExchange.json</CurrentUIJson>
 </UIProject>

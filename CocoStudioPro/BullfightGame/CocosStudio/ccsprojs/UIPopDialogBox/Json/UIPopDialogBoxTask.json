@@ -12,17 +12,29 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
+    "UIRanking.plist",
     "UIUserInfo.plist",
+    "UICheckBox.plist",
+    "UIActivity.plist",
+    "Font.plist",
+    "UIAuction.plist",
+    "UIShop.plist",
     "UILogon.plist",
-    "UIBank.plist"
+    "UIBank.plist",
+    "UIKnapsack.plist",
+    "UIMsg.plist",
+    "UIGameIngHundred.plist",
+    "UISign.plist",
+    "UITask.plist",
+    "UILoadingBar.plist",
+    "UIConnectFailure.plist",
+    "UIGameIng.plist",
+    "UIBindingPhone.plist",
+    "UIVip.plist",
+    "UIRecharge.plist",
+    "UIFirstRecharge.plist"
   ],
-  "texturesPng": [
-    "UIPanel.png",
-    "UIButton.png",
-    "UIUserInfo.png",
-    "UILogon.png",
-    "UIBank.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",

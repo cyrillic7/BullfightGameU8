@@ -18,7 +18,7 @@ struct IPopAssistKnapsack//弹框背包辅助接口
 	virtual void onCloseKnapsack() = 0;
 };
 
-class PopDialogBoxKnapsack: public PopDialogBox  {
+class PopDialogBoxKnapsack: public PopDialogBox,public IPopDialogBoxExchange  {
 public:
 	//背包接口
 	CC_SYNTHESIZE(IPopAssistKnapsack*, pIPopAssistKnapsack, IPopAssistKnapsack);
@@ -43,6 +43,8 @@ private:
 	int iCurSelectIndex;
 	//物品名称
 	Label *pLGoodsName;
+	//物品描述
+	Label *pLInfoContent;
 	//物品图片
 	ImageView *pIVGoods;
 public:
@@ -52,6 +54,8 @@ public:
 private:
 	virtual void onEnter();
 	virtual void onExit();
+	//数量输入回调
+	virtual void onExchangeNumWithContent(long num, std::string sContent);
 	//更新网络消息
 	void update(float delta);
 	//初始化物品列表
