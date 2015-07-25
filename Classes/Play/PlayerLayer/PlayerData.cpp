@@ -40,7 +40,7 @@ void PlayerData::setUserInfo(tagUserInfo userInfo){
 	pLGoldCount->setText(CCString::createWithFormat("%lld",userInfoPlayer.lScore)->getCString());*/
 	userInfoPlayer.lScore = userInfo.lScore;
 	pIPlayerIcon->setVisible(true);
-	if (Tools::GBKToUTF8(userInfo.szNickName))
+	if (Tools::GBKToUTF8(userInfo.szNickName).c_str())
 	{
 		pLUserName->setVisible(true);
 		std::string nickName = Tools::GBKToUTF8(userInfo.szNickName);

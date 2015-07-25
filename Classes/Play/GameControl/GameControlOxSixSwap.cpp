@@ -241,7 +241,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 		int size = sizeof(CMD_S_StatusFree);
 		if (wDataSize != sizeof(CMD_S_StatusFree)) return false;
 		CMD_S_StatusFree * pStatusFree = (CMD_S_StatusFree *)pData;
-		CCLOG("%s <<%s>>", Tools::GBKToUTF8("空闲状态"), __FUNCTION__);
+		CCLOG("%s <<%s>>", Tools::GBKToUTF8(" 空闲状态 ").c_str(), __FUNCTION__);
 		hideAllActionPanel();
 		pPanelReady->setEnabled(true);
 		/*//设置控件
@@ -261,7 +261,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 		int size = sizeof(CMD_S_StatusCall);
 		if (wDataSize != sizeof(CMD_S_StatusCall)) return false;
 		CMD_S_StatusCall * pStatusCall = (CMD_S_StatusCall *)pData;
-		CCLOG("%s <<%s>>", Tools::GBKToUTF8("叫庄状态"), __FUNCTION__);
+		CCLOG("%s <<%s>>", Tools::GBKToUTF8(" 叫庄状态 ").c_str(), __FUNCTION__);
 		hideAllActionPanel();
 		//getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_CALL_BANKER);
 		//游戏信息
@@ -327,7 +327,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 		if (wDataSize != sizeof(CMD_S_StatusScore1)) return false;
 		CMD_S_StatusScore1 * pStatusScore = (CMD_S_StatusScore1 *)pData;
 		hideAllActionPanel();
-		CCLOG("%s <<%s>>", Tools::GBKToUTF8("下注状态"), __FUNCTION__);
+		CCLOG("%s <<%s>>", Tools::GBKToUTF8(" 下注状态 ").c_str(), __FUNCTION__);
 		//getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_BETTING);
 		//设置变量
 		m_lTurnMaxScore = pStatusScore->lTurnMaxScore;
@@ -404,7 +404,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 
 		isShowAllUserOx = false;
 		hideAllActionPanel();
-		CCLOG("%s <<%s>>", Tools::GBKToUTF8("游戏状态"), __FUNCTION__);
+		CCLOG("%s <<%s>>", Tools::GBKToUTF8(" 游戏状态 ").c_str(), __FUNCTION__);
 
 
 
@@ -553,7 +553,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 
 		isShowAllUserOx = false;
 		hideAllActionPanel();
-		CCLOG("%s <<%s>>", Tools::GBKToUTF8("换牌状态"), __FUNCTION__);
+		CCLOG("%s <<%s>>", Tools::GBKToUTF8(" 换牌状态 ").c_str(), __FUNCTION__);
 
 
 		//设置变量
@@ -692,7 +692,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 		break;
 		
 	default:
-		CCLOG("%s %d<<%s>>", Tools::GBKToUTF8("其它状态"), m_cbGameStatus, __FUNCTION__);
+		CCLOG("%s %d<<%s>>", Tools::GBKToUTF8(" 其它状态 ").c_str(), m_cbGameStatus, __FUNCTION__);
 		break;
 	}
 	return true;
@@ -760,7 +760,7 @@ void GameControlOxSixSwap::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, un
 		hideActionPrompt();
 		getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_OPT_OX);
 		//getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_END);
-		CCLOG("%s <<%s>>", Tools::GBKToUTF8("所有人都换完牌了，显示摊牌"), __FUNCTION__);
+		CCLOG("%s <<%s>>", Tools::GBKToUTF8("所有人都换完牌了，显示摊牌").c_str(), __FUNCTION__);
 	}
 	break;
 	case SUB_S_USER_OPEN:

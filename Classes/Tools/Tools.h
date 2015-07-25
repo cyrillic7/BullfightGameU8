@@ -25,7 +25,7 @@ public:
 	static void playMusic(const char *path);
 	static void playSound(const char *path);
 	//GBK转UTF-8////////////////////////////////////////////////////////////////////////
-	static const char * GBKToUTF8(const char *strChar);
+	static std::string GBKToUTF8(const char *strChar);
 	
 	static void stopMusic();
 	/*

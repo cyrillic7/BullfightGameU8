@@ -594,7 +594,7 @@ void ClassicLobbyScene::onEventLogon(WORD wSubCmdID, void * pDataBuffer, unsigne
 	case SUB_GR_LOGON_FAILURE:
 	{
 		CMD_GR_LogonFailure *lf = (CMD_GR_LogonFailure*)pDataBuffer;
-		CCLOG("登录失败:%s", Tools::GBKToUTF8(lf->szDescribeString));
+		CCLOG("登录失败:%s", Tools::GBKToUTF8(lf->szDescribeString).c_str());
 
 		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 		//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_GAME);

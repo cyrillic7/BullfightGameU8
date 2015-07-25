@@ -391,7 +391,7 @@ void GameLobbyScene::onSubLogon(WORD wSubCmdID,void * pDataBuffer, unsigned shor
 	case SUB_GR_LOGON_FAILURE:
 		{
 			CMD_GR_LogonFailure *lf = (CMD_GR_LogonFailure*)pDataBuffer;
-			CCLOG("登录失败:%s",Tools::GBKToUTF8(lf->szDescribeString));
+			CCLOG("登录失败:%s", Tools::GBKToUTF8(lf->szDescribeString).c_str());
 
 			this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 			//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_GAME);
@@ -510,7 +510,7 @@ void GameLobbyScene::onSubUserEnter(void * pDataBuffer, unsigned short wDataSize
 			{
 				CopyMemory(&UserInfo.szNickName, cbDataBuffer + wPacketSize,DataDescribe->wDataSize);
 				UserInfo.szNickName[CountArray(UserInfo.szNickName)-1]=0;
-				CCLOG("nick:%s  %s",UserInfo.szNickName,Tools::GBKToUTF8(UserInfo.szNickName));
+				CCLOG("nick:%s  %s", UserInfo.szNickName, Tools::GBKToUTF8(UserInfo.szNickName).c_str());
 				//if (strcmp(Tools::GBKToUTF8(UserInfo.szNickName),"(null)")==0)
 				{
 					//CCLOG("null"); 
@@ -526,7 +526,7 @@ void GameLobbyScene::onSubUserEnter(void * pDataBuffer, unsigned short wDataSize
 			{
 				CopyMemory(UserInfo.szUnderWrite,cbDataBuffer + wPacketSize,DataDescribe->wDataSize);
 				UserInfo.szUnderWrite[CountArray(UserInfo.szUnderWrite)-1]=0;
-				CCLOG("签名:%s",Tools::GBKToUTF8(UserInfo.szUnderWrite));
+				CCLOG("签名:%s", Tools::GBKToUTF8(UserInfo.szUnderWrite).c_str());
 			}
 			break;
 		}

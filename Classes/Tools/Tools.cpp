@@ -258,70 +258,51 @@ long Tools::getMicroSeconds(){
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 #include "../../../../libiconv/include/iconv.h"
 #endif
-static char g_GBKConvUTF8Buf[5000] = { 0 };
 
 
-const char * Tools::GBKToUTF8(const char * strChar){
-/*#ifdef WIN32*/
+std::string Tools::GBKToUTF8(const char * strChar){
+	std::string result = "";
+	if (strcmp(strChar, "") == 0)
+	{
+		return result;
+	}
 	iconv_t iconvH;
 	//iconvH = iconv_open("unicode","ascii");
-	iconvH = iconv_open("utf-8","gbk");
+	iconvH = iconv_open("utf-8", "gbk");
 	//iconvH = iconv_open("gbk","utf-8");
 	if (iconvH == 0)
 	{
 		return NULL;
 	}
 	size_t strLength = strlen(strChar);
-	size_t outLength = strLength<<2;
+	size_t outLength = strLength << 2;
 	size_t copyLength = outLength;
-	memset(g_GBKConvUTF8Buf, 0, 5000);
 
-	char* outbuf = (char*) malloc(outLength);
+	char* outbuf = (char*)malloc(outLength);
 	char* pBuff = outbuf;
-	memset( outbuf, 0, outLength);
+	memset(outbuf, 0, outLength);
 #if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-	if (-1 == iconv(iconvH,&strChar, &strLength, &outbuf, &outLength))
+	if (-1 == iconv(iconvH, &strChar, &strLength, &outbuf, &outLength))
 	{
 		free(pBuff);
 		iconv_close(iconvH);
-		return "";
+		return result;
 	}
 #else
 	if (-1 == iconv(iconvH, (char **)&strChar, &strLength, &outbuf, &outLength))
 	{
 		free(pBuff);
 		iconv_close(iconvH);
-		return "";
+		return result;
 	}
 #endif
-	
-	memcpy(g_GBKConvUTF8Buf,pBuff,copyLength);
+
+	//memcpy(g_GBKConvUTF8Buf, pBuff, copyLength);
+	result = pBuff;
 	free(pBuff);
 	iconv_close(iconvH);
-	return g_GBKConvUTF8Buf;
-/*#else
-	if (ucnv_convert == NULL)
-	{
-		openIcuuc();
-	}
-	if (ucnv_convert)
-	{
-		int err_code = 0;
-		int len = strlen(strChar);
-		char* str = new char[len * 2 + 10];
-		memset(str, 0, len * 2 + 10);
-		ucnv_convert("utf-8", "gb2312", str, len * 2 + 10, strChar, len, &err_code);
-		//ucnv_convert("gb2312","utf-8", str, len * 2 + 10, strChar, len, &err_code);
-		if (err_code == 0)
-		{
-			return str;
-		}
-	}
-	char test[256] = "";
-	char* str = new char[30];
-	strcpy(str, test);
-	return str;
-#endif*/
+
+	return result;
 }
 /*
 int Tools::strLength(const std::string &str)

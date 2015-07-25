@@ -159,7 +159,7 @@ void PopDialogBoxMsg::updateListMsg(std::vector<std::string> qMsg){
 		
 				
 		UILabel *pLContent = static_cast<UILabel*>(pIVItem->getChildByName("LabelContent"));
-		CCLOG("-:%s <<%s>>", GBKToUTF8(qMsg[i].c_str()), __FUNCTION__);
+		CCLOG("-:%s <<%s>>", GBKToUTF8(qMsg[i].c_str()).c_str(), __FUNCTION__);
 		pLContent->setText(GBKToUTF8(qMsg[i].c_str()));
 		
 		

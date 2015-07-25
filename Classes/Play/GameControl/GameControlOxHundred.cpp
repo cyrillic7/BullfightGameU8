@@ -1092,20 +1092,20 @@ void GameControlOxHundred::onSocketSubSystemMessage(void * pData, unsigned short
 
 		//中断连接
 		IntermitConnect();*/
-		CCLOG("%s<<%s>>", Tools::GBKToUTF8("关闭处理"), __FUNCTION__);
+		CCLOG("%s<<%s>>", Tools::GBKToUTF8("关闭处理").c_str(), __FUNCTION__);
 	}
 	//显示消息
 	if ((pSystemMessage->wType&SMT_CHAT))
 		//if ((pSystemMessage->wType&SMT_CHAT) && (m_pIStringMessage != NULL))
 	{
-		CCLOG("%s<<%s>>", Tools::GBKToUTF8(pSystemMessage->szString), __FUNCTION__);
+		CCLOG("%s<<%s>>", Tools::GBKToUTF8(pSystemMessage->szString).c_str(), __FUNCTION__);
 		//m_pIStringMessage->InsertSystemString(pSystemMessage->szString);
 	}
 
 	//弹出消息
 	if (pSystemMessage->wType&SMT_EJECT)
 	{
-		CCLOG("----%s<<%s>>", Tools::GBKToUTF8("弹出消息"), __FUNCTION__);
+		CCLOG("----%s<<%s>>", Tools::GBKToUTF8("弹出消息").c_str(), __FUNCTION__);
 		/*CString sErrorMsg = pSystemMessage->szString;
 		CInformation Information(AfxGetMainWnd());
 		if (pSystemMessage->wType&SMT_NOGOLD)
@@ -1126,7 +1126,7 @@ void GameControlOxHundred::onSocketSubSystemMessage(void * pData, unsigned short
 	//关闭房间
 	if (pSystemMessage->wType&SMT_CLOSE_GAME)
 	{
-		CCLOG("----%s<<%s>>", Tools::GBKToUTF8("关闭房间"), __FUNCTION__);
+		CCLOG("----%s<<%s>>", Tools::GBKToUTF8("关闭房间").c_str(), __FUNCTION__);
 		//m_pIClientKernelSink->CloseGameClient();
 	}
 }
@@ -1320,7 +1320,7 @@ void GameControlOxHundred::onSubUserApplyBanker(const void * pBuffer, WORD wData
 			//CCLOG("=no %d   %d-----------------------------<<%s>>", pApplyBanker->wApplyUser, DataModel::sharedDataModel()->userInfo->wChairID, __FUNCTION__);
 			//CCLOG("<<%s>>", __FUNCTION__);
 		}
-		CCLOG("%s <<%s>>",Tools::GBKToUTF8("上庄切换"), __FUNCTION__);
+		CCLOG("%s <<%s>>", Tools::GBKToUTF8("上庄切换").c_str(), __FUNCTION__);
 		MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_BANK_LIST, NULL);
 	}
 
@@ -1396,7 +1396,7 @@ void GameControlOxHundred::onSubUserCancelBanker(const void * pBuffer, WORD wDat
 	{
 		m_bMeApplyBanker = false;
 	}
-	CCLOG("%s <<%s>>", Tools::GBKToUTF8("下庄切换"), __FUNCTION__);
+	CCLOG("%s <<%s>>", Tools::GBKToUTF8("下庄切换").c_str(), __FUNCTION__);
 	//发送更新列表通知
 	MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_BANK_LIST, NULL);
 
@@ -1472,7 +1472,7 @@ void GameControlOxHundred::onSubChangeBanker(const void * pBuffer, WORD wDataSiz
 		if (listApplyUser.size() > 0)
 		{
 			listApplyUser.pop_front();
-			CCLOG("%s <<%s>>", Tools::GBKToUTF8("切庄切换"), __FUNCTION__);
+			CCLOG("%s <<%s>>", Tools::GBKToUTF8("切庄切换").c_str(), __FUNCTION__);
 			MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_BANK_LIST, NULL);
 		}
 		/*IClientUserItem *pUserItem = GetTableUserItem(m_wCurrentBanker);
@@ -1686,7 +1686,7 @@ void GameControlOxHundred::onSubUserEnter(void * pDataBuffer, unsigned short wDa
 		{
 			CopyMemory(&UserInfo.szNickName, cbDataBuffer + wPacketSize, DataDescribe->wDataSize);
 			UserInfo.szNickName[CountArray(UserInfo.szNickName) - 1] = 0;
-			//CCLOG("nick:%s  ch:%d<<%s>>",Tools::GBKToUTF8(UserInfo.szNickName),UserInfo.wChairID,__FUNCTION__);
+			
 		}
 		break;
 		case DTP_GR_GROUP_NAME:
@@ -1698,7 +1698,7 @@ void GameControlOxHundred::onSubUserEnter(void * pDataBuffer, unsigned short wDa
 		{
 			CopyMemory(UserInfo.szUnderWrite, cbDataBuffer + wPacketSize, DataDescribe->wDataSize);
 			UserInfo.szUnderWrite[CountArray(UserInfo.szUnderWrite) - 1] = 0;
-			CCLOG("签名:%s", Tools::GBKToUTF8(UserInfo.szUnderWrite));
+			CCLOG("签名:%s", Tools::GBKToUTF8(UserInfo.szUnderWrite).c_str());
 		}
 		break;
 		}
@@ -1909,7 +1909,7 @@ void GameControlOxHundred::onSubUserState(void * pDataBuffer, unsigned short wDa
 		if (info->dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID){
 			DataModel::sharedDataModel()->userInfo->wTableID = info->UserStatus.wTableID;
 			DataModel::sharedDataModel()->userInfo->wChairID = info->UserStatus.wChairID;
-			CCLOG("--%s------------------<<%s>>", Tools::GBKToUTF8("百人牛牛坐下"), __FUNCTION__);
+			CCLOG("--%s------------------<<%s>>", Tools::GBKToUTF8("百人牛牛坐下").c_str(), __FUNCTION__);
 		}
 	}
 	break;

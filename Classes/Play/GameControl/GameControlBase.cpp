@@ -107,7 +107,7 @@ void GameControlBase::onEnter(){
 		pbBetting[i]->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuBetting));
 	}
 	//设置用户名
-	const char *name = Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName);
+	const char *name = Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName).c_str();
 	//getMainScene()->playerLayer->setUserName(3,name);
 	//初始化计时器
 	initTimer(pWidget);
@@ -676,7 +676,7 @@ void GameControlBase::frameEvent(WORD wSubCmdID, void * pDataBuffer, unsigned sh
 	{
 	case SUB_GF_GAME_STATUS:
 	{
-		CCLOG("%s<<%s>>", Tools::GBKToUTF8("游戏状态 "), __FUNCTION__);
+		CCLOG("%s<<%s>>", Tools::GBKToUTF8("游戏状态 ").c_str(), __FUNCTION__);
 		OnSocketSubGameStatus(pDataBuffer, wDataSize);
 	}
 	break;
@@ -1297,7 +1297,7 @@ void GameControlBase::onUserEnter(){
 		if (iter->second.dwUserID != DataModel::sharedDataModel()->userInfo->dwUserID)
 		{
 			CCLOG("ID:%ld otherID:%ld   name:%s<<%s>>", iter->second.dwUserID, DataModel::sharedDataModel()->userInfo->dwUserID,
-				Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName), __FUNCTION__);
+				Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName).c_str(), __FUNCTION__);
 			getMainScene()->playerLayer->setUserInfo(0, iter->second);
 			//DataModel::sharedDataModel()->getMainSceneOxOneByOne()->playerLayer->setUserInfo(0,iter->second);
 		}
@@ -1306,7 +1306,7 @@ void GameControlBase::onUserEnter(){
 			getMainScene()->playerLayer->setUserInfo(3, iter->second);
 			//DataModel::sharedDataModel()->getMainSceneOxOneByOne()->playerLayer->setUserInfo(3, iter->second);
 		}
-		//CCLOG("--mm----------------nick:%s",Tools::GBKToUTF8(iter->second.szNickName));
+		
 	}
 	DataModel::sharedDataModel()->mTagUserInfo.clear();
 }
@@ -1451,7 +1451,7 @@ void GameControlBase::onSubUserEnter(void * pDataBuffer, unsigned short wDataSiz
 			CopyMemory(&UserInfo.szNickName, cbDataBuffer + wPacketSize, DataDescribe->wDataSize);
 			UserInfo.szNickName[CountArray(UserInfo.szNickName) - 1] = 0;
 			//std::string name=UserInfo.szNickName;
-			//CCLOG("gameId:%ld nick:%s",pUserInfoHead->dwGameID,Tools::GBKToUTF8(UserInfo.szNickName));
+			
 			//if (strcmp(Tools::GBKToUTF8(UserInfo.szNickName),"(null)")==0)
 			{
 				//CCLOG("null"); 
@@ -1467,7 +1467,7 @@ void GameControlBase::onSubUserEnter(void * pDataBuffer, unsigned short wDataSiz
 		{
 			CopyMemory(UserInfo.szUnderWrite, cbDataBuffer + wPacketSize, DataDescribe->wDataSize);
 			UserInfo.szUnderWrite[CountArray(UserInfo.szUnderWrite) - 1] = 0;
-			CCLOG("签名:%s", Tools::GBKToUTF8(UserInfo.szUnderWrite));
+			CCLOG("签名:%s", Tools::GBKToUTF8(UserInfo.szUnderWrite).c_str());
 		}
 		break;
 		}
@@ -1519,7 +1519,7 @@ void GameControlBase::onSubUserEnter(void * pDataBuffer, unsigned short wDataSiz
 		{
 			CopyMemory(UserInfo.szUnderWrite, cbDataBuffer + wPacketSize, DataDescribe->wDataSize);
 			UserInfo.szUnderWrite[CountArray(UserInfo.szUnderWrite) - 1] = 0;
-			CCLOG("签名:%s", Tools::GBKToUTF8(UserInfo.szUnderWrite));
+			CCLOG("签名:%s", Tools::GBKToUTF8(UserInfo.szUnderWrite).c_str());
 		}
 		break;
 		}

@@ -104,7 +104,7 @@ void GameControlOxOneByOne::onUserEnter(){
 			//tempTagUserInfo.erase(iter++);
 			continue;
 		}
-		CCLOG("server:%d  view位置 :%d   me:%d %s<<%s>>",iter->second.wChairID, getViewChairID(iter->second.wChairID),DataModel::sharedDataModel()->userInfo->wChairID,Tools::GBKToUTF8(iter->second.szNickName), __FUNCTION__);
+		CCLOG("server:%d  view位置 :%d   me:%d %s<<%s>>", iter->second.wChairID, getViewChairID(iter->second.wChairID), DataModel::sharedDataModel()->userInfo->wChairID, Tools::GBKToUTF8(iter->second.szNickName).c_str(), __FUNCTION__);
 		getMainScene()->playerLayer->setUserInfo(getViewChairID(iter->second.wChairID), iter->second);
 	}
 	CCLOG("=======================================<<%s>>",__FUNCTION__);

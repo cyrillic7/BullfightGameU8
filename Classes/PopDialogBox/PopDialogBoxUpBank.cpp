@@ -90,7 +90,7 @@ void PopDialogBoxUpBank::insertBank(bool isInsert,int index,tagApplyUser applyUs
 	}
 	UILabel *pLGold=static_cast<UILabel*>(pLBank->getItem(index)->getChildByName("LabelGold"));
 	pLGold->setText(CCString::createWithFormat("%lld",applyUser.lUserScore)->getCString());
-	if (Tools::GBKToUTF8(applyUser.strUserName.c_str()))
+	if (Tools::GBKToUTF8(applyUser.strUserName.c_str()).c_str())
 	{
 		UILabel *pLName=static_cast<UILabel*>(pLBank->getItem(index)->getChildByName("LabelName"));
 		pLName->setText(Tools::GBKToUTF8(applyUser.strUserName.c_str()));
@@ -231,7 +231,7 @@ void PopDialogBoxUpBank::updateListContent(){
 		{
 			UILabel *pLGold=static_cast<UILabel*>(pLBank->getItem(i)->getChildByName("LabelGold"));
 			pLGold->setText(CCString::createWithFormat("%lld",iter->lUserScore)->getCString());
-			if (Tools::GBKToUTF8(iter->strUserName.c_str()))
+			if (Tools::GBKToUTF8(iter->strUserName.c_str()).c_str())
 			{
 				UILabel *pLName=static_cast<UILabel*>(pLBank->getItem(i)->getChildByName("LabelName"));
 				pLName->setText(Tools::GBKToUTF8(iter->strUserName.c_str()));

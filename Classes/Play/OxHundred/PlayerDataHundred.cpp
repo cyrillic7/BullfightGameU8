@@ -34,7 +34,7 @@ void PlayerDataHundred::setUserInfo(tagUserInfo userInfo){
 	}
 
 	pIPlayerBg->setVisible(true);
-	if (Tools::GBKToUTF8(userInfoPlayer.szNickName))
+	if (Tools::GBKToUTF8(userInfoPlayer.szNickName).c_str())
 	{
 		pLUserName->setVisible(true);
 		std::string nickName=Tools::GBKToUTF8(userInfoPlayer.szNickName);

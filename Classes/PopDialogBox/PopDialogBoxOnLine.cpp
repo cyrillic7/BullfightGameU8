@@ -78,7 +78,7 @@ void PopDialogBoxOnLine::setOnLineUserInfo(bool isInsert,tagUserInfo userInfo){
 	}
 	UILabel *pLGold=static_cast<UILabel*>(pLOnLine->getItem(0)->getChildByName("LabelGold"));
 	pLGold->setText(CCString::createWithFormat("%lld",userInfo.lScore)->getCString());
-	if (Tools::GBKToUTF8(userInfo.szNickName))
+	if (Tools::GBKToUTF8(userInfo.szNickName).c_str())
 	{
 		UILabel *pLName=static_cast<UILabel*>(pLOnLine->getItem(0)->getChildByName("LabelName"));
 		pLName->setText(Tools::GBKToUTF8(userInfo.szNickName));
