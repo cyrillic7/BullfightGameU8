@@ -46,7 +46,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	//CCEGLView::sharedOpenGLView()->setFrameSize(SCENE_SIZE.width, SCENE_SIZE.height);
 	//CCEGLView::sharedOpenGLView()->setFrameSize(1024, 768);
 	CCEGLView::sharedOpenGLView()->setFrameSize(960, 640);
-	//CCEGLView::sharedOpenGLView()->setFrameSize(568, 320);
+	//CCEGLView::sharedOpenGLView()->setFrameSize(1136, 640);
 #endif
 	//CCEGLView::sharedOpenGLView()->setDesignResolutionSize(SCENE_SIZE.width, SCENE_SIZE.height, kResolutionExactFit);//��Ļ����
 	//CCEGLView::sharedOpenGLView()->setDesignResolutionSize(SCENE_SIZE.width, SCENE_SIZE.height, kResolutionFixedHeight);//��Ļ����

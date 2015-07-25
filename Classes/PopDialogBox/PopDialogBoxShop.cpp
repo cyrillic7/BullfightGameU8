@@ -283,13 +283,22 @@ void PopDialogBoxShop::updateListCommodity(std::vector<CMD_GP_Gift> *vec){
 			{
 				//加载商品图片
 				UIImageView *pIVItem = static_cast<UIImageView*>(pListViewCommodity->getItem(pListViewCommodity->getItems()->count() - 1)->getChildByName(CCString::createWithFormat("ImageCommodity%d", j)->getCString()));
-				addDownloadImage(pIVItem, vec->at(tempIndex).szImgName, CCPointZero, 1,0, false);
+				float fScale = CCDirector::sharedDirector()->getContentScaleFactor();
+				addDownloadImage(pIVItem, vec->at(tempIndex).szImgName, ccp(0, 35 * fScale), 1, 0, false);
 				
 				UIButton *pButton = static_cast<UIButton*>(pListViewCommodity->getItem(pListViewCommodity->getItems()->count() - 1)->getChildByName(CCString::createWithFormat("ImageCommodity%d", j)->getCString())->getChildByName("ButtonBuy"));
 				pButton->setTag(tempIndex);
 				pButton->addTouchEventListener(this, toucheventselector(PopDialogBoxShop::onMenuBuyProp));
-				std::string buttonText = CCString::createWithFormat("%ld", vec->at(tempIndex).price[0].dwCount)->getCString();
-				pButton->setTitleText(GBKToUTF8(buttonText.c_str()));
+				std::string buttonText = CCString::createWithFormat("券%ld", vec->at(tempIndex).price[0].dwCount)->getCString();
+				pButton->setTitleText(buttonText.c_str());
+				//会员价
+				float vipDiscount =  vec->at(tempIndex).dwDiscount/10.0;
+				long vipPice = vec->at(tempIndex).price[0].dwCount*vipDiscount;
+				UILabel *pLVipPice0 = static_cast<UILabel*>(pIVItem->getChildByName("ImageVipPice")->getChildByName("LabelVipPice0"));
+				pLVipPice0->setText(CCString::createWithFormat("会员价%ld", vipPice)->getCString());
+				UILabel *pLVipPice1 = static_cast<UILabel*>(pIVItem->getChildByName("ImageVipPice")->getChildByName("LabelVipPice1"));
+				pLVipPice1->setText(CCString::createWithFormat("会员价%ld", vipPice)->getCString());
+
 
 				UILabel *pPropName = static_cast<UILabel*>(pListViewCommodity->getItem(pListViewCommodity->getItems()->count() - 1)->getChildByName(CCString::createWithFormat("ImageCommodity%d", j)->getCString())->getChildByName("LabelPropName"));
 				pPropName->setText(GBKToUTF8(vec->at(tempIndex).szName));
@@ -475,6 +484,10 @@ void PopDialogBoxShop::onSubGiftList(void * pDataBuffer, unsigned short wDataSiz
 void PopDialogBoxShop::onSubBuyGift(void * pDataBuffer, unsigned short wDataSize){
 	//效验数据
 	 if (wDataSize != sizeof(CMD_GP_BuyGiftLog)) return;
+
+	 //移除loading
+	 this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+
 	 CMD_GP_BuyGiftLog * pBuyGiftLog = (CMD_GP_BuyGiftLog *)pDataBuffer;
 	 if (pBuyGiftLog->dwRet==1)
 	 {
@@ -489,8 +502,7 @@ void PopDialogBoxShop::onSubBuyGift(void * pDataBuffer, unsigned short wDataSize
 		 pTipInfo->setTipInfoContent(GBKToUTF8(pBuyGiftLog->szDescribeString).c_str());
 	 }
 
-	 //移除loading
-	 this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+	 
 	 //关闭网络
 	 //TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_SHOP);
 	 gameSocket.Destroy(true);

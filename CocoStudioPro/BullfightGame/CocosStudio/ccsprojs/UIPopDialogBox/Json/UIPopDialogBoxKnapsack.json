@@ -11,30 +11,16 @@
   "designWidth": 1136,
   "textures": [
     "UIPanel.plist",
-    "UIButton.plist",
-    "UIRanking.plist",
-    "UIUserInfo.plist",
-    "UICheckBox.plist",
-    "UIActivity.plist",
-    "Font.plist",
-    "UIAuction.plist",
     "UIShop.plist",
-    "UILogon.plist",
-    "UIBank.plist",
-    "UIKnapsack.plist",
-    "UIMsg.plist",
-    "UIGameIngHundred.plist",
-    "UISign.plist",
-    "UITask.plist",
-    "UILoadingBar.plist",
-    "UIConnectFailure.plist",
-    "UIGameIng.plist",
-    "UIBindingPhone.plist",
-    "UIVip.plist",
-    "UIRecharge.plist",
-    "UIFirstRecharge.plist"
+    "UIButton.plist",
+    "UIAuction.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIPanel.png",
+    "UIShop.png",
+    "UIButton.png",
+    "UIAuction.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
