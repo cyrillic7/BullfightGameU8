@@ -58,11 +58,12 @@ void PopDialogBoxInputNum::onExit(){
 	CCLayer::onExit();
 }
 //设置数据
-void PopDialogBoxInputNum::setInputData(BuyType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, long long lPice){
+void PopDialogBoxInputNum::setInputData(BuyType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, long long lPice, long vipDiscount){
 	lMaxPropsNum = lMaxNum;
 	lBuyNum = lMaxNum;
 	lPropPice = lPice;
 	pLPropName->setText(cPropName);
+	pLVipDiscount->setText(CCString::createWithFormat(" 开通VIP享%ld折 ",vipDiscount)->getCString());
 	if (strcmp(cPropImagePuth,"")!=0)
 	{
 		addDownloadImage(pIVPropIcon, cPropImagePuth, CCPointZero, 1, 0, false);

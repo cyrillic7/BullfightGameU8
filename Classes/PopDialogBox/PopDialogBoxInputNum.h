@@ -39,7 +39,7 @@ public:
 	CREATE_FUNC(PopDialogBoxInputNum);
 public:
 	//设置数据
-	void setInputData(BuyType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, long long lPice);
+	void setInputData(BuyType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, long long lPice, long vipDiscount);
 private:
 	virtual void onEnter();
 	virtual void onExit();

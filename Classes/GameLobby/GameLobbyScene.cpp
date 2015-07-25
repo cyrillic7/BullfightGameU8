@@ -397,7 +397,7 @@ void GameLobbyScene::onSubLogon(WORD wSubCmdID,void * pDataBuffer, unsigned shor
 			//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_GAME);
 			PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
 			this->addChild(tipInfo);
-			tipInfo->setTipInfoContent(GBKToUTF8(lf->szDescribeString));
+			tipInfo->setTipInfoContent(GBKToUTF8(lf->szDescribeString).c_str());
 
 			GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
 			//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);

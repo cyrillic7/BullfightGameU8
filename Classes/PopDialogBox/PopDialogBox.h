@@ -75,7 +75,7 @@ public:
 	//设置大厅是否读取网络消息
 	void setLobbyReadMessage(bool isRead);
 	//显示数量输入框
-	void showInputNumBox(BuyType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, long long lPice,IPopAssist* pIPop);
+	void showInputNumBox(BuyType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, long long lPice, long vipDiscount,IPopAssist* pIPop);
 	//加载下载图片
 	void addDownloadImage(UIWidget *widget, const char *name, CCPoint pos, float fScale,int zOrder, bool useMask);
 	//图片下载完成回调

@@ -13,10 +13,12 @@ CStringAide::~CStringAide() {
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 #include "../../../../libiconv/include/iconv.h"
 #endif
-static char g_GBKConvUTF8Buf[5000] = { 0 };
-
-
-const char * CStringAide::GBKToUTF8(const char * strChar){
+std::string CStringAide::GBKToUTF8(const char * strChar){
+	std::string result = "";
+	if (strcmp(strChar, "")==0)
+	{
+		return result;
+	}
 	iconv_t iconvH;
 	//iconvH = iconv_open("unicode","ascii");
 	iconvH = iconv_open("utf-8", "gbk");
@@ -28,8 +30,7 @@ const char * CStringAide::GBKToUTF8(const char * strChar){
 	size_t strLength = strlen(strChar);
 	size_t outLength = strLength << 2;
 	size_t copyLength = outLength;
-	memset(g_GBKConvUTF8Buf, 0, 5000);
-
+	
 	char* outbuf = (char*)malloc(outLength);
 	char* pBuff = outbuf;
 	memset(outbuf, 0, outLength);
@@ -38,23 +39,30 @@ const char * CStringAide::GBKToUTF8(const char * strChar){
 	{
 		free(pBuff);
 		iconv_close(iconvH);
-		return "";
+		return result;
 	}
 #else
 	if (-1 == iconv(iconvH, (char **)&strChar, &strLength, &outbuf, &outLength))
 	{
 		free(pBuff);
 		iconv_close(iconvH);
-		return "";
+		return result;
 	}
 #endif
 
-	memcpy(g_GBKConvUTF8Buf, pBuff, copyLength);
+	//memcpy(g_GBKConvUTF8Buf, pBuff, copyLength);
+	result = pBuff;
 	free(pBuff);
 	iconv_close(iconvH);
-	return g_GBKConvUTF8Buf;
+	
+	return result;
 }
-const char * CStringAide::UTF8ToGBK(const char * strChar){
+std::string  CStringAide::UTF8ToGBK(const char * strChar){
+	std::string result = "";
+	if (strcmp(strChar,"")==0)
+	{
+		return result;
+	}
 	iconv_t iconvH;
 	//iconvH = iconv_open("unicode","ascii");
 	//iconvH = iconv_open("utf-8", "gb2312");
@@ -66,8 +74,7 @@ const char * CStringAide::UTF8ToGBK(const char * strChar){
 	size_t strLength = strlen(strChar);
 	size_t outLength = strLength << 2;
 	size_t copyLength = outLength;
-	memset(g_GBKConvUTF8Buf, 0, 5000);
-
+	
 	char* outbuf = (char*)malloc(outLength);
 	char* pBuff = outbuf;
 	memset(outbuf, 0, outLength);
@@ -76,21 +83,21 @@ const char * CStringAide::UTF8ToGBK(const char * strChar){
 	{
 		free(pBuff);
 		iconv_close(iconvH);
-		return "";
+		return result;
 	}
 #else
 	if (-1 == iconv(iconvH, (char **)&strChar, &strLength, &outbuf, &outLength))
 	{
 		free(pBuff);
 		iconv_close(iconvH);
-		return "";
+		return result;
 	}
 #endif
 
-	memcpy(g_GBKConvUTF8Buf, pBuff, copyLength);
+	result = pBuff;
 	free(pBuff);
 	iconv_close(iconvH);
-	return g_GBKConvUTF8Buf;
+	return result;
 }
 //////////////////////////////////////////////////////////////////////////
 std::vector<std::string> CStringAide::parseUTF8(const std::string &str)

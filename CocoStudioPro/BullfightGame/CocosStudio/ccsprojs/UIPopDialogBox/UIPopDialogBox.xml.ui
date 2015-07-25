@@ -53,12 +53,7 @@
     <string>UIKnapsack.plist</string>
     <string>UIUserInfo.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>UIPanel.png</string>
-    <string>UIButton.png</string>
-    <string>UIKnapsack.png</string>
-    <string>UIUserInfo.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxInputExchange.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxMore.json</CurrentUIJson>
 </UIProject>

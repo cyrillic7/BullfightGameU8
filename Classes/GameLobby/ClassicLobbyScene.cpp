@@ -603,7 +603,7 @@ void ClassicLobbyScene::onEventLogon(WORD wSubCmdID, void * pDataBuffer, unsigne
 
 		PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
 		this->addChild(tipInfo);
-		tipInfo->setTipInfoContent(GBKToUTF8(lf->szDescribeString));
+		tipInfo->setTipInfoContent(GBKToUTF8(lf->szDescribeString).c_str());
 		setGameItem(backGameItem);
 	}
 	break;

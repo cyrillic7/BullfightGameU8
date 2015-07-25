@@ -577,7 +577,7 @@ void PopDialogBoxBank::onEventUserService(WORD wSubCmdID, void * pDataBuffer, un
 		assert(wDataSize >= (sizeof(CMD_GP_OperateFailure) - sizeof(pOperateFailure->szDescribeString)));
 		if (wDataSize < (sizeof(CMD_GP_OperateFailure) - sizeof(pOperateFailure->szDescribeString))) return;
 		
-		showTipInfo(GBKToUTF8(pOperateFailure->szDescribeString));
+		showTipInfo(GBKToUTF8(pOperateFailure->szDescribeString).c_str());
 	}
 		break;
 	case SUB_GP_USER_INSURE_INFO:
@@ -609,7 +609,7 @@ void PopDialogBoxBank::onEventUserService(WORD wSubCmdID, void * pDataBuffer, un
 
 		DataModel::sharedDataModel()->userInfo->lInsure = pUserInsureSuccess->lUserInsure;
 		DataModel::sharedDataModel()->userInfo->lScore = pUserInsureSuccess->lUserScore;
-		showTipInfo(GBKToUTF8(pUserInsureSuccess->szDescribeString));
+		showTipInfo(GBKToUTF8(pUserInsureSuccess->szDescribeString).c_str());
 		
 		((BaseLobbyScene*)this->getParent())->pLabelGoldCount->setText(CCString::createWithFormat("%lld", DataModel::sharedDataModel()->userInfo->lScore)->getCString());
 
@@ -623,7 +623,7 @@ void PopDialogBoxBank::onEventUserService(WORD wSubCmdID, void * pDataBuffer, un
 		assert(wDataSize >= (sizeof(CMD_GP_UserInsureFailure) - sizeof(pUserInsureFailure->szDescribeString)));
 		if (wDataSize < (sizeof(CMD_GP_UserInsureFailure) - sizeof(pUserInsureFailure->szDescribeString))) return ;
 
-		showTipInfo(GBKToUTF8(pUserInsureFailure->szDescribeString));
+		showTipInfo(GBKToUTF8(pUserInsureFailure->szDescribeString).c_str());
 		
 	}
 		break;

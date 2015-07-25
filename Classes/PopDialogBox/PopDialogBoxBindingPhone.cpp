@@ -212,7 +212,7 @@ void PopDialogBoxBindingPhone::onEventUserService(WORD wSubCmdID, void * pDataBu
 		{
 			DataModel::sharedDataModel()->sPhone = sPhone;
 		}
-		showTipInfo(GBKToUTF8(catchaRet->szDescribeString));
+		showTipInfo(GBKToUTF8(catchaRet->szDescribeString).c_str());
 	}
 	break;
 	case SUB_GP_GET_CAPTCHA://获取验证码
@@ -221,7 +221,7 @@ void PopDialogBoxBindingPhone::onEventUserService(WORD wSubCmdID, void * pDataBu
 		CMD_GP_CaptchaRet *catchaRet = (CMD_GP_CaptchaRet*)pDataBuffer;
 		if (catchaRet->lResultCode!=0)
 		{
-			showTipInfo(GBKToUTF8(catchaRet->szDescribeString));
+			showTipInfo(GBKToUTF8(catchaRet->szDescribeString).c_str());
 		}
 	}
 		break;

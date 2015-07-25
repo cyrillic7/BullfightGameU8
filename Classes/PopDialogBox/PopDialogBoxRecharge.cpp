@@ -312,7 +312,7 @@ void PopDialogBoxRecharge::onEventUserService(WORD wSubCmdID, void * pDataBuffer
 		//showTipInfo(GBKToUTF8(pFailure->szDescribeString));
 		PopDialogBoxTipInfo *pTipInfo = PopDialogBoxTipInfo::create();
 		this->addChild(pTipInfo, 10);
-		pTipInfo->setTipInfoContent(GBKToUTF8(pFailure->szDescribeString));
+		pTipInfo->setTipInfoContent(GBKToUTF8(pFailure->szDescribeString).c_str());
 		pTipInfo->setIPopAssistTipInfo(this);
 		pTipInfo->pBClose->setTitleText(" 前往充值 ");
 	}
@@ -338,7 +338,7 @@ void PopDialogBoxRecharge::onSubExchangeBigGold(void * pDataBuffer, unsigned sho
 	pLCurGoldCount->setText(CCString::createWithFormat("%lld", pExchangeSuccess->lInsure)->getCString());
 	pLCurBigGoldCount->setText(CCString::createWithFormat("%lld", pExchangeSuccess->lIngot)->getCString());
 
-	showTipInfo(GBKToUTF8(pExchangeSuccess->szDescribeString));
+	showTipInfo(GBKToUTF8(pExchangeSuccess->szDescribeString).c_str());
 
 }
 //关闭回调

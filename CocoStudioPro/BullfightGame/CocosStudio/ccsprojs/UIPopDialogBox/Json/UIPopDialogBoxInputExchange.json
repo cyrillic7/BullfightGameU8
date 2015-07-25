@@ -15,12 +15,7 @@
     "UIKnapsack.plist",
     "UIUserInfo.plist"
   ],
-  "texturesPng": [
-    "UIPanel.png",
-    "UIButton.png",
-    "UIKnapsack.png",
-    "UIUserInfo.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -228,7 +223,7 @@
               "layoutParameter": null,
               "opacity": 255,
               "positionPercentX": 0,
-              "positionPercentY": 0.49511382,
+              "positionPercentY": 0.493103445,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -615,7 +610,7 @@
               "ignoreSize": false,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": -0.22857134,
+              "positionPercentX": -0.226530612,
               "positionPercentY": 0.07586207,
               "positionType": 0,
               "rotation": 0,

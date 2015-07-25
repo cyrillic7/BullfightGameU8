@@ -169,7 +169,7 @@ void PopDialogBoxAuction::onMenuBuyProp(CCObject *object, TouchEventType type){
 	{
 		UIButton *pTempButton = (UIButton*)object;
 		iAuctionBuyIndex = pTempButton->getTag();
-		showInputNumBox(BUY_AUCTION, GBKToUTF8(vecAuctionInfo[iAuctionBuyIndex].szAuctionName), "", vecAuctionInfo[iAuctionBuyIndex].dwPropNum, vecAuctionInfo[iAuctionBuyIndex].lGold,this);
+		showInputNumBox(BUY_AUCTION, GBKToUTF8(vecAuctionInfo[iAuctionBuyIndex].szAuctionName).c_str(), "", vecAuctionInfo[iAuctionBuyIndex].dwPropNum, vecAuctionInfo[iAuctionBuyIndex].lGold, 0, this);
 	}
 		break;
 	default:
@@ -261,7 +261,7 @@ void PopDialogBoxAuction::onMenuSelectMyAuctionCell(CCObject *object, TouchEvent
 			{
 				iAuctionSellIndex = i;
 				pIVTempCell->setOpacity(255);
-				pLAuctionGoodsName->setText(GBKToUTF8(vecMyAuctionGoods[i].szName));
+				pLAuctionGoodsName->setText(GBKToUTF8(vecMyAuctionGoods[i].szName).c_str());
 				
 				CCEditBox *pEBGoodsNum = (CCEditBox*)pTFAuctionGoodsNum->getNodeByTag(TAG_INPUT_EDIT_BOX);
 				if (strcmp(pEBGoodsNum->getText(), "") == 0)
@@ -640,7 +640,7 @@ void PopDialogBoxAuction::updateListMyAuctionGoods(){
 		pLVTemp->insertDefaultItem(inserterPos);
 		//拍卖物品名称
 		UILabel *pGoodsName = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("LabelGoodsContent"));
-		CCString *strGoodInfo = CCString::createWithFormat("X%ld %s", vecMyAuctionGoods[i].dwNum, GBKToUTF8(vecMyAuctionGoods[i].szName));
+		CCString *strGoodInfo = CCString::createWithFormat("X%ld %s", vecMyAuctionGoods[i].dwNum, GBKToUTF8(vecMyAuctionGoods[i].szName).c_str());
 		pGoodsName->setText(strGoodInfo->getCString());
 
 		UIImageView *pIVCell=static_cast<UIImageView*>(pLVTemp->getItem(inserterPos));
@@ -796,7 +796,7 @@ void PopDialogBoxAuction::connectSuccess(){
 		CCEditBox *pEBSearch = (CCEditBox*)pTFSearchByID->getNodeByTag(TAG_INPUT_EDIT_BOX);
 		//查找拍卖记录
 		CMD_GP_Query_Auction queryAuction;
-		strcpy(queryAuction.szID, UTF8ToGBK(pEBSearch->getText()));
+		strcpy(queryAuction.szID, UTF8ToGBK(pEBSearch->getText()).c_str());
 		queryAuction.dwPage = iCurPage[AUCTION_INFO];
 		queryAuction.dwPageSize = MAX_PAGE_SIZE;
 		queryAuction.dwLastDay = 1;
@@ -876,7 +876,7 @@ void PopDialogBoxAuction::onEventUserService(WORD wSubCmdID, void * pDataBuffer,
 		assert(wDataSize >= (sizeof(CMD_GP_UserInsureFailure) - sizeof(pUserInsureFailure->szDescribeString)));
 		if (wDataSize < (sizeof(CMD_GP_UserInsureFailure) - sizeof(pUserInsureFailure->szDescribeString))) return;
 
-		showTipInfo(GBKToUTF8(pUserInsureFailure->szDescribeString));
+		showTipInfo(GBKToUTF8(pUserInsureFailure->szDescribeString).c_str());
 	}
 		break;
 	case SUB_GP_CANCEL_AUCTION://取消拍卖
@@ -1035,7 +1035,7 @@ void PopDialogBoxAuction::onSubBuyAuction(void * pDataBuffer, unsigned short wDa
 		setAgainGetData(AGAIN_AUCTION_INFO);
 		//onCheckBoxSelectedStateEvent(pCBAuctionItems[AUCTION_INFO], CHECKBOX_STATE_EVENT_SELECTED);
 	}
-	showTipInfo(GBKToUTF8(pBuyAuction->szDescribeString));
+	showTipInfo(GBKToUTF8(pBuyAuction->szDescribeString).c_str());
 }
 //出售拍卖品
 void PopDialogBoxAuction::onSubSellAuction(void * pDataBuffer, unsigned short wDataSize){
@@ -1076,7 +1076,7 @@ void PopDialogBoxAuction::onSubSellAuction(void * pDataBuffer, unsigned short wD
 	{
 
 	}
-	showTipInfo(GBKToUTF8(pSellAuction->szDescribeString));
+	showTipInfo(GBKToUTF8(pSellAuction->szDescribeString).c_str());
 	CCLOG(" <<%s>>", __FUNCTION__);
 }
 //取消拍卖
@@ -1105,7 +1105,7 @@ void PopDialogBoxAuction::onSubCancelAuction(void * pDataBuffer, unsigned short 
 	{
 
 	}
-	showTipInfo(GBKToUTF8(pCencelAuction->szDescribeString));
+	showTipInfo(GBKToUTF8(pCencelAuction->szDescribeString).c_str());
 }
 //财富
 void PopDialogBoxAuction::onSubTreasure(void * pDataBuffer, unsigned short wDataSize){
@@ -1128,7 +1128,7 @@ void PopDialogBoxAuction::onSubTakeOut(void * pDataBuffer, unsigned short wDataS
 		setInsure(pTakeOut->lInsureScore);
 		setAuction(0);
 	}
-	showTipInfo(GBKToUTF8(pTakeOut->szDescribeString));
+	showTipInfo(GBKToUTF8(pTakeOut->szDescribeString).c_str());
 	//setAgainGetData(AGAIN_MY_PROPERTY);
 }
 //输入改变

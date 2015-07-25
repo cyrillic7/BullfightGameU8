@@ -1,4 +1,4 @@
-﻿#ifndef CMD_OX_HEAD_FILE
+#ifndef CMD_OX_HEAD_FILE
 #define CMD_OX_HEAD_FILE
 #pragma pack(1)
 //如果是android平台需要定义宏
@@ -17,7 +17,7 @@ typedef char TCHAR, *PTCHAR;
 
 #define KIND_ID						430									//游戏 I D
 #define GAME_PLAYER					6										//游戏人数
-#define GAME_NAME					TEXT("6人换牌牛牛")						//游戏名字
+#define GAME_NAME					TEXT(" 6人换牌牛牛 ")						//游戏名字
 #define VERSION_SERVER				PROCESS_VERSION(6,0,3)					//程序版本
 #define VERSION_CLIENT				PROCESS_VERSION(6,0,3)					//程序版本
 

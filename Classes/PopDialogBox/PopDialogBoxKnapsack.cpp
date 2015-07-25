@@ -244,7 +244,7 @@ void PopDialogBoxKnapsack::onSubUseGoods(void * pDataBuffer, unsigned short wDat
 	}
 	PopDialogBoxTipInfo *pTipInfo = PopDialogBoxTipInfo::create();
 	this->addChild(pTipInfo, 100);
-	pTipInfo->setTipInfoContent(GBKToUTF8(pOpenCard->szDescribeString));
+	pTipInfo->setTipInfoContent(GBKToUTF8(pOpenCard->szDescribeString).c_str());
 
 }
 //初始化商品列表
@@ -432,7 +432,7 @@ void PopDialogBoxKnapsack::onMenuExchange(CCObject *object, TouchEventType type)
 			{
 				iUseType=vecGoods[iCurSelectIndex].dwUseType;
 			}
-			box->setInputData((UseType)(iUseType), GBKToUTF8(vecGoods[iCurSelectIndex].szName), vecGoods[iCurSelectIndex].szImgName, 1, GBKToUTF8(vecGoods[iCurSelectIndex].szRemark));
+			box->setInputExchangeData((UseType)(iUseType), GBKToUTF8(vecGoods[iCurSelectIndex].szName).c_str(), vecGoods[iCurSelectIndex].szImgName, 1,GBKToUTF8(vecGoods[iCurSelectIndex].szRemark).c_str());
 			box->setIPopDialogBoxExchange(this);
 		}
 		
@@ -456,6 +456,7 @@ void PopDialogBoxKnapsack::onExchangeNumWithContent(int type, std::string sConte
 		break;
 	default:
 	{
+		lExchangeNum = strtol(sContent.c_str(),NULL,10);
 		sExchangeContent = "";
 	}
 		break;

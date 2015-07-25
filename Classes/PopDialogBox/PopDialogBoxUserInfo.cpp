@@ -338,7 +338,7 @@ void PopDialogBoxUserInfo::onEventUserService(WORD wSubCmdID, void * pDataBuffer
 	case SUB_GP_OPERATE_SUCCESS:
 	{
 		CMD_GP_OperateSuccess *pSuccess = (CMD_GP_OperateSuccess*)pDataBuffer;
-		showTipInfo(GBKToUTF8(pSuccess->szDescribeString));
+		showTipInfo(GBKToUTF8(pSuccess->szDescribeString).c_str());
 
 		DataModel::sharedDataModel()->userInfo->cbGender = pcbSexBoy->getSelectedState() ? 1 :0;
 		setShowChangeView();
@@ -348,7 +348,7 @@ void PopDialogBoxUserInfo::onEventUserService(WORD wSubCmdID, void * pDataBuffer
 	case SUB_GP_OPERATE_FAILURE:
 	{
 		CMD_GP_OperateFailure *pFailure = (CMD_GP_OperateFailure*)pDataBuffer;
-		showTipInfo(GBKToUTF8(pFailure->szDescribeString));
+		showTipInfo(GBKToUTF8(pFailure->szDescribeString).c_str());
 	}
 		break;
 	default:

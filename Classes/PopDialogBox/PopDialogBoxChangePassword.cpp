@@ -219,7 +219,7 @@ void PopDialogBoxChangePassword::onEventUserService(WORD wSubCmdID, void * pData
 		default:
 			break;
 		}
-		showTipInfo(GBKToUTF8(pOperateSuccess->szDescribeString));
+		showTipInfo(GBKToUTF8(pOperateSuccess->szDescribeString).c_str());
 	}
 		break;
 	case SUB_GP_OPERATE_FAILURE:
@@ -229,7 +229,7 @@ void PopDialogBoxChangePassword::onEventUserService(WORD wSubCmdID, void * pData
 		assert(wDataSize >= (sizeof(CMD_GP_OperateFailure) - sizeof(pOperateFailure->szDescribeString)));
 		if (wDataSize < (sizeof(CMD_GP_OperateFailure) - sizeof(pOperateFailure->szDescribeString))) return;
 
-		showTipInfo(GBKToUTF8(pOperateFailure->szDescribeString));
+		showTipInfo(GBKToUTF8(pOperateFailure->szDescribeString).c_str());
 	}
 		break;
 	default:

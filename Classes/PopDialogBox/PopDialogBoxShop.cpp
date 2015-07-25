@@ -160,14 +160,14 @@ void PopDialogBoxShop::onMenuBuyProp(CCObject *object, TouchEventType type){
 		case PopDialogBoxShop::SHOP_BUY_GIFT:
 		{
 			setShopItem(SHOP_BUY_GIFT);
-			showInputNumBox(BUY_SHOP, GBKToUTF8(vecGift[iBuyPropIndex].szName), vecGift[iBuyPropIndex].szImgName, 1, vecGift[iBuyPropIndex].price[0].dwCount, this);
+			showInputNumBox(BUY_SHOP, GBKToUTF8(vecGift[iBuyPropIndex].szName).c_str(), vecGift[iBuyPropIndex].szImgName, 1, vecGift[iBuyPropIndex].price[0].dwCount, vecGift[iBuyPropIndex].dwDiscount, this);
 		}
 			break;
 		case PopDialogBoxShop::SHOP_PROP:
 		case PopDialogBoxShop::SHOP_BUY_PROP:
 		{
 			setShopItem(SHOP_BUY_PROP);
-			showInputNumBox(BUY_SHOP, GBKToUTF8(vecProp[iBuyPropIndex].szName), vecProp[iBuyPropIndex].szImgName, 1, vecProp[iBuyPropIndex].price[0].dwCount, this);
+			showInputNumBox(BUY_SHOP, GBKToUTF8(vecProp[iBuyPropIndex].szName).c_str(), vecProp[iBuyPropIndex].szImgName, 1, vecProp[iBuyPropIndex].price[0].dwCount, vecProp[iBuyPropIndex].dwDiscount, this);
 		}
 			break;
 		default:
@@ -480,13 +480,13 @@ void PopDialogBoxShop::onSubBuyGift(void * pDataBuffer, unsigned short wDataSize
 	 {
 		 PopDialogBoxTipInfo *pTipInfo = PopDialogBoxTipInfo::create();
 		 this->getParent()->addChild(pTipInfo, 100);
-		 pTipInfo->setTipInfoContent(GBKToUTF8(pBuyGiftLog->szDescribeString));
+		 pTipInfo->setTipInfoContent(GBKToUTF8(pBuyGiftLog->szDescribeString).c_str());
 	 }
 	 else
 	 {
 		 PopDialogBoxTipInfo *pTipInfo = PopDialogBoxTipInfo::create();
 		 this->getParent()->addChild(pTipInfo, 100);
-		 pTipInfo->setTipInfoContent(GBKToUTF8(pBuyGiftLog->szDescribeString));
+		 pTipInfo->setTipInfoContent(GBKToUTF8(pBuyGiftLog->szDescribeString).c_str());
 	 }
 
 	 //移除loading

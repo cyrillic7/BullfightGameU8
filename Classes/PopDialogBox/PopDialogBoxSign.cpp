@@ -274,7 +274,7 @@ void PopDialogBoxSign::onSubSignIn(void * pDataBuffer, unsigned short wDataSize)
 	//保存签到记录
 	saveSignRecord();
 
-	showTipInfo(GBKToUTF8(pSignInLog->szDescribeString));
+	showTipInfo(GBKToUTF8(pSignInLog->szDescribeString).c_str());
 	onOutTime();
 }
 //保存签到记录

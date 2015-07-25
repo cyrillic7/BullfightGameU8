@@ -154,15 +154,15 @@ void PopDialogBoxTask::updateListTask(){
 		std::string sRewordContent = "";
 		if (vecTaskInfo[i].Award.dwAward1>0)
 		{
-			sRewordContent += CCString::createWithFormat("%s:%ld", GBKToUTF8(vecTaskInfo[i].Award.szAward1), vecTaskInfo[i].Award.dwAward1)->getCString();
+			sRewordContent += CCString::createWithFormat("%s:%ld", GBKToUTF8(vecTaskInfo[i].Award.szAward1).c_str(), vecTaskInfo[i].Award.dwAward1)->getCString();
 		}
 		if (vecTaskInfo[i].Award.dwAward2 > 0)
 		{
-			sRewordContent += CCString::createWithFormat("\n%s:%ld", GBKToUTF8(vecTaskInfo[i].Award.szAward2), vecTaskInfo[i].Award.dwAward2)->getCString();
+			sRewordContent += CCString::createWithFormat("\n%s:%ld", GBKToUTF8(vecTaskInfo[i].Award.szAward2).c_str(), vecTaskInfo[i].Award.dwAward2)->getCString();
 		}
 		if (vecTaskInfo[i].Award.dwAward3 > 0)
 		{
-			sRewordContent += CCString::createWithFormat("\n%s:%ld", GBKToUTF8(vecTaskInfo[i].Award.szAward3), vecTaskInfo[i].Award.dwAward3)->getCString();
+			sRewordContent += CCString::createWithFormat("\n%s:%ld", GBKToUTF8(vecTaskInfo[i].Award.szAward3).c_str(), vecTaskInfo[i].Award.dwAward3)->getCString();
 		}
 		pLRewordContent->setText(sRewordContent.c_str());
 		
@@ -309,7 +309,7 @@ void PopDialogBoxTask::onSubReward(void * pDataBuffer, unsigned short wDataSize)
 	{
 		//CCLOG(" <<%s>>", __FUNCTION__);
 	}
-	showTipInfo(GBKToUTF8(pTaskIDLog->szDescribeString));
+	showTipInfo(GBKToUTF8(pTaskIDLog->szDescribeString).c_str());
 	//移除loading
 	this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 

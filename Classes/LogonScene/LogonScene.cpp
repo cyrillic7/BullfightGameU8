@@ -484,7 +484,7 @@ void LogonScene::registeredGame(){
 	registeredAccount.wFaceID = 1;//头像标识
 	registeredAccount.cbGender = 1;//用户性别
 	strcpy(registeredAccount.szAccounts, sRegisterAccount.c_str());//登录帐号
-	strcpy(registeredAccount.szNickName, UTF8ToGBK(sRegisterNickname.c_str()));//用户昵称
+	strcpy(registeredAccount.szNickName, UTF8ToGBK(sRegisterNickname.c_str()).c_str());//用户昵称
 	//strcpy(registeredAccount.szSpreader, "");//推荐帐号
 	//strcpy(registeredAccount.szPassPortID, "");//证件号码
 	//strcpy(registeredAccount.szCompellation, "");//真实名字
@@ -597,7 +597,7 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			
 			PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
 			this->addChild(tipInfo);
-			tipInfo->setTipInfoContent(GBKToUTF8(describeStr));
+			tipInfo->setTipInfoContent(GBKToUTF8(describeStr).c_str());
 			sRegisterAccount = "";
 			sRegisterPasswrod = "";
 			sRegisterNickname = "";
@@ -681,18 +681,18 @@ void LogonScene::onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned s
 				else if (tempTag->wKindID == 130)
 				{
 					DataModel::sharedDataModel()->tagGameServerListOxOneByOne.push_back(tempTag);
-					CCLOG("port %d  %d  %s<<%s>>", tempTag->wServerPort, tempTag->wSortID, GBKToUTF8(tempTag->szDescription), __FUNCTION__);
+					CCLOG("port %d  %d  %s<<%s>>", tempTag->wServerPort, tempTag->wSortID, GBKToUTF8(tempTag->szDescription).c_str(), __FUNCTION__);
 
 				}
 				else if (tempTag->wKindID == 430)
 				{
 					DataModel::sharedDataModel()->tagGameServerListSixSwap.push_back(tempTag);
-					CCLOG("port %d  %d  six swap %s<<%s>>", tempTag->wServerPort, tempTag->wSortID, GBKToUTF8(tempTag->szDescription), __FUNCTION__);
+					CCLOG("port %d  %d  six swap %s<<%s>>", tempTag->wServerPort, tempTag->wSortID, GBKToUTF8(tempTag->szDescription).c_str(), __FUNCTION__);
 
 				}
 				else
 				{
-					CCLOG("port %d  %d  %s<<%s>>", tempTag->wServerPort, tempTag->wSortID, GBKToUTF8(tempTag->szDescription), __FUNCTION__);
+					CCLOG("port %d  %d  %s<<%s>>", tempTag->wServerPort, tempTag->wSortID, GBKToUTF8(tempTag->szDescription).c_str(), __FUNCTION__);
 				}
 				
 				//sort(DataModel::sharedDataModel()->tagGameServerList.begin(), DataModel::sharedDataModel()->tagGameServerList.end(), less_second);

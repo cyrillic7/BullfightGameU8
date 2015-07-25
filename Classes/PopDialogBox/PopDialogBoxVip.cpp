@@ -328,6 +328,6 @@ void PopDialogBoxVip::onSubVipReward(void * pDataBuffer, unsigned short wDataSiz
 		}
 		updateListVip();
 	}
-	showTipInfo(GBKToUTF8(pVipLog->szDescribeString));
+	showTipInfo(GBKToUTF8(pVipLog->szDescribeString).c_str());
 	CCLOG(" <<%s>>", __FUNCTION__);
 }

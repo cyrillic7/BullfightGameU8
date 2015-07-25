@@ -274,7 +274,7 @@ void PopDialogBoxForgetPassword::onSubGetID(void * pDataBuffer, unsigned short w
 	}
 	else
 	{
-		showTipInfo(GBKToUTF8(accRet->szDescribeString));
+		showTipInfo(GBKToUTF8(accRet->szDescribeString).c_str());
 	}
 }
 //获取验证码
@@ -286,11 +286,11 @@ void PopDialogBoxForgetPassword::onSubChangePwd(void * pDataBuffer, unsigned sho
 	CMD_GP_SetPassRet*setPassRet = (CMD_GP_SetPassRet*)pDataBuffer;
 	if (setPassRet->lResultCode==0)
 	{
-		showTipInfo(GBKToUTF8(setPassRet->szDescribeString), this);
+		showTipInfo(GBKToUTF8(setPassRet->szDescribeString).c_str(), this);
 	}
 	else
 	{
-		showTipInfo(GBKToUTF8(setPassRet->szDescribeString));
+		showTipInfo(GBKToUTF8(setPassRet->szDescribeString).c_str());
 	}
 	
 }

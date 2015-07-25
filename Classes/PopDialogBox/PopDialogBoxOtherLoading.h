@@ -1,4 +1,4 @@
-﻿/*
+/*
  * PopDialogBoxOtherLoading.h
  *
  *  Created on: 2015年3月17日

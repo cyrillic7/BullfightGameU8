@@ -18,7 +18,7 @@ private:
 	//商品图片框
 	UIImageView *pIVPropIcon;
 	//道具名
-	UILabel *pLPropName;
+	UILabel *pLExchangePropName;
 	//购买类型
 	UILabel *pLBuyType;
 	//兑换说明
@@ -31,7 +31,7 @@ public:
 	CREATE_FUNC(PopDialogBoxInputExchange);
 public:
 	//设置数据
-	void setInputData(UseType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, std::string sInfoContent);
+	void setInputExchangeData(UseType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, const char* sInfoContent);
 private:
 	virtual void onEnter();
 	virtual void onExit();

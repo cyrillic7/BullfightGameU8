@@ -64,12 +64,12 @@ void BaseLobbyScene::onEnter(){
 	CCSprite *pDoor = CCSprite::create("res/main_door.png");
 	spriteBg->addChild(pDoor, 2);
 	pDoor->setAnchorPoint(ccp(1,1));
-	pDoor->setPosition(ccp(SCENE_SIZE.width, SCENE_SIZE.height));
+	pDoor->setPosition(ccp(SCENE_SIZE.width+2, SCENE_SIZE.height+2));
 
 	CCSprite *pDoor1 = CCSprite::create("res/main_door.png");
 	spriteBg->addChild(pDoor1, 2);
 	pDoor1->setAnchorPoint(ccp(1, 1));
-	pDoor1->setPosition(ccp(0, SCENE_SIZE.height));
+	pDoor1->setPosition(ccp(0-2, SCENE_SIZE.height+2));
 	pDoor1->setScaleX(-1);
 	//创建UI层
 	m_pWidgetBase = UILayer::create();

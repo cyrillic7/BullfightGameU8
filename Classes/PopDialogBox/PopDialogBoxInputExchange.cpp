@@ -33,7 +33,7 @@ void PopDialogBoxInputExchange::onEnter(){
 	//商品图片框
 	pIVPropIcon = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImagePropIcon"));
 	//道具名
-	pLPropName = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelPropName"));
+	pLExchangePropName = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelPropName"));
 	//兑换说明
 	pLExchangeContent = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelInfoContent"));
 	pLExchangeContent->setText("");
@@ -53,14 +53,12 @@ void PopDialogBoxInputExchange::onExit(){
 	CCLayer::onExit();
 }
 //设置数据
-void PopDialogBoxInputExchange::setInputData(UseType eTExchangeType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, std::string sInfoContent){
+void PopDialogBoxInputExchange::setInputExchangeData(UseType eTExchangeType, const char* cExchangePropName, const char* cPropImagePuth, long lMaxNum, const char* sInfoContent){
 	setUseType(eTExchangeType);
 	
 	lMaxPropsNum = lMaxNum;
 	lBuyNum = lMaxNum;
-
-
-	pLPropName->setText(cPropName);
+	pLExchangePropName->setText(cExchangePropName);
 	if (strcmp(cPropImagePuth,"")!=0)
 	{
 		addDownloadImage(pIVPropIcon, cPropImagePuth, CCPointZero, 1, 0, false);
@@ -89,7 +87,7 @@ void PopDialogBoxInputExchange::setInputData(UseType eTExchangeType, const char*
 	default:
 	{
 		pLBuyType->setText("兑换数量:");
-		pLExchangeContent->setText(sInfoContent.c_str());
+		pLExchangeContent->setText(sInfoContent);
 		pLTempTitle0->setText("兑换");
 		pLTempTitle1->setText("兑换");
 	}
