@@ -1134,8 +1134,13 @@ void PopDialogBoxAuction::onSubTakeOut(void * pDataBuffer, unsigned short wDataS
 //输入改变
 void PopDialogBoxAuction::editBoxTextChanged(cocos2d::extension::CCEditBox* editBox, const std::string& text)
 {
+	CCEditBox *pEBSearchByID = (CCEditBox*)pTFSearchByID->getNodeByTag(TAG_INPUT_EDIT_BOX);
+	
 	CCEditBox *pEBGoodsNum = (CCEditBox*)pTFAuctionGoodsNum->getNodeByTag(TAG_INPUT_EDIT_BOX);
-	if (editBox==pEBGoodsNum)
+	if (editBox == pEBSearchByID)
+	{
+	}
+	else if (editBox==pEBGoodsNum)
 	{
 		long lGoosdNum = strtol(editBox->getText(), NULL, 10);
 		editBox->setText(CCString::createWithFormat("%ld", lGoosdNum)->getCString());
