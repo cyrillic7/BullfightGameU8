@@ -18,7 +18,7 @@ public:
 	CC_SYNTHESIZE(IPopAssistTipInfo*, pIPopAssistTipInfo, IPopAssistTipInfo);
 
 	//关闭
-	UIButton *pBClose;
+	Button *pBClose;
 private:
 	Label *pLInfo;
 public:
