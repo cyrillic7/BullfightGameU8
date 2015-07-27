@@ -34,8 +34,13 @@ private:
 		AGAIN_AUCTION_INFO,					//刷新拍卖信息
 		AGAIN_MY_AUCTION,					//刷新我的拍卖
 		AGAIN_MY_PROPERTY,					//获取我的财富
+		AGAIN_DELAY_DISPLAY,				//延时显示
 	};
 	CC_SYNTHESIZE(AgainGetData, eAgainGetData, AgainGetData);
+	//显示文字
+	std::string sShowTipText;
+	//延时显示提示文字
+	bool isDelayDisplay;
 
 	//元宝
 	UIImageView *pIBigGold;

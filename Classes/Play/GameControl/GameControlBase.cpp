@@ -200,8 +200,23 @@ void GameControlBase::updateTimer(float dt){
 void GameControlBase::delayedAction(){
 	switch (getMainScene()->getGameState())
 	{
+	case MainSceneBase::STATE_DOWN:
+	{
+		if (!IsLookonMode() &&isPalyerState())
+		{
+			//主动站立退出
+			standUpWithExit();
+		}
+		
+	}
+		break;
 	case MainSceneOxTwo::STATE_READY:
 	{
+		if (!IsLookonMode() && isPalyerState())
+		{
+			//主动站立退出
+			standUpWithExit();
+		}
 
 	}
 	break;

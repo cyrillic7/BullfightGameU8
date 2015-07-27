@@ -22,6 +22,7 @@ PopDialogBoxAuction::PopDialogBoxAuction()
 	, eAgainGetData(AGAIN_MY_AUCTION_GOODS)
 	, iAuctionSellIndex(-1)
 	, isCurSearchInfo(false)
+	, isDelayDisplay(false)
 {
 	scheduleUpdate();
 }
@@ -853,6 +854,10 @@ void PopDialogBoxAuction::onEventUserService(WORD wSubCmdID, void * pDataBuffer,
 		{
 			setAgainGetData(AGAIN_MY_PROPERTY);
 		}
+		else if (getAgainGetData()==AGAIN_DELAY_DISPLAY)
+		{
+			setAgainGetData(AGAIN_NOTHING);
+		}
 	}
 		break;
 	case SUB_GP_MYAUCTION_RECORD://我的拍卖
@@ -861,6 +866,10 @@ void PopDialogBoxAuction::onEventUserService(WORD wSubCmdID, void * pDataBuffer,
 		if (getAgainGetData() != AGAIN_MY_AUCTION_GOODS)
 		{
 			setAgainGetData(AGAIN_MY_PROPERTY);
+		}
+		else if (getAgainGetData() == AGAIN_DELAY_DISPLAY)
+		{
+			setAgainGetData(AGAIN_NOTHING);
 		}
 	}
 		break;
@@ -950,13 +959,13 @@ void PopDialogBoxAuction::onEventUserService(WORD wSubCmdID, void * pDataBuffer,
 	case PopDialogBoxAuction::AGAIN_AUCTION_INFO:
 	{
 		onCheckBoxSelectedStateEvent(pCBAuctionItems[AUCTION_INFO], CHECKBOX_STATE_EVENT_SELECTED);
-		setAgainGetData(AGAIN_NOTHING);
+		setAgainGetData(AGAIN_DELAY_DISPLAY);
 	}
 		break;
 	case PopDialogBoxAuction::AGAIN_MY_AUCTION:
 	{
 		onCheckBoxSelectedStateEvent(pCBAuctionItems[AUCTION_MY], CHECKBOX_STATE_EVENT_SELECTED);
-		setAgainGetData(AGAIN_NOTHING);
+		setAgainGetData(AGAIN_DELAY_DISPLAY);
 	}
 		break;
 	case AGAIN_MY_PROPERTY://我的财富
@@ -975,6 +984,11 @@ void PopDialogBoxAuction::onEventUserService(WORD wSubCmdID, void * pDataBuffer,
 		break;
 	}
 	
+	if (getAgainGetData()==AGAIN_NOTHING&&isDelayDisplay)
+	{
+		showTipInfo(sShowTipText.c_str());
+		isDelayDisplay = false;
+	}
 }
 //拍卖记录
 void PopDialogBoxAuction::onSubAuctionInfo(void * pDataBuffer, unsigned short wDataSize){
@@ -1035,7 +1049,9 @@ void PopDialogBoxAuction::onSubBuyAuction(void * pDataBuffer, unsigned short wDa
 		setAgainGetData(AGAIN_AUCTION_INFO);
 		//onCheckBoxSelectedStateEvent(pCBAuctionItems[AUCTION_INFO], CHECKBOX_STATE_EVENT_SELECTED);
 	}
-	showTipInfo(GBKToUTF8(pBuyAuction->szDescribeString).c_str());
+	sShowTipText = GBKToUTF8(pBuyAuction->szDescribeString);
+	isDelayDisplay = true;
+	//showTipInfo(GBKToUTF8(pBuyAuction->szDescribeString).c_str());
 }
 //出售拍卖品
 void PopDialogBoxAuction::onSubSellAuction(void * pDataBuffer, unsigned short wDataSize){
@@ -1076,7 +1092,9 @@ void PopDialogBoxAuction::onSubSellAuction(void * pDataBuffer, unsigned short wD
 	{
 
 	}
-	showTipInfo(GBKToUTF8(pSellAuction->szDescribeString).c_str());
+	sShowTipText = GBKToUTF8(pSellAuction->szDescribeString);
+	isDelayDisplay = true;
+	//showTipInfo(GBKToUTF8(pSellAuction->szDescribeString).c_str());
 	CCLOG(" <<%s>>", __FUNCTION__);
 }
 //取消拍卖
@@ -1105,7 +1123,9 @@ void PopDialogBoxAuction::onSubCancelAuction(void * pDataBuffer, unsigned short 
 	{
 
 	}
-	showTipInfo(GBKToUTF8(pCencelAuction->szDescribeString).c_str());
+	sShowTipText = GBKToUTF8(pCencelAuction->szDescribeString);
+	isDelayDisplay = true;
+	//showTipInfo(GBKToUTF8(pCencelAuction->szDescribeString).c_str());
 }
 //财富
 void PopDialogBoxAuction::onSubTreasure(void * pDataBuffer, unsigned short wDataSize){
