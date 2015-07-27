@@ -12,6 +12,7 @@
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxInputNum::PopDialogBoxInputNum()
 	:isShowVipDiscount(true)
+	
 {
 	
     
@@ -44,6 +45,8 @@ void PopDialogBoxInputNum::onEnter(){
 	//vip折扣
 	pLVipDiscount = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelVip"));
 	pLVipDiscount->setVisible(isShowVipDiscount);
+	pLVipDiscount->setEnabled(isShowVipDiscount);
+	pLVipDiscount->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxInputNum::onMenuToVip));
 	//输入数量
 	pTFInputCount = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldCount")); 
 	pTFInputCount->addEventListenerTextField(this, SEL_TextFieldEvent(&PopDialogBoxInputNum::onTextFieldAccount));
@@ -58,12 +61,13 @@ void PopDialogBoxInputNum::onExit(){
 	CCLayer::onExit();
 }
 //设置数据
-void PopDialogBoxInputNum::setInputData(BuyType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, long long lPice, long vipDiscount){
+void PopDialogBoxInputNum::setInputData(BuyType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, long long lPice, long vipDiscount, int vipLevel){
 	lMaxPropsNum = lMaxNum;
 	lBuyNum = lMaxNum;
 	lPropPice = lPice;
 	pLPropName->setText(cPropName);
 	pLVipDiscount->setText(CCString::createWithFormat(" 开通VIP享%ld折 ",vipDiscount)->getCString());
+	pLVipDiscount->setEnabled(vipLevel == 0);
 	if (strcmp(cPropImagePuth,"")!=0)
 	{
 		addDownloadImage(pIVPropIcon, cPropImagePuth, CCPointZero, 1, 0, false);
@@ -108,6 +112,13 @@ void PopDialogBoxInputNum::onMenuSure(CCObject *object, TouchEventType type){
 		break;
 	default:
 		break;
+	}
+}
+//跳转到vip
+void PopDialogBoxInputNum::onMenuToVip(CCObject *object, TouchEventType type){
+	if (type==TOUCH_EVENT_ENDED)
+	{
+		getIPopAssist()->onToVip();
 	}
 }
 //输入框回调

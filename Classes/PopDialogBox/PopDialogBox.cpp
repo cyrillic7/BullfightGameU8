@@ -105,7 +105,7 @@ void PopDialogBox::setLobbyReadMessage(bool isRead){
 	((BaseLobbyScene*)this->getParent())->isReadMessage = isRead;
 }
 //显示数量输入框
-void PopDialogBox::showInputNumBox(BuyType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, long long lPice, long vipDiscount, IPopAssist* pIPop){
+void PopDialogBox::showInputNumBox(BuyType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, long long lPice, long vipDiscount, int vipLevel, IPopAssist* pIPop){
 	PopDialogBoxInputNum *box = PopDialogBoxInputNum::create();
 	if (eBuyType==BUY_AUCTION)
 	{
@@ -116,7 +116,7 @@ void PopDialogBox::showInputNumBox(BuyType eBuyType, const char* cPropName, cons
 		box->isShowVipDiscount = true;
 	}
 	this->addChild(box, 10, TAG_INPUT_BOX);
-	box->setInputData(eBuyType, cPropName, cPropImagePuth, lMaxNum, lPice,vipDiscount);
+	box->setInputData(eBuyType, cPropName, cPropImagePuth, lMaxNum, lPice,vipDiscount,vipLevel);
 	box->setIPopAssist(pIPop);
 }
 //加载下载图片

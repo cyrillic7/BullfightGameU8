@@ -166,7 +166,10 @@ void BaseLobbyScene::popDialogBox(PopType type){
 		pdb=PopDialogBoxBank::create();
 		break;
 	case BaseLobbyScene::POP_SHOP:
+	{
 		pdb = PopDialogBoxShop::create();
+		((PopDialogBoxShop *)pdb)->setIPopDialogBoxAssist(this);
+	}
 		break;
 	case BaseLobbyScene::POP_AUCTION:
 		pdb=PopDialogBoxAuction::create();
@@ -318,6 +321,10 @@ void BaseLobbyScene::onCloseKnapsack(){
 //关闭VIP回调
 void BaseLobbyScene::onCloseViewToShop(){
 	popDialogBox(POP_SHOP);
+}
+//关闭跳转到VIP
+void BaseLobbyScene::onCloseViewToVip(){
+	popDialogBox(POP_VIP);
 }
 //随机生成云
 void BaseLobbyScene::createCloudRandom(CCSprite *pBg){

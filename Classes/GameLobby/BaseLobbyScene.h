@@ -67,6 +67,8 @@ private:
 	virtual void onCloseKnapsack();
 	//关闭VIP回调
 	virtual void onCloseViewToShop();
+	//关闭跳转到VIP
+	virtual void onCloseViewToVip();
 	//关闭窗口回调
 	virtual void onCloseView(){ isReadMessage = true; }
 	//随机生成云

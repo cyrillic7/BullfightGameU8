@@ -22,6 +22,7 @@ PopDialogBoxShop::PopDialogBoxShop()
 	:shopItem(SHOP_GIFT_PACKAGE)
 	, iBuyPropIndex(0)
 	, lCurBuyNum(0)
+	, iIPopAssistShop(NULL)
 	
 {
 	scheduleUpdate();
@@ -123,6 +124,11 @@ void PopDialogBoxShop::onBuyNum(long lNum){
 	connectServer();
 	connectSuccess();
 }
+//跳转到vip
+void PopDialogBoxShop::onToVip(){
+	getIPopDialogBoxAssist()->onCloseViewToVip();
+	this->removeFromParentAndCleanup(true);
+}
 //我的背包////////////////////////////////////////////////////////////////////////
 void PopDialogBoxShop::onMenuMyPackaga(CCObject *object, TouchEventType type){
 	switch (type)
@@ -160,14 +166,14 @@ void PopDialogBoxShop::onMenuBuyProp(CCObject *object, TouchEventType type){
 		case PopDialogBoxShop::SHOP_BUY_GIFT:
 		{
 			setShopItem(SHOP_BUY_GIFT);
-			showInputNumBox(BUY_SHOP, GBKToUTF8(vecGift[iBuyPropIndex].szName).c_str(), vecGift[iBuyPropIndex].szImgName, 1, vecGift[iBuyPropIndex].price[0].dwCount, vecGift[iBuyPropIndex].dwDiscount, this);
+			showInputNumBox(BUY_SHOP, GBKToUTF8(vecGift[iBuyPropIndex].szName).c_str(), vecGift[iBuyPropIndex].szImgName, 1, vecGift[iBuyPropIndex].price[0].dwCount, vecGift[iBuyPropIndex].dwDiscount,0, this);
 		}
 			break;
 		case PopDialogBoxShop::SHOP_PROP:
 		case PopDialogBoxShop::SHOP_BUY_PROP:
 		{
 			setShopItem(SHOP_BUY_PROP);
-			showInputNumBox(BUY_SHOP, GBKToUTF8(vecProp[iBuyPropIndex].szName).c_str(), vecProp[iBuyPropIndex].szImgName, 1, vecProp[iBuyPropIndex].price[0].dwCount, vecProp[iBuyPropIndex].dwDiscount, this);
+			showInputNumBox(BUY_SHOP, GBKToUTF8(vecProp[iBuyPropIndex].szName).c_str(), vecProp[iBuyPropIndex].szImgName, 1, vecProp[iBuyPropIndex].price[0].dwCount, vecProp[iBuyPropIndex].dwDiscount,0, this);
 		}
 			break;
 		default:

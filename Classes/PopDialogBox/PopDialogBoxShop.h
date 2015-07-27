@@ -12,7 +12,8 @@
 #include "PopDialogBoxKnapsack.h"
 #define MAX_SHOP_ITEM_COUNT				2			//最大商店项总数
 class PopDialogBoxShop: public PopDialogBox,public IPopAssist,public IPopAssistKnapsack {
-
+public:
+	CC_SYNTHESIZE(IPopDialogBoxAssist *, iIPopAssistShop, IPopDialogBoxAssist);
 private:
     
 	enum ShopItem
@@ -66,6 +67,8 @@ private:
 	//////////////////////////////////////////////////////////////////////////
 	//购买数量回调
 	virtual void onBuyNum(long lNum);
+	//跳转到vip
+	virtual void onToVip();
 	//背包关闭回调
 	virtual void onCloseKnapsack();
 	//////////////////////////////////////////////////////////////////////////

@@ -11,6 +11,7 @@
 class PopDialogBoxInputNum: public PopDialogBox {
 public:
 	bool isShowVipDiscount;
+	
 private:
 	//最大商品数
 	long lMaxPropsNum;
@@ -39,12 +40,14 @@ public:
 	CREATE_FUNC(PopDialogBoxInputNum);
 public:
 	//设置数据
-	void setInputData(BuyType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, long long lPice, long vipDiscount);
+	void setInputData(BuyType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, long long lPice, long vipDiscount,int vipLevel);
 private:
 	virtual void onEnter();
 	virtual void onExit();
 	//确定////////////////////////////////////////////////////////////////////////
 	void onMenuSure(CCObject *object, TouchEventType type);
+	//vip折扣
+	void onMenuToVip(CCObject *object, TouchEventType type);
 	//输入框回调
 	void onTextFieldAccount(CCObject* obj, TextFiledEventType type);
 	//更新总价

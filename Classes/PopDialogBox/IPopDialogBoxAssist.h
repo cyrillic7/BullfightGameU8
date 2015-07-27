@@ -12,6 +12,8 @@ struct IPopDialogBoxAssist//
 	virtual ~IPopDialogBoxAssist(){}
 	//关闭跳转到商城
 	virtual void onCloseViewToShop() = 0;
+	//关闭跳转到VIP
+	virtual void onCloseViewToVip() = 0;
 };
 //关闭回调接口
 struct IPopDialogBoxAssistCloseView
