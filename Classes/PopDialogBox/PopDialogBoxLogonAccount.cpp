@@ -97,7 +97,7 @@ void PopDialogBoxLogonAccount::onMenuLogon(CCObject *object, TouchEventType type
 			CCEditBox *pEBPassword = (CCEditBox*)pTPassword->getNodeByTag(TAG_INPUT_EDIT_BOX);
 			if (strcmp(pEBAccount->getText(), "") == 0 || strcmp(pEBPassword->getText(), "") == 0)
 			{
-				CCLOG("帐号、密码不能为空<<%s>>",__FUNCTION__);
+				showTipInfo(" 帐号、密码不能为空 ");
 			}else
 			{
 				DataModel::sharedDataModel()->sLogonAccount = pEBAccount->getText();
