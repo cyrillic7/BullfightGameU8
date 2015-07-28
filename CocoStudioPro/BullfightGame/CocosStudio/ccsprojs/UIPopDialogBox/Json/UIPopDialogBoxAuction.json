@@ -11,17 +11,17 @@
   "designWidth": 1136,
   "textures": [
     "UIPanel.plist",
+    "UIAuction.plist",
     "UIButton.plist",
-    "UIKnapsack.plist",
-    "UIUserInfo.plist",
-    "UIAuction.plist"
+    "UIShop.plist",
+    "UIUserInfo.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
+    "UIAuction.png",
     "UIButton.png",
-    "UIKnapsack.png",
-    "UIUserInfo.png",
-    "UIAuction.png"
+    "UIShop.png",
+    "UIUserInfo.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

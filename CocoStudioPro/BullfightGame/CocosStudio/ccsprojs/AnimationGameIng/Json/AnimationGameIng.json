@@ -9,7 +9,7 @@
         {
           "name": "Layer2",
           "parent": "",
-          "dI": 0,
+          "dI": -1,
           "x": 0.0,
           "y": 0.0,
           "z": 2,
@@ -55,7 +55,7 @@
         {
           "name": "Layer1",
           "parent": "",
-          "dI": -981,
+          "dI": -971,
           "x": 0.0,
           "y": 0.0,
           "z": 1,
@@ -389,6 +389,104 @@
                   "kY": 0.0
                 }
               ]
+            },
+            {
+              "name": "a_c_gold0.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0
+                }
+              ]
+            },
+            {
+              "name": "a_c_gold1.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0
+                }
+              ]
+            },
+            {
+              "name": "a_c_gold2.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0
+                }
+              ]
+            },
+            {
+              "name": "a_c_gold3.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0
+                }
+              ]
+            },
+            {
+              "name": "a_c_gold4.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0
+                }
+              ]
+            },
+            {
+              "name": "a_c_gold5.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0
+                }
+              ]
+            },
+            {
+              "name": "a_c_gold6.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0
+                }
+              ]
             }
           ]
         }
@@ -568,7 +666,7 @@
         },
         {
           "name": "enterChair",
-          "dr": 31,
+          "dr": 30,
           "lp": false,
           "to": 0,
           "drTW": 0,
@@ -691,7 +789,7 @@
         },
         {
           "name": "swapCard",
-          "dr": 21,
+          "dr": 20,
           "lp": false,
           "to": 0,
           "drTW": 0,
@@ -953,6 +1051,143 @@
               ]
             }
           ]
+        },
+        {
+          "name": "cUIGold",
+          "dr": 36,
+          "lp": false,
+          "to": 0,
+          "drTW": 0,
+          "twE": 0,
+          "sc": 0.8333333,
+          "mov_bone_data": [
+            {
+              "name": "Layer1",
+              "dl": 0.0,
+              "frame_data": [
+                {
+                  "dI": 23,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 0,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                },
+                {
+                  "dI": 24,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 5,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                },
+                {
+                  "dI": 25,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 10,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                },
+                {
+                  "dI": 26,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 15,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                },
+                {
+                  "dI": 27,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 20,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                },
+                {
+                  "dI": 28,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 25,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                },
+                {
+                  "dI": 29,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 30,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                },
+                {
+                  "dI": -971,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 35,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                }
+              ]
+            }
+          ]
         }
       ]
     }
@@ -1154,6 +1389,62 @@
       "name": "a_gi_hand1",
       "width": 55.0,
       "height": 55.0,
+      "pX": 0.5,
+      "pY": 0.5,
+      "plistFile": "AnimationGameIng.plist"
+    },
+    {
+      "name": "a_c_gold0",
+      "width": 12.0,
+      "height": 23.0,
+      "pX": 0.5,
+      "pY": 0.5,
+      "plistFile": "AnimationGameIng.plist"
+    },
+    {
+      "name": "a_c_gold1",
+      "width": 26.0,
+      "height": 37.0,
+      "pX": 0.5,
+      "pY": 0.5,
+      "plistFile": "AnimationGameIng.plist"
+    },
+    {
+      "name": "a_c_gold2",
+      "width": 24.0,
+      "height": 37.0,
+      "pX": 0.5,
+      "pY": 0.5,
+      "plistFile": "AnimationGameIng.plist"
+    },
+    {
+      "name": "a_c_gold3",
+      "width": 16.0,
+      "height": 25.0,
+      "pX": 0.5,
+      "pY": 0.5,
+      "plistFile": "AnimationGameIng.plist"
+    },
+    {
+      "name": "a_c_gold4",
+      "width": 12.0,
+      "height": 11.0,
+      "pX": 0.5,
+      "pY": 0.5,
+      "plistFile": "AnimationGameIng.plist"
+    },
+    {
+      "name": "a_c_gold5",
+      "width": 22.0,
+      "height": 23.0,
+      "pX": 0.5,
+      "pY": 0.5,
+      "plistFile": "AnimationGameIng.plist"
+    },
+    {
+      "name": "a_c_gold6",
+      "width": 18.0,
+      "height": 17.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": "AnimationGameIng.plist"

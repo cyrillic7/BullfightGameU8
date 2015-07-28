@@ -125,6 +125,15 @@ void BaseLobbyScene::onEnter(){
 	//金币
 	pLabelGoldCount=static_cast<UILabel*>(m_pWidgetBase->getWidgetByName("LabelGoldCount"));
 	pLabelGoldCount->setText(CCString::createWithFormat("%lld",DataModel::sharedDataModel()->userInfo->lScore)->getCString());
+
+	//金币闪光动画
+	UIImageView *pIVGoldIcon = static_cast<UIImageView*>(m_pWidgetBase->getWidgetByName("ImageGoldIcon")); 
+	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationGameIng.ExportJson));
+	pAnimate = CCArmature::create("AnimationGameIng");
+	pIVGoldIcon->addNode(pAnimate, 100);
+	pAnimate->setPosition(3, 1);
+	pAnimate->setVisible(false);
+	schedule(SEL_SCHEDULE(&BaseLobbyScene::updateGoldLight), 2);
 }
 //退出场景
 void BaseLobbyScene::onExit(){
@@ -369,4 +378,12 @@ void BaseLobbyScene::closeWebView(){
 //android返回键 
 void BaseLobbyScene::keyBackClicked(){
 	platformAction("{\"act\":400}");
+}
+//金币闪光动画
+void BaseLobbyScene::updateGoldLight(float dt){
+	if (!pAnimate->isVisible())
+	{
+		pAnimate->setVisible(true);
+	}
+	pAnimate->getAnimation()->play("cUIGold");
 }
