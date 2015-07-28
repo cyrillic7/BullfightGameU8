@@ -4,7 +4,10 @@
 #include "Card.h"
 #include "../../MainScene/MainSceneBase.h"
 #include "../../Tools/DataModel.h"
+#include "../../Tools/SoundConfig.h"
+#include "../../Tools/Tools.h"
 CardLayerHundred::CardLayerHundred()
+	:isSound(true)
 {
 }
 CardLayerHundred::~CardLayerHundred() {
@@ -109,6 +112,7 @@ float CardLayerHundred::getCardScale(int index){
 }
 //显示牌
 void CardLayerHundred::showCard(){
+	isSound = true;
 	schedule(SEL_SCHEDULE(&CardLayerHundred::updateShowCardOneByOne),1,4,0);
 	/*for (int i = 0; i <MAX_COUNT; i++)
 	{
@@ -248,10 +252,14 @@ void CardLayerHundred::onPlayOxAnimation(CCNode *obj){
 	oxAnimation->setVisible(true);
 	int tag=oxAnimation->getTag();
 	oxAnimation->getAnimation()->play(CCString::createWithFormat("Ox_gih%d",tag)->getCString());
+	if (isSound)
+	{
+		Tools::playSound(kSoundOx(oxAnimation->getTag()));
+	}
 }
 //显示牌
 void CardLayerHundred::showCard(bool isAction, int index, int dataIndex){
-	
+	isSound = false;
 	int beginCardIndex = index*MAX_COUNT;
 	//设置位置
 	CCPoint cardPos = getMainScene()->posChair[index];

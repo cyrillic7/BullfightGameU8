@@ -22,6 +22,8 @@ private:
 	int showOxAllNum;							//最多显示牛牛数
 	int showOxCurNum;							//当前显示牛牛数
 	bool isShowAllUserOx;						//是否显示全部用户牛牛
+	//结算输赢
+	long long								llGameScore[GAME_PLAYER];			//游戏得分
 public:
     
 	GameControlOxOneByOne();
@@ -67,4 +69,6 @@ private:
 	//virtual void onUserEnterWithUpdate(tagUserInfo *user);
 	//用户开牌显示牛
 	void onUserShowOx(CCNode *pNode);
+	//显示结算（）
+	virtual void showResultAnimation();
 };

@@ -27,6 +27,8 @@ private:
 
 	CCPoint posCurSelectCard;					//当前选中牌位置
 	long long								lScoreTax;                          //换牌手续费
+	//结算输赢
+	long long								llGameScore[GAME_PLAYER];			//游戏得分
 public:
 	GameControlOxSixSwap();
 	~GameControlOxSixSwap();
@@ -93,4 +95,7 @@ private:
 	void onAnimationEventOver(CCArmature *pArmature, MovementEventType movementType, const char *movementID);
 	//帧动画回调
 	void onAnimationEventFrame(CCBone *bone, const char *evt, int originFrameIndex, int currentFrameIndex);
+
+	//显示结算（）
+	virtual void showResultAnimation();
 };

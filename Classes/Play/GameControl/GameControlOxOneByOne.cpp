@@ -778,6 +778,21 @@ void GameControlOxOneByOne::onUserShowOx(CCNode *pNode){
 		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GF_GAME, SUB_C_OPEN_END);
 	}
 }
+//显示结算（）
+void GameControlOxOneByOne::showResultAnimation(){
+	for (int i = 0; i < GAME_PLAYER; i++)
+	{
+		long long lGameScore = llGameScore[i];
+		if (getMainScene()->cardLayer->canSendCard[getViewChairID(i)])
+		{
+			if (getViewChairID(i) == 3)
+			{
+				DataModel::sharedDataModel()->userInfo->lScore += lGameScore;
+			}
+			getMainScene()->playerLayer->showResultAnimation(getViewChairID(i), lGameScore);
+		}
+	}
+}
 //游戏结束
 bool GameControlOxOneByOne::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 {
@@ -785,19 +800,8 @@ bool GameControlOxOneByOne::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 	if (wDataSize != sizeof(CMD_S_GameEnd)) return false;
 	CMD_S_GameEnd * pGameEnd = (CMD_S_GameEnd *)pBuffer;
 	hideActionPrompt();
-	//显示积分
-	for (int i = 0; i < GAME_PLAYER; i++)
-	{
-		long long lGameScore = pGameEnd->lGameScore[i];
-		if (getMainScene()->cardLayer->canSendCard[getViewChairID(i)])
-		{
-			if (getViewChairID(i)==3)
-			{
-				DataModel::sharedDataModel()->userInfo->lScore += lGameScore;
-			}
-			getMainScene()->playerLayer->showResultAnimation(getViewChairID(i), lGameScore);
-		}
-	}
+	
+	CopyMemory(llGameScore, pGameEnd->lGameScore, sizeof(llGameScore));
 	/*for (WORD i = 0; i < GAME_PLAYER; i++)
 	{
 		long long lGameScore = pGameEnd->lGameScore[i];
@@ -833,11 +837,15 @@ bool GameControlOxOneByOne::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 	//显示牌型
 	if (isShowAllUserOx)
 	{
+		//显示积分
+		showResultAnimation();
 		isShowAllUserOx = false;
 	}
 	else
 	{
 		bool bOxSound = false;
+		iDelayedMaxCount = 0;
+		iCurDelayedCount = 0;
 		for (int i = 0; i < GAME_PLAYER; i++)
 		{
 			//WORD wViewChairID=m_wViewChairID[i];
@@ -855,8 +863,19 @@ bool GameControlOxOneByOne::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 			}
 			if (!isCardError)
 			{
-				getMainScene()->cardLayer->showCard(true, getViewChairID(i), i);
-				getMainScene()->cardLayer->sortingOx(i, getViewChairID(i));
+				iDelayedMaxCount++;
+
+				CCNode *pTempNode = CCNode::create();
+				this->addChild(pTempNode);
+				pTempNode->setTag(i);
+
+
+				pTempNode->runAction(CCSequence::create(
+					CCDelayTime::create(iDelayedMaxCount)
+					, CCCallFuncN::create(this, SEL_CallFuncN(&GameControlBase::delayedShowOx))
+					, NULL));
+				//getMainScene()->cardLayer->showCard(true, getViewChairID(i), i);
+				//getMainScene()->cardLayer->sortingOx(i, getViewChairID(i));
 			}
 		}
 	}

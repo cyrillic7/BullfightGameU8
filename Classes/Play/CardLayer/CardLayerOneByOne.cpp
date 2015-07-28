@@ -5,6 +5,8 @@
 #include "Card.h"
 #include "../../Tools/DataModel.h"
 #include "../../Tools/BaseAttributes.h"
+#include "../../Tools/SoundConfig.h"
+#include "../../Tools/Tools.h"
 #define SELF_SEAT									3						//自己的位置
 CardLayerOneByOne::CardLayerOneByOne()
 {
@@ -237,6 +239,7 @@ void CardLayerOneByOne::onPlayOxAnimation(CCNode *obj){
 	CCArmature *oxAnimation=(CCArmature*)obj;
 	oxAnimation->setVisible(true);
 	oxAnimation->getAnimation()->play(CCString::createWithFormat("Ox%d",oxAnimation->getTag())->getCString());
+	Tools::playSound(kSoundOx(oxAnimation->getTag()));
 }
 //发牌中
 void CardLayerOneByOne::sendCardIng(){

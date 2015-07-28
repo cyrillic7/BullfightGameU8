@@ -3,6 +3,9 @@
 #include "CardLayerBase.h"
 #include "../../GameLogic/GameLogicHundred.h"
 class CardLayerHundred:public CardLayerBase,GameLogicHundred {
+private:
+	//是否播放牛牛声
+	bool isSound;
 public:
 	CardLayerHundred();
 	~CardLayerHundred();

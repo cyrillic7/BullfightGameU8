@@ -80,6 +80,10 @@ public:
 	Label *pLTimerPromptContent;
 	//计时变量
 	int iTimerCount;
+	//延时显示结算最大数
+	int iDelayedMaxCount;
+	//当前延时回调计数器
+	int iCurDelayedCount;
 public:
 	GameControlBase();
 	~GameControlBase();
@@ -130,6 +134,8 @@ public:
 	bool IsLookonMode();
 	//是否是游戏状态
 	virtual bool isPalyerState(){ return true; }
+	//延时显示牌
+	virtual void delayedShowOx(CCNode *pNode);
 private:
 	//菜单////////////////////////////////////////////////////////////////////////
 	void menuPause(CCObject* pSender, TouchEventType type);
@@ -212,6 +218,8 @@ private:
 	void goldJump(int index,CCPoint beginPos,CCPoint endPos);
 	void onGoldJump(CCNode *node);
 	
+	//显示结算（）
+	virtual void showResultAnimation(){};
 };
 
 #endif /* defined(__BullfightGame__GameHUD__) */

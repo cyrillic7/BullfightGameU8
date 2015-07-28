@@ -4,6 +4,9 @@
 
 
 #define kSoundHundredAddGold "sound/ADD_GOLD"                                 //百人牛牛下注
+
+
+#define kSoundOx(name) CCString::createWithFormat("sound/otherOx/ox%d.wav",(name))->getCString()
 /*
 #define kMusicGameMenu "music/m_menu.mp3"
 #define kMusicGameIn "music/m_gameIn.mp3"
@@ -17,7 +20,7 @@
 #define kSoundKillPeople "sound/s_kill_people.wav"
 
 #define kSoundBomb(name) name==0?"sound/s_gun_bomb0.mp3" : "sound/s_gun_bomb1.wav"
-#define kSoundGun(name) CCString::createWithFormat("sound/s_gun%d.mp3",(name))->getCString()
+
 #define kSoundEnemyDeath(name) CCString::createWithFormat("sound/s_enemy_death%d.mp3",(name))->getCString()
 #define kSoundBaseUnderAttack(name) CCString::createWithFormat("sound/s_base_under_attack%d.wav",(name))->getCString()
 

@@ -1615,3 +1615,16 @@ void GameControlBase::standUpWithExit(){
 		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GR_USER, SUB_GR_USER_STANDUP, &userStandUp, sizeof(userStandUp));
 	}
 }
+//延时显示牌
+void GameControlBase::delayedShowOx(CCNode *pNode){
+	int i = pNode->getTag();
+	pNode->removeFromParentAndCleanup(true);
+
+	getMainScene()->cardLayer->showCard(true, getViewChairID(i), i);
+	getMainScene()->cardLayer->sortingOx(i, getViewChairID(i));
+	iCurDelayedCount++;
+	if (iCurDelayedCount>=iDelayedMaxCount)
+	{
+		showResultAnimation();
+	}
+}
