@@ -47,7 +47,7 @@ void PopDialogBoxFeedback::onEnter(){
 
 	//联系方式
 	UITextField *pTFFeedbackQQ = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldQQ"));
-	addEditBox(pTFFeedbackQQ, kEditBoxInputModeEmailAddr);
+	addEditBox(pTFFeedbackQQ, kEditBoxInputModePhoneNumber);
 	pEBFeedbackQQ = (CCEditBox*)pTFFeedbackQQ->getNodeByTag(TAG_INPUT_EDIT_BOX);
 	pEBFeedbackQQ->setEnabled(false);
 	pEBFeedbackQQ->setVisible(false);

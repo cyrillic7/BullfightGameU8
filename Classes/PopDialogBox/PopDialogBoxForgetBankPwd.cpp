@@ -106,6 +106,7 @@ void PopDialogBoxForgetBankPwd::onMenuForgetPassword(CCObject *object, TouchEven
 		}
 		else
 		{
+			std::string password = pEBInputNewPwd->getText();
 			if (strcmp(pEBInputNewPwd->getText(), "") == 0)
 			{
 				showTipInfo(" 新密码不能为空 ");
@@ -113,6 +114,14 @@ void PopDialogBoxForgetBankPwd::onMenuForgetPassword(CCObject *object, TouchEven
 			else if (strlen(pEBInputNewPwd->getText()) < 8)
 			{
 				showTipInfo("新密码必须大于8位以上!");
+			}
+			else if (isAllChniese(pEBInputNewPwd->getText()))
+			{
+				showTipInfo("密码不能包含中文!");
+			}
+			else if (password.find_first_not_of("1234567890") == std::string::npos)
+			{
+				showTipInfo("密码不能全是数字!");
 			}
 			else if (strcmp(pEBInputCode->getText(), "") == 0)
 			{

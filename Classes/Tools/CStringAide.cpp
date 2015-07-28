@@ -168,3 +168,34 @@ std::string CStringAide::subUTF8(const std::string &str, int from, int to)
 	}
 	return res;
 }
+////是否中文
+bool CStringAide::isAllChniese(std::string string){
+	if (string.size() < 4)
+	{
+		return false;
+	}
+	for (std::string::iterator iter = string.begin(); iter != string.end(); ++iter)
+	{
+		if (*iter <= 0 || *iter >= 127)
+		{
+			iter += 2;
+			return true;
+		}
+		else
+		{
+			
+		}
+	}
+	return false;
+}
+//是否全是数字
+bool CStringAide::isDigit2(std::string str) {
+	for (int i = 0; i < str.length(); i++)
+	{
+		if ((str.at(i) > '9') || (str.at(i) < '0'))
+		{
+			return   false;
+		}
+	}
+  return  true;
+}

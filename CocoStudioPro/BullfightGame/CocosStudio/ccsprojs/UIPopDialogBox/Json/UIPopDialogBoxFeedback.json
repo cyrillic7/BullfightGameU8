@@ -13,7 +13,8 @@
     "UIPanel.plist",
     "UIButton.plist",
     "UIKnapsack.plist",
-    "UIUserInfo.plist"
+    "UIUserInfo.plist",
+    "UIAuction.plist"
   ],
   "texturesPng": [],
   "version": "1.6.0.0",
@@ -458,11 +459,11 @@
                   "fontFile": null,
                   "fontName": "微软雅黑",
                   "fontSize": 20,
-                  "maxLength": 50,
+                  "maxLength": 14,
                   "maxLengthEnable": true,
                   "passwordEnable": false,
                   "passwordStyleText": "*",
-                  "placeHolder": "请输入您的联系方式QQ或邮箱",
+                  "placeHolder": "请输入您的QQ号码",
                   "text": ""
                 }
               }

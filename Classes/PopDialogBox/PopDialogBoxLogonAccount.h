@@ -46,5 +46,4 @@ private:
 	virtual void editBoxEditingDidBegin(cocos2d::extension::CCEditBox* editBox);
 	virtual void editBoxEditingDidEnd(cocos2d::extension::CCEditBox* editBox);
 	virtual void editBoxTextChanged(cocos2d::extension::CCEditBox* editBox, const std::string& text);
-	bool isAllChniese(std::string string);
 };

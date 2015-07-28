@@ -19,6 +19,9 @@ public:
 	std::string UTF8ToGBK(const char *strChar);
 	//截取字符串（中英文）
 	std::string subUTF8(const std::string &str, int from, int to);
-
+	//是否中文
+	bool isAllChniese(std::string string);
+	//是否全是数字
+	bool isDigit2(std::string str);
 };
 

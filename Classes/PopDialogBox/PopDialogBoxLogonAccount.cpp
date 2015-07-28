@@ -248,24 +248,7 @@ void PopDialogBoxLogonAccount::editBoxTextChanged(cocos2d::extension::CCEditBox*
 		sTempAccount = text;
 	}*/
 }
-bool PopDialogBoxLogonAccount::isAllChniese(std::string string){
-	if (string.size()<4)
-	{
-		return false;
-	}
-	for (std::string::iterator iter=string.begin(); iter!=string.end(); ++iter)
-	{
-		if (*iter>0&&*iter<127)
-		{
-			return false;
-		}
-		else
-		{
-			iter += 2;
-		}
-	}
-	return true;
-}
+
 //更新更多帐号列表
 void PopDialogBoxLogonAccount::updateListViewMoreAccount(){
 	UIListView *pLVTemp = pLVMoreAccount;

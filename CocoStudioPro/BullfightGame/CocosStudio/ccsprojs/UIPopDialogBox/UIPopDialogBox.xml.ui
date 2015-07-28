@@ -49,18 +49,12 @@
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <imageFileList>
     <string>UIPanel.plist</string>
-    <string>UIAuction.plist</string>
     <string>UIButton.plist</string>
-    <string>UIShop.plist</string>
+    <string>UIKnapsack.plist</string>
     <string>UIUserInfo.plist</string>
+    <string>UIAuction.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>UIPanel.png</string>
-    <string>UIAuction.png</string>
-    <string>UIButton.png</string>
-    <string>UIShop.png</string>
-    <string>UIUserInfo.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxAuction.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxFeedback.json</CurrentUIJson>
 </UIProject>

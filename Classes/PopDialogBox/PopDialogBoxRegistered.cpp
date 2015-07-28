@@ -53,9 +53,14 @@ void PopDialogBoxRegistered::onMenuRegistered(CCObject *object, TouchEventType t
 		CCEditBox *pEBAccount = (CCEditBox*)pTFAccount->getNodeByTag(TAG_INPUT_EDIT_BOX);
 		CCEditBox *pEBNickname = (CCEditBox*)pTFNickname->getNodeByTag(TAG_INPUT_EDIT_BOX);
 		CCEditBox *pEBPassword = (CCEditBox*)pTFPassword->getNodeByTag(TAG_INPUT_EDIT_BOX);
+		std::string password0 = pEBPassword->getText();
 		if (strlen(pEBAccount->getText())<6)
 		{
 			showTipInfo("游戏帐号必须大于6位以上!");
+		}
+		else if (isAllChniese(pEBAccount->getText()))
+		{
+			showTipInfo("游戏帐号不能包含中文!");
 		}
 		else if (strlen(pEBNickname->getText())<6)
 		{
@@ -64,6 +69,14 @@ void PopDialogBoxRegistered::onMenuRegistered(CCObject *object, TouchEventType t
 		else if (strlen(pEBPassword->getText()) < 8)
 		{
 			showTipInfo("密码必须大于8位以上!");
+		}
+		else if (isAllChniese(pEBPassword->getText()))
+		{
+			showTipInfo("密码不能包含中文!");
+		}
+		else if (password0.find_first_not_of("1234567890") == std::string::npos)
+		{
+			showTipInfo("密码不能全是数字!");
 		}
 		else
 		{

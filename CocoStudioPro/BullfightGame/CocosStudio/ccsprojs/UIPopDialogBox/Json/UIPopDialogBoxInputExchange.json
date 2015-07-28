@@ -16,13 +16,7 @@
     "UIUserInfo.plist",
     "UIAuction.plist"
   ],
-  "texturesPng": [
-    "UIPanel.png",
-    "UIButton.png",
-    "UIKnapsack.png",
-    "UIUserInfo.png",
-    "UIAuction.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",

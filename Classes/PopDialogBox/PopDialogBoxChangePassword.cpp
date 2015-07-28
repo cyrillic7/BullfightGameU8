@@ -88,6 +88,10 @@ void PopDialogBoxChangePassword::onMenuChangePassword(CCObject *object, TouchEve
 		{
 			showTipInfo(BaseAttributes::sharedAttributes()->sInsurePasswordLeng.c_str());
 		}
+		else if (isAllChniese(password0))
+		{
+			showTipInfo("密码不能包含中文!");
+		}
 		else if (password0.find_first_not_of("1234567890") == string::npos){
 			showTipInfo(BaseAttributes::sharedAttributes()->sInsurePasswordNum.c_str());
 		}
