@@ -323,9 +323,9 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 	case GS_TK_SCORE:	//下注状态
 	{
 		//效验数据
-		int size = sizeof(CMD_S_StatusScore1);
-		if (wDataSize != sizeof(CMD_S_StatusScore1)) return false;
-		CMD_S_StatusScore1 * pStatusScore = (CMD_S_StatusScore1 *)pData;
+		int size = sizeof(CMD_S_StatusScore);
+		if (wDataSize != sizeof(CMD_S_StatusScore)) return false;
+		CMD_S_StatusScore * pStatusScore = (CMD_S_StatusScore *)pData;
 		hideAllActionPanel();
 		CCLOG("%s <<%s>>", Tools::GBKToUTF8(" 下注状态 ").c_str(), __FUNCTION__);
 		//getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_BETTING);

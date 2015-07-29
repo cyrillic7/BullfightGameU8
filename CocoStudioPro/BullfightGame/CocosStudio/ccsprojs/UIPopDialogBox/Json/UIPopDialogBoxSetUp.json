@@ -12,10 +12,17 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIKnapsack.plist",
-    "UIUserInfo.plist"
+    "UIUserInfo.plist",
+    "UILogon.plist",
+    "UIBank.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIPanel.png",
+    "UIButton.png",
+    "UIUserInfo.png",
+    "UILogon.png",
+    "UIBank.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -605,7 +612,7 @@
                   "touchAble": false,
                   "useMergedTexture": false,
                   "visible": true,
-                  "width": 128,
+                  "width": 160,
                   "x": -159,
                   "y": -110,
                   "areaHeight": 0,
@@ -614,7 +621,7 @@
                   "fontName": "微软雅黑",
                   "fontSize": 32,
                   "hAlignment": 0,
-                  "text": "银行密码",
+                  "text": "保险柜密码",
                   "touchScaleEnable": false,
                   "vAlignment": 0
                 }

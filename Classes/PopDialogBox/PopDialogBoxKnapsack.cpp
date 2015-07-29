@@ -322,12 +322,14 @@ void PopDialogBoxKnapsack::updateListGoods(){
 void PopDialogBoxKnapsack::initGoodsInfo(){
 	//物品列表
 	pLGoodsName = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelGoodsName"));
+	pLGoodsNum = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelPropCount"));
 	pLInfoContent = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelInfoContent"));
 }
 //更新物品信息
 void PopDialogBoxKnapsack::updateGoodInfo(int index){
 	pLGoodsName->setText(GBKToUTF8(vecGoods[index].szName));
 	pLInfoContent->setText(GBKToUTF8(vecGoods[index].szRemark));
+	pLGoodsNum->setText(CCString::createWithFormat("数量:%ld",vecGoods[index].dwNum)->getCString());
 
 	//兑换
 	UIButton *pBExchange = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonExchange"));

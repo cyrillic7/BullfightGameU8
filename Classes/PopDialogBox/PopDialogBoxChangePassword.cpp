@@ -65,7 +65,7 @@ void PopDialogBoxChangePassword::setPasswordType(int type){
 		break;
 	case PopDialogBoxChangePassword::CHANGE_BANK_PASSWORD:
 	{
-		setTitle("修改银行密码");
+		setTitle(" 修改保险柜密码 ");
 	}
 		break;
 	default:

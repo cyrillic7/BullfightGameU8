@@ -50,11 +50,17 @@
   <imageFileList>
     <string>UIPanel.plist</string>
     <string>UIButton.plist</string>
-    <string>UIKnapsack.plist</string>
     <string>UIUserInfo.plist</string>
-    <string>UIAuction.plist</string>
+    <string>UILogon.plist</string>
+    <string>UIBank.plist</string>
   </imageFileList>
-  <imagePngList />
+  <imagePngList>
+    <string>UIPanel.png</string>
+    <string>UIButton.png</string>
+    <string>UIUserInfo.png</string>
+    <string>UILogon.png</string>
+    <string>UIBank.png</string>
+  </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxFeedback.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxSetUp.json</CurrentUIJson>
 </UIProject>

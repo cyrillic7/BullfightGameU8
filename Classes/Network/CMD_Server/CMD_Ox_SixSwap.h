@@ -59,6 +59,8 @@ struct CMD_S_StatusFree
 {
 	long long							lCellScore;							//基础积分
 	long long								lScoreTax;                          //手续费
+	WORD								wRevenueRatio;                      //税收比例
+	long long                            lServiceScore;                      //服务费用
 };
 
 //游戏状态
@@ -74,10 +76,12 @@ struct CMD_S_StatusCall
 	WORD							    	wCallBanker;						//叫庄用户
 	BYTE							        cbPlayStatus[GAME_PLAYER];          //用户状态
 	long long								lScoreTax;                          //手续费
+	WORD								wRevenueRatio;                      //税收比例
+	long long                            lServiceScore;                      //服务费用
 };
 
 //游戏状态
-struct CMD_S_StatusScore1
+struct CMD_S_StatusScore
 {
 	//下注信息
 	long long								lTurnMaxScore;						//最大下注
@@ -86,6 +90,8 @@ struct CMD_S_StatusScore1
 	BYTE								    cbPlayStatus[GAME_PLAYER];          //用户状态
 	WORD							    	wBankerUser;						//庄家用户
 	long long								lScoreTax;                          //手续费
+	WORD								wRevenueRatio;                      //税收比例
+	long long                            lServiceScore;                      //服务费用
 };
 
 //游戏状态
@@ -102,6 +108,8 @@ struct CMD_S_StatusPlay
 	//扑克信息
 	BYTE							    	cbHandCardData[GAME_PLAYER][MAXCOUNT];//桌面扑克
 	BYTE						      		bOxCard[GAME_PLAYER];				//牛牛数据
+	WORD								wRevenueRatio;                      //税收比例
+	long long                            lServiceScore;                      //服务费用
 };
 
 //用户叫庄
@@ -176,6 +184,8 @@ struct CMD_S_StatusChange
 	long long								lScoreTax;                          //手续费
 	//扑克信息
 	BYTE							    	cbHandCardData[GAME_PLAYER][MAXCOUNT];//桌面扑克
+	WORD								wRevenueRatio;                      //税收比例
+	long long                            lServiceScore;                      //服务费用
 };
 
 //////////////////////////////////////////////////////////////////////////

@@ -55,6 +55,8 @@ typedef char TCHAR, *PTCHAR;
 struct CMD_S_StatusFree
 {
 	long long							lCellScore;							//基础积分
+	WORD								wRevenueRatio;                      //税收比例
+	long long                            lServiceScore;                      //服务费用
 };
 //游戏底分
 struct CMD_S_GameBase
@@ -93,6 +95,8 @@ struct CMD_S_StatusPlay
 	//扑克信息
 	BYTE							    	cbHandCardData[GAME_PLAYER][MAXCOUNT];//桌面扑克
 	BYTE						      		bOxCard[GAME_PLAYER];				//牛牛数据
+	WORD								wRevenueRatio;                      //税收比例
+	long long                            lServiceScore;                      //服务费用
 };
 
 //用户叫庄

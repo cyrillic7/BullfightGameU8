@@ -10,6 +10,7 @@
 #include "../../Tools/DataModel.h"
 #include "../../Network/CMD_Server/CMD_Ox_OneByOne.h"
 #include "../../Tools/Tools.h"
+#include "../../Tools/SoundConfig.h"
 GameControlOxOneByOne::GameControlOxOneByOne()
 	:isShowAllUserOx(false)
 {
@@ -788,9 +789,21 @@ void GameControlOxOneByOne::showResultAnimation(){
 			if (getViewChairID(i) == 3)
 			{
 				DataModel::sharedDataModel()->userInfo->lScore += lGameScore;
+				if (lGameScore>0)
+				{
+					Tools::playSound(kSoundWin);
+				}
+				else if (lGameScore<0)
+				{
+					Tools::playSound(kSoundLost);
+				}
 			}
 			getMainScene()->playerLayer->showResultAnimation(getViewChairID(i), lGameScore);
 		}
+	}
+	if (IsLookonMode() || !isPalyerState())
+	{
+		Tools::playSound(kSoundEnd);
 	}
 }
 //游戏结束

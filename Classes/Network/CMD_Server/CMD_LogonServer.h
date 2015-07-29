@@ -722,6 +722,7 @@ struct CMD_GP_AuctionRecordItem
 {
 	DWORD								dwIndex;						//单号
 	DWORD								dwGameID;
+	TCHAR								szImgName[GIFT_IMGNAME];				//图片
 	TCHAR								szNickName[LEN_ACCOUNTS];		//昵称
 	TCHAR								szAuctionName[NAME_LEN];		//拍卖品名称
 	DWORD								dwPropNum;

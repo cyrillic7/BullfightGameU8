@@ -73,6 +73,8 @@ struct CMD_S_StatusFree
 	long long							lTurnScore[GAME_PLAYER];			//积分信息
 	long long							lCollectScore[GAME_PLAYER];			//积分信息
 	TCHAR							szGameRoomName[SERVER_LEN];			//房间名称
+	WORD								wRevenueRatio;                      //税收比例
+	long long                            lServiceScore;                      //服务费用
 };
 
 //游戏状态
@@ -86,6 +88,8 @@ struct CMD_S_StatusCall
 	long long							lTurnScore[GAME_PLAYER];			//积分信息
 	long long							lCollectScore[GAME_PLAYER];			//积分信息
 	TCHAR								szGameRoomName[SERVER_LEN];			//房间名称
+	WORD								wRevenueRatio;                      //税收比例
+	long long                             lServiceScore;                      //服务费用
 };
 
 //游戏状态
@@ -102,6 +106,8 @@ struct CMD_S_StatusScore
 	//历史积分
 	long long							lTurnScore[GAME_PLAYER];			//积分信息
 	long long							lCollectScore[GAME_PLAYER];			//积分信息
+	WORD								wRevenueRatio;                      //税收比例
+	long long                             lServiceScore;                      //服务费用
 };
 
 //游戏状态
@@ -122,6 +128,8 @@ struct CMD_S_StatusPlay
 	long long							lTurnScore[GAME_PLAYER];			//积分信息
 	long long							lCollectScore[GAME_PLAYER];			//积分信息
 	TCHAR								szGameRoomName[SERVER_LEN];			//房间名称
+	WORD								wRevenueRatio;                      //税收比例
+	long long                             lServiceScore;                      //服务费用
 };
 
 //用户叫庄

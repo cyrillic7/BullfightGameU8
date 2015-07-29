@@ -553,6 +553,14 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			DataModel::sharedDataModel()->userInfo->lIngot = ls->lIngot;
 			DataModel::sharedDataModel()->userInfo->lIngotScore = ls->lIngotScore;
 			DataModel::sharedDataModel()->sPhone = ls->szPhone;
+			if (!DataModel::sharedDataModel()->sPhone.empty())
+			{
+				DataModel::sharedDataModel()->sPhone.erase(0, DataModel::sharedDataModel()->sPhone.find_first_not_of(" "));
+				DataModel::sharedDataModel()->sPhone.erase(DataModel::sharedDataModel()->sPhone.find_last_not_of(" ") + 1);
+			}
+
+		
+
 			
 			if (strcmp(sRegisterAccount.c_str(),"")!=0)
 			{

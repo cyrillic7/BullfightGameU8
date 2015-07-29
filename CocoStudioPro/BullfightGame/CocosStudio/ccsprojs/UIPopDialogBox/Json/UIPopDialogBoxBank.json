@@ -61,8 +61,8 @@
               "rotation": 0,
               "scaleX": 1,
               "scaleY": 1,
-              "sizePercentX": 0.07714286,
-              "sizePercentY": 0.129840553,
+              "sizePercentX": 0.105714284,
+              "sizePercentY": 0.175398633,
               "sizeType": 0,
               "tag": 6,
               "touchAble": true,
@@ -287,7 +287,7 @@
                   "ignoreSize": true,
                   "layoutParameter": null,
                   "opacity": 255,
-                  "positionPercentX": 0.154285714,
+                  "positionPercentX": 0.148571432,
                   "positionPercentY": 0.8179487,
                   "positionType": 0,
                   "rotation": 0,
@@ -300,8 +300,8 @@
                   "touchAble": false,
                   "useMergedTexture": false,
                   "visible": true,
-                  "width": 84,
-                  "x": 108,
+                  "width": 110,
+                  "x": 104,
                   "y": 319,
                   "areaHeight": 0,
                   "areaWidth": 0,
@@ -309,7 +309,7 @@
                   "fontName": "微软雅黑",
                   "fontSize": 26,
                   "hAlignment": 0,
-                  "text": "新密码:",
+                  "text": "创建密码:",
                   "touchScaleEnable": false,
                   "vAlignment": 0
                 }
@@ -337,7 +337,7 @@
                   "ignoreSize": true,
                   "layoutParameter": null,
                   "opacity": 255,
-                  "positionPercentX": 0.154285714,
+                  "positionPercentX": 0.148571432,
                   "positionPercentY": 0.546153843,
                   "positionType": 0,
                   "rotation": 0,
@@ -350,8 +350,8 @@
                   "touchAble": false,
                   "useMergedTexture": false,
                   "visible": true,
-                  "width": 84,
-                  "x": 108,
+                  "width": 110,
+                  "x": 104,
                   "y": 213,
                   "areaHeight": 0,
                   "areaWidth": 0,
@@ -359,7 +359,7 @@
                   "fontName": "微软雅黑",
                   "fontSize": 26,
                   "hAlignment": 0,
-                  "text": "新密码:",
+                  "text": "确认密码:",
                   "touchScaleEnable": false,
                   "vAlignment": 0
                 }
@@ -416,7 +416,7 @@
                       "maxLengthEnable": false,
                       "passwordEnable": true,
                       "passwordStyleText": "*",
-                      "placeHolder": "请输入新密码",
+                      "placeHolder": "请输入密码",
                       "text": ""
                     }
                   },
@@ -631,7 +631,7 @@
                       "maxLengthEnable": false,
                       "passwordEnable": true,
                       "passwordStyleText": "*",
-                      "placeHolder": "请输入新密码",
+                      "placeHolder": "请再次输入密码",
                       "text": ""
                     }
                   }
@@ -753,7 +753,7 @@
                   "scale9Enable": false,
                   "scale9Height": 58,
                   "scale9Width": 152,
-                  "text": "保存",
+                  "text": "创建",
                   "textColorB": 255,
                   "textColorG": 255,
                   "textColorR": 255
@@ -876,7 +876,7 @@
                       "maxLengthEnable": false,
                       "passwordEnable": true,
                       "passwordStyleText": "*",
-                      "placeHolder": "请输入银行密码",
+                      "placeHolder": "请输入密码",
                       "text": ""
                     }
                   },
@@ -1091,7 +1091,7 @@
                       "rotation": 0,
                       "scaleX": 1,
                       "scaleY": 1,
-                      "sizePercentX": 1.08333337,
+                      "sizePercentX": 1.03125,
                       "sizePercentY": 0.870967746,
                       "sizeType": 0,
                       "tag": 6115,
@@ -1138,7 +1138,7 @@
                   "rotation": 0,
                   "scaleX": 1,
                   "scaleY": 1,
-                  "sizePercentX": 0.154285714,
+                  "sizePercentX": 0.137142852,
                   "sizePercentY": 0.07948718,
                   "sizeType": 0,
                   "tag": 1545,
@@ -2307,8 +2307,8 @@
                       "rotation": 0,
                       "scaleX": 1,
                       "scaleY": 1,
-                      "sizePercentX": 0.0242634322,
-                      "sizePercentY": 0.096875,
+                      "sizePercentX": 1.73310218E-05,
+                      "sizePercentY": 3.12499978E-05,
                       "sizeType": 0,
                       "tag": 2338,
                       "touchAble": false,

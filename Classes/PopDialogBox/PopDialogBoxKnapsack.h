@@ -46,6 +46,8 @@ private:
 	int iCurSelectIndex;
 	//物品名称
 	Label *pLGoodsName;
+	//物品数量
+	Label *pLGoodsNum;
 	//物品描述
 	Label *pLInfoContent;
 	//物品图片

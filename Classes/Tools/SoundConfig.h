@@ -6,7 +6,11 @@
 #define kSoundHundredAddGold "sound/ADD_GOLD"                                 //百人牛牛下注
 
 
-#define kSoundOx(name) CCString::createWithFormat("sound/otherOx/ox%d.wav",(name))->getCString()
+#define kSoundOx(name) CCString::createWithFormat("sound/otherOx/ox%d.wav",(name))->getCString() //牛牛类型
+
+#define kSoundLost "sound/otherOx/GAME_LOST.WAV"
+#define kSoundWin "sound/otherOx/GAME_WIN.WAV"
+#define kSoundEnd "sound/otherOx/GAME_END.WAV"
 /*
 #define kMusicGameMenu "music/m_menu.mp3"
 #define kMusicGameIn "music/m_gameIn.mp3"

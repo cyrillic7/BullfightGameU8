@@ -87,7 +87,7 @@ void PopDialogBoxBank::onEnter(){
 	pLTitle1 = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelTitle1"));
 	if (DataModel::sharedDataModel()->cbInsurePwd)
 	{
-		setTitle("输入银行密码");
+		setTitle("输入密码");
 		setBankState(BANK_STATE_ENTER);
 		pPanelOperationMoney->setEnabled(false);
 		pPanelCreatePassword->setEnabled(false);
@@ -96,7 +96,7 @@ void PopDialogBoxBank::onEnter(){
 	}
 	else
 	{
-		setTitle("创建银行密码");
+		setTitle("创建密码");
 		setBankState(BANK_STATE_CREATE);
 		pPanelOperationMoney->setEnabled(false);
 		pPanelInputPassword->setEnabled(false);
@@ -149,6 +149,10 @@ void PopDialogBoxBank::onMenuCreatePassword(CCObject *object, TouchEventType typ
 		else if (strlen(pEBCreatePassword0->getText())<8 || strlen(pEBCreatePassword1->getText())<8)
 		{
 			showTipInfo(BaseAttributes::sharedAttributes()->sInsurePasswordLeng.c_str());
+		}
+		else if (isAllChniese(password0))
+		{
+			showTipInfo("密码不能包含中文!");
 		}
 		else if (password0.find_first_not_of("1234567890") == string::npos){
 			showTipInfo(BaseAttributes::sharedAttributes()->sInsurePasswordNum.c_str());
@@ -587,7 +591,7 @@ void PopDialogBoxBank::onEventUserService(WORD wSubCmdID, void * pDataBuffer, un
 		//变量定义
 		CMD_GP_UserInsureInfo * pUserInsureInfo = (CMD_GP_UserInsureInfo *)pDataBuffer;
 	
-		setTitle("我的银行");
+		setTitle(" 我的保险柜 ");
 		pPanelInputPassword->setEnabled(false);
 		pPanelCreatePassword->setEnabled(false);
 		pPanelOperationMoney->setEnabled(true);
