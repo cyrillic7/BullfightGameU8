@@ -170,7 +170,7 @@ void PopDialogBoxAuction::onMenuBuyProp(CCObject *object, TouchEventType type){
 	{
 		UIButton *pTempButton = (UIButton*)object;
 		iAuctionBuyIndex = pTempButton->getTag();
-		showInputNumBox(BUY_AUCTION, GBKToUTF8(vecAuctionInfo[iAuctionBuyIndex].szAuctionName).c_str(), "", vecAuctionInfo[iAuctionBuyIndex].dwPropNum, vecAuctionInfo[iAuctionBuyIndex].lGold, 0, 1,this);
+		showInputNumBox(BUY_AUCTION, GBKToUTF8(vecAuctionInfo[iAuctionBuyIndex].szAuctionName).c_str(), vecAuctionInfo[iAuctionBuyIndex].szImgName, vecAuctionInfo[iAuctionBuyIndex].dwPropNum, vecAuctionInfo[iAuctionBuyIndex].lGold, 0, 1, this);
 	}
 		break;
 	default:

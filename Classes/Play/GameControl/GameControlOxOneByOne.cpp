@@ -159,7 +159,7 @@ bool GameControlOxOneByOne::OnEventSceneMessage(void * pData, WORD wDataSize){
 		//设置变量
 		//@m_lTurnMaxScore = pStatusScore->lTurnMaxScore;
 		//@CopyMemory(m_lTableScore, pStatusScore->lTableScore, sizeof(m_lTableScore));
-		//@CopyMemory(m_cbPlayStatus, pStatusScore->cbPlayStatus, sizeof(m_cbPlayStatus));
+		CopyMemory(m_cbPlayStatus, pStatusScore->cbPlayStatus, sizeof(m_cbPlayStatus));
 
 		for (WORD i = 0; i < GAME_PLAYER; i++)
 		{
@@ -801,11 +801,14 @@ void GameControlOxOneByOne::showResultAnimation(){
 			getMainScene()->playerLayer->showResultAnimation(getViewChairID(i), lGameScore);
 		}
 	}
-	if (IsLookonMode() || !isPalyerState())
+
+	if (m_cbPlayStatus[getMeChairID()] == USEX_DYNAMIC)
 	{
 		Tools::playSound(kSoundEnd);
 	}
+	memset(m_cbPlayStatus, 0, sizeof(m_cbPlayStatus));
 }
+
 //游戏结束
 bool GameControlOxOneByOne::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 {
@@ -1075,5 +1078,6 @@ bool GameControlOxOneByOne::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 	ZeroMemory(m_szNickName,sizeof(m_szNickName));
 	ZeroMemory(m_cbPlayStatus,sizeof(m_cbPlayStatus));
 	*/
+	
 	return true;
 }

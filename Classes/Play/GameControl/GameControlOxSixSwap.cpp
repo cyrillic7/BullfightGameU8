@@ -10,6 +10,7 @@
 #include "../../Tools/DataModel.h"
 #include "../../Network/CMD_Server/CMD_Ox_SixSwap.h"
 #include "../../Tools/Tools.h"
+#include "../../Tools/SoundConfig.h"
 #include "../../Network/CMD_Server/PacketAide.h"
 GameControlOxSixSwap::GameControlOxSixSwap()
 :isShowAllUserOx(false)
@@ -1245,10 +1246,23 @@ void GameControlOxSixSwap::showResultAnimation(){
 			if (getViewChairID(i) == 3)
 			{
 				DataModel::sharedDataModel()->userInfo->lScore += lGameScore;
+				if (lGameScore > 0)
+				{
+					Tools::playSound(kSoundWin);
+				}
+				else if (lGameScore < 0)
+				{
+					Tools::playSound(kSoundLost);
+				}
 			}
 			getMainScene()->playerLayer->showResultAnimation(getViewChairID(i), lGameScore);
 		}
 	}
+	if (IsLookonMode() || !isPalyerState())
+	{
+		Tools::playSound(kSoundEnd);
+	}
+	memset(m_cbPlayStatus, 0, sizeof(m_cbPlayStatus));
 }
 //游戏结束
 bool GameControlOxSixSwap::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
@@ -1347,7 +1361,7 @@ bool GameControlOxSixSwap::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 	this->addChild(pEndLayer);
 	pEndLayer->showEnd(pGameEnd->lGameScore[getMeChairID()] >= 0);*/
 	getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_END);
-	memset(m_cbPlayStatus,0, sizeof(m_cbPlayStatus));
+	
 	/*
 	CopyMemory(m_cbHandCardData,pGameEnd->cbCardData,sizeof(m_cbHandCardData));
 
