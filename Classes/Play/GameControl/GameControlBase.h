@@ -44,7 +44,14 @@ public:
 	ImageView *pIVChangeCard;
 	//准备容器
 	UIPanel *pPanelReady;
-	
+	//开牌
+	Button *pBOpenCard;
+	//提示
+	Button *pBPrompt;
+	//换牌
+	Button *pBSwapCard;
+	//不换
+	Button *pBDontSwapCard;
 private:
 	//操作者提示动画
 	CCArmature *pArmatureActionPrompt;

@@ -12,7 +12,11 @@
 #define kSoundWin "sound/otherOx/GAME_WIN.WAV"								//胜利
 #define kSoundEnd "sound/otherOx/GAME_END.WAV"								//他人游戏结束
 #define kSoundWarn "sound/otherOx/GAME_WARN.WAV"							//倒计时警告
+#define kSoundStart "sound/otherOx/GAME_START.WAV"							//游戏开始
+#define kSoundSendCard "sound/otherOx/SEND_CARD.wav"						//发牌
+
 #define kSoundHundredWarn "sound/TIME_WARIMG.wav"							//百人牛牛倒计时警告
+#define kSoundHundredSendCard "sound//OUT_CARD.wav"							//百人牛牛发牌
 /*
 #define kMusicGameMenu "music/m_menu.mp3"
 #define kMusicGameIn "music/m_gameIn.mp3"

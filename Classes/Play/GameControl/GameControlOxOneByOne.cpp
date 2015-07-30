@@ -361,6 +361,7 @@ void GameControlOxOneByOne::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, u
 		break;
 	case SUB_S_GAME_START:	//游戏开始
 	{
+		Tools::playSound(kSoundStart);
 		//消息处理
 		OnSubGameStart(pDataBuffer, wDataSize);
 	}

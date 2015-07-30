@@ -35,6 +35,8 @@ void GameControlOxSixSwap::onEnter(){
 	pIVLight->runAction(CCRepeatForever::create(CCRotateBy::create(0.5,360)));
 	pIVChangeCard->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxSixSwap::onMenuChangeCard));
 
+	pBOpenCard->setPosition(pBSwapCard->getPosition());
+	pBPrompt->setPosition(pBDontSwapCard->getPosition());
 	//手指动画
 	CCArmature *pAnimate = CCArmature::create("AnimationGameIng");
 	pIVChangeCard->addNode(pAnimate, 100);
@@ -714,6 +716,7 @@ void GameControlOxSixSwap::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, un
 	break;
 	case SUB_S_GAME_START:	//游戏开始
 	{
+		Tools::playSound(kSoundStart);
 		//消息处理
 		OnSubGameStart(pDataBuffer, wDataSize);
 	}

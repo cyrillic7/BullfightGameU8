@@ -106,6 +106,7 @@ void CardLayerHundred::onSendCardFinish(){
 		showCard();
 		sSendCardCount=0;
 	}
+	Tools::playSound(kSoundHundredSendCard);
 }
 float CardLayerHundred::getCardScale(int index){
 	return 0.5-(1-DataModel::sharedDataModel()->deviceSize.width/SCENE_SIZE.width);

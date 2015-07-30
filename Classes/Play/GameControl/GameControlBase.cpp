@@ -66,12 +66,12 @@ void GameControlBase::onEnter(){
 	//设置牛牛容器
 	pOptOx = static_cast<UIPanel*>(pWidget->getWidgetByName("optOxPanel"));
 	pOptOx->setEnabled(false);
-
-	button = static_cast<UIButton*>(pWidget->getWidgetByName("buttonOx"));
-	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuOpenCard));
-
-	button = static_cast<UIButton*>(pWidget->getWidgetByName("buttonPrompt"));
-	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuPrompt));
+	//摊牌
+	pBOpenCard = static_cast<UIButton*>(pWidget->getWidgetByName("buttonOx"));
+	pBOpenCard->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuOpenCard));
+	//提示
+	pBPrompt = static_cast<UIButton*>(pWidget->getWidgetByName("buttonPrompt"));
+	pBPrompt->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuPrompt));
 
 	//绑定准备按键
 	button = static_cast<UIButton*>(pWidget->getWidgetByName("buttonReady"));
@@ -83,10 +83,10 @@ void GameControlBase::onEnter(){
 	pPanelReady = static_cast<UIPanel*>(pWidget->getWidgetByName("PanelReady"));
 	//换牌容器
 	pPanelSwapCard = static_cast<UIPanel*>(pWidget->getWidgetByName("PanelSwapCard"));
-	button = static_cast<UIButton*>(pWidget->getWidgetByName("ButtonSwapCard"));
-	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuSwapCard));
-	button = static_cast<UIButton*>(pWidget->getWidgetByName("ButtonDontSwapCard"));
-	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuDontSwapCard));
+	pBSwapCard = static_cast<UIButton*>(pWidget->getWidgetByName("ButtonSwapCard"));
+	pBSwapCard->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuSwapCard));
+	pBDontSwapCard = static_cast<UIButton*>(pWidget->getWidgetByName("ButtonDontSwapCard"));
+	pBDontSwapCard->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuDontSwapCard));
 
 	pIVChangeCard = static_cast<UIImageView*>(pPanelSwapCard->getChildByName("ImageSwapBg"));
 

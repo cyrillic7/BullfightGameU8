@@ -429,6 +429,7 @@ void PopDialogBoxBank::connectSuccess(){
 		md5PassWord = m.GetMd5();
 		strcpy(ModifyInsurePass.szDesPassword, md5PassWord.c_str());
 
+		sTempPassword = md5PassWord;
 
 		//发送数据
 		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_INSURE_PASS, &ModifyInsurePass, sizeof(ModifyInsurePass));

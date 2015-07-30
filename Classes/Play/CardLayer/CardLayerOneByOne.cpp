@@ -314,6 +314,7 @@ void CardLayerOneByOne::onSendCardFinish(CCNode *node){
 		showCard(true,SELF_SEAT,DataModel::sharedDataModel()->userInfo->wChairID);
 		sSendCardCount=0;
 	}
+	Tools::playSound(kSoundSendCard);
 }
 
 void CardLayerOneByOne::updateServerState(){
