@@ -219,6 +219,9 @@ void PopDialogBoxChangePassword::onEventUserService(WORD wSubCmdID, void * pData
 		}
 			break;
 		case PopDialogBoxChangePassword::CHANGE_BANK_PASSWORD:
+		{
+			DataModel::sharedDataModel()->cbInsurePwd = true;
+		}
 			break;
 		default:
 			break;

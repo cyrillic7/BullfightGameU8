@@ -13,15 +13,13 @@
     "UIPanel.plist",
     "UIButton.plist",
     "UIUserInfo.plist",
-    "UILogon.plist",
-    "UIBank.plist"
+    "UICheckBox.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
     "UIUserInfo.png",
-    "UILogon.png",
-    "UIBank.png"
+    "UICheckBox.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

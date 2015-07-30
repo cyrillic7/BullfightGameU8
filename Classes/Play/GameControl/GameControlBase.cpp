@@ -11,6 +11,7 @@
 #include "../../Tools/DataModel.h"
 #include "../../GameLobby/GameLobbyScene.h"
 #include "../../Tools/Tools.h"
+#include "../../Tools/SoundConfig.h"
 #include "../../Network/CMD_Server/Packet.h"
 #include "../../Network/CMD_Server/CMD_GameServer.h"
 #include "../../Network/CMD_Server/cmd_ox.h"
@@ -189,6 +190,10 @@ void GameControlBase::updateTimer(float dt){
 	if (iTimerCount < 0)
 	{
 		return;
+	}
+	if (iTimerCount <= 3 && iTimerCount>0)
+	{
+		Tools::playSound(kSoundWarn);
 	}
 	if (iTimerCount == 0)
 	{
