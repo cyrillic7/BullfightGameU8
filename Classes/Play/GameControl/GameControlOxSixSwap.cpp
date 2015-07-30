@@ -244,6 +244,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 		CMD_S_StatusFree * pStatusFree = (CMD_S_StatusFree *)pData;
 		CCLOG("%s <<%s>>", Tools::GBKToUTF8(" 空闲状态 ").c_str(), __FUNCTION__);
 		hideAllActionPanel();
+		isPalySoundWarn = true;
 		pPanelReady->setEnabled(true);
 		/*//设置控件
 		if (IsLookonMode() == false && GetMeUserItem()->GetUserStatus() != US_READY)
@@ -264,6 +265,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 		CMD_S_StatusCall * pStatusCall = (CMD_S_StatusCall *)pData;
 		CCLOG("%s <<%s>>", Tools::GBKToUTF8(" 叫庄状态 ").c_str(), __FUNCTION__);
 		hideAllActionPanel();
+		isPalySoundWarn = false;
 		//getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_CALL_BANKER);
 		//游戏信息
 		memcpy(m_cbPlayStatus, pStatusCall->cbPlayStatus, sizeof(m_cbPlayStatus));
@@ -329,6 +331,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 		CMD_S_StatusScore * pStatusScore = (CMD_S_StatusScore *)pData;
 		hideAllActionPanel();
 		CCLOG("%s <<%s>>", Tools::GBKToUTF8(" 下注状态 ").c_str(), __FUNCTION__);
+		isPalySoundWarn = false;
 		//getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_BETTING);
 		//设置变量
 		m_lTurnMaxScore = pStatusScore->lTurnMaxScore;
@@ -402,7 +405,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 		int size = sizeof(CMD_S_StatusPlay);
 		if (wDataSize != sizeof(CMD_S_StatusPlay)) return false;
 		CMD_S_StatusPlay * pStatusPlay = (CMD_S_StatusPlay *)pData;
-
+		isPalySoundWarn = false;
 		isShowAllUserOx = false;
 		hideAllActionPanel();
 		CCLOG("%s <<%s>>", Tools::GBKToUTF8(" 游戏状态 ").c_str(), __FUNCTION__);
@@ -553,6 +556,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 		CMD_S_StatusChange * pStatusChange = (CMD_S_StatusChange *)pData;
 
 		isShowAllUserOx = false;
+		isPalySoundWarn = false;
 		hideAllActionPanel();
 		CCLOG("%s <<%s>>", Tools::GBKToUTF8(" 换牌状态 ").c_str(), __FUNCTION__);
 
@@ -1263,6 +1267,7 @@ void GameControlOxSixSwap::showResultAnimation(){
 		Tools::playSound(kSoundEnd);
 	}
 	memset(m_cbPlayStatus, 0, sizeof(m_cbPlayStatus));
+	isPalySoundWarn = true;
 }
 //游戏结束
 bool GameControlOxSixSwap::OnSubGameEnd(const void * pBuffer, WORD wDataSize)

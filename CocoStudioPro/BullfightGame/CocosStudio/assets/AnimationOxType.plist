@@ -35,11 +35,11 @@
                 <key>frame</key>
                 <string>{{2,579},{97,57}}</string>
                 <key>offset</key>
-                <string>{0,0}</string>
+                <string>{-1,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{1,0},{97,57}}</string>
+                <string>{{0,0},{97,57}}</string>
                 <key>sourceSize</key>
                 <string>{99,57}</string>
             </dict>
@@ -176,20 +176,20 @@
             <key>u_gih_ox_0.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,874},{78,55}}</string>
+                <string>{{2,874},{80,55}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{3,0},{78,55}}</string>
+                <string>{{2,0},{80,55}}</string>
                 <key>sourceSize</key>
                 <string>{84,55}</string>
             </dict>
             <key>u_gih_ox_1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{82,893},{78,49}}</string>
+                <string>{{84,893},{78,49}}</string>
                 <key>offset</key>
                 <string>{-3,-3}</string>
                 <key>rotated</key>
@@ -339,7 +339,7 @@
             <key>size</key>
             <string>{154,989}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:f8ec40774cd19924cc5b02b1ceb906de:6a0b52d9765d6e740c1eec35512fecef:2279fc9472c618bd42a168e83cef2d2d$</string>
+            <string>$TexturePacker:SmartUpdate:f0a9b6ff06e5cac960ecce8885f22257:59917ee9f6505be08ecd30afd2d72c55:2279fc9472c618bd42a168e83cef2d2d$</string>
             <key>textureFileName</key>
             <string>AnimationOxType.png</string>
         </dict>

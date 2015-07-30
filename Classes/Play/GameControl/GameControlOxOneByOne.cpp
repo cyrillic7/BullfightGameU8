@@ -141,6 +141,7 @@ bool GameControlOxOneByOne::OnEventSceneMessage(void * pData, WORD wDataSize){
 		if (wDataSize != sizeof(CMD_S_StatusFree)) return false;
 		CMD_S_StatusFree * pStatusFree = (CMD_S_StatusFree *)pData;
 		pPanelReady->setEnabled(true);
+		isPalySoundWarn = true;
 		//设置控件
 		//@if (IsLookonMode() == false && GetMeUserItem()->GetUserStatus() != US_READY)
 		{
@@ -155,7 +156,7 @@ bool GameControlOxOneByOne::OnEventSceneMessage(void * pData, WORD wDataSize){
 		//效验数据
 		if (wDataSize != sizeof(CMD_S_StatusScore)) return false;
 		CMD_S_StatusScore * pStatusScore = (CMD_S_StatusScore *)pData;
-
+		isPalySoundWarn = false;
 		//设置变量
 		//@m_lTurnMaxScore = pStatusScore->lTurnMaxScore;
 		//@CopyMemory(m_lTableScore, pStatusScore->lTableScore, sizeof(m_lTableScore));
@@ -214,6 +215,7 @@ bool GameControlOxOneByOne::OnEventSceneMessage(void * pData, WORD wDataSize){
 		if (wDataSize != sizeof(CMD_S_StatusPlay)) return false;
 		CMD_S_StatusPlay * pStatusPlay = (CMD_S_StatusPlay *)pData;
 		hideAllActionPanel();
+		isPalySoundWarn = false;
 		//设置变量
 		m_lTurnMaxScore = pStatusPlay->lTurnMaxScore;
 		CopyMemory(m_lTableScore, pStatusPlay->lTableScore, sizeof(m_lTableScore));
@@ -807,6 +809,7 @@ void GameControlOxOneByOne::showResultAnimation(){
 		Tools::playSound(kSoundEnd);
 	}
 	memset(m_cbPlayStatus, 0, sizeof(m_cbPlayStatus));
+	isPalySoundWarn = true;
 }
 
 //游戏结束

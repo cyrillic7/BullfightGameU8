@@ -38,7 +38,7 @@ GameControlOxHundred::GameControlOxHundred()
 	nJetton[4] = 500000;
 	//庄家信息
 	m_wBankerUser = INVALID_CHAIR;
-
+	isPalySoundWarn = false;
 	resetData();
 	DataModel::sharedDataModel()->userInfo->wChairID = -10;
 }
@@ -668,6 +668,7 @@ void GameControlOxHundred::updateButtonContron(){
 }
 //更新状态
 void GameControlOxHundred::updateState(){
+	isPalySoundHundedWarn = false;
 	switch (DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameState())
 	{
 	case MainSceneOxHundred::STATE_GAME_SHOW_CARE_FINISH:
@@ -680,6 +681,7 @@ void GameControlOxHundred::updateState(){
 	{
 		//CCSize dSize = DataModel::sharedDataModel()->deviceSize;
 		//showAnimationByName(this, ccp(dSize.width/2,dSize.height/2-60), "addScore");
+		isPalySoundHundedWarn = true;
 		beginAddScoreEffect();
 	}
 		break;

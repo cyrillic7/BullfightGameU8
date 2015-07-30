@@ -26,6 +26,8 @@ GameControlBase::GameControlBase()
 	, pLTimerPromptContent(NULL)
 	, isExitGame(false)
 	, isShowMoer(false)
+	, isPalySoundWarn(true)
+	, isPalySoundHundedWarn(false)
 	{
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationActionPrompt.ExportJson));
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationGameIng.ExportJson));
@@ -191,9 +193,15 @@ void GameControlBase::updateTimer(float dt){
 	{
 		return;
 	}
-	if (iTimerCount <= 3 && iTimerCount>0)
+	//倒计时警告音效
+	if (isPalySoundWarn&&iTimerCount <= 3 && iTimerCount>0)
 	{
 		Tools::playSound(kSoundWarn);
+	}
+	//百人牛牛倒计时警告音效
+	if (isPalySoundHundedWarn&&iTimerCount <= 5 && iTimerCount > 0)
+	{
+		Tools::playSound(kSoundHundredWarn);
 	}
 	if (iTimerCount == 0)
 	{

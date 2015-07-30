@@ -84,6 +84,10 @@ public:
 	int iDelayedMaxCount;
 	//当前延时回调计数器
 	int iCurDelayedCount;
+	//是否播放倒计时音效
+	bool isPalySoundWarn;
+	//是否百人牛牛播放倒计时音效
+	bool isPalySoundHundedWarn;
 public:
 	GameControlBase();
 	~GameControlBase();
