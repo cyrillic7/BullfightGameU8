@@ -16,11 +16,10 @@
 MainSceneOxHundred::MainSceneOxHundred()
 :gameState(STATE_GAME_FREE)
 {
-	//Tools::playMusic(kMusicHundred);
+	
 }
 MainSceneOxHundred::~MainSceneOxHundred(){
 	CCLOG("~ <<%s>>", __FUNCTION__);
-    Tools::stopMusic();
 	//TCPSocketControl::sharedTCPSocketControl()->stopSocket();
 	
 }
@@ -34,6 +33,7 @@ CCScene* MainSceneOxHundred::scene()
 }
 void MainSceneOxHundred::onEnter(){
 	CCLayer::onEnter();
+	Tools::playMusic(kMusicHundred);
 	addBg();
 	initCardLayer();
 	//initPlayerLayer();
@@ -49,7 +49,7 @@ void MainSceneOxHundred::onExit(){
     
     BaseAttributes *b = BaseAttributes::sharedAttributes();
     CC_SAFE_RELEASE_NULL(b);
-    
+	Tools::stopMusic();
 	CCLayer::onExit();
 }
 void MainSceneOxHundred::addBg(){

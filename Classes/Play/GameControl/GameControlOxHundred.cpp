@@ -1251,7 +1251,7 @@ void GameControlOxHundred::onSubPlaceJetton(const void * pBuffer, WORD wDataSize
 	//效验数据
 	assert(wDataSize == sizeof(CMD_S_PlaceJetton));
 	if (wDataSize != sizeof(CMD_S_PlaceJetton)) return;
-
+	Tools::playSound(kSoundHundredAddGold);
 	//消息处理
 	CMD_S_PlaceJetton * pPlaceJetton = (CMD_S_PlaceJetton *)pBuffer;
 

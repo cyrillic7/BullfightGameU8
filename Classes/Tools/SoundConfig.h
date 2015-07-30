@@ -17,6 +17,7 @@
 
 #define kSoundHundredWarn "sound/TIME_WARIMG.wav"							//百人牛牛倒计时警告
 #define kSoundHundredSendCard "sound//OUT_CARD.wav"							//百人牛牛发牌
+#define kSoundHundredAddGold "sound/ADD_GOLD.wav"							//百人牛牛加注		
 /*
 #define kMusicGameMenu "music/m_menu.mp3"
 #define kMusicGameIn "music/m_gameIn.mp3"
