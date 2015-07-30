@@ -26,7 +26,7 @@
 ClassicLobbyScene::ClassicLobbyScene()
 	:isDeleteList(false)
 	, isEnterGame(false)
-	, gameItem(ITEM_0)
+	, gameItem(ITEM_1)
 {
 	DataModel::sharedDataModel()->isSit = false;
 	scheduleUpdate();
@@ -46,7 +46,7 @@ CCScene* ClassicLobbyScene::scene(bool isHundred)
 	}
 	else
 	{
-		layer->setGameItem(ITEM_0);
+		layer->setGameItem(ITEM_1);
 	}
 	layer->backGameItem = layer->getGameItem();
 	scene->addChild(layer);
@@ -148,12 +148,12 @@ void ClassicLobbyScene::initTCPLogon(int index){
 	//TCPSocketControl *tcp=TCPSocketControl::sharedTCPSocketControl();
 	switch (getGameItem())
 	{
-	case ITEM_0:
+	/*case ITEM_0:
 	{
 		ip = DataModel::sharedDataModel()->tagGameServerListOxTwo[index]->szServerAddr;
 		port = DataModel::sharedDataModel()->tagGameServerListOxTwo[index]->wServerPort;
 	}
-	break;
+	break;*/
 	case ITEM_1:
 	{
 		ip = DataModel::sharedDataModel()->tagGameServerListOxOneByOne[index]->szServerAddr;
@@ -186,11 +186,11 @@ void ClassicLobbyScene::initTCPLogon(int index){
 void  ClassicLobbyScene::updateRoomList(){
 	switch (getGameItem())
 	{
-	case ITEM_0://二人牛牛
+	/*case ITEM_0://二人牛牛
 	{
 		updateRoom(DataModel::sharedDataModel()->tagGameServerListOxTwo);
 	}
-	break;
+	break;*/
 	case ITEM_1://通比牛牛
 	{
 		updateRoom(DataModel::sharedDataModel()->tagGameServerListOxOneByOne);
@@ -334,9 +334,9 @@ void ClassicLobbyScene::popDialogBox(){
 void ClassicLobbyScene::enterMainSceneByMode(int mode){
 	switch (mode)
 	{
-	case ITEM_0:
+	/*case ITEM_0:
 		Tools::setTransitionAnimation(0, 0, MainSceneOxTwo::scene());
-		break;
+		break;*/
 	case ITEM_1:
 		Tools::setTransitionAnimation(0, 0, MainSceneOxOneByOne::scene());
 		break;
@@ -427,12 +427,12 @@ void ClassicLobbyScene::onEventConnect(WORD wSubCmdID, void * pDataBuffer, unsig
 
 		switch (getGameItem())
 		{
-		case ITEM_0:
+		/*case ITEM_0:
 		{
 			logonMobile.wGameID = 210;
 			logonMobile.dwProcessVersion = VERSION_CLIENT;
 		}
-		break;
+		break;*/
 		case ITEM_1:
 		{
 			logonMobile.wGameID = 130;

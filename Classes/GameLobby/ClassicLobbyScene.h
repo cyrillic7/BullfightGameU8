@@ -23,8 +23,8 @@ private:
 	};*/
 	enum GameItem
 	{
-		ITEM_0=1,							//二人牛牛
-		ITEM_1,								//通比牛牛
+		//ITEM_0=1,							//二人牛牛
+		ITEM_1=1,							//通比牛牛
 		ITEM_2,								//六人换牌
 		ITEM_3,								//百人牛牛
 	}backGameItem;

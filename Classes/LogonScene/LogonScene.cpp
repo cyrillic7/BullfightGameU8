@@ -377,10 +377,10 @@ void LogonScene::logonGameByAccount(float dt){
 		{
 			logonAccounts.wModuleID[i] = 0;
 		}
-		logonAccounts.wModuleID[0] = 210; //210为二人牛牛标示
-		logonAccounts.wModuleID[1] = 30; //30为百人牛牛标示
-		logonAccounts.wModuleID[2] = 130; //1002为通比牛牛标示
-		logonAccounts.wModuleID[3] = 430; //六人换牌
+		//logonAccounts.wModuleID[0] = 210; //210为二人牛牛标示
+		logonAccounts.wModuleID[0] = 30; //30为百人牛牛标示
+		logonAccounts.wModuleID[1] = 130; //1002为通比牛牛标示
+		logonAccounts.wModuleID[2] = 430; //六人换牌
 
 		MD5 m;
 		//std::string passWord = GBKToUTF8(DataModel::sharedDataModel()->sLogonPassword.c_str());
@@ -426,7 +426,7 @@ void LogonScene::logonGame(){
 	strcpy(logonAccounts.szAccounts, DataModel::sharedDataModel()->sLogonAccount.c_str());
 	//strcpy(logonAccounts.szAccounts,"zhangh189");
 	strcpy(logonAccounts.szMachineID, "12");
-	strcpy(logonAccounts.szMobilePhone, "32");
+	strcpy(logonAccounts.szMobilePhone, "");
 	strcpy(logonAccounts.szPassPortID, "12");
 	strcpy(logonAccounts.szPhoneVerifyID, "1");
 	//游戏标识
@@ -434,10 +434,10 @@ void LogonScene::logonGame(){
 	{
 		logonAccounts.wModuleID[i] = 0;
 	}
-	logonAccounts.wModuleID[0] = 210; //210为二人牛牛标示
-	logonAccounts.wModuleID[1] = 30; //30为百人牛牛标示
-	logonAccounts.wModuleID[2] = 130; //1002为通比牛牛标示
-	logonAccounts.wModuleID[3] = 430; //六人换牌
+	//logonAccounts.wModuleID[0] = 210; //210为二人牛牛标示
+	logonAccounts.wModuleID[0] = 30; //30为百人牛牛标示
+	logonAccounts.wModuleID[1] = 130; //1002为通比牛牛标示
+	logonAccounts.wModuleID[2] = 430; //六人换牌
 	
 	MD5 m;
 	//std::string passWord = GBKToUTF8(DataModel::sharedDataModel()->sLogonPassword.c_str());
@@ -458,9 +458,10 @@ void LogonScene::registeredGame(){
 	{
 		registeredAccount.wModuleID[i] = 0;
 	}
-	registeredAccount.wModuleID[0] = 210; //210为二人牛牛标示
-	registeredAccount.wModuleID[1] = 30; //30为百人牛牛标示
-	registeredAccount.wModuleID[2] = 130; //1002为通比牛牛标示
+	//registeredAccount.wModuleID[0] = 210; //210为二人牛牛标示
+	registeredAccount.wModuleID[0] = 30; //30为百人牛牛标示
+	registeredAccount.wModuleID[1] = 130; //1002为通比牛牛标示
+	registeredAccount.wModuleID[2] = 430; //六人换牌
 
 	registeredAccount.dwPlazaVersion = VERSION_PLAZA;//广场版本
 
