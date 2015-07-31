@@ -427,7 +427,7 @@ void PopDialogBoxKnapsack::onMenuExchange(CCObject *object, TouchEventType type)
 			this->addChild(box, 10, TAG_INPUT_BOX);
 			int iUseType = 0;
 			if (vecGoods[iCurSelectIndex].dwExchangeType==EXCHANGE_STATE)
-			{
+			{ 
 				iUseType = USE_EXCHANGE_OTHER;
 			}
 			else
