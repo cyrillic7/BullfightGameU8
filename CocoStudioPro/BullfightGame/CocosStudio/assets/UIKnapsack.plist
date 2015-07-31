@@ -17,6 +17,32 @@
                 <key>sourceSize</key>
                 <string>{120,35}</string>
             </dict>
+            <key>u_k_max_btn.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{269,47},{76,43}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{76,43}}</string>
+                <key>sourceSize</key>
+                <string>{76,43}</string>
+            </dict>
+            <key>u_k_max_btn_prs.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{269,2},{76,43}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{76,43}}</string>
+                <key>sourceSize</key>
+                <string>{76,43}</string>
+            </dict>
             <key>u_k_nothing.png</key>
             <dict>
                 <key>frame</key>
@@ -33,11 +59,11 @@
             <key>u_k_num_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{269,2},{43,23}}</string>
+                <string>{{265,92},{43,23}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{43,23}}</string>
                 <key>sourceSize</key>
@@ -90,9 +116,9 @@
             <key>realTextureFileName</key>
             <string>UIKnapsack.png</string>
             <key>size</key>
-            <string>{294,122}</string>
+            <string>{358,122}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:c9947e41d0f763d04ce9c3dc5be2d9e5:5e061a25f215cee5cf477b7932a8cde5:7adc74eb6c6e62d8a58aec9d378b0cda$</string>
+            <string>$TexturePacker:SmartUpdate:fe45495d1bd13d4cd65bdbc1b23bf638:23c7387b9c15a37639384bb6cb16d9d7:7adc74eb6c6e62d8a58aec9d378b0cda$</string>
             <key>textureFileName</key>
             <string>UIKnapsack.png</string>
         </dict>

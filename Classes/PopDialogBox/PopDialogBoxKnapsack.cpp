@@ -434,7 +434,7 @@ void PopDialogBoxKnapsack::onMenuExchange(CCObject *object, TouchEventType type)
 			{
 				iUseType=vecGoods[iCurSelectIndex].dwUseType;
 			}
-			box->setInputExchangeData((UseType)(iUseType), GBKToUTF8(vecGoods[iCurSelectIndex].szName).c_str(), vecGoods[iCurSelectIndex].szImgName, 1,GBKToUTF8(vecGoods[iCurSelectIndex].szRemark).c_str());
+			box->setInputExchangeData((UseType)(iUseType), GBKToUTF8(vecGoods[iCurSelectIndex].szName).c_str(), vecGoods[iCurSelectIndex].szImgName, vecGoods[iCurSelectIndex].dwNum, GBKToUTF8(vecGoods[iCurSelectIndex].szRemark).c_str());
 			box->setIPopDialogBoxExchange(this);
 		}
 		

@@ -25,6 +25,8 @@ private:
 	UILabel *pLExchangeContent;
 	
 	UITextField *pTFInputCount;
+	//最大数量
+	UIButton *pBMaxCount;
 public:
 	PopDialogBoxInputExchange();
 	~PopDialogBoxInputExchange();
@@ -37,6 +39,8 @@ private:
 	virtual void onExit();
 	//确定////////////////////////////////////////////////////////////////////////
 	void onMenuSure(CCObject *object, TouchEventType type);
+	//最大数量
+	void onMenuMax(CCObject *object, TouchEventType type);
 	//输入框回调
 	void onTextFieldAccount(CCObject* obj, TextFiledEventType type);
 	//更新总价

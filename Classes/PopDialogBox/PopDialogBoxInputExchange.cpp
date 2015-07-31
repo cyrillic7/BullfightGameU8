@@ -46,6 +46,9 @@ void PopDialogBoxInputExchange::onEnter(){
 	//确定按键
 	UIButton *pBSure = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonSure"));
 	pBSure->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxInputExchange::onMenuSure));
+	//最大数量
+	pBMaxCount=static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonMax"));
+	pBMaxCount->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxInputExchange::onMenuMax));
 
 	playAnimation();
 }
@@ -72,6 +75,7 @@ void PopDialogBoxInputExchange::setInputExchangeData(UseType eTExchangeType, con
 	{
 	case PopDialogBox::USE_PHONE_COST:
 	{
+		pBMaxCount->setEnabled(false);
 		pEBInputCount->setMaxLength(11);
 		pLBuyType->setText("手机号码:");
 		pLExchangeContent->setText("请确认手机号码输入无误!");
@@ -81,6 +85,7 @@ void PopDialogBoxInputExchange::setInputExchangeData(UseType eTExchangeType, con
 			break;
 	case PopDialogBox::USE_QQ_COST:
 	{
+		pBMaxCount->setEnabled(false);
 		pEBInputCount->setMaxLength(14);
 		pLBuyType->setText("QQ号码:");
 		pLExchangeContent->setText("请确认QQ号码输入无误!");
@@ -90,6 +95,7 @@ void PopDialogBoxInputExchange::setInputExchangeData(UseType eTExchangeType, con
 		break;
 	default:
 	{
+		pBMaxCount->setEnabled(true);
 		pEBInputCount->setMaxLength(8);
 		pLBuyType->setText("兑换数量:");
 		pLExchangeContent->setText(sInfoContent);
@@ -116,6 +122,14 @@ void PopDialogBoxInputExchange::updateAllPice(){
 		break;
 	}
 	
+}
+//确定按键
+void PopDialogBoxInputExchange::onMenuMax(CCObject *object, TouchEventType type){
+	if (type==TOUCH_EVENT_ENDED)
+	{
+		lBuyNum = lMaxPropsNum;
+		updateAllPice();
+	}
 }
 //确定按键
 void PopDialogBoxInputExchange::onMenuSure(CCObject *object, TouchEventType type){
