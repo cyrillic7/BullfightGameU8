@@ -1218,7 +1218,7 @@ void GameControlOxHundred::onSubGameStart(const void * pBuffer, WORD wDataSize){
 	//效验数据
 	assert(wDataSize == sizeof(CMD_S_GameStart));
 	if (wDataSize != sizeof(CMD_S_GameStart)) return;
-
+	Tools::playSound(kSoundHundredStart);
 	//消息处理
 	CMD_S_GameStart * pGameStart = (CMD_S_GameStart *)pBuffer;
 	m_lMeMaxScore = pGameStart->lUserMaxScore;

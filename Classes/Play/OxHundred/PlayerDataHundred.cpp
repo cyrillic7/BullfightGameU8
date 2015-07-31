@@ -3,6 +3,7 @@
 #include "PlayerDataHundred.h"
 #include "../../Tools/Tools.h"
 #include "../../Tools/DataModel.h"
+#include "../../Tools/SoundConfig.h"
 PlayerDataHundred::PlayerDataHundred()
 {
 }
@@ -49,13 +50,29 @@ void PlayerDataHundred::showResultAnimation(){
 
 	pLResult->setVisible(true);
 	long long lScore=lGameScore;
-	if (lGameScore>=0)
+	if (lGameScore>0)
 	{
 		pLResult->setColor(ccc3(255,253,38));
-	}else
+		if (userInfoPlayer.dwUserID==DataModel::sharedDataModel()->userInfo->dwUserID)
+		{
+			Tools::playSound(kSoundHundredEndWin);
+		}
+	}else if (lGameScore==0)
+	{
+		pLResult->setColor(ccc3(255, 253, 38));
+		if (userInfoPlayer.dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID)
+		{
+			Tools::playSound(kSoundHundredEndDraw);
+		}
+	}
+	else
 	{
 		lScore=lScore*-1;
 		pLResult->setColor(ccc3(255,255,255));
+		if (userInfoPlayer.dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID)
+		{
+			Tools::playSound(kSoundHundredEndLost);
+		}
 	}
 	pLResult->setStringValue(CCString::createWithFormat("%s%lld",lGameScore>=0?":":";",lScore)->getCString());
 	pLResult->setPositionY(-28);

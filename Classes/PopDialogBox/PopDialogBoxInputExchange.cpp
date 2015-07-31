@@ -66,10 +66,13 @@ void PopDialogBoxInputExchange::setInputExchangeData(UseType eTExchangeType, con
 	//设置标题////////////////////////////////////////////////////////////////////////
 	UILabel *pLTempTitle0 = static_cast<UILabel*>(pUILayer->getWidgetByName("Label_3"));
 	UILabel *pLTempTitle1 = static_cast<UILabel*>(pUILayer->getWidgetByName("Label_4"));
+	
+	CCEditBox *pEBInputCount = (CCEditBox *)pTFInputCount->getNodeByTag(TAG_INPUT_EDIT_BOX);
 	switch (eTExchangeType)
 	{
 	case PopDialogBox::USE_PHONE_COST:
 	{
+		pEBInputCount->setMaxLength(11);
 		pLBuyType->setText("手机号码:");
 		pLExchangeContent->setText("请确认手机号码输入无误!");
 		pLTempTitle0->setText("使用");
@@ -78,6 +81,7 @@ void PopDialogBoxInputExchange::setInputExchangeData(UseType eTExchangeType, con
 			break;
 	case PopDialogBox::USE_QQ_COST:
 	{
+		pEBInputCount->setMaxLength(14);
 		pLBuyType->setText("QQ号码:");
 		pLExchangeContent->setText("请确认QQ号码输入无误!");
 		pLTempTitle0->setText("使用");
@@ -86,6 +90,7 @@ void PopDialogBoxInputExchange::setInputExchangeData(UseType eTExchangeType, con
 		break;
 	default:
 	{
+		pEBInputCount->setMaxLength(10);
 		pLBuyType->setText("兑换数量:");
 		pLExchangeContent->setText(sInfoContent);
 		pLTempTitle0->setText("兑换");

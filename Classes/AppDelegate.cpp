@@ -8,6 +8,9 @@
 #include "GameLobby/GameLobbyScene.h"
 #include "MTNotificationQueue/LobbyMsgHandler.h"
 #include "MTNotificationQueue/GameIngMsgHandler.h"
+
+#include "SimpleAudioEngine.h"
+using namespace CocosDenshion;
 USING_NS_CC;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include "vld.h"
@@ -82,12 +85,18 @@ void AppDelegate::applicationDidEnterBackground() {
 
     // if you use SimpleAudioEngine, it must be pause
     // SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+	SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+	SimpleAudioEngine::sharedEngine()->pauseAllEffects();
 }
 
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground() {
     CCDirector::sharedDirector()->startAnimation();
 
+	if (DataModel::isMusic) {
+		SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+		SimpleAudioEngine::sharedEngine()->resumeAllEffects();
+	}
     // if you use SimpleAudioEngine, it must resume here
     // SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
 }

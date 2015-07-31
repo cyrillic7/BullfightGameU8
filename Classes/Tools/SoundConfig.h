@@ -17,7 +17,11 @@
 
 #define kSoundHundredWarn "sound/TIME_WARIMG.wav"							//百人牛牛倒计时警告
 #define kSoundHundredSendCard "sound//OUT_CARD.wav"							//百人牛牛发牌
-#define kSoundHundredAddGold "sound/ADD_GOLD.wav"							//百人牛牛加注		
+#define kSoundHundredAddGold "sound/ADD_GOLD.wav"							//百人牛牛加注	
+#define kSoundHundredStart "sound/GAME_START.wav"							//百人牛牛开始
+#define kSoundHundredEndDraw "sound/END_DRAW.wav"							//百人结束未下注
+#define kSoundHundredEndLost "sound/END_LOST.wav"							//百人结束输
+#define kSoundHundredEndWin "sound/END_WIN.wav"								//百人结束赢
 /*
 #define kMusicGameMenu "music/m_menu.mp3"
 #define kMusicGameIn "music/m_gameIn.mp3"
