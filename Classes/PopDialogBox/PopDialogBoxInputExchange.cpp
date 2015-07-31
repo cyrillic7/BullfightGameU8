@@ -90,7 +90,7 @@ void PopDialogBoxInputExchange::setInputExchangeData(UseType eTExchangeType, con
 		break;
 	default:
 	{
-		pEBInputCount->setMaxLength(10);
+		pEBInputCount->setMaxLength(8);
 		pLBuyType->setText("兑换数量:");
 		pLExchangeContent->setText(sInfoContent);
 		pLTempTitle0->setText("兑换");
