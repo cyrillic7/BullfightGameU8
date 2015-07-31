@@ -39,13 +39,14 @@ void PopDialogBoxUpBank::onEnter(){
 		pBUpBank->setTouchEnabled(false);
 		pBUpBank->setColor(ccc3(100,100,100));
 	}*/
-	updateUpBankState();
+	
 
 	//初始化列表数据
 	initListBank();
 	//播放显示动画
 	playAnimation();
 
+	updateUpBankState();
 	//添加监听事件
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(PopDialogBoxUpBank::updateBankList),UPDATE_BANK_LIST,NULL);
 }
@@ -106,7 +107,7 @@ void PopDialogBoxUpBank::insertBank(bool isInsert,int index,tagApplyUser applyUs
 void PopDialogBoxUpBank::updateUpBankState(){
 	UIButton *pBUpBank = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonBankAction"));
 
-	if (DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->m_bMeApplyBanker)
+	if (DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->m_bMeApplyBanker==1)
 	{
 		pBUpBank->setTitleText("我要下庄");
 		if (!DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->isChangeUpBank)
@@ -141,7 +142,7 @@ void PopDialogBoxUpBank::updateUpBankState(){
 			pBUpBank->setColor(ccc3(255, 255, 255));
 		}
 	}
-	else
+	else if (DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->m_bMeApplyBanker == 0)
 	{
 		
 		pBUpBank->setTitleText("我要上庄");
@@ -155,6 +156,12 @@ void PopDialogBoxUpBank::updateUpBankState(){
 			pBUpBank->setColor(ccc3(255, 255, 255));
 		}
 	}
+	else
+	{
+		pBUpBank->setTouchEnabled(false);
+		pBUpBank->setColor(ccc3(100, 100, 100));
+
+	}
 	
 }
 //申请庄家
@@ -167,13 +174,15 @@ void PopDialogBoxUpBank::onMenuApplyBanker(CCObject *object, TouchEventType type
 			pBUpBank->setTouchEnabled(false);
 			pBUpBank->setColor(ccc3(100,100,100));
 
-			if (DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->m_bMeApplyBanker)
+			if (DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->m_bMeApplyBanker==1)
 			{
 				DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->onApplyBanker(false);
+				DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->m_bMeApplyBanker = 2;
 			}
-			else
+			else if (DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->m_bMeApplyBanker == 0)
 			{
 				DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->onApplyBanker(true);
+				DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->m_bMeApplyBanker = 2;
 			}
 			
 		}

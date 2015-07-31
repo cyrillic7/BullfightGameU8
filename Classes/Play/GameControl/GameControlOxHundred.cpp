@@ -25,7 +25,7 @@ using namespace std;
 GameControlOxHundred::GameControlOxHundred()
 	:iCurSelectJettonIndex(0)
 	, m_lMeMaxScore(0)
-	, m_bMeApplyBanker(false)
+	, m_bMeApplyBanker(0)
 	, m_wBankerUser(-100)
 	, isChangeUpBank(true)
 	, lUserScore(0)
@@ -106,6 +106,7 @@ void GameControlOxHundred::onEnter(){
 	//上庄按键
 	pIUpBank = static_cast<UIImageView*>(pWidget->getWidgetByName("ImageUpBank"));
 	pIUpBank->addTouchEventListener(this, SEL_TouchEvent(&GameControlOxHundred::onMenuUpBank));
+	pIUpBank->setEnabled(false);
 	//我要上庄动画
 	CCSprite *pSUpBank = CCSprite::create();
 	CCArray *animFrames = CCArray::create();
@@ -570,7 +571,7 @@ void GameControlOxHundred::updateButtonContron(){
 		break;
 	}
 	//if (m_bMeApplyBanker)
-	if (m_bMeApplyBanker&&m_wBankerUser == DataModel::sharedDataModel()->userInfo->wChairID)
+	if (m_bMeApplyBanker==1&&m_wBankerUser == DataModel::sharedDataModel()->userInfo->wChairID)
 	{
 		return;
 	}
@@ -1031,7 +1032,7 @@ void GameControlOxHundred::onSubGameFrame(WORD wSubCmdID, void * pDataBuffer, un
 			*/
 			if(IsLookonMode()==false && DataModel::sharedDataModel()->userInfo->dwUserID == m_wCurrentBanker)
 			{
-				m_bMeApplyBanker =true;
+				m_bMeApplyBanker =1;
 			}
 			
 
@@ -1298,7 +1299,7 @@ void GameControlOxHundred::onSubUserApplyBanker(const void * pBuffer, WORD wData
 	CMD_S_ApplyBanker * pApplyBanker = (CMD_S_ApplyBanker *)pBuffer;
 	//自己判断
 	if (DataModel::sharedDataModel()->userInfo->wChairID == pApplyBanker->wApplyUser) {
-		m_bMeApplyBanker = true;
+		m_bMeApplyBanker = 1;
 	}
 	//插入庄家列表
 	if (m_wBankerUser != pApplyBanker->wApplyUser)
@@ -1396,7 +1397,7 @@ void GameControlOxHundred::onSubUserCancelBanker(const void * pBuffer, WORD wDat
 	const tagUserInfo *pMeUserData = DataModel::sharedDataModel()->userInfo;
 	if (strcmp(pMeUserData->szNickName, pCancelBanker->szCancelUser) == 0)
 	{
-		m_bMeApplyBanker = false;
+		m_bMeApplyBanker = 0;
 	}
 	CCLOG("%s <<%s>>", Tools::GBKToUTF8("下庄切换").c_str(), __FUNCTION__);
 	//发送更新列表通知
@@ -1447,12 +1448,12 @@ void GameControlOxHundred::onSubChangeBanker(const void * pBuffer, WORD wDataSiz
 	//自己判断
 	if (m_wBankerUser == DataModel::sharedDataModel()->userInfo->wChairID&& pChangeBanker->wBankerUser != DataModel::sharedDataModel()->userInfo->wChairID)
 	{
-		m_bMeApplyBanker = false;
+		m_bMeApplyBanker = 0;
 	}
 	else if (pChangeBanker->wBankerUser == DataModel::sharedDataModel()->userInfo->wChairID)
 	{
 		isChangeUpBank = false;
-		m_bMeApplyBanker = true;
+		m_bMeApplyBanker = 1;
 	}
 
 	//庄家信息
@@ -1912,6 +1913,7 @@ void GameControlOxHundred::onSubUserState(void * pDataBuffer, unsigned short wDa
 			DataModel::sharedDataModel()->userInfo->wTableID = info->UserStatus.wTableID;
 			DataModel::sharedDataModel()->userInfo->wChairID = info->UserStatus.wChairID;
 			CCLOG("--%s------------------<<%s>>", Tools::GBKToUTF8("百人牛牛坐下").c_str(), __FUNCTION__);
+			pIUpBank->setEnabled(true);
 		}
 	}
 	break;

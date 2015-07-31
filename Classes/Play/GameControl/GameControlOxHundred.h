@@ -62,7 +62,7 @@ public:
 	long long						m_lBankerScore;						//庄家积分
 public:
 
-	bool							m_bMeApplyBanker;					//申请标识(自己是不是庄家)								
+	BYTE							m_bMeApplyBanker;					//申请标识(自己是不是庄家)0不是，1是，2更改中								
 private:
 	unsigned short m_wCurrentBanker;
 	int nJetton[MAX_JETTON_BUTTON_COUNT];

@@ -221,7 +221,7 @@ void PopDialogBoxKnapsack::onSubUseGoods(void * pDataBuffer, unsigned short wDat
 	//效验数据
 	assert (wDataSize != sizeof(CMD_GP_UseKnapsackLog));
 	CMD_GP_UseKnapsackLog * pOpenCard = (CMD_GP_UseKnapsackLog *)pDataBuffer;
-	if (pOpenCard->dwRet==1)
+	if (pOpenCard->dwRet==0)
 	{
 		
 
