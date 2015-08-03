@@ -167,7 +167,8 @@ void PopDialogBoxRecharge::onMenuExchange(CCObject *object, TouchEventType type)
 			break;
 		case PopDialogBoxRecharge::RECHARGE_BIG_GOLD:
 		{
-			platformAction("{\"act\":300 ,\"propName\":\"元宝\",\"propInfo\":\"用于兑换金币\",\"propPice\":\"0.01\"}");
+			CCString *sAction = CCString::createWithFormat("{\"act\":300 ,\"propName\":\"元宝\",\"propInfo\":\"%s\",\"propPice\":\"0.01\"}", sBigGoldExchangeNum[iCurSelectIndex].c_str());
+			platformAction(sAction->getCString());
 
 		}
 			break;
