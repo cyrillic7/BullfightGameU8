@@ -13,10 +13,11 @@
 PopDialogBoxMore::PopDialogBoxMore()
 {
 	
-    
+	scheduleUpdate();
 }
 PopDialogBoxMore::~PopDialogBoxMore() {
 	CCLOG("~ <<%s>>",__FUNCTION__);
+	//unscheduleUpdate();
 }
 void PopDialogBoxMore::onEnter(){
 	CCLayer::onEnter();
@@ -37,10 +38,18 @@ void PopDialogBoxMore::onEnter(){
 	vecMoreInfo.push_back("sdd");
 	updateListMore();
 
+	//连接服务器
+	connectServer();
+	gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_TREASURE_RANK);
+
 	playAnimation();
 }
 void PopDialogBoxMore::onExit(){
 	CCLayer::onExit();
+}
+//更新
+void PopDialogBoxMore::update(float delta){
+	gameSocket.updateSocketData(delta);
 }
 //打开游戏
 void PopDialogBoxMore::onMenuOpenGame(CCObject *object, TouchEventType type){
@@ -74,4 +83,48 @@ void PopDialogBoxMore::updateListMore(){
 		pButton->setTag(inserterPos);
 		pButton->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxMore::onMenuOpenGame));
 	}
+}
+
+//////////////////////////////////////////////////////////////////////////
+//网络消息
+void PopDialogBoxMore::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
+	switch (wMainCmdID)
+	{
+	case MDM_MB_SOCKET://socket连接成功
+	{
+
+	}
+	break;
+	case MDM_GP_USER_SERVICE://用户服务
+	{
+		onEventUserService(wSubCmdID, pDataBuffer, wDataSize);
+	}
+	break;
+	default:
+		CCLOG("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
+		break;
+	}
+}
+//用户服务
+void PopDialogBoxMore::onEventUserService(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
+	switch (wSubCmdID)
+	{
+	case SUB_GP_TREASURE_RANK://排名列表
+		onSubRankingList(pDataBuffer, wDataSize);
+		break;
+	default:
+		CCLOG("sub:%d <<%s>>", wSubCmdID, __FUNCTION__);
+		break;
+	}
+}
+//排名列表
+void PopDialogBoxMore::onSubRankingList(void * pDataBuffer, unsigned short wDataSize){
+	//assert(wDataSize >= sizeof(CMD_GP_TreasureRank));
+	int count = wDataSize / sizeof(CMD_GP_TreasureRank);
+
+	
+	
+	//移除loading
+	this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+	gameSocket.Destroy(true);
 }
