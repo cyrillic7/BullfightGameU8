@@ -73,7 +73,7 @@ void PopDialogBoxFeedback::onTextFeild(CCObject* object, TextFiledEventType type
         {
             float posY=CCDirector::sharedDirector()->getRunningScene()->getPositionY();
             if (posY==0) {
-                 CCDirector::sharedDirector()->getRunningScene()->runAction(CCMoveTo::create(0.2, ccp(0,260)));
+                 CCDirector::sharedDirector()->getRunningScene()->runAction(CCMoveTo::create(0.2, ccp(0,200)));
             }
         }
             break;
