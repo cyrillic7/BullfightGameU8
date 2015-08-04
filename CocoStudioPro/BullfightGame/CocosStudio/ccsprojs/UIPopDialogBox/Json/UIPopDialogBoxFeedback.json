@@ -12,11 +12,13 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
+    "UIKnapsack.plist",
     "UIUserInfo.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
+    "UIKnapsack.png",
     "UIUserInfo.png"
   ],
   "version": "1.6.0.0",
@@ -354,8 +356,8 @@
                   "fontFile": null,
                   "fontName": "微软雅黑",
                   "fontSize": 20,
-                  "maxLength": 10,
-                  "maxLengthEnable": false,
+                  "maxLength": 100,
+                  "maxLengthEnable": true,
                   "passwordEnable": false,
                   "passwordStyleText": "*",
                   "placeHolder": "请输入您的宝贵意见",

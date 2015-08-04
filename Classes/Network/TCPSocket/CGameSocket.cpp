@@ -122,9 +122,12 @@ bool CGameSocket::Create(const char* pszServerIP, int nServerPort, int nBlockSec
 	{
 		return true;
 	}
-	setSocketState(SOCKET_STATE_CONNECT_ING);
 
 	resetData();
+
+	setSocketState(SOCKET_STATE_CONNECT_ING);
+
+	
 #ifdef WIN32
 	WSADATA wsaData;
 	WORD version = MAKEWORD(2, 0);
@@ -764,6 +767,9 @@ void CGameSocket::updateSocketData(float delta){
 		fTime = 0;
 		setSocketState(SOCKET_STATE_ERROR);
 	}
+	if (getSocketState() == SOCKET_STATE_CONNECT_ING) {
+		return;
+	}
 	//断开连接
 	if (getSocketState() == SOCKET_STATE_ERROR) {
 		pIGameSocket->onError("与服务器断开连接");
@@ -794,7 +800,7 @@ void CGameSocket::updateSocketData(float delta){
 		char* pbufMsg = buffer;
 		if (getSocketState() != SOCKET_STATE_CONNECT_SUCCESS)
 		{
-			if (getSocketState() != SOCKET_STATE_FREE)
+			if (getSocketState() != SOCKET_STATE_FREE&&getSocketState() != SOCKET_STATE_CONNECT_ING)
 			{
 				setSocketState(SOCKET_STATE_ERROR);
 			}

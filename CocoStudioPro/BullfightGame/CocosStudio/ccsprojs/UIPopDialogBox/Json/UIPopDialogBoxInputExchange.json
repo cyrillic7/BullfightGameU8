@@ -12,12 +12,14 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UICheckBox.plist"
+    "UIKnapsack.plist",
+    "UIUserInfo.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UICheckBox.png"
+    "UIKnapsack.png",
+    "UIUserInfo.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
