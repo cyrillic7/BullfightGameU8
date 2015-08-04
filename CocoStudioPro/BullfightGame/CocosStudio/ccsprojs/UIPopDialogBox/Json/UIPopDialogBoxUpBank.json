@@ -12,10 +12,15 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIKnapsack.plist",
-    "UIUserInfo.plist"
+    "UIUserInfo.plist",
+    "UIGameIng.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIPanel.png",
+    "UIButton.png",
+    "UIUserInfo.png",
+    "UIGameIng.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",

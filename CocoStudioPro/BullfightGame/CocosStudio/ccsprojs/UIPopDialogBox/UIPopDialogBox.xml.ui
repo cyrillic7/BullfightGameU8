@@ -7,27 +7,21 @@
   <JsonFileName>UIPopDialogBox.json</JsonFileName>
   <JsonFolder>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\ccsprojs\UIPopDialogBox\Json</JsonFolder>
   <JsonList>
-    <string>UIPopDialogBoxAbout.json</string>
     <string>UIPopDialogBoxActivity.json</string>
-    <string>UIPopDialogBoxAuction.json</string>
     <string>UIPopDialogBoxBank.json</string>
     <string>UIPopDialogBoxBuyCount.json</string>
     <string>UIPopDialogBoxChangePassword.json</string>
     <string>UIPopDialogBoxFeedback.json</string>
     <string>UIPopDialogBoxHelp.json</string>
     <string>UIPopDialogBoxKnapsack.json</string>
-    <string>UIPopDialogBoxLoading.json</string>
     <string>UIPopDialogBoxLoadingOther.json</string>
-    <string>UIPopDialogBoxLogonAccount.json</string>
     <string>UIPopDialogBoxMore.json</string>
     <string>UIPopDialogBoxMsg.json</string>
     <string>UIPopDialogBoxOnline.json</string>
     <string>UIPopDialogBoxRanking.json</string>
     <string>UIPopDialogBoxSetUp.json</string>
     <string>UIPopDialogBoxShop.json</string>
-    <string>UIPopDialogBoxSign.json</string>
     <string>UIPopDialogBoxTask.json</string>
-    <string>UIPopDialogBoxTipInfo.json</string>
     <string>UIPopDialogBoxTrend.json</string>
     <string>UIPopDialogBoxUpBank.json</string>
     <string>UIPopDialogBoxUserInfo.json</string>
@@ -50,13 +44,13 @@
   <imageFileList>
     <string>UIPanel.plist</string>
     <string>UIButton.plist</string>
-    <string>UIMore.plist</string>
+    <string>UICheckBox.plist</string>
   </imageFileList>
   <imagePngList>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
-    <string>UIMore.png</string>
+    <string>UICheckBox.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxMore.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxInputExchange.json</CurrentUIJson>
 </UIProject>

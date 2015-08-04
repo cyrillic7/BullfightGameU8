@@ -10,12 +10,13 @@
   "designHeight": 640,
   "designWidth": 1136,
   "textures": [
-    "UIPanel.plist",
-    "UIButton.plist",
-    "UIKnapsack.plist",
+    "UIGameIngHundred.plist",
     "UIUserInfo.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIGameIngHundred.png",
+    "UIUserInfo.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",

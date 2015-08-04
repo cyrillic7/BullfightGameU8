@@ -5,10 +5,6 @@
     <GuidesList />
   </GuidesProject>
   <GuidesProject>
-    <Project>UIPopDialogBoxLoading</Project>
-    <GuidesList />
-  </GuidesProject>
-  <GuidesProject>
     <Project>UIPopDialogBoxSetUp</Project>
     <GuidesList />
   </GuidesProject>
@@ -18,10 +14,6 @@
   </GuidesProject>
   <GuidesProject>
     <Project>UIPopDialogBoxFeedback</Project>
-    <GuidesList />
-  </GuidesProject>
-  <GuidesProject>
-    <Project>UIPopDialogBoxAbout</Project>
     <GuidesList />
   </GuidesProject>
   <GuidesProject>
@@ -58,10 +50,6 @@
     <GuidesList />
   </GuidesProject>
   <GuidesProject>
-    <Project>UIPopDialogBoxLogonAccount</Project>
-    <GuidesList />
-  </GuidesProject>
-  <GuidesProject>
     <Project>UIPopDialogBoxUpBank</Project>
     <GuidesList />
   </GuidesProject>
@@ -78,14 +66,6 @@
     <GuidesList />
   </GuidesProject>
   <GuidesProject>
-    <Project>UIPopDialogBoxTipInfo</Project>
-    <GuidesList />
-  </GuidesProject>
-  <GuidesProject>
-    <Project>UIPopDialogBoxAuction</Project>
-    <GuidesList />
-  </GuidesProject>
-  <GuidesProject>
     <Project>UIPopDialogBoxBuyCount</Project>
     <GuidesList />
   </GuidesProject>
@@ -96,19 +76,6 @@
   <GuidesProject>
     <Project>UIPopDialogBoxMsg</Project>
     <GuidesList />
-  </GuidesProject>
-  <GuidesProject>
-    <Project>UIPopDialogBoxSign</Project>
-    <GuidesList>
-      <GuidesInfo>
-        <GuidesName>VThumb</GuidesName>
-        <GuidesPosition>284.52765570746533</GuidesPosition>
-      </GuidesInfo>
-      <GuidesInfo>
-        <GuidesName>VThumb</GuidesName>
-        <GuidesPosition>601.26509094238281</GuidesPosition>
-      </GuidesInfo>
-    </GuidesList>
   </GuidesProject>
   <GuidesProject>
     <Project>UIPopDialogBoxVip</Project>
