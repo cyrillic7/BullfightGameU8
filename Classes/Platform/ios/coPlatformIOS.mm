@@ -64,6 +64,20 @@ std::string platformAction(const std::string& jsonString)
             
         }
             break;
+        case 500:
+        {
+            std::string sPackageName=aide.getString("packageName");
+            std::string sActivity=aide.getString("activity");
+            
+            //NSString *sTemp=[NSString stringWithFormat:@"%s",sActivity.c_str()];
+            NSString *sTemp=[NSString stringWithFormat:@"DDPGame://"];
+            BOOL isAction=[[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:sTemp]];
+            if (isAction) {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:sTemp]];
+            }
+            CCLOG("isAction:%d <<%s>>",isAction,__PRETTY_FUNCTION__);
+        }
+            break;
             
         default:
             break;
