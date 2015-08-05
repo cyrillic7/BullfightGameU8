@@ -8,12 +8,13 @@
 #pragma once
 
 #include "PopDialogBox.h"
+#include "../Network/CMD_Server/CMD_LogonServer.h"
 class PopDialogBoxMore: public PopDialogBox {
 private:
 	//更多列表
 	UIListView *pLVMoreList;
 	//拍卖信息
-	std::vector <std::string> vecMoreInfo;
+	std::vector <CMD_GP_MoreGame> vecMoreInfo;
 public:
 	PopDialogBoxMore();
 	~PopDialogBoxMore();
@@ -31,8 +32,10 @@ private:
 	//////////////////////////////////////////////////////////////////////////
 	//网络消息
 	virtual void onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
+	//连接成功
+	void connectSuccess();
 	//用户服务
 	void onEventUserService(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
 	//排名列表
-	void onSubRankingList(void * pDataBuffer, unsigned short wDataSize);
+	void onSubMoreGameList(void * pDataBuffer, unsigned short wDataSize);
 };

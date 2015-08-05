@@ -9,6 +9,7 @@
 #include "../Tools/DataModel.h"
 #include "../Tools/GameConfig.h"
 #include "../Platform/coPlatform.h"
+#include "../Network/CMD_Server/Packet.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxMore::PopDialogBoxMore()
 {
@@ -35,12 +36,12 @@ void PopDialogBoxMore::onEnter(){
 	pLVMoreList->setItemModel(pLVMoreList->getItem(0));
 	pLVMoreList->removeAllItems();
 
-	vecMoreInfo.push_back("sdd");
-	updateListMore();
+	
 
 	//连接服务器
 	connectServer();
-	gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_TREASURE_RANK);
+	connectSuccess();
+	
 
 	playAnimation();
 }
@@ -57,8 +58,8 @@ void PopDialogBoxMore::onMenuOpenGame(CCObject *object, TouchEventType type){
 	{
 		UIButton *pButton = (UIButton*)object;
 		int tag = pButton->getTag();
-		
-		CCString *sAction = CCString::createWithFormat("{\"act\":500 ,\"packageName\":\"%s\",\"activity\":\"%s\"}", "com.foxgame.ForestGuard", "ForestGuard");
+		//vecMoreInfo[tag].szAppName;
+		CCString *sAction = CCString::createWithFormat("{\"act\":500 ,\"packageName\":\"%s\",\"activity\":\"%s\",\"url\":\"%s\"}", vecMoreInfo[tag].szName, vecMoreInfo[tag].szAppName, vecMoreInfo[tag].szUrl);
 		platformAction(sAction->getCString());
 	}
 }
@@ -78,9 +79,11 @@ void PopDialogBoxMore::updateListMore(){
 		int inserterPos = pLVTemp->getItems()->count();
 		pLVTemp->insertDefaultItem(inserterPos);
 		
+		UIImageView *pIVBg = static_cast<UIImageView*>(pLVTemp->getItem(inserterPos)->getChildByName("ImageBg")); 
+		addDownloadImage(pIVBg, vecMoreInfo[i].szICO, ccp(0, 0), 1, -1, false);
 		//按键
 		UIButton *pButton = static_cast<UIButton*>(pLVTemp->getItem(inserterPos)->getChildByName("ButtonOpenGame"));
-		pButton->setTag(inserterPos);
+		pButton->setTag(i);
 		pButton->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxMore::onMenuOpenGame));
 	}
 }
@@ -105,25 +108,48 @@ void PopDialogBoxMore::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void 
 		break;
 	}
 }
+//连接成功
+void PopDialogBoxMore::connectSuccess(){
+	CMD_GP_GetMoreGame moreGame;
+	moreGame.dwOpTerminal = 2;
+	gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_MORE_GAME,&moreGame,sizeof(CMD_GP_GetMoreGame));
+}
 //用户服务
 void PopDialogBoxMore::onEventUserService(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
 	switch (wSubCmdID)
 	{
-	case SUB_GP_TREASURE_RANK://排名列表
-		onSubRankingList(pDataBuffer, wDataSize);
+	case SUB_GP_MORE_GAME://更多游戏列表
+		onSubMoreGameList(pDataBuffer, wDataSize);
 		break;
 	default:
 		CCLOG("sub:%d <<%s>>", wSubCmdID, __FUNCTION__);
 		break;
 	}
 }
-//排名列表
-void PopDialogBoxMore::onSubRankingList(void * pDataBuffer, unsigned short wDataSize){
-	//assert(wDataSize >= sizeof(CMD_GP_TreasureRank));
-	int count = wDataSize / sizeof(CMD_GP_TreasureRank);
+//更多游戏列表
+void PopDialogBoxMore::onSubMoreGameList(void * pDataBuffer, unsigned short wDataSize){
+	
+	
+	int count = wDataSize / sizeof(CMD_GP_MoreGame);
 
-	
-	
+	BYTE cbDataBuffer[SOCKET_TCP_PACKET + sizeof(TCP_Head)];
+	CopyMemory(cbDataBuffer, pDataBuffer, wDataSize);
+
+	vecMoreInfo.clear();
+	for (int i = 0; i < count; i++)
+	{
+		void * pDataBuffer = cbDataBuffer + i*sizeof(CMD_GP_MoreGame);
+		CMD_GP_MoreGame *pMoreGame = (CMD_GP_MoreGame*)pDataBuffer;
+
+		CMD_GP_MoreGame moreGame;
+		strcpy(moreGame.szAppName, pMoreGame->szAppName);
+		strcpy(moreGame.szICO, pMoreGame->szICO);
+		strcpy(moreGame.szName, pMoreGame->szName);
+		strcpy(moreGame.szUrl, pMoreGame->szUrl);
+
+		vecMoreInfo.push_back(moreGame);
+	}
+	updateListMore();
 	//移除loading
 	this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 	gameSocket.Destroy(true);

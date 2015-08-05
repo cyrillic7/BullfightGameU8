@@ -336,6 +336,8 @@ struct CMD_GP_ServerOnline
 
 #define SUB_GP_TREASURE					413                             //财富详细 
 #define SUB_GP_CONVERSION_AUCTIONSCORE   414                            //拍卖所得兑换 
+#define SUB_GP_MORE_GAME			415									//更多游戏
+#define SUB_GP_FEEDBACK				416									//反馈
 
 //操作结果
 #define SUB_GP_OPERATE_SUCCESS		900									//操作成功
@@ -349,6 +351,55 @@ struct CMD_GP_ServerOnline
 #define	 DESPICT_LEN		32
 #define  GIFT_COUNT			30
 #define  NOTE_LEN			64
+//////////////////////////////////////////////////////////////////////////
+#define MORENAME_NAME_LEN				32
+#define MORENAME_ICO_LEN				32
+#define MORENAME_URL_LEN				128
+
+//获取更多游戏
+struct CMD_GP_GetMoreGame
+{
+	CMD_GP_GetMoreGame()
+	{
+		//memset(this, 0, sizeof(CMD_GP_GetMoreGame));
+	}
+	DWORD	dwOpTerminal;												//操作终端（1：pc, 2：手机牛牛 3：手机捕鱼）
+};
+struct CMD_GP_MoreGame
+{
+	CMD_GP_MoreGame()
+	{
+		//memset(this, 0, sizeof(CMD_GP_MoreGame));
+	}
+	TCHAR	szName[MORENAME_NAME_LEN];									//游戏名称
+	TCHAR	szAppName[MORENAME_NAME_LEN];								//进程名称
+	TCHAR	szICO[MORENAME_ICO_LEN];
+	TCHAR	szUrl[MORENAME_URL_LEN];									//下载地址
+};
+
+//反馈
+struct CMD_GP_Feedback
+{
+	CMD_GP_Feedback()
+	{
+		//memset(this, 0, sizeof(CMD_GP_Feedback));
+	}
+	TCHAR	szAccounts[LEN_ACCOUNTS];
+	TCHAR	szTitle[32];
+	TCHAR	szQQ[16];
+	TCHAR	szContent[256];										//描述消息
+};
+
+struct CMD_GP_FeedbackLog
+{
+	CMD_GP_FeedbackLog()
+	{
+		//memset(this, 0, sizeof(CMD_GP_FeedbackLog));
+	}
+	DWORD	dwRet;														//0：成功，1：失败
+	TCHAR	szDescribeString[128];										//描述消息
+};
+
 //////////////////////////////////////////////////////////////////////////
 //元宝兑换
 struct CMD_GP_UserExchangeIngot

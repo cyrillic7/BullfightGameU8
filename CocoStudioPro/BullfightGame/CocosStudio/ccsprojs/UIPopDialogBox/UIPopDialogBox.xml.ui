@@ -44,13 +44,10 @@
   <imageFileList>
     <string>UIPanel.plist</string>
     <string>UIButton.plist</string>
+    <string>UIKnapsack.plist</string>
     <string>UIUserInfo.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>UIPanel.png</string>
-    <string>UIButton.png</string>
-    <string>UIUserInfo.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxFeedback.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxInputExchange.json</CurrentUIJson>
 </UIProject>
