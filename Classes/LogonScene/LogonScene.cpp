@@ -368,7 +368,7 @@ void LogonScene::logonGameByAccount(float dt){
 		logonAccounts.dwPlazaVersion = VERSION_PLAZA;
 		strcpy(logonAccounts.szAccounts, DataModel::sharedDataModel()->sLogonAccount.c_str());
 		//strcpy(logonAccounts.szAccounts,"zhangh189");
-		strcpy(logonAccounts.szMachineID, "12");
+		strcpy(logonAccounts.szMachineID, platformAction("{\"act\":100}").c_str());
 		strcpy(logonAccounts.szMobilePhone, "32");
 		strcpy(logonAccounts.szPassPortID, "12");
 		strcpy(logonAccounts.szPhoneVerifyID, "1");

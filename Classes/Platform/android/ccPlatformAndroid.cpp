@@ -35,9 +35,9 @@ std::string platformAction(const std::string& jsonString)
 		const char* str = minfo.env->GetStringUTFChars(result, 0);
 		std::string retUtf8 = str;
 		//删除字符串
-		if (retUtf8.length()>0)
+		//if (retUtf8.length()>0)
 		{
-			minfo.env->ReleaseStringUTFChars(result, 0);
+			minfo.env->ReleaseStringUTFChars(result, str);
 			minfo.env->DeleteLocalRef (sJson);
 		}
 		return retUtf8;
