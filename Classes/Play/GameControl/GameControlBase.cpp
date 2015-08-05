@@ -274,7 +274,6 @@ void GameControlBase::menuPause(CCObject* pSender, TouchEventType type){
 		pIVMoer->setVisible(isShowMoer);
 		pBSetting->setTouchEnabled(isShowMoer);
 		pBExit->setTouchEnabled(isShowMoer);
-		//standUpWithExit();
 	}
 	break;
 	default:
@@ -1642,6 +1641,10 @@ MainSceneBase*GameControlBase::getMainScene(){
 }
 //站立并退出
 void GameControlBase::standUpWithExit(){
+	if (isExitGame)
+	{
+		return;
+	}
 	isExitGame = true;
 	isChangeChair = false;
 	//tagUserInfo userInfo=DataModel::sharedDataModel()->mTagUserInfo.find(DataModel::sharedDataModel()->userInfo.dwUserID);

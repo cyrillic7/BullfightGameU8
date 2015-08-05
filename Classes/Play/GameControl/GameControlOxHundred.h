@@ -189,8 +189,6 @@ private:
 	void insertGameHistory(tagGameRecord tagRecord);
 	//推断赢家
 	void deduceWinner(bool &bWinTian, bool &bWinDi, bool &bWinXuan,bool &bWinHuan,BYTE &TianMultiple,BYTE &diMultiple,BYTE &TianXuanltiple,BYTE &HuangMultiple );
-	//起立并退出
-	//void standUpWithExit();
 public:
 	//申请庄家
 	void onApplyBanker(bool bApplyBanker);

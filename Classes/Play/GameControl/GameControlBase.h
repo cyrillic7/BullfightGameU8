@@ -142,7 +142,7 @@ public:
 	//获取视图位置
 	virtual int getViewChairID(int severChairID);
 	//站立并退出
-	virtual void standUpWithExit();
+	void standUpWithExit();
 	//是不是观察者
 	bool IsLookonMode();
 	//是否是游戏状态
