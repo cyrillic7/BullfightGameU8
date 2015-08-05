@@ -25,6 +25,7 @@
 PopDialogBoxKnapsack::PopDialogBoxKnapsack()
 	:knapsackItem(KNAPSACK_LIST)
 	, iCurSelectIndex(0)
+	, eAgainGetData(AGAIN_NOTHING)
 {
     
 	scheduleUpdate();
@@ -155,6 +156,30 @@ void PopDialogBoxKnapsack::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, v
 		//关闭网络
 		//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_KNAPSACK);
 		gameSocket.Destroy(true);
+		switch (eAgainGetData)
+		{
+		case PopDialogBoxKnapsack::AGAIN_NOTHING:
+			break;
+		case PopDialogBoxKnapsack::AGAIN_UPDATE_LIST:
+		{
+			setKnapsackItem(KNAPSACK_LIST);
+			connectServer();
+			connectSuccess();
+			setAgainGetData(AGAIN_DELAY_DISPLAY);
+		}
+			break;
+		case PopDialogBoxKnapsack::AGAIN_DELAY_DISPLAY:
+		{
+			PopDialogBoxTipInfo *pTipInfo = PopDialogBoxTipInfo::create();
+			this->addChild(pTipInfo, 100);
+			pTipInfo->setTipInfoContent(sDisplayTipInfo.c_str());
+
+			setAgainGetData(AGAIN_NOTHING);
+		}
+			break;
+		default:
+			break;
+		}
 	}
 	break;
 	default:
@@ -190,6 +215,8 @@ void PopDialogBoxKnapsack::onEventUserService(WORD wSubCmdID, void * pDataBuffer
 //背包列表
 void PopDialogBoxKnapsack::onSubGoodsList(void * pDataBuffer, unsigned short wDataSize){
 	assert(wDataSize >= sizeof(CMD_GP_Knapsack));
+
+	vecGoods.clear();
 
 	int gameServerSize = sizeof(CMD_GP_Knapsack);
 	int serverCount = wDataSize / gameServerSize;
@@ -236,7 +263,13 @@ void PopDialogBoxKnapsack::onSubUseGoods(void * pDataBuffer, unsigned short wDat
 			iCurSelectIndex = vecGoods.size()-1;
 		}
 		updateListGoods();
-
+		if (vecGoods[iCurSelectIndex].dwExchangeType == EXCHANGE_STATE)
+		{
+			setAgainGetData(AGAIN_UPDATE_LIST);
+			sDisplayTipInfo = GBKToUTF8(pOpenCard->szDescribeString);
+			return;
+			/**/
+		}
 	}
 	else
 	{

@@ -30,6 +30,16 @@ private:
 		KNAPSACK_EXCHANGE,				//兑换
 	};
 	CC_SYNTHESIZE(KnapsackItem, knapsackItem, KnapsackItem);
+
+	enum AgainGetData
+	{
+		AGAIN_NOTHING = 0,					//不刷新
+		AGAIN_UPDATE_LIST,					//刷新列表
+		AGAIN_DELAY_DISPLAY,				//延时显示
+	};
+	CC_SYNTHESIZE(AgainGetData, eAgainGetData, AgainGetData);
+	//延时显示提示语
+	std::string sDisplayTipInfo;
 	
 	std::vector<CMD_GP_Knapsack> vecGoods;
 	//兑换数量
