@@ -11,11 +11,11 @@
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxFeedback::PopDialogBoxFeedback()
 {
-	
-    
+	scheduleUpdate();
 }
 PopDialogBoxFeedback::~PopDialogBoxFeedback() {
 	CCLOG("~ <<%s>>",__FUNCTION__);
+	unscheduleUpdate();
 }
 void PopDialogBoxFeedback::onEnter(){
 	CCLayer::onEnter();
@@ -63,7 +63,23 @@ void PopDialogBoxFeedback::onExit(){
 void PopDialogBoxFeedback::onMenuFeedback(CCObject *object, TouchEventType type){
 	if (type==TOUCH_EVENT_ENDED)
 	{
-		showTipInfo("敬请期待");
+		sQQ = pEBFeedbackQQ->getText();
+		if (sContent.length()<=0)
+		{
+			showTipInfo("反馈内容不能为空");
+		}
+		else if (sQQ.length()<=0)
+		{
+			showTipInfo("QQ号码不能为空");
+		}
+		else
+		{
+			//连接服务器
+			connectServer();
+			connectSuccess();
+		}
+		
+		//
 	}
 }
 //输入回调
@@ -85,8 +101,69 @@ void PopDialogBoxFeedback::onTextFeild(CCObject* object, TextFiledEventType type
             }
         }
             break;
+		case TEXTFIELD_EVENT_INSERT_TEXT:
+		case TEXTFIELD_EVENT_DELETE_BACKWARD:
+		{
+			UITextField *pTextField = (UITextField*)object;
+			sContent = UTF8ToGBK(pTextField->getStringValue());
+		}
+				break;
             
         default:
             break;
     }
+}
+//更新
+void PopDialogBoxFeedback::update(float delta){
+	gameSocket.updateSocketData(delta);
+}
+//////////////////////////////////////////////////////////////////////////
+//网络消息
+void PopDialogBoxFeedback::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
+	switch (wMainCmdID)
+	{
+	case MDM_MB_SOCKET://socket连接成功
+	{
+
+	}
+	break;
+	case MDM_GP_USER_SERVICE://用户服务
+	{
+		onEventUserService(wSubCmdID, pDataBuffer, wDataSize);
+		//移除loading
+		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+		gameSocket.Destroy(true);
+	}
+	break;
+	default:
+		CCLOG("other:%d   %d<<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
+		break;
+	}
+}
+//连接成功
+void PopDialogBoxFeedback::connectSuccess(){
+	CMD_GP_Feedback feedback;
+	strcpy(feedback.szAccounts, DataModel::sharedDataModel()->sLogonAccount.c_str());
+	strcpy(feedback.szContent, sContent.c_str());
+	strcpy(feedback.szQQ, sQQ.c_str());
+	strcpy(feedback.szTitle,"");
+
+	gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_FEEDBACK, &feedback, sizeof(CMD_GP_Feedback));
+}
+//用户服务
+void PopDialogBoxFeedback::onEventUserService(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
+	switch (wSubCmdID)
+	{
+	case SUB_GP_FEEDBACK://反馈
+		onSubFeedback(pDataBuffer, wDataSize);
+		break;
+	default:
+		CCLOG("sub:%d <<%s>>", wSubCmdID, __FUNCTION__);
+		break;
+	}
+}
+//反馈
+void PopDialogBoxFeedback::onSubFeedback(void * pDataBuffer, unsigned short wDataSize){
+	CMD_GP_FeedbackLog *pFeedback = (CMD_GP_FeedbackLog*)pDataBuffer;
+	showTipInfo(GBKToUTF8(pFeedback->szDescribeString).c_str());
 }

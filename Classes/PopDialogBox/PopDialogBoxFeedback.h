@@ -12,7 +12,10 @@ class PopDialogBoxFeedback: public PopDialogBox {
 private:
 	//联系方式
 	CCEditBox *pEBFeedbackQQ;
-	
+	//内容
+	std::string sContent;
+	//QQ
+	std::string sQQ;
 public:
 	PopDialogBoxFeedback();
 	~PopDialogBoxFeedback();
@@ -24,4 +27,16 @@ private:
 	void onMenuFeedback(CCObject *object, TouchEventType type);
     //输入回调
     void onTextFeild(CCObject* object, TextFiledEventType type);
+
+	//更新
+	void update(float delta);
+	//////////////////////////////////////////////////////////////////////////
+	//网络消息
+	virtual void onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
+	//连接成功
+	void connectSuccess();
+	//用户服务
+	void onEventUserService(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
+	//意见反馈
+	void onSubFeedback(void * pDataBuffer, unsigned short wDataSize);
 };

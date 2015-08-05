@@ -36,6 +36,6 @@ private:
 	void connectSuccess();
 	//用户服务
 	void onEventUserService(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
-	//排名列表
+	//更多游戏列表
 	void onSubMoreGameList(void * pDataBuffer, unsigned short wDataSize);
 };
