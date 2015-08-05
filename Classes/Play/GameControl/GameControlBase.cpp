@@ -28,6 +28,7 @@ GameControlBase::GameControlBase()
 	, isShowMoer(false)
 	, isPalySoundWarn(true)
 	, isPalySoundHundedWarn(false)
+	, isChangeChair(false)
 	{
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationActionPrompt.ExportJson));
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationGameIng.ExportJson));
@@ -346,6 +347,31 @@ void GameControlBase::menuChangeChair(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
+		isChangeChair = true;
+		/*std::map<long, tagUserInfo>::iterator iter;
+		for (iter = DataModel::sharedDataModel()->mTagUserInfo.begin(); iter != DataModel::sharedDataModel()->mTagUserInfo.end(); iter++)
+		{
+			getMainScene()->playerLayer->pPlayerData[getViewChairID(iter->second.wChairID)]->hidePlayer();
+			//hidePlayer(iter->second);
+		}*/
+		for (int i = 0; i < 6; i++)
+		{
+			getMainScene()->playerLayer->pPlayerData[i]->hidePlayer();
+		}
+		pPanelReady->setEnabled(false);
+		/*std::map<long, tagUserInfo>::iterator iterUser = DataModel::sharedDataModel()->mTagUserInfo.find(userInfo->dwUserID);
+		if (iterUser != DataModel::sharedDataModel()->mTagUserInfo.end())
+		{
+			getMainScene()->playerLayer->pPlayerData[getViewChairID(iterUser->second.wChairID)]->hidePlayer();
+			DataModel::sharedDataModel()->mTagUserInfo.erase(userInfo->dwUserID);
+		}*/
+		getMainScene()->setGameState(MainSceneBase::STATE_OBSERVER);
+		iTimerCount = MAX_TIMER;
+
+
+		DataModel::sharedDataModel()->mTagUserInfo.clear();
+
+
 		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GR_USER, SUB_GR_CHANGE_TABLE);
 		CCLOG("---- <<%s>>", __FUNCTION__);
 		//CCStringMake 
@@ -1360,12 +1386,14 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 			}
 			//CCLOG("state==sit-----------%ld", info->dwUserID);
 			if (info->dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID){
+				//
 				//DataModel::sharedDataModel()->isSit=true;
 				//CCLOG("======================坐下:table: %d desk:%d", info->UserStatus.wTableID, info->UserStatus.wChairID);
 				DataModel::sharedDataModel()->userInfo->wTableID = info->UserStatus.wTableID;
 				DataModel::sharedDataModel()->userInfo->wChairID = info->UserStatus.wChairID;
 				if (getMainScene()->getGameState() == MainSceneBase::STATE_OBSERVER)
 				{
+					isChangeChair = false;
 					getMainScene()->setGameStateWithUpdate(MainSceneBase::STATE_DOWN);
 					//构造数据
 					CMD_GF_GameOption GameOption;
@@ -1392,7 +1420,14 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 
 			if (info->dwUserID == DataModel::sharedDataModel()->userInfo->dwUserID)
 			{
-				OnUserFree(NULL);
+				if (isChangeChair)
+				{
+
+				}
+				else
+				{
+					OnUserFree(NULL);
+				}
 			}
 			else
 			{
@@ -1559,7 +1594,6 @@ void GameControlBase::onSubUserEnter(void * pDataBuffer, unsigned short wDataSiz
 	}
 
 	//onUserEnterWithUpdate(&UserInfo);
-
 	std::map<long, tagUserInfo >::iterator l_it;
 	l_it = DataModel::sharedDataModel()->mTagUserInfo.find(pUserInfoHead->dwUserID);
 	if (DataModel::sharedDataModel()->mTagUserInfo.end() != l_it)
@@ -1609,6 +1643,7 @@ MainSceneBase*GameControlBase::getMainScene(){
 //站立并退出
 void GameControlBase::standUpWithExit(){
 	isExitGame = true;
+	isChangeChair = false;
 	//tagUserInfo userInfo=DataModel::sharedDataModel()->mTagUserInfo.find(DataModel::sharedDataModel()->userInfo.dwUserID);
 	CMD_GR_UserStandUp  userStandUp;
 	userStandUp.wTableID = DataModel::sharedDataModel()->userInfo->wTableID;

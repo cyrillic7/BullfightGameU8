@@ -95,6 +95,8 @@ public:
 	bool isPalySoundWarn;
 	//是否百人牛牛播放倒计时音效
 	bool isPalySoundHundedWarn;
+	//是否换桌
+	bool isChangeChair;
 public:
 	GameControlBase();
 	~GameControlBase();
