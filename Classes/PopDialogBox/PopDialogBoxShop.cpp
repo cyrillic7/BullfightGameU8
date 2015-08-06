@@ -298,7 +298,11 @@ void PopDialogBoxShop::updateListCommodity(std::vector<CMD_GP_Gift> *vec){
 				std::string buttonText = CCString::createWithFormat("券%ld", vec->at(tempIndex).price[0].dwCount)->getCString();
 				pButton->setTitleText(buttonText.c_str());
 				//会员价
-				float vipDiscount =  vec->at(tempIndex).dwDiscount/10.0;
+				float vipDiscount =  vec->at(tempIndex).dwDiscount/100.0;
+				if (vec->at(tempIndex).dwDiscount==0)
+				{
+					vipDiscount = 1;
+				}
 				long vipPice = vec->at(tempIndex).price[0].dwCount*vipDiscount;
 				UILabel *pLVipPice0 = static_cast<UILabel*>(pIVItem->getChildByName("ImageVipPice")->getChildByName("LabelVipPice0"));
 				pLVipPice0->setText(CCString::createWithFormat("会员价%ld", vipPice)->getCString());
@@ -378,6 +382,7 @@ void PopDialogBoxShop::connectSuccess(){
 	case PopDialogBoxShop::SHOP_GIFT_PACKAGE:
 	{
 		CMD_GP_GetGift getGift;
+		getGift.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
 		getGift.dwOpTerminal = 2;
 		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_GIFT, &getGift, sizeof(getGift));
 	}
@@ -385,6 +390,7 @@ void PopDialogBoxShop::connectSuccess(){
 	case PopDialogBoxShop::SHOP_PROP:
 	{
 		CMD_GP_GetGift getGift;
+		getGift.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
 		getGift.dwOpTerminal = 2;
 		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_PROPERTY, &getGift, sizeof(getGift));
 	}

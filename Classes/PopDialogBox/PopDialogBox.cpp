@@ -116,7 +116,7 @@ void PopDialogBox::showInputNumBox(BuyType eBuyType, const char* cPropName, cons
 		box->isShowVipDiscount = true;
 	}
 	this->addChild(box, 10, TAG_INPUT_BOX);
-	box->setInputData(eBuyType, cPropName, cPropImagePuth, lMaxNum, lPice,vipDiscount,vipLevel);
+	box->setInputData(eBuyType, cPropName, cPropImagePuth, lMaxNum, lPice, vipDiscount, vipLevel);
 	box->setIPopAssist(pIPop);
 }
 //加载下载图片

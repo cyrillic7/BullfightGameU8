@@ -1661,7 +1661,7 @@ void GameControlBase::standUpWithExit(){
 	else
 	{
 		getMainScene()->addLoadingLayer("");
-		CCLOG("-------userStandUp.wChairID :%d<<%s>>", userStandUp.wChairID, __FUNCTION__);
+		//CCLOG("-------userStandUp.wChairID :%d<<%s>>", userStandUp.wChairID, __FUNCTION__);
 		//发送消息
 		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GR_USER, SUB_GR_USER_STANDUP, &userStandUp, sizeof(userStandUp));
 	}

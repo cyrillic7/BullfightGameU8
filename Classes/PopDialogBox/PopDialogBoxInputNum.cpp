@@ -9,6 +9,8 @@
 #include "../Tools/DataModel.h"
 #include "../Tools/GameConfig.h"
 #include "../Tools/BaseAttributes.h"
+#define maxVipLevel 8
+long lvipDiscount[maxVipLevel] = { 0, 98, 95, 92, 90, 88, 85, 80 };
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxInputNum::PopDialogBoxInputNum()
 	:isShowVipDiscount(true)
@@ -66,8 +68,50 @@ void PopDialogBoxInputNum::setInputData(BuyType eBuyType, const char* cPropName,
 	lBuyNum = lMaxNum;
 	lPropPice = lPice;
 	pLPropName->setText(cPropName);
-	pLVipDiscount->setText(CCString::createWithFormat(" 开通VIP享%ld折 ",vipDiscount)->getCString());
-	pLVipDiscount->setEnabled(vipLevel == 0);
+
+	
+	if (vipLevel==0)
+	{
+		int iCurVipLevel = -1;
+		for (int i = 0; i < maxVipLevel; i++)
+		{
+			if (lvipDiscount[i] == vipDiscount)
+			{
+				iCurVipLevel = i;
+				if (iCurVipLevel+1>=maxVipLevel)
+				{
+					iCurVipLevel = -1;
+				}
+				break;
+			}
+		}
+
+		if (iCurVipLevel==-1)
+		{
+			pLVipDiscount->setEnabled(false);
+		}
+		else
+		{
+			if (lvipDiscount[iCurVipLevel + 1] % 10 == 0)
+			{
+				pLVipDiscount->setText(CCString::createWithFormat(" VIP%d享%.0f折 ", iCurVipLevel + 1, lvipDiscount[iCurVipLevel + 1] / 10.0)->getCString());
+			}
+			else
+			{
+				pLVipDiscount->setText(CCString::createWithFormat(" VIP%d享%.1f折 ", iCurVipLevel + 1, lvipDiscount[iCurVipLevel + 1] / 10.0)->getCString());
+			}
+			pLVipDiscount->setEnabled(true);
+		}
+
+		
+		
+	}
+	else
+	{
+		pLVipDiscount->setEnabled(false);
+	}
+	
+	
 	if (strcmp(cPropImagePuth,"")!=0)
 	{
 		addDownloadImage(pIVPropIcon, cPropImagePuth, CCPointZero, 1, 0, false);

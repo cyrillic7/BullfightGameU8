@@ -561,6 +561,7 @@ struct CMD_GP_GetGift
 	{
 		//memset(this, 0, sizeof(CMD_GP_GetGift));
 	}
+	DWORD	dwUserID;
 	DWORD	dwOpTerminal;												//操作终端（0：公用 1：pc, 2：手机牛牛 3：手机捕鱼）
 };
 //通过什么途径购买
@@ -868,6 +869,19 @@ struct CMD_GP_VipUserID
 	DWORD	dwUserID;													//用户 I D
 	DWORD	dwOpTerminal;												//操作终端（1：pc, 2：手机）
 };
+
+struct CMD_GP_VipPowerInfo
+{
+	CMD_GP_VipPowerInfo()
+	{
+		//memset(this, 0, sizeof(CMD_GP_VipPowerInfo));
+	}
+	DWORD	dwVipID;													//1---7(vip1-vip7)
+	SCORE   lLoginScore;												//每天登录的奖励
+	DWORD	dwShopping;													//打折
+	DWORD	dwRedPaper;													//红包
+	DWORD	dwRedPieces;												//红包碎片
+};
 //vip特权（dwRedPaper， dwRedPieces 非0那个有用）
 struct CMD_GP_VipPower
 {
@@ -875,6 +889,7 @@ struct CMD_GP_VipPower
 	{
 		//memset(this, 0, sizeof(CMD_GP_VipPower));
 	}
+	CMD_GP_VipPowerInfo				VipPowerInfo[7];					//所有vip信息
 	DWORD	dwVipID;													//1---7(vip1-vip7)
 	DWORD	dwIngot;													//差dwIngot升级
 	DWORD	dwAllIngot;													//下一级的元宝
