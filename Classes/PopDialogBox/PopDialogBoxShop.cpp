@@ -166,14 +166,32 @@ void PopDialogBoxShop::onMenuBuyProp(CCObject *object, TouchEventType type){
 		case PopDialogBoxShop::SHOP_BUY_GIFT:
 		{
 			setShopItem(SHOP_BUY_GIFT);
-			showInputNumBox(BUY_SHOP, GBKToUTF8(vecGift[iBuyPropIndex].szName).c_str(), vecGift[iBuyPropIndex].szImgName, 1, vecGift[iBuyPropIndex].price[0].dwCount, vecGift[iBuyPropIndex].dwDiscount,0, this);
+
+			//会员价
+			float vipDiscount = vecGift.at(iBuyPropIndex).dwDiscount / 100.0;
+			if (vecGift.at(iBuyPropIndex).dwDiscount == 0)
+			{
+				vipDiscount = 1;
+			}
+			long vipPice = vecGift.at(iBuyPropIndex).price[0].dwCount*vipDiscount;
+
+			showInputNumBox(BUY_SHOP, GBKToUTF8(vecGift[iBuyPropIndex].szName).c_str(), vecGift[iBuyPropIndex].szImgName, 1, vipPice, vecGift[iBuyPropIndex].dwDiscount, 0, this);
 		}
 			break;
 		case PopDialogBoxShop::SHOP_PROP:
 		case PopDialogBoxShop::SHOP_BUY_PROP:
 		{
 			setShopItem(SHOP_BUY_PROP);
-			showInputNumBox(BUY_SHOP, GBKToUTF8(vecProp[iBuyPropIndex].szName).c_str(), vecProp[iBuyPropIndex].szImgName, 1, vecProp[iBuyPropIndex].price[0].dwCount, vecProp[iBuyPropIndex].dwDiscount,0, this);
+
+			//会员价
+			float vipDiscount = vecProp.at(iBuyPropIndex).dwDiscount / 100.0;
+			if (vecProp.at(iBuyPropIndex).dwDiscount == 0)
+			{
+				vipDiscount = 1;
+			}
+			long vipPice = vecProp.at(iBuyPropIndex).price[0].dwCount*vipDiscount;
+
+			showInputNumBox(BUY_SHOP, GBKToUTF8(vecProp[iBuyPropIndex].szName).c_str(), vecProp[iBuyPropIndex].szImgName, 1, vipPice, vecProp[iBuyPropIndex].dwDiscount, 0, this);
 		}
 			break;
 		default:

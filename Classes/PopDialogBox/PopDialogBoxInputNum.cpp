@@ -72,8 +72,12 @@ void PopDialogBoxInputNum::setInputData(BuyType eBuyType, const char* cPropName,
 	
 	if (vipLevel==0)
 	{
-		int iCurVipLevel = -1;
-		for (int i = 0; i < maxVipLevel; i++)
+		long iCurVipLevel = DataModel::sharedDataModel()->userInfo->dwVipLevel;
+		if (iCurVipLevel + 1 >= maxVipLevel)
+		{
+			iCurVipLevel = -1;
+		}
+		/*for (int i = 0; i < maxVipLevel; i++)
 		{
 			if (lvipDiscount[i] == vipDiscount)
 			{
@@ -84,7 +88,8 @@ void PopDialogBoxInputNum::setInputData(BuyType eBuyType, const char* cPropName,
 				}
 				break;
 			}
-		}
+		}*/
+
 
 		if (iCurVipLevel==-1)
 		{

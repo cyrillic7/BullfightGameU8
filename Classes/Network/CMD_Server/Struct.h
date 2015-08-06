@@ -206,6 +206,7 @@ struct tagTimeInfo
 struct tagUserInfo
 {
 	//基本属性
+	DWORD                           dwVipLevel;							//VIP等级
 	DWORD							dwUserID;							//用户 I D
 	DWORD							dwGameID;							//游戏 I D
 	DWORD							dwGroupID;							//社团 I D

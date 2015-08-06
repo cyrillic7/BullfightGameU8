@@ -1416,7 +1416,7 @@ struct CMD_MB_LogonSuccess
 	DWORD							dwExperience;						//经验数值
 	SCORE								dwLoveLiness;						//用户魅力
 
-	DWORD                           dwVipLevel;							//金币等级
+	DWORD                           dwVipLevel;							//VIP等级
 	SCORE								lIngot;								//元宝
 	SCORE								lUserScore;							//用户游戏币
 	SCORE								lIngotScore;						//元宝

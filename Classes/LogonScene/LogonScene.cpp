@@ -554,6 +554,7 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			DataModel::sharedDataModel()->userInfo->lIngot = ls->lIngot;
 			DataModel::sharedDataModel()->userInfo->lIngotScore = ls->lIngotScore;
 			DataModel::sharedDataModel()->sPhone = ls->szPhone;
+			DataModel::sharedDataModel()->userInfo->dwVipLevel = ls->dwVipLevel;
 			if (!DataModel::sharedDataModel()->sPhone.empty())
 			{
 				DataModel::sharedDataModel()->sPhone.erase(0, DataModel::sharedDataModel()->sPhone.find_first_not_of(" "));
