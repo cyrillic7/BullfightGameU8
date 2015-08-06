@@ -27,7 +27,7 @@ void CGameSocket::resetData(){
 	//////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////
-
+	fTime = 0;
 	m_cbSendRound = 0;
 	m_cbRecvRound = 0;
 	m_dwSendXorKey = 0;
@@ -105,7 +105,6 @@ void CGameSocket::Run(){
 	so_linger.l_onoff = 1;
 	so_linger.l_linger = 500;
 	setsockopt(m_sockClient, SOL_SOCKET, SO_LINGER, (const char*)&so_linger, sizeof(so_linger));
-	fTime = 0;
 	//设置socket状态为连接成功
 	setSocketState(SOCKET_STATE_CONNECT_SUCCESS);
 
@@ -122,10 +121,10 @@ bool CGameSocket::Create(const char* pszServerIP, int nServerPort, int nBlockSec
 	{
 		return true;
 	}
-
+	
 	resetData();
-
 	setSocketState(SOCKET_STATE_CONNECT_ING);
+
 
 	
 #ifdef WIN32
@@ -184,6 +183,7 @@ bool CGameSocket::Create(const char* pszServerIP, int nServerPort, int nBlockSec
 	m_nInbufLen = 0;
 	m_nInbufStart = 0;
 	m_nOutbufLen = 0;
+	fTime = 0;
 	Start();
 	/*
 	sockaddr_in	addr_in;
@@ -248,7 +248,6 @@ bool CGameSocket::SendMsg(void* pBuf, int nSize)
 	if (m_sockClient == INVALID_SOCKET) {
 		return false;
 	}
-
 	// 检查通讯消息包长度
 	int packsize = 0;
 	packsize = nSize;
