@@ -304,7 +304,9 @@ void PopDialogBoxVip::updateListVipByIndex(int index){
 	UILabel *pLRewardGold = static_cast<UILabel *>(pLVVipReward->getItem(0)->getChildByName("LabelVipRewardNum"));
 	pLRewardGold->setText(CCString::createWithFormat("%lld金币", vipPower.VipPowerInfo[index].lLoginScore)->getCString());
 	UIButton *pBRewardGold = static_cast<UIButton *>(pLVVipReward->getItem(0)->getChildByName("ButtonVipReward"));
-	
+	//金币图标
+	UIImageView *pIVGoldIcon = static_cast<UIImageView *>(pLVVipReward->getItem(0)->getChildByName("ImageVipGoodsIcon")); 
+	pIVGoldIcon->loadTexture(CCString::createWithFormat("u_vip_reward_gold%d.png",index)->getCString(), UI_TEX_TYPE_PLIST);
 	if (index==vipPower.dwVipID-1)
 	{
 		setButtonState(pBRewardGold, vipPower.dwLoginScoreStatus);
@@ -316,13 +318,17 @@ void PopDialogBoxVip::updateListVipByIndex(int index){
 	//////////////////////////////////////////////////////////////////////////
 	//红包奖励
 	UILabel *pLRewardRedMoney = static_cast<UILabel *>(pLVVipReward->getItem(1)->getChildByName("LabelVipRewardNum"));
+	//红包图标
+	UIImageView *pIVRedMoney = static_cast<UIImageView *>(pLVVipReward->getItem(1)->getChildByName("ImageVipGoodsIcon"));
 	if (vipPower.VipPowerInfo[index].dwRedPieces != 0)
 	{
 		pLRewardRedMoney->setText(CCString::createWithFormat("%ld红包碎片", vipPower.VipPowerInfo[index].dwRedPieces)->getCString());
+		pIVRedMoney->loadTexture("u_vip_reward_goods1.png", UI_TEX_TYPE_PLIST);
 	}
 	else
 	{
 		pLRewardRedMoney->setText(CCString::createWithFormat("%ld红包", vipPower.VipPowerInfo[index].dwRedPaper)->getCString());
+		pIVRedMoney->loadTexture("u_vip_reward_goods11.png", UI_TEX_TYPE_PLIST);
 	}
 
 	UIButton *pBRewardRedMoney = static_cast<UIButton *>(pLVVipReward->getItem(1)->getChildByName("ButtonVipReward"));
@@ -490,9 +496,13 @@ void PopDialogBoxVip::onSubVipInfo(void * pDataBuffer, unsigned short wDataSize)
 	}
 	//更新列表
 	updateListVip();
-	//设置默认选择
-	pCBVip[pVipPower->dwVipID - 1]->setSelectedState(true);
-	onCheckBoxSelectedStateEvent(pCBVip[pVipPower->dwVipID - 1], CHECKBOX_STATE_EVENT_SELECTED);
+	if (pVipPower->dwVipID>0)
+	{
+		//设置默认选择
+		pCBVip[pVipPower->dwVipID - 1]->setSelectedState(true);
+		onCheckBoxSelectedStateEvent(pCBVip[pVipPower->dwVipID - 1], CHECKBOX_STATE_EVENT_SELECTED);
+	}
+	
 }
 //VIP领取奖励
 void PopDialogBoxVip::onSubVipReward(void * pDataBuffer, unsigned short wDataSize){
