@@ -11,11 +11,19 @@
   "designWidth": 1136,
   "textures": [
     "UIPanel.plist",
-    "UIButton.plist"
+    "UIButton.plist",
+    "UIVip.plist",
+    "UILoadingBar.plist",
+    "UITask.plist",
+    "UIKnapsack.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
-    "UIButton.png"
+    "UIButton.png",
+    "UIVip.png",
+    "UILoadingBar.png",
+    "UITask.png",
+    "UIKnapsack.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -494,7 +502,7 @@
                   "fontName": "微软雅黑",
                   "fontSize": 28,
                   "hAlignment": 0,
-                  "text": "二人牛牛",
+                  "text": "换牌牛牛",
                   "touchScaleEnable": false,
                   "vAlignment": 0
                 }
@@ -617,7 +625,7 @@
                   "fontName": "微软雅黑",
                   "fontSize": 28,
                   "hAlignment": 0,
-                  "text": "换牌牛牛",
+                  "text": "通比牛牛",
                   "touchScaleEnable": false,
                   "vAlignment": 0
                 }
@@ -740,7 +748,7 @@
                   "fontName": "微软雅黑",
                   "fontSize": 28,
                   "hAlignment": 0,
-                  "text": "通比牛牛",
+                  "text": "百人牛牛",
                   "touchScaleEnable": false,
                   "vAlignment": 0
                 }
@@ -781,129 +789,6 @@
               "width": 167,
               "x": -238,
               "y": -10,
-              "backGroundBox": null,
-              "backGroundBoxData": {
-                "path": "btn_help.png",
-                "plistFile": "UIButton.plist",
-                "resourceType": 1
-              },
-              "backGroundBoxDisabled": null,
-              "backGroundBoxDisabledData": {
-                "path": null,
-                "plistFile": null,
-                "resourceType": 0
-              },
-              "backGroundBoxSelected": null,
-              "backGroundBoxSelectedData": {
-                "path": "btn_help.png",
-                "plistFile": "UIButton.plist",
-                "resourceType": 1
-              },
-              "frontCross": null,
-              "frontCrossData": {
-                "path": "btn_help_press.png",
-                "plistFile": "UIButton.plist",
-                "resourceType": 1
-              },
-              "frontCrossDisabled": null,
-              "frontCrossDisabledData": {
-                "path": "btn_help_press.png",
-                "plistFile": "UIButton.plist",
-                "resourceType": 1
-              },
-              "selectedState": false
-            }
-          },
-          {
-            "classname": "CheckBox",
-            "name": null,
-            "children": [
-              {
-                "classname": "Label",
-                "name": null,
-                "children": [],
-                "options": {
-                  "__type": "LabelSurrogate:#EditorCommon.JsonModel.Component.GUI",
-                  "classname": "Label",
-                  "name": "Label_11",
-                  "ZOrder": 0,
-                  "actiontag": 24056073,
-                  "anchorPointX": 0.5,
-                  "anchorPointY": 0.5,
-                  "classType": "CocoStudio.EngineAdapterWrap.CSLabel",
-                  "colorB": 255,
-                  "colorG": 255,
-                  "colorR": 255,
-                  "customProperty": "",
-                  "flipX": false,
-                  "flipY": false,
-                  "height": 36,
-                  "ignoreSize": true,
-                  "layoutParameter": null,
-                  "opacity": 255,
-                  "positionPercentX": 0,
-                  "positionPercentY": 0,
-                  "positionType": 0,
-                  "rotation": 0,
-                  "scaleX": 1,
-                  "scaleY": 1,
-                  "sizePercentX": 0.6706587,
-                  "sizePercentY": 0.7058824,
-                  "sizeType": 0,
-                  "tag": 183,
-                  "touchAble": false,
-                  "useMergedTexture": false,
-                  "visible": true,
-                  "width": 112,
-                  "x": 0,
-                  "y": 0,
-                  "areaHeight": 0,
-                  "areaWidth": 0,
-                  "fontFile": null,
-                  "fontName": "微软雅黑",
-                  "fontSize": 28,
-                  "hAlignment": 0,
-                  "text": "百人牛牛",
-                  "touchScaleEnable": false,
-                  "vAlignment": 0
-                }
-              }
-            ],
-            "options": {
-              "__type": "CheckBoxSurrogate:#EditorCommon.JsonModel.Component.GUI",
-              "classname": "CheckBox",
-              "name": "CheckBoxHelp4",
-              "ZOrder": 0,
-              "actiontag": 25042518,
-              "anchorPointX": 0.5,
-              "anchorPointY": 0.5,
-              "classType": "CocoStudio.EngineAdapterWrap.CSCheckBox",
-              "colorB": 255,
-              "colorG": 255,
-              "colorR": 255,
-              "customProperty": "",
-              "flipX": false,
-              "flipY": false,
-              "height": 51,
-              "ignoreSize": true,
-              "layoutParameter": null,
-              "opacity": 255,
-              "positionPercentX": -0.34,
-              "positionPercentY": -0.18223235,
-              "positionType": 1,
-              "rotation": 0,
-              "scaleX": 1,
-              "scaleY": 1,
-              "sizePercentX": 0.238571435,
-              "sizePercentY": 0.116173118,
-              "sizeType": 0,
-              "tag": 4,
-              "touchAble": true,
-              "useMergedTexture": false,
-              "visible": true,
-              "width": 167,
-              "x": -238,
-              "y": -80,
               "backGroundBox": null,
               "backGroundBoxData": {
                 "path": "btn_help.png",

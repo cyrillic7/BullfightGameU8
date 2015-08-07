@@ -58,5 +58,5 @@
     <string>UIKnapsack.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxRegistered.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxHelp.json</CurrentUIJson>
 </UIProject>
