@@ -9,6 +9,7 @@
 
 #include "PopDialogBox.h"
 #include "../Network/CMD_Server/CMD_LogonServer.h"
+#define maxVipLevel  7			//最大等级
 class PopDialogBoxVip : public PopDialogBox, public IPopDialogBoxAssistCloseView{
 private:
 	CC_SYNTHESIZE(IPopDialogBoxAssist *, iIPopAssistVip, IPopDialogBoxAssist);
@@ -32,8 +33,14 @@ private:
 	UIImageView *pIVVipGradeIcon;
 	//VIP等级数
 	UILabelAtlas *pLAVipGradeNum;
+	//VIP下一等级数
+	UILabelAtlas *pLANextVipGradeNum;
+	//vip满级
+	UIImageView *pIVFullLevel;
 	//VIP字
 	UIImageView *pIVVipText;
+	//VIP下一等级字
+	UIImageView *pIVNextVipText;
 	//vip奖励列表
 	UIListView *pLVVipReward;
 	//下一VIP等级进度
@@ -42,6 +49,8 @@ private:
 	UILabel *pLVipNextContent;
 	//VIP信息
 	CMD_GP_VipPower vipPower;
+	//vip等级复选框
+	UICheckBox *pCBVip[maxVipLevel];
 public:
 	PopDialogBoxVip();
 	~PopDialogBoxVip();
@@ -54,14 +63,22 @@ private:
 	
 	//关闭窗口回调
 	virtual void onCloseView(){ isReadMessage = true; }
+	//vip复选框
+	void onCheckBoxSelectedStateEvent(CCObject *pSender, CheckBoxEventType type);
 	//充值
 	void onMenuRecharge(CCObject *object, TouchEventType type);
 	//领取奖励按键
 	void onMenuReward(CCObject *object, TouchEventType type);
+	//设置按键状态
+	void setButtonState(UIButton *button,int state);
 	//设置VIP等级
 	void setVipGrade(int iGrade);
+	//设置VIP下一等级
+	void setNextVipGrade(int iGrade);
 	//更新列表
 	void updateListVip();
+	//更新列表
+	void updateListVipByIndex(int index);
 	//更新
 	void update(float delta);
 	//////////////////////////////////////////////////////////////////////////

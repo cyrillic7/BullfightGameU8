@@ -7,7 +7,7 @@
             <key>s_shop_vip_text.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{78,294},{44,22}}</string>
+                <string>{{229,452},{44,22}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -17,14 +17,248 @@
                 <key>sourceSize</key>
                 <string>{44,22}</string>
             </dict>
-            <key>u_vip_icon0.png</key>
+            <key>u_vep_bnt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,363},{74,67}}</string>
+                <string>{{75,2},{127,42}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{127,42}}</string>
+                <key>sourceSize</key>
+                <string>{127,42}</string>
+            </dict>
+            <key>u_vep_bnt_s.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,314},{127,42}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{127,42}}</string>
+                <key>sourceSize</key>
+                <string>{127,42}</string>
+            </dict>
+            <key>u_vip_arrow.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{218,157},{9,18}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{9,18}}</string>
+                <key>sourceSize</key>
+                <string>{9,18}</string>
+            </dict>
+            <key>u_vip_btn_1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{26,443},{53,22}}</string>
+                <key>offset</key>
+                <string>{-2,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{53,22}}</string>
+                <key>sourceSize</key>
+                <string>{57,22}</string>
+            </dict>
+            <key>u_vip_btn_2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{229,393},{57,22}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{57,22}}</string>
+                <key>sourceSize</key>
+                <string>{57,22}</string>
+            </dict>
+            <key>u_vip_btn_3.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{229,334},{57,22}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{57,22}}</string>
+                <key>sourceSize</key>
+                <string>{57,22}</string>
+            </dict>
+            <key>u_vip_btn_4.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{229,275},{57,22}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{57,22}}</string>
+                <key>sourceSize</key>
+                <string>{57,22}</string>
+            </dict>
+            <key>u_vip_btn_5.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{229,216},{57,22}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{57,22}}</string>
+                <key>sourceSize</key>
+                <string>{57,22}</string>
+            </dict>
+            <key>u_vip_btn_6.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{229,157},{57,22}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{57,22}}</string>
+                <key>sourceSize</key>
+                <string>{57,22}</string>
+            </dict>
+            <key>u_vip_btn_7.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{205,426},{57,22}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{57,22}}</string>
+                <key>sourceSize</key>
+                <string>{57,22}</string>
+            </dict>
+            <key>u_vip_btn_s_1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,443},{53,22}}</string>
+                <key>offset</key>
+                <string>{-2,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{53,22}}</string>
+                <key>sourceSize</key>
+                <string>{57,22}</string>
+            </dict>
+            <key>u_vip_btn_s_2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{181,426},{57,22}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{57,22}}</string>
+                <key>sourceSize</key>
+                <string>{57,22}</string>
+            </dict>
+            <key>u_vip_btn_s_3.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{218,98},{57,22}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{57,22}}</string>
+                <key>sourceSize</key>
+                <string>{57,22}</string>
+            </dict>
+            <key>u_vip_btn_s_4.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{218,39},{57,22}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{57,22}}</string>
+                <key>sourceSize</key>
+                <string>{57,22}</string>
+            </dict>
+            <key>u_vip_btn_s_5.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{122,468},{57,22}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{57,22}}</string>
+                <key>sourceSize</key>
+                <string>{57,22}</string>
+            </dict>
+            <key>u_vip_btn_s_6.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{122,444},{57,22}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{57,22}}</string>
+                <key>sourceSize</key>
+                <string>{57,22}</string>
+            </dict>
+            <key>u_vip_btn_s_7.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{122,420},{57,22}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{57,22}}</string>
+                <key>sourceSize</key>
+                <string>{57,22}</string>
+            </dict>
+            <key>u_vip_full_level.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{194,346},{78,31}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{78,31}}</string>
+                <key>sourceSize</key>
+                <string>{78,31}</string>
+            </dict>
+            <key>u_vip_icon0.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{149,122},{74,67}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{74,67}}</string>
                 <key>sourceSize</key>
@@ -33,33 +267,124 @@
             <key>u_vip_icon1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,294},{74,67}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{74,67}}</string>
-                <key>sourceSize</key>
-                <string>{74,67}</string>
-            </dict>
-            <key>u_vip_reward_bg.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,2},{290,119}}</string>
+                <string>{{149,46},{74,67}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{290,119}}</string>
+                <string>{{0,0},{74,67}}</string>
                 <key>sourceSize</key>
-                <string>{290,119}</string>
+                <string>{74,67}</string>
             </dict>
-            <key>u_vip_reward_goods0.png</key>
+            <key>u_vip_list_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,506},{72,72}}</string>
+                <string>{{204,2},{37,35}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{37,35}}</string>
+                <key>sourceSize</key>
+                <string>{37,35}</string>
+            </dict>
+            <key>u_vip_privilege.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{310,71}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{310,71}}</string>
+                <key>sourceSize</key>
+                <string>{310,71}</string>
+            </dict>
+            <key>u_vip_reward_gold0.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{120,346},{72,72}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{72,72}}</string>
+                <key>sourceSize</key>
+                <string>{72,72}</string>
+            </dict>
+            <key>u_vip_reward_gold1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{46,342},{72,72}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{72,72}}</string>
+                <key>sourceSize</key>
+                <string>{72,72}</string>
+            </dict>
+            <key>u_vip_reward_gold2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{149,272},{72,72}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{72,72}}</string>
+                <key>sourceSize</key>
+                <string>{72,72}</string>
+            </dict>
+            <key>u_vip_reward_gold3.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{75,268},{72,72}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{72,72}}</string>
+                <key>sourceSize</key>
+                <string>{72,72}</string>
+            </dict>
+            <key>u_vip_reward_gold4.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{149,198},{72,72}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{72,72}}</string>
+                <key>sourceSize</key>
+                <string>{72,72}</string>
+            </dict>
+            <key>u_vip_reward_gold5.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{75,194},{72,72}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{72,72}}</string>
+                <key>sourceSize</key>
+                <string>{72,72}</string>
+            </dict>
+            <key>u_vip_reward_gold6.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{75,120},{72,72}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +397,7 @@
             <key>u_vip_reward_goods1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,580},{70,70}}</string>
+                <string>{{50,426},{70,70}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +410,7 @@
             <key>u_vip_reward_goods2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,432},{72,72}}</string>
+                <string>{{75,46},{72,72}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -103,9 +428,9 @@
             <key>realTextureFileName</key>
             <string>UIVip.png</string>
             <key>size</key>
-            <string>{123,652}</string>
+            <string>{253,498}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:2040ed7e8019774e72d3c9c244fdb56d:9bc891d5ddf415015645fa6262409258:91b69b10d6e45d5d6017940108993f7e$</string>
+            <string>$TexturePacker:SmartUpdate:7a9a71d0905e0f37fdd083273c53bf42:7bf172e66fb9860a89f81d1ae12d48d4:91b69b10d6e45d5d6017940108993f7e$</string>
             <key>textureFileName</key>
             <string>UIVip.png</string>
         </dict>

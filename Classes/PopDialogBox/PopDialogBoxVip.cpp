@@ -40,8 +40,15 @@ void PopDialogBoxVip::onEnter(){
 	pIVVipGradeIcon = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageVipGrade"));
 	//VIP等级数
 	pLAVipGradeNum = static_cast<UILabelAtlas*>(pUILayer->getWidgetByName("AtlasLabelVipGrade"));
+	//VIP下一等级数
+	pLANextVipGradeNum = static_cast<UILabelAtlas*>(pUILayer->getWidgetByName("AtlasLabelNextVipGrade"));
+	//vip满级
+	pIVFullLevel = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageFullLevel"));
+	pIVFullLevel->setVisible(false);
 	//VIP字
 	pIVVipText = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageVipText"));
+	//VIP下一等级字
+	pIVNextVipText = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageNextVipText"));
 	//VIP奖励列表
 	pLVVipReward = static_cast<UIListView*>(pUILayer->getWidgetByName("ListViewVip"));
 	//VIP下一等级进度
@@ -52,6 +59,15 @@ void PopDialogBoxVip::onEnter(){
 	pLVipNextContent->setText("");
 	//设置默认VIP等级为0级
 	setVipGrade(0);
+	//vip复选框
+	for (int i = 0; i < maxVipLevel; i++)
+	{
+		pCBVip[i] = static_cast<UICheckBox*>(pUILayer->getWidgetByName(CCString::createWithFormat("CheckBoxLevel%d",i+1)->getCString()));
+		pCBVip[i]->addEventListenerCheckBox(this, SEL_SelectedStateEvent(&PopDialogBoxVip::onCheckBoxSelectedStateEvent));
+		pCBVip[i]->setTag(i);
+	}
+	pCBVip[0]->setSelectedState(true);
+	onCheckBoxSelectedStateEvent(pCBVip[0], CHECKBOX_STATE_EVENT_SELECTED);
 	//
 	updateListVip();
 	//设置父节点不读取网络数据
@@ -64,6 +80,48 @@ void PopDialogBoxVip::onEnter(){
 }
 void PopDialogBoxVip::onExit(){
 	CCLayer::onExit();
+}
+//vip复选框
+void PopDialogBoxVip::onCheckBoxSelectedStateEvent(CCObject *pSender, CheckBoxEventType type){
+	switch (type)
+	{
+	case CHECKBOX_STATE_EVENT_SELECTED:
+	{
+		UICheckBox *pCBTemp = (UICheckBox*)pSender;
+		int iCurTag = pCBTemp->getTag();
+		for (int i = 0; i < maxVipLevel; i++)
+		{
+			if (iCurTag == i)
+			{
+				pCBVip[i]->setTouchEnabled(false);
+			}
+			else
+			{
+				pCBVip[i]->setTouchEnabled(true);
+				pCBVip[i]->setSelectedState(false);
+			}
+		}
+
+		updateListVipByIndex(iCurTag);
+		/*//设置奖励金币数
+		UILabel *pLRewardGold = static_cast<UILabel *>(pLVVipReward->getItem(0)->getChildByName("LabelVipRewardNum"));
+		pLRewardGold->setText(CCString::createWithFormat("%lld金币", vipPower.VipPowerInfo[iCurTag].lLoginScore)->getCString());
+	
+		if (iCurTag != vipPower.dwVipID-1)
+		{
+			UIButton *pBRewardGold = static_cast<UIButton *>(pLVVipReward->getItem(0)->getChildByName("ButtonVipReward"));
+			pBRewardGold->set
+		}*/
+	}
+		break;
+	case CHECKBOX_STATE_EVENT_UNSELECTED:
+	{
+
+	}
+		break;
+	default:
+		break;
+	}
 }
 //充值
 void PopDialogBoxVip::onMenuRecharge(CCObject *object, TouchEventType type){
@@ -125,16 +183,32 @@ void PopDialogBoxVip::setVipGrade(int iGrade){
 		pLAVipGradeNum->setStringValue(CCString::createWithFormat("%d", iGrade)->getCString());
 	}
 }
+//设置VIP等级
+void PopDialogBoxVip::setNextVipGrade(int iGrade){
+	if (iGrade >=8)
+	{
+		pIVNextVipText->setVisible(false);
+		pIVFullLevel->setVisible(true);
+	}
+	else
+	{
+		pIVNextVipText->setVisible(true);
+		pIVFullLevel->setVisible(false);
+
+		//pIVVipGradeIcon->loadTexture("u_vip_icon1.png", UI_TEX_TYPE_PLIST);
+		pLANextVipGradeNum->setStringValue(CCString::createWithFormat("%d", iGrade)->getCString());
+	}
+}
 //更新列表
 void PopDialogBoxVip::updateListVip(){
 	int colorH = 125;
 	//登录金币奖励
-	UILabel *pLRewardGold = static_cast<UILabel *>(pLVVipReward->getItem(0)->getChildByName("ImageVipItem0")->getChildByName("LabelVipRewardNum"));
+	UILabel *pLRewardGold = static_cast<UILabel *>(pLVVipReward->getItem(0)->getChildByName("LabelVipRewardNum"));
 	pLRewardGold->setText(CCString::createWithFormat("%lld金币", vipPower.lLoginScore)->getCString());
-	UIButton *pBRewardGold = static_cast<UIButton *>(pLVVipReward->getItem(0)->getChildByName("ImageVipItem0")->getChildByName("ButtonVipReward"));
+	UIButton *pBRewardGold = static_cast<UIButton *>(pLVVipReward->getItem(0)->getChildByName("ButtonVipReward"));
 	pBRewardGold->setTag(REWARD_GOLD);
 	pBRewardGold->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxVip::onMenuReward));
-
+	
 	switch (vipPower.dwLoginScoreStatus)
 	{
 	case 0://无效
@@ -162,9 +236,10 @@ void PopDialogBoxVip::updateListVip(){
 	default:
 		break;
 	}
+	
 	//////////////////////////////////////////////////////////////////////////
 	//红包奖励
-	UILabel *pLRewardRedMoney = static_cast<UILabel *>(pLVVipReward->getItem(0)->getChildByName("ImageVipItem1")->getChildByName("LabelVipRewardNum"));
+	UILabel *pLRewardRedMoney = static_cast<UILabel *>(pLVVipReward->getItem(1)->getChildByName("LabelVipRewardNum"));
 	if (vipPower.dwRedPieces != 0)
 	{
 		pLRewardRedMoney->setText(CCString::createWithFormat("%ld红包碎片", vipPower.dwRedPieces)->getCString());
@@ -174,7 +249,7 @@ void PopDialogBoxVip::updateListVip(){
 		pLRewardRedMoney->setText(CCString::createWithFormat("%ld红包", vipPower.dwRedPaper)->getCString());
 	}
 	
-	UIButton *pBRewardRedMoney = static_cast<UIButton *>(pLVVipReward->getItem(0)->getChildByName("ImageVipItem1")->getChildByName("ButtonVipReward"));
+	UIButton *pBRewardRedMoney = static_cast<UIButton *>(pLVVipReward->getItem(1)->getChildByName("ButtonVipReward"));
 	pBRewardRedMoney->setTag(REWARD_RED_MONEY);
 	pBRewardRedMoney->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxVip::onMenuReward));
 
@@ -207,11 +282,104 @@ void PopDialogBoxVip::updateListVip(){
 	}
 	//////////////////////////////////////////////////////////////////////////
 	//商城折扣
-	UILabel *pLRewardDiscount = static_cast<UILabel *>(pLVVipReward->getItem(1)->getChildByName("ImageVipItem0")->getChildByName("LabelVipRewardNum"));
-	pLRewardDiscount->setText(CCString::createWithFormat(" VIP享%ld折优惠 ", vipPower.dwShopping)->getCString());
-	UIButton *pBShop = static_cast<UIButton *>(pLVVipReward->getItem(1)->getChildByName("ImageVipItem0")->getChildByName("ButtonVipReward"));
+	UILabel *pLRewardDiscount = static_cast<UILabel *>(pLVVipReward->getItem(2)->getChildByName("LabelVipRewardNum"));
+
+	if (vipPower.dwShopping % 10 == 0)
+	{
+		pLRewardDiscount->setText(CCString::createWithFormat(" VIP享%.0f折优惠 ", vipPower.dwShopping/10.0)->getCString());
+	}
+	else
+	{
+		pLRewardDiscount->setText(CCString::createWithFormat(" VIP享%.1f折优惠 ", vipPower.dwShopping / 10.0)->getCString());
+	}
+
+	UIButton *pBShop = static_cast<UIButton *>(pLVVipReward->getItem(2)->getChildByName("ButtonVipReward"));
 	pBShop->setTag(REWARD_SHOP);
 	pBShop->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxVip::onMenuReward));
+}
+//更新列表
+void PopDialogBoxVip::updateListVipByIndex(int index){
+	int colorH = 125;
+	//登录金币奖励
+	UILabel *pLRewardGold = static_cast<UILabel *>(pLVVipReward->getItem(0)->getChildByName("LabelVipRewardNum"));
+	pLRewardGold->setText(CCString::createWithFormat("%lld金币", vipPower.VipPowerInfo[index].lLoginScore)->getCString());
+	UIButton *pBRewardGold = static_cast<UIButton *>(pLVVipReward->getItem(0)->getChildByName("ButtonVipReward"));
+	
+	if (index==vipPower.dwVipID-1)
+	{
+		setButtonState(pBRewardGold, vipPower.dwLoginScoreStatus);
+	}
+	else
+	{
+		setButtonState(pBRewardGold,0);
+	}
+	//////////////////////////////////////////////////////////////////////////
+	//红包奖励
+	UILabel *pLRewardRedMoney = static_cast<UILabel *>(pLVVipReward->getItem(1)->getChildByName("LabelVipRewardNum"));
+	if (vipPower.VipPowerInfo[index].dwRedPieces != 0)
+	{
+		pLRewardRedMoney->setText(CCString::createWithFormat("%ld红包碎片", vipPower.VipPowerInfo[index].dwRedPieces)->getCString());
+	}
+	else
+	{
+		pLRewardRedMoney->setText(CCString::createWithFormat("%ld红包", vipPower.VipPowerInfo[index].dwRedPaper)->getCString());
+	}
+
+	UIButton *pBRewardRedMoney = static_cast<UIButton *>(pLVVipReward->getItem(1)->getChildByName("ButtonVipReward"));
+	
+	if (index == vipPower.dwVipID - 1)
+	{
+		setButtonState(pBRewardRedMoney, vipPower.dwRedPaperStatus);
+	}
+	else
+	{
+		setButtonState(pBRewardRedMoney, 0);
+	}
+	//////////////////////////////////////////////////////////////////////////
+	//商城折扣
+	UILabel *pLRewardDiscount = static_cast<UILabel *>(pLVVipReward->getItem(2)->getChildByName("LabelVipRewardNum"));
+
+	if (vipPower.VipPowerInfo[index].dwShopping % 10 == 0)
+	{
+		pLRewardDiscount->setText(CCString::createWithFormat(" VIP享%.0f折优惠 ", vipPower.VipPowerInfo[index].dwShopping / 10.0)->getCString());
+	}
+	else
+	{
+		pLRewardDiscount->setText(CCString::createWithFormat(" VIP享%.1f折优惠 ", vipPower.VipPowerInfo[index].dwShopping / 10.0)->getCString());
+	}
+}
+//设置按键状态
+void PopDialogBoxVip::setButtonState(UIButton *button,int state){
+	int colorH = 125;
+	switch (state)
+	{
+	case 0://无效
+	{
+		button->setColor(ccc3(colorH, colorH, colorH));
+		button->setTitleColor(ccc3(colorH, colorH, colorH));
+		button->setTouchEnabled(false);
+		button->setTitleText(" 领取奖励 ");
+	}
+	break;
+	case 1://未领取
+	{
+		button->setColor(ccc3(255, 255, 255));
+		button->setTitleColor(ccc3(255, 255, 255));
+		button->setTouchEnabled(true);
+		button->setTitleText(" 领取奖励 ");
+	}
+	break;
+	case 2://已领取
+	{
+		button->setColor(ccc3(colorH, colorH, colorH));
+		button->setTitleColor(ccc3(colorH, colorH, colorH));
+		button->setTouchEnabled(false);
+		button->setTitleText(" 已领取 ");
+	}
+	break;
+	default:
+		break;
+	}
 }
 //更新
 void PopDialogBoxVip::update(float delta){
@@ -302,16 +470,29 @@ void PopDialogBoxVip::connectSuccess(){
 void PopDialogBoxVip::onSubVipInfo(void * pDataBuffer, unsigned short wDataSize){
 	CMD_GP_VipPower *pVipPower = (CMD_GP_VipPower*)pDataBuffer;
 	memcpy(&vipPower, pVipPower, sizeof(CMD_GP_VipPower));
+
 	//设置VIP等级
 	setVipGrade(pVipPower->dwVipID);
-	//下一VIP等级进度
-	float fNextPercent = (float)pVipPower->dwIngot / pVipPower->dwAllIngot;
-	pLBVipNextGrade->setPercent(fNextPercent*100);
-	//设置下一级
-	pLVipNextContent->setText(CCString::createWithFormat("还需要充值%ld元宝，您即可享VIP%ld特权", pVipPower->dwAllIngot-pVipPower->dwIngot, pVipPower->dwVipID + 1)->getCString());
+	setNextVipGrade(pVipPower->dwVipID + 1);
+	if (pVipPower->dwVipID==7)
+	{
+		pLBVipNextGrade->setPercent(100);
+		pLVipNextContent->setVisible(false);
+	}
+	else
+	{
+		//下一VIP等级进度
+		float fNextPercent = (float)pVipPower->dwIngot / pVipPower->dwAllIngot;
+		pLBVipNextGrade->setPercent(fNextPercent * 100);
+		//设置下一级
+		pLVipNextContent->setText(CCString::createWithFormat("还需要充值%ld元宝，您即可享VIP%ld特权", pVipPower->dwAllIngot - pVipPower->dwIngot, pVipPower->dwVipID + 1)->getCString());
 
+	}
 	//更新列表
 	updateListVip();
+	//设置默认选择
+	pCBVip[pVipPower->dwVipID - 1]->setSelectedState(true);
+	onCheckBoxSelectedStateEvent(pCBVip[pVipPower->dwVipID - 1], CHECKBOX_STATE_EVENT_SELECTED);
 }
 //VIP领取奖励
 void PopDialogBoxVip::onSubVipReward(void * pDataBuffer, unsigned short wDataSize){
