@@ -683,6 +683,8 @@ void ClassicLobbyScene::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsig
 		}
 	}
 	break;
+	case SUB_GR_REQUEST_FAILURE:
+		break;
 	default:
 		break;
 	}

@@ -111,6 +111,7 @@ void PopDialogBoxSetUp::onMenuChangePassword(CCObject *object, TouchEventType ty
 void PopDialogBoxSetUp::onMenuChangeAccount(CCObject *object, TouchEventType type){
 	if (type == TOUCH_EVENT_ENDED)
 	{
+
 		Tools::setTransitionAnimation(0, 0, LogonScene::scene());
 	}
 }

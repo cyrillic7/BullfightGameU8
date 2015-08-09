@@ -12,8 +12,10 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIKnapsack.plist",
-    "UIUserInfo.plist"
+    "UIVip.plist",
+    "UILoadingBar.plist",
+    "UITask.plist",
+    "UIKnapsack.plist"
   ],
   "texturesPng": [],
   "version": "1.6.0.0",

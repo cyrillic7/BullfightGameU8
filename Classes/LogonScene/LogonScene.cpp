@@ -28,6 +28,8 @@ LogonScene::LogonScene()
 	:eLogonType(LOGON_ACCOUNT)
 	, isReadMessage(true)
 {
+	LobbyMsgHandler::sharedLobbyMsgHandler()->gameSocket.Destroy(true);
+
 	DataModel *m = DataModel::sharedDataModel();
 	CC_SAFE_RELEASE_NULL(m);
 
