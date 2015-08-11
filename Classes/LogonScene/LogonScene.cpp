@@ -621,6 +621,17 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			if (wDataSize < sizeof(CMD_MB_UpdateNotify)) return;
 			CMD_MB_UpdateNotify *lf = (CMD_MB_UpdateNotify*)pDataBuffer;
 			CCLOG("升级提示");
+			PopDialogBoxOtherLoading *pLoading = (PopDialogBoxOtherLoading*)this->getChildByTag(TAG_LOADING);
+			if (pLoading)
+			{
+				pLoading->removeFromParentAndCleanup(true);
+			}
+			
+			PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+			this->addChild(tipInfo);
+			tipInfo->setTipInfoContent(" 当前版本不是最新版！ ");
+
+
 		}
 		break;
 	case SUB_GP_LOBBY_IP:

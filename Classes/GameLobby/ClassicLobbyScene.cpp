@@ -575,6 +575,8 @@ void ClassicLobbyScene::onEventLogon(WORD wSubCmdID, void * pDataBuffer, unsigne
 		//CCLOG("升级提示 %d");
 		setGameItem(backGameItem);
 		CCLOG("升级提示:%ld  %ld  %ld<<%s>>", lf->dwCurrentClientVersion, lf->dwCurrentFrameVersion, lf->dwCurrentPlazaVersion, __FUNCTION__);
+	
+		
 	}
 	break;
 	case SUB_GR_LOGON_SUCCESS:
