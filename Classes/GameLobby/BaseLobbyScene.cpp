@@ -38,7 +38,6 @@ BaseLobbyScene::~BaseLobbyScene(){
 void BaseLobbyScene::onEnter(){
 	CCLayer::onEnter();
 	lobbyScene = this;
-	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("res/cloud.plist");
 	//添加背景
 	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
 	CCSprite *spriteBg=CCSprite::create("res/main_bg.jpg");
@@ -47,11 +46,6 @@ void BaseLobbyScene::onEnter(){
 	float scale=deviceSize.height/spriteBg->getContentSize().height;
 	spriteBg->setScale(scale);
 	//////////////////////////////////////////////////////////////////////////
-	//随机生成云
-	for (int i = 0; i < 5; i++)
-	{
-		createCloudRandom(spriteBg);
-	}
 	//////////////////////////////////////////////////////////////////////////
 	//粒子
 	CCParticleSystemQuad *emitter1 = CCParticleSystemQuad::create("particle/sakura.plist");
@@ -60,17 +54,6 @@ void BaseLobbyScene::onEnter(){
 	//emitter1->setDuration(10);                                      // 设置粒子系统的持续时间秒
 	spriteBg->addChild(emitter1, 1);
 	//////////////////////////////////////////////////////////////////////////
-	//门
-	CCSprite *pDoor = CCSprite::create("res/main_door.png");
-	spriteBg->addChild(pDoor, 2);
-	pDoor->setAnchorPoint(ccp(1,1));
-	pDoor->setPosition(ccp(SCENE_SIZE.width+2, SCENE_SIZE.height+2));
-
-	CCSprite *pDoor1 = CCSprite::create("res/main_door.png");
-	spriteBg->addChild(pDoor1, 2);
-	pDoor1->setAnchorPoint(ccp(1, 1));
-	pDoor1->setPosition(ccp(0-2, SCENE_SIZE.height+2));
-	pDoor1->setScaleX(-1);
 	//创建UI层
 	m_pWidgetBase = UILayer::create();
 	this->addChild(m_pWidgetBase);
@@ -334,41 +317,6 @@ void BaseLobbyScene::onCloseViewToShop(){
 //关闭跳转到VIP
 void BaseLobbyScene::onCloseViewToVip(){
 	popDialogBox(POP_VIP);
-}
-//随机生成云
-void BaseLobbyScene::createCloudRandom(CCSprite *pBg){
-	int indexCloud = abs(rand() % 2);
-	CCSprite *pCloud = CCSprite::createWithSpriteFrameName(CCString::createWithFormat("cloud_%d.png",indexCloud)->getCString());
-	pBg->addChild(pCloud);
-
-	int x = abs(rand() % (int)DataModel::sharedDataModel()->deviceSize.width);
-	int y =SCENE_SIZE.height-80 - (abs(rand() % 80));
-	pCloud->setPosition(ccp(x,y));
-
-	int speed = abs(rand() % 12) + 6;
-	int time = pCloud->getPositionX() / speed;
-	pCloud->runAction(CCSequence::create(
-		CCMoveTo::create(time,ccp(-pCloud->getContentSize().width/2,pCloud->getPositionY())),
-		CCCallFuncN::create(this,SEL_CallFuncN(&BaseLobbyScene::onMoveFinsh)),
-		NULL));
-}
-//
-void BaseLobbyScene::onMoveFinsh(CCNode *node){
-	node->stopAllActions();
-
-	int indexCloud = abs(rand() % 2);
-	CCSpriteFrame *frame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(CCString::createWithFormat("cloud_%d.png", indexCloud)->getCString());
-	((CCSprite*)node)->setDisplayFrame(frame);
-
-	node->setPositionX(node->getContentSize().width/2+DataModel::sharedDataModel()->deviceSize.width);
-	node->setPositionY(DataModel::sharedDataModel()->deviceSize.height - 80 - (abs(rand() % 80)));
-
-	int speed = abs(rand() % 12) + 6;
-	int time = node->getPositionX() / speed;
-	node->runAction(CCSequence::create(
-		CCMoveTo::create(time, ccp(-node->getContentSize().width / 2, node->getPositionY())),
-		CCCallFuncN::create(this, SEL_CallFuncN(&BaseLobbyScene::onMoveFinsh)),
-		NULL));
 }
 //关闭wap网站
 void BaseLobbyScene::closeWebView(){

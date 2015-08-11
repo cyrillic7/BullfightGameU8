@@ -67,7 +67,7 @@ void GameLobbyScene::onEnter(){
 	button = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonSetUp"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&GameLobbyScene::menuSetUp));*/
 	UIButton* button=NULL;
-	for (int i = 0; i < 4;i++)
+	for (int i = 0; i < 3;i++)
 	{
 		button = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("buttonMode%d",i+1)->getCString()));
 		button->addTouchEventListener(this, SEL_TouchEvent(&GameLobbyScene::menuSelectMode));

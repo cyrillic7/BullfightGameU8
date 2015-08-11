@@ -11,13 +11,13 @@
   "designWidth": 1136,
   "textures": [
     "UIGameLobby.plist",
-    "UIClassicLobby.plist",
-    "UIPanel.plist"
+    "UIUserInfo.plist",
+    "UIAuction.plist"
   ],
   "texturesPng": [
     "UIGameLobby.png",
-    "UIClassicLobby.png",
-    "UIPanel.png"
+    "UIUserInfo.png",
+    "UIAuction.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

@@ -74,10 +74,7 @@ private:
 	virtual void onCloseViewToVip();
 	//关闭窗口回调
 	virtual void onCloseView(){ isReadMessage = true; }
-	//随机生成云
-	void createCloudRandom(CCSprite *pBg);
-	//去回调
-	void onMoveFinsh(CCNode *node);
+	
 
 	//快速游戏
 	virtual void quickGame(){}
