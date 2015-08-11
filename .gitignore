@@ -1,5 +1,10 @@
 proj.win32/
-proj.android/
+proj.android/assets/
+proj.android/bin/
+proj.android/obj/
+proj.android/.settings/
+proj.android/gen/
+proj.android/libs/
 proj.ios/
 proj.linux/
 proj.blackberry/
@@ -16,3 +21,13 @@ proj.wp8-xaml/
 *.DS_Store
 */Backup
 *.Dir
+/proj.android/.classpath
+/proj.android/.cproject
+/proj.android/.project
+/proj.android/build_native.py
+/proj.android/build_native.sh
+/proj.android/proguard-project.txt
+/proj.android/project.properties
+/proj.android/README.md
+/proj.android/ant.properties
+/proj.android/build.xml
