@@ -1,6 +1,7 @@
 #pragma once
 
 #define kMusicHundred "music/BACK_GROUND.wav"                                 //百人牛牛背音乐
+#define kMusicOtherOx "music/ox_backbround.m4a"                                 //其它牛牛背音乐
 
 
 #define kSoundHundredAddGold "sound/ADD_GOLD"                                 //百人牛牛下注
