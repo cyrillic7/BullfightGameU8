@@ -12,6 +12,8 @@
 #include "../Tools/BaseAttributes.h"
 #include "../Play/CardLayer/CardLayerOneByOne.h"
 #include "../Play/PlayerLayer/PlayerLayerOneByOne.h"
+#include "../Tools/Tools.h"
+#include "../Tools/SoundConfig.h"
 MainSceneOxOneByOne::MainSceneOxOneByOne()
 {
 }
@@ -19,6 +21,16 @@ MainSceneOxOneByOne::~MainSceneOxOneByOne(){
 	CCLOG("~ <<%s>>", __FUNCTION__);
 	//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 
+	GUIReader::purge();
+	CCArmatureDataManager::purge();
+	CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
+	CCTextureCache::sharedTextureCache()->removeUnusedTextures();
+
+
+	BaseAttributes *b = BaseAttributes::sharedAttributes();
+	CC_SAFE_RELEASE_NULL(b);
+
+	Tools::stopMusic();
 	
 
 }
@@ -31,7 +43,8 @@ CCScene* MainSceneOxOneByOne::scene()
     return scene;
 }
 void MainSceneOxOneByOne::onEnter(){
-	//CCLayer::onEnter();
+	Tools::playMusic(kMusicOtherOx);
+
 	addBg();
 	initCardLayer();
 	//initPlayerLayer();
@@ -39,17 +52,8 @@ void MainSceneOxOneByOne::onEnter(){
 	initGameControl();
 }
 void MainSceneOxOneByOne::onExit(){
-    GUIReader::purge();
-    CCArmatureDataManager::purge();
-    CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
-    CCTextureCache::sharedTextureCache()->removeUnusedTextures();
-    
-    
-    BaseAttributes *b = BaseAttributes::sharedAttributes();
-    CC_SAFE_RELEASE_NULL(b);
-    
+
 	MainSceneBase::onExit();
-	//CCLayer::onExit();
 }
 void MainSceneOxOneByOne::addBg(){
 	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
