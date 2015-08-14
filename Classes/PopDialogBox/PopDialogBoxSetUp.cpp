@@ -15,6 +15,7 @@
 #include "PopDialogBoxAbout.h"
 #include "PopDialogBoxChangePassword.h"
 #include "../LogonScene/LogonScene.h"
+#include "../MTNotificationQueue/LobbyMsgHandler.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxSetUp::PopDialogBoxSetUp()
 {
@@ -111,8 +112,13 @@ void PopDialogBoxSetUp::onMenuChangePassword(CCObject *object, TouchEventType ty
 void PopDialogBoxSetUp::onMenuChangeAccount(CCObject *object, TouchEventType type){
 	if (type == TOUCH_EVENT_ENDED)
 	{
+		LobbyMsgHandler::sharedLobbyMsgHandler()->gameSocket.Destroy(true);
+		DataModel *m = DataModel::sharedDataModel();
+		CC_SAFE_RELEASE_NULL(m);
 
 		Tools::setTransitionAnimation(0, 0, LogonScene::scene());
+
+		
 	}
 }
 //音乐开关
