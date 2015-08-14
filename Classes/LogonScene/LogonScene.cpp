@@ -101,7 +101,14 @@ LogonScene::LogonScene()
 LogonScene::~LogonScene(){
 	CCLOG("~ <<%s>>", __FUNCTION__);
 	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_GAME);
-	
+	//移除对象
+	this->removeAllChildrenWithCleanup(true);
+	//清理数据
+	GUIReader::purge();
+	CCArmatureDataManager::purge();
+	//清理纹理
+	CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
+	CCTextureCache::sharedTextureCache()->removeUnusedTextures();
 }
 CCScene* LogonScene::scene()
 {
@@ -139,14 +146,7 @@ void LogonScene::onEnter(){
 	defaultLogon();
 }
 void LogonScene::onExit(){
-    //移除对象
-    this->removeAllChildrenWithCleanup(true);
-    //清理数据
-    GUIReader::purge();
-    CCArmatureDataManager::purge();
-    //清理纹理
-    CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
-    CCTextureCache::sharedTextureCache()->removeUnusedTextures();
+
 	CCLayer::onExit();
 }
 //初始化签到信息
