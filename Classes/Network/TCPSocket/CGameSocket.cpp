@@ -51,6 +51,7 @@ void CGameSocket::closeSocket()
 	closesocket(m_sockClient);
 	WSACleanup();
 #else
+	shutdown(m_sockClient,SHUT_RDWR);//避免延时卡住
 	close(m_sockClient);
 #endif
 	End();

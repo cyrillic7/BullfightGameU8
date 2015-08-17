@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
@@ -301,10 +302,18 @@ public class BullfightGame extends Cocos2dxActivity {
 					public void onClick(View v) {
 						if (iActionType == 200) {
 							JniQQLogin(0, "", "");
+							removeWebView();
 						} else if (iActionType == 201) {
-							JniOnActivity(CLOSE_VIEW);
+							 if(m_webView.canGoBack() ){ 
+								 m_webView.goBack();
+								 }else{
+									 JniOnActivity(CLOSE_VIEW);
+										removeWebView();
+								 }
+							
+							
 						}
-						removeWebView();
+						
 					}
 				});
 				/*
@@ -366,11 +375,7 @@ public class BullfightGame extends Cocos2dxActivity {
 	// 支付宝公钥
 	public static final String RSA_PUBLIC =
 	// "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB"
-
-	"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDeuP5VEpFYHf3FYaKVT606rofi"
-			+ "tDLzrfZNW6F98gSpngfeWVe8vxn4kgLPbMLsWZ+65GTfVhC6qAdT+ZZP3YxAqlkZ"
-			+ "iwRTiHrRqlWd2qq1Y1XxxN7mFtz4MQgV7pDFc3V/+7s1h7cr7EnBX6PC7yr3IUYQ"
-			+ "OKVZ5U9dWDFzBrjHSQIDAQAB";
+		"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB";
 
 	private static final int SDK_PAY_FLAG = 1;
 
@@ -480,7 +485,7 @@ public class BullfightGame extends Cocos2dxActivity {
 		// orderInfo += "&notify_url=" + "\"" +
 		// "http://pay.999qp.com/alipay/notify_url.aspx"
 		orderInfo += "&notify_url=" + "\""
-				+ "http://121.40.31.203:8019/alipay/notify_url.aspx" + "\"";
+				+ "http://121.40.231.233:8019/alipay/notify_url.aspx" + "\"";
 		// 服务接口名称， 固定值
 		orderInfo += "&service=\"mobile.securitypay.pay\"";
 		// 支付类型， 固定值
@@ -498,7 +503,7 @@ public class BullfightGame extends Cocos2dxActivity {
 		// 支付宝处理完请求后，当前页面跳转到商户指定页面的路径，可空
 		// orderInfo +=
 		// "&return_url=\"http://pay.999qp.com/alipay/return_url.aspx\"";
-		orderInfo += "&return_url=\"http://121.40.31.203:8019/alipay/return_url.aspx\"";
+		orderInfo += "&return_url=\"http://121.40.231.233:8019/alipay/return_url.aspx\"";
 		// 调用银行卡支付，需配置此参数，参与签名， 固定值 （需要签约《无线银行卡快捷支付》才能使用）
 		// orderInfo += "&paymethod=\"expressGateway\"";
 		return orderInfo;
@@ -527,14 +532,23 @@ public class BullfightGame extends Cocos2dxActivity {
 	 * 
 	 */
 	public String getOutTradeNo() {
-		SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss",
+		 UUID uuid = UUID.randomUUID();
+		 String key = uuid.toString();
+		 System.out.println("---TradeKey:"+key);
+			key = key.substring(0, 23);
+			key="MFB"+key;
+			System.out.println("---TradeResult:"+key);
+		/*SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss",
 				Locale.getDefault());
 		Date date = new Date();
 		String key = format.format(date);
 
 		Random r = new Random();
 		key = key + r.nextInt();
-		key = key.substring(0, 15);
+		System.out.println("---Tradekey:"+key);
+		key = key.substring(0, 23);
+		key="MFB"+key;
+		System.out.println("---Traderesult:"+key);*/
 		return key;
 	}
 

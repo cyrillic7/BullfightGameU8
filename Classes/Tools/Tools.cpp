@@ -3,7 +3,13 @@
 #include "DataModel.h"
 const char* Tools::s_cMusicPath = NULL;
 using namespace CocosDenshion;
+bool isTransitionIng = false;
 void Tools::setTransitionAnimation(int type, float time, CCScene *scene){
+	if (isTransitionIng)
+	{
+		return;
+	}
+	isTransitionIng = true;
 	switch (type) {
 	case 0:
 		CCDirector::sharedDirector()->replaceScene(scene);
@@ -20,6 +26,7 @@ void Tools::setTransitionAnimation(int type, float time, CCScene *scene){
 	default:
 		break;
 	}
+	isTransitionIng = false;
 }
 #pragma mark-
 #pragma mark暂停游戏

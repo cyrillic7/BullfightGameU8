@@ -32,7 +32,16 @@ GameLobbyScene::GameLobbyScene()
 }
 GameLobbyScene::~GameLobbyScene(){
 	CCLOG("~ <<%s>>", __FUNCTION__);
-    
+	unscheduleUpdate();
+	//
+	//移除对象
+	this->removeAllChildrenWithCleanup(true);
+	//清理数据
+	GUIReader::purge();
+	CCArmatureDataManager::purge();
+	//清理纹理
+	CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
+	CCTextureCache::sharedTextureCache()->removeUnusedTextures();
 }
 CCScene* GameLobbyScene::scene(bool showUpTip)
 {
@@ -144,16 +153,7 @@ void GameLobbyScene::showUpTip(){
 	tipInfo->setTipInfoContent(("长时间不操作，自动退出！"));
 }
 void GameLobbyScene::onExit(){
-    unscheduleUpdate();
-    //
-    //移除对象
-    this->removeAllChildrenWithCleanup(true);
-    //清理数据
-    GUIReader::purge();
-    CCArmatureDataManager::purge();
-    //清理纹理
-    CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
-    CCTextureCache::sharedTextureCache()->removeUnusedTextures();
+   
 	BaseLobbyScene::onExit();
 }
 void GameLobbyScene::menuResetUser(CCObject* pSender, TouchEventType type){

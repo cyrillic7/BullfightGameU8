@@ -12,6 +12,8 @@
 #include "../Tools/BaseAttributes.h"
 #include "../Play/CardLayer/CardLayerSixSwap.h"
 #include "../Play/PlayerLayer/PlayerLayerSixSwap.h"
+#include "../Tools/Tools.h"
+#include "../Tools/SoundConfig.h"
 MainSceneOxSixSwap::MainSceneOxSixSwap()
 {
 }
@@ -19,7 +21,15 @@ MainSceneOxSixSwap::~MainSceneOxSixSwap(){
 	CCLOG("~ <<%s>>", __FUNCTION__);
 	//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 	//GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
+	GUIReader::purge();
+	CCArmatureDataManager::purge();
+	CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
+	CCTextureCache::sharedTextureCache()->removeUnusedTextures();
 
+
+	BaseAttributes *b = BaseAttributes::sharedAttributes();
+	CC_SAFE_RELEASE_NULL(b);
+	Tools::stopMusic();
 }
 CCScene* MainSceneOxSixSwap::scene()
 {
@@ -34,6 +44,7 @@ CCScene* MainSceneOxSixSwap::scene()
 }
 void MainSceneOxSixSwap::onEnter(){
 	//CCLayer::onEnter();
+	Tools::playMusic(kMusicOtherOx);
 	addBg();
 	initCardLayer();
 	//initPlayerLayer();
@@ -41,18 +52,7 @@ void MainSceneOxSixSwap::onEnter(){
 	initGameControl();
 }
 void MainSceneOxSixSwap::onExit(){
-    
-    GUIReader::purge();
-    CCArmatureDataManager::purge();
-    CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
-    CCTextureCache::sharedTextureCache()->removeUnusedTextures();
-    
-    
-    BaseAttributes *b = BaseAttributes::sharedAttributes();
-    CC_SAFE_RELEASE_NULL(b);
-    
 	MainSceneBase::onExit();
-	//CCLayer::onExit();
 }
 void MainSceneOxSixSwap::addBg(){
 	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
