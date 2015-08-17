@@ -170,13 +170,18 @@ void GameControlOxSixSwap::onUserEnter(){
 	//std::map<long, tagUserInfo> tempTagUserInfo;w
 	//memcpy(&tempTagUserInfo, &DataModel::sharedDataModel()->mTagUserInfo, sizeof(DataModel::sharedDataModel()->mTagUserInfo));
 
+	if (isChangeChair)
+	{
+		return;
+	}
+
 	std::map<long, tagUserInfo> tempTagUserInfo = DataModel::sharedDataModel()->mTagUserInfo;
 	//memcpy(&tempTagUserInfo, &DataModel::sharedDataModel()->mTagUserInfo, sizeof(DataModel::sharedDataModel()->mTagUserInfo));
 
 	std::map<long, tagUserInfo>::iterator iterUser = tempTagUserInfo.find(DataModel::sharedDataModel()->userInfo->dwUserID);
 	if (iterUser != tempTagUserInfo.end())
 	{
-		if (iterUser->second.wChairID > 5 || iterUser->second.wChairID < 0)
+		if (iterUser->second.wChairID > 5 || iterUser->second.wChairID < 0 )
 		{
 			return;
 		}
@@ -187,7 +192,7 @@ void GameControlOxSixSwap::onUserEnter(){
 	std::map<long, tagUserInfo>::iterator iter;
 	for (iter = tempTagUserInfo.begin(); iter != tempTagUserInfo.end(); iter++)
 	{
-		if (iter->second.wChairID > 5 || iter->second.wChairID < 0)
+		if (iter->second.wChairID > 5 || iter->second.wChairID < 0 || iter->second.wTableID != DataModel::sharedDataModel()->userInfo->wTableID)
 		{
 			//tempTagUserInfo.erase(iter++);
 			continue;
@@ -861,6 +866,10 @@ bool GameControlOxSixSwap::OnSubGameBase(const void * pBuffer, WORD wDataSize)
 //用户准备
 void GameControlOxSixSwap::onUserReady(CMD_GR_UserStatus *info){
 	int indexPlayer = getViewChairID(info->UserStatus.wChairID);
+	if (indexPlayer < 0||isChangeChair)
+	{
+		return;
+	}
 	getMainScene()->playerLayer->pPlayerData[indexPlayer]->showActionType(PlayerData::ACTION_READY);
 }
 //隐藏用户
@@ -869,7 +878,7 @@ void GameControlOxSixSwap::hidePlayer(CMD_GR_UserStatus *userInfo){
 	if (iterUser != DataModel::sharedDataModel()->mTagUserInfo.end())
 	{
 		getMainScene()->playerLayer->pPlayerData[getViewChairID(iterUser->second.wChairID)]->hidePlayer();
-		DataModel::sharedDataModel()->mTagUserInfo.erase(userInfo->dwUserID);
+		//DataModel::sharedDataModel()->mTagUserInfo.erase(userInfo->dwUserID);
 	}
 }
 //用户叫庄

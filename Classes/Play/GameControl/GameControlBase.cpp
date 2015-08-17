@@ -34,6 +34,13 @@ GameControlBase::GameControlBase()
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationGameIng.ExportJson));
 	schedule(SEL_SCHEDULE(&GameControlBase::updateTimer), 1);
 	scheduleUpdate();
+
+
+	CCLabelTTF *label = CCLabelTTF::create("", "Marker Felt", 20);
+	this->addChild(label, 2, 999);
+	label->setColor(ccc3(255, 0, 0));
+	label->setPosition(ccp(0, DataModel::sharedDataModel()->deviceSize.height));
+	label->setAnchorPoint(ccp(0, 1));
 }
 GameControlBase::~GameControlBase(){
 	unschedule(SEL_SCHEDULE(&GameControlBase::updateTimer));
@@ -189,6 +196,10 @@ void GameControlBase::hideTimer(bool bIsReset){
 	}
 }
 void GameControlBase::updateTimer(float dt){
+	if (isChangeChair)
+	{
+		return;
+	}
 	iTimerCount--;
 	if (iTimerCount < 0)
 	{
@@ -358,6 +369,8 @@ void GameControlBase::menuChangeChair(CCObject* pSender, TouchEventType type){
 			getMainScene()->playerLayer->pPlayerData[i]->hidePlayer();
 		}
 		pPanelReady->setEnabled(false);
+
+		iTimerCount = MAX_TIMER;
 		/*std::map<long, tagUserInfo>::iterator iterUser = DataModel::sharedDataModel()->mTagUserInfo.find(userInfo->dwUserID);
 		if (iterUser != DataModel::sharedDataModel()->mTagUserInfo.end())
 		{
@@ -368,7 +381,7 @@ void GameControlBase::menuChangeChair(CCObject* pSender, TouchEventType type){
 		iTimerCount = MAX_TIMER;
 
 
-		DataModel::sharedDataModel()->mTagUserInfo.clear();
+		//DataModel::sharedDataModel()->mTagUserInfo.clear();
 
 
 		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GR_USER, SUB_GR_CHANGE_TABLE);
@@ -715,6 +728,8 @@ void GameControlBase::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void *
 }
 //断开连接
 void GameControlBase::onUnconnect(WORD wSubCmdID){
+	getMainScene()->removeLoadingLayer();
+
 	PopDialogBoxTipInfo *pTipInfo = PopDialogBoxTipInfo::create();
 	this->addChild(pTipInfo, K_Z_ORDER_POP);
 	pTipInfo->setTipInfoContent("与服务器断开连接");
@@ -1390,6 +1405,29 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 				//CCLOG("======================坐下:table: %d desk:%d", info->UserStatus.wTableID, info->UserStatus.wChairID);
 				DataModel::sharedDataModel()->userInfo->wTableID = info->UserStatus.wTableID;
 				DataModel::sharedDataModel()->userInfo->wChairID = info->UserStatus.wChairID;
+
+				CCLabelTTF *label = (CCLabelTTF*)this->getChildByTag(999);
+				label->setString(CCString::createWithFormat("table::%d",DataModel::sharedDataModel()->userInfo->wTableID+1)->getCString());
+				for (int i = 0; i < 6; i++) 
+				{
+					getMainScene()->playerLayer->pPlayerData[i]->hidePlayer();
+				}
+				//删除不是同桌
+				std::map<long, tagUserInfo>::iterator iter;
+				for (iter = DataModel::sharedDataModel()->mTagUserInfo.begin(); iter != DataModel::sharedDataModel()->mTagUserInfo.end();)
+				{
+					if (iter->second.wTableID != DataModel::sharedDataModel()->userInfo->wTableID)
+					{
+						//CCLOG("erase=----------------------------------======================================= %d<<%s>>", getViewChairID(iter->second.wChairID), __FUNCTION__);
+						//getMainScene()->playerLayer->pPlayerData[getViewChairID(iter->second.wChairID)]->hidePlayer();
+						DataModel::sharedDataModel()->mTagUserInfo.erase(iter++);
+					}
+					else
+					{
+						iter++;
+					}
+				}
+				onUserEnter();
 				if (getMainScene()->getGameState() == MainSceneBase::STATE_OBSERVER)
 				{
 					isChangeChair = false;
@@ -1410,6 +1448,7 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 			{
 
 			}
+			
 		}
 		break;
 		case US_FREE://站立
@@ -1661,7 +1700,7 @@ void GameControlBase::standUpWithExit(){
 	else
 	{
 		getMainScene()->addLoadingLayer("");
-		//CCLOG("-------userStandUp.wChairID :%d<<%s>>", userStandUp.wChairID, __FUNCTION__);
+		CCLOG("-------Exit=== tableID:%d ChairID :%d<<%s>>",userStandUp.wTableID, userStandUp.wChairID, __FUNCTION__);
 		//发送消息
 		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GR_USER, SUB_GR_USER_STANDUP, &userStandUp, sizeof(userStandUp));
 	}
