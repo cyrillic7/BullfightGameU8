@@ -163,7 +163,7 @@ void BaseLobbyScene::popDialogBox(PopType type){
 #else
 		m_pWidget->setTouchEnabled(false);
 		m_pWidgetBase->setTouchEnabled(false);
-		platformAction("{\"act\":201 ,\"url\":\"http://www.baidu.com/\"}").c_str();
+		platformAction("{\"act\":201 ,\"url\":\"http://121.40.31.203:8010/\"}").c_str();
 #endif
 		//pdb = PopDialogBoxActivity::create();
 	}
