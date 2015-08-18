@@ -188,18 +188,23 @@
 
 
 -(void) backClicked:(id)sender {
+    if([mWebView canGoBack]&&mLayerWebView->iCurAction==201){
+        [mWebView goBack];
+    }else
+    {
+        mWebView.delegate = nil; //keep the webview from firing off any extra messages
+        
+        //remove items from the Superview...just to make sure they're gone
+        
+        [mToolbar removeFromSuperview];
+        
+        [mWebView removeFromSuperview];
+        
+        [mView removeFromSuperview];
+        
+        mLayerWebView->onBackbuttonClick();
+    }
     
-    mWebView.delegate = nil; //keep the webview from firing off any extra messages
-    
-    //remove items from the Superview...just to make sure they're gone
-    
-    [mToolbar removeFromSuperview];
-    
-    [mWebView removeFromSuperview];
-    
-    [mView removeFromSuperview];
-    
-    mLayerWebView->onBackbuttonClick();
     
 }
 
