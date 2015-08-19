@@ -17,14 +17,7 @@
     "UITask.plist",
     "UIKnapsack.plist"
   ],
-  "texturesPng": [
-    "UIPanel.png",
-    "UIButton.png",
-    "UIVip.png",
-    "UILoadingBar.png",
-    "UITask.png",
-    "UIKnapsack.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -1842,7 +1835,7 @@
               "areaWidth": 300,
               "fontFile": null,
               "fontName": "微软雅黑",
-              "fontSize": 19,
+              "fontSize": 17,
               "hAlignment": 0,
               "text": "",
               "touchScaleEnable": false,

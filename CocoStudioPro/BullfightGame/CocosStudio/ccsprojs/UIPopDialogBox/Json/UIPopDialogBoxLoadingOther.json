@@ -17,14 +17,7 @@
     "UITask.plist",
     "UIKnapsack.plist"
   ],
-  "texturesPng": [
-    "UIPanel.png",
-    "UIButton.png",
-    "UIVip.png",
-    "UILoadingBar.png",
-    "UITask.png",
-    "UIKnapsack.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
