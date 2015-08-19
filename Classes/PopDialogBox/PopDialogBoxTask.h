@@ -37,6 +37,8 @@ private:
 	//////////////////////////////////////////////////////////////////////////
 	//网络数据
 	virtual void onEventReadMessageLobby(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
+	//断开连接
+	void onUnconnect(WORD wSubCmdID);
 	//任务
 	void onEventTask(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
 	//任务列表

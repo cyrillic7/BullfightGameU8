@@ -16,4 +16,5 @@
 //#define S_L_US_ENTER								"userEnter"						//用户进入
 #define UPDATE_LIST								"updateList"						//刷新百人牛牛趋势列表
 #define UPDATE_BANK_LIST						"updateBankList"				//刷新百人牛牛庄家列表
+#define S_L_COLSE_GAMEING_UPDATE				"closeGameIngUpdate"			//关闭刷新升级
 

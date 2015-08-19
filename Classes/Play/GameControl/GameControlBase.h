@@ -233,6 +233,9 @@ private:
 	
 	//显示结算（）
 	virtual void showResultAnimation(){};
+
+	//////////////////////////////////////////////////////////////////////////
+	void onCloseGameIngUpdate(CCObject *pObj);
 };
 
 #endif /* defined(__BullfightGame__GameHUD__) */

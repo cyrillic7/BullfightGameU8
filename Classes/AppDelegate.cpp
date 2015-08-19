@@ -111,7 +111,7 @@ extern "C"
 #endif
 
 
-	//java 调用(签名验证)
+	//java 调用()
 	JNIEXPORT void JNICALL Java_com_xw_BullfightGame_BullfightGame_JniOnActivity(JNIEnv* env, jobject job, jint type)
 	{
 		switch (type)

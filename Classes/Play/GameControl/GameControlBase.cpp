@@ -124,7 +124,7 @@ void GameControlBase::onEnter(){
 	initTimer(pWidget);
 	resetTimer(MAX_TIMER, NULL);
 	//添加监听事件
-	//CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(BaseGameControl::OnEventGameMessage),S_L_GAME_ING,NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(GameControlBase::onCloseGameIngUpdate), S_L_COLSE_GAMEING_UPDATE, NULL);
 	//	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(GameControlBase::OnUserFree), S_L_US_FREE, NULL);
 	//	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(GameControlBase::OnUserEnter), S_L_US_ENTER, NULL);
 	//主动调用一次
@@ -136,10 +136,14 @@ void GameControlBase::onEnter(){
 }
 void GameControlBase::onExit(){
 	//移除监听事件 
-	//CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_GAME_ING); 
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_COLSE_GAMEING_UPDATE); 
 	//CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_US_FREE);
 	//CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, S_L_US_ENTER);
 	CCLayer::onExit();
+}
+void GameControlBase::onCloseGameIngUpdate(CCObject *pObj){
+	unschedule(SEL_SCHEDULE(&GameControlBase::updateTimer));
+	unscheduleUpdate();
 }
 //初始化操作者提示动画
 void GameControlBase::initActionPrompt(){
