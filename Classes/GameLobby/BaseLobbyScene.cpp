@@ -97,8 +97,8 @@ void BaseLobbyScene::onEnter(){
 	button = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonRecharge"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
 	//立即游戏
-	UIButton *pBStartGame = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonStartGame"));
-	pBStartGame->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuQuickGame));
+	//UIButton *pBStartGame = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonStartGame"));
+	//pBStartGame->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuQuickGame));
 	//绑定VIP
 	UIImageView *pIVip = static_cast<UIImageView*>(m_pWidgetBase->getWidgetByName("ImageVip"));
 	pIVip->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuVip));

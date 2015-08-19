@@ -19,13 +19,15 @@
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <imageFileList>
-    <string>UIMode.plist</string>
     <string>UIGameLobby.plist</string>
+    <string>UIUserInfo.plist</string>
+    <string>UIAuction.plist</string>
   </imageFileList>
   <imagePngList>
-    <string>UIMode.png</string>
     <string>UIGameLobby.png</string>
+    <string>UIUserInfo.png</string>
+    <string>UIAuction.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIGameLobby.json</CurrentUIJson>
+  <CurrentUIJson>UIBaseLobby.json</CurrentUIJson>
 </UIProject>
