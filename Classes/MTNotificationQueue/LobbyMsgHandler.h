@@ -5,8 +5,10 @@
 /************************************************************************/
 #include "cocos2d.h"
 #include "../Network/TCPSocket/CGameSocket.h"
+#include "../PopDialogBox/PopDialogBoxTipInfo.h"
+#include "../Tools/CStringAide.h"
 USING_NS_CC;
-class LobbyMsgHandler:public CCNode,public IGameSocket{
+class LobbyMsgHandler :public CCNode, public IGameSocket, public CStringAide,public IPopAssistTipInfo{
 public:
 	CGameSocket gameSocket;
 public:
@@ -18,6 +20,8 @@ public:
 	void connectServer(std::string sLobbyIp, long lLobbyProt);
 
 private:
+	//关闭回调
+	virtual void onCloseTipInfo(CCLayer *pTipInfo);
 	//网络回调////////////////////////////////////////////////////////////////////////
 	virtual void onOpen();
 	virtual void onError(const char* e);

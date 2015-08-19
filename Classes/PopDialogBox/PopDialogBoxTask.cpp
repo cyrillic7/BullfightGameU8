@@ -234,6 +234,9 @@ void PopDialogBoxTask::update(float delta){
 void PopDialogBoxTask::onEventReadMessageLobby(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
 	switch (wMainCmdID)
 	{
+	case MDM_MB_UNCONNECT:
+		onUnconnect(wSubCmdID);
+		break;
 	case MDM_GL_C_DATA:
 	{
 		onEventTask(wSubCmdID, pDataBuffer, wDataSize);
@@ -243,6 +246,15 @@ void PopDialogBoxTask::onEventReadMessageLobby(WORD wMainCmdID, WORD wSubCmdID, 
 		CCLOG("main:%d %d<<%s>>",wMainCmdID,wSubCmdID, __FUNCTION__);
 		break;
 	}
+}
+//断开连接
+void PopDialogBoxTask::onUnconnect(WORD wSubCmdID){
+	if (this->getChildByTag(TAG_LOADING))
+	{
+		//移除loading
+		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+	}
+	showTipInfo("与服务器断开连接");
 }
 //任务
 void PopDialogBoxTask::onEventTask(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){

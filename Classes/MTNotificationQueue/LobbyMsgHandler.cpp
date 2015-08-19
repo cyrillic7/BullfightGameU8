@@ -2,8 +2,12 @@
 
 #include "LobbyMsgHandler.h"
 #include "../Tools/DataModel.h"
+#include "../Tools/Tools.h"
+#include "../LogonScene/LogonScene.h"
 #include "../Network/MD5/MD5.h"
 #include "../MTNotificationQueue/MessageQueueLobby.h"
+#include "../MTNotificationQueue/MTNotificationQueue.h"
+#include "../Network/SEvent.h"
 LobbyMsgHandler* _sharedSocketControl;
 LobbyMsgHandler::LobbyMsgHandler()
 {
@@ -49,14 +53,22 @@ void LobbyMsgHandler::onOpen(){
 	CCLOG("open <<%s>>", __FUNCTION__);
 }
 void LobbyMsgHandler::onError(const char* sError){
-
+	ReadData rData;
+	rData.wMainCmdID = MDM_MB_UNCONNECT;
+	rData.wSubCmdID = SUB_MB_SOCKET_NETWORK_ERROR;
+	rData.wDataSize = 0;
+	memcpy(rData.sReadData, 0, 0);
+	//MessageQueue::pushQueue(rData);
+	MessageQueueLobby::pushQueue(rData);
 }
 bool LobbyMsgHandler::onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
 	//onEventReadMessage(wMainCmdID, wSubCmdID, pDataBuffer, wDataSize);
 	if (wMainCmdID == MDM_GL_C_DATA)
 	{
-		if (wSubCmdID == SUB_GL_C_TASK_LOAD
-			|| wSubCmdID == SUB_GL_C_TASK_REWARD)
+		switch (wSubCmdID)
+		{
+		case SUB_GL_C_TASK_LOAD:
+		case SUB_GL_C_TASK_REWARD:
 		{
 			ReadData rData;
 			rData.wMainCmdID = wMainCmdID;
@@ -65,7 +77,8 @@ bool LobbyMsgHandler::onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuf
 			memcpy(rData.sReadData, pDataBuffer, wDataSize);
 			MessageQueueLobby::pushQueue(rData);
 		}
-		else if (wSubCmdID == SUB_GL_C_MESSAGE)//消息
+			break;
+		case SUB_GL_C_MESSAGE://消息
 		{
 			CMD_GL_MsgNode *msgNode = (CMD_GL_MsgNode*)pDataBuffer;
 
@@ -79,12 +92,43 @@ bool LobbyMsgHandler::onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuf
 			{
 				DataModel::sharedDataModel()->vecMyMsg.push_back(msg);
 			}
-			CCLOG("msg main:%d sub:%d %s<<%s>>", wMainCmdID, wSubCmdID,(msgNode->szMsgcontent), __FUNCTION__);
+			//CCLOG("msg main:%d sub:%d %s<<%s>>", wMainCmdID, wSubCmdID, (msgNode->szMsgcontent), __FUNCTION__);
 		}
-		else
+			break;
+		case SUB_GL_C_SYSTEM_MESSAGE://大厅系统消息(被迫下线，被挤掉)
+		{
+			CMD_GL_SystemMessage* info = (CMD_GL_SystemMessage*)pDataBuffer;
+			if (info->wType & SMT_CLOSE_HALL)//
+			{
+				GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
+				gameSocket.Destroy(true);
+				MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_COLSE_GAMEING_UPDATE, NULL);
+
+				PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+				CCDirector::sharedDirector()->getRunningScene()->addChild(tipInfo,10000);
+				tipInfo->setTipInfoContent(GBKToUTF8(info->szString).c_str());
+				tipInfo->setIPopAssistTipInfo(this);
+			}
+
+		}
+			break;
+
+		default:
 		{
 			CCLOG("else main:%d sub:%d <<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
 		}
+			break;
+		}
 	}
 	return true;
+}
+//关闭回调
+void LobbyMsgHandler::onCloseTipInfo(CCLayer *pTipInfo){
+	DataModel *m = DataModel::sharedDataModel();
+	CC_SAFE_RELEASE_NULL(m);
+
+	pTipInfo->removeAllChildrenWithCleanup(true);
+
+
+	Tools::setTransitionAnimation(0, 0, LogonScene::scene());
 }

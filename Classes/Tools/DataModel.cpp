@@ -32,7 +32,15 @@ DataModel::~DataModel() {
 	CCLOG("~ <<%s>>",__FUNCTION__);
 	m_aTagGameKind->removeAllObjects();
 	m_aTagGameKind->release();
-
+	while (readDataQueueGameIng.size()>0)
+	{
+		readDataQueueGameIng.pop();
+	}
+	while (readDataQueueLobby.size() > 0)
+	{
+		readDataQueueLobby.pop();
+	}
+	
 	//CC_SAFE_DELETE(logonSuccessUserInfo);
 	CC_SAFE_DELETE(userInfo);
 	removeTagGameServerList(tagGameServerListOxTwo);

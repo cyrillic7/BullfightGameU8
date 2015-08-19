@@ -1459,6 +1459,7 @@ struct CMD_MB_UpdateNotify
 //任务
 #define MDM_GL_C_DATA					1								//大厅--客户端数据
 #define SUB_GL_C_LOGON_ACCOUNTS	 		100								//帐号登录
+#define SUB_GL_C_SYSTEM_MESSAGE			112								//大厅消息
 #define SUB_GL_C_MESSAGE				113								//消息
 #define	SUB_GL_C_TASK_LOAD				114								//加载任务
 #define	SUB_GL_C_TASK_REWARD			115								//领取奖励
@@ -1584,6 +1585,15 @@ struct CMD_GL_MsgNode
 	DWORD				dwIsNotify;
 	TCHAR				szTitle[MSG_TITLE];
 	TCHAR				szMsgcontent[MSG_MESSAGE_LEN];
+};
+
+#define SMT_CLOSE_HALL				0x0800								//大厅关闭(被挤掉)
+//系统消息(多平台登录挤掉)
+struct CMD_GL_SystemMessage
+{
+	WORD							wType;								//消息类型
+	WORD							wLength;							//消息长度
+	TCHAR							szString[1024];						//消息内容
 };
 #pragma pack()
 
