@@ -12,13 +12,12 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
+    "UIVip.plist",
+    "UILoadingBar.plist",
+    "UITask.plist",
     "UIKnapsack.plist"
   ],
-  "texturesPng": [
-    "UIPanel.png",
-    "UIButton.png",
-    "UIKnapsack.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -52,7 +51,7 @@
               "layoutParameter": null,
               "opacity": 255,
               "positionPercentX": 0.46714285,
-              "positionPercentY": 0.457858652,
+              "positionPercentY": 0.45558086,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -226,7 +225,7 @@
               "layoutParameter": null,
               "opacity": 255,
               "positionPercentX": 0,
-              "positionPercentY": 0.48063764,
+              "positionPercentY": 0.4783599,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -722,7 +721,7 @@
               "layoutParameter": null,
               "opacity": 255,
               "positionPercentX": 0.262857139,
-              "positionPercentY": -0.0136674251,
+              "positionPercentY": -0.0113895219,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -2007,7 +2006,7 @@
               "layoutParameter": null,
               "opacity": 255,
               "positionPercentX": -0.4557143,
-              "positionPercentY": -0.42369017,
+              "positionPercentY": -0.4214123,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,

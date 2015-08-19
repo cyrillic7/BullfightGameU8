@@ -11,12 +11,13 @@
   "designWidth": 1136,
   "textures": [
     "UIPanel.plist",
-    "UIButton.plist"
+    "UIButton.plist",
+    "UIVip.plist",
+    "UILoadingBar.plist",
+    "UITask.plist",
+    "UIKnapsack.plist"
   ],
-  "texturesPng": [
-    "UIPanel.png",
-    "UIButton.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
