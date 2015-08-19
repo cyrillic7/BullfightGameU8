@@ -10,6 +10,7 @@
 #include "../Tools/GameConfig.h"
 #include "../Tools/Tools.h"
 #include "../Tools/BaseAttributes.h"
+#include "../GameLobby/BaseLobbyScene.h"
 #include "PopDialogBoxLoading.h"
 
 //#include "../Network/ListernerThread/LogonGameListerner.h"
@@ -1041,6 +1042,10 @@ void PopDialogBoxAuction::onSubBuyAuction(void * pDataBuffer, unsigned short wDa
 			vecAuctionInfo.erase(k);
 		}
 		updateListAuctionInfo();
+		
+		DataModel::sharedDataModel()->userInfo->lScore = pBuyAuction->lGold;
+		((BaseLobbyScene*)this->getParent())->pLabelGoldCount->setText(CCString::createWithFormat("%lld", DataModel::sharedDataModel()->userInfo->lScore)->getCString());
+
 
 		setAgainGetData(AGAIN_MY_AUCTION_GOODS);
 	}
