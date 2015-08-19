@@ -17,7 +17,7 @@ bool RotateMenu::init(){
 	listener->onTouchEnded = CC_CALLBACK_2(RotateMenu::onTouchEnded, this);
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);*/
 	this->setTouchEnabled(true);
-	this->setTouchPriority(0);
+	this->setTouchPriority(1);
 	this->setTouchMode(kCCTouchesOneByOne);
 	return true;
 };
