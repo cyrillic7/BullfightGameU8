@@ -7,119 +7,80 @@
             <key>mode0.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{291,2},{277,293}}</string>
+                <string>{{2,2},{293,611}}</string>
                 <key>offset</key>
-                <string>{0,-10}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{5,27},{277,293}}</string>
+                <string>{{0,0},{293,611}}</string>
                 <key>sourceSize</key>
-                <string>{287,327}</string>
+                <string>{293,611}</string>
             </dict>
             <key>mode0_press.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{287,305}}</string>
+                <string>{{290,615},{285,399}}</string>
                 <key>offset</key>
-                <string>{0,-10}</string>
+                <string>{-4,-12}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,21},{287,305}}</string>
+                <string>{{0,118},{285,399}}</string>
                 <key>sourceSize</key>
-                <string>{287,327}</string>
+                <string>{293,611}</string>
             </dict>
             <key>mode1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{602,269},{237,253}}</string>
+                <string>{{591,2},{292,611}}</string>
                 <key>offset</key>
-                <string>{-1,-28}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{24,65},{237,253}}</string>
+                <string>{{0,0},{292,611}}</string>
                 <key>sourceSize</key>
-                <string>{287,327}</string>
+                <string>{292,611}</string>
             </dict>
             <key>mode1_press.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{570,2},{245,265}}</string>
+                <string>{{2,615},{286,399}}</string>
                 <key>offset</key>
-                <string>{0,-28}</string>
+                <string>{-3,-13}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{21,59},{245,265}}</string>
+                <string>{{0,119},{286,399}}</string>
                 <key>sourceSize</key>
-                <string>{287,327}</string>
+                <string>{292,611}</string>
             </dict>
             <key>mode2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,309},{217,293}}</string>
+                <string>{{297,2},{292,611}}</string>
                 <key>offset</key>
-                <string>{-3,-11}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{32,28},{217,293}}</string>
+                <string>{{0,0},{292,611}}</string>
                 <key>sourceSize</key>
-                <string>{287,327}</string>
+                <string>{292,611}</string>
             </dict>
             <key>mode2_press.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{297,297},{229,303}}</string>
+                <string>{{577,615},{284,399}}</string>
                 <key>offset</key>
-                <string>{-3,-12}</string>
+                <string>{-4,-13}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{26,24},{229,303}}</string>
+                <string>{{0,119},{284,399}}</string>
                 <key>sourceSize</key>
-                <string>{287,327}</string>
-            </dict>
-            <key>shade0.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{900,2},{276,49}}</string>
-                <key>offset</key>
-                <string>{0,-10}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{0,25},{276,49}}</string>
-                <key>sourceSize</key>
-                <string>{276,79}</string>
-            </dict>
-            <key>shade1.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{841,252},{262,57}}</string>
-                <key>offset</key>
-                <string>{-1,-6}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{6,17},{262,57}}</string>
-                <key>sourceSize</key>
-                <string>{276,79}</string>
-            </dict>
-            <key>shade2.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{817,2},{248,77}}</string>
-                <key>offset</key>
-                <string>{0,1}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{14,0},{248,77}}</string>
-                <key>sourceSize</key>
-                <string>{276,79}</string>
+                <string>{292,611}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -129,9 +90,9 @@
             <key>realTextureFileName</key>
             <string>UIMode.png</string>
             <key>size</key>
-            <string>{951,528}</string>
+            <string>{885,1016}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:1352c2b1cec7fb392a6a316da84d7d9d:c86d5b1622044e4c52d5ac005ac9a922:78030c5705e793599322997a92e2e31c$</string>
+            <string>$TexturePacker:SmartUpdate:b95143134007e1cead6bb22cc1a397b9:163fcf4cc35db794c972ad98465b99c8:78030c5705e793599322997a92e2e31c$</string>
             <key>textureFileName</key>
             <string>UIMode.png</string>
         </dict>

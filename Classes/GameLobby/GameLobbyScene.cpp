@@ -9,6 +9,7 @@
 #include "../Tools/Tools.h"
 #include "../Tools/GameConfig.h"
 #include "../Tools/BaseAttributes.h"
+#include "../Tools/RotateMenu.h"
 #include "../PopDialogBox/PopDialogBoxUserInfo.h"
 #include "../PopDialogBox/PopDialogBoxLoading.h"
 #include "../PopDialogBox/PopDialogBoxTipInfo.h"
@@ -83,7 +84,7 @@ void GameLobbyScene::onEnter(){
 	}
 	scroll=static_cast<UIScrollView*>(m_pWidget->getWidgetByName("ScrollView"));
 	scroll->setInnerContainerSize(scroll->getContentSize());
-
+	scroll->setEnabled(false);
 
 	//Tools::iconv_convert(&DataModel::sharedDataModel()->userInfo->szNickName, sizeof(DataModel::sharedDataModel()->userInfo->szNickName), "GBK", &DataModel::sharedDataModel()->userInfo->szNickName, sizeof(DataModel::sharedDataModel()->userInfo->szNickName), "UTF-8");
 	std::string nickName = Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName);
@@ -128,6 +129,44 @@ void GameLobbyScene::onEnter(){
 		CSocketControl::sharedSocketControl()->getTCPSocket(SOCKET_LOBBY)->SendData(MDM_GL_C_DATA, SUB_GL_MB_LOGON_ACCOUNTS, &LogonAccounts, sizeof(LogonAccounts));
 		CSocketControl::sharedSocketControl()->startSendThread();
 	}*/
+	//旋转菜单////////////////////////////////////////////////////////////////////////
+	RotateMenu *menu = RotateMenu::create();
+	for (int i = 0; i < 3; i++)
+	{
+		menu->addMenuItem(createMenuItem(i));
+	}
+	menu->setPosition(DataModel::sharedDataModel()->deviceSize / 2);
+	menu->setPositionY(menu->getPositionY() + 30);
+	this->addChild(menu);
+}
+CCMenuItemSprite *GameLobbyScene::createMenuItem(int index){
+	CCSprite * selectedSprite = CCSprite::createWithSpriteFrameName(CCString::createWithFormat("mode%d.png", index)->getCString());
+	CCSprite * normalSprite = CCSprite::createWithSpriteFrameName(CCString::createWithFormat("mode%d_press.png", index)->getCString());
+	
+	//CCSize deviceSize = DataModel::sharedDataModel()->deviceSize;
+	//float scale = selectedSprite->getContentSize().height / deviceSize.height;
+	
+	//selectedSprite->setScale(scale);
+	//normalSprite->setScale(scale);
+
+
+	CCMenuItemSprite *pItem = CCMenuItemSprite::create(normalSprite, selectedSprite, this, menu_selector(GameLobbyScene::onMenuStartGame));
+	pItem->setTag(index + 1);
+	return pItem;
+}
+//开始游戏
+void GameLobbyScene::onMenuStartGame(cocos2d::CCObject* pSender){
+	CCMenuItemSprite *button = (CCMenuItemSprite*)pSender;
+	if (button->getTag() < 3)
+	{
+		enterLobbyByMode(button->getTag());
+	}
+	else
+	{
+		PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+		this->addChild(tipInfo);
+		tipInfo->setTipInfoContent(BaseAttributes::sharedAttributes()->sWaitCodeing.c_str());
+	}
 }
 //显示签到
 bool GameLobbyScene::isShowSign(){

@@ -1,0 +1,53 @@
+#ifndef __ROTA__TE_MENU_H__
+#define __ROTA__TE_MENU_H__
+#include "cocos2d.h"
+/*
+*模仿乱斗西游主界面的旋转菜单
+*/
+class RotateMenu :public cocos2d::CCLayer{
+public:
+	//构造方法
+	CREATE_FUNC(RotateMenu);
+	//添加菜单项
+	void addMenuItem(cocos2d::CCMenuItem *item);
+	//更新位置
+	void updatePosition();
+	//更新位置，有动画
+	void updatePositionWithAnimation();
+	//位置矫正  修改角度 forward为移动方向  当超过1/3，进1
+	//true 为正向  false 负
+	void rectify(bool forward);
+	//初始化
+	virtual bool init();
+	//重置  操作有旋转角度设为0
+	void reset();
+private:
+	//设置角度 弧度
+	void setAngle(float angle);
+	float getAngle();
+	//设置单位角度 弧度
+	void setUnitAngle(float angle);
+	float getUnitAngle();
+	//滑动距离转换角度,转换策略为  移动半个Menu.width等于_unitAngle
+	float disToAngle(float dis);
+	//返回被选中的item
+	cocos2d::CCMenuItem * getCurrentItem();
+private:
+	//菜单已经旋转角度 弧度
+	float _angle;
+	//菜单项集合,_children顺序会变化，新建数组保存顺序
+	std::vector<cocos2d::CCMenuItem *> _items;
+	//单位角度 弧度
+	float _unitAngle;
+	//监听函数
+	virtual bool ccTouchBegan(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
+	virtual void ccTouchEnded(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
+	virtual void ccTouchMoved(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
+	//动画完结调用函数
+	void actionEndCallBack(float dx);
+	//当前被选择的item
+	cocos2d::CCMenuItem *_selectedItem;
+	//动画运行时间
+	float animationDuration = 0.3f;
+};
+#endif

@@ -51,6 +51,8 @@ private:
 	void menuSelectMode(CCObject* pSender, TouchEventType type);
 	//
 	void enterLobbyByMode(int mode);
+	//开始游戏
+	void onMenuStartGame(cocos2d::CCObject* pSender);
 	//更新
 	void update(float delta);
 	//读取网络消息回调事件
@@ -72,4 +74,6 @@ private:
 
 	//快速游戏
 	virtual void quickGame();
+	//创建菜单
+	CCMenuItemSprite *createMenuItem(int index);
 };
