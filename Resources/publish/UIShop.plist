@@ -7,7 +7,7 @@
             <key>u_auction_small_list_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{231,465},{19,45}}</string>
+                <string>{{220,466},{19,45}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,20 +20,20 @@
             <key>u_shop_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,268},{227,636}}</string>
+                <string>{{2,269},{216,639}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{227,636}}</string>
+                <string>{{0,0},{216,639}}</string>
                 <key>sourceSize</key>
-                <string>{227,636}</string>
+                <string>{216,639}</string>
             </dict>
             <key>u_shop_cell_b.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{145,1001},{10,59}}</string>
+                <string>{{145,1005},{10,59}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +46,7 @@
             <key>u_shop_cell_other.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1001},{10,80}}</string>
+                <string>{{2,1005},{10,80}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>u_shop_cell_w.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{84,1001},{10,59}}</string>
+                <string>{{84,1005},{10,59}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>u_shop_close.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{209,960},{53,52}}</string>
+                <string>{{209,964},{53,52}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +85,7 @@
             <key>u_shop_close_pre.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{209,906},{53,52}}</string>
+                <string>{{209,910},{53,52}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,7 +98,7 @@
             <key>u_shop_line.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{269,2},{2,9}}</string>
+                <string>{{261,487},{2,9}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -115,7 +115,7 @@
                 <key>offset</key>
                 <string>{0,2}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{265,264}}</string>
                 <key>sourceSize</key>
@@ -124,7 +124,7 @@
             <key>u_shop_select.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{231,486},{171,39}}</string>
+                <string>{{220,487},{171,39}}</string>
                 <key>offset</key>
                 <string>{0,-8}</string>
                 <key>rotated</key>
@@ -137,7 +137,7 @@
             <key>u_shop_titel.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,906},{205,93}}</string>
+                <string>{{2,910},{205,93}}</string>
                 <key>offset</key>
                 <string>{-11,1}</string>
                 <key>rotated</key>
@@ -150,7 +150,7 @@
             <key>u_shop_unselect.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{231,659},{143,33}}</string>
+                <string>{{220,660},{143,33}}</string>
                 <key>offset</key>
                 <string>{0,-8}</string>
                 <key>rotated</key>
@@ -163,7 +163,7 @@
             <key>u_shop_vip_pice_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{231,268},{195,46}}</string>
+                <string>{{220,269},{195,46}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -181,9 +181,9 @@
             <key>realTextureFileName</key>
             <string>UIShop.png</string>
             <key>size</key>
-            <string>{279,1014}</string>
+            <string>{268,1018}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:6fd52e64ae8c8539f73c90085ae9d4cb:bec04db1789e8aee82a3611007d35594:5dff9365c6c14675677185d52acaa034$</string>
+            <string>$TexturePacker:SmartUpdate:1be92c3d08b81de4a1f034f6f341d812:c310f5630dda7e820d010a00263e6135:5dff9365c6c14675677185d52acaa034$</string>
             <key>textureFileName</key>
             <string>UIShop.png</string>
         </dict>

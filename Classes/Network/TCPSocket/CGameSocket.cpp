@@ -57,7 +57,6 @@ void CGameSocket::closeSocket()
 	//End();
 }
 void CGameSocket::Run(){
-	
 	sockaddr_in	addr_in;
 	memset((void *)&addr_in, 0, sizeof(addr_in));
 	addr_in.sin_family = AF_INET;
@@ -109,7 +108,7 @@ void CGameSocket::Run(){
 	//设置socket状态为连接成功
 	setSocketState(SOCKET_STATE_CONNECT_SUCCESS);
 
-	End();
+	//End();
 	//CCLOG("createSocket----------------- <<%s>>", __FUNCTION__);
 }
 bool CGameSocket::Create(const char* pszServerIP, int nServerPort, int nBlockSec, bool bKeepAlive /*= FALSE*/)

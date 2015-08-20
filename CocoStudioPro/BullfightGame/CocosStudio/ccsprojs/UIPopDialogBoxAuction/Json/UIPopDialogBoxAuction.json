@@ -678,7 +678,7 @@
                   "customProperty": "",
                   "flipX": false,
                   "flipY": false,
-                  "height": 95,
+                  "height": 66,
                   "ignoreSize": true,
                   "layoutParameter": null,
                   "opacity": 255,
@@ -695,7 +695,7 @@
                   "touchAble": false,
                   "useMergedTexture": false,
                   "visible": true,
-                  "width": 227,
+                  "width": 132,
                   "x": 0,
                   "y": 269,
                   "capInsetsHeight": 1,
@@ -709,8 +709,8 @@
                     "resourceType": 1
                   },
                   "scale9Enable": false,
-                  "scale9Height": 95,
-                  "scale9Width": 227
+                  "scale9Height": 66,
+                  "scale9Width": 132
                 }
               },
               {
@@ -732,7 +732,7 @@
                   "customProperty": "",
                   "flipX": false,
                   "flipY": false,
-                  "height": 58,
+                  "height": 59,
                   "ignoreSize": true,
                   "layoutParameter": null,
                   "opacity": 255,
@@ -749,7 +749,7 @@
                   "touchAble": true,
                   "useMergedTexture": false,
                   "visible": true,
-                  "width": 152,
+                  "width": 172,
                   "x": 0,
                   "y": -249,
                   "capInsetsHeight": 1,
@@ -767,20 +767,20 @@
                   "fontType": 0,
                   "normal": null,
                   "normalData": {
-                    "path": "u_info_btn_orange.png",
-                    "plistFile": "UIButton.plist",
+                    "path": "u_a_btn_knapsack_normal.png",
+                    "plistFile": "UIAuction.plist",
                     "resourceType": 1
                   },
                   "pressed": null,
                   "pressedData": {
-                    "path": "u_info_btn_orange_press.png",
-                    "plistFile": "UIButton.plist",
+                    "path": "u_a_btn_knapsack_down.png",
+                    "plistFile": "UIAuction.plist",
                     "resourceType": 1
                   },
                   "scale9Enable": false,
-                  "scale9Height": 58,
-                  "scale9Width": 152,
-                  "text": "我的背包",
+                  "scale9Height": 59,
+                  "scale9Width": 172,
+                  "text": "",
                   "textColorB": 255,
                   "textColorG": 255,
                   "textColorR": 255
@@ -1055,7 +1055,7 @@
                   "customProperty": "",
                   "flipX": false,
                   "flipY": false,
-                  "height": 58,
+                  "height": 59,
                   "ignoreSize": true,
                   "layoutParameter": null,
                   "opacity": 255,
@@ -1072,7 +1072,7 @@
                   "touchAble": true,
                   "useMergedTexture": false,
                   "visible": true,
-                  "width": 152,
+                  "width": 172,
                   "x": 0,
                   "y": -178,
                   "capInsetsHeight": 1,
@@ -1090,20 +1090,20 @@
                   "fontType": 0,
                   "normal": null,
                   "normalData": {
-                    "path": "btn_green.png",
-                    "plistFile": "UIButton.plist",
+                    "path": "u_a_btn_normal.png",
+                    "plistFile": "UIAuction.plist",
                     "resourceType": 1
                   },
                   "pressed": null,
                   "pressedData": {
-                    "path": "btn_green_press.png",
-                    "plistFile": "UIButton.plist",
+                    "path": "u_a_btn_down.png",
+                    "plistFile": "UIAuction.plist",
                     "resourceType": 1
                   },
                   "scale9Enable": false,
-                  "scale9Height": 58,
-                  "scale9Width": 152,
-                  "text": "开始拍卖",
+                  "scale9Height": 59,
+                  "scale9Width": 172,
+                  "text": "",
                   "textColorB": 255,
                   "textColorG": 255,
                   "textColorR": 255
