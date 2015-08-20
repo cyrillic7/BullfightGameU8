@@ -691,6 +691,12 @@ void LogonScene::onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned s
 				tagGameServer *tempTag=new tagGameServer();
 				memcpy(tempTag,gameServer,sizeof(tagGameServer));
 				//memcoyp(gameServer,0,sizeof(tagGameServer));
+				//分割字符串
+				std::string roomName = tempTag->szGameLevel;
+				int pos = roomName.find("-");
+				std::string s = roomName.substr(0, pos);
+				strcpy(tempTag->szGameLevel,s.c_str());
+
 				if (tempTag->wKindID==210)
 				{
 					DataModel::sharedDataModel()->tagGameServerListOxTwo.push_back(tempTag);
