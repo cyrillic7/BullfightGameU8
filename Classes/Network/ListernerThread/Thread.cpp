@@ -103,6 +103,7 @@ void * Thread::DoRun(void* context)
 	}
 	thread->status = QUITED;
 	thread->status = UNINITIALIZED;//新加
+	thread->End();
 	return (void *) 0;
 }
 

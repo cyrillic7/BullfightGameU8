@@ -109,7 +109,7 @@ void CGameSocket::Run(){
 	//设置socket状态为连接成功
 	setSocketState(SOCKET_STATE_CONNECT_SUCCESS);
 
-	End();
+	//End();
 	//CCLOG("createSocket----------------- <<%s>>", __FUNCTION__);
 }
 bool CGameSocket::Create(const char* pszServerIP, int nServerPort, int nBlockSec, bool bKeepAlive /*= FALSE*/)
@@ -521,10 +521,6 @@ bool CGameSocket::Check(void)
 
 void CGameSocket::Destroy(bool isActive)
 {
-	if (isActive)
-	{
-		setSocketState(SOCKET_STATE_FREE);
-	}
 	// 关闭
 	struct linger so_linger;
 	so_linger.l_onoff = 1;
@@ -540,7 +536,10 @@ void CGameSocket::Destroy(bool isActive)
 
 	memset(m_bufOutput, 0, sizeof(m_bufOutput));
 	memset(m_bufInput, 0, sizeof(m_bufInput));
-
+	if (isActive)
+	{
+		setSocketState(SOCKET_STATE_FREE);
+	}
 }
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
