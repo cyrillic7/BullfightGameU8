@@ -534,14 +534,10 @@ void CGameSocket::Destroy(bool isActive)
 	// 关闭
 	struct linger so_linger;
 	so_linger.l_onoff = 1;
-	so_linger.l_linger = 500;
+	so_linger.l_linger = 0;
 	int ret = setsockopt(m_sockClient, SOL_SOCKET, SO_LINGER, (const char*)&so_linger, sizeof(so_linger));
 
-#ifdef WIN32
-	Sleep(0.2);
-#else
-	sleep(0.2);
-#endif
+
 
 	closeSocket();
 
