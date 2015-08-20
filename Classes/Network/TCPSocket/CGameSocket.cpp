@@ -520,11 +520,18 @@ bool CGameSocket::Check(void)
 
 void CGameSocket::Destroy(bool isActive)
 {
+
 	// 关闭
 	struct linger so_linger;
 	so_linger.l_onoff = 1;
 	so_linger.l_linger = 500;
 	int ret = setsockopt(m_sockClient, SOL_SOCKET, SO_LINGER, (const char*)&so_linger, sizeof(so_linger));
+
+#ifdef WIN32
+	Sleep(0.1);
+#else
+	sleep(0.1);
+#endif
 
 	closeSocket();
 
@@ -813,6 +820,5 @@ void CGameSocket::updateSocketData(float delta){
 		WORD wDataSize = nSize - sizeof(TCP_Head);
 		void * pDataBuffer = pbufMsg + sizeof(TCP_Head);
 		pIGameSocket->onMessage(pHead->CommandInfo.wMainCmdID, pHead->CommandInfo.wSubCmdID, pDataBuffer, wDataSize);
-		
 	}
 }
