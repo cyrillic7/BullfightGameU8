@@ -76,7 +76,7 @@ void ClassicLobbyScene::onEnter(){
 	pBUserInfo->setScale9Enabled(false);
 	pBUserInfo->ignoreContentAdaptWithSize(true);
 	pBUserInfo->setSize(CCSize(51, 40));
-	pBUserInfo->getChildByName("Image_23")->setVisible(false);
+//	pBUserInfo->getChildByName("Image_23")->setVisible(false);
 
 
 	UIButton* pBRecharge = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonRecharge"));

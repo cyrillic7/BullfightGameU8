@@ -64,7 +64,7 @@ void BaseLobbyScene::onEnter(){
 	UIButton* button  = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonSetUp"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
 	//绑定用户信息按键
-	pBUserInfo= static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("buttonUser"));
+	pBUserInfo= static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonIcon"));
 	pBUserInfo->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::menuResetUser));
 	//绑定更多按键
 	button = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonMore"));
