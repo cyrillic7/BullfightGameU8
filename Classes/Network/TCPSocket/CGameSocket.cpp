@@ -520,7 +520,6 @@ bool CGameSocket::Check(void)
 
 void CGameSocket::Destroy(bool isActive)
 {
-
 	// 关闭
 	struct linger so_linger;
 	so_linger.l_onoff = 1;
