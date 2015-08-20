@@ -168,7 +168,7 @@ std::string CStringAide::subUTF8(const std::string &str, int from, int to)
 	}
 	return res;
 }
-////是否中文
+////鏄惁涓枃
 bool CStringAide::isAllChniese(std::string string){
 	if (string.size() < 4)
 	{
@@ -188,7 +188,7 @@ bool CStringAide::isAllChniese(std::string string){
 	}
 	return false;
 }
-//是否全是数字
+//鏄惁鍏ㄦ槸鏁板瓧
 bool CStringAide::isDigit2(std::string str) {
 	for (int i = 0; i < str.length(); i++)
 	{

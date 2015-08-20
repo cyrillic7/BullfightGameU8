@@ -47,7 +47,7 @@ void RotateMenu::updatePosition(){
 	return;
 }
 void RotateMenu::updatePositionWithAnimation(){
-	//ÏÈÍ£Ö¹ËùÓĞ¿ÉÄÜ´æÔÚµÄ¶¯×÷
+	//å…ˆåœæ­¢æ‰€æœ‰å¯èƒ½å­˜åœ¨çš„åŠ¨ä½œ
 	for (int i = 0; i < _items.size(); i++)
 		_items.at(i)->stopAllActions();
 	CCSize menuSize = getContentSize();
@@ -62,7 +62,7 @@ void RotateMenu::updatePositionWithAnimation(){
 		GLubyte opacity = (220 + 25 * cos(i*_unitAngle + getAngle()));
 		CCFadeTo *fadeTo = CCFadeTo::create(animationDuration, opacity);
 		_items.at(i)->runAction(fadeTo);
-		//Ëõ·Å±ÈÀı  0.5~1
+		//ç¼©æ”¾æ¯”ä¾‹  0.5~1
 		CCScaleTo *scaleTo = CCScaleTo::create(animationDuration, 0.75 + 0.25*cos(i*_unitAngle + getAngle()));
 		_items.at(i)->runAction(scaleTo);
 		_items.at(i)->setZOrder(-(int)y);
@@ -94,7 +94,7 @@ float RotateMenu::disToAngle(float dis){
 CCMenuItem * RotateMenu::getCurrentItem(){
 	if (_items.size() == 0)
 		return NULL;
-	//ÕâÀïÊµ¼Ê¼ÓÉÏÁË0.1getAngle(),ÓÃÀ´·ÀÖ¹¾«¶È¶ªÊ§
+	//è¿™é‡Œå®é™…åŠ ä¸Šäº†0.1getAngle(),ç”¨æ¥é˜²æ­¢ç²¾åº¦ä¸¢å¤±
 	int  index = (int)((2 * PI - getAngle()) / getUnitAngle() + 0.1*getUnitAngle());
 	index %= _items.size();
 	return _items.at(index);
@@ -102,7 +102,7 @@ CCMenuItem * RotateMenu::getCurrentItem(){
 
 
 bool RotateMenu::ccTouchBegan(CCTouch* touch, CCEvent* event){
-	//ÏÈÍ£Ö¹ËùÓĞ¿ÉÄÜ´æÔÚµÄ¶¯×÷
+	//å…ˆåœæ­¢æ‰€æœ‰å¯èƒ½å­˜åœ¨çš„åŠ¨ä½œ
 	for (int i = 0; i < _items.size(); i++)
 		_items.at(i)->stopAllActions();
 
