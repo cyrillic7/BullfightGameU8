@@ -520,10 +520,7 @@ bool CGameSocket::Check(void)
 
 void CGameSocket::Destroy(bool isActive)
 {
-	if (isActive)
-	{
-		setSocketState(SOCKET_STATE_FREE);
-	}
+
 	// 关闭
 	struct linger so_linger;
 	so_linger.l_onoff = 1;
@@ -539,7 +536,10 @@ void CGameSocket::Destroy(bool isActive)
 
 	memset(m_bufOutput, 0, sizeof(m_bufOutput));
 	memset(m_bufInput, 0, sizeof(m_bufInput));
-
+	if (isActive)
+	{
+		setSocketState(SOCKET_STATE_FREE);
+	}
 }
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
