@@ -14,6 +14,7 @@ typedef struct _GUID
 } GUID, UUID;
 #endif
 bool CGameSocket::isConnect = true;
+bool isDestroy = false;
 CGameSocket::CGameSocket()
 	:pIGameSocket(NULL)
 {
@@ -521,7 +522,15 @@ bool CGameSocket::Check(void)
 
 void CGameSocket::Destroy(bool isActive)
 {
-
+	if (isDestroy)
+	{
+		return;
+	}
+	isDestroy = true;
+	if (isActive)
+	{
+		setSocketState(SOCKET_STATE_FREE);
+	}
 	// 关闭
 	struct linger so_linger;
 	so_linger.l_onoff = 1;
@@ -529,9 +538,9 @@ void CGameSocket::Destroy(bool isActive)
 	int ret = setsockopt(m_sockClient, SOL_SOCKET, SO_LINGER, (const char*)&so_linger, sizeof(so_linger));
 
 #ifdef WIN32
-	Sleep(0.1);
+	Sleep(0.2);
 #else
-	sleep(0.1);
+	sleep(0.2);
 #endif
 
 	closeSocket();
@@ -543,10 +552,7 @@ void CGameSocket::Destroy(bool isActive)
 
 	memset(m_bufOutput, 0, sizeof(m_bufOutput));
 	memset(m_bufInput, 0, sizeof(m_bufInput));
-	if (isActive)
-	{
-		setSocketState(SOCKET_STATE_FREE);
-	}
+	isDestroy = false;
 }
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////

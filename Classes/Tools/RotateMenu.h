@@ -2,52 +2,52 @@
 #define __ROTA__TE_MENU_H__
 #include "cocos2d.h"
 /*
-*Ä£·ÂÂÒ¶·Î÷ÓÎÖ÷½çÃæµÄĞı×ª²Ëµ¥
+*æ¨¡ä»¿ä¹±æ–—è¥¿æ¸¸ä¸»ç•Œé¢çš„æ—‹è½¬èœå•
 */
 class RotateMenu :public cocos2d::CCLayer{
 public:
-	//¹¹Ôì·½·¨
+	//æ„é€ æ–¹æ³•
 	CREATE_FUNC(RotateMenu);
-	//Ìí¼Ó²Ëµ¥Ïî
+	//æ·»åŠ èœå•é¡¹
 	void addMenuItem(cocos2d::CCMenuItem *item);
-	//¸üĞÂÎ»ÖÃ
+	//æ›´æ–°ä½ç½®
 	void updatePosition();
-	//¸üĞÂÎ»ÖÃ£¬ÓĞ¶¯»­
+	//æ›´æ–°ä½ç½®ï¼Œæœ‰åŠ¨ç”»
 	void updatePositionWithAnimation();
-	//Î»ÖÃ½ÃÕı  ĞŞ¸Ä½Ç¶È forwardÎªÒÆ¶¯·½Ïò  µ±³¬¹ı1/3£¬½ø1
-	//true ÎªÕıÏò  false ¸º
+	//ä½ç½®çŸ«æ­£  ä¿®æ”¹è§’åº¦ forwardä¸ºç§»åŠ¨æ–¹å‘  å½“è¶…è¿‡1/3ï¼Œè¿›1
+	//true ä¸ºæ­£å‘  false è´Ÿ
 	void rectify(bool forward);
-	//³õÊ¼»¯
+	//åˆå§‹åŒ–
 	virtual bool init();
-	//ÖØÖÃ  ²Ù×÷ÓĞĞı×ª½Ç¶ÈÉèÎª0
+	//é‡ç½®  æ“ä½œæœ‰æ—‹è½¬è§’åº¦è®¾ä¸º0
 	void reset();
 private:
-	//ÉèÖÃ½Ç¶È »¡¶È
+	//è®¾ç½®è§’åº¦ å¼§åº¦
 	void setAngle(float angle);
 	float getAngle();
-	//ÉèÖÃµ¥Î»½Ç¶È »¡¶È
+	//è®¾ç½®å•ä½è§’åº¦ å¼§åº¦
 	void setUnitAngle(float angle);
 	float getUnitAngle();
-	//»¬¶¯¾àÀë×ª»»½Ç¶È,×ª»»²ßÂÔÎª  ÒÆ¶¯°ë¸öMenu.widthµÈÓÚ_unitAngle
+	//æ»‘åŠ¨è·ç¦»è½¬æ¢è§’åº¦,è½¬æ¢ç­–ç•¥ä¸º  ç§»åŠ¨åŠä¸ªMenu.widthç­‰äº_unitAngle
 	float disToAngle(float dis);
-	//·µ»Ø±»Ñ¡ÖĞµÄitem
+	//è¿”å›è¢«é€‰ä¸­çš„item
 	cocos2d::CCMenuItem * getCurrentItem();
 private:
-	//²Ëµ¥ÒÑ¾­Ğı×ª½Ç¶È »¡¶È
+	//èœå•å·²ç»æ—‹è½¬è§’åº¦ å¼§åº¦
 	float _angle;
-	//²Ëµ¥Ïî¼¯ºÏ,_childrenË³Ğò»á±ä»¯£¬ĞÂ½¨Êı×é±£´æË³Ğò
+	//èœå•é¡¹é›†åˆ,_childrené¡ºåºä¼šå˜åŒ–ï¼Œæ–°å»ºæ•°ç»„ä¿å­˜é¡ºåº
 	std::vector<cocos2d::CCMenuItem *> _items;
-	//µ¥Î»½Ç¶È »¡¶È
+	//å•ä½è§’åº¦ å¼§åº¦
 	float _unitAngle;
-	//¼àÌıº¯Êı
+	//ç›‘å¬å‡½æ•°
 	virtual bool ccTouchBegan(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
 	virtual void ccTouchEnded(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
 	virtual void ccTouchMoved(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
-	//¶¯»­Íê½áµ÷ÓÃº¯Êı
+	//åŠ¨ç”»å®Œç»“è°ƒç”¨å‡½æ•°
 	void actionEndCallBack(float dx);
-	//µ±Ç°±»Ñ¡ÔñµÄitem
+	//å½“å‰è¢«é€‰æ‹©çš„item
 	cocos2d::CCMenuItem *_selectedItem;
-	//¶¯»­ÔËĞĞÊ±¼ä
+	//åŠ¨ç”»è¿è¡Œæ—¶é—´
 	float animationDuration = 0.3f;
 };
 #endif
