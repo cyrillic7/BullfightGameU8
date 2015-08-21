@@ -4,38 +4,61 @@
     <Project>UIClassicLobby</Project>
     <GuidesList>
       <GuidesInfo>
-        <GuidesName>HThumb</GuidesName>
-        <GuidesPosition>98.673272298177608</GuidesPosition>
+        <GuidesName>VThumb</GuidesName>
+        <GuidesPosition>100.4998779296875</GuidesPosition>
+      </GuidesInfo>
+      <GuidesInfo>
+        <GuidesName>VThumb</GuidesName>
+        <GuidesPosition>192.9998779296875</GuidesPosition>
+      </GuidesInfo>
+      <GuidesInfo>
+        <GuidesName>VThumb</GuidesName>
+        <GuidesPosition>950.4998779296875</GuidesPosition>
+      </GuidesInfo>
+      <GuidesInfo>
+        <GuidesName>VThumb</GuidesName>
+        <GuidesPosition>1042.9998779296875</GuidesPosition>
       </GuidesInfo>
       <GuidesInfo>
         <GuidesName>HThumb</GuidesName>
-        <GuidesPosition>544.22882785373258</GuidesPosition>
+        <GuidesPosition>96.683257039388081</GuidesPosition>
+      </GuidesInfo>
+      <GuidesInfo>
+        <GuidesName>HThumb</GuidesName>
+        <GuidesPosition>296.68325703938808</GuidesPosition>
       </GuidesInfo>
     </GuidesList>
   </GuidesProject>
   <GuidesProject>
     <Project>UIGameLobby</Project>
-    <GuidesList>
-      <GuidesInfo>
-        <GuidesName>HThumb</GuidesName>
-        <GuidesPosition>545.5507000635539</GuidesPosition>
-      </GuidesInfo>
-      <GuidesInfo>
-        <GuidesName>HThumb</GuidesName>
-        <GuidesPosition>101.6733333333334</GuidesPosition>
-      </GuidesInfo>
-    </GuidesList>
+    <GuidesList />
   </GuidesProject>
   <GuidesProject>
     <Project>UIBaseLobby</Project>
     <GuidesList>
       <GuidesInfo>
-        <GuidesName>HThumb</GuidesName>
-        <GuidesPosition>544.45550469292539</GuidesPosition>
+        <GuidesName>VThumb</GuidesName>
+        <GuidesPosition>102.9998779296875</GuidesPosition>
+      </GuidesInfo>
+      <GuidesInfo>
+        <GuidesName>VThumb</GuidesName>
+        <GuidesPosition>192.9998779296875</GuidesPosition>
+      </GuidesInfo>
+      <GuidesInfo>
+        <GuidesName>VThumb</GuidesName>
+        <GuidesPosition>1052.9998779296875</GuidesPosition>
+      </GuidesInfo>
+      <GuidesInfo>
+        <GuidesName>VThumb</GuidesName>
+        <GuidesPosition>950.4998779296875</GuidesPosition>
       </GuidesInfo>
       <GuidesInfo>
         <GuidesName>HThumb</GuidesName>
-        <GuidesPosition>101.67333333333374</GuidesPosition>
+        <GuidesPosition>96.683257039388081</GuidesPosition>
+      </GuidesInfo>
+      <GuidesInfo>
+        <GuidesName>HThumb</GuidesName>
+        <GuidesPosition>296.68325703938808</GuidesPosition>
       </GuidesInfo>
     </GuidesList>
   </GuidesProject>

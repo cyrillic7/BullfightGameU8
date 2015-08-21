@@ -102,6 +102,9 @@ void BaseLobbyScene::onEnter(){
 	//绑定VIP
 	UIImageView *pIVip = static_cast<UIImageView*>(m_pWidgetBase->getWidgetByName("ImageVip"));
 	pIVip->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuVip));
+	//绑定首充
+	UIImageView *pFirstRecharge = static_cast<UIImageView*>(m_pWidgetBase->getWidgetByName("ButtonFirstRecharge"));
+	pFirstRecharge->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuFirstRecharge));
 	
 	//用户名
 	userName=static_cast<UILabel*>(m_pWidgetBase->getWidgetByName("labelUserName"));
@@ -211,7 +214,7 @@ void BaseLobbyScene::onMenuQuickGame(CCObject* pSender, TouchEventType type){
 }
 //首充值
 void BaseLobbyScene::onMenuFirstRecharge(CCObject* pSender, TouchEventType type){
-	if (type==TOUCH_EVENT_ENDED)
+	if (type == TOUCH_EVENT_ENDED)
 	{
 		PopDialogBoxFirstRecharge *pPDBFirstRecharge = PopDialogBoxFirstRecharge::create();
 		this->addChild(pPDBFirstRecharge);

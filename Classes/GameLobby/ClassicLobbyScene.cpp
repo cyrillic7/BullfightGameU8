@@ -79,8 +79,8 @@ void ClassicLobbyScene::onEnter(){
 //	pBUserInfo->getChildByName("Image_23")->setVisible(false);
 
 
-	UIButton* pBRecharge = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonRecharge"));
-	pBRecharge->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuFirstRecharge));
+	//UIButton* pBRecharge = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonRecharge"));
+	//pBRecharge->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuFirstRecharge));
 
 	//userName->setText(Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName));
 	std::string nickName = Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName);
@@ -97,6 +97,9 @@ void ClassicLobbyScene::onEnter(){
 	//设置cell样式
 	pLVViewRoom->setItemModel(pLVViewRoom->getItem(0));
 	pLVViewRoom->removeAllItems();
+	//关闭按键
+	UIButton *pBClose = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonClose"));
+	pBClose->addTouchEventListener(this, SEL_TouchEvent(&ClassicLobbyScene::onMenuCloseSelf));
 
 
 	//更新房间列表
@@ -231,8 +234,8 @@ void  ClassicLobbyScene::updateRoom(std::vector<tagGameServer *> vec){
 		pBScene->setTag(i+1);
 		pBScene->addTouchEventListener(this, SEL_TouchEvent(&ClassicLobbyScene::menuStar));
 		//icon
-		UIImageView *pIVIcon = static_cast<UIImageView*>(pBScene->getChildByName("ImageItemIcon"));
-		pIVIcon->loadTexture(CCString::createWithFormat("u_c_scene_%d.png",(i%4)+1)->getCString(), UI_TEX_TYPE_PLIST);
+		//UIImageView *pIVIcon = static_cast<UIImageView*>(pBScene->getChildByName("ImageItemIcon"));
+		//pIVIcon->loadTexture(CCString::createWithFormat("u_c_scene_%d.png",(i%4)+1)->getCString(), UI_TEX_TYPE_PLIST);
 		//房间名
 		UILabel *pLRoomName0 = static_cast<UILabel*>(pBScene->getChildByName("LabelRoomName0"));
 		UILabel *pLRoomName1 = static_cast<UILabel*>(pBScene->getChildByName("LabelRoomName1"));
@@ -320,6 +323,13 @@ void ClassicLobbyScene::menuStar(CCObject* pSender, TouchEventType type){
 	break;
 	default:
 		break;
+	}
+}
+//关闭自己
+void ClassicLobbyScene::onMenuCloseSelf(CCObject* pSender, TouchEventType type){
+	if (type==TOUCH_EVENT_ENDED)
+	{
+		this->removeFromParentAndCleanup(false);
 	}
 }
 void ClassicLobbyScene::popDialogBox(){

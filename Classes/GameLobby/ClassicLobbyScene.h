@@ -11,6 +11,14 @@ USING_NS_CC_EXT;
 using namespace gui;
 class ClassicLobbyScene:public BaseLobbyScene,public MessageQueueGameIng
 {
+public:
+	enum GameItem
+	{
+		//ITEM_0=1,							//二人牛牛
+		ITEM_1 = 1,							//通比牛牛
+		ITEM_2,								//六人换牌
+		ITEM_3,								//百人牛牛
+	}backGameItem;
 private:
 	UIListView *pLVViewRoom;
 	/*enum GameLevel
@@ -21,13 +29,7 @@ private:
 		LEVEL_2,					//高级
 		LEVEL_3,					//大师
 	};*/
-	enum GameItem
-	{
-		//ITEM_0=1,							//二人牛牛
-		ITEM_1=1,							//通比牛牛
-		ITEM_2,								//六人换牌
-		ITEM_3,								//百人牛牛
-	}backGameItem;
+
 	CC_SYNTHESIZE(GameItem,gameItem,GameItem);
 	
 	bool isDeleteList;
@@ -59,6 +61,8 @@ private:
 	//菜单设置用户信息
 	void menuResetUser(CCObject* pSender, TouchEventType type);
 	void menuStar(CCObject* pSender, TouchEventType type);
+	//关闭自己
+	void onMenuCloseSelf(CCObject* pSender, TouchEventType type);
 	//进入主场景
 	void enterMainSceneByMode(int mode);
 

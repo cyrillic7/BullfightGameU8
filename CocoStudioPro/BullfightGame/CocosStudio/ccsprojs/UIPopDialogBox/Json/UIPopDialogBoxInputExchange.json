@@ -15,12 +15,7 @@
     "UIButton.plist",
     "UIAuction.plist"
   ],
-  "texturesPng": [
-    "UIPanel.png",
-    "UIShop.png",
-    "UIButton.png",
-    "UIAuction.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",

@@ -69,8 +69,8 @@ void GameLobbyScene::onEnter(){
 	m_pWidget->addWidget(pWidget);
 
 
-	UIButton* pBRecharge = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonRecharge"));
-	pBRecharge->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuFirstRecharge));
+	//UIButton* pBRecharge = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonRecharge"));
+	//pBRecharge->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuFirstRecharge));
 	/*UIButton* button = static_cast<UIButton*>(m_pWidget->getWidgetByName("buttonUser"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&GameLobbyScene::menuResetUser));
 
@@ -188,7 +188,7 @@ bool GameLobbyScene::isShowSign(){
 //显示站立提示
 void GameLobbyScene::showUpTip(){
 	PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
-	this->addChild(tipInfo);
+	this->addChild(tipInfo,2);
 	tipInfo->setTipInfoContent(("长时间不操作，自动退出！"));
 }
 void GameLobbyScene::onExit(){
@@ -255,7 +255,9 @@ void GameLobbyScene::enterLobbyByMode(int mode){
 	{
 	case MODE_CLASSIC:
 		{
-				Tools::setTransitionAnimation(0, 0, ClassicLobbyScene::scene(false));
+			ClassicLobbyScene *pLayer = ClassicLobbyScene::create();
+			this->addChild(pLayer, 100);
+				//Tools::setTransitionAnimation(0, 0, ClassicLobbyScene::scene(false));
 		}
 		break;
 	case MODE_Hundred:
@@ -268,7 +270,10 @@ void GameLobbyScene::enterLobbyByMode(int mode){
 			}
 			else
 			{
-				Tools::setTransitionAnimation(0, 0, ClassicLobbyScene::scene(true));
+				ClassicLobbyScene *pLayer = ClassicLobbyScene::create();
+				this->addChild(pLayer, 100);
+				pLayer->setGameItem(ClassicLobbyScene::ITEM_3);
+				//Tools::setTransitionAnimation(0, 0, ClassicLobbyScene::scene(true));
 				/*PopDialogBox *pLoading = PopDialogBoxLoading::create();
 				this->addChild(pLoading, 10, TAG_LOADING);
 
