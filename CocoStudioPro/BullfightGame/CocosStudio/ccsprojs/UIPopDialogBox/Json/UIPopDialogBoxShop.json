@@ -59,8 +59,8 @@
               "rotation": 0,
               "scaleX": 1,
               "scaleY": 1,
-              "sizePercentX": 0.04665493,
-              "sizePercentY": 0.08125,
+              "sizePercentX": 0.0818662,
+              "sizePercentY": 0.1453125,
               "sizeType": 0,
               "tag": 6,
               "touchAble": true,
@@ -126,7 +126,7 @@
                   "customProperty": "",
                   "flipX": false,
                   "flipY": false,
-                  "height": 95,
+                  "height": 66,
                   "ignoreSize": true,
                   "layoutParameter": null,
                   "opacity": 255,
@@ -143,7 +143,7 @@
                   "touchAble": false,
                   "useMergedTexture": false,
                   "visible": true,
-                  "width": 227,
+                  "width": 131,
                   "x": 0,
                   "y": 269,
                   "capInsetsHeight": 1,
@@ -157,8 +157,8 @@
                     "resourceType": 1
                   },
                   "scale9Enable": false,
-                  "scale9Height": 95,
-                  "scale9Width": 227
+                  "scale9Height": 66,
+                  "scale9Width": 131
                 }
               },
               {
@@ -436,8 +436,8 @@
                   "rotation": 0,
                   "scaleX": 1,
                   "scaleY": 1,
-                  "sizePercentX": 0.6696035,
-                  "sizePercentY": 0.0911949649,
+                  "sizePercentX": 0.757709265,
+                  "sizePercentY": 0.0927673,
                   "sizeType": 0,
                   "tag": 1210,
                   "touchAble": true,

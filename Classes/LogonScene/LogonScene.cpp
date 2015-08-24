@@ -124,6 +124,29 @@ void LogonScene::onEnter(){
 	spriteBg->setPosition(ccp(deviceSize.width/2,deviceSize.height/2));
 	float scale=deviceSize.height/spriteBg->getContentSize().height;
 	spriteBg->setScaleY(scale);
+	//牛动画
+	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationLogonSprite.ExportJson));
+	CCArmature *pAnimate = CCArmature::create("AnimationLogonSprite");
+	pAnimate->setAnchorPoint(CCPointZero);
+	pAnimate->setPosition(CCPointZero);
+	pAnimate->getAnimation()->play("AnimationN");
+	spriteBg->addChild(pAnimate);
+	
+	//标题动画
+	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationLogonTitle.ExportJson));
+	CCArmature *pAnimateTitle = CCArmature::create("AnimationLogonTitle");
+	pAnimateTitle->setAnchorPoint(ccp(1,1));
+	pAnimateTitle->setPosition(SCENE_SIZE);
+	pAnimateTitle->getAnimation()->play("AnimationTitle");
+	spriteBg->addChild(pAnimateTitle);
+
+	//闪光
+	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationLogonLight.ExportJson));
+	CCArmature *pAnimateLight = CCArmature::create("AnimationLogonLight");
+	pAnimateLight->setAnchorPoint(ccp(0.5, 0.5));
+	pAnimateLight->setPosition(ccp(835,130));
+	pAnimateLight->getAnimation()->play("AnimationLight");
+	spriteBg->addChild(pAnimateLight);
 	//////////////////////////////////////////////////////////////////////////
 	//创建UI层
     m_pWidget = UILayer::create();

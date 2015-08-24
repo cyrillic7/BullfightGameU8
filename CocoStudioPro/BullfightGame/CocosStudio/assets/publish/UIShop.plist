@@ -7,7 +7,7 @@
             <key>u_auction_small_list_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{220,466},{19,45}}</string>
+                <string>{{220,517},{19,45}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,7 +20,7 @@
             <key>u_shop_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,269},{216,639}}</string>
+                <string>{{2,271},{216,639}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,11 +33,11 @@
             <key>u_shop_cell_b.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{145,1005},{10,59}}</string>
+                <string>{{147,912},{10,59}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{10,59}}</string>
                 <key>sourceSize</key>
@@ -46,7 +46,7 @@
             <key>u_shop_cell_other.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1005},{10,80}}</string>
+                <string>{{159,912},{10,80}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,46 +59,20 @@
             <key>u_shop_cell_w.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{84,1005},{10,59}}</string>
+                <string>{{135,912},{10,59}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{10,59}}</string>
                 <key>sourceSize</key>
                 <string>{10,59}</string>
             </dict>
-            <key>u_shop_close.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{209,964},{53,52}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{53,52}}</string>
-                <key>sourceSize</key>
-                <string>{53,52}</string>
-            </dict>
-            <key>u_shop_close_pre.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{209,910},{53,52}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{53,52}}</string>
-                <key>sourceSize</key>
-                <string>{53,52}</string>
-            </dict>
             <key>u_shop_line.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{261,487},{2,9}}</string>
+                <string>{{262,175},{2,9}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,20 +85,20 @@
             <key>u_shop_package.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{265,264}}</string>
+                <string>{{2,2},{223,267}}</string>
                 <key>offset</key>
-                <string>{0,2}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{265,264}}</string>
+                <string>{{0,0},{223,267}}</string>
                 <key>sourceSize</key>
-                <string>{265,268}</string>
+                <string>{223,267}</string>
             </dict>
             <key>u_shop_select.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{220,487},{171,39}}</string>
+                <string>{{227,2},{171,39}}</string>
                 <key>offset</key>
                 <string>{0,-8}</string>
                 <key>rotated</key>
@@ -137,20 +111,20 @@
             <key>u_shop_titel.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,910},{205,93}}</string>
+                <string>{{2,912},{131,66}}</string>
                 <key>offset</key>
-                <string>{-11,1}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{205,93}}</string>
+                <string>{{0,0},{131,66}}</string>
                 <key>sourceSize</key>
-                <string>{227,95}</string>
+                <string>{131,66}</string>
             </dict>
             <key>u_shop_unselect.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{220,660},{143,33}}</string>
+                <string>{{227,175},{143,33}}</string>
                 <key>offset</key>
                 <string>{0,-8}</string>
                 <key>rotated</key>
@@ -163,7 +137,7 @@
             <key>u_shop_vip_pice_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{220,269},{195,46}}</string>
+                <string>{{220,320},{195,46}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -181,9 +155,9 @@
             <key>realTextureFileName</key>
             <string>UIShop.png</string>
             <key>size</key>
-            <string>{268,1018}</string>
+            <string>{268,980}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:1be92c3d08b81de4a1f034f6f341d812:c310f5630dda7e820d010a00263e6135:5dff9365c6c14675677185d52acaa034$</string>
+            <string>$TexturePacker:SmartUpdate:646e6256242f719410df2c2650548dab:dcc5caa226e9ac40221ac14947929fb0:5dff9365c6c14675677185d52acaa034$</string>
             <key>textureFileName</key>
             <string>UIShop.png</string>
         </dict>

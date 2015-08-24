@@ -15,12 +15,7 @@
     "UIButton.plist",
     "UIAuction.plist"
   ],
-  "texturesPng": [
-    "UIPanel.png",
-    "UIShop.png",
-    "UIButton.png",
-    "UIAuction.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -49,7 +44,7 @@
               "customProperty": "",
               "flipX": false,
               "flipY": false,
-              "height": 77,
+              "height": 93,
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
@@ -66,7 +61,7 @@
               "touchAble": true,
               "useMergedTexture": false,
               "visible": true,
-              "width": 74,
+              "width": 93,
               "x": 223,
               "y": 191,
               "capInsetsHeight": 1,
@@ -95,8 +90,8 @@
                 "resourceType": 1
               },
               "scale9Enable": false,
-              "scale9Height": 77,
-              "scale9Width": 74,
+              "scale9Height": 93,
+              "scale9Width": 93,
               "text": "",
               "textColorB": 255,
               "textColorG": 255,
