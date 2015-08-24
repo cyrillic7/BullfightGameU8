@@ -13,10 +13,7 @@
     "UIClassicLobby.plist",
     "UIPanel.plist"
   ],
-  "texturesPng": [
-    "UIClassicLobby.png",
-    "UIPanel.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",

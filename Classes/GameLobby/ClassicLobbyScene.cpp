@@ -55,6 +55,7 @@ CCScene* ClassicLobbyScene::scene(bool isHundred)
 }
 void ClassicLobbyScene::onEnter(){
 	BaseLobbyScene::onEnter();
+	((GameLobbyScene*)this->getParent())->isReadMessage = false;
 	/*//添加背景
 	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
 	CCSprite *spriteBg=CCSprite::create("res/main_bg.jpg");
@@ -70,12 +71,12 @@ void ClassicLobbyScene::onEnter(){
 	UILayout *pWidget = dynamic_cast<UILayout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UIClassicLobby.ExportJson)));
 	m_pWidget->addWidget(pWidget);
 
-
-	pBUserInfo->loadTextureNormal("back.png", UI_TEX_TYPE_PLIST);
+	//返回按键
+	/*pBUserInfo->loadTextureNormal("back.png", UI_TEX_TYPE_PLIST);
 	pBUserInfo->loadTexturePressed("back_press.png", UI_TEX_TYPE_PLIST);
 	pBUserInfo->setScale9Enabled(false);
 	pBUserInfo->ignoreContentAdaptWithSize(true);
-	pBUserInfo->setSize(CCSize(51, 40));
+	pBUserInfo->setSize(CCSize(51, 40));*/
 //	pBUserInfo->getChildByName("Image_23")->setVisible(false);
 
 
@@ -115,7 +116,7 @@ void ClassicLobbyScene::onEnter(){
 	else
 	{
 		pLVItems->setEnabled(false);
-		pLVItems->getParent()->setVisible(false);
+		//pLVItems->getParent()->setVisible(false);
 	}
 	
 	//添加监听事件
@@ -283,12 +284,12 @@ void ClassicLobbyScene::selectGameItem(int iItemIndex){
 	{
 		UIPanel *pItem = static_cast<UIPanel*>(pLVItems->getItem(i));
 		UICheckBox *pCheckBox = static_cast<UICheckBox*>(pItem->getChildByName("CheckBoxItme"));
-		UIImageView *pIGameName = static_cast<UIImageView*>(pItem->getChildByName("ImageGameName"));
+		//UIImageView *pIGameName = static_cast<UIImageView*>(pItem->getChildByName("ImageGameName"));
 		if (i == iItemIndex)
 		{
 			pCheckBox->setSelectedState(true);
 			pCheckBox->setTouchEnabled(false);
-			pIGameName->setColor(ccc3(255, 255, 255));
+			//pIGameName->setColor(ccc3(255, 255, 255));
 			setGameItem((GameItem)(iItemIndex + 1));
 			backGameItem = getGameItem();
 			updateRoomList();
@@ -297,7 +298,7 @@ void ClassicLobbyScene::selectGameItem(int iItemIndex){
 		{
 			pCheckBox->setSelectedState(false);
 			pCheckBox->setTouchEnabled(true);
-			pIGameName->setColor(ccc3(112, 54, 8));
+			//pIGameName->setColor(ccc3(112, 54, 8));
 		}
 	}
 
@@ -329,6 +330,7 @@ void ClassicLobbyScene::menuStar(CCObject* pSender, TouchEventType type){
 void ClassicLobbyScene::onMenuCloseSelf(CCObject* pSender, TouchEventType type){
 	if (type==TOUCH_EVENT_ENDED)
 	{
+		((GameLobbyScene*)this->getParent())->isReadMessage = true;
 		this->removeFromParentAndCleanup(false);
 	}
 }

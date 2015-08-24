@@ -271,8 +271,9 @@ void GameLobbyScene::enterLobbyByMode(int mode){
 			else
 			{
 				ClassicLobbyScene *pLayer = ClassicLobbyScene::create();
-				this->addChild(pLayer, 100);
 				pLayer->setGameItem(ClassicLobbyScene::ITEM_3);
+				this->addChild(pLayer, 100);
+				
 				//Tools::setTransitionAnimation(0, 0, ClassicLobbyScene::scene(true));
 				/*PopDialogBox *pLoading = PopDialogBoxLoading::create();
 				this->addChild(pLoading, 10, TAG_LOADING);
@@ -436,8 +437,11 @@ void GameLobbyScene::onSubLogon(WORD wSubCmdID,void * pDataBuffer, unsigned shor
 		{
 			CMD_GR_LogonFailure *lf = (CMD_GR_LogonFailure*)pDataBuffer;
 			CCLOG("登录失败:%s", Tools::GBKToUTF8(lf->szDescribeString).c_str());
-
-			this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+			if (this->getChildByTag(TAG_LOADING))
+			{
+				this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+			}
+			
 			//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_GAME);
 			PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
 			this->addChild(tipInfo);

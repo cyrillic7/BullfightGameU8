@@ -13,10 +13,7 @@
     "UIClassicLobby.plist",
     "UIPanel.plist"
   ],
-  "texturesPng": [
-    "UIClassicLobby.png",
-    "UIPanel.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -197,7 +194,7 @@
           "rotation": 0,
           "scaleX": 1,
           "scaleY": 1,
-          "sizePercentX": 0.07746479,
+          "sizePercentX": 0.09242958,
           "sizePercentY": 0.14375,
           "sizeType": 0,
           "tag": 790,
