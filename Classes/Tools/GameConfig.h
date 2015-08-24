@@ -14,7 +14,7 @@
 //#define CCS_PATH_SCENE(name) CCString::createWithFormat("publish/%s",(name))->getCString()
 #define CCS_PATH_SCENE(name) "publish/"#name
 #define CCS_PATH_ANIMATION(name) "publish/animation/"#name
-#define IMAGE_URL(name)  CCString::createWithFormat("http://125.88.145.41:8090/image/PropIcon/%s.png",(name))->getCString()
+#define IMAGE_URL(name)  CCString::createWithFormat("http://121.41.116.223:8090/image/PropIcon/%s.png",(name))->getCString()
 #define IMAGE_NAME(name)  CCString::createWithFormat("%s.png",(name))->getCString()
 //"http ://125.88.145.41:8090/image/PropIcon/"#name".png"
 
