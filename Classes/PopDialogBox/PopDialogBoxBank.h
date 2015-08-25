@@ -23,6 +23,7 @@ private:
 	//标题
 	UILabel *pLTitle0;
 	UILabel *pLTitle1;
+	UIImageView *pIVTitle;
 	//创建密码容器
 	UIPanel *pPanelCreatePassword;
 	UITextField *pTFCreatePassword0;

@@ -134,6 +134,19 @@
                 <key>sourceSize</key>
                 <string>{180,36}</string>
             </dict>
+            <key>WangJiMiMa.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{230,230},{105,22}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{105,22}}</string>
+                <key>sourceSize</key>
+                <string>{105,22}</string>
+            </dict>
             <key>WuBaiWan_Btn_Down.png</key>
             <dict>
                 <key>frame</key>
@@ -326,7 +339,7 @@
             <key>size</key>
             <string>{545,254}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:69e0a99e6154e70d3611dedee1a548f1:023eee63a495dc8f4dd34063a4401558:78a15fe7cae3374d8603729f05d96403$</string>
+            <string>$TexturePacker:SmartUpdate:36ee6fb2dce2771713d0ae4bed891267:f5e55cd755600a490b82e3ace71400f7:78a15fe7cae3374d8603729f05d96403$</string>
             <key>textureFileName</key>
             <string>UIBank.png</string>
         </dict>

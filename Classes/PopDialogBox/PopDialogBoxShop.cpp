@@ -216,18 +216,18 @@ void PopDialogBoxShop::onCheckBoxSelectedStateEvent(CCObject *pSender, CheckBoxE
 		
 		for (int i = 0; i < MAX_SHOP_ITEM_COUNT; i++)
 		{
-			UILabel *pItemName = static_cast<UILabel*>(pCBShopItems[i]->getChildByName("LabelShopItemName"));
+			//UILabel *pItemName = static_cast<UILabel*>(pCBShopItems[i]->getChildByName("LabelShopItemName"));
 			if (index != i)
 			{
-				pItemName->setColor(ccc3(253, 255, 0));
-				pItemName->setScale(1.0);
+				//pItemName->setColor(ccc3(253, 255, 0));
+				//pItemName->setScale(1.0);
 				pCBShopItems[i]->setSelectedState(false);
 				pCBShopItems[i]->setTouchEnabled(true);
 			}
 			else
 			{
-				pItemName->setColor(ccc3(255,255,255));
-				pItemName->setScale(1.2);
+				//pItemName->setColor(ccc3(255,255,255));
+				//pItemName->setScale(1.2);
 				pCBShopItems[i]->setTouchEnabled(false);
 				changeSelectItem((ShopItem)index);
 			}
@@ -308,7 +308,7 @@ void PopDialogBoxShop::updateListCommodity(std::vector<CMD_GP_Gift> *vec){
 				//加载商品图片
 				UIImageView *pIVItem = static_cast<UIImageView*>(pListViewCommodity->getItem(pListViewCommodity->getItems()->count() - 1)->getChildByName(CCString::createWithFormat("ImageCommodity%d", j)->getCString()));
 				float fScale = CCDirector::sharedDirector()->getContentScaleFactor();
-				addDownloadImage(pIVItem, vec->at(tempIndex).szImgName, ccp(0, 35 * fScale), 1, 0, false);
+				addDownloadImage(pIVItem, vec->at(tempIndex).szImgName, ccp(0, 0 * fScale), 1, 0, false);
 				
 				UIButton *pButton = static_cast<UIButton*>(pListViewCommodity->getItem(pListViewCommodity->getItems()->count() - 1)->getChildByName(CCString::createWithFormat("ImageCommodity%d", j)->getCString())->getChildByName("ButtonBuy"));
 				pButton->setTag(tempIndex);
@@ -323,9 +323,9 @@ void PopDialogBoxShop::updateListCommodity(std::vector<CMD_GP_Gift> *vec){
 				}
 				long vipPice = vec->at(tempIndex).price[0].dwCount*vipDiscount;
 				UILabel *pLVipPice0 = static_cast<UILabel*>(pIVItem->getChildByName("ImageVipPice")->getChildByName("LabelVipPice0"));
-				pLVipPice0->setText(CCString::createWithFormat("会员价%ld", vipPice)->getCString());
+				pLVipPice0->setText(CCString::createWithFormat("%ld", vipPice)->getCString());
 				UILabel *pLVipPice1 = static_cast<UILabel*>(pIVItem->getChildByName("ImageVipPice")->getChildByName("LabelVipPice1"));
-				pLVipPice1->setText(CCString::createWithFormat("会员价%ld", vipPice)->getCString());
+				pLVipPice1->setText(CCString::createWithFormat("%ld", vipPice)->getCString());
 
 
 				UILabel *pPropName = static_cast<UILabel*>(pListViewCommodity->getItem(pListViewCommodity->getItems()->count() - 1)->getChildByName(CCString::createWithFormat("ImageCommodity%d", j)->getCString())->getChildByName("LabelPropName"));

@@ -71,8 +71,8 @@ void PopDialogBoxBank::onEnter(){
 	pBDeposit = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonSaveMoney"));
 	pBDeposit->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxBank::onMenuChangeOperationType));
 	//忘记密码
-	UILabel *pLForgetPwd = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelForgetPwd"));
-	pLForgetPwd->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxBank::onMenuForgetPassword));
+	UIImageView *pIVForgetPwd = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageForgetPwd"));
+	pIVForgetPwd->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxBank::onMenuForgetPassword));
 	//
 	pLInput = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelInput"));
 	pLOutput = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelOutputMoney"));
@@ -83,11 +83,13 @@ void PopDialogBoxBank::onEnter(){
 	pTFInputMoney = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldInputMoney"));
 	addEditBox(pTFInputMoney, kEditBoxInputModeNumeric);
 	//标题
-	pLTitle0 = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelTitle0"));
-	pLTitle1 = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelTitle1"));
+	//pLTitle0 = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelTitle0"));
+	//pLTitle1 = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelTitle1"));
+	pIVTitle = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageTitleText"));
 	if (DataModel::sharedDataModel()->cbInsurePwd)
 	{
-		setTitle("输入密码");
+		pIVTitle->loadTexture("SRBXGMM_BiaoTi.png", UI_TEX_TYPE_PLIST);
+		//setTitle("输入密码");
 		setBankState(BANK_STATE_ENTER);
 		pPanelOperationMoney->setEnabled(false);
 		pPanelCreatePassword->setEnabled(false);
@@ -96,7 +98,8 @@ void PopDialogBoxBank::onEnter(){
 	}
 	else
 	{
-		setTitle("创建密码");
+		pIVTitle->loadTexture("CJBXGMM_BiaoTi.png", UI_TEX_TYPE_PLIST);
+		//setTitle("创建密码");
 		setBankState(BANK_STATE_CREATE);
 		pPanelOperationMoney->setEnabled(false);
 		pPanelInputPassword->setEnabled(false);
@@ -592,7 +595,8 @@ void PopDialogBoxBank::onEventUserService(WORD wSubCmdID, void * pDataBuffer, un
 		//变量定义
 		CMD_GP_UserInsureInfo * pUserInsureInfo = (CMD_GP_UserInsureInfo *)pDataBuffer;
 	
-		setTitle(" 我的保险柜 ");
+		pIVTitle->loadTexture("WDBXG_BiaoTi.png", UI_TEX_TYPE_PLIST);
+		//setTitle(" 我的保险柜 ");
 		pPanelInputPassword->setEnabled(false);
 		pPanelCreatePassword->setEnabled(false);
 		pPanelOperationMoney->setEnabled(true);

@@ -15,7 +15,12 @@
     "UIUserInfo.plist",
     "UILogon.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIPanel.png",
+    "UIButton.png",
+    "UIUserInfo.png",
+    "UILogon.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",

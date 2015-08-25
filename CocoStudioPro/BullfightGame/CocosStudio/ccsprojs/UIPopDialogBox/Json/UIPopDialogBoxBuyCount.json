@@ -12,10 +12,15 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UILogon.plist",
-    "UIUserInfo.plist"
+    "UIShop.plist",
+    "UIAuction.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIPanel.png",
+    "UIButton.png",
+    "UIShop.png",
+    "UIAuction.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -811,7 +816,7 @@
               "customProperty": "",
               "flipX": false,
               "flipY": false,
-              "height": 38,
+              "height": 50,
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
@@ -828,7 +833,7 @@
               "touchAble": false,
               "useMergedTexture": false,
               "visible": true,
-              "width": 38,
+              "width": 40,
               "x": -114,
               "y": 9,
               "capInsetsHeight": 1,
@@ -842,8 +847,8 @@
                 "resourceType": 1
               },
               "scale9Enable": false,
-              "scale9Height": 38,
-              "scale9Width": 38
+              "scale9Height": 50,
+              "scale9Width": 40
             }
           }
         ],
