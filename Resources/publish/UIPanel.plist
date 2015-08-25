@@ -7,7 +7,7 @@
             <key>u_lobby_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{612,230},{49,37}}</string>
+                <string>{{739,402},{49,37}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -17,6 +17,19 @@
                 <key>sourceSize</key>
                 <string>{49,37}</string>
             </dict>
+            <key>u_p_DiWen.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{291,402},{154,228}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{154,228}}</string>
+                <key>sourceSize</key>
+                <string>{154,228}</string>
+            </dict>
             <key>u_pop_small_bg.png</key>
             <dict>
                 <key>frame</key>
@@ -24,7 +37,7 @@
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{486,287}}</string>
                 <key>sourceSize</key>
@@ -33,7 +46,7 @@
             <key>u_pop_small_title.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{651,230},{229,45}}</string>
+                <string>{{53,490},{229,45}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +59,7 @@
             <key>u_u_info_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{561,230},{49,49}}</string>
+                <string>{{2,490},{49,49}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,24 +72,24 @@
             <key>u_u_info_title.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{561,159},{297,69}}</string>
+                <string>{{521,402},{216,80}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{297,69}}</string>
+                <string>{{0,0},{216,80}}</string>
                 <key>sourceSize</key>
-                <string>{297,69}</string>
+                <string>{216,80}</string>
             </dict>
             <key>u_u_info_title1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{490,2},{282,69}}</string>
+                <string>{{521,484},{282,69}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{282,69}}</string>
                 <key>sourceSize</key>
@@ -85,11 +98,11 @@
             <key>u_u_knapsack_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{860,159},{34,22}}</string>
+                <string>{{739,453},{34,22}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{34,22}}</string>
                 <key>sourceSize</key>
@@ -98,15 +111,15 @@
             <key>ui_pop_user_info_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{561,2},{155,433}}</string>
+                <string>{{291,2},{656,398}}</string>
                 <key>offset</key>
-                <string>{0,1}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{2,2},{155,433}}</string>
+                <string>{{0,0},{656,398}}</string>
                 <key>sourceSize</key>
-                <string>{159,439}</string>
+                <string>{656,398}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -116,9 +129,9 @@
             <key>realTextureFileName</key>
             <string>UIPanel.png</string>
             <key>size</key>
-            <string>{996,291}</string>
+            <string>{949,558}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:34d26416a7b14267966d09beb53c5e92:de8f70ff26edf072df3e6dd5d0c0b2a4:32c497890652a868b1bc601216ad4c61$</string>
+            <string>$TexturePacker:SmartUpdate:f854f320107c93c29743dac0371853b6:0a12dc29042f59c1c3c931e7b5287610:32c497890652a868b1bc601216ad4c61$</string>
             <key>textureFileName</key>
             <string>UIPanel.png</string>
         </dict>

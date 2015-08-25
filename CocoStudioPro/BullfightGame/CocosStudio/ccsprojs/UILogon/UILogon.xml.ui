@@ -19,7 +19,9 @@
   <imageFileList>
     <string>UILogon.plist</string>
   </imageFileList>
-  <imagePngList />
+  <imagePngList>
+    <string>UILogon.png</string>
+  </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson />
+  <CurrentUIJson>UILogon.json</CurrentUIJson>
 </UIProject>

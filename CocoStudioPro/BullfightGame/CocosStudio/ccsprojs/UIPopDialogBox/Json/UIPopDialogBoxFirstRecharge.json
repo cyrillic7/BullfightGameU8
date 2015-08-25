@@ -11,15 +11,15 @@
   "designWidth": 1136,
   "textures": [
     "UIPanel.plist",
-    "UIShop.plist",
     "UIButton.plist",
-    "UIAuction.plist"
+    "UILogon.plist",
+    "UIUserInfo.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
-    "UIShop.png",
     "UIButton.png",
-    "UIAuction.png"
+    "UILogon.png",
+    "UIUserInfo.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -59,8 +59,8 @@
               "rotation": 0,
               "scaleX": 1,
               "scaleY": 1,
-              "sizePercentX": 0.114728682,
-              "sizePercentY": 0.175398633,
+              "sizePercentX": 0.14418605,
+              "sizePercentY": 0.2118451,
               "sizeType": 0,
               "tag": 6,
               "touchAble": true,
