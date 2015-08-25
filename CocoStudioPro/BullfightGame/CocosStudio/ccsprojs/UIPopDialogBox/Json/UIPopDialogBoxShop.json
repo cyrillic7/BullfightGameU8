@@ -812,7 +812,7 @@
                       "fileName": null,
                       "fileNameData": {
                         "path": "u_shop_package.png",
-                        "plistFile": "UIShop.plist",
+                        "plistFile": "UIPanel.plist",
                         "resourceType": 1
                       },
                       "scale9Enable": false,
@@ -1195,7 +1195,7 @@
                       "fileName": null,
                       "fileNameData": {
                         "path": "u_shop_package.png",
-                        "plistFile": "UIShop.plist",
+                        "plistFile": "UIPanel.plist",
                         "resourceType": 1
                       },
                       "scale9Enable": false,
@@ -1578,7 +1578,7 @@
                       "fileName": null,
                       "fileNameData": {
                         "path": "u_shop_package.png",
-                        "plistFile": "UIShop.plist",
+                        "plistFile": "UIPanel.plist",
                         "resourceType": 1
                       },
                       "scale9Enable": false,

@@ -7,11 +7,11 @@
             <key>DJG_Btn_Down.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{220,337},{188,64}}</string>
+                <string>{{833,2},{188,64}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{188,64}}</string>
                 <key>sourceSize</key>
@@ -20,7 +20,7 @@
             <key>DJG_Btn_Normal.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{220,465},{175,60}}</string>
+                <string>{{643,136},{175,60}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +33,7 @@
             <key>LBG_Btn_Down.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{220,271},{188,64}}</string>
+                <string>{{643,2},{188,64}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,11 +46,11 @@
             <key>LBG_Btn_Normal.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{220,403},{175,60}}</string>
+                <string>{{899,2},{175,60}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{175,60}}</string>
                 <key>sourceSize</key>
@@ -59,11 +59,11 @@
             <key>u_auction_small_list_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{397,485},{19,45}}</string>
+                <string>{{776,68},{19,45}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{19,45}}</string>
                 <key>sourceSize</key>
@@ -76,7 +76,7 @@
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{216,639}}</string>
                 <key>sourceSize</key>
@@ -85,7 +85,7 @@
             <key>u_shop_cell_b.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{421,416},{10,59}}</string>
+                <string>{{797,68},{10,59}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,7 +98,7 @@
             <key>u_shop_cell_other.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{397,403},{10,80}}</string>
+                <string>{{820,68},{10,80}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,11 +111,11 @@
             <key>u_shop_cell_w.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{409,416},{10,59}}</string>
+                <string>{{820,192},{10,59}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{10,59}}</string>
                 <key>sourceSize</key>
@@ -124,46 +124,20 @@
             <key>u_shop_line.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{409,477},{2,9}}</string>
+                <string>{{881,192},{2,9}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{2,9}}</string>
                 <key>sourceSize</key>
                 <string>{2,9}</string>
             </dict>
-            <key>u_shop_package.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{220,2},{223,267}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{223,267}}</string>
-                <key>sourceSize</key>
-                <string>{223,267}</string>
-            </dict>
-            <key>u_shop_select.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{220,527},{171,39}}</string>
-                <key>offset</key>
-                <string>{0,-8}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,16},{171,39}}</string>
-                <key>sourceSize</key>
-                <string>{171,55}</string>
-            </dict>
             <key>u_shop_titel.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{220,568},{131,66}}</string>
+                <string>{{643,68},{131,66}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -173,27 +147,14 @@
                 <key>sourceSize</key>
                 <string>{131,66}</string>
             </dict>
-            <key>u_shop_unselect.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{410,271},{143,33}}</string>
-                <key>offset</key>
-                <string>{0,-8}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{14,19},{143,33}}</string>
-                <key>sourceSize</key>
-                <string>{171,55}</string>
-            </dict>
             <key>u_shop_vip_pice_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{397,506},{79,28}}</string>
+                <string>{{899,179},{79,28}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{79,28}}</string>
                 <key>sourceSize</key>
@@ -207,9 +168,9 @@
             <key>realTextureFileName</key>
             <string>UIShop.png</string>
             <key>size</key>
-            <string>{445,643}</string>
+            <string>{980,220}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:f59f07d099c5caccef61965baceee9b6:33499e88e27e2204a2f9a8095c341d4b:5dff9365c6c14675677185d52acaa034$</string>
+            <string>$TexturePacker:SmartUpdate:f56434da9843ac00d8e4fa80e793a09e:76459ff71d58c16def17b5a4a3e110a9:5dff9365c6c14675677185d52acaa034$</string>
             <key>textureFileName</key>
             <string>UIShop.png</string>
         </dict>

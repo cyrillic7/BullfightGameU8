@@ -392,18 +392,18 @@ void PopDialogBoxAuction::onCheckBoxSelectedStateEvent(CCObject *pSender, CheckB
 		
 		for (int i = 0; i < MAX_AUCTION_ITEM_COUNT; i++)
 		{
-			UILabel *pItemName = static_cast<UILabel*>(pCBAuctionItems[i]->getChildByName("LabelItemName"));
+			//UILabel *pItemName = static_cast<UILabel*>(pCBAuctionItems[i]->getChildByName("LabelItemName"));
 			if (index != i)
 			{
-				pItemName->setColor(ccc3(253, 205, 0));
-				pItemName->setScale(1.0);
+				//pItemName->setColor(ccc3(253, 205, 0));
+				//pItemName->setScale(1.0);
 				pCBAuctionItems[i]->setSelectedState(false);
 				pCBAuctionItems[i]->setTouchEnabled(true);
 			}
 			else
 			{
-				pItemName->setColor(ccc3(255, 255, 255));
-				pItemName->setScale(1.2);
+				//pItemName->setColor(ccc3(255, 255, 255));
+				//pItemName->setScale(1.2);
 				//pCBAuctionItems[i]->setTouchEnabled(false);
 				changeSelectItem((AuctionItem)index);
 			}

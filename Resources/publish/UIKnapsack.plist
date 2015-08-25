@@ -4,10 +4,23 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>BeiBao_BiaoTi.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{158,97}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{158,97}}</string>
+                <key>sourceSize</key>
+                <string>{158,97}</string>
+            </dict>
             <key>u_k_Introduction.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{109,85},{120,35}}</string>
+                <string>{{479,2},{120,35}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,7 +33,7 @@
             <key>u_k_max_btn.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{269,47},{76,43}}</string>
+                <string>{{557,39},{76,43}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +46,7 @@
             <key>u_k_max_btn_prs.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{269,2},{76,43}}</string>
+                <string>{{479,39},{76,43}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,11 +59,11 @@
             <key>u_k_nothing.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{105,111}}</string>
+                <string>{{162,2},{105,111}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{105,111}}</string>
                 <key>sourceSize</key>
@@ -59,7 +72,7 @@
             <key>u_k_num_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{265,92},{43,23}}</string>
+                <string>{{479,84},{43,23}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +85,7 @@
             <key>ui_knapsack_determine.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{231,83},{32,32}}</string>
+                <string>{{601,2},{32,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,28 +98,28 @@
             <key>ui_knapsack_select.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{109,2},{80,81}}</string>
+                <string>{{275,2},{102,99}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{80,81}}</string>
+                <string>{{0,0},{102,99}}</string>
                 <key>sourceSize</key>
-                <string>{80,81}</string>
+                <string>{102,99}</string>
             </dict>
             <key>ui_knapsack_unselect.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{191,2},{76,79}}</string>
+                <string>{{379,2},{98,95}}</string>
                 <key>offset</key>
-                <string>{0,-1}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{2,2},{76,79}}</string>
+                <string>{{0,0},{98,95}}</string>
                 <key>sourceSize</key>
-                <string>{80,81}</string>
+                <string>{98,95}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -116,9 +129,9 @@
             <key>realTextureFileName</key>
             <string>UIKnapsack.png</string>
             <key>size</key>
-            <string>{358,122}</string>
+            <string>{635,109}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:fe45495d1bd13d4cd65bdbc1b23bf638:23c7387b9c15a37639384bb6cb16d9d7:7adc74eb6c6e62d8a58aec9d378b0cda$</string>
+            <string>$TexturePacker:SmartUpdate:89b2a460caa54836cdc39eef30c60db3:c4c80001df53b41c43dda0c1b529aa65:7adc74eb6c6e62d8a58aec9d378b0cda$</string>
             <key>textureFileName</key>
             <string>UIKnapsack.png</string>
         </dict>
