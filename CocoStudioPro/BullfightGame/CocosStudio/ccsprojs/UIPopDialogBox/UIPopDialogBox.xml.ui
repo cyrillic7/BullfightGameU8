@@ -44,13 +44,19 @@
   <imageFileList>
     <string>UIPanel.plist</string>
     <string>UIButton.plist</string>
+    <string>UITask.plist</string>
     <string>UIKnapsack.plist</string>
+    <string>UILoadingBar.plist</string>
+    <string>UIConnectFailure.plist</string>
   </imageFileList>
   <imagePngList>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
+    <string>UITask.png</string>
     <string>UIKnapsack.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIConnectFailure.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxMsg.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxVip.json</CurrentUIJson>
 </UIProject>

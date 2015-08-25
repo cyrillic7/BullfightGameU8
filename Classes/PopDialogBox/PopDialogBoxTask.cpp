@@ -150,7 +150,7 @@ void PopDialogBoxTask::updateListTask(){
 		UILabel *pTaskEcplain = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("LabelExplain"));
 		pTaskEcplain->setText(GBKToUTF8(vecTaskInfo[i].szRemarks));
 		//任务奖励说明
-		UILabel *pLRewordContent = static_cast<UILabel*>(pIVRewardIconBg->getChildByName("ImageGoldBg ")->getChildByName("LabelRewordContent")); 
+		UILabel *pLRewordContent = static_cast<UILabel*>(pIVRewardIconBg->getChildByName("LabelRewordContent")); 
 		std::string sRewordContent = "";
 		if (vecTaskInfo[i].Award.dwAward1>0)
 		{

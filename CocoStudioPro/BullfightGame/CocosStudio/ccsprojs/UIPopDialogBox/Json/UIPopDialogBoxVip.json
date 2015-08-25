@@ -12,14 +12,18 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIShop.plist",
-    "UIAuction.plist"
+    "UITask.plist",
+    "UIKnapsack.plist",
+    "UILoadingBar.plist",
+    "UIConnectFailure.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UIShop.png",
-    "UIAuction.png"
+    "UITask.png",
+    "UIKnapsack.png",
+    "UILoadingBar.png",
+    "UIConnectFailure.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -1788,7 +1792,7 @@
                               "customProperty": "",
                               "flipX": false,
                               "flipY": false,
-                              "height": 81,
+                              "height": 95,
                               "ignoreSize": true,
                               "layoutParameter": null,
                               "opacity": 255,
@@ -1805,7 +1809,7 @@
                               "touchAble": false,
                               "useMergedTexture": false,
                               "visible": true,
-                              "width": 80,
+                              "width": 98,
                               "x": 0,
                               "y": 0,
                               "capInsetsHeight": 1,
@@ -1819,8 +1823,8 @@
                                 "resourceType": 1
                               },
                               "scale9Enable": false,
-                              "scale9Height": 81,
-                              "scale9Width": 80
+                              "scale9Height": 95,
+                              "scale9Width": 98
                             }
                           }
                         ],
@@ -2103,8 +2107,8 @@
                       "adaptScreen": false,
                       "backGroundImage": null,
                       "backGroundImageData": {
-                        "path": "u_task_bg.png",
-                        "plistFile": "UITask.plist",
+                        "path": "u_shop_package.png",
+                        "plistFile": "UIPanel.plist",
                         "resourceType": 1
                       },
                       "backGroundScale9Enable": true,
@@ -2156,7 +2160,7 @@
                               "customProperty": "",
                               "flipX": false,
                               "flipY": false,
-                              "height": 81,
+                              "height": 95,
                               "ignoreSize": true,
                               "layoutParameter": null,
                               "opacity": 255,
@@ -2173,7 +2177,7 @@
                               "touchAble": false,
                               "useMergedTexture": false,
                               "visible": true,
-                              "width": 80,
+                              "width": 98,
                               "x": 0,
                               "y": 0,
                               "capInsetsHeight": 1,
@@ -2187,8 +2191,8 @@
                                 "resourceType": 1
                               },
                               "scale9Enable": false,
-                              "scale9Height": 81,
-                              "scale9Width": 80
+                              "scale9Height": 95,
+                              "scale9Width": 98
                             }
                           }
                         ],
@@ -2471,8 +2475,8 @@
                       "adaptScreen": false,
                       "backGroundImage": null,
                       "backGroundImageData": {
-                        "path": "u_task_bg.png",
-                        "plistFile": "UITask.plist",
+                        "path": "u_shop_package.png",
+                        "plistFile": "UIPanel.plist",
                         "resourceType": 1
                       },
                       "backGroundScale9Enable": true,
@@ -2524,7 +2528,7 @@
                               "customProperty": "",
                               "flipX": false,
                               "flipY": false,
-                              "height": 81,
+                              "height": 95,
                               "ignoreSize": true,
                               "layoutParameter": null,
                               "opacity": 255,
@@ -2541,7 +2545,7 @@
                               "touchAble": false,
                               "useMergedTexture": false,
                               "visible": true,
-                              "width": 80,
+                              "width": 98,
                               "x": 0,
                               "y": 0,
                               "capInsetsHeight": 1,
@@ -2555,8 +2559,8 @@
                                 "resourceType": 1
                               },
                               "scale9Enable": false,
-                              "scale9Height": 81,
-                              "scale9Width": 80
+                              "scale9Height": 95,
+                              "scale9Width": 98
                             }
                           }
                         ],
@@ -2839,8 +2843,8 @@
                       "adaptScreen": false,
                       "backGroundImage": null,
                       "backGroundImageData": {
-                        "path": "u_task_bg.png",
-                        "plistFile": "UITask.plist",
+                        "path": "u_shop_package.png",
+                        "plistFile": "UIPanel.plist",
                         "resourceType": 1
                       },
                       "backGroundScale9Enable": true,
