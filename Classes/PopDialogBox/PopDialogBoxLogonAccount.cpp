@@ -32,8 +32,8 @@ void PopDialogBoxLogonAccount::onEnter(){
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));
 	//找回密码
-	UILabel *pLRetrievePwd = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelRetrievePwd"));
-	pLRetrievePwd->addTouchEventListener(this, toucheventselector(PopDialogBoxLogonAccount::onMenuRetrievePwd));
+	UIImageView *pIVRetrievePwd = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageRetrivevPwd"));
+	pIVRetrievePwd->addTouchEventListener(this, toucheventselector(PopDialogBoxLogonAccount::onMenuRetrievePwd));
 	//绑定登录按键
 	backButton=static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonLogonAccount"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxLogonAccount::onMenuLogon));
@@ -164,7 +164,7 @@ void PopDialogBoxLogonAccount::showMoreAccount(bool isShow){
 	//登录按键
 	UIButton *pBLogon = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonLogonAccount"));
 	//找回密码
-	UILabel *pLRetrievePwd = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelRetrievePwd"));
+	UIImageView *pLRetrievePwd = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageRetrivevPwd"));
 	if (isShow)
 	{
 		pLVMoreAccount->setEnabled(true);

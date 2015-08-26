@@ -164,7 +164,8 @@ void PopDialogBox::addEditBox(UITextField *pTextField, EditBoxInputMode eInputMo
 	pEditBox->setTag(TAG_INPUT_EDIT_BOX);
 	pEditBox->setText(pTextField->getStringValue());
 	pEditBox->setDelegate(this);
-
+	//pEditBox->setColor(ccc3(243,218,185));
+	//pEditBox->setOpacity(0);
 	pTextField->addNode(pEditBox, 10);
 }
 void PopDialogBox::editBoxEditingDidBegin(cocos2d::extension::CCEditBox* editBox)

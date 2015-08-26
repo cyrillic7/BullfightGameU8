@@ -7,28 +7,28 @@
             <key>btn_exchange.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{72,84},{68,37}}</string>
+                <string>{{84,2},{70,39}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{68,37}}</string>
+                <string>{{0,0},{70,39}}</string>
                 <key>sourceSize</key>
-                <string>{68,37}</string>
+                <string>{70,39}</string>
             </dict>
             <key>btn_exchange_press.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,84},{68,37}}</string>
+                <string>{{2,84},{79,43}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{68,37}}</string>
+                <string>{{0,0},{79,43}}</string>
                 <key>sourceSize</key>
-                <string>{68,37}</string>
+                <string>{79,43}</string>
             </dict>
             <key>hand_icon.png</key>
             <dict>
@@ -46,7 +46,7 @@
             <key>u_info_change_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{84,40},{36,36}}</string>
+                <string>{{83,112},{36,36}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>u_info_change_icon.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{142,103},{18,20}}</string>
+                <string>{{2,129},{18,20}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>u_info_hand_frame.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{84,2},{36,36}}</string>
+                <string>{{84,74},{36,36}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,11 +85,11 @@
             <key>u_info_icon_boy.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{142,70},{31,30}}</string>
+                <string>{{72,150},{31,30}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{31,30}}</string>
                 <key>sourceSize</key>
@@ -98,7 +98,7 @@
             <key>u_info_icon_girl.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{122,38},{31,30}}</string>
+                <string>{{2,150},{31,30}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,11 +111,11 @@
             <key>u_line.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{84,78},{22,2}}</string>
+                <string>{{121,112},{22,2}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{22,2}}</string>
                 <key>sourceSize</key>
@@ -124,7 +124,7 @@
             <key>u_u_info_gold_icon.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{122,2},{35,34}}</string>
+                <string>{{35,129},{35,34}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -142,9 +142,9 @@
             <key>realTextureFileName</key>
             <string>UIUserInfo.png</string>
             <key>size</key>
-            <string>{174,123}</string>
+            <string>{125,182}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:18a022ec39a1ed556d3013807e239566:1d478964c3c73583e6097258377b5e2e:bc902cf2c8d6040129b0136ace806743$</string>
+            <string>$TexturePacker:SmartUpdate:0d1957f2fde326946dcf5adc9655ebed:26f03682ba9dc5ea305854f962f3ea3d:bc902cf2c8d6040129b0136ace806743$</string>
             <key>textureFileName</key>
             <string>UIUserInfo.png</string>
         </dict>
