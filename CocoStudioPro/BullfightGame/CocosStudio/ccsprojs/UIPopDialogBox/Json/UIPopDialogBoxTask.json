@@ -12,18 +12,16 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UITask.plist",
-    "UIKnapsack.plist",
+    "UIVip.plist",
     "UILoadingBar.plist",
-    "UIConnectFailure.plist"
+    "UIKnapsack.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UITask.png",
-    "UIKnapsack.png",
+    "UIVip.png",
     "UILoadingBar.png",
-    "UIConnectFailure.png"
+    "UIKnapsack.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
