@@ -42,10 +42,6 @@
     <GuidesList />
   </GuidesProject>
   <GuidesProject>
-    <Project>UIPopDialogBoxActivity</Project>
-    <GuidesList />
-  </GuidesProject>
-  <GuidesProject>
     <Project>UIPopDialogBoxLoadingOther</Project>
     <GuidesList />
   </GuidesProject>
@@ -99,11 +95,11 @@
     <GuidesList>
       <GuidesInfo>
         <GuidesName>VThumb</GuidesName>
-        <GuidesPosition>427.05635771424454</GuidesPosition>
+        <GuidesPosition>427.0563577142446</GuidesPosition>
       </GuidesInfo>
       <GuidesInfo>
         <GuidesName>VThumb</GuidesName>
-        <GuidesPosition>490.75747403231526</GuidesPosition>
+        <GuidesPosition>490.75747403231532</GuidesPosition>
       </GuidesInfo>
     </GuidesList>
   </GuidesProject>

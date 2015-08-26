@@ -7,7 +7,6 @@
   <JsonFileName>UIPopDialogBox.json</JsonFileName>
   <JsonFolder>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\ccsprojs\UIPopDialogBox\Json</JsonFolder>
   <JsonList>
-    <string>UIPopDialogBoxActivity.json</string>
     <string>UIPopDialogBoxBank.json</string>
     <string>UIPopDialogBoxBuyCount.json</string>
     <string>UIPopDialogBoxChangePassword.json</string>
@@ -48,13 +47,7 @@
     <string>UILoadingBar.plist</string>
     <string>UIKnapsack.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>UIPanel.png</string>
-    <string>UIButton.png</string>
-    <string>UIVip.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UIKnapsack.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxVip.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxInputExchange.json</CurrentUIJson>
 </UIProject>

@@ -16,13 +16,7 @@
     "UILoadingBar.plist",
     "UIKnapsack.plist"
   ],
-  "texturesPng": [
-    "UIPanel.png",
-    "UIButton.png",
-    "UIVip.png",
-    "UILoadingBar.png",
-    "UIKnapsack.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -703,8 +697,8 @@
                   "rotation": 0,
                   "scaleX": 1,
                   "scaleY": 1,
-                  "sizePercentX": 0.235,
-                  "sizePercentY": 0.942857146,
+                  "sizePercentX": 0.265,
+                  "sizePercentY": 0.9714286,
                   "sizeType": 0,
                   "tag": 6758,
                   "touchAble": false,
@@ -1083,8 +1077,8 @@
                               "rotation": 0,
                               "scaleX": 1,
                               "scaleY": 1,
-                              "sizePercentX": 0.309210539,
-                              "sizePercentY": 0.5689655,
+                              "sizePercentX": 0.348684222,
+                              "sizePercentY": 0.5862069,
                               "sizeType": 0,
                               "tag": 6776,
                               "touchAble": false,
@@ -1244,7 +1238,7 @@
                       "customProperty": "",
                       "flipX": false,
                       "flipY": false,
-                      "height": 309,
+                      "height": 267,
                       "ignoreSize": true,
                       "layoutParameter": null,
                       "opacity": 255,
@@ -1261,7 +1255,7 @@
                       "touchAble": false,
                       "useMergedTexture": false,
                       "visible": true,
-                      "width": 176,
+                      "width": 223,
                       "x": 95,
                       "y": 154,
                       "capInsetsHeight": 1,
@@ -1270,13 +1264,13 @@
                       "capInsetsY": 0,
                       "fileName": null,
                       "fileNameData": {
-                        "path": "u_task_bg.png",
-                        "plistFile": "UITask.plist",
+                        "path": "u_shop_package.png",
+                        "plistFile": "UIPanel.plist",
                         "resourceType": 1
                       },
                       "scale9Enable": false,
-                      "scale9Height": 309,
-                      "scale9Width": 176
+                      "scale9Height": 267,
+                      "scale9Width": 223
                     }
                   }
                 ],
