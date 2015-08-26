@@ -221,7 +221,10 @@ void GameControlBase::updateTimer(float dt){
 	}
 	if (iTimerCount == 0)
 	{
-		delayedAction();
+		if (!IsLookonMode() && isPalyerState())
+		{
+			delayedAction();
+		}
 	}
 
 	pLTimerNum->setStringValue(CCString::createWithFormat("%d", iTimerCount)->getCString());
@@ -1412,7 +1415,7 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 
 				CCLabelTTF *label = (CCLabelTTF*)this->getChildByTag(999);
 				label->setString(CCString::createWithFormat("table::%d",DataModel::sharedDataModel()->userInfo->wTableID+1)->getCString());
-				for (int i = 0; i < 6; i++) 
+				/*for (int i = 0; i < 6; i++) 
 				{
 					getMainScene()->playerLayer->pPlayerData[i]->hidePlayer();
 				}
@@ -1431,7 +1434,7 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 						iter++;
 					}
 				}
-				onUserEnter();
+				onUserEnter();*/
 				if (getMainScene()->getGameState() == MainSceneBase::STATE_OBSERVER)
 				{
 					isChangeChair = false;

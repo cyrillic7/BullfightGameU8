@@ -170,10 +170,10 @@ void GameControlOxSixSwap::onUserEnter(){
 	//std::map<long, tagUserInfo> tempTagUserInfo;w
 	//memcpy(&tempTagUserInfo, &DataModel::sharedDataModel()->mTagUserInfo, sizeof(DataModel::sharedDataModel()->mTagUserInfo));
 
-	if (isChangeChair)
+	/*if (isChangeChair)
 	{
 		return;
-	}
+	}*/
 
 	std::map<long, tagUserInfo> tempTagUserInfo = DataModel::sharedDataModel()->mTagUserInfo;
 	//memcpy(&tempTagUserInfo, &DataModel::sharedDataModel()->mTagUserInfo, sizeof(DataModel::sharedDataModel()->mTagUserInfo));
@@ -192,7 +192,9 @@ void GameControlOxSixSwap::onUserEnter(){
 	std::map<long, tagUserInfo>::iterator iter;
 	for (iter = tempTagUserInfo.begin(); iter != tempTagUserInfo.end(); iter++)
 	{
-		if (iter->second.wChairID > 5 || iter->second.wChairID < 0 || iter->second.wTableID != DataModel::sharedDataModel()->userInfo->wTableID)
+		if (iter->second.wChairID > 5 || iter->second.wChairID < 0 
+			//|| iter->second.wTableID != DataModel::sharedDataModel()->userInfo->wTableID
+			)
 		{
 			//tempTagUserInfo.erase(iter++);
 			continue;
@@ -878,7 +880,7 @@ void GameControlOxSixSwap::hidePlayer(CMD_GR_UserStatus *userInfo){
 	if (iterUser != DataModel::sharedDataModel()->mTagUserInfo.end())
 	{
 		getMainScene()->playerLayer->pPlayerData[getViewChairID(iterUser->second.wChairID)]->hidePlayer();
-		//DataModel::sharedDataModel()->mTagUserInfo.erase(userInfo->dwUserID);
+		DataModel::sharedDataModel()->mTagUserInfo.erase(userInfo->dwUserID);
 	}
 }
 //用户叫庄
