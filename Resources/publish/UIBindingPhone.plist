@@ -7,7 +7,7 @@
             <key>u_b_BDDX.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{545,2},{537,56}}</string>
+                <string>{{471,2},{537,56}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,7 +20,7 @@
             <key>u_b_BDSJ_BiaoTi.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{183,82},{146,36}}</string>
+                <string>{{115,82},{146,36}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +33,7 @@
             <key>u_b_BangDing_Bnt_Down.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{183,2},{187,78}}</string>
+                <string>{{109,2},{187,78}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +46,7 @@
             <key>u_b_BangDing_Bnt_Normal.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{372,2},{171,72}}</string>
+                <string>{{298,2},{171,72}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>u_b_ShouJIHao.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{463,76},{130,37}}</string>
+                <string>{{395,76},{130,37}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>u_b_YanZhengMa.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{331,82},{130,34}}</string>
+                <string>{{263,82},{130,34}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +85,7 @@
             <key>u_binding_get_code.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{911,60},{156,44}}</string>
+                <string>{{843,60},{156,44}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,7 +98,7 @@
             <key>u_binding_get_code_dis.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{753,60},{156,44}}</string>
+                <string>{{685,60},{156,44}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,7 +111,7 @@
             <key>u_binding_get_code_pre.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{595,60},{156,44}}</string>
+                <string>{{527,60},{156,44}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -124,7 +124,7 @@
             <key>u_binding_input_code.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{143,100},{18,18}}</string>
+                <string>{{69,100},{18,18}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -137,7 +137,7 @@
             <key>u_binding_input_phone.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,102},{15,24}}</string>
+                <string>{{89,100},{15,24}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -150,20 +150,20 @@
             <key>u_binding_phone.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{139,98}}</string>
+                <string>{{2,2},{105,65}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{139,98}}</string>
+                <string>{{0,0},{105,65}}</string>
                 <key>sourceSize</key>
-                <string>{139,98}</string>
+                <string>{105,65}</string>
             </dict>
             <key>u_binding_reward.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{143,2},{96,38}}</string>
+                <string>{{69,2},{96,38}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -181,9 +181,9 @@
             <key>realTextureFileName</key>
             <string>UIBindingPhone.png</string>
             <key>size</key>
-            <string>{1084,120}</string>
+            <string>{1010,120}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:9a53849285659d5a4c25d054a0f31303:7b90683299a924c75b7aa6da59b34bc7:8b034c4d2fb53895cc075bb27d8f51e6$</string>
+            <string>$TexturePacker:SmartUpdate:0783be6c1e81cbb27e05ec0b737b783e:9934321b3618c218b4f4083df2fcbcb1:8b034c4d2fb53895cc075bb27d8f51e6$</string>
             <key>textureFileName</key>
             <string>UIBindingPhone.png</string>
         </dict>

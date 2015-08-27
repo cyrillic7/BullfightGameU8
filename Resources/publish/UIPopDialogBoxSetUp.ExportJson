@@ -130,7 +130,7 @@
                   "customProperty": "",
                   "flipX": false,
                   "flipY": false,
-                  "height": 97,
+                  "height": 37,
                   "ignoreSize": true,
                   "layoutParameter": null,
                   "opacity": 255,
@@ -147,7 +147,7 @@
                   "touchAble": false,
                   "useMergedTexture": true,
                   "visible": true,
-                  "width": 159,
+                  "width": 75,
                   "x": 0,
                   "y": 12,
                   "capInsetsHeight": 1,
@@ -161,8 +161,8 @@
                     "resourceType": 1
                   },
                   "scale9Enable": false,
-                  "scale9Height": 97,
-                  "scale9Width": 159
+                  "scale9Height": 37,
+                  "scale9Width": 75
                 }
               }
             ],

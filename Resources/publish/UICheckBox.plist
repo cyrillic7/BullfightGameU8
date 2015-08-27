@@ -59,7 +59,7 @@
             <key>u_b_page_2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{342,70},{19,19}}</string>
+                <string>{{342,46},{19,19}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,28 +72,28 @@
             <key>u_info_sex_normal.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{342,36},{32,32}}</string>
+                <string>{{342,24},{20,20}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{1,1},{32,32}}</string>
+                <string>{{0,0},{20,20}}</string>
                 <key>sourceSize</key>
-                <string>{34,34}</string>
+                <string>{20,20}</string>
             </dict>
             <key>u_info_sex_selected.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{342,2},{32,32}}</string>
+                <string>{{342,2},{20,20}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{1,1},{32,32}}</string>
+                <string>{{0,0},{20,20}}</string>
                 <key>sourceSize</key>
-                <string>{34,34}</string>
+                <string>{20,20}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -103,9 +103,9 @@
             <key>realTextureFileName</key>
             <string>UICheckBox.png</string>
             <key>size</key>
-            <string>{376,98}</string>
+            <string>{364,98}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:a4ac20561339314fe8a3608bcf9cca73:2f13086526fa50e4499f4824b9cc8b1b:c3fa278c8208488ef401b0d71951c10e$</string>
+            <string>$TexturePacker:SmartUpdate:8fe83d6bca9f76778054d475bcf12ef7:c6062af9e6ddbc4852ee735cd7ef8eb7:c3fa278c8208488ef401b0d71951c10e$</string>
             <key>textureFileName</key>
             <string>UICheckBox.png</string>
         </dict>

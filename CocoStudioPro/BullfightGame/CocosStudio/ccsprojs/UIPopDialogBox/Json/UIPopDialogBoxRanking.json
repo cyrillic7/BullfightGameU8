@@ -12,13 +12,17 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIRanking.plist",
+    "UISetUp.plist",
+    "UIUserInfo.plist",
+    "UICheckBox.plist",
     "UIUserIcon.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UIRanking.png",
+    "UISetUp.png",
+    "UIUserInfo.png",
+    "UICheckBox.png",
     "UIUserIcon.png"
   ],
   "version": "1.6.0.0",

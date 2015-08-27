@@ -186,7 +186,8 @@ void PopDialogBoxUserInfo::setShowChangeView(){
 		onCheckBoxSelectedStateEvent(pcbSexBoy, DataModel::sharedDataModel()->userInfo->cbGender == 1 ? CHECKBOX_STATE_EVENT_SELECTED : CHECKBOX_STATE_EVENT_UNSELECTED);
 		onCheckBoxSelectedStateEvent(pcbSexGirl, DataModel::sharedDataModel()->userInfo->cbGender == 0 ? CHECKBOX_STATE_EVENT_SELECTED : CHECKBOX_STATE_EVENT_UNSELECTED);
 
-
+		bChange->loadTextureNormal("u_i_BaoCun_Btn_Normal.png", UI_TEX_TYPE_PLIST);
+		bChange->loadTexturePressed("u_i_BaoCun_Btn_Down.png", UI_TEX_TYPE_PLIST);
 		//bChange->setTitleText("保存");
 
 		ppSexInfo->setEnabled(false);
@@ -199,6 +200,8 @@ void PopDialogBoxUserInfo::setShowChangeView(){
 		//piNickNameBg->setVisible(false);
 		
 		//bChange->setTitleText("修改");
+		bChange->loadTextureNormal("u_i_XiuGai_Btn_Normal.png", UI_TEX_TYPE_PLIST);
+		bChange->loadTexturePressed("u_i_XiuGai_Btn_Down.png", UI_TEX_TYPE_PLIST);
 
 		ppSexInfo->setEnabled(true);
 		ppSexSelect->setEnabled(false);

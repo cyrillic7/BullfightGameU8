@@ -305,7 +305,7 @@ void PopDialogBoxVip::updateListVipByIndex(int index){
 	pLRewardGold->setText(CCString::createWithFormat("%lld金币", vipPower.VipPowerInfo[index].lLoginScore)->getCString());
 	UIButton *pBRewardGold = static_cast<UIButton *>(pLVVipReward->getItem(0)->getChildByName("ButtonVipReward"));
 	//金币图标
-	UIImageView *pIVGoldIcon = static_cast<UIImageView *>(pLVVipReward->getItem(0)->getChildByName("ImageVipGoodsIcon")); 
+	UIImageView *pIVGoldIcon = static_cast<UIImageView *>(pLVVipReward->getItem(0)->getChildByName("ImageKuang")->getChildByName("ImageVipGoodsIcon"));
 	pIVGoldIcon->loadTexture(CCString::createWithFormat("u_vip_reward_gold%d.png",index)->getCString(), UI_TEX_TYPE_PLIST);
 	if (index==vipPower.dwVipID-1)
 	{
@@ -319,7 +319,7 @@ void PopDialogBoxVip::updateListVipByIndex(int index){
 	//红包奖励
 	UILabel *pLRewardRedMoney = static_cast<UILabel *>(pLVVipReward->getItem(1)->getChildByName("LabelVipRewardNum"));
 	//红包图标
-	UIImageView *pIVRedMoney = static_cast<UIImageView *>(pLVVipReward->getItem(1)->getChildByName("ImageVipGoodsIcon"));
+	UIImageView *pIVRedMoney = static_cast<UIImageView *>(pLVVipReward->getItem(1)->getChildByName("ImageKuang")->getChildByName("ImageVipGoodsIcon"));
 	if (vipPower.VipPowerInfo[index].dwRedPieces != 0)
 	{
 		pLRewardRedMoney->setText(CCString::createWithFormat("%ld红包碎片", vipPower.VipPowerInfo[index].dwRedPieces)->getCString());

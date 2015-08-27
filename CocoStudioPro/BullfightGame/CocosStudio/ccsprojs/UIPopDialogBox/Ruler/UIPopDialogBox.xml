@@ -75,16 +75,7 @@
   </GuidesProject>
   <GuidesProject>
     <Project>UIPopDialogBoxVip</Project>
-    <GuidesList>
-      <GuidesInfo>
-        <GuidesName>HThumb</GuidesName>
-        <GuidesPosition>438.22039744059248</GuidesPosition>
-      </GuidesInfo>
-      <GuidesInfo>
-        <GuidesName>HThumb</GuidesName>
-        <GuidesPosition>106.55373875935879</GuidesPosition>
-      </GuidesInfo>
-    </GuidesList>
+    <GuidesList />
   </GuidesProject>
   <GuidesProject>
     <Project>UIPopDialogBoxRegistered</Project>
