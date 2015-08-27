@@ -12,16 +12,12 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIMsg.plist",
-    "UIAuction.plist",
-    "UIRecharge.plist"
+    "UIKnapsack.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UIMsg.png",
-    "UIAuction.png",
-    "UIRecharge.png"
+    "UIKnapsack.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -273,13 +269,13 @@
                   "normal": null,
                   "normalData": {
                     "path": "DuiHuan_Btn_Normal.png",
-                    "plistFile": "UIButton.plist",
+                    "plistFile": "UIKnapsack.plist",
                     "resourceType": 1
                   },
                   "pressed": null,
                   "pressedData": {
                     "path": "DuiHuan_Btn_Down.png",
-                    "plistFile": "UIButton.plist",
+                    "plistFile": "UIKnapsack.plist",
                     "resourceType": 1
                   },
                   "scale9Enable": false,

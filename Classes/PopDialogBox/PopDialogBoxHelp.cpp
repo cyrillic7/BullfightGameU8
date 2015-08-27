@@ -33,7 +33,7 @@ void PopDialogBoxHelp::onEnter(){
 	//帮助内容
 	plHelpText = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelHelpText"));
 	plHelpText->ignoreContentAdaptWithSize(true);
-	plHelpText->setTextAreaSize(CCSize(409,0));
+	plHelpText->setTextAreaSize(CCSize(380,0));
 	
 	scrollViewHelp=static_cast<UIScrollView*>(pUILayer->getWidgetByName("ScrollViewHelp"));
 	

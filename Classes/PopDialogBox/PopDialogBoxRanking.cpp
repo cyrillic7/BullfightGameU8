@@ -103,7 +103,7 @@ void PopDialogBoxRanking::updateListRanking(){
 		{
 			continue;
 		}
-		UIImageView *pLNum = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageChampion")->getChildByName(CCString::createWithFormat("ImageNumber%d", i + 1)->getCString()));
+		UIImageView *pLNum = static_cast<UIImageView*>(pUILayer->getWidgetByName(CCString::createWithFormat("ImageNumber%d", i + 1)->getCString()));
 		//名称
 		UILabel *pLName = static_cast<UILabel*>(pLNum->getChildByName("LabelName"));
 		//pLName->setText(GBKToUTF8(vecRanking[i].szNickName));

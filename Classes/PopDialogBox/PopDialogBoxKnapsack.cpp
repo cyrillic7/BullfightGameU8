@@ -376,8 +376,8 @@ void PopDialogBoxKnapsack::updateGoodInfo(int index){
 	case USE_STATE:
 	{
 		//pBExchange->setTitleText("使用");
-		pBExchange->loadTextureNormal("u_k_ShiYong_But_Normal", UI_TEX_TYPE_PLIST);
-		pBExchange->loadTexturePressed("u_k_ShiYong_But_Down", UI_TEX_TYPE_PLIST);
+		pBExchange->loadTextureNormal("u_k_ShiYong_But_Normal.png", UI_TEX_TYPE_PLIST);
+		pBExchange->loadTexturePressed("u_k_ShiYong_But_Down.png", UI_TEX_TYPE_PLIST);
 		
 		pBExchange->setEnabled(true);
 	}

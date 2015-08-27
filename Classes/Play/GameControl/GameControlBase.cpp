@@ -1415,6 +1415,12 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 
 				CCLabelTTF *label = (CCLabelTTF*)this->getChildByTag(999);
 				label->setString(CCString::createWithFormat("table::%d",DataModel::sharedDataModel()->userInfo->wTableID+1)->getCString());
+
+				for (int i = 0; i < 6; i++)
+				{
+					getMainScene()->playerLayer->pPlayerData[i]->hidePlayer();
+				}
+				DataModel::sharedDataModel()->mTagUserInfo.clear();
 				/*for (int i = 0; i < 6; i++) 
 				{
 					getMainScene()->playerLayer->pPlayerData[i]->hidePlayer();

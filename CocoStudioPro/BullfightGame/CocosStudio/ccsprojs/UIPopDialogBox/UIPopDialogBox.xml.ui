@@ -43,17 +43,15 @@
   <imageFileList>
     <string>UIPanel.plist</string>
     <string>UIButton.plist</string>
-    <string>UIMsg.plist</string>
-    <string>UIAuction.plist</string>
-    <string>UIRecharge.plist</string>
+    <string>UIRanking.plist</string>
+    <string>UIUserIcon.plist</string>
   </imageFileList>
   <imagePngList>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
-    <string>UIMsg.png</string>
-    <string>UIAuction.png</string>
-    <string>UIRecharge.png</string>
+    <string>UIRanking.png</string>
+    <string>UIUserIcon.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxKnapsack.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxRanking.json</CurrentUIJson>
 </UIProject>

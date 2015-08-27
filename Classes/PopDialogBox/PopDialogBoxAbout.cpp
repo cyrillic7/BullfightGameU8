@@ -32,7 +32,7 @@ void PopDialogBoxAbout::onEnter(){
 	//帮助内容
 	pLAboutText = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelAboutContent"));
 	pLAboutText->ignoreContentAdaptWithSize(true);
-	pLAboutText->setTextAreaSize(CCSize(614, 0));
+	pLAboutText->setTextAreaSize(CCSize(560, 0));
 
 	pLAboutText->setText(sAboutContent.c_str());
 
