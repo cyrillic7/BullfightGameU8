@@ -34,7 +34,7 @@ private:
 	UIButton *bChange;
 
 	UIImageView *piSexIcon;
-	UILabel *plSexBoyInfo;
+	//UILabel *plSexBoyInfo;
 	bool isShowChange;
 
 	UIPanel *ppSexInfo,*ppSexSelect;

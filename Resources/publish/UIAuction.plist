@@ -20,7 +20,7 @@
             <key>DanJia.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{171,473},{46,21}}</string>
+                <string>{{207,468},{46,21}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -202,7 +202,7 @@
             <key>u_a_auction_list_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{209,512},{23,22}}</string>
+                <string>{{169,517},{23,22}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -267,11 +267,11 @@
             <key>u_a_goods_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{169,496},{38,39}}</string>
+                <string>{{207,491},{38,39}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{38,39}}</string>
                 <key>sourceSize</key>
@@ -280,7 +280,7 @@
             <key>u_a_icon_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{171,421},{50,35}}</string>
+                <string>{{217,364},{50,35}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -293,20 +293,20 @@
             <key>u_a_icon_gold.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{217,380},{35,37}}</string>
+                <string>{{217,325},{37,36}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{35,37}}</string>
+                <string>{{0,0},{37,36}}</string>
                 <key>sourceSize</key>
-                <string>{35,37}</string>
+                <string>{37,36}</string>
             </dict>
             <key>u_a_icon_jq.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{208,419},{40,50}}</string>
+                <string>{{207,416},{40,50}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -345,7 +345,7 @@
             <key>u_a_icon_yb.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{217,325},{53,34}}</string>
+                <string>{{171,421},{53,34}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -358,7 +358,7 @@
             <key>u_a_icon_yh.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{219,471},{34,39}}</string>
+                <string>{{171,476},{34,39}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -378,7 +378,7 @@
             <key>size</key>
             <string>{255,638}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:7c12dd67c6e33ed67ca3dba2856150e6:d21c0f5ea3663fe5630181b61a7a85fc:e6274a8aa8f6da0844da162cbee4ae49$</string>
+            <string>$TexturePacker:SmartUpdate:47e6a398c6d8ab6c7e3a475c9583f7e3:65c086e613092980fc064004387fe572:e6274a8aa8f6da0844da162cbee4ae49$</string>
             <key>textureFileName</key>
             <string>UIAuction.png</string>
         </dict>

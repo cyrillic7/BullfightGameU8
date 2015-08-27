@@ -316,13 +316,13 @@ void PopDialogBoxKnapsack::updateListGoods(){
 				pCheckBox->setTag(tempIndex);
 				pCheckBox->addEventListenerCheckBox(this, SEL_SelectedStateEvent(&PopDialogBoxKnapsack::onCheckBoxSelectedStateEvent));
 				
-				UIImageView *pIDetermine = static_cast<UIImageView*>(pCheckBox->getChildByName("ImageDetermine"));
-				pIDetermine->setVisible(false);
+				//UIImageView *pIDetermine = static_cast<UIImageView*>(pCheckBox->getChildByName("ImageDetermine"));
+				//pIDetermine->setVisible(false);
 
 				addDownloadImage(pIVItem, vecGoods[tempIndex].szImgName,CCPointZero,1,0,false);
 
 				//设置数量
-				UIImageView *pINumBg = static_cast<UIImageView*>(pListViewGoods->getItem(pListViewGoods->getItems()->count() - 1)->getChildByName(CCString::createWithFormat("ImageItem%d", j)->getCString())->getChildByName("ImageGoodsNumBg"));
+				UIImageView *pINumBg = static_cast<UIImageView*>(pListViewGoods->getItem(pListViewGoods->getItems()->count() - 1)->getChildByName(CCString::createWithFormat("ImageItem%d", j)->getCString()));
 				UILabel *pPropDescription = static_cast<UILabel*>(pINumBg->getChildByName("LabelGoldNum"));
 				if (vecGoods[tempIndex].dwNum>99)
 				{
@@ -375,13 +375,19 @@ void PopDialogBoxKnapsack::updateGoodInfo(int index){
 		break;
 	case USE_STATE:
 	{
-		pBExchange->setTitleText("使用");
+		//pBExchange->setTitleText("使用");
+		pBExchange->loadTextureNormal("u_k_ShiYong_But_Normal", UI_TEX_TYPE_PLIST);
+		pBExchange->loadTexturePressed("u_k_ShiYong_But_Down", UI_TEX_TYPE_PLIST);
+		
 		pBExchange->setEnabled(true);
 	}
 		break;
 	case EXCHANGE_STATE:
 	{
-		pBExchange->setTitleText("兑换");
+		//pBExchange->setTitleText("兑换");
+		pBExchange->loadTextureNormal("DuiHuan_Btn_Normal.png", UI_TEX_TYPE_PLIST);
+		pBExchange->loadTexturePressed("DuiHuan_Btn_Down.png", UI_TEX_TYPE_PLIST);
+
 		pBExchange->setEnabled(true);
 	}
 		break;
@@ -408,17 +414,17 @@ void PopDialogBoxKnapsack::onCheckBoxSelectedStateEvent(CCObject *pSender, Check
 				if (tempIndex < vecGoods.size())
 				{
 					UICheckBox *pCheckBox = static_cast<UICheckBox*>(pListViewGoods->getItem(i)->getChildByName(CCString::createWithFormat("ImageItem%d", j)->getCString())->getChildByName("CheckBox"));
-					UIImageView *pIDetermine = static_cast<UIImageView*>(pCheckBox->getChildByName("ImageDetermine"));
+					//UIImageView *pIDetermine = static_cast<UIImageView*>(pCheckBox->getChildByName("ImageDetermine"));
 				
 					if (iCurSelectIndex == tempIndex)
 					{
-						pIDetermine->setVisible(true);
+						//pIDetermine->setVisible(true);
 						updateGoodInfo(iCurSelectIndex);
 						pCheckBox->setTouchEnabled(false);
 					}
 					else
 					{
-						pIDetermine->setVisible(false);
+						//pIDetermine->setVisible(false);
 						pCheckBox->setSelectedState(false);
 						pCheckBox->setTouchEnabled(true);
 					}

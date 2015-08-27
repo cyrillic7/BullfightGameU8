@@ -20,7 +20,7 @@
             <key>u_k_Introduction.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{479,2},{120,35}}</string>
+                <string>{{616,56},{120,35}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -30,10 +30,36 @@
                 <key>sourceSize</key>
                 <string>{120,35}</string>
             </dict>
+            <key>u_k_ShiYong_But_Down.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{473,2},{150,52}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{150,52}}</string>
+                <key>sourceSize</key>
+                <string>{150,52}</string>
+            </dict>
+            <key>u_k_ShiYong_But_Normal.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{473,56},{141,49}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{141,49}}</string>
+                <key>sourceSize</key>
+                <string>{141,49}</string>
+            </dict>
             <key>u_k_max_btn.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{557,39},{76,43}}</string>
+                <string>{{625,2},{76,43}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,11 +72,11 @@
             <key>u_k_max_btn_prs.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{479,39},{76,43}}</string>
+                <string>{{738,2},{76,43}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{76,43}}</string>
                 <key>sourceSize</key>
@@ -72,7 +98,7 @@
             <key>u_k_num_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{479,84},{43,23}}</string>
+                <string>{{738,80},{43,23}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +111,7 @@
             <key>ui_knapsack_determine.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{601,2},{32,32}}</string>
+                <string>{{703,2},{32,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -102,7 +128,7 @@
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{102,99}}</string>
                 <key>sourceSize</key>
@@ -111,11 +137,11 @@
             <key>ui_knapsack_unselect.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{379,2},{98,95}}</string>
+                <string>{{376,2},{98,95}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{98,95}}</string>
                 <key>sourceSize</key>
@@ -129,9 +155,9 @@
             <key>realTextureFileName</key>
             <string>UIKnapsack.png</string>
             <key>size</key>
-            <string>{635,109}</string>
+            <string>{783,109}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:89b2a460caa54836cdc39eef30c60db3:c4c80001df53b41c43dda0c1b529aa65:7adc74eb6c6e62d8a58aec9d378b0cda$</string>
+            <string>$TexturePacker:SmartUpdate:74170397980ee5eb8dfd9b7015cdfa7c:806849763d8b6080766bc71ce989aff0:7adc74eb6c6e62d8a58aec9d378b0cda$</string>
             <key>textureFileName</key>
             <string>UIKnapsack.png</string>
         </dict>

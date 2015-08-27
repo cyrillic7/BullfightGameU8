@@ -52,7 +52,7 @@ void PopDialogBoxUserInfo::onEnter(){
 	
 	//设置游戏ID
 	UILabel *labelUserID=static_cast<UILabel*>(pUILayer->getWidgetByName("LabelUserID"));
-	labelUserID->setText(CCString::createWithFormat("ID:%ld",DataModel::sharedDataModel()->userInfo->dwGameID)->getCString());
+	labelUserID->setText(CCString::createWithFormat("%ld",DataModel::sharedDataModel()->userInfo->dwGameID)->getCString());
 	//昵称输入框
 	pLabelNickName=static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldNickName"));
 	pLabelNickName->setText(Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName));
@@ -60,7 +60,7 @@ void PopDialogBoxUserInfo::onEnter(){
 	//性别选择
 	pcbSexGirl=static_cast<UICheckBox*>(pUILayer->getWidgetByName("CheckBoxSexGirl"));
 	pcbSexGirl->addEventListenerCheckBox(this,SEL_SelectedStateEvent(&PopDialogBoxUserInfo::onCheckBoxSelectedStateEvent));
-	plSexBoyInfo=static_cast<UILabel*>(pUILayer->getWidgetByName("LabelSexBoyInfo"));
+	//plSexBoyInfo=static_cast<UILabel*>(pUILayer->getWidgetByName("LabelSexBoyInfo"));
 
 	pcbSexBoy=static_cast<UICheckBox*>(pUILayer->getWidgetByName("CheckBoxSexBoy"));
 	pcbSexBoy->addEventListenerCheckBox(this,SEL_SelectedStateEvent(&PopDialogBoxUserInfo::onCheckBoxSelectedStateEvent));
@@ -187,7 +187,7 @@ void PopDialogBoxUserInfo::setShowChangeView(){
 		onCheckBoxSelectedStateEvent(pcbSexGirl, DataModel::sharedDataModel()->userInfo->cbGender == 0 ? CHECKBOX_STATE_EVENT_SELECTED : CHECKBOX_STATE_EVENT_UNSELECTED);
 
 
-		bChange->setTitleText("保存");
+		//bChange->setTitleText("保存");
 
 		ppSexInfo->setEnabled(false);
 		ppSexSelect->setEnabled(true);
@@ -198,7 +198,7 @@ void PopDialogBoxUserInfo::setShowChangeView(){
 		//pLabelNickName->setColor(ccc3(255,255,255));
 		//piNickNameBg->setVisible(false);
 		
-		bChange->setTitleText("修改");
+		//bChange->setTitleText("修改");
 
 		ppSexInfo->setEnabled(true);
 		ppSexSelect->setEnabled(false);
@@ -211,7 +211,7 @@ void PopDialogBoxUserInfo::updateSex(){
 	if (DataModel::sharedDataModel()->userInfo->cbGender==1)
 	{
 		piSexIcon->loadTexture("u_info_icon_boy.png",UI_TEX_TYPE_PLIST);
-		plSexBoyInfo->setText(BaseAttributes::sharedAttributes()->sSexBoyName);
+		//plSexBoyInfo->setText(BaseAttributes::sharedAttributes()->sSexBoyName);
 		if (isShowChange)
 		{
 			pcbSexBoy->setSelectedState(true);
@@ -221,7 +221,7 @@ void PopDialogBoxUserInfo::updateSex(){
 	}else
 	{
 		piSexIcon->loadTexture("u_info_icon_girl.png",UI_TEX_TYPE_PLIST);
-		plSexBoyInfo->setText(BaseAttributes::sharedAttributes()->sSexGirlName);
+		//plSexBoyInfo->setText(BaseAttributes::sharedAttributes()->sSexGirlName);
 		if (isShowChange)
 		{
 			pcbSexBoy->setSelectedState(false);

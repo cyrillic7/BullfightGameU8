@@ -92,16 +92,7 @@
   </GuidesProject>
   <GuidesProject>
     <Project>UIPopDialogBoxBindingPhone</Project>
-    <GuidesList>
-      <GuidesInfo>
-        <GuidesName>VThumb</GuidesName>
-        <GuidesPosition>427.0563577142446</GuidesPosition>
-      </GuidesInfo>
-      <GuidesInfo>
-        <GuidesName>VThumb</GuidesName>
-        <GuidesPosition>490.75747403231532</GuidesPosition>
-      </GuidesInfo>
-    </GuidesList>
+    <GuidesList />
   </GuidesProject>
   <GuidesProject>
     <Project>UIPopDialogBoxForgetPassword</Project>

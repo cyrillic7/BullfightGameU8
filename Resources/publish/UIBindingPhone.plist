@@ -4,10 +4,88 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>u_b_BDDX.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{545,2},{537,56}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{537,56}}</string>
+                <key>sourceSize</key>
+                <string>{537,56}</string>
+            </dict>
+            <key>u_b_BDSJ_BiaoTi.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{183,82},{146,36}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{146,36}}</string>
+                <key>sourceSize</key>
+                <string>{146,36}</string>
+            </dict>
+            <key>u_b_BangDing_Bnt_Down.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{183,2},{187,78}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{187,78}}</string>
+                <key>sourceSize</key>
+                <string>{187,78}</string>
+            </dict>
+            <key>u_b_BangDing_Bnt_Normal.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{372,2},{171,72}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{1,0},{171,72}}</string>
+                <key>sourceSize</key>
+                <string>{173,72}</string>
+            </dict>
+            <key>u_b_ShouJIHao.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{463,76},{130,37}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{130,37}}</string>
+                <key>sourceSize</key>
+                <string>{130,37}</string>
+            </dict>
+            <key>u_b_YanZhengMa.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{331,82},{130,34}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{130,34}}</string>
+                <key>sourceSize</key>
+                <string>{130,34}</string>
+            </dict>
             <key>u_binding_get_code.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{143,48},{156,44}}</string>
+                <string>{{911,60},{156,44}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,7 +98,7 @@
             <key>u_binding_get_code_dis.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{301,2},{156,44}}</string>
+                <string>{{753,60},{156,44}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +111,7 @@
             <key>u_binding_get_code_pre.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{143,2},{156,44}}</string>
+                <string>{{595,60},{156,44}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +124,7 @@
             <key>u_binding_input_code.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{442,48},{18,18}}</string>
+                <string>{{143,100},{18,18}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,11 +137,11 @@
             <key>u_binding_input_phone.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{442,68},{15,24}}</string>
+                <string>{{2,102},{15,24}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{15,24}}</string>
                 <key>sourceSize</key>
@@ -85,15 +163,15 @@
             <key>u_binding_reward.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{301,48},{139,39}}</string>
+                <string>{{143,2},{96,38}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{139,39}}</string>
+                <string>{{0,0},{96,38}}</string>
                 <key>sourceSize</key>
-                <string>{139,39}</string>
+                <string>{96,38}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -103,9 +181,9 @@
             <key>realTextureFileName</key>
             <string>UIBindingPhone.png</string>
             <key>size</key>
-            <string>{462,102}</string>
+            <string>{1084,120}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:c5ec878c4c7ffa86b301dbd8564ec9f1:30b095ede348cbd14fa6db1babc1a7c3:8b034c4d2fb53895cc075bb27d8f51e6$</string>
+            <string>$TexturePacker:SmartUpdate:9a53849285659d5a4c25d054a0f31303:7b90683299a924c75b7aa6da59b34bc7:8b034c4d2fb53895cc075bb27d8f51e6$</string>
             <key>textureFileName</key>
             <string>UIBindingPhone.png</string>
         </dict>
