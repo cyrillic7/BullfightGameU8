@@ -26,10 +26,13 @@ private:
 	//创建密码容器
 	UIPanel *pPanelCreatePassword;
 	UITextField *pTFCreatePassword0;
+	CCEditBox *pEBCreatePassword0;
 	UITextField *pTFCreatePassword1;
+	CCEditBox *pEBCreatePassword1;
 	//输入密码容器
 	UIPanel *pPanelInputPassword;
 	UITextField *pTFInputPassword;
+	CCEditBox *pEBInputPassword;
 	//存取钱
 	UIPanel *pPanelOperationMoney;
 	//取出选项卡按键
@@ -46,6 +49,7 @@ private:
 	UIButton *pBOperationMoney;
 	//存款/取款金币数
 	UITextField *pTFInputMoney;
+	CCEditBox *pEBInputMoney;
 	//快捷选择款项按键
 	UIButton *pBQuickSelectMoney[MAX_QUICK_BUTTON_COUNT];
 	//快捷款项选择限制条件
