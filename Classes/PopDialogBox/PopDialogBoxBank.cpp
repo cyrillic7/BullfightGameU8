@@ -46,8 +46,11 @@ void PopDialogBoxBank::onEnter(){
 	//密码输入框
 	pTFCreatePassword0 = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldCreatePassword0"));
 	addEditBox(pTFCreatePassword0, kEditBoxInputModeAny);
+	pEBCreatePassword0  = (CCEditBox*)pTFCreatePassword0->getNodeByTag(TAG_INPUT_EDIT_BOX);
+
 	pTFCreatePassword1 = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldCreatePassword1"));
 	addEditBox(pTFCreatePassword1, kEditBoxInputModeAny);
+	pEBCreatePassword1 = (CCEditBox*)pTFCreatePassword1->getNodeByTag(TAG_INPUT_EDIT_BOX);
 	//创建密码保存按键
 	UIButton *pBSave = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonCreatePassword"));
 	pBSave->addTouchEventListener(this, toucheventselector(PopDialogBoxBank::onMenuCreatePassword));
@@ -57,6 +60,7 @@ void PopDialogBoxBank::onEnter(){
 	//输入密码框
 	pTFInputPassword = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldEnterPassword"));
 	addEditBox(pTFInputPassword,kEditBoxInputModeAny);
+	pEBInputPassword = (CCEditBox*)pTFInputPassword->getNodeByTag(TAG_INPUT_EDIT_BOX);
 	//输入密码保存按键
 	UIButton *pBInput = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonEnterPassword"));
 	pBInput->addTouchEventListener(this, toucheventselector(PopDialogBoxBank::onMenuInputPassword));
@@ -82,6 +86,7 @@ void PopDialogBoxBank::onEnter(){
 	//存款/取款金币数
 	pTFInputMoney = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldInputMoney"));
 	addEditBox(pTFInputMoney, kEditBoxInputModeNumeric);
+	pEBInputMoney = (CCEditBox*)pTFInputMoney->getNodeByTag(TAG_INPUT_EDIT_BOX);
 	//标题
 	//pLTitle0 = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelTitle0"));
 	//pLTitle1 = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelTitle1"));
@@ -95,6 +100,11 @@ void PopDialogBoxBank::onEnter(){
 		pPanelCreatePassword->setEnabled(false);
 		pPanelInputPassword->setEnabled(true);
 		pPanelInputPassword->setVisible(true);
+
+		pEBCreatePassword0->setEnabled(false);
+		pEBCreatePassword1->setEnabled(false);
+		pEBInputMoney->setEnabled(false);
+		pEBInputPassword->setEnabled(true);
 	}
 	else
 	{
@@ -105,6 +115,11 @@ void PopDialogBoxBank::onEnter(){
 		pPanelInputPassword->setEnabled(false);
 		pPanelCreatePassword->setEnabled(true);
 		pPanelCreatePassword->setVisible(true);
+
+		pEBCreatePassword0->setEnabled(true);
+		pEBCreatePassword1->setEnabled(true);
+		pEBInputMoney->setEnabled(false);
+		pEBInputPassword->setEnabled(false);
 	}
 	//初始化快捷选择款按键
 	initQuickSelectMoney();
@@ -600,6 +615,11 @@ void PopDialogBoxBank::onEventUserService(WORD wSubCmdID, void * pDataBuffer, un
 		pPanelInputPassword->setEnabled(false);
 		pPanelCreatePassword->setEnabled(false);
 		pPanelOperationMoney->setEnabled(true);
+
+		pEBCreatePassword0->setEnabled(false);
+		pEBCreatePassword1->setEnabled(false);
+		pEBInputMoney->setEnabled(true);
+		pEBInputPassword->setEnabled(false);
 
 		setBankState(BANK_STATE_TAKE_OUT);
 		DataModel::sharedDataModel()->userInfo->lScore = pUserInsureInfo->lUserScore;
