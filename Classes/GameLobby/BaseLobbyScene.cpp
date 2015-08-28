@@ -149,7 +149,12 @@ void BaseLobbyScene::popDialogBox(PopType type){
 #else
 		m_pWidget->setTouchEnabled(false);
 		m_pWidgetBase->setTouchEnabled(false);
-		platformAction("{\"act\":201 ,\"url\":\"http://121.40.31.203:8010/\"}").c_str();
+		std::string actStr="{\"act\":201 ,\"url\":\"http://121.40.31.203:8010/api/Login/?account=";
+		actStr+=DataModel::sharedDataModel()->sLogonAccount;
+		actStr += "&pwd=";
+		actStr += DataModel::sharedDataModel()->sLogonPassword;
+		actStr += "&plat=1\"}";
+		platformAction(actStr.c_str()).c_str();
 #endif
 		//pdb = PopDialogBoxActivity::create();
 	}

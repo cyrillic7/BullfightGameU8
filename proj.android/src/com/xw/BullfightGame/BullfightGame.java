@@ -51,6 +51,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -245,6 +246,7 @@ public class BullfightGame extends Cocos2dxActivity {
 				m_webView.getSettings().setBuiltInZoomControls(true);
 				// 载入URL
 				m_webView.loadUrl(url);
+				System.out.println("url::::"+url);
 				// 使页面获得焦点
 				m_webView.requestFocus();
 				// 如果页面中链接，如果希望点击链接继续在当前browser中响应
@@ -277,6 +279,28 @@ public class BullfightGame extends Cocos2dxActivity {
 							}
 						}
 						return true;
+					}
+
+					@Override
+					public void onPageStarted(WebView view, String url,
+							Bitmap favicon) {
+						// TODO Auto-generated method stub
+						super.onPageStarted(view, url, favicon);
+					}
+					private boolean isFinish=false;
+					@Override
+					public void onPageFinished(WebView view, String url) {
+						// TODO Auto-generated method stub
+						super.onPageFinished(view, url);
+						 if (iActionType == 201) {
+							 System.out.println("=======================210102222");
+							 if(!isFinish)
+							 {
+								 isFinish=true;
+								 view.loadUrl("http://121.40.31.203:8010/");
+							 }
+							 
+						}
 					}
 				});
 				/*

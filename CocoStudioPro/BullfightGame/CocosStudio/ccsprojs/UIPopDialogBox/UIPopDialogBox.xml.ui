@@ -55,5 +55,5 @@
     <string>UILogon.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxBank.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxTask.json</CurrentUIJson>
 </UIProject>
