@@ -89,7 +89,7 @@ void PopDialogBoxSign::onMenuSign(CCObject *object, TouchEventType type){
 //超时回调
 void PopDialogBoxSign::onOutTime(){
 	isSign = false;
-	pBSign->setTitleText("关闭");
+	//pBSign->setTitleText("关闭");
 }
 //更新签到列表
 void PopDialogBoxSign::updateListSignInfo(){

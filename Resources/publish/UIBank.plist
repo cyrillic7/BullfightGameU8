@@ -46,7 +46,7 @@
             <key>CunRu_Btn_Normal.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{134,158},{103,41}}</string>
+                <string>{{125,201},{103,41}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -82,14 +82,27 @@
                 <key>sourceSize</key>
                 <string>{121,50}</string>
             </dict>
-            <key>QuanBu_Btn_Down.png</key>
+            <key>QuChu_Btn_Normal.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{343,182},{102,34}}</string>
+                <string>{{134,158},{103,41}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,1},{103,41}}</string>
+                <key>sourceSize</key>
+                <string>{103,43}</string>
+            </dict>
+            <key>QuanBu_Btn_Down.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{504,74},{102,34}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{102,34}}</string>
                 <key>sourceSize</key>
@@ -98,11 +111,11 @@
             <key>QuanBu_Btn_Normal.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{363,146},{102,34}}</string>
+                <string>{{468,74},{102,34}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{102,34}}</string>
                 <key>sourceSize</key>
@@ -150,7 +163,7 @@
             <key>WuBaiWan_Btn_Down.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{363,110},{103,34}}</string>
+                <string>{{363,146},{103,34}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -163,7 +176,7 @@
             <key>WuBaiWan_Btn_Normal.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{363,74},{103,34}}</string>
+                <string>{{363,110},{103,34}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -176,11 +189,11 @@
             <key>WuQianWan_Btn_Down.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{504,74},{99,34}}</string>
+                <string>{{444,218},{99,34}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{99,34}}</string>
                 <key>sourceSize</key>
@@ -189,11 +202,11 @@
             <key>WuQianWan_Btn_Normal.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{468,74},{99,34}}</string>
+                <string>{{444,182},{99,34}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{99,34}}</string>
                 <key>sourceSize</key>
@@ -215,7 +228,7 @@
             <key>YiBaiWan_Btn_Down.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{444,218},{99,34}}</string>
+                <string>{{343,218},{99,34}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -228,7 +241,7 @@
             <key>YiBaiWan_Btn_Normal.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{343,218},{99,34}}</string>
+                <string>{{343,182},{99,34}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -267,11 +280,11 @@
             <key>YiYi_Btn_Down.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{327,50},{103,34}}</string>
+                <string>{{363,74},{103,34}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{103,34}}</string>
                 <key>sourceSize</key>
@@ -280,11 +293,11 @@
             <key>YiYi_Btn_Normal.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{125,201},{103,34}}</string>
+                <string>{{327,50},{103,34}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{103,34}}</string>
                 <key>sourceSize</key>
@@ -339,7 +352,7 @@
             <key>size</key>
             <string>{545,254}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:36ee6fb2dce2771713d0ae4bed891267:f5e55cd755600a490b82e3ace71400f7:78a15fe7cae3374d8603729f05d96403$</string>
+            <string>$TexturePacker:SmartUpdate:8e70bdf9a31a9fc5def0c89dcd581cfa:b8a3176f5f8f15535880c81cad948963:78a15fe7cae3374d8603729f05d96403$</string>
             <key>textureFileName</key>
             <string>UIBank.png</string>
         </dict>

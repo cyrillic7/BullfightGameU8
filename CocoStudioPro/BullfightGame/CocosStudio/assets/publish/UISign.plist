@@ -4,14 +4,66 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>CaiQi02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{785,146}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{785,146}}</string>
+                <key>sourceSize</key>
+                <string>{785,146}</string>
+            </dict>
+            <key>LJQD_Bnt_Down.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{150,471},{186,78}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{186,78}}</string>
+                <key>sourceSize</key>
+                <string>{186,78}</string>
+            </dict>
+            <key>LJQD_Bnt_Normal.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{150,659},{171,72}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{1,0},{171,72}}</string>
+                <key>sourceSize</key>
+                <string>{173,72}</string>
+            </dict>
+            <key>QDHD_BiaoTi.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{150,367},{244,102}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{244,102}}</string>
+                <key>sourceSize</key>
+                <string>{244,102}</string>
+            </dict>
             <key>u_s_gem_box0.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{373,203},{42,36}}</string>
+                <string>{{371,779},{42,36}}</string>
                 <key>offset</key>
                 <string>{-3,-3}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,6},{42,36}}</string>
                 <key>sourceSize</key>
@@ -20,11 +72,11 @@
             <key>u_s_gem_box1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{437,165},{51,45}}</string>
+                <string>{{263,598},{51,45}}</string>
                 <key>offset</key>
                 <string>{-3,-2}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,4},{51,45}}</string>
                 <key>sourceSize</key>
@@ -33,7 +85,7 @@
             <key>u_s_gem_box2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{314,243},{58,47}}</string>
+                <string>{{150,610},{58,47}}</string>
                 <key>offset</key>
                 <string>{-4,-5}</string>
                 <key>rotated</key>
@@ -46,7 +98,7 @@
             <key>u_s_gem_box3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{384,72},{58,51}}</string>
+                <string>{{255,733},{58,51}}</string>
                 <key>offset</key>
                 <string>{-5,-4}</string>
                 <key>rotated</key>
@@ -59,11 +111,11 @@
             <key>u_s_gem_box_open0.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{374,241},{48,42}}</string>
+                <string>{{205,779},{48,42}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{48,42}}</string>
                 <key>sourceSize</key>
@@ -72,11 +124,11 @@
             <key>u_s_gem_box_open1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{314,192},{57,49}}</string>
+                <string>{{150,551},{57,49}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{57,49}}</string>
                 <key>sourceSize</key>
@@ -85,7 +137,7 @@
             <key>u_s_gem_box_open2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{314,133},{66,57}}</string>
+                <string>{{323,720},{66,57}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,7 +150,7 @@
             <key>u_s_gem_box_open3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{314,72},{68,59}}</string>
+                <string>{{323,659},{68,59}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,11 +163,11 @@
             <key>u_s_lq_gold.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{418,212},{44,48}}</string>
+                <string>{{205,733},{44,48}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{44,48}}</string>
                 <key>sourceSize</key>
@@ -124,20 +176,20 @@
             <key>u_s_path.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{310,288}}</string>
+                <string>{{150,2},{363,257}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{310,288}}</string>
+                <string>{{0,0},{363,257}}</string>
                 <key>sourceSize</key>
-                <string>{310,288}</string>
+                <string>{363,257}</string>
             </dict>
             <key>u_s_reward_gold0.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{384,125},{54,35}}</string>
+                <string>{{315,779},{54,35}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -150,7 +202,7 @@
             <key>u_s_reward_gold1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{444,72},{54,45}}</string>
+                <string>{{254,551},{54,45}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -163,7 +215,7 @@
             <key>u_s_reward_gold2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{382,162},{53,39}}</string>
+                <string>{{150,779},{53,39}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -176,7 +228,7 @@
             <key>u_s_reward_gold3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{444,119},{53,44}}</string>
+                <string>{{150,733},{53,44}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -189,24 +241,24 @@
             <key>u_s_sign.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{464,212},{41,32}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{41,32}}</string>
-                <key>sourceSize</key>
-                <string>{41,32}</string>
-            </dict>
-            <key>u_s_sign_info.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{314,2},{186,68}}</string>
+                <string>{{210,604},{51,51}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{51,51}}</string>
+                <key>sourceSize</key>
+                <string>{51,51}</string>
+            </dict>
+            <key>u_s_sign_info.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{338,471},{186,68}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{186,68}}</string>
                 <key>sourceSize</key>
@@ -215,15 +267,15 @@
             <key>u_s_unsign.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{418,262},{39,28}}</string>
+                <string>{{201,551},{51,51}}</string>
                 <key>offset</key>
-                <string>{0,1}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{1,1},{39,28}}</string>
+                <string>{{0,0},{51,51}}</string>
                 <key>sourceSize</key>
-                <string>{41,32}</string>
+                <string>{51,51}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -233,9 +285,9 @@
             <key>realTextureFileName</key>
             <string>UISign.png</string>
             <key>size</key>
-            <string>{502,292}</string>
+            <string>{409,823}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:fc46286451fabf4925ef6d938ca731e2:271071dfb5edd08f81fbdef4c35a2558:adbefee705f2e5632cc8fee81fb4cc1b$</string>
+            <string>$TexturePacker:SmartUpdate:bce583aeb792fd2aecd27bd69ffe08de:5409cb925ee50b7a95843ecc2637ebdc:adbefee705f2e5632cc8fee81fb4cc1b$</string>
             <key>textureFileName</key>
             <string>UISign.png</string>
         </dict>
