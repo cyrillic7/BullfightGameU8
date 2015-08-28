@@ -78,8 +78,8 @@ void PopDialogBoxBank::onEnter(){
 	UIImageView *pIVForgetPwd = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageForgetPwd"));
 	pIVForgetPwd->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxBank::onMenuForgetPassword));
 	//
-	pLInput = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelInput"));
-	pLOutput = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelOutputMoney"));
+	pIVInput = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageInput"));
+	pIVOutput = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageOutputMoney"));
 
 	pBOperationMoney = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonOperation")); 
 	pBOperationMoney->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxBank::onMenuOperationMoney));
@@ -136,8 +136,12 @@ void PopDialogBoxBank::initQuickSelectMoney(){
 		pBQuickSelectMoney[i] = static_cast<UIButton*>(pUILayer->getWidgetByName(CCString::createWithFormat("ButtonItem%d", i)->getCString()));
 		pBQuickSelectMoney[i]->setBright(false);
 		pBQuickSelectMoney[i]->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxBank::onMenuQuickSelectMoney));
-		UILabel *pLMoney = static_cast<UILabel*>(pBQuickSelectMoney[i]->getChildByName("LabelMoneyNum"));
-		pLMoney->setColor(ccc3(114,61,29));
+		//UILabel *pLMoney = static_cast<UILabel*>(pBQuickSelectMoney[i]->getChildByName("LabelMoneyNum"));
+		//pLMoney->setColor(ccc3(114,61,29));
+
+		UIImageView *pIVItem = static_cast<UIImageView*>(pUILayer->getWidgetByName(CCString::createWithFormat("ImageItem%d", i)->getCString()));
+		//pIVItem->setColor(ccc3(114, 61, 29));
+		pIVItem->setOpacity(255);
 	}
 }
 //设置标题
@@ -225,9 +229,10 @@ void PopDialogBoxBank::onMenuChangeOperationType(CCObject *object, TouchEventTyp
 			pBDeposit->setTitleColor(ccc3(114, 61, 29));
 
 			pLBankMoney->setText(CCString::createWithFormat("%lld", DataModel::sharedDataModel()->userInfo->lInsure)->getCString());
-			pLInput->setText("银行存款:");
-			pLOutput->setText("取出金币:");
-			pBOperationMoney->setTitleText("取出");
+			//pLInput->setText("银行存款:");
+			//pLOutput->setText("取出金币:");
+			pIVOutput->loadTexture("QCJB.png", UI_TEX_TYPE_PLIST);
+			//pBOperationMoney->setTitleText("取出");
 			setBankState(BANK_STATE_TAKE_OUT);
 		}
 		else if (strcmp(pBTemp->getName(), "ButtonSaveMoney") == 0)
@@ -239,9 +244,10 @@ void PopDialogBoxBank::onMenuChangeOperationType(CCObject *object, TouchEventTyp
 			pBTakeOut->setTitleColor(ccc3(114, 61, 29));
 
 			pLBankMoney->setText(CCString::createWithFormat("%lld", DataModel::sharedDataModel()->userInfo->lScore)->getCString());
-			pLInput->setText("我的金币:");
-			pLOutput->setText("存入金币:");
-			pBOperationMoney->setTitleText("存入");
+			//pLInput->setText("我的金币:");
+			//pLOutput->setText("存入金币:");
+			pIVOutput->loadTexture("CRJB.png", UI_TEX_TYPE_PLIST);
+			//pBOperationMoney->setTitleText("存入");
 			setBankState(BANK_STATE_SAVE);
 		}
 		updateQuickButton();
@@ -317,11 +323,12 @@ void PopDialogBoxBank::onMenuQuickSelectMoney(CCObject *object, TouchEventType t
 			{
 				continue;
 			}
-			UILabel *pTempLabel = static_cast<UILabel*>(pBQuickSelectMoney[i]->getChildByName("LabelMoneyNum"));
-
+			//UILabel *pTempLabel = static_cast<UILabel*>(pBQuickSelectMoney[i]->getChildByName("LabelMoneyNum"));
+			UIImageView *pIVItem = static_cast<UIImageView*>(pUILayer->getWidgetByName(CCString::createWithFormat("ImageItem%d", i)->getCString()));
+			//->setColor(ccc3(114, 61, 29));
 			if (pBQuickSelectMoney[i]->getTag() == pBTempQuick->getTag())
 			{
-				pTempLabel->setColor(ccc3(255, 255, 255));
+				pIVItem->setOpacity(255);
 				pBQuickSelectMoney[i]->setBright(true);
 				if (i==0)
 				{
@@ -345,7 +352,7 @@ void PopDialogBoxBank::onMenuQuickSelectMoney(CCObject *object, TouchEventType t
 			}
 			else
 			{
-				pTempLabel->setColor(ccc3(114, 61, 29));
+				pIVItem->setOpacity(255);
 				pBQuickSelectMoney[i]->setBright(false);
 			}
 		}
@@ -394,17 +401,19 @@ void PopDialogBoxBank::updateQuickButton(){
 
 	for (int i = 0; i < MAX_QUICK_BUTTON_COUNT; i++)
 	{
-		UILabel *pTempLabel = static_cast<UILabel*>(pBQuickSelectMoney[i]->getChildByName("LabelMoneyNum"));
+		//UILabel *pTempLabel = static_cast<UILabel*>(pBQuickSelectMoney[i]->getChildByName("LabelMoneyNum"));
+		UIImageView *pIVItem = static_cast<UIImageView*>(pUILayer->getWidgetByName(CCString::createWithFormat("ImageItem%d", i)->getCString()));
+
 		pBQuickSelectMoney[i]->setBright(false);
 		
 		if (llTempNum >= llQuickLimitNum[i])
 		{
-			pTempLabel->setColor(ccc3(114, 61, 29));
+			pIVItem->setOpacity(255);
 			pBQuickSelectMoney[i]->setTouchEnabled(true);
 		}
 		else
 		{
-			pTempLabel->setColor(ccc3(182, 136, 91));
+			pIVItem->setOpacity(100);
 			pBQuickSelectMoney[i]->setTouchEnabled(false);
 		}
 

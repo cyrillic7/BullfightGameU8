@@ -43,9 +43,9 @@ private:
 	//我的存款/我的金币
 	UILabel *pLBankMoney;
 	//银行存款文字
-	UILabel *pLInput;
+	UIImageView *pIVInput;
 	//取出金币文字
-	UILabel *pLOutput;
+	UIImageView *pIVOutput;
 	//存款/取款按键
 	UIButton *pBOperationMoney;
 	//存款/取款金币数

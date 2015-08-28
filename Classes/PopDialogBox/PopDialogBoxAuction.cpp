@@ -605,7 +605,7 @@ void PopDialogBoxAuction::updateListHistoryAuctionRecord(){
 		pSeller->setText(pSSellerNick->getCString());
 		//时间
 		UILabel *pTime = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("Label3"));
-		CCString *pStrTime = CCString::createWithFormat("%d-%02d-%02d\n%02d::%02d::%02d",
+		CCString *pStrTime = CCString::createWithFormat("%d-%02d-%02d\n%02d:%02d:%02d",
 			vecHistoryAuction[i].tOpDate.wYear,
 			vecHistoryAuction[i].tOpDate.wMonth,
 			vecHistoryAuction[i].tOpDate.wDay,

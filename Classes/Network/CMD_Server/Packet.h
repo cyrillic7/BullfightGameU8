@@ -19,8 +19,8 @@ typedef char TCHAR, *PTCHAR;
 
 #define MAX_CONTENT					512									//并发容量
 #define PORT_AUTO_SELECT			INVALID_WORD						//自动端口
-#define GAME_IP						"121.41.77.64"						//正式服务器
-//#define GAME_IP						"121.40.31.203"
+//#define GAME_IP						"121.41.77.64"						//正式服务器
+#define GAME_IP						"121.40.31.203"
 //#define GAME_IP						"192.168.1.103"
 #define PORT_LOGON					8100								//登陆端口
 #define PORT_CENTER					8310								//协调端口
