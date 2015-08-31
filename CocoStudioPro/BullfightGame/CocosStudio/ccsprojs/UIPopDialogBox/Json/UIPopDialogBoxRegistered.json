@@ -12,18 +12,14 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UISetUp.plist",
-    "UIUserInfo.plist",
-    "UICheckBox.plist",
-    "UIUserIcon.plist"
+    "UILogon.plist",
+    "UIUserInfo.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UISetUp.png",
-    "UIUserInfo.png",
-    "UICheckBox.png",
-    "UIUserIcon.png"
+    "UILogon.png",
+    "UIUserInfo.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -239,7 +235,7 @@
                   "customProperty": "",
                   "flipX": false,
                   "flipY": false,
-                  "height": 33,
+                  "height": 31,
                   "ignoreSize": true,
                   "layoutParameter": null,
                   "opacity": 255,
@@ -256,7 +252,7 @@
                   "touchAble": false,
                   "useMergedTexture": false,
                   "visible": true,
-                  "width": 88,
+                  "width": 79,
                   "x": -225,
                   "y": -70,
                   "capInsetsHeight": 1,
@@ -265,13 +261,13 @@
                   "capInsetsY": 0,
                   "fileName": null,
                   "fileNameData": {
-                    "path": "u_l_NiCheng.png",
+                    "path": "u_l_MiMa.png",
                     "plistFile": "UILogon.plist",
                     "resourceType": 1
                   },
                   "scale9Enable": false,
-                  "scale9Height": 33,
-                  "scale9Width": 88
+                  "scale9Height": 31,
+                  "scale9Width": 79
                 }
               },
               {

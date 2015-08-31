@@ -4,6 +4,19 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>BiaoTi_MBDW.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{160,952},{184,64}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{184,64}}</string>
+                <key>sourceSize</key>
+                <string>{184,64}</string>
+            </dict>
             <key>XiaoBiaoTi_DiWen02.png</key>
             <dict>
                 <key>frame</key>
@@ -20,11 +33,11 @@
             <key>u_lobby_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{160,952},{49,37}}</string>
+                <string>{{573,967},{49,37}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{49,37}}</string>
                 <key>sourceSize</key>
@@ -181,9 +194,9 @@
             <key>realTextureFileName</key>
             <string>UIPanel.png</string>
             <key>size</key>
-            <string>{660,997}</string>
+            <string>{660,1018}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:ae60c9e7b61548b8525782f44e2afad4:0901e5d06b3c9adbb8b5d9ce7c08302e:32c497890652a868b1bc601216ad4c61$</string>
+            <string>$TexturePacker:SmartUpdate:09055c2da91385737610a7ffff07d413:3628f3e4be6a770d0cf16cd4b90aee56:32c497890652a868b1bc601216ad4c61$</string>
             <key>textureFileName</key>
             <string>UIPanel.png</string>
         </dict>

@@ -25,6 +25,7 @@
 #include "../PopDialogBox/PopDialogBoxFirstRecharge.h"
 #include "../Platform/coPlatform.h"
 #include "../Tools/DataModel.h"
+#include "network/HttpRequest.h"
 BaseLobbyScene * BaseLobbyScene::lobbyScene = NULL;
 BaseLobbyScene::BaseLobbyScene()
 	:isReadMessage(true){
@@ -147,14 +148,33 @@ void BaseLobbyScene::popDialogBox(PopType type){
 #ifdef WIN32
 
 #else
+		/*HttpRequest* request = new HttpRequest();
+		request->setUrl("http://121.40.31.203:8010/api/Login/");
+		request->setRequestType(HttpRequest::Type::POST);
+		request->setResponseCallback(this, httpresponse_selector(HelloWorld::onHttpRequestCompleted));
+
+
+		const  char* postData = "account=z40144322";
+		request->setRequestData(postData,strlen(postData) );
+		const  char* postData1 = "pwd=z12345678";
+		request->setRequestData(postData1,strlen(postData1) );
+		const  char* postData2 = "pwd=1";
+		request->setRequestData(postData2,strlen(postData2) );
+
+
+		//request->setTag("POST test1");
+		HttpClient::getInstance()->send(request);
+		request->release();*/
+
+
 		m_pWidget->setTouchEnabled(false);
 		m_pWidgetBase->setTouchEnabled(false);
-		std::string actStr="{\"act\":201 ,\"url\":\"http://121.40.31.203:8010/api/Login/?account=";
+		/*std::string actStr="{\"act\":201 ,\"url\":\"http://121.40.31.203:8010/api/Login/?account=";
 		actStr+=DataModel::sharedDataModel()->sLogonAccount;
 		actStr += "&pwd=";
 		actStr += DataModel::sharedDataModel()->sLogonPassword;
-		actStr += "&plat=1\"}";
-		platformAction(actStr.c_str()).c_str();
+		actStr += "&plat=1\"}";*/
+		platformAction("{\"act\":201 ,\"url\":\"http://121.40.31.203:8010\"}").c_str();
 #endif
 		//pdb = PopDialogBoxActivity::create();
 	}

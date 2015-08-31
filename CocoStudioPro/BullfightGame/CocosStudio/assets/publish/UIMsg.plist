@@ -4,23 +4,88 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>u_m_nothing_icon.png</key>
+            <key>WDXX_Btn_Down.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{105,111}}</string>
+                <string>{{149,122},{216,80}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{216,80}}</string>
+                <key>sourceSize</key>
+                <string>{216,80}</string>
+            </dict>
+            <key>WDXX_Btn_Normal.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{67,122},{216,80}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{216,80}}</string>
+                <key>sourceSize</key>
+                <string>{216,80}</string>
+            </dict>
+            <key>XTXX_Btn_Down.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,555},{216,80}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{105,111}}</string>
+                <string>{{0,0},{216,80}}</string>
                 <key>sourceSize</key>
-                <string>{105,111}</string>
+                <string>{216,80}</string>
+            </dict>
+            <key>XTXX_Btn_Normal.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,473},{216,80}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{216,80}}</string>
+                <key>sourceSize</key>
+                <string>{216,80}</string>
+            </dict>
+            <key>XiangQing_BiaoTi.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{67,395},{95,50}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{95,50}}</string>
+                <key>sourceSize</key>
+                <string>{95,50}</string>
+            </dict>
+            <key>u_m_nothing_icon.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{202,118}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{202,118}}</string>
+                <key>sourceSize</key>
+                <string>{202,118}</string>
             </dict>
             <key>u_m_select_title.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{109,67},{160,53}}</string>
+                <string>{{67,340},{160,53}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,11 +98,11 @@
             <key>u_m_title_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{109,2},{349,63}}</string>
+                <string>{{2,122},{349,63}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{349,63}}</string>
                 <key>sourceSize</key>
@@ -51,9 +116,9 @@
             <key>realTextureFileName</key>
             <string>UIMsg.png</string>
             <key>size</key>
-            <string>{460,122}</string>
+            <string>{231,637}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:d3ca4df0a6c693cd32f372312f190b6c:7986f354e91ae2444a19bb5c90322a64:dcaf48b0e5dd327cde9edbafd714e2f4$</string>
+            <string>$TexturePacker:SmartUpdate:aa97154614781f1fff273c19d8e557b1:456c3f817a15780e80c0462c6ef9a1d4:dcaf48b0e5dd327cde9edbafd714e2f4$</string>
             <key>textureFileName</key>
             <string>UIMsg.png</string>
         </dict>

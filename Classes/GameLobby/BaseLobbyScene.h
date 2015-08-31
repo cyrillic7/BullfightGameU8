@@ -3,6 +3,7 @@
 //  游戏大厅基类
 //
 #pragma once
+#include "cocos2d.h"
 #include "cocos-ext.h"
 #include "../Tools/CStringAide.h"
 #include "../MTNotificationQueue/GameIngMsgHandler.h"

@@ -28,15 +28,17 @@ void PopDialogBoxMsg::onEnter(){
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));
 	//系统消息按键
-	UIButton *pBSystemMsg = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonSystem"));
+	pBSystemMsg = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonSystem"));
 	pBSystemMsg->addTouchEventListener(this, toucheventselector(PopDialogBoxMsg::onMenuMsg));
-	pBSystemMsg->setVisible(false);
+	//pBSystemMsg->setVisible(false);
+	pBSystemMsg->setBright(false);
+	pBSystemMsg->setTouchEnabled(false);
 	//我的消息
-	UIButton *pBSystemMy = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonMy"));
+	pBSystemMy = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonMy"));
 	pBSystemMy->addTouchEventListener(this, toucheventselector(PopDialogBoxMsg::onMenuMsg));
-	pBSystemMy->setVisible(false);
+	//pBSystemMy->setVisible(false);
 	//标题
-	pIVTitle = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageTitle"));
+	//pIVTitle = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageTitle"));
 	//内容标题
 	pIVTitleContent = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageTitleContent"));
 	pIVTitleContent->setEnabled(false);
@@ -48,9 +50,9 @@ void PopDialogBoxMsg::onEnter(){
 	pSVMsgContent=static_cast<UIScrollView*>(pUILayer->getWidgetByName("ScrollViewContent"));
 	pSVMsgContent->setEnabled(false);
 	//游标
-	pIVCursor = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageCursor"));
+	//pIVCursor = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageCursor"));
 	//消息名称
-	pLMsgName = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelMsgName"));
+	//pLMsgName = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelMsgName"));
 	
 	//消息列表
 	pLVMsgList = static_cast<UIListView*>(pUILayer->getWidgetByName("ListViewMsg"));
@@ -80,18 +82,28 @@ void PopDialogBoxMsg::onMenuMsg(CCObject *object, TouchEventType type){
 		{
 		case PopDialogBoxMsg::MSG_SYSTEM:
 		{
-			pIVCursor->stopAllActions();
-			pIVCursor->runAction(CCMoveTo::create(0.1,ccp(-88,0)));
-			pLMsgName->setText("系统消息");
+			//pIVCursor->stopAllActions();
+			//pIVCursor->runAction(CCMoveTo::create(0.1,ccp(-88,0)));
+			//pLMsgName->setText("系统消息");
+			pBSystemMsg->setBright(false);
+			pBSystemMsg->setTouchEnabled(false);
+
+			pBSystemMy->setBright(true);
+			pBSystemMy->setTouchEnabled(true);
 			//更新列表
 			updateListMsg(DataModel::sharedDataModel()->vecSystemMsg);
 		}
 			break;
 		case PopDialogBoxMsg::MSG_MY:
 		{
-			pIVCursor->stopAllActions();
-			pIVCursor->runAction(CCMoveTo::create(0.1, ccp(88, 0)));
-			pLMsgName->setText("我的消息");
+			pBSystemMsg->setBright(true);
+			pBSystemMsg->setTouchEnabled(true);
+
+			pBSystemMy->setBright(false);
+			pBSystemMy->setTouchEnabled(false);
+			//pIVCursor->stopAllActions();
+			//pIVCursor->runAction(CCMoveTo::create(0.1, ccp(88, 0)));
+			//pLMsgName->setText("我的消息");
 			//更新列表
 			updateListMsg(DataModel::sharedDataModel()->vecMyMsg);
 		}
@@ -109,7 +121,9 @@ void PopDialogBoxMsg::onMenuBackMsg(CCObject *object, TouchEventType type){
 		pSVMsgContent->setEnabled(false);
 		pBBackMsg->setEnabled(false);
 
-		pIVTitle->setEnabled(true);
+		pBSystemMsg->setEnabled(true);
+		pBSystemMy->setEnabled(true);
+		//pIVTitle->setEnabled(true);
 		pIVTitleContent->setEnabled(false);
 	}
 }
@@ -124,7 +138,10 @@ void PopDialogBoxMsg::onMenuSelectMsgItem(CCObject *object, TouchEventType type)
 		pSVMsgContent->setEnabled(true);
 		pBBackMsg->setEnabled(true);
 
-		pIVTitle->setEnabled(false);
+		//pIVTitle->setEnabled(false);
+		pBSystemMsg->setEnabled(false);
+		pBSystemMy->setEnabled(false);
+
 		pIVTitleContent->setEnabled(true);
 		//设置内容
 		UILabel *pLMsgContent = static_cast<UILabel*>(pSVMsgContent->getChildByName("LabelMsgContent"));

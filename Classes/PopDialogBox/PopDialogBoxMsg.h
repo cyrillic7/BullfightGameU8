@@ -17,9 +17,9 @@ private:
 	};
 	CC_SYNTHESIZE(MsgType, eMsgType, MsgType);
 	//游标
-	UIImageView *pIVCursor;
+	//UIImageView *pIVCursor;
 	//消息名称
-	UILabel *pLMsgName;
+	//UILabel *pLMsgName;
 	//没有消息
 	UIImageView *pIVNothing;
 	//消息列表
@@ -29,9 +29,13 @@ private:
 	//详细内容
 	UIScrollView *pSVMsgContent;
 	//标题
-	UIImageView *pIVTitle;
+	//UIImageView *pIVTitle;
 	//内容标题
 	UIImageView *pIVTitleContent;
+	//系统消息按键
+	UIButton *pBSystemMsg;
+	//我的消息
+	UIButton *pBSystemMy;
 public:
 	PopDialogBoxMsg();
 	~PopDialogBoxMsg();
