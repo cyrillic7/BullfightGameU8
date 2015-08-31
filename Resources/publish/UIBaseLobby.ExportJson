@@ -12,12 +12,12 @@
   "textures": [
     "UIGameLobby.plist",
     "UIAuction.plist",
-    "UIUserInfo.plist"
+    "UIUserIcon.plist"
   ],
   "texturesPng": [
     "UIGameLobby.png",
     "UIAuction.png",
-    "UIUserInfo.png"
+    "UIUserIcon.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -199,7 +199,7 @@
           "rotation": 0,
           "scaleX": 1,
           "scaleY": 1,
-          "sizePercentX": 0.07746479,
+          "sizePercentX": 0.09242958,
           "sizePercentY": 0.14375,
           "sizeType": 0,
           "tag": 790,
@@ -481,7 +481,7 @@
           "customProperty": "",
           "flipX": false,
           "flipY": false,
-          "height": 78,
+          "height": 83,
           "ignoreSize": true,
           "layoutParameter": null,
           "opacity": 255,
@@ -498,7 +498,7 @@
           "touchAble": true,
           "useMergedTexture": true,
           "visible": true,
-          "width": 80,
+          "width": 83,
           "x": 1088,
           "y": 146,
           "capInsetsHeight": 1,
@@ -527,8 +527,8 @@
             "resourceType": 1
           },
           "scale9Enable": false,
-          "scale9Height": 78,
-          "scale9Width": 80,
+          "scale9Height": 83,
+          "scale9Width": 83,
           "text": "",
           "textColorB": 255,
           "textColorG": 255,
@@ -908,7 +908,7 @@
                   "customProperty": "",
                   "flipX": false,
                   "flipY": false,
-                  "height": 37,
+                  "height": 36,
                   "ignoreSize": true,
                   "layoutParameter": null,
                   "opacity": 255,
@@ -925,7 +925,7 @@
                   "touchAble": false,
                   "useMergedTexture": true,
                   "visible": true,
-                  "width": 35,
+                  "width": 37,
                   "x": 16,
                   "y": 0,
                   "capInsetsHeight": 1,
@@ -939,8 +939,8 @@
                     "resourceType": 1
                   },
                   "scale9Enable": false,
-                  "scale9Height": 37,
-                  "scale9Width": 35
+                  "scale9Height": 36,
+                  "scale9Width": 37
                 }
               },
               {
@@ -1196,7 +1196,7 @@
                   "layoutParameter": null,
                   "opacity": 255,
                   "positionPercentX": 0.9,
-                  "positionPercentY": 0.1625,
+                  "positionPercentY": 0.183333322,
                   "positionType": 0,
                   "rotation": 0,
                   "scaleX": 1,
@@ -1210,7 +1210,7 @@
                   "visible": true,
                   "width": 346,
                   "x": 72,
-                  "y": 13,
+                  "y": 14,
                   "capInsetsHeight": 1,
                   "capInsetsWidth": 1,
                   "capInsetsX": 0,
@@ -1242,7 +1242,7 @@
               "customProperty": "",
               "flipX": false,
               "flipY": false,
-              "height": 80,
+              "height": 103,
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
@@ -1259,7 +1259,7 @@
               "touchAble": true,
               "useMergedTexture": true,
               "visible": true,
-              "width": 80,
+              "width": 103,
               "x": 104,
               "y": 2,
               "capInsetsHeight": 1,
@@ -1277,19 +1277,19 @@
               "fontType": 0,
               "normal": null,
               "normalData": {
-                "path": "hand_icon.png",
+                "path": "TouXiang_Nan1.png",
                 "plistFile": "",
                 "resourceType": 1
               },
               "pressed": null,
               "pressedData": {
-                "path": "hand_icon.png",
+                "path": "TouXiang_Nan1.png",
                 "plistFile": "",
                 "resourceType": 1
               },
               "scale9Enable": false,
-              "scale9Height": 80,
-              "scale9Width": 80,
+              "scale9Height": 103,
+              "scale9Width": 103,
               "text": "",
               "textColorB": 255,
               "textColorG": 255,

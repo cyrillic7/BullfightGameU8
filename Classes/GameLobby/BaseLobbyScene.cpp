@@ -103,6 +103,7 @@ void BaseLobbyScene::onEnter(){
 	//绑定VIP
 	UIImageView *pIVip = static_cast<UIImageView*>(m_pWidgetBase->getWidgetByName("ImageVip"));
 	pIVip->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuVip));
+	pIVip->loadTexture(CCString::createWithFormat("icon_vip%d.png",DataModel::sharedDataModel()->userInfo->dwVipLevel)->getCString(), UI_TEX_TYPE_PLIST);
 	//绑定首充
 	UIImageView *pFirstRecharge = static_cast<UIImageView*>(m_pWidgetBase->getWidgetByName("ButtonFirstRecharge"));
 	pFirstRecharge->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuFirstRecharge));

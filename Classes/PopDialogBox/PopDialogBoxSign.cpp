@@ -90,6 +90,8 @@ void PopDialogBoxSign::onMenuSign(CCObject *object, TouchEventType type){
 void PopDialogBoxSign::onOutTime(){
 	isSign = false;
 	//pBSign->setTitleText("关闭");
+	pBSign->loadTextureNormal("GB_Btn_Normal.png", UI_TEX_TYPE_PLIST);
+	pBSign->loadTexturePressed("GB_Btn_Down.png", UI_TEX_TYPE_PLIST);
 }
 //更新签到列表
 void PopDialogBoxSign::updateListSignInfo(){

@@ -12,12 +12,14 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIMsg.plist"
+    "UIRecharge.plist",
+    "UIAuction.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UIMsg.png"
+    "UIRecharge.png",
+    "UIAuction.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -243,8 +245,8 @@
                   "rotation": 0,
                   "scaleX": 1,
                   "scaleY": 1,
-                  "sizePercentX": 0.146666661,
-                  "sizePercentY": 0.114982575,
+                  "sizePercentX": 0.13166666,
+                  "sizePercentY": 0.108013935,
                   "sizeType": 0,
                   "tag": 10577,
                   "touchAble": false,

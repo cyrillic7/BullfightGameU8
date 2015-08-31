@@ -12,12 +12,14 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIMsg.plist"
+    "UIRecharge.plist",
+    "UIAuction.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UIMsg.png"
+    "UIRecharge.png",
+    "UIAuction.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

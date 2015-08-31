@@ -43,9 +43,17 @@
   <imageFileList>
     <string>UIPanel.plist</string>
     <string>UIButton.plist</string>
-    <string>UIMsg.plist</string>
+    <string>UIVip.plist</string>
+    <string>UILoadingBar.plist</string>
+    <string>UIKnapsack.plist</string>
   </imageFileList>
-  <imagePngList />
+  <imagePngList>
+    <string>UIPanel.png</string>
+    <string>UIButton.png</string>
+    <string>UIVip.png</string>
+    <string>UILoadingBar.png</string>
+    <string>UIKnapsack.png</string>
+  </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson />
+  <CurrentUIJson>UIPopDialogBoxVip.json</CurrentUIJson>
 </UIProject>

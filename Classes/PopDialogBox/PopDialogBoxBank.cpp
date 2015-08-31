@@ -219,6 +219,7 @@ void PopDialogBoxBank::onMenuChangeOperationType(CCObject *object, TouchEventTyp
 	{
 	case TOUCH_EVENT_ENDED:
 	{
+		UIImageView *pIVInput = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageInput"));
 		UIButton *pBTemp = (UIButton*)object;
 		if (strcmp(pBTemp->getName(),"ButtonDrawMoney")==0)
 		{
@@ -230,7 +231,10 @@ void PopDialogBoxBank::onMenuChangeOperationType(CCObject *object, TouchEventTyp
 
 			pLBankMoney->setText(CCString::createWithFormat("%lld", DataModel::sharedDataModel()->userInfo->lInsure)->getCString());
 			//pLInput->setText("银行存款:");
+			pIVInput->loadTexture("YHCK.png", UI_TEX_TYPE_PLIST);
 			//pLOutput->setText("取出金币:");
+			
+			
 			pIVOutput->loadTexture("QCJB.png", UI_TEX_TYPE_PLIST);
 			//pBOperationMoney->setTitleText("取出");
 			setBankState(BANK_STATE_TAKE_OUT);
@@ -245,6 +249,7 @@ void PopDialogBoxBank::onMenuChangeOperationType(CCObject *object, TouchEventTyp
 
 			pLBankMoney->setText(CCString::createWithFormat("%lld", DataModel::sharedDataModel()->userInfo->lScore)->getCString());
 			//pLInput->setText("我的金币:");
+			pIVInput->loadTexture("WDJB.png", UI_TEX_TYPE_PLIST);
 			//pLOutput->setText("存入金币:");
 			pIVOutput->loadTexture("CRJB.png", UI_TEX_TYPE_PLIST);
 			//pBOperationMoney->setTitleText("存入");

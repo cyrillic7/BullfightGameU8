@@ -4,10 +4,23 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>DengJiTiaoDiWen.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{30,21}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{30,21}}</string>
+                <key>sourceSize</key>
+                <string>{30,21}</string>
+            </dict>
             <key>u_task_loading_bar.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{95,18}}</string>
+                <string>{{34,2},{95,18}}</string>
                 <key>offset</key>
                 <string>{0,1}</string>
                 <key>rotated</key>
@@ -20,7 +33,7 @@
             <key>u_task_loading_bar_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{99,2},{27,17}}</string>
+                <string>{{131,2},{27,17}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,15 +46,15 @@
             <key>u_vip_loading_bar.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{128,2},{353,15}}</string>
+                <string>{{160,2},{294,14}}</string>
                 <key>offset</key>
-                <string>{0,1}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{1,0},{353,15}}</string>
+                <string>{{0,0},{294,14}}</string>
                 <key>sourceSize</key>
-                <string>{355,17}</string>
+                <string>{294,14}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -51,9 +64,9 @@
             <key>realTextureFileName</key>
             <string>UILoadingBar.png</string>
             <key>size</key>
-            <string>{483,22}</string>
+            <string>{456,25}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:cc1ed72a22bd78262e981481c1228350:63590aeac14648d6f5912a37b4ffa7e8:309247722e6556c9f6e0d897d475f239$</string>
+            <string>$TexturePacker:SmartUpdate:65b1a3681c79044f60399beef15a59e7:89d8c63e6a283243c7ace99e5aa2bbd4:309247722e6556c9f6e0d897d475f239$</string>
             <key>textureFileName</key>
             <string>UILoadingBar.png</string>
         </dict>
