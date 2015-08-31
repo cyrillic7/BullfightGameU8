@@ -12,14 +12,12 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UILogon.plist",
-    "UIUserInfo.plist"
+    "UIMsg.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UILogon.png",
-    "UIUserInfo.png"
+    "UIMsg.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

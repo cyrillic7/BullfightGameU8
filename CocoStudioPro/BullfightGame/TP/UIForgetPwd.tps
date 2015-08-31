@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.3.2</string>
         <key>fileName</key>
-        <string>D:/cocos2dx/cocos2d-x-2.2.6/projects/BullfightGame/CocoStudioPro/BullfightGame/TP/UIRecharge.tps</string>
+        <string>D:/cocos2dx/cocos2d-x-2.2.6/projects/BullfightGame/CocoStudioPro/BullfightGame/TP/UIForgetPwd.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -38,7 +38,7 @@
         <key>dataFormat</key>
         <string>cocos2d</string>
         <key>textureFileName</key>
-        <filename>../CocosStudio/assets/UIRecharge.png</filename>
+        <filename>../CocosStudio/assets/UIForgetPwd.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
@@ -72,9 +72,9 @@
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
-            <int>2048</int>
+            <int>1024</int>
             <key>height</key>
-            <int>2048</int>
+            <int>1024</int>
         </QSize>
         <key>fixedTextureSize</key>
         <QSize>
@@ -131,7 +131,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../CocosStudio/assets/UIRecharge.plist</filename>
+                <filename>../CocosStudio/assets/UIForgetPwd.plist</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -172,7 +172,7 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>UIRecharge</filename>
+            <filename>UIForgetPwd</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

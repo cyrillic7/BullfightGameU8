@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>WJMM_BiaoTi.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{145,37}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{145,37}}</string>
+                <key>sourceSize</key>
+                <string>{145,37}</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>2</integer>
+            <key>realTextureFileName</key>
+            <string>UIForgetPwd.png</string>
+            <key>size</key>
+            <string>{149,41}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:4c25dba2a79669a4d667a29be8524cb6:beecf230be0d29274add5cfb04f4808b:c481e7dd14d6d78b0074f599013fc38c$</string>
+            <key>textureFileName</key>
+            <string>UIForgetPwd.png</string>
+        </dict>
+    </dict>
+</plist>

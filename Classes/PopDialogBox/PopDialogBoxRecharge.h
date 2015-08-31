@@ -30,11 +30,15 @@ private:
 	};
 	CC_SYNTHESIZE(RechargeType, eRechargeType, RechargeType);
 	//游标
-	UIImageView *pIVCursor;
+	//UIImageView *pIVCursor;
 	//兑换名称
-	UILabel *pLRechargeName;
+	//UILabel *pLRechargeName;
 	//兑换列表
 	UIListView *pLVRechargeList;
+	//兑换金币
+	UIButton *pBExchangeGold;
+	//兑换元宝
+	UIButton *pBExchangeBigGold;
 
 	//我的当前金币
 	UILabel *pLCurGoldCount;

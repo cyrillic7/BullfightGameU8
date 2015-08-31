@@ -4,14 +4,105 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>u_recharge_gold0.png</key>
+            <key>ChongZhi_BiaoTi.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{84,379},{102,62}}</string>
+                <string>{{335,2},{159,98}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{159,98}}</string>
+                <key>sourceSize</key>
+                <string>{159,98}</string>
+            </dict>
+            <key>JinBi_Btn_Down.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{269,2},{165,64}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{165,64}}</string>
+                <key>sourceSize</key>
+                <string>{165,64}</string>
+            </dict>
+            <key>JinBi_Btn_Normal.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{725,115},{159,57}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{159,57}}</string>
+                <key>sourceSize</key>
+                <string>{159,57}</string>
+            </dict>
+            <key>YuanBao_Btn_DoWn.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{203,2},{165,64}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{165,64}}</string>
+                <key>sourceSize</key>
+                <string>{165,64}</string>
+            </dict>
+            <key>YuanBao_Btn_Normal.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{435,2},{159,57}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{159,57}}</string>
+                <key>sourceSize</key>
+                <string>{159,57}</string>
+            </dict>
+            <key>u_r_AnNiuDiKuang.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{494,2},{418,111}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{418,111}}</string>
+                <key>sourceSize</key>
+                <string>{418,111}</string>
+            </dict>
+            <key>u_r_KongAnNiu_Btn_Normal.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,203},{101,34}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{101,34}}</string>
+                <key>sourceSize</key>
+                <string>{101,34}</string>
+            </dict>
+            <key>u_recharge_gold0.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{725,174},{102,62}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{7,14},{102,62}}</string>
                 <key>sourceSize</key>
@@ -20,11 +111,11 @@
             <key>u_recharge_gold1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,379},{104,80}}</string>
+                <string>{{203,169},{104,80}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{5,5},{104,80}}</string>
                 <key>sourceSize</key>
@@ -33,7 +124,7 @@
             <key>u_recharge_gold2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{120,203},{116,78}}</string>
+                <string>{{309,169},{116,78}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,11 +137,11 @@
             <key>u_recharge_gold3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{120,283},{112,90}}</string>
+                <string>{{545,115},{112,90}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,0},{112,90}}</string>
                 <key>sourceSize</key>
@@ -59,11 +150,11 @@
             <key>u_recharge_gold4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,291},{110,86}}</string>
+                <string>{{637,115},{110,86}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{3,2},{110,86}}</string>
                 <key>sourceSize</key>
@@ -72,7 +163,7 @@
             <key>u_recharge_gold5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,203},{116,86}}</string>
+                <string>{{427,163},{116,86}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -103,9 +194,9 @@
             <key>realTextureFileName</key>
             <string>UIRecharge.png</string>
             <key>size</key>
-            <string>{256,512}</string>
+            <string>{914,251}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:e24985a642e57949968601ff589ffbd4:9a3013a40fc4924d1c75388fef9fb664:a92f9cc44721e80b063c9b96bc63fa50$</string>
+            <string>$TexturePacker:SmartUpdate:3a6905e890b1c9b865fca30eaa9e8dc6:34c2f8baa6db7abe924ee9c69f04c3ba:a92f9cc44721e80b063c9b96bc63fa50$</string>
             <key>textureFileName</key>
             <string>UIRecharge.png</string>
         </dict>

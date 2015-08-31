@@ -21,11 +21,7 @@
     <string>UIButton.plist</string>
     <string>UISign.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>UIPanel.png</string>
-    <string>UIButton.png</string>
-    <string>UISign.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>UIPopDialogBoxSign.json</CurrentUIJson>
 </UIProject>

@@ -67,17 +67,19 @@ void PopDialogBoxRecharge::onEnter(){
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxRecharge::onMenuCloseView));
 	//兑换金币
-	UIButton *pBExchangeGold = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonGold"));
+	pBExchangeGold = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonGold"));
 	pBExchangeGold->addTouchEventListener(this, toucheventselector(PopDialogBoxRecharge::onMenuChangeExchangeType));
-	pBExchangeGold->setVisible(false);
+	pBExchangeGold->setBright(false);
+	pBExchangeGold->setTouchEnabled(false);
+	//pBExchangeGold->setVisible(false);
 	//兑换元宝
-	UIButton *pBExchangeBigGold = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonBigGold"));
+	pBExchangeBigGold = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonBigGold"));
 	pBExchangeBigGold->addTouchEventListener(this, toucheventselector(PopDialogBoxRecharge::onMenuChangeExchangeType));
-	pBExchangeBigGold->setVisible(false);
+	//pBExchangeBigGold->setVisible(false);
 	//游标
-	pIVCursor = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageCursor"));
+	//pIVCursor = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageCursor"));
 	//类型名称
-	pLRechargeName = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelTypeName"));
+	//pLRechargeName = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelTypeName"));
 	//我的当前金币
 	pLCurGoldCount=static_cast<UILabel*>(pUILayer->getWidgetByName("LabelCurGoldCount"));
 	//我的当前元宝
@@ -129,18 +131,28 @@ void PopDialogBoxRecharge::onMenuChangeExchangeType(CCObject *object, TouchEvent
 		{
 		case PopDialogBoxRecharge::RECHARGE_GOLD:
 		{
-			pIVCursor->stopAllActions();
-			pIVCursor->runAction(CCMoveTo::create(0.1,ccp(-88,0)));
-			pLRechargeName->setText("金币");
+			//pIVCursor->stopAllActions();
+			//pIVCursor->runAction(CCMoveTo::create(0.1,ccp(-88,0)));
+			//pLRechargeName->setText("金币");
+			pBExchangeGold->setBright(false);
+			pBExchangeGold->setTouchEnabled(false);
+
+			pBExchangeBigGold->setBright(true);
+			pBExchangeBigGold->setTouchEnabled(true);
 			//更新列表
 			updateListRecharge(vecRechargeGold);
 		}
 			break;
 		case PopDialogBoxRecharge::RECHARGE_BIG_GOLD:
 		{
-			pIVCursor->stopAllActions();
-			pIVCursor->runAction(CCMoveTo::create(0.1, ccp(88, 0)));
-			pLRechargeName->setText("元宝");
+			//pIVCursor->stopAllActions();
+			//pIVCursor->runAction(CCMoveTo::create(0.1, ccp(88, 0)));
+			//pLRechargeName->setText("元宝");
+			pBExchangeGold->setBright(true);
+			pBExchangeGold->setTouchEnabled(true);
+
+			pBExchangeBigGold->setBright(false);
+			pBExchangeBigGold->setTouchEnabled(false);
 			//更新列表
 			updateListRecharge(vecRechargeBigGold);
 		}
