@@ -12,15 +12,12 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIRecharge.plist",
-    "UIAuction.plist"
+    "UISetUp.plist",
+    "UIUserInfo.plist",
+    "UICheckBox.plist",
+    "UIUserIcon.plist"
   ],
-  "texturesPng": [
-    "UIPanel.png",
-    "UIButton.png",
-    "UIRecharge.png",
-    "UIAuction.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -499,7 +496,7 @@
               "layoutParameter": null,
               "opacity": 255,
               "positionPercentX": -0.34,
-              "positionPercentY": 0.07175392,
+              "positionPercentY": 0.07061503,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,

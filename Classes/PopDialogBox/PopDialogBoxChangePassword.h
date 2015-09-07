@@ -18,8 +18,9 @@ private:
 	CC_SYNTHESIZE(ChangePasswordType, eChangePasswordType, ChangePasswordType);
 
 	//标题
-	UILabel *pLTitle0;
-	UILabel *pLTitle1;
+	//UILabel *pLTitle0;
+	//UILabel *pLTitle1;
+	UIImageView *pIVTitle;
 	//旧密码
 	UITextField *pTFOldPassword;
 	//新密码0

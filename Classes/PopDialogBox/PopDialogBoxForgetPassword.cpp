@@ -272,7 +272,10 @@ void PopDialogBoxForgetPassword::onSubGetID(void * pDataBuffer, unsigned short w
 		pPInputId->setEnabled(false);
 		pPForgetPwd->setEnabled(true);
 		pPForgetPwd->setVisible(true);
-		pBNext->setTitleText(" 修 改 ");
+		//pBNext->setTitleText(" 修 改 ");
+		pBNext->loadTextureNormal("BaoCun_Btn_Normal.png", UI_TEX_TYPE_PLIST);
+		pBNext->loadTexturePressed("BaoCun_Btn_Down.png", UI_TEX_TYPE_PLIST);
+
 		CCEditBox *pEBInputID = (CCEditBox*)pTFInputId->getNodeByTag(TAG_INPUT_EDIT_BOX);
 		pEBInputID->setEnabled(false);
 		isInputId = false;

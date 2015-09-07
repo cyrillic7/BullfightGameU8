@@ -21,12 +21,12 @@
   <imageFileList>
     <string>UIGameLobby.plist</string>
     <string>UIAuction.plist</string>
-    <string>UIUserInfo.plist</string>
+    <string>UIUserIcon.plist</string>
   </imageFileList>
   <imagePngList>
     <string>UIGameLobby.png</string>
     <string>UIAuction.png</string>
-    <string>UIUserInfo.png</string>
+    <string>UIUserIcon.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>UIBaseLobby.json</CurrentUIJson>

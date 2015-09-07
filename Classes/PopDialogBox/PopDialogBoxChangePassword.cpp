@@ -35,8 +35,9 @@ void PopDialogBoxChangePassword::onEnter(){
 	UIButton *pBSave = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonChange"));
 	pBSave->addTouchEventListener(this, toucheventselector(PopDialogBoxChangePassword::onMenuChangePassword));
 	//标题
-	pLTitle0 = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelTitle0"));
-	pLTitle1 = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelTitle1"));
+	pIVTitle = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageChangePwdTitle"));
+	//pLTitle0 = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelTitle0"));
+	//pLTitle1 = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelTitle1"));
 	//旧密码
 	pTFOldPassword = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldOldPassword"));
 	addEditBox(pTFOldPassword, kEditBoxInputModeAny);
@@ -61,11 +62,13 @@ void PopDialogBoxChangePassword::setPasswordType(int type){
 	case PopDialogBoxChangePassword::CHANGE_LOGON_PASSWORD:
 	{
 		//setTitle("修改登录密码");
+		pIVTitle->loadTexture("DLXGMM.png", UI_TEX_TYPE_PLIST);
 	}
 		break;
 	case PopDialogBoxChangePassword::CHANGE_BANK_PASSWORD:
 	{
 		//setTitle(" 修改保险柜密码 ");
+		pIVTitle->loadTexture("XGBXGMM.png", UI_TEX_TYPE_PLIST);
 	}
 		break;
 	default:
@@ -108,8 +111,8 @@ void PopDialogBoxChangePassword::onMenuChangePassword(CCObject *object, TouchEve
 }
 //设置标题
 void PopDialogBoxChangePassword::setTitle(const char * sTitle){
-	pLTitle0->setText((sTitle));
-	pLTitle1->setText((sTitle));
+	//pLTitle0->setText((sTitle));
+	//pLTitle1->setText((sTitle));
 }
 
 //更新

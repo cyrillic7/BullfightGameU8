@@ -12,14 +12,12 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIRecharge.plist",
-    "UIAuction.plist"
+    "UIKnapsack.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UIRecharge.png",
-    "UIAuction.png"
+    "UIKnapsack.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -569,7 +567,7 @@
               "layoutParameter": null,
               "opacity": 255,
               "positionPercentX": 0.285,
-              "positionPercentY": -0.0341685638,
+              "positionPercentY": -0.03189066,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -1462,58 +1460,7 @@
           {
             "classname": "ImageView",
             "name": null,
-            "children": [
-              {
-                "classname": "Label",
-                "name": null,
-                "children": [],
-                "options": {
-                  "__type": "LabelSurrogate:#EditorCommon.JsonModel.Component.GUI",
-                  "classname": "Label",
-                  "name": "Label_20",
-                  "ZOrder": 0,
-                  "actiontag": 2472457,
-                  "anchorPointX": 0.5,
-                  "anchorPointY": 0.5,
-                  "classType": "CocoStudio.EngineAdapterWrap.CSLabel",
-                  "colorB": 9,
-                  "colorG": 55,
-                  "colorR": 113,
-                  "customProperty": "",
-                  "flipX": false,
-                  "flipY": false,
-                  "height": 35,
-                  "ignoreSize": true,
-                  "layoutParameter": null,
-                  "opacity": 255,
-                  "positionPercentX": 0,
-                  "positionPercentY": -0.990991,
-                  "positionType": 0,
-                  "rotation": 0,
-                  "scaleX": 1,
-                  "scaleY": 1,
-                  "sizePercentX": 2.22857141,
-                  "sizePercentY": 0.3153153,
-                  "sizeType": 0,
-                  "tag": 3262,
-                  "touchAble": false,
-                  "useMergedTexture": false,
-                  "visible": true,
-                  "width": 234,
-                  "x": 0,
-                  "y": -110,
-                  "areaHeight": 0,
-                  "areaWidth": 0,
-                  "fontFile": null,
-                  "fontName": "微软雅黑",
-                  "fontSize": 26,
-                  "hAlignment": 0,
-                  "text": "您的背包空空如也！",
-                  "touchScaleEnable": false,
-                  "vAlignment": 0
-                }
-              }
-            ],
+            "children": [],
             "options": {
               "__type": "ImageViewSurrogate:#EditorCommon.JsonModel.Component.GUI",
               "classname": "ImageView",
@@ -1529,12 +1476,12 @@
               "customProperty": "",
               "flipX": false,
               "flipY": false,
-              "height": 111,
+              "height": 190,
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
               "positionPercentX": 0,
-              "positionPercentY": 0.0410022773,
+              "positionPercentY": 0,
               "positionType": 0,
               "rotation": 0,
               "scaleX": 1,
@@ -1546,9 +1493,9 @@
               "touchAble": false,
               "useMergedTexture": false,
               "visible": true,
-              "width": 105,
+              "width": 269,
               "x": 0,
-              "y": 18,
+              "y": 0,
               "capInsetsHeight": 1,
               "capInsetsWidth": 1,
               "capInsetsX": 0,
@@ -1560,8 +1507,8 @@
                 "resourceType": 1
               },
               "scale9Enable": false,
-              "scale9Height": 111,
-              "scale9Width": 105
+              "scale9Height": 190,
+              "scale9Width": 269
             }
           }
         ],

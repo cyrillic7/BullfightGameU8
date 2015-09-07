@@ -12,16 +12,12 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIForgetPwd.plist",
-    "UIUserInfo.plist",
-    "UILogon.plist"
+    "UIKnapsack.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UIForgetPwd.png",
-    "UIUserInfo.png",
-    "UILogon.png"
+    "UIKnapsack.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

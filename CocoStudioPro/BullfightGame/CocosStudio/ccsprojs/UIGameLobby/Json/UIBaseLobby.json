@@ -12,12 +12,12 @@
   "textures": [
     "UIGameLobby.plist",
     "UIAuction.plist",
-    "UIUserInfo.plist"
+    "UIUserIcon.plist"
   ],
   "texturesPng": [
     "UIGameLobby.png",
     "UIAuction.png",
-    "UIUserInfo.png"
+    "UIUserIcon.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

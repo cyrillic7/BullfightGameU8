@@ -43,17 +43,19 @@
   <imageFileList>
     <string>UIPanel.plist</string>
     <string>UIButton.plist</string>
-    <string>UIVip.plist</string>
-    <string>UILoadingBar.plist</string>
-    <string>UIKnapsack.plist</string>
+    <string>UIForgetPwd.plist</string>
+    <string>UIUserInfo.plist</string>
+    <string>UILogon.plist</string>
+    <string>UIBindingPhone.plist</string>
   </imageFileList>
   <imagePngList>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
-    <string>UIVip.png</string>
-    <string>UILoadingBar.png</string>
-    <string>UIKnapsack.png</string>
+    <string>UIForgetPwd.png</string>
+    <string>UIUserInfo.png</string>
+    <string>UILogon.png</string>
+    <string>UIBindingPhone.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxVip.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxChangePassword.json</CurrentUIJson>
 </UIProject>

@@ -7,7 +7,7 @@
             <key>DLXGMM.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{189,37}}</string>
+                <string>{{362,2},{189,37}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,7 +20,7 @@
             <key>JMM.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{473,2},{127,36}}</string>
+                <string>{{699,40},{127,36}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -30,10 +30,23 @@
                 <key>sourceSize</key>
                 <string>{127,36}</string>
             </dict>
+            <key>SRZH.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{553,2},{137,37}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{137,37}}</string>
+                <key>sourceSize</key>
+                <string>{137,37}</string>
+            </dict>
             <key>WJMM_BiaoTi.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{193,2},{145,37}}</string>
+                <string>{{552,41},{145,37}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -43,10 +56,23 @@
                 <key>sourceSize</key>
                 <string>{145,37}</string>
             </dict>
+            <key>XGBXGMM.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{362,41},{188,37}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{188,37}}</string>
+                <key>sourceSize</key>
+                <string>{188,37}</string>
+            </dict>
             <key>XMM.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{340,2},{131,36}}</string>
+                <string>{{692,2},{131,36}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -56,6 +82,32 @@
                 <key>sourceSize</key>
                 <string>{131,36}</string>
             </dict>
+            <key>XYB_Btn_Down.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{185,77}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{185,77}}</string>
+                <key>sourceSize</key>
+                <string>{185,77}</string>
+            </dict>
+            <key>XYB_Btn_Normal.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{189,2},{171,72}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{1,0},{171,72}}</string>
+                <key>sourceSize</key>
+                <string>{173,72}</string>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -64,9 +116,9 @@
             <key>realTextureFileName</key>
             <string>UIForgetPwd.png</string>
             <key>size</key>
-            <string>{602,41}</string>
+            <string>{829,81}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:c7a189bd5a0ad8c31b9b7b88f78ac199:df30b12c6129662893af03268b92ffcf:c481e7dd14d6d78b0074f599013fc38c$</string>
+            <string>$TexturePacker:SmartUpdate:3a4f31c9fda94592ee6684cfa0d3c47c:da32fbabec886a35685c8e90e14635e5:c481e7dd14d6d78b0074f599013fc38c$</string>
             <key>textureFileName</key>
             <string>UIForgetPwd.png</string>
         </dict>
