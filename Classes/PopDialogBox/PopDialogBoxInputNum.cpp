@@ -193,6 +193,13 @@ void PopDialogBoxInputNum::onTextFieldAccount(CCObject* obj, TextFiledEventType 
 //输入改变
 void PopDialogBoxInputNum::editBoxTextChanged(cocos2d::extension::CCEditBox* editBox, const std::string& text)
 {
-	lBuyNum = strtol(text.c_str(), NULL, 10);
-	updateAllPice();
+	if (strlen(editBox->getText()) > 0)
+	{
+		lBuyNum = strtol(text.c_str(), NULL, 10);
+		updateAllPice();
+	}
+	else
+	{
+		lBuyNum = 0;
+	}
 }

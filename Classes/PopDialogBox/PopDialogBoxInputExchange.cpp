@@ -67,9 +67,10 @@ void PopDialogBoxInputExchange::setInputExchangeData(UseType eTExchangeType, con
 		addDownloadImage(pIVPropIcon, cPropImagePuth, CCPointZero, 1, 0, false);
 	}
 	//设置标题////////////////////////////////////////////////////////////////////////
-	UILabel *pLTempTitle0 = static_cast<UILabel*>(pUILayer->getWidgetByName("Label_3"));
-	UILabel *pLTempTitle1 = static_cast<UILabel*>(pUILayer->getWidgetByName("Label_4"));
-	
+	//UILabel *pLTempTitle0 = static_cast<UILabel*>(pUILayer->getWidgetByName("Label_3"));
+	//UILabel *pLTempTitle1 = static_cast<UILabel*>(pUILayer->getWidgetByName("Label_4"));
+	UIImageView *pIVTitle = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageExchange"));
+
 	CCEditBox *pEBInputCount = (CCEditBox *)pTFInputCount->getNodeByTag(TAG_INPUT_EDIT_BOX);
 	switch (eTExchangeType)
 	{
@@ -79,8 +80,9 @@ void PopDialogBoxInputExchange::setInputExchangeData(UseType eTExchangeType, con
 		pEBInputCount->setMaxLength(11);
 		pLBuyType->setText("手机号码:");
 		pLExchangeContent->setText("请确认手机号码输入无误!");
-		pLTempTitle0->setText("使用");
-		pLTempTitle1->setText("使用");
+		//pLTempTitle0->setText("使用");
+		//pLTempTitle1->setText("使用");
+		pIVTitle->loadTexture("ShiYong_BT.png", UI_TEX_TYPE_PLIST);
 	}
 			break;
 	case PopDialogBox::USE_QQ_COST:
@@ -91,6 +93,8 @@ void PopDialogBoxInputExchange::setInputExchangeData(UseType eTExchangeType, con
 		pLExchangeContent->setText("请确认QQ号码输入无误!");
 		//pLTempTitle0->setText("使用");
 		//pLTempTitle1->setText("使用");
+		pIVTitle->loadTexture("ShiYong_BT.png", UI_TEX_TYPE_PLIST);
+
 	}
 		break;
 	default:
@@ -101,6 +105,7 @@ void PopDialogBoxInputExchange::setInputExchangeData(UseType eTExchangeType, con
 		pLExchangeContent->setText(sInfoContent);
 		//pLTempTitle0->setText("兑换");
 		//pLTempTitle1->setText("兑换");
+		pIVTitle->loadTexture("DuiHuan_BT.png", UI_TEX_TYPE_PLIST);
 	}
 		break;
 	}

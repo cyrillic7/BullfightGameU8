@@ -14,16 +14,14 @@
     "UIButton.plist",
     "UIShop.plist",
     "UIKnapsack.plist",
-    "UIUserInfo.plist",
-    "UIAuction.plist"
+    "UIUserInfo.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
     "UIShop.png",
     "UIKnapsack.png",
-    "UIUserInfo.png",
-    "UIAuction.png"
+    "UIUserInfo.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -883,7 +881,7 @@
                       "maxLengthEnable": true,
                       "passwordEnable": false,
                       "passwordStyleText": "*",
-                      "placeHolder": "天天帐号",
+                      "placeHolder": "请输入帐号",
                       "text": ""
                     }
                   }

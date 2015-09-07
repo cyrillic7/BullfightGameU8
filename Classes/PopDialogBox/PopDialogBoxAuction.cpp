@@ -1167,13 +1167,19 @@ void PopDialogBoxAuction::editBoxTextChanged(cocos2d::extension::CCEditBox* edit
 	}
 	else if (editBox==pEBGoodsNum)
 	{
-		long lGoosdNum = strtol(editBox->getText(), NULL, 10);
-		editBox->setText(CCString::createWithFormat("%ld", lGoosdNum)->getCString());
+		if (strlen(editBox->getText())>0)
+		{
+			long lGoosdNum = strtol(editBox->getText(), NULL, 10);
+			editBox->setText(CCString::createWithFormat("%ld", lGoosdNum)->getCString());
+		}
 	}
 	else
 	{
-		long long llGoosdPice = strtol(editBox->getText(), NULL, 10);
-		editBox->setText(CCString::createWithFormat("%lld", llGoosdPice)->getCString());
+		if (strlen(editBox->getText()) > 0)
+		{
+			long long llGoosdPice = strtol(editBox->getText(), NULL, 10);
+			editBox->setText(CCString::createWithFormat("%lld", llGoosdPice)->getCString());
+		}
 	}
 	
 

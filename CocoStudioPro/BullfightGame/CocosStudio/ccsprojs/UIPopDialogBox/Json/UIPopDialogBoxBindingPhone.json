@@ -14,16 +14,14 @@
     "UIButton.plist",
     "UIShop.plist",
     "UIKnapsack.plist",
-    "UIUserInfo.plist",
-    "UIAuction.plist"
+    "UIUserInfo.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
     "UIShop.png",
     "UIKnapsack.png",
-    "UIUserInfo.png",
-    "UIAuction.png"
+    "UIUserInfo.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -297,7 +295,7 @@
                       "customProperty": "",
                       "flipX": false,
                       "flipY": false,
-                      "height": 24,
+                      "height": 44,
                       "ignoreSize": true,
                       "layoutParameter": null,
                       "opacity": 255,
@@ -305,8 +303,8 @@
                       "positionPercentY": 0,
                       "positionType": 0,
                       "rotation": 0,
-                      "scaleX": 2,
-                      "scaleY": 2,
+                      "scaleX": 1,
+                      "scaleY": 1,
                       "sizePercentX": 0.0357142873,
                       "sizePercentY": 0.413793117,
                       "sizeType": 0,
@@ -314,7 +312,7 @@
                       "touchAble": false,
                       "useMergedTexture": false,
                       "visible": true,
-                      "width": 15,
+                      "width": 27,
                       "x": -173,
                       "y": 0,
                       "capInsetsHeight": 1,
@@ -323,13 +321,13 @@
                       "capInsetsY": 0,
                       "fileName": null,
                       "fileNameData": {
-                        "path": "u_binding_input_phone.png",
-                        "plistFile": "UIBindingPhone.plist",
+                        "path": "u_l_ass_phone.png",
+                        "plistFile": "UILogon.plist",
                         "resourceType": 1
                       },
                       "scale9Enable": false,
-                      "scale9Height": 24,
-                      "scale9Width": 15
+                      "scale9Height": 44,
+                      "scale9Width": 27
                     }
                   },
                   {
@@ -458,7 +456,7 @@
                       "customProperty": "",
                       "flipX": false,
                       "flipY": false,
-                      "height": 18,
+                      "height": 25,
                       "ignoreSize": true,
                       "layoutParameter": null,
                       "opacity": 255,
@@ -466,8 +464,8 @@
                       "positionPercentY": 0,
                       "positionType": 0,
                       "rotation": 0,
-                      "scaleX": 2,
-                      "scaleY": 2,
+                      "scaleX": 1,
+                      "scaleY": 1,
                       "sizePercentX": 0.0625,
                       "sizePercentY": 0.310344815,
                       "sizeType": 0,
@@ -475,7 +473,7 @@
                       "touchAble": false,
                       "useMergedTexture": false,
                       "visible": true,
-                      "width": 18,
+                      "width": 25,
                       "x": -107,
                       "y": 0,
                       "capInsetsHeight": 1,
@@ -484,13 +482,13 @@
                       "capInsetsY": 0,
                       "fileName": null,
                       "fileNameData": {
-                        "path": "u_binding_input_code.png",
-                        "plistFile": "UIBindingPhone.plist",
+                        "path": "u_l_ass_input.png",
+                        "plistFile": "UILogon.plist",
                         "resourceType": 1
                       },
                       "scale9Enable": false,
-                      "scale9Height": 18,
-                      "scale9Width": 18
+                      "scale9Height": 25,
+                      "scale9Width": 25
                     }
                   },
                   {
