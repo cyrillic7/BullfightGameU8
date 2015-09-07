@@ -89,8 +89,8 @@ void PopDialogBoxInputExchange::setInputExchangeData(UseType eTExchangeType, con
 		pEBInputCount->setMaxLength(14);
 		pLBuyType->setText("QQ号码:");
 		pLExchangeContent->setText("请确认QQ号码输入无误!");
-		pLTempTitle0->setText("使用");
-		pLTempTitle1->setText("使用");
+		//pLTempTitle0->setText("使用");
+		//pLTempTitle1->setText("使用");
 	}
 		break;
 	default:
@@ -99,8 +99,8 @@ void PopDialogBoxInputExchange::setInputExchangeData(UseType eTExchangeType, con
 		pEBInputCount->setMaxLength(8);
 		pLBuyType->setText("兑换数量:");
 		pLExchangeContent->setText(sInfoContent);
-		pLTempTitle0->setText("兑换");
-		pLTempTitle1->setText("兑换");
+		//pLTempTitle0->setText("兑换");
+		//pLTempTitle1->setText("兑换");
 	}
 		break;
 	}
@@ -230,6 +230,13 @@ void PopDialogBoxInputExchange::onTextFieldAccount(CCObject* obj, TextFiledEvent
 //输入改变
 void PopDialogBoxInputExchange::editBoxTextChanged(cocos2d::extension::CCEditBox* editBox, const std::string& text)
 {
-	lBuyNum = strtol(text.c_str(), NULL, 10);
-	updateAllPice();
+	if (strlen(editBox->getText())>0)
+	{
+		lBuyNum = strtol(text.c_str(), NULL, 10);
+		updateAllPice();
+	}
+	else
+	{
+		lBuyNum = 0;
+	}
 }
