@@ -20,7 +20,10 @@
     <string>UIPanel.plist</string>
     <string>UIButton.plist</string>
   </imageFileList>
-  <imagePngList />
+  <imagePngList>
+    <string>UIPanel.png</string>
+    <string>UIButton.png</string>
+  </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>UIPopDialogBoxTipInfo.json</CurrentUIJson>
 </UIProject>

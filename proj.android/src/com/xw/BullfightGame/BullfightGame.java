@@ -297,7 +297,7 @@ public class BullfightGame extends Cocos2dxActivity {
 							 if(!isFinish)
 							 {
 								 isFinish=true;
-								 view.loadUrl("http://121.40.31.203:8010/");
+								 //view.loadUrl("http://121.40.31.203:8010/");
 							 }
 							 
 						}

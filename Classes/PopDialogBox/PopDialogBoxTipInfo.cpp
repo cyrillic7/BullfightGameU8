@@ -55,7 +55,7 @@ void PopDialogBoxTipInfo::onMenuCloseTipInfo(CCObject *object, TouchEventType ty
 //设置提示内容
 void PopDialogBoxTipInfo::setTipInfoContent(const char *content){
 	pLInfo->setText(content);
-	float offsetY = 80-pLInfo->getSize().height;
+	float offsetY = 40-pLInfo->getSize().height;
 	CCSize cSize = CCSize(pWidgetBg->getContentSize().width,pWidgetBg->getContentSize().height-offsetY);
 	pWidgetBg->setSize(cSize);
 

@@ -75,7 +75,8 @@ private:
 	virtual void onCloseViewToVip();
 	//关闭窗口回调
 	virtual void onCloseView(){ isReadMessage = true; }
-	
+	//post回调
+	void onHttpRequestCompleted(CCHttpClient* client, CCHttpResponse* response);
 
 	//快速游戏
 	virtual void quickGame(){}

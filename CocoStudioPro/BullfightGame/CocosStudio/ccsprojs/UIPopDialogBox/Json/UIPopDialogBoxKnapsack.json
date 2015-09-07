@@ -12,16 +12,18 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIForgetPwd.plist",
+    "UIShop.plist",
+    "UIKnapsack.plist",
     "UIUserInfo.plist",
-    "UILogon.plist"
+    "UIAuction.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UIForgetPwd.png",
+    "UIShop.png",
+    "UIKnapsack.png",
     "UIUserInfo.png",
-    "UILogon.png"
+    "UIAuction.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -1490,8 +1492,8 @@
               "rotation": 0,
               "scaleX": 1,
               "scaleY": 1,
-              "sizePercentX": 0.13125,
-              "sizePercentY": 0.252847373,
+              "sizePercentX": 0.33625,
+              "sizePercentY": 0.4328018,
               "sizeType": 0,
               "tag": 3261,
               "touchAble": false,

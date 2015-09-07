@@ -127,6 +127,17 @@ void BaseLobbyScene::onEnter(){
 void BaseLobbyScene::onExit(){
 	CCLayer::onExit();
 }
+//post回调
+void BaseLobbyScene::onHttpRequestCompleted(CCHttpClient* client, CCHttpResponse* response){
+	
+	if (!response->isSucceed())
+	{
+		CCLOG("-------------return <<%s>>", __FUNCTION__);
+		//return;
+	}
+	CCLOG("--------------*************************** <<%s>>", __FUNCTION__);
+	platformAction("{\"act\":201 ,\"url\":\"http://121.40.31.203:8010\"}").c_str();
+}
 //弹出框
 void BaseLobbyScene::popDialogBox(PopType type){
 	PopDialogBox *pdb = NULL;
@@ -146,6 +157,34 @@ void BaseLobbyScene::popDialogBox(PopType type){
 		break;
 	case BaseLobbyScene::POP_ACTIVITY:
 	{
+		CCHttpRequest *request=new CCHttpRequest();
+		request->setUrl("http://121.40.31.203:8010/api/Login/?account=z40144322&pwd=z12345678&plat=1");
+		request->setRequestType(CCHttpRequest::kHttpGet);
+		
+		/*std::vector <std::string>headers;
+		headers.push_back("Content-Type: application/json; charset=utf-8");
+		request->setHeaders(headers);
+		
+		
+		const  char* postData = "account=z40144322&pwd=z12345678&plat=1";
+		request->setRequestData(postData, strlen(postData));
+		*/
+		request->setResponseCallback(this, httpresponse_selector(BaseLobbyScene::onHttpRequestCompleted));
+
+		request->setTag("GET test1");
+		CCHttpClient::getInstance()->send(request);
+		request->release();
+
+		
+
+		/*
+		std::string actStr="{\"act\":201 ,\"url\":\"http://121.40.31.203:8010/api/Login/?account=";
+		actStr+=DataModel::sharedDataModel()->sLogonAccount;
+		actStr += "&pwd=";
+		actStr += DataModel::sharedDataModel()->sLogonPassword;
+		actStr += "&plat=1\"}";
+		platformAction(actStr.c_str());
+		*/
 #ifdef WIN32
 
 #else
@@ -170,12 +209,12 @@ void BaseLobbyScene::popDialogBox(PopType type){
 
 		m_pWidget->setTouchEnabled(false);
 		m_pWidgetBase->setTouchEnabled(false);
-		std::string actStr="{\"act\":201 ,\"url\":\"http://121.40.31.203:8010/api/Login/?account=";
+		/*std::string actStr="{\"act\":201 ,\"url\":\"http://121.40.31.203:8010/api/Login/?account=";
 		actStr+=DataModel::sharedDataModel()->sLogonAccount;
 		actStr += "&pwd=";
 		actStr += DataModel::sharedDataModel()->sLogonPassword;
 		actStr += "&plat=1\"}";
-		platformAction(actStr.c_str());
+		platformAction(actStr.c_str());*/
 		//platformAction("{\"act\":201 ,\"url\":\"http://121.40.31.203:8010\"}").c_str();
 #endif
 		//pdb = PopDialogBoxActivity::create();

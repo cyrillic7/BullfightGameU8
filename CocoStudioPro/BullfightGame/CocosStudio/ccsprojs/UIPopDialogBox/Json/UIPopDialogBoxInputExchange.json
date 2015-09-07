@@ -12,16 +12,14 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIForgetPwd.plist",
-    "UIUserInfo.plist",
-    "UILogon.plist"
+    "UIKnapsack.plist",
+    "UIUserInfo.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UIForgetPwd.png",
-    "UIUserInfo.png",
-    "UILogon.png"
+    "UIKnapsack.png",
+    "UIUserInfo.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -51,7 +49,7 @@
               "customProperty": "",
               "flipX": false,
               "flipY": false,
-              "height": 58,
+              "height": 62,
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
@@ -68,7 +66,7 @@
               "touchAble": true,
               "useMergedTexture": false,
               "visible": true,
-              "width": 152,
+              "width": 184,
               "x": 108,
               "y": -95,
               "capInsetsHeight": 1,
@@ -86,20 +84,20 @@
               "fontType": 0,
               "normal": null,
               "normalData": {
-                "path": "btn_green.png",
+                "path": "QueDing_Btn_Normal.png",
                 "plistFile": "UIButton.plist",
                 "resourceType": 1
               },
               "pressed": null,
               "pressedData": {
-                "path": "btn_green_press.png",
+                "path": "QueDing_Btn_Down.png",
                 "plistFile": "UIButton.plist",
                 "resourceType": 1
               },
               "scale9Enable": false,
-              "scale9Height": 58,
-              "scale9Width": 152,
-              "text": "确定",
+              "scale9Height": 62,
+              "scale9Width": 184,
+              "text": "",
               "textColorB": 255,
               "textColorG": 255,
               "textColorR": 255
@@ -208,6 +206,60 @@
                   "touchScaleEnable": false,
                   "vAlignment": 0
                 }
+              },
+              {
+                "classname": "ImageView",
+                "name": null,
+                "children": [],
+                "options": {
+                  "__type": "ImageViewSurrogate:#EditorCommon.JsonModel.Component.GUI",
+                  "classname": "ImageView",
+                  "name": "Image_16",
+                  "ZOrder": 0,
+                  "actiontag": 45754591,
+                  "anchorPointX": 0.5,
+                  "anchorPointY": 0.5,
+                  "classType": "CocoStudio.EngineAdapterWrap.CSImageView",
+                  "colorB": 255,
+                  "colorG": 255,
+                  "colorR": 255,
+                  "customProperty": "",
+                  "flipX": false,
+                  "flipY": false,
+                  "height": 80,
+                  "ignoreSize": true,
+                  "layoutParameter": null,
+                  "opacity": 255,
+                  "positionPercentX": -0.307971,
+                  "positionPercentY": -0.418865323,
+                  "positionType": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "sizePercentX": 0.4347826,
+                  "sizePercentY": 1.25,
+                  "sizeType": 0,
+                  "tag": 16121,
+                  "touchAble": false,
+                  "useMergedTexture": false,
+                  "visible": true,
+                  "width": 80,
+                  "x": -56,
+                  "y": -26,
+                  "capInsetsHeight": 1,
+                  "capInsetsWidth": 1,
+                  "capInsetsX": 0,
+                  "capInsetsY": 0,
+                  "fileName": null,
+                  "fileNameData": {
+                    "path": "D:\\Program Files (x86)\\Cocos Studio\\EditorDefaultRes\\GUI/image.png",
+                    "plistFile": "",
+                    "resourceType": 2
+                  },
+                  "scale9Enable": false,
+                  "scale9Height": 80,
+                  "scale9Width": 80
+                }
               }
             ],
             "options": {
@@ -225,12 +277,12 @@
               "customProperty": "",
               "flipX": false,
               "flipY": false,
-              "height": 45,
+              "height": 64,
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
               "positionPercentX": 0,
-              "positionPercentY": 0.493103445,
+              "positionPercentY": 0.593103468,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -242,22 +294,22 @@
               "touchAble": false,
               "useMergedTexture": false,
               "visible": true,
-              "width": 229,
+              "width": 184,
               "x": 0,
-              "y": 143,
+              "y": 172,
               "capInsetsHeight": 1,
               "capInsetsWidth": 1,
               "capInsetsX": 0,
               "capInsetsY": 0,
               "fileName": null,
               "fileNameData": {
-                "path": "u_pop_small_title.png",
+                "path": "BiaoTi_MBDW.png",
                 "plistFile": "UIPanel.plist",
                 "resourceType": 1
               },
               "scale9Enable": false,
-              "scale9Height": 45,
-              "scale9Width": 229
+              "scale9Height": 64,
+              "scale9Width": 184
             }
           },
           {
@@ -279,7 +331,7 @@
               "customProperty": "",
               "flipX": false,
               "flipY": false,
-              "height": 58,
+              "height": 62,
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
@@ -296,7 +348,7 @@
               "touchAble": true,
               "useMergedTexture": false,
               "visible": true,
-              "width": 152,
+              "width": 184,
               "x": -108,
               "y": -95,
               "capInsetsHeight": 1,
@@ -314,20 +366,20 @@
               "fontType": 0,
               "normal": null,
               "normalData": {
-                "path": "u_info_btn_orange.png",
+                "path": "QuXiao_Btn_Normal.png",
                 "plistFile": "UIButton.plist",
                 "resourceType": 1
               },
               "pressed": null,
               "pressedData": {
-                "path": "u_info_btn_orange_press.png",
+                "path": "QuXiao_Btn_Down.png",
                 "plistFile": "UIButton.plist",
                 "resourceType": 1
               },
               "scale9Enable": false,
-              "scale9Height": 58,
-              "scale9Width": 152,
-              "text": "取消",
+              "scale9Height": 62,
+              "scale9Width": 184,
+              "text": "",
               "textColorB": 255,
               "textColorG": 255,
               "textColorR": 255
@@ -579,10 +631,10 @@
               "width": 200,
               "x": -36,
               "y": 62,
-              "capInsetsHeight": 16,
-              "capInsetsWidth": 16,
-              "capInsetsX": 10,
-              "capInsetsY": 10,
+              "capInsetsHeight": 6,
+              "capInsetsWidth": 6,
+              "capInsetsX": 15,
+              "capInsetsY": 15,
               "fileName": null,
               "fileNameData": {
                 "path": "u_info_change_bg.png",
