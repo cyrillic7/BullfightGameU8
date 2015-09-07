@@ -46,7 +46,6 @@
     <string>UIForgetPwd.plist</string>
     <string>UIUserInfo.plist</string>
     <string>UILogon.plist</string>
-    <string>UIBindingPhone.plist</string>
   </imageFileList>
   <imagePngList>
     <string>UIPanel.png</string>
@@ -54,8 +53,7 @@
     <string>UIForgetPwd.png</string>
     <string>UIUserInfo.png</string>
     <string>UILogon.png</string>
-    <string>UIBindingPhone.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxChangePassword.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxVip.json</CurrentUIJson>
 </UIProject>

@@ -31,6 +31,7 @@ private:
 	CC_SYNTHESIZE(RewardType, eRewardType, RewardType);
 	//VIP等级
 	UIImageView *pIVVipGradeIcon;
+	UIImageView *pIVVipNextGradeIcon;
 	//VIP等级数
 	UILabelAtlas *pLAVipGradeNum;
 	//VIP下一等级数

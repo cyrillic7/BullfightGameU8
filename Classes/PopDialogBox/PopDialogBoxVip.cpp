@@ -38,6 +38,7 @@ void PopDialogBoxVip::onEnter(){
 
 	//VIP等级icon
 	pIVVipGradeIcon = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageVipGrade"));
+	pIVVipNextGradeIcon = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageVipGrade0"));
 	//VIP等级数
 	pLAVipGradeNum = static_cast<UILabelAtlas*>(pUILayer->getWidgetByName("AtlasLabelVipGrade"));
 	//VIP下一等级数
@@ -169,7 +170,8 @@ void PopDialogBoxVip::onMenuReward(CCObject *object, TouchEventType type){
 }
 //设置VIP等级
 void PopDialogBoxVip::setVipGrade(int iGrade){
-	if (iGrade==0)
+	pIVVipGradeIcon->loadTexture(CCString::createWithFormat("icon_vip%d.png",iGrade)->getCString(), UI_TEX_TYPE_PLIST);
+	/*if (iGrade==0)
 	{
 		pIVVipText->setVisible(false);
 		pLAVipGradeNum->setVisible(false);
@@ -181,11 +183,18 @@ void PopDialogBoxVip::setVipGrade(int iGrade){
 
 		pIVVipGradeIcon->loadTexture("u_vip_icon1.png", UI_TEX_TYPE_PLIST);
 		pLAVipGradeNum->setStringValue(CCString::createWithFormat("%d", iGrade)->getCString());
-	}
+	}*/
 }
 //设置VIP等级
 void PopDialogBoxVip::setNextVipGrade(int iGrade){
-	if (iGrade >=8)
+	if (iGrade>=8)
+	{
+	}
+	else
+	{
+		pIVVipNextGradeIcon->loadTexture(CCString::createWithFormat("icon_vip%d.png", iGrade)->getCString(), UI_TEX_TYPE_PLIST);
+	}
+	/*if (iGrade >=8)
 	{
 		pIVNextVipText->setVisible(false);
 		pIVFullLevel->setVisible(true);
@@ -197,7 +206,7 @@ void PopDialogBoxVip::setNextVipGrade(int iGrade){
 
 		//pIVVipGradeIcon->loadTexture("u_vip_icon1.png", UI_TEX_TYPE_PLIST);
 		pLANextVipGradeNum->setStringValue(CCString::createWithFormat("%d", iGrade)->getCString());
-	}
+	}*/
 }
 //更新列表
 void PopDialogBoxVip::updateListVip(){
@@ -230,7 +239,7 @@ void PopDialogBoxVip::updateListVip(){
 		pBRewardGold->setColor(ccc3(colorH, colorH, colorH));
 		pBRewardGold->setTitleColor(ccc3(colorH, colorH, colorH));
 		pBRewardGold->setTouchEnabled(false);
-		pBRewardGold->setTitleText(" 已领取 ");
+		//pBRewardGold->setTitleText(" 已领取 ");
 	}
 	break;
 	default:
@@ -274,7 +283,7 @@ void PopDialogBoxVip::updateListVip(){
 		pBRewardRedMoney->setColor(ccc3(colorH, colorH, colorH));
 		pBRewardRedMoney->setTitleColor(ccc3(colorH, colorH, colorH));
 		pBRewardRedMoney->setTouchEnabled(false);
-		pBRewardRedMoney->setTitleText(" 已领取 ");
+		//pBRewardRedMoney->setTitleText(" 已领取 ");
 	}
 	break;
 	default:
@@ -364,7 +373,7 @@ void PopDialogBoxVip::setButtonState(UIButton *button,int state){
 		button->setColor(ccc3(colorH, colorH, colorH));
 		button->setTitleColor(ccc3(colorH, colorH, colorH));
 		button->setTouchEnabled(false);
-		button->setTitleText(" 领取奖励 ");
+		//button->setTitleText(" 领取奖励 ");
 	}
 	break;
 	case 1://未领取
@@ -372,7 +381,7 @@ void PopDialogBoxVip::setButtonState(UIButton *button,int state){
 		button->setColor(ccc3(255, 255, 255));
 		button->setTitleColor(ccc3(255, 255, 255));
 		button->setTouchEnabled(true);
-		button->setTitleText(" 领取奖励 ");
+		//button->setTitleText(" 领取奖励 ");
 	}
 	break;
 	case 2://已领取
@@ -380,7 +389,7 @@ void PopDialogBoxVip::setButtonState(UIButton *button,int state){
 		button->setColor(ccc3(colorH, colorH, colorH));
 		button->setTitleColor(ccc3(colorH, colorH, colorH));
 		button->setTouchEnabled(false);
-		button->setTitleText(" 已领取 ");
+		//button->setTitleText(" 已领取 ");
 	}
 	break;
 	default:

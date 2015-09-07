@@ -26,6 +26,11 @@ std::string platformAction(const std::string& jsonString)
 		int act = aide.getInt("act", -1);
 		CCLOG("win32................................................... %d<<%s>>", act,__FUNCTION__);
 
+		switch (act)
+		{
+		default:
+			break;
+		}
 		/*
 		switch (act)
 		{
