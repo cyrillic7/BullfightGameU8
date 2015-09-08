@@ -54,6 +54,7 @@ CCScene* GameLobbyScene::scene(bool showUpTip)
 }
 void GameLobbyScene::onEnter(){
 	BaseLobbyScene::onEnter();
+	lobbyScene = this;
 	/*//添加背景
 	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
 	CCSprite *spriteBg=CCSprite::create("res/main_bg.jpg");

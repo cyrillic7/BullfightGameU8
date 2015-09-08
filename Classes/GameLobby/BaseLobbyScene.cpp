@@ -38,7 +38,7 @@ BaseLobbyScene::~BaseLobbyScene(){
 //进入场景
 void BaseLobbyScene::onEnter(){
 	CCLayer::onEnter();
-	lobbyScene = this;
+	
 	//添加背景
 	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
 	CCSprite *spriteBg=CCSprite::create("res/main_bg.jpg");

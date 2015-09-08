@@ -51,5 +51,5 @@
     <string>UIFirstRecharge.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxSetting.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxChangePassword.json</CurrentUIJson>
 </UIProject>
