@@ -7,41 +7,41 @@
             <key>u_f_r_content.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{269,2},{296,169}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{296,169}}</string>
-                <key>sourceSize</key>
-                <string>{296,169}</string>
-            </dict>
-            <key>u_f_r_reword_icon.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,2},{217,265}}</string>
+                <string>{{2,2},{388,183}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{217,265}}</string>
+                <string>{{0,0},{388,183}}</string>
                 <key>sourceSize</key>
-                <string>{217,265}</string>
+                <string>{388,183}</string>
             </dict>
-            <key>u_f_r_title.png</key>
+            <key>u_f_r_reword_icon.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{269,173},{284,70}}</string>
+                <string>{{187,2},{275,278}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{284,70}}</string>
+                <string>{{0,0},{275,278}}</string>
                 <key>sourceSize</key>
-                <string>{284,70}</string>
+                <string>{275,278}</string>
+            </dict>
+            <key>u_f_r_title.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{187,282},{178,31}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{178,31}}</string>
+                <key>sourceSize</key>
+                <string>{178,31}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -51,9 +51,9 @@
             <key>realTextureFileName</key>
             <string>UIFirstRecharge.png</string>
             <key>size</key>
-            <string>{567,245}</string>
+            <string>{464,392}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:c8792717424e36f28578a78def0dfc04:e05520e68619f4b90e4f9daf47cfb3c4:56dac8667f17678de0f1173abbb9d008$</string>
+            <string>$TexturePacker:SmartUpdate:75cc7e990ff3e2e2eccddee3e5ac440e:bca1b368ca4b5ea143d6df7da546cbe0:56dac8667f17678de0f1173abbb9d008$</string>
             <key>textureFileName</key>
             <string>UIFirstRecharge.png</string>
         </dict>

@@ -4,10 +4,23 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>GengDuo_BiaoTi.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{323,29},{76,42}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{76,42}}</string>
+                <key>sourceSize</key>
+                <string>{76,42}</string>
+            </dict>
             <key>u_more_download.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{296,2},{96,25}}</string>
+                <string>{{296,29},{96,25}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -33,11 +46,11 @@
             <key>u_more_open.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{323,2},{94,25}}</string>
+                <string>{{296,2},{94,25}}</string>
                 <key>offset</key>
                 <string>{-2,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{94,25}}</string>
                 <key>sourceSize</key>
@@ -51,9 +64,9 @@
             <key>realTextureFileName</key>
             <string>UIMore.png</string>
             <key>size</key>
-            <string>{350,134}</string>
+            <string>{392,134}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:5e7dcc72d7e3f5c22894f2eefe36285f:7de675c78ef0a6535df5840067855b4b:d783d047e944d80c3df6474eecfc3847$</string>
+            <string>$TexturePacker:SmartUpdate:38233c020aff72d6fdf0609a168de83b:90177271be4f668954142591bea7e7b4:d783d047e944d80c3df6474eecfc3847$</string>
             <key>textureFileName</key>
             <string>UIMore.png</string>
         </dict>
