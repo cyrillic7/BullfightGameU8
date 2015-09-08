@@ -219,7 +219,7 @@ public class BullfightGame extends Cocos2dxActivity {
 
 	// 打开网页
 	WebView m_webView;// WebView控件
-	ImageView m_imageView;// ImageView控件
+	//ImageView m_imageView;// ImageView控件
 	FrameLayout m_webLayout;// FrameLayout布局
 	LinearLayout m_topLayout;// LinearLayout布局
 	Button m_backButton;// 关闭按钮
@@ -310,7 +310,7 @@ public class BullfightGame extends Cocos2dxActivity {
 				 * //初始化线性布局 里面加按钮和webView m_topLayout = new LinearLayout(game);
 				 * m_topLayout.setOrientation(LinearLayout.VERTICAL);
 				 */
-				m_imageView = (ImageView) view.findViewById(R.id.imageViewBg);
+				//m_imageView = (ImageView) view.findViewById(R.id.imageViewBg);
 				m_topLayout = (LinearLayout) view
 						.findViewById(R.id.LinearLayoutLogin);
 				// 初始化返回按钮
@@ -354,7 +354,7 @@ public class BullfightGame extends Cocos2dxActivity {
 
 		// m_webLayout.removeView(m_imageView);
 		m_webLayout.removeAllViews();
-		m_imageView.destroyDrawingCache();
+		//m_imageView.destroyDrawingCache();
 
 		m_webLayout.removeView(m_topLayout);
 		m_topLayout.destroyDrawingCache();

@@ -157,9 +157,18 @@ void BaseLobbyScene::popDialogBox(PopType type){
 		break;
 	case BaseLobbyScene::POP_ACTIVITY:
 	{
-		CCHttpRequest *request=new CCHttpRequest();
+		std::string actStr = "{\"act\":201 ,\"url\":\"http://121.40.31.203:9021/Home/Index/?account=";
+		actStr += DataModel::sharedDataModel()->sLogonAccount;
+		actStr += "&pwd=";
+		actStr += DataModel::sharedDataModel()->sLogonPassword;
+		actStr += "&plat=1\"}";
+		platformAction(actStr.c_str());
+
+		//platformAction("{\"act\":201 ,\"url\":\"http://121.40.31.203:9021/Home/Index/?account=test0001&pwd=123456&plat=1\"}").c_str();
+
+		/*CCHttpRequest *request=new CCHttpRequest();
 		request->setUrl("http://121.40.31.203:8010/api/Login/?account=z40144322&pwd=z12345678&plat=1");
-		request->setRequestType(CCHttpRequest::kHttpGet);
+		request->setRequestType(CCHttpRequest::kHttpGet);*/
 		
 		/*std::vector <std::string>headers;
 		headers.push_back("Content-Type: application/json; charset=utf-8");
@@ -169,22 +178,14 @@ void BaseLobbyScene::popDialogBox(PopType type){
 		const  char* postData = "account=z40144322&pwd=z12345678&plat=1";
 		request->setRequestData(postData, strlen(postData));
 		*/
-		request->setResponseCallback(this, httpresponse_selector(BaseLobbyScene::onHttpRequestCompleted));
+		/*request->setResponseCallback(this, httpresponse_selector(BaseLobbyScene::onHttpRequestCompleted));
 
 		request->setTag("GET test1");
 		CCHttpClient::getInstance()->send(request);
 		request->release();
-
+		*/
 		
 
-		/*
-		std::string actStr="{\"act\":201 ,\"url\":\"http://121.40.31.203:8010/api/Login/?account=";
-		actStr+=DataModel::sharedDataModel()->sLogonAccount;
-		actStr += "&pwd=";
-		actStr += DataModel::sharedDataModel()->sLogonPassword;
-		actStr += "&plat=1\"}";
-		platformAction(actStr.c_str());
-		*/
 #ifdef WIN32
 
 #else
