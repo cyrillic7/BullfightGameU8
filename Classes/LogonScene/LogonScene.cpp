@@ -277,7 +277,7 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 				tipInfo->setTipInfoContent(BaseAttributes::sharedAttributes()->sWaitCodeing.c_str());
 #else
 				m_pWidget->setTouchEnabled(false);
-				platformAction("{\"act\":200 ,\"url\":\"http://www.999xw.com/QQLogin.aspx\"}").c_str();
+				platformAction("{\"act\":200 ,\"url\":\"http://www.qicainiu.net/QQLogin.aspx\"}").c_str();
 #endif
                 
 			}
@@ -410,6 +410,9 @@ void LogonScene::logonGameByAccount(float dt){
 		m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
 		std::string md5PassWord = m.GetMd5();
 		strcpy(logonAccounts.szPassword, md5PassWord.c_str());
+		CCLOG("pwd:%s <<%s>>",logonAccounts.szPassword, __FUNCTION__);
+		//09-08 17:26:48.599: D/cocos2d-x debug info(13570): pwd:a796dd352fd25ae2d739719e950ded1d <<logonGameByAccount>>
+
 		gameSocket.SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &logonAccounts, sizeof(logonAccounts));
 		
 	}

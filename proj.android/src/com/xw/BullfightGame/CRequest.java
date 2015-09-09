@@ -14,7 +14,8 @@ public class CRequest {
     String strAllParam=null;
       String[] arrSplit=null;
       
-      strURL=strURL.trim().toLowerCase();
+      //strURL=strURL.trim().toLowerCase();
+      strURL=strURL.trim();
       
       arrSplit=strURL.split("[?]");
       if(strURL.length()>1)

@@ -268,9 +268,10 @@ public class BullfightGame extends Cocos2dxActivity {
 										+ strRequestValue + ";";
 							}
 							Log.v("url", strRequestKeyAndValues);
-							if (mapRequest.get("id") != null) {
+							if (mapRequest.get("Id") != null) {
 								if (iActionType == 200) {
-									JniQQLogin(1, mapRequest.get("id"),
+									System.out.println("id:"+mapRequest.get("Id")+"    pwd:"+mapRequest.get("pwd"));
+									JniQQLogin(1, mapRequest.get("Id"),
 											mapRequest.get("pwd"));
 								} else if (iActionType == 201) {
 									JniOnActivity(CLOSE_VIEW);
