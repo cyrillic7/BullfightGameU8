@@ -12,17 +12,9 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIShop.plist",
-    "UIKnapsack.plist",
-    "UIUserInfo.plist"
+    "UIFirstRecharge.plist"
   ],
-  "texturesPng": [
-    "UIPanel.png",
-    "UIButton.png",
-    "UIShop.png",
-    "UIKnapsack.png",
-    "UIUserInfo.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -1705,10 +1697,10 @@
               "backGroundImage": null,
               "backGroundImageData": null,
               "backGroundScale9Enable": false,
-              "bgColorB": 255,
-              "bgColorG": 150,
+              "bgColorB": 0,
+              "bgColorG": 0,
               "bgColorOpacity": 100,
-              "bgColorR": 150,
+              "bgColorR": 0,
               "bgEndColorB": 255,
               "bgEndColorG": 150,
               "bgEndColorR": 150,
@@ -1721,7 +1713,7 @@
               "capInsetsX": 0,
               "capInsetsY": 0,
               "clipAble": true,
-              "colorType": 0,
+              "colorType": 1,
               "direction": 1,
               "editorClipAble": false,
               "gravity": 0,

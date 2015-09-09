@@ -10,6 +10,7 @@
 #include "../Tools/GameConfig.h"
 #include "../Tools/Tools.h"
 #include "../Tools/BaseAttributes.h"
+#include "../Shader/BlurSprite.h"
 #include "../GameLobby/BaseLobbyScene.h"
 #include "PopDialogBoxLoading.h"
 
@@ -43,11 +44,12 @@ void PopDialogBoxAuction::onEnter(){
 
 	//添加背景
 	CCSize deviceSize = DataModel::sharedDataModel()->deviceSize;
-	CCSprite *bg = CCSprite::create("res/shop_bg.jpg");
+	BlurSprite *bg = BlurSprite::create("res/main_bg.jpg");
 	pWidgetBg->addNode(bg, -1);
 	bg->setPosition(CCPointZero);
 	float scale = deviceSize.height / bg->getContentSize().height;
-	bg->setScale(scale);
+	bg->setScaleX(scale);
+	bg->setScaleY(-scale);
 
 	//关闭
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));

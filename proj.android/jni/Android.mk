@@ -16,6 +16,7 @@ FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/Play/CardLayer/*.cpp)
 FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/Play/GameControl/*.cpp)
 FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/Play/OxHundred/*.cpp)
 
+FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/Shader/*.cpp)
 
 FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/GameLobby/*.cpp)
 FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/Logo/*.cpp)

@@ -8,6 +8,7 @@
 #include "PopDialogBoxShop.h"
 #include "../Tools/DataModel.h"
 #include "../Tools/GameConfig.h"
+#include "../Shader/BlurSprite.h"
 #include "PopDialogBoxLoading.h"
 
 #include "PopDialogBoxTipInfo.h"
@@ -44,11 +45,12 @@ void PopDialogBoxShop::onEnter(){
 	pWidgetBg->setScale(0.8);
 	//添加背景
 	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
-	CCSprite *bg=CCSprite::create("res/shop_bg.jpg");
+	BlurSprite *bg = BlurSprite::create("res/main_bg.jpg");
 	pWidgetBg->addNode(bg,-1);
 	bg->setPosition(CCPointZero);
 	float scale=deviceSize.height/bg->getContentSize().height;
-	bg->setScale(scale);
+	bg->setScaleX(scale);
+	bg->setScaleY(-scale);
 	//关闭
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::onMenuBackWithReadMsg));

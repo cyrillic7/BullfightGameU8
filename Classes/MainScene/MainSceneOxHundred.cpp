@@ -54,7 +54,7 @@ void MainSceneOxHundred::onExit(){
 }
 void MainSceneOxHundred::addBg(){
 	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
-	CCSprite *spriteBg=CCSprite::create("res/room2.jpg");
+	CCSprite *spriteBg=CCSprite::create("res/room_one_by_one.jpg");
 	this->addChild(spriteBg);
 	spriteBg->setPosition(ccp(deviceSize.width/2,deviceSize.height/2));
 	float scaleX=deviceSize.width/spriteBg->getContentSize().width;
