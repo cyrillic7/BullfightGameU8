@@ -12,17 +12,9 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIBindingPhone.plist",
-    "UIUserInfo.plist",
-    "UILogon.plist"
+    "UIFirstRecharge.plist"
   ],
-  "texturesPng": [
-    "UIPanel.png",
-    "UIButton.png",
-    "UIBindingPhone.png",
-    "UIUserInfo.png",
-    "UILogon.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",

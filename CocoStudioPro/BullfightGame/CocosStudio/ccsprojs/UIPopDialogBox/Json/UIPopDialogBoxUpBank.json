@@ -12,16 +12,14 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIShop.plist",
-    "UIKnapsack.plist",
-    "UIUserInfo.plist"
+    "UIRanking.plist",
+    "UIUserIcon.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UIShop.png",
-    "UIKnapsack.png",
-    "UIUserInfo.png"
+    "UIRanking.png",
+    "UIUserIcon.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -341,7 +339,7 @@
                       "customProperty": "",
                       "flipX": false,
                       "flipY": false,
-                      "height": 44,
+                      "height": 53,
                       "ignoreSize": true,
                       "layoutParameter": null,
                       "opacity": 255,
@@ -351,14 +349,14 @@
                       "rotation": 0,
                       "scaleX": 1,
                       "scaleY": 1,
-                      "sizePercentX": 0.0933333337,
-                      "sizePercentY": 0.478260875,
+                      "sizePercentX": 0.118333332,
+                      "sizePercentY": 0.576086938,
                       "sizeType": 0,
                       "tag": 950,
                       "touchAble": false,
                       "useMergedTexture": false,
                       "visible": true,
-                      "width": 56,
+                      "width": 71,
                       "x": 42,
                       "y": 45,
                       "capInsetsHeight": 1,
@@ -372,8 +370,8 @@
                         "resourceType": 1
                       },
                       "scale9Enable": false,
-                      "scale9Height": 44,
-                      "scale9Width": 56
+                      "scale9Height": 53,
+                      "scale9Width": 71
                     }
                   },
                   {

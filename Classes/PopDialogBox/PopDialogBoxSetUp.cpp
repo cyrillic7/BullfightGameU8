@@ -35,6 +35,10 @@ void PopDialogBoxSetUp::onEnter(){
 	//用户昵称
 	UILabel *pLUserName = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelUserName"));
 	pLUserName->setText(GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName));
+	//用户头像
+	UIImageView *pIVIcon = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageUserIcon")); 
+	pIVIcon->loadTexture(CCString::createWithFormat("u_p_icon_%d.png", DataModel::sharedDataModel()->userInfo->wFaceID)->getCString(), UI_TEX_TYPE_PLIST);
+
 	//关闭
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::onMenuBackWithReadMsg));

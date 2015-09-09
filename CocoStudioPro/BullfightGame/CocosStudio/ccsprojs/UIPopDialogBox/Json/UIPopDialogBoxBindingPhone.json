@@ -12,17 +12,9 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIShop.plist",
-    "UIKnapsack.plist",
-    "UIUserInfo.plist"
+    "UIFirstRecharge.plist"
   ],
-  "texturesPng": [
-    "UIPanel.png",
-    "UIButton.png",
-    "UIShop.png",
-    "UIKnapsack.png",
-    "UIUserInfo.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -305,8 +297,8 @@
                       "rotation": 0,
                       "scaleX": 1,
                       "scaleY": 1,
-                      "sizePercentX": 0.0357142873,
-                      "sizePercentY": 0.413793117,
+                      "sizePercentX": 0.06428572,
+                      "sizePercentY": 0.7586207,
                       "sizeType": 0,
                       "tag": 914,
                       "touchAble": false,
@@ -466,8 +458,8 @@
                       "rotation": 0,
                       "scaleX": 1,
                       "scaleY": 1,
-                      "sizePercentX": 0.0625,
-                      "sizePercentY": 0.310344815,
+                      "sizePercentX": 0.08680555,
+                      "sizePercentY": 0.431034476,
                       "sizeType": 0,
                       "tag": 4365,
                       "touchAble": false,

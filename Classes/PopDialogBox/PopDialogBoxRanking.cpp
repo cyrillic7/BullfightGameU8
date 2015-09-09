@@ -47,6 +47,11 @@ void PopDialogBoxRanking::onEnter(){
 	//我的金币
 	UILabel *pLMyGold = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelMyGold"));
 	pLMyGold->setText(CCString::createWithFormat("%lld",DataModel::sharedDataModel()->userInfo->lScore)->getCString());
+	//我的头像
+	UIImageView *pIVIcon = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageMyRankingIcon"));
+	pIVIcon->loadTexture(CCString::createWithFormat("u_p_icon_%d.png", DataModel::sharedDataModel()->userInfo->wFaceID)->getCString(), UI_TEX_TYPE_PLIST);
+
+
 	//我的排名背景
 	pIVMyRankingBg=static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageMyRanking"));
 	//我的排名
@@ -109,6 +114,10 @@ void PopDialogBoxRanking::updateListRanking(){
 		//pLName->setText(GBKToUTF8(vecRanking[i].szNickName));
 		std::string nickName = GBKToUTF8(vecRanking[i].szNickName);
 		pLName->setText(Tools::subUTF8(nickName, 0, 4));
+		
+		//头像
+		UIImageView *pIVIcon = static_cast<UIImageView*>(pUILayer->getWidgetByName(CCString::createWithFormat("ImageNumber%d",i+1)->getCString())->getChildByName("ImageIcon"));
+		pIVIcon->loadTexture(CCString::createWithFormat("u_p_icon_%ld.png", vecRanking[i].dwFaceID)->getCString(), UI_TEX_TYPE_PLIST);
 
 		//金币
 		UILabel *pLGold = static_cast<UILabel*>(pLNum->getChildByName("LabelGold"));
@@ -136,6 +145,10 @@ void PopDialogBoxRanking::updateListRanking(){
 		//昵称
 		UILabel *pName = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("LabelName"));
 		pName->setText(GBKToUTF8(vecRanking[i].szNickName));
+		//头像
+		UIImageView *pIVIcon = static_cast<UIImageView*>(pLVTemp->getItem(inserterPos)->getChildByName("ImageIcon"));
+		pIVIcon->loadTexture(CCString::createWithFormat("u_p_icon_%ld.png", vecRanking[i].dwFaceID)->getCString(), UI_TEX_TYPE_PLIST);
+
 		//金币数
 		UILabel *pGold = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("LabelGold"));
 		pGold->setText(CCString::createWithFormat("%lld",vecRanking[i].lScore)->getCString());

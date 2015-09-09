@@ -12,16 +12,14 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIShop.plist",
-    "UIKnapsack.plist",
-    "UIUserInfo.plist"
+    "UIRanking.plist",
+    "UIUserIcon.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UIShop.png",
-    "UIKnapsack.png",
-    "UIUserInfo.png"
+    "UIRanking.png",
+    "UIUserIcon.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -534,7 +532,7 @@
                   "layoutParameter": null,
                   "opacity": 255,
                   "positionPercentX": -0.319034845,
-                  "positionPercentY": 0.360824466,
+                  "positionPercentY": 0.357388318,
                   "positionType": 1,
                   "rotation": 0,
                   "scaleX": 1,
@@ -1003,7 +1001,7 @@
                   "capInsetsY": 0,
                   "fileName": null,
                   "fileNameData": {
-                    "path": "TouXiang_Nan1.png",
+                    "path": "u_p_icon_0.png",
                     "plistFile": "UIUserIcon.plist",
                     "resourceType": 1
                   },

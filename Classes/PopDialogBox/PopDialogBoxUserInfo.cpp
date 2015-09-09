@@ -34,6 +34,11 @@ void PopDialogBoxUserInfo::onEnter(){
 	pWidgetBg = static_cast<UIImageView*>(pUILayer->getWidgetByName("bg"));
 	pWidgetBg->setScale(0.8);
 
+	//用户头像
+	UIImageView *pIVIcon = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageHand"));
+	pIVIcon->loadTexture(CCString::createWithFormat("u_p_icon_%d.png", DataModel::sharedDataModel()->userInfo->wFaceID)->getCString(), UI_TEX_TYPE_PLIST);
+
+
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::onMenuBackWithReadMsg));
 	//兑换

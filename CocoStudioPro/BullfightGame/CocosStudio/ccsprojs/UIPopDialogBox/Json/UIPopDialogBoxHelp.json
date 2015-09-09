@@ -12,9 +12,7 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIShop.plist",
-    "UIKnapsack.plist",
-    "UIUserInfo.plist"
+    "UIFirstRecharge.plist"
   ],
   "texturesPng": [],
   "version": "1.6.0.0",
@@ -509,7 +507,7 @@
               "visible": true,
               "width": 159,
               "x": -238,
-              "y": 30,
+              "y": 29,
               "backGroundBox": null,
               "backGroundBoxData": {
                 "path": "TBNN_Btn_Normal.png",

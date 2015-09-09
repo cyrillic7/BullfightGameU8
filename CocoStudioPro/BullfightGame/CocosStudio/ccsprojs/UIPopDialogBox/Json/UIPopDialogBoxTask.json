@@ -12,17 +12,9 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIShop.plist",
-    "UIKnapsack.plist",
-    "UIUserInfo.plist"
+    "UIFirstRecharge.plist"
   ],
-  "texturesPng": [
-    "UIPanel.png",
-    "UIButton.png",
-    "UIShop.png",
-    "UIKnapsack.png",
-    "UIUserInfo.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -184,7 +176,7 @@
               "layoutParameter": null,
               "opacity": 255,
               "positionPercentX": -0.4236842,
-              "positionPercentY": 0.503416836,
+              "positionPercentY": 0.5011389,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,
@@ -198,7 +190,7 @@
               "visible": true,
               "width": 369,
               "x": -322,
-              "y": 220,
+              "y": 219,
               "capInsetsHeight": 1,
               "capInsetsWidth": 1,
               "capInsetsX": 0,

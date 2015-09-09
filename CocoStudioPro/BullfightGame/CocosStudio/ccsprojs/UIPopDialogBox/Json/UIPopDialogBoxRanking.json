@@ -12,11 +12,15 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIShop.plist",
-    "UIKnapsack.plist",
-    "UIUserInfo.plist"
+    "UIRanking.plist",
+    "UIUserIcon.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIPanel.png",
+    "UIButton.png",
+    "UIRanking.png",
+    "UIUserIcon.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -257,7 +261,7 @@
                       "capInsetsY": 0,
                       "fileName": null,
                       "fileNameData": {
-                        "path": "TouXiang_Nan1.png",
+                        "path": "u_p_icon_0.png",
                         "plistFile": "UIUserIcon.plist",
                         "resourceType": 1
                       },
@@ -842,7 +846,7 @@
                     "options": {
                       "__type": "ImageViewSurrogate:#EditorCommon.JsonModel.Component.GUI",
                       "classname": "ImageView",
-                      "name": "Image_30",
+                      "name": "ImageSelfRankingIcon",
                       "ZOrder": 0,
                       "actiontag": 53662245,
                       "anchorPointX": 0.5,
@@ -931,7 +935,7 @@
                   "capInsetsY": 0,
                   "fileName": null,
                   "fileNameData": {
-                    "path": "TouXiang_Nan1.png",
+                    "path": "u_p_icon_0.png",
                     "plistFile": "UIUserIcon.plist",
                     "resourceType": 1
                   },
@@ -1168,7 +1172,7 @@
                   "capInsetsY": 0,
                   "fileName": null,
                   "fileNameData": {
-                    "path": "TouXiang_Nan1.png",
+                    "path": "u_p_icon_0.png",
                     "plistFile": "UIUserIcon.plist",
                     "resourceType": 1
                   },
@@ -1432,7 +1436,7 @@
                   "capInsetsY": 0,
                   "fileName": null,
                   "fileNameData": {
-                    "path": "TouXiang_Nan1.png",
+                    "path": "u_p_icon_0.png",
                     "plistFile": "UIUserIcon.plist",
                     "resourceType": 1
                   },
@@ -1696,7 +1700,7 @@
                   "capInsetsY": 0,
                   "fileName": null,
                   "fileNameData": {
-                    "path": "TouXiang_Nan1.png",
+                    "path": "u_p_icon_0.png",
                     "plistFile": "UIUserIcon.plist",
                     "resourceType": 1
                   },

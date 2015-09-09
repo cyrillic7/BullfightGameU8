@@ -17,10 +17,10 @@
                 <key>sourceSize</key>
                 <string>{123,123}</string>
             </dict>
-            <key>TouXiang_Nan1.png</key>
+            <key>u_p_icon_0.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{547,107},{103,103}}</string>
+                <string>{{737,107},{103,103}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -30,7 +30,46 @@
                 <key>sourceSize</key>
                 <string>{103,103}</string>
             </dict>
-            <key>TouXiang_Nan2.png</key>
+            <key>u_p_icon_1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{757,2},{103,103}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{103,103}}</string>
+                <key>sourceSize</key>
+                <string>{103,103}</string>
+            </dict>
+            <key>u_p_icon_10.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{652,2},{103,103}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{103,103}}</string>
+                <key>sourceSize</key>
+                <string>{103,103}</string>
+            </dict>
+            <key>u_p_icon_11.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{632,107},{103,103}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{103,103}}</string>
+                <key>sourceSize</key>
+                <string>{103,103}</string>
+            </dict>
+            <key>u_p_icon_12.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{547,2},{103,103}}</string>
@@ -43,10 +82,10 @@
                 <key>sourceSize</key>
                 <string>{103,103}</string>
             </dict>
-            <key>TouXiang_Nan3.png</key>
+            <key>u_p_icon_13.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{442,107},{103,103}}</string>
+                <string>{{527,107},{103,103}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -56,7 +95,7 @@
                 <key>sourceSize</key>
                 <string>{103,103}</string>
             </dict>
-            <key>TouXiang_Nan4.png</key>
+            <key>u_p_icon_14.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{442,2},{103,103}}</string>
@@ -69,10 +108,10 @@
                 <key>sourceSize</key>
                 <string>{103,103}</string>
             </dict>
-            <key>TouXiang_Nan5.png</key>
+            <key>u_p_icon_2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{337,107},{103,103}}</string>
+                <string>{{422,107},{103,103}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -82,7 +121,7 @@
                 <key>sourceSize</key>
                 <string>{103,103}</string>
             </dict>
-            <key>TouXiang_Nv1.png</key>
+            <key>u_p_icon_3.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{337,2},{103,103}}</string>
@@ -95,10 +134,10 @@
                 <key>sourceSize</key>
                 <string>{103,103}</string>
             </dict>
-            <key>TouXiang_Nv2.png</key>
+            <key>u_p_icon_4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{232,107},{103,103}}</string>
+                <string>{{317,107},{103,103}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -108,7 +147,7 @@
                 <key>sourceSize</key>
                 <string>{103,103}</string>
             </dict>
-            <key>TouXiang_Nv3.png</key>
+            <key>u_p_icon_5.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{232,2},{103,103}}</string>
@@ -121,10 +160,10 @@
                 <key>sourceSize</key>
                 <string>{103,103}</string>
             </dict>
-            <key>TouXiang_Nv4.png</key>
+            <key>u_p_icon_6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{127,107},{103,103}}</string>
+                <string>{{212,107},{103,103}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -134,10 +173,36 @@
                 <key>sourceSize</key>
                 <string>{103,103}</string>
             </dict>
-            <key>TouXiang_Nv5.png</key>
+            <key>u_p_icon_7.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{127,2},{103,103}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{103,103}}</string>
+                <key>sourceSize</key>
+                <string>{103,103}</string>
+            </dict>
+            <key>u_p_icon_8.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{107,127},{103,103}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{103,103}}</string>
+                <key>sourceSize</key>
+                <string>{103,103}</string>
+            </dict>
+            <key>u_p_icon_9.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,127},{103,103}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -155,9 +220,9 @@
             <key>realTextureFileName</key>
             <string>UIUserIcon.png</string>
             <key>size</key>
-            <string>{652,212}</string>
+            <string>{862,232}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:2dbdf7693aea1f5a41ffab99d47125a7:d97d74f7ef287c8e4c2a389fa522cac1:5599d9f1b52af3653488b011e27c34fc$</string>
+            <string>$TexturePacker:SmartUpdate:a7e3aa2d5f07ff0c19f5a9fca760a32a:3105d854e5aad8145006ad26819b16ac:5599d9f1b52af3653488b011e27c34fc$</string>
             <key>textureFileName</key>
             <string>UIUserIcon.png</string>
         </dict>

@@ -7,7 +7,7 @@
             <key>BH_Btn_Down.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,227},{205,72}}</string>
+                <string>{{566,228},{205,72}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,11 +20,11 @@
             <key>BH_Btn_Normal.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,511},{193,68}}</string>
+                <string>{{789,291},{193,68}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{193,68}}</string>
                 <key>sourceSize</key>
@@ -33,7 +33,7 @@
             <key>FQ_Btn_Down.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{213,2},{209,74}}</string>
+                <string>{{591,78},{209,74}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +46,7 @@
             <key>FQ_Btn_Normal.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{197,510},{193,68}}</string>
+                <string>{{773,221},{193,68}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>HP_Btn_Down.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{209,226},{205,72}}</string>
+                <string>{{566,154},{205,72}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>HP_Btn_Normal.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,441},{193,68}}</string>
+                <string>{{802,151},{193,68}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +85,7 @@
             <key>HZ_Btn_Down.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,153},{205,72}}</string>
+                <string>{{359,215},{205,72}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,11 +98,11 @@
             <key>HZ_Btn_Normal.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{197,440},{193,68}}</string>
+                <string>{{719,302},{193,68}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{193,68}}</string>
                 <key>sourceSize</key>
@@ -111,7 +111,7 @@
             <key>JZ_Btn_Down.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{209,74}}</string>
+                <string>{{591,2},{209,74}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -124,7 +124,7 @@
             <key>JZ_Btn_Normal.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,371},{193,68}}</string>
+                <string>{{524,442},{193,68}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -137,7 +137,7 @@
             <key>KS_Btn_Down.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{209,152},{205,72}}</string>
+                <string>{{359,141},{205,72}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -150,7 +150,7 @@
             <key>KS_Btn_Normal.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{197,370},{193,68}}</string>
+                <string>{{524,372},{193,68}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -163,7 +163,7 @@
             <key>TP_Btn_Down.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,78},{205,73}}</string>
+                <string>{{802,2},{205,73}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -176,7 +176,7 @@
             <key>TP_Btn_Normal.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,301},{193,68}}</string>
+                <string>{{524,302},{193,68}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -189,7 +189,7 @@
             <key>TS_Btn_Down.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{209,78},{205,72}}</string>
+                <string>{{802,77},{205,72}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -202,33 +202,85 @@
             <key>TS_Btn_Normal.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{209,300},{193,68}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{193,68}}</string>
-                <key>sourceSize</key>
-                <string>{193,68}</string>
-            </dict>
-            <key>u_gi_bank_icon.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{378,740},{56,44}}</string>
+                <string>{{454,289},{193,68}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{56,44}}</string>
+                <string>{{0,0},{193,68}}</string>
                 <key>sourceSize</key>
-                <string>{56,44}</string>
+                <string>{193,68}</string>
+            </dict>
+            <key>XiangKuangH_Frame_TongYong.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{167,2},{246,115}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{13,13},{246,115}}</string>
+                <key>sourceSize</key>
+                <string>{272,141}</string>
+            </dict>
+            <key>XiangKuangH_Frame_ZhuangJia.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,262},{272,141}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{272,141}}</string>
+                <key>sourceSize</key>
+                <string>{272,141}</string>
+            </dict>
+            <key>XiangKuangS_Frame_ZhuangJia.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{163,258}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{163,258}}</string>
+                <key>sourceSize</key>
+                <string>{163,258}</string>
+            </dict>
+            <key>hei.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{435,425},{17,28}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{17,28}}</string>
+                <key>sourceSize</key>
+                <string>{17,28}</string>
+            </dict>
+            <key>u_gi_bank_icon.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{389,460},{71,53}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{71,53}}</string>
+                <key>sourceSize</key>
+                <string>{71,53}</string>
             </dict>
             <key>u_gi_begin.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{344,954},{76,35}}</string>
+                <string>{{847,532},{76,35}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -241,20 +293,20 @@
             <key>u_gi_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{92,911},{39,100}}</string>
+                <string>{{415,2},{137,174}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{2,2},{39,100}}</string>
+                <string>{{0,0},{137,174}}</string>
                 <key>sourceSize</key>
-                <string>{43,104}</string>
+                <string>{137,174}</string>
             </dict>
             <key>u_gi_call.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{389,660},{78,35}}</string>
+                <string>{{964,379},{78,35}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -267,7 +319,7 @@
             <key>u_gi_call_bank.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{378,798},{74,37}}</string>
+                <string>{{733,497},{74,37}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -280,7 +332,7 @@
             <key>u_gi_exit.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{260,844},{112,33}}</string>
+                <string>{{321,425},{112,33}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -293,11 +345,11 @@
             <key>u_gi_exit_pre.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{260,809},{112,33}}</string>
+                <string>{{929,381},{112,33}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{112,33}}</string>
                 <key>sourceSize</key>
@@ -306,7 +358,7 @@
             <key>u_gi_give_up.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{389,580},{78,35}}</string>
+                <string>{{962,299},{78,35}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -319,11 +371,11 @@
             <key>u_gi_gold_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{392,398},{33,25}}</string>
+                <string>{{964,459},{33,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{33,25}}</string>
                 <key>sourceSize</key>
@@ -332,7 +384,7 @@
             <key>u_gi_gold_icon.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{392,370},{27,26}}</string>
+                <string>{{773,154},{27,26}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -345,7 +397,7 @@
             <key>u_gi_lobby_type0.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,733},{135,43}}</string>
+                <string>{{2,536},{135,43}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -358,7 +410,7 @@
             <key>u_gi_menu_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,581},{174,150}}</string>
+                <string>{{145,278},{174,150}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -371,11 +423,11 @@
             <key>u_gi_not_call.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{221,798},{74,37}}</string>
+                <string>{{389,533},{74,37}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{74,37}}</string>
                 <key>sourceSize</key>
@@ -384,11 +436,11 @@
             <key>u_gi_not_swap.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{344,879},{77,36}}</string>
+                <string>{{809,486},{77,36}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{77,36}}</string>
                 <key>sourceSize</key>
@@ -397,7 +449,7 @@
             <key>u_gi_open_card.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{344,917},{76,35}}</string>
+                <string>{{847,495},{76,35}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -410,11 +462,11 @@
             <key>u_gi_paopao.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,911},{101,88}}</string>
+                <string>{{859,291},{101,88}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{101,88}}</string>
                 <key>sourceSize</key>
@@ -423,7 +475,7 @@
             <key>u_gi_prompt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{307,937},{76,35}}</string>
+                <string>{{772,497},{76,35}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -436,7 +488,7 @@
             <key>u_gi_ready.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{221,874},{69,37}}</string>
+                <string>{{925,495},{69,37}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -449,7 +501,7 @@
             <key>u_gi_replace.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{270,937},{76,35}}</string>
+                <string>{{968,221},{76,35}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -462,24 +514,24 @@
             <key>u_gi_select_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{138,800},{43,104}}</string>
+                <string>{{145,430},{163,152}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{43,104}}</string>
+                <string>{{0,0},{163,152}}</string>
                 <key>sourceSize</key>
-                <string>{43,104}</string>
+                <string>{163,152}</string>
             </dict>
             <key>u_gi_setting.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{264,774},{112,33}}</string>
+                <string>{{894,381},{112,33}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{112,33}}</string>
                 <key>sourceSize</key>
@@ -488,11 +540,11 @@
             <key>u_gi_setting_pre.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{264,739},{112,33}}</string>
+                <string>{{859,381},{112,33}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{112,33}}</string>
                 <key>sourceSize</key>
@@ -501,7 +553,7 @@
             <key>u_gi_submenu.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{260,879},{65,56}}</string>
+                <string>{{666,512},{65,56}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -514,11 +566,11 @@
             <key>u_gi_submenu_pre.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{212,945},{65,56}}</string>
+                <string>{{599,512},{65,56}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{65,56}}</string>
                 <key>sourceSize</key>
@@ -527,7 +579,7 @@
             <key>u_gi_swap_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{197,580},{157,190}}</string>
+                <string>{{167,119},{157,190}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -540,11 +592,11 @@
             <key>u_gi_swap_card.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{183,800},{77,36}}</string>
+                <string>{{444,484},{77,36}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{77,36}}</string>
                 <key>sourceSize</key>
@@ -553,11 +605,11 @@
             <key>u_gi_swap_light.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,778},{131,134}}</string>
+                <string>{{321,289},{131,134}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{131,134}}</string>
                 <key>sourceSize</key>
@@ -566,7 +618,7 @@
             <key>u_gi_talk.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{197,740},{65,56}}</string>
+                <string>{{532,512},{65,56}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -579,11 +631,11 @@
             <key>u_gi_talk_pre.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{139,733},{65,56}}</string>
+                <string>{{465,522},{65,56}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{65,56}}</string>
                 <key>sourceSize</key>
@@ -592,7 +644,7 @@
             <key>u_gi_time_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{133,911},{98,77}}</string>
+                <string>{{310,484},{98,77}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -610,9 +662,9 @@
             <key>realTextureFileName</key>
             <string>UIGameIng.png</string>
             <key>size</key>
-            <string>{426,1015}</string>
+            <string>{1010,584}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:d78842245d0f60c7210928d3ee48d5f8:c4e1431618188a56c8612101d50397fe:ca83526fc713a10942f5ff4e6a514509$</string>
+            <string>$TexturePacker:SmartUpdate:074fda6e82717cf85a1387a0744519c1:382e5c555a03d86f506b966823150965:ca83526fc713a10942f5ff4e6a514509$</string>
             <key>textureFileName</key>
             <string>UIGameIng.png</string>
         </dict>

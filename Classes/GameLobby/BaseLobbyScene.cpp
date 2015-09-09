@@ -67,6 +67,9 @@ void BaseLobbyScene::onEnter(){
 	//绑定用户信息按键
 	pBUserInfo= static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonIcon"));
 	pBUserInfo->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::menuResetUser));
+	pBUserInfo->loadTextureNormal(CCString::createWithFormat("u_p_icon_%d.png", DataModel::sharedDataModel()->userInfo->wFaceID)->getCString(), UI_TEX_TYPE_PLIST);
+	pBUserInfo->loadTexturePressed(CCString::createWithFormat("u_p_icon_%d.png", DataModel::sharedDataModel()->userInfo->wFaceID)->getCString(), UI_TEX_TYPE_PLIST);
+
 	//绑定更多按键
 	button = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonMore"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
