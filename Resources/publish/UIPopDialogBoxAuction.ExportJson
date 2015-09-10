@@ -4978,7 +4978,7 @@
                   "customProperty": "",
                   "flipX": false,
                   "flipY": false,
-                  "height": 34,
+                  "height": 36,
                   "ignoreSize": true,
                   "layoutParameter": null,
                   "opacity": 255,
@@ -4995,12 +4995,12 @@
                   "touchAble": true,
                   "useMergedTexture": true,
                   "visible": true,
-                  "width": 132,
+                  "width": 133,
                   "x": 207,
                   "y": -4,
                   "backGroundBox": null,
                   "backGroundBoxData": {
-                    "path": "PMXX_Normal.png",
+                    "path": "PMJL_Normal.png",
                     "plistFile": "",
                     "resourceType": 1
                   },
@@ -5012,19 +5012,19 @@
                   },
                   "backGroundBoxSelected": null,
                   "backGroundBoxSelectedData": {
-                    "path": "PMXX_Normal.png",
+                    "path": "PMJL_Normal.png",
                     "plistFile": "",
                     "resourceType": 1
                   },
                   "frontCross": null,
                   "frontCrossData": {
-                    "path": "PMXX_Down.png",
+                    "path": "PMJL_Down.png",
                     "plistFile": "",
                     "resourceType": 1
                   },
                   "frontCrossDisabled": null,
                   "frontCrossDisabledData": {
-                    "path": "PMXX_Down.png",
+                    "path": "PMJL_Down.png",
                     "plistFile": "",
                     "resourceType": 1
                   },

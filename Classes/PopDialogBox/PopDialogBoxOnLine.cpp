@@ -83,6 +83,9 @@ void PopDialogBoxOnLine::setOnLineUserInfo(bool isInsert,tagUserInfo userInfo){
 		UILabel *pLName=static_cast<UILabel*>(pLOnLine->getItem(0)->getChildByName("LabelName"));
 		pLName->setText(Tools::GBKToUTF8(userInfo.szNickName));
 	}
+	//头像
+	//UIImageView *pIVIcon = static_cast<UIImageView*>(pLOnLine->getItem(0)->getChildByName("ImageIcon"));
+	//pIVIcon->loadTexture(CCString::createWithFormat("u_p_icon_%d.png",userInfo.wFaceID)->getCString(),UI_TEX_TYPE_PLIST);
 }
 //移除自己
 void PopDialogBoxOnLine::removSelf(){

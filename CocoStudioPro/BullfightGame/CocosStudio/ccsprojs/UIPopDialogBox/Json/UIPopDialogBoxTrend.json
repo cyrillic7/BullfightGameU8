@@ -10,20 +10,14 @@
   "designHeight": 640,
   "designWidth": 1136,
   "textures": [
-    "UIPanel.plist",
-    "UIButton.plist",
-    "UISetUp.plist",
-    "UIUserInfo.plist",
-    "UICheckBox.plist",
-    "UIUserIcon.plist"
+    "UIGameIngHundred.plist",
+    "UIUserIcon.plist",
+    "UIUserInfo.plist"
   ],
   "texturesPng": [
-    "UIPanel.png",
-    "UIButton.png",
-    "UISetUp.png",
-    "UIUserInfo.png",
-    "UICheckBox.png",
-    "UIUserIcon.png"
+    "UIGameIngHundred.png",
+    "UIUserIcon.png",
+    "UIUserInfo.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

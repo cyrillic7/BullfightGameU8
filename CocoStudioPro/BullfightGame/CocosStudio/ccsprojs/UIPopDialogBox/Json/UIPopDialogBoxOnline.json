@@ -10,11 +10,15 @@
   "designHeight": 640,
   "designWidth": 1136,
   "textures": [
-    "UIPanel.plist",
-    "UIButton.plist",
-    "UIFirstRecharge.plist"
+    "UIGameIngHundred.plist",
+    "UIUserIcon.plist",
+    "UIUserInfo.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIGameIngHundred.png",
+    "UIUserIcon.png",
+    "UIUserInfo.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -47,7 +51,7 @@
                   "customProperty": "",
                   "flipX": false,
                   "flipY": false,
-                  "height": 80,
+                  "height": 103,
                   "ignoreSize": true,
                   "layoutParameter": null,
                   "opacity": 255,
@@ -55,8 +59,8 @@
                   "positionPercentY": 0.4888889,
                   "positionType": 0,
                   "rotation": 0,
-                  "scaleX": 1,
-                  "scaleY": 1,
+                  "scaleX": 0.6999999,
+                  "scaleY": 0.6999999,
                   "sizePercentX": 0.32,
                   "sizePercentY": 0.8888889,
                   "sizeType": 0,
@@ -64,7 +68,7 @@
                   "touchAble": false,
                   "useMergedTexture": false,
                   "visible": true,
-                  "width": 80,
+                  "width": 103,
                   "x": 45,
                   "y": 44,
                   "capInsetsHeight": 1,
@@ -73,13 +77,13 @@
                   "capInsetsY": 0,
                   "fileName": null,
                   "fileNameData": {
-                    "path": "hand_icon.png",
-                    "plistFile": "UIUserInfo.plist",
+                    "path": "u_p_icon_0.png",
+                    "plistFile": "UIUserIcon.plist",
                     "resourceType": 1
                   },
                   "scale9Enable": false,
-                  "scale9Height": 80,
-                  "scale9Width": 80
+                  "scale9Height": 103,
+                  "scale9Width": 103
                 }
               },
               {
@@ -155,7 +159,7 @@
                   "customProperty": "",
                   "flipX": false,
                   "flipY": false,
-                  "height": 0,
+                  "height": 27,
                   "ignoreSize": true,
                   "layoutParameter": null,
                   "opacity": 255,
@@ -172,7 +176,7 @@
                   "touchAble": false,
                   "useMergedTexture": false,
                   "visible": true,
-                  "width": 0,
+                  "width": 22,
                   "x": 88,
                   "y": 65,
                   "areaHeight": 0,
@@ -181,7 +185,7 @@
                   "fontName": "微软雅黑",
                   "fontSize": 20,
                   "hAlignment": 0,
-                  "text": "",
+                  "text": "ds",
                   "touchScaleEnable": false,
                   "vAlignment": 0
                 }
@@ -205,7 +209,7 @@
                   "customProperty": "",
                   "flipX": false,
                   "flipY": false,
-                  "height": 0,
+                  "height": 27,
                   "ignoreSize": true,
                   "layoutParameter": null,
                   "opacity": 255,
@@ -222,7 +226,7 @@
                   "touchAble": false,
                   "useMergedTexture": false,
                   "visible": true,
-                  "width": 0,
+                  "width": 24,
                   "x": 88,
                   "y": 22,
                   "areaHeight": 0,
@@ -231,7 +235,7 @@
                   "fontName": "微软雅黑",
                   "fontSize": 20,
                   "hAlignment": 0,
-                  "text": "",
+                  "text": "12",
                   "touchScaleEnable": false,
                   "vAlignment": 0
                 }

@@ -119,7 +119,7 @@ void GameControlOxHundred::onEnter(){
 	CCAnimation* animation = CCAnimation::createWithSpriteFrames(animFrames, 0.1f);
 	animation->setLoops(-1);
 	CCAnimate *action = CCAnimate::create(animation);
-	pSUpBank->runAction(action);
+	//pSUpBank->runAction(action);
 
 	pIUpBank->addNode(pSUpBank);
 

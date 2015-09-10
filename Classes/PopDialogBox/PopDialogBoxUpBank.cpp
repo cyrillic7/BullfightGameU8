@@ -109,7 +109,9 @@ void PopDialogBoxUpBank::updateUpBankState(){
 
 	if (DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->m_bMeApplyBanker==1)
 	{
-		pBUpBank->setTitleText("我要下庄");
+		//pBUpBank->setTitleText("我要下庄");
+		pBUpBank->loadTextureNormal("WYXZX_Btn_Normal.png", UI_TEX_TYPE_PLIST);
+		pBUpBank->loadTexturePressed("WYXZX_Btn_Down.png", UI_TEX_TYPE_PLIST);
 		if (!DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->isChangeUpBank)
 		{
 			pBUpBank->setTouchEnabled(false);
@@ -144,8 +146,9 @@ void PopDialogBoxUpBank::updateUpBankState(){
 	}
 	else if (DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->m_bMeApplyBanker == 0)
 	{
-		
-		pBUpBank->setTitleText("我要上庄");
+		//pBUpBank->setTitleText("我要上庄");
+		pBUpBank->loadTextureNormal("WYSZX_Btn_Normal.png", UI_TEX_TYPE_PLIST);
+		pBUpBank->loadTexturePressed("WYSZX_Btn_Down.png", UI_TEX_TYPE_PLIST);
 		if (DataModel::sharedDataModel()->userInfo->lScore < 1000000){
 			pBUpBank->setTouchEnabled(false);
 			pBUpBank->setColor(ccc3(100, 100, 100));

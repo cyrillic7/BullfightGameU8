@@ -43,15 +43,9 @@
   <imageFileList>
     <string>UIPanel.plist</string>
     <string>UIButton.plist</string>
-    <string>UIRanking.plist</string>
-    <string>UIUserIcon.plist</string>
+    <string>UIFirstRecharge.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>UIPanel.png</string>
-    <string>UIButton.png</string>
-    <string>UIRanking.png</string>
-    <string>UIUserIcon.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxRanking.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxUpBank.json</CurrentUIJson>
 </UIProject>

@@ -785,6 +785,7 @@ struct CMD_GP_MyAuctionRecordItem
 {
 	DWORD								dwIndex;						//单号
 	TCHAR								szAuctionName[NAME_LEN];		//拍卖品名称
+	TCHAR								szImgName[GIFT_IMGNAME];		//图片
 	DWORD								dwPropNum;
 	long long							lGold;							//价格
 };
@@ -795,6 +796,7 @@ struct CMD_GP_HistoryAuctionRecordItem
 	DWORD								dwGameID;
 	TCHAR								szNickName[LEN_ACCOUNTS];		//昵称
 	TCHAR								szAuctionName[NAME_LEN];		//拍卖品名称
+	TCHAR								szImgName[GIFT_IMGNAME];		//图片
 	DWORD								dwType;							//类型1:买，2:卖
 	DWORD								dwPropNum;
 	long long							lGold;							//价格
@@ -807,6 +809,7 @@ struct CMD_GP_AuctionRecord
 	DWORD								dwPageCount;					//页码总数
 	DWORD								dwPageIndex;					//查询第几页
 	DWORD								dwIndex;						//条数
+	DWORD								dwAllIndex;						//总条数
 	T									RecordItem[20];
 };
 struct CMD_GP_Sell_AuctionLog
