@@ -55,7 +55,7 @@ void BaseAttributes::initStr(){
 	sSelectAuctionGoods = dynamic_cast<CCString *>(mDic->objectForKey("strSelectAuctionGoods"))->getCString();
 	sInputAuctionGoodsPice = dynamic_cast<CCString *>(mDic->objectForKey("strInputAuctionGoodsPice"))->getCString();
 	sInputAuctionGoodsNum = dynamic_cast<CCString *>(mDic->objectForKey("strInputAuctionGoodsNum"))->getCString();
-	
+	sPiceWan = dynamic_cast<CCString *>(mDic->objectForKey("strPiceWan"))->getCString(); 
 
 	mDic->removeAllObjects();
 	CC_SAFE_RELEASE_NULL(mDic);

@@ -738,7 +738,7 @@ void GameControlBase::onUnconnect(WORD wSubCmdID){
 	getMainScene()->removeLoadingLayer();
 
 	PopDialogBoxTipInfo *pTipInfo = PopDialogBoxTipInfo::create();
-	this->addChild(pTipInfo, K_Z_ORDER_POP);
+	this->getParent()->addChild(pTipInfo, K_Z_ORDER_POP);
 	pTipInfo->setTipInfoContent("与服务器断开连接");
 	pTipInfo->setIPopAssistTipInfo(this);
 }

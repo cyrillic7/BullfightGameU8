@@ -1,6 +1,7 @@
 #include "CMath.h"
 #include "DataModel.h"
 #include "GameConfig.h"
+#include "BaseAttributes.h"
 CMath::CMath()
 {
 }
@@ -19,7 +20,7 @@ CCPoint CMath::designResolutionToFrame(CCPoint designPos){
 std::string CMath::formatNumber(std::string strNum) {
 	std::string formatString = "";
 	int strLen = strNum.length();
-	if (strLen > 9){
+	/*if (strLen > 9){
 		formatString = strNum.substr(0, strLen - 7);
 		formatString.insert(formatString.length() - 2, ".");
 		formatString.append("十亿");
@@ -35,6 +36,25 @@ std::string CMath::formatNumber(std::string strNum) {
 		formatString.append("千 ");
 	}
 	else {
+		formatString = strNum;
+	}*/
+	/*if (strLen > 5){  //大于10K才行
+		formatString = strNum.substr(0, strLen - 1);
+		formatString.insert(formatString.length() - 3, ".");
+		formatString.append(BaseAttributes::sharedAttributes()->sPiceWan);
+	}
+	else {
+		formatString = strNum;
+	}*/
+	long long llNum = strtoll(strNum.c_str(),NULL,10);
+	if (llNum>=10000)
+	{
+		double dNum = llNum / 10000.0;
+		formatString.append(CCString::createWithFormat("%.2f", dNum)->getCString());
+		formatString.append(BaseAttributes::sharedAttributes()->sPiceWan);
+	}
+	else
+	{
 		formatString = strNum;
 	}
 	return formatString;

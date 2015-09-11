@@ -3,6 +3,8 @@
 <plist version="1.0">
 
 	<dict>
+		<key>strPiceWan</key>
+		<string>万</string>
 		<key>strSexBoy</key>
 		<string>男</string>
 		<key>strSexGirl</key>

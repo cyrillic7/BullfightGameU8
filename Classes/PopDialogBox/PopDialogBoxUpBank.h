@@ -9,7 +9,8 @@
 
 #include "PopDialogBox.h"
 #include "../MainScene/MainSceneOxHundred.h"
-class PopDialogBoxUpBank: public PopDialogBox {
+#include "../Tools/CMath.h"
+class PopDialogBoxUpBank: public PopDialogBox,public CMath {
 private:
     
 	//庄家列表

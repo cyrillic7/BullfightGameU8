@@ -23,13 +23,7 @@
     <string>UIGameLobby.plist</string>
     <string>Font.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>UIGameIngHundred.png</string>
-    <string>UIGameIng.png</string>
-    <string>UIUserIcon.png</string>
-    <string>UIGameLobby.png</string>
-    <string>Font.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>UIGameIngHundred.json</CurrentUIJson>
 </UIProject>

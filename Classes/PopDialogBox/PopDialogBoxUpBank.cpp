@@ -39,6 +39,9 @@ void PopDialogBoxUpBank::onEnter(){
 		pBUpBank->setTouchEnabled(false);
 		pBUpBank->setColor(ccc3(100,100,100));
 	}*/
+	UILabel *pLUpBankLimit=static_cast<UILabel*>(pUILayer->getWidgetByName("LabelUpBankLimit"));
+	pLUpBankLimit->setText(formatNumber(CCString::createWithFormat("%lld", DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->llApplyBankerCondition)->getCString()));
+	//;
 	
 
 	//初始化列表数据
@@ -149,7 +152,7 @@ void PopDialogBoxUpBank::updateUpBankState(){
 		//pBUpBank->setTitleText("我要上庄");
 		pBUpBank->loadTextureNormal("WYSZX_Btn_Normal.png", UI_TEX_TYPE_PLIST);
 		pBUpBank->loadTexturePressed("WYSZX_Btn_Down.png", UI_TEX_TYPE_PLIST);
-		if (DataModel::sharedDataModel()->userInfo->lScore < 1000000){
+		if (DataModel::sharedDataModel()->userInfo->lScore < DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->llApplyBankerCondition){
 			pBUpBank->setTouchEnabled(false);
 			pBUpBank->setColor(ccc3(100, 100, 100));
 		}

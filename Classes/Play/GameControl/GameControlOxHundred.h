@@ -40,7 +40,7 @@ struct tagApplyUser
 class GameControlOxHundred:public GameControlBase,public GameLogicHundred
 {
 public:
-
+	long long						llApplyBankerCondition;				//申请条件(上庄条件)
 public:
 	//tagGameRecord				m_GameRecordArrary[MAX_SCORE_HISTORY];//游戏记录
 	std::list <tagGameRecord> listGameRecord;//游戏记录

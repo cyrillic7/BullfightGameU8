@@ -855,6 +855,8 @@ void GameControlOxHundred::onSubGameFrame(WORD wSubCmdID, void * pDataBuffer, un
 			{
 				pPlayerData[1]->hidePlayer();
 			}
+			//上庄条件
+			llApplyBankerCondition = pStatusFree->lApplyBankerCondition;
 			/*
 			//玩家信息
 			m_lMeMaxScore=pStatusFree->lUserMaxScore;
@@ -913,7 +915,8 @@ void GameControlOxHundred::onSubGameFrame(WORD wSubCmdID, void * pDataBuffer, un
 				pSeatData[nAreaIndex - 1]->setAllJettonByAdd(pStatusPlay->lAllJettonScore[nAreaIndex]);
 				createJettonInit(nAreaIndex-1, pStatusPlay->lAllJettonScore[nAreaIndex]);
 			}
-			
+			//上庄条件
+			llApplyBankerCondition = pStatusPlay->lApplyBankerCondition;
 			CCLOG("GAME_SCENE_PLACE_JETTON|GAME_SCENE_GAME_END<<%s>>", __FUNCTION__);
 			/*
 
@@ -1196,7 +1199,8 @@ void GameControlOxHundred::onSubGameFree(const void * pBuffer, WORD wDataSize)
 	CMD_S_GameFree * pGameFree = (CMD_S_GameFree *)pBuffer;
 	//设置时间
 	resetTimer(pGameFree->cbTimeLeave, BaseAttributes::sharedAttributes()->sGameFree.c_str());
-	CCLOG("time:%d   count:%lld<<%s>>", pGameFree->cbTimeLeave, pGameFree->nListUserCount, __FUNCTION__);
+	CCLOG("FreeTime:%s <<%s>>", Tools::get_date_now().c_str(), __FUNCTION__);
+	CCLOG("FreeTime:%d   count:%lld<<%s>>", pGameFree->cbTimeLeave, pGameFree->nListUserCount, __FUNCTION__);
 	resetData();
 	for (int i = 0; i < MAX_SEAT_COUNT; i++)
 	{
@@ -1607,6 +1611,7 @@ void GameControlOxHundred::onSubGameEnd(const void * pBuffer, WORD wDataSize){
 	CMD_S_GameEnd * pGameEnd = (CMD_S_GameEnd *)pBuffer;
 	CCLOG("end:%lld<<%s>>", pGameEnd->lUserScore, __FUNCTION__);
 	isChangeUpBank = true;
+	CCLOG("endTime--------------:%s   timeLeave:%d <<%s>>", Tools::get_date_now().c_str(), pGameEnd->cbTimeLeave, __FUNCTION__);
 	//设置时间
 	resetTimer(pGameEnd->cbTimeLeave, BaseAttributes::sharedAttributes()->sGameEnd.c_str());
 	hideTimer(false);

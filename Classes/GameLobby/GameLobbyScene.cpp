@@ -461,6 +461,7 @@ void GameLobbyScene::onSubConfig(WORD wSubCmdID,void * pDataBuffer, unsigned sho
 	{
 	case SUB_GR_CONFIG_COLUMN://列表配置
 		{
+			//CMD_GR_ConfigColumn *pConfigColumn = (CMD_GR_ConfigColumn*)pDataBuffer;
 			CCLOG("列表配置<<%s>>",__FUNCTION__);
 		}
 		break;			

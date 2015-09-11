@@ -42,7 +42,7 @@ public:
 	std::string sSelectAuctionGoods;			//请选择要拍卖的道具
 	std::string	sInputAuctionGoodsPice;			//请正确填写拍卖单价
 	std::string sInputAuctionGoodsNum;			//请正确填写数量
-
+	std::string sPiceWan;						//万
 	int iCardOffsetX[MAX_PLAYER];
 	int iCardOffsetY[MAX_PLAYER];
 	int iCardOffsetSpace[MAX_PLAYER];

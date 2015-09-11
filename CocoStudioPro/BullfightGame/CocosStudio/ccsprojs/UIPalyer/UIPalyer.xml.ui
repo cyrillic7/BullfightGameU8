@@ -22,5 +22,5 @@
   </imageFileList>
   <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson />
+  <CurrentUIJson>UIPalyer.json</CurrentUIJson>
 </UIProject>
