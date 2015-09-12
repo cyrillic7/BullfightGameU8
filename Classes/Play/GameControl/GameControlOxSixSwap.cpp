@@ -1037,7 +1037,7 @@ bool GameControlOxSixSwap::OnSubGameStart(const void * pBuffer, WORD wDataSize){
 
 		UILabel *label = static_cast<UILabel*>(pbBetting[i]->getChildByName("LabelGold"));
 		std::string sJetton = formatNumber(CCString::createWithFormat("%lld", lCurrentScore)->getCString());
-		label->setText(Tools::GBKToUTF8(sJetton.c_str()));
+		label->setText(sJetton.c_str());
 	}
 	//getMainScene()->playerLayer->setBankIcon(getChairIndex(getMeChairID(), wBankerUser));
 	getMainScene()->playerLayer->setBankIcon(getViewChairID(wBankerUser));

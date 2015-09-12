@@ -10,7 +10,7 @@
 #include "../../GameLogic/GameLogic.h"
 #include "../CardLayer/IOptCard.h"
 #define GAME_PLAYER					6										//游戏人数
-class GameControlOxSixSwap:public GameControlBase,public GameLogic,public IOptCard
+class GameControlOxSixSwap:public GameControlBase,public GameLogic,public IOptCard,public CStringAide
 {
 private:
 	BYTE m_cbPlayStatus[GAME_PLAYER];							//用户状态
