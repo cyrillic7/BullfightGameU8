@@ -89,7 +89,7 @@ void PlayerData::onResultAnimationFinish(){
 //设置用户金币
 void PlayerData::changePlayerGole(long long lGold){
 	userInfoPlayer.lScore += lGold;
-	pLGoldCount->setText(CCString::createWithFormat("%lld",userInfoPlayer.lScore)->getCString());
+	pLGoldCount->setText(formatNumber(CCString::createWithFormat("%lld",userInfoPlayer.lScore)->getCString()));
 }
 void PlayerData::showActionType(ActionType type){
 	switch (type)
