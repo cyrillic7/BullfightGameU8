@@ -320,10 +320,14 @@ void PopDialogBoxTask::onSubReward(void * pDataBuffer, unsigned short wDataSize)
 	if (pTaskIDLog->lResultCode==0)
 	{
 		//CCLOG(" <<%s>>", __FUNCTION__);
+		showTipInfo("奖励领取成功!");
 	}
-	showTipInfo(GBKToUTF8(pTaskIDLog->szDescribeString).c_str());
+	else
+	{
+		showTipInfo(GBKToUTF8(pTaskIDLog->szDescribeString).c_str());
+	}
+	
 	//移除loading
 	this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
-
 	getTashInfoList(); 
 }
