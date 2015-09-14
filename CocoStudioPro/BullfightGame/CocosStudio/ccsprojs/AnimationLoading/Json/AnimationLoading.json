@@ -117,7 +117,7 @@
       "mov_data": [
         {
           "name": "AnimationLoading",
-          "dr": 31,
+          "dr": 26,
           "lp": true,
           "to": 0,
           "drTW": 0,
@@ -204,21 +204,6 @@
                   "bd_dst": 771
                 },
                 {
-                  "dI": 5,
-                  "x": 0.0,
-                  "y": 0.0,
-                  "z": 0,
-                  "cX": 1.0,
-                  "cY": 1.0,
-                  "kX": 0.0,
-                  "kY": 0.0,
-                  "fi": 25,
-                  "twE": 0,
-                  "tweenFrame": true,
-                  "bd_src": 1,
-                  "bd_dst": 771
-                },
-                {
                   "dI": 0,
                   "x": 0.0,
                   "y": 0.0,
@@ -227,7 +212,7 @@
                   "cY": 1.0,
                   "kX": 0.0,
                   "kY": 0.0,
-                  "fi": 30,
+                  "fi": 25,
                   "twE": 0,
                   "tweenFrame": true,
                   "bd_src": 1,
@@ -243,40 +228,40 @@
   "texture_data": [
     {
       "name": "u_l_ox0",
-      "width": 114.0,
-      "height": 79.0,
+      "width": 133.0,
+      "height": 91.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": "AnimationLoading.plist"
     },
     {
       "name": "u_l_ox1",
-      "width": 0.0,
-      "height": 0.0,
+      "width": 125.0,
+      "height": 81.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": "AnimationLoading.plist"
     },
     {
       "name": "u_l_ox2",
-      "width": 0.0,
-      "height": 0.0,
+      "width": 137.0,
+      "height": 75.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": "AnimationLoading.plist"
     },
     {
       "name": "u_l_ox3",
-      "width": 0.0,
-      "height": 0.0,
+      "width": 139.0,
+      "height": 83.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": "AnimationLoading.plist"
     },
     {
       "name": "u_l_ox4",
-      "width": 0.0,
-      "height": 0.0,
+      "width": 127.0,
+      "height": 81.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": "AnimationLoading.plist"

@@ -714,7 +714,7 @@
                       "fontFile": null,
                       "fontName": "微软雅黑",
                       "fontSize": 28,
-                      "maxLength": 32,
+                      "maxLength": 10,
                       "maxLengthEnable": true,
                       "passwordEnable": false,
                       "passwordStyleText": "*",

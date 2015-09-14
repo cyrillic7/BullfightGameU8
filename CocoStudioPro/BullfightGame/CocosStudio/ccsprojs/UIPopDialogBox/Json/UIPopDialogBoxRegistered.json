@@ -10,14 +10,18 @@
   "designHeight": 640,
   "designWidth": 1136,
   "textures": [
-    "UIGameIngHundred.plist",
-    "UIUserIcon.plist",
-    "UIUserInfo.plist"
+    "UIPanel.plist",
+    "UIButton.plist",
+    "UIBank.plist",
+    "UIUserInfo.plist",
+    "UILogon.plist"
   ],
   "texturesPng": [
-    "UIGameIngHundred.png",
-    "UIUserIcon.png",
-    "UIUserInfo.png"
+    "UIPanel.png",
+    "UIButton.png",
+    "UIBank.png",
+    "UIUserInfo.png",
+    "UILogon.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -712,7 +716,7 @@
                       "fontFile": null,
                       "fontName": "微软雅黑",
                       "fontSize": 28,
-                      "maxLength": 32,
+                      "maxLength": 10,
                       "maxLengthEnable": true,
                       "passwordEnable": false,
                       "passwordStyleText": "*",

@@ -12,17 +12,13 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIGameIngHundred.plist",
-    "UIUserIcon.plist",
-    "UIGameIng.plist",
+    "UILogon.plist",
     "UIUserInfo.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UIGameIngHundred.png",
-    "UIUserIcon.png",
-    "UIGameIng.png",
+    "UILogon.png",
     "UIUserInfo.png"
   ],
   "version": "1.6.0.0",

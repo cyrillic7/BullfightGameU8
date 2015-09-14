@@ -163,7 +163,7 @@ void LogonScene::onEnter(){
 	}
 	//logonGameByAccount();
 	//默认登录
-	defaultLogon();
+	//defaultLogon();
 }
 void LogonScene::onExit(){
 

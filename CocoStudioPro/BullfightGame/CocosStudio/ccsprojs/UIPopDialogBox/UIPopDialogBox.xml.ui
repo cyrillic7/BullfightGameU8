@@ -43,19 +43,17 @@
   <imageFileList>
     <string>UIPanel.plist</string>
     <string>UIButton.plist</string>
-    <string>UIGameIngHundred.plist</string>
-    <string>UIUserIcon.plist</string>
-    <string>UIGameIng.plist</string>
+    <string>UIBank.plist</string>
     <string>UIUserInfo.plist</string>
+    <string>UILogon.plist</string>
   </imageFileList>
   <imagePngList>
     <string>UIPanel.png</string>
     <string>UIButton.png</string>
-    <string>UIGameIngHundred.png</string>
-    <string>UIUserIcon.png</string>
-    <string>UIGameIng.png</string>
+    <string>UIBank.png</string>
     <string>UIUserInfo.png</string>
+    <string>UILogon.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxUpBank.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxRegistered.json</CurrentUIJson>
 </UIProject>

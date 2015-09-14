@@ -12,9 +12,17 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIFirstRecharge.plist"
+    "UIBank.plist",
+    "UIUserInfo.plist",
+    "UILogon.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIPanel.png",
+    "UIButton.png",
+    "UIBank.png",
+    "UIUserInfo.png",
+    "UILogon.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -312,8 +320,8 @@
                       "fontFile": null,
                       "fontName": "微软雅黑",
                       "fontSize": 24,
-                      "maxLength": 10,
-                      "maxLengthEnable": false,
+                      "maxLength": 18,
+                      "maxLengthEnable": true,
                       "passwordEnable": true,
                       "passwordStyleText": "*",
                       "placeHolder": "请输入密码",
@@ -527,8 +535,8 @@
                       "fontFile": null,
                       "fontName": "微软雅黑",
                       "fontSize": 24,
-                      "maxLength": 10,
-                      "maxLengthEnable": false,
+                      "maxLength": 18,
+                      "maxLengthEnable": true,
                       "passwordEnable": true,
                       "passwordStyleText": "*",
                       "placeHolder": "请再次输入密码",

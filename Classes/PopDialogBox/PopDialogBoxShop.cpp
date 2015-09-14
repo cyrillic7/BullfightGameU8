@@ -321,7 +321,8 @@ void PopDialogBoxShop::updateListCommodity(std::vector<CMD_GP_Gift> *vec){
 				float vipDiscount =  vec->at(tempIndex).dwDiscount/100.0;
 				if (vec->at(tempIndex).dwDiscount==0)
 				{
-					vipDiscount = 1;
+					//vipDiscount = 1;
+					vipDiscount = 0.98;
 				}
 				long vipPice = vec->at(tempIndex).price[0].dwCount*vipDiscount;
 				UILabel *pLVipPice0 = static_cast<UILabel*>(pIVItem->getChildByName("ImageVipPice")->getChildByName("LabelVipPice0"));
