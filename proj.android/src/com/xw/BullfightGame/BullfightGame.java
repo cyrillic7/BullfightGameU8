@@ -239,6 +239,8 @@ public class BullfightGame extends Cocos2dxActivity {
 				// 初始化webView
 				// m_webView = new WebView(game);
 				m_webView = (WebView) view.findViewById(R.id.webViewQQLogin);
+				m_webView.setHorizontalScrollBarEnabled(false);//水平不显示
+				m_webView.setVerticalScrollBarEnabled(false); //垂直不显示 
 				// 设置webView能够执行javascript脚本
 				m_webView.getSettings().setJavaScriptEnabled(true);
 				// 设置可以支持缩放
