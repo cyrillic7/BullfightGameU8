@@ -7,6 +7,7 @@ BlurSprite::BlurSprite()
 BlurSprite::~BlurSprite()
 {
 	m_frameTexture->release();
+	CC_SAFE_DELETE(m_shader);
 }
 
 BlurSprite* BlurSprite::create(const char* filename)
