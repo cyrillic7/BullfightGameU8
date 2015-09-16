@@ -100,6 +100,14 @@ void PopDialogBox::showTipInfo(const char* sInfo,IPopAssistTipInfo *pITipInfo){
 	pTipInfo->setIPopAssistTipInfo(pITipInfo);
 	pTipInfo->setTipInfoContent(sInfo);
 }
+//显示提示语
+void PopDialogBox::showTipInfo(const char* sInfo, IPopAssistTipInfo *pITipInfo, int eButtonType){
+	PopDialogBoxTipInfo *pTipInfo = PopDialogBoxTipInfo::create();
+	this->addChild(pTipInfo, 10);
+	pTipInfo->setTipButtonContent((PopDialogBoxTipInfo::TipButtonType)eButtonType);
+	pTipInfo->setIPopAssistTipInfo(pITipInfo);
+	pTipInfo->setTipInfoContent(sInfo);
+}
 //设置大厅是否读取网络消息
 void PopDialogBox::setLobbyReadMessage(bool isRead){
 	((BaseLobbyScene*)this->getParent())->isReadMessage = isRead;

@@ -13,7 +13,7 @@
 #include "../Shader/BlurSprite.h"
 #include "../GameLobby/BaseLobbyScene.h"
 #include "PopDialogBoxLoading.h"
-
+#include "PopDialogBoxBindingPhone.h"
 //#include "../Network/ListernerThread/LogonGameListerner.h"
 #include "../Network/CMD_Server/Packet.h"
 #include "../Network/MD5/MD5.h"
@@ -221,6 +221,11 @@ void PopDialogBoxAuction::onMenuSellAuctionGoods(CCObject *object, TouchEventTyp
 	{
 	case TOUCH_EVENT_ENDED:
 	{
+		if (DataModel::sharedDataModel()->sPhone.length() == 0)
+		{
+			showTipInfo("请绑定手机后才能拍卖道具哦!",this,PopDialogBoxTipInfo::TIP_BUTTON_QUICK_BINDING_PHONE);
+			return; 
+		}
 		CCEditBox *pEBGoodsNum = (CCEditBox*)pTFAuctionGoodsNum->getNodeByTag(TAG_INPUT_EDIT_BOX);
 		long lGoosdNum = strtol(pEBGoodsNum->getText(), NULL, 10);
 
@@ -1188,4 +1193,10 @@ void PopDialogBoxAuction::editBoxTextChanged(cocos2d::extension::CCEditBox* edit
 	
 	//lBuyNum = strtol(text.c_str(), NULL, 10);
 	//updateAllPice();
+}
+//关闭提示语回调
+void PopDialogBoxAuction::onCloseTipInfo(CCLayer *pTipInfo){
+	pTipInfo->removeFromParentAndCleanup(true);
+	PopDialogBoxBindingPhone *pBindingPhone = PopDialogBoxBindingPhone::create();
+	this->addChild(pBindingPhone);
 }

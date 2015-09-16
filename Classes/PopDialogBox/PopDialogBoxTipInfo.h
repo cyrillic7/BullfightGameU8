@@ -19,6 +19,11 @@ public:
 
 	//关闭
 	Button *pBClose;
+	enum TipButtonType
+	{
+		TIP_BUTTON_SURE=0,							//确定
+		TIP_BUTTON_QUICK_BINDING_PHONE,				//绑定手机	
+	};
 private:
 	Label *pLInfo;
 public:
@@ -27,6 +32,8 @@ public:
 	CREATE_FUNC(PopDialogBoxTipInfo);
 	//设置提示内容
 	void setTipInfoContent(const char *content);
+	//设置按键内容
+	void setTipButtonContent(TipButtonType eTipButtonType);
 private:
 	virtual void onEnter();
 	virtual void onExit();

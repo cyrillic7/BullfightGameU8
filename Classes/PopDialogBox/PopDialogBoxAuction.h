@@ -9,8 +9,9 @@
 #include "PopDialogBox.h"
 #include "../Network/CMD_Server/CMD_LogonServer.h"
 #include "PopDialogBoxKnapsack.h"
+#include "PopDialogBoxTipInfo.h"
 #define MAX_AUCTION_ITEM_COUNT			3			//最大拍卖项总数
-class PopDialogBoxAuction: public PopDialogBox,public IPopAssist,public IPopAssistKnapsack {
+class PopDialogBoxAuction: public PopDialogBox,public IPopAssist,public IPopAssistKnapsack,public IPopAssistTipInfo {
 private:
 	enum AuctionItem
 	{
@@ -173,4 +174,6 @@ private:
 	void onSubTakeOut(void * pDataBuffer, unsigned short wDataSize);
 private:
 	void editBoxTextChanged(cocos2d::extension::CCEditBox* editBox, const std::string& text);
+	//关闭提示语回调
+	virtual void onCloseTipInfo(CCLayer *pTipInfo);
 };

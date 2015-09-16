@@ -229,7 +229,8 @@ void CardLayerHundred::showOxType(int chairiD,int oxType){
 	int result=0;
 	if (chairiD==0)
 	{
-		pAOxType[chairiD]->setColor(ccc3(72,255,253));
+		pAOxType[chairiD]->getBone("Layer2")->setColor(ccc3(72,255,253));
+		//pAOxType[chairiD]->setColor(ccc3(72,255,253));
 	}else
 	{
 		BYTE bMultiple;
@@ -237,11 +238,12 @@ void CardLayerHundred::showOxType(int chairiD,int oxType){
 		if (copmare==1)
 		{
 				result=pAOxType[0]->getTag()*-1;
-				pAOxType[chairiD]->setColor(ccc3(255,255,255));
+				pAOxType[chairiD]->getBone("Layer2")->setColor(ccc3(255, 255, 255));
 		}else if (copmare==-1)
 		{
 				result=pAOxType[chairiD]->getTag();
-				pAOxType[chairiD]->setColor(ccc3(246,252,74));
+				//pAOxType[chairiD]->getBone("Layer2")->setColor(ccc3(246, 252, 74));
+				pAOxType[chairiD]->getBone("Layer2")->setColor(ccc3(255, 255, 0));
 				pAOxType[chairiD]->setScale(1.1);
 		}
 		DataModel::sharedDataModel()->getMainSceneOxHundred()->getGameControlOxHundred()->setSeatResult(chairiD,result);
@@ -252,7 +254,9 @@ void CardLayerHundred::onPlayOxAnimation(CCNode *obj){
 	CCArmature *oxAnimation=(CCArmature*)obj;
 	oxAnimation->setVisible(true);
 	int tag=oxAnimation->getTag();
-	oxAnimation->getAnimation()->play(CCString::createWithFormat("Ox_gih%d",tag)->getCString());
+	//oxAnimation->getAnimation()->play(CCString::createWithFormat("Ox_gih%d",tag)->getCString());
+	oxAnimation->getAnimation()->play(CCString::createWithFormat("Ox%d", tag)->getCString());
+	oxAnimation->setScale(0.7);
 	if (isSound)
 	{
 		Tools::playSound(kSoundOx(oxAnimation->getTag()));

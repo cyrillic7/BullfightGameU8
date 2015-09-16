@@ -72,8 +72,10 @@ public:
 	void setSocketName(std::string sName);
 	//显示提示语
 	void showTipInfo(const char* sInfo);
-	////显示提示语
+	//显示提示语
 	void showTipInfo(const char* sInfo, IPopAssistTipInfo *pITipInfo);
+	//显示提示语
+	void showTipInfo(const char* sInfo, IPopAssistTipInfo *pITipInfo,int eButtonType);
 	//设置大厅是否读取网络消息
 	void setLobbyReadMessage(bool isRead);
 	//显示数量输入框

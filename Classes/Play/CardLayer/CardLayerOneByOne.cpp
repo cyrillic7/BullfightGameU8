@@ -239,6 +239,11 @@ void CardLayerOneByOne::onPlayOxAnimation(CCNode *obj){
 	CCArmature *oxAnimation=(CCArmature*)obj;
 	oxAnimation->setVisible(true);
 	oxAnimation->getAnimation()->play(CCString::createWithFormat("Ox%d",oxAnimation->getTag())->getCString());
+	if (oxAnimation->getTag()!=0)
+	{
+		oxAnimation->getBone("Layer2")->setColor(ccc3(255, 255, 0));
+	}
+	
 	Tools::playSound(kSoundOx(oxAnimation->getTag()));
 }
 //发牌中

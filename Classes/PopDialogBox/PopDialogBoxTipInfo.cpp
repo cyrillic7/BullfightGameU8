@@ -62,3 +62,19 @@ void PopDialogBoxTipInfo::setTipInfoContent(const char *content){
 	pWidgetBg->setScale(0.8);
 	playAnimation();
 }
+//设置按键内容
+void PopDialogBoxTipInfo::setTipButtonContent(TipButtonType eTipButtonType){
+	switch (eTipButtonType)
+	{
+	case PopDialogBoxTipInfo::TIP_BUTTON_SURE:
+		break;
+	case PopDialogBoxTipInfo::TIP_BUTTON_QUICK_BINDING_PHONE:
+	{
+		pBClose->loadTextureNormal("LJBD_Btn_Normal.png", UI_TEX_TYPE_PLIST);
+		pBClose->loadTexturePressed("LJBD_Btn_Down.png", UI_TEX_TYPE_PLIST);
+	}
+		break;
+	default:
+		break;
+	}
+}

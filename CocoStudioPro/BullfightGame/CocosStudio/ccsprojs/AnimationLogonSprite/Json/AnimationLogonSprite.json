@@ -9,7 +9,7 @@
         {
           "name": "Layer1",
           "parent": "",
-          "dI": 8,
+          "dI": 14,
           "x": 0.0,
           "y": 0.0,
           "z": 1,
@@ -220,6 +220,34 @@
             },
             {
               "name": "animationLogon/N14.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0
+                }
+              ]
+            },
+            {
+              "name": "animationLogon/N00111.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0
+                }
+              ]
+            },
+            {
+              "name": "animationLogon/N0011.png",
               "displayType": 0,
               "skin_data": [
                 {
@@ -553,8 +581,8 @@
     },
     {
       "name": "animationLogon/N08",
-      "width": 0.0,
-      "height": 0.0,
+      "width": 732.0,
+      "height": 639.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": ""
@@ -593,6 +621,22 @@
     },
     {
       "name": "animationLogon/N13",
+      "width": 732.0,
+      "height": 639.0,
+      "pX": 0.5,
+      "pY": 0.5,
+      "plistFile": ""
+    },
+    {
+      "name": "animationLogon/N14",
+      "width": 732.0,
+      "height": 639.0,
+      "pX": 0.5,
+      "pY": 0.5,
+      "plistFile": ""
+    },
+    {
+      "name": "animationLogon/N00111",
       "width": 0.0,
       "height": 0.0,
       "pX": 0.5,
@@ -600,9 +644,9 @@
       "plistFile": ""
     },
     {
-      "name": "animationLogon/N14",
-      "width": 0.0,
-      "height": 0.0,
+      "name": "animationLogon/N0011",
+      "width": 732.0,
+      "height": 639.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": ""

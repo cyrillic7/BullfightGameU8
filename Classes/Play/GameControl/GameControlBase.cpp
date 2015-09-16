@@ -15,6 +15,7 @@
 #include "../../Network/CMD_Server/Packet.h"
 #include "../../Network/CMD_Server/CMD_GameServer.h"
 #include "../../Network/CMD_Server/cmd_ox.h"
+#include "../../Network/CMD_Server/CMD_Commom.h"
 //#include "QueueData.h"
 #include "../../Network/SEvent.h"
 #include "../../MainScene/MainSceneBase.h"
@@ -757,7 +758,19 @@ void GameControlBase::frameEvent(WORD wSubCmdID, void * pDataBuffer, unsigned sh
 	break;
 	case SUB_GF_SYSTEM_MESSAGE:
 	{
-		CCLOG("系统消息<<%s>>", __FUNCTION__);
+		//变量定义
+		CMD_CM_SystemMessage * pSystemMessage = (CMD_CM_SystemMessage *)pDataBuffer;
+		if ((pSystemMessage->wType&SMT_CLOSE_GAME) != 0)
+		{
+			if (pSystemMessage->wType&SMT_EJECT!=0)
+			{
+				if (pSystemMessage->wType&SMT_CHAT)
+				{
+					CCLOG("close Game <<%s>>", __FUNCTION__);
+				}
+			}
+		}
+		CCLOG("系统消息  type:%d   message:%s  <<%s>>",pSystemMessage->wType, Tools::GBKToUTF8(pSystemMessage->szString).c_str(), __FUNCTION__);
 	}
 	break;
 	case SUB_GF_GAME_SCENE:
