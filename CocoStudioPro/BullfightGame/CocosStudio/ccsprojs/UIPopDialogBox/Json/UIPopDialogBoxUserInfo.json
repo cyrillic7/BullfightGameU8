@@ -10,14 +10,22 @@
   "designHeight": 640,
   "designWidth": 1136,
   "textures": [
-    "UIGameIngHundred.plist",
+    "UIPanel.plist",
+    "UIButton.plist",
     "UIUserIcon.plist",
-    "UIUserInfo.plist"
+    "UIUserInfo.plist",
+    "UICheckBox.plist",
+    "UIBindingPhone.plist",
+    "UIAuction.plist"
   ],
   "texturesPng": [
-    "UIGameIngHundred.png",
+    "UIPanel.png",
+    "UIButton.png",
     "UIUserIcon.png",
-    "UIUserInfo.png"
+    "UIUserInfo.png",
+    "UICheckBox.png",
+    "UIBindingPhone.png",
+    "UIAuction.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -1220,7 +1228,7 @@
                   "customProperty": "",
                   "flipX": false,
                   "flipY": false,
-                  "height": 38,
+                  "height": 43,
                   "ignoreSize": true,
                   "layoutParameter": null,
                   "opacity": 255,
@@ -1251,7 +1259,7 @@
                     "resourceType": 1
                   },
                   "scale9Enable": false,
-                  "scale9Height": 38,
+                  "scale9Height": 43,
                   "scale9Width": 96
                 }
               }

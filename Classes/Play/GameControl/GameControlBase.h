@@ -21,7 +21,7 @@ USING_NS_CC_EXT;
 using namespace gui;
 #define MAX_TIMER		10		//计时器最大值
 class MainSceneBase;
-class GameControlBase :public CCLayer, public MessageQueueGameIng, public CMath,public IPopAssistTipInfo
+class GameControlBase :public CCLayer, public MessageQueueGameIng, public CMath,public IPopAssistTipInfo,public CStringAide
 {
 public:
 	enum ActionPromptType
@@ -212,7 +212,7 @@ public:
 	//游戏场景
 	virtual bool OnEventSceneMessage(void * pData, WORD wDataSize);
 	//用户站立
-	void OnUserFree(CCObject *obj);
+	void OnUserFree(std::string userFreeTipContent);
 	//用户进入
 	virtual void onUserEnter();
 	//用户准备消息

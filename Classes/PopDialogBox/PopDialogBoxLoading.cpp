@@ -35,14 +35,15 @@ void PopDialogBoxLoading::onEnter(){
 
 	pLLoading = static_cast<UILabel *>(pUILayer->getWidgetByName("LabelLoading"));
 	pLLoading->setPositionY(pArmature->getPositionY()-pArmature->getContentSize().height/2-30);
+	pLLoading->setVisible(false);
 	
 	//pLLoading->setText("正在转入.");
-	schedule(SEL_SCHEDULE(&PopDialogBoxLoading::updateLoadingLabel),0.5);
+	//schedule(SEL_SCHEDULE(&PopDialogBoxLoading::updateLoadingLabel),0.5);
 	//scheduleOnce(SEL_SCHEDULE(&PopDialogBoxLoading::outTimeExit), OUT_TIME);
 }
 void PopDialogBoxLoading::onExit(){
 	CCLayer::onExit();
-	unschedule(SEL_SCHEDULE(&PopDialogBoxLoading::updateLoadingLabel));
+	//unschedule(SEL_SCHEDULE(&PopDialogBoxLoading::updateLoadingLabel));
 }
 
 //超时关闭

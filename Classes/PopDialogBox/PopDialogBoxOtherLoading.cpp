@@ -28,13 +28,14 @@ void PopDialogBoxOtherLoading::onEnter(){
 
 	pLLoading = static_cast<UILabel *>(pUILayer->getWidgetByName("LabelLoading"));
 	pLLoading->setPositionY(pArmature->getPositionY()-pArmature->getContentSize().height/2-30);
+	pLLoading->setVisible(false);
 	
 	//pLLoading->setText("正在转入.");
-	schedule(SEL_SCHEDULE(&PopDialogBoxOtherLoading::updateLoadingLabel),0.5);
+	//schedule(SEL_SCHEDULE(&PopDialogBoxOtherLoading::updateLoadingLabel),0.5);
 }
 void PopDialogBoxOtherLoading::onExit(){
 	CCLayer::onExit();
-	unschedule(SEL_SCHEDULE(&PopDialogBoxOtherLoading::updateLoadingLabel));
+	//unschedule(SEL_SCHEDULE(&PopDialogBoxOtherLoading::updateLoadingLabel));
 }
 void PopDialogBoxOtherLoading::playAnimation(){
 	pWidgetBg->runAction(CCEaseBackOut::create(CCScaleTo::create(0.2, 1)));

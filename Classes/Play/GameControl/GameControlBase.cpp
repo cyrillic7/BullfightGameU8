@@ -766,11 +766,11 @@ void GameControlBase::frameEvent(WORD wSubCmdID, void * pDataBuffer, unsigned sh
 			{
 				if (pSystemMessage->wType&SMT_CHAT)
 				{
-					CCLOG("close Game <<%s>>", __FUNCTION__);
+					OnUserFree(GBKToUTF8(pSystemMessage->szString));
 				}
 			}
 		}
-		CCLOG("系统消息  type:%d   message:%s  <<%s>>",pSystemMessage->wType, Tools::GBKToUTF8(pSystemMessage->szString).c_str(), __FUNCTION__);
+		CCLOG("系统消息  type:%d   message:%s  <<%s>>",pSystemMessage->wType,GBKToUTF8(pSystemMessage->szString).c_str(), __FUNCTION__);
 	}
 	break;
 	case SUB_GF_GAME_SCENE:
@@ -1370,7 +1370,7 @@ bool GameControlBase::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 	return true;
 }
 
-void GameControlBase::OnUserFree(CCObject *obj){
+void GameControlBase::OnUserFree(std::string userFreeTipContent){
 	//CCMessageBox(Tools::GBKToUTF8("长时间不操作，自动退出！"), Tools::GBKToUTF8("提示"));
 	//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 	GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
@@ -1490,7 +1490,7 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 				}
 				else
 				{
-					OnUserFree(NULL);
+					OnUserFree("");
 				}
 			}
 			else

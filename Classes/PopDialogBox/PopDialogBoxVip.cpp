@@ -353,7 +353,10 @@ void PopDialogBoxVip::updateListVipByIndex(int index){
 	//////////////////////////////////////////////////////////////////////////
 	//商城折扣
 	UILabel *pLRewardDiscount = static_cast<UILabel *>(pLVVipReward->getItem(2)->getChildByName("LabelVipRewardNum"));
-
+	//vip折扣图标
+	UIImageView *pIVDiscountIcon = static_cast<UIImageView *>(pLVVipReward->getItem(2)->getChildByName("ImageKuang")->getChildByName("ImageVipGoodsIcon"));
+	pIVDiscountIcon->loadTexture(CCString::createWithFormat("u_vip_discount_%d.png", index+1)->getCString(), UI_TEX_TYPE_PLIST);
+	
 	if (vipPower.VipPowerInfo[index].dwShopping % 10 == 0)
 	{
 		pLRewardDiscount->setText(CCString::createWithFormat(" VIP享%.0f折优惠 ", vipPower.VipPowerInfo[index].dwShopping / 10.0)->getCString());

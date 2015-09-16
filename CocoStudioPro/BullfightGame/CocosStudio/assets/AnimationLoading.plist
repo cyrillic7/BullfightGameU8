@@ -11,7 +11,7 @@
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{294,295}}</string>
                 <key>sourceSize</key>
@@ -20,11 +20,11 @@
             <key>u_l_light1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{299,2},{180,179}}</string>
+                <string>{{298,2},{180,179}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{57,58},{180,179}}</string>
                 <key>sourceSize</key>
@@ -33,67 +33,67 @@
             <key>u_l_ox0.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{299,184},{133,91}}</string>
+                <string>{{300,275},{133,92}}</string>
                 <key>offset</key>
-                <string>{4,0}</string>
+                <string>{5,1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{8,0},{133,91}}</string>
+                <string>{{13,0},{133,92}}</string>
                 <key>sourceSize</key>
-                <string>{141,91}</string>
+                <string>{149,94}</string>
             </dict>
             <key>u_l_ox1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{143,298},{125,81}}</string>
+                <string>{{394,275},{133,90}}</string>
+                <key>offset</key>
+                <string>{2,-2}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{10,4},{133,90}}</string>
+                <key>sourceSize</key>
+                <string>{149,94}</string>
+            </dict>
+            <key>u_l_ox2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{151,299},{147,86}}</string>
+                <key>offset</key>
+                <string>{-1,-2}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,6},{147,86}}</string>
+                <key>sourceSize</key>
+                <string>{149,94}</string>
+            </dict>
+            <key>u_l_ox3.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,299},{147,90}}</string>
                 <key>offset</key>
                 <string>{1,-2}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{9,7},{125,81}}</string>
+                <string>{{2,4},{147,90}}</string>
                 <key>sourceSize</key>
-                <string>{141,91}</string>
-            </dict>
-            <key>u_l_ox2.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{434,184},{137,75}}</string>
-                <key>offset</key>
-                <string>{-2,-3}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{0,11},{137,75}}</string>
-                <key>sourceSize</key>
-                <string>{141,91}</string>
-            </dict>
-            <key>u_l_ox3.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,298},{139,83}}</string>
-                <key>offset</key>
-                <string>{0,-2}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{1,6},{139,83}}</string>
-                <key>sourceSize</key>
-                <string>{141,91}</string>
+                <string>{149,94}</string>
             </dict>
             <key>u_l_ox4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{299,277},{127,81}}</string>
+                <string>{{298,183},{137,90}}</string>
                 <key>offset</key>
-                <string>{5,1}</string>
+                <string>{5,2}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{12,4},{127,81}}</string>
+                <string>{{11,0},{137,90}}</string>
                 <key>sourceSize</key>
-                <string>{141,91}</string>
+                <string>{149,94}</string>
             </dict>
             <key>u_l_text.png</key>
             <dict>
@@ -116,9 +116,9 @@
             <key>realTextureFileName</key>
             <string>AnimationLoading.png</string>
             <key>size</key>
-            <string>{511,383}</string>
+            <string>{507,410}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:1e7dc33602b3dbd67914a78f6a5c0a3d:4eb42d582190ea3095a64d3ef977f728:533c17ee5f34d993be9614162d55f010$</string>
+            <string>$TexturePacker:SmartUpdate:788115d523c17a39b25a8407cc813462:c262dd36fd5281b230bb8b519a930237:533c17ee5f34d993be9614162d55f010$</string>
             <key>textureFileName</key>
             <string>AnimationLoading.png</string>
         </dict>

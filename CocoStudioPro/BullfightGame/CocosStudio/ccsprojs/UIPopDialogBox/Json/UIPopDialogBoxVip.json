@@ -12,16 +12,18 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIBank.plist",
-    "UIUserInfo.plist",
-    "UILogon.plist"
+    "UIVip.plist",
+    "UIGameLobby.plist",
+    "UILoadingBar.plist",
+    "UIKnapsack.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UIBank.png",
-    "UIUserInfo.png",
-    "UILogon.png"
+    "UIVip.png",
+    "UIGameLobby.png",
+    "UILoadingBar.png",
+    "UIKnapsack.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -667,7 +669,7 @@
               "layoutParameter": null,
               "opacity": 255,
               "positionPercentX": -0.29875,
-              "positionPercentY": 0.297959179,
+              "positionPercentY": 0.2979592,
               "positionType": 0,
               "rotation": 0,
               "scaleX": 1,
@@ -793,8 +795,8 @@
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": -0.25,
-              "positionPercentY": 0.240816325,
+              "positionPercentX": -0.29875,
+              "positionPercentY": 0.240816429,
               "positionType": 0,
               "rotation": 0,
               "scaleX": 1,
@@ -807,7 +809,7 @@
               "useMergedTexture": false,
               "visible": true,
               "width": 277,
-              "x": -200,
+              "x": -239,
               "y": 118,
               "areaHeight": 0,
               "areaWidth": 0,
@@ -2121,7 +2123,7 @@
                               "capInsetsY": 0,
                               "fileName": null,
                               "fileNameData": {
-                                "path": "u_vip_reward_goods2.png",
+                                "path": "u_vip_discount_1.png",
                                 "plistFile": "UIVip.plist",
                                 "resourceType": 1
                               },

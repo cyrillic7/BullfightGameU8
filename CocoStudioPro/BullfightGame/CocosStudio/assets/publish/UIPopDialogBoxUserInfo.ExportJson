@@ -1228,7 +1228,7 @@
                   "customProperty": "",
                   "flipX": false,
                   "flipY": false,
-                  "height": 38,
+                  "height": 43,
                   "ignoreSize": true,
                   "layoutParameter": null,
                   "opacity": 255,
@@ -1259,7 +1259,7 @@
                     "resourceType": 1
                   },
                   "scale9Enable": false,
-                  "scale9Height": 38,
+                  "scale9Height": 43,
                   "scale9Width": 96
                 }
               }
