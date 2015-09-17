@@ -27,6 +27,7 @@ private:
 	ScrollView *scroll;
 	//是否显示站立提示
 	static bool isShowUpTip;
+	std::string strUpTipContent;
 	//是否显示签到
 	bool isShowSign();
 
@@ -36,7 +37,7 @@ public:
 	virtual void onEnter();
 	virtual void onExit();
 
-	static CCScene* scene(bool showUpTip);
+	static CCScene* scene(bool showUpTip,std::string strTipContent);
     CREATE_FUNC(GameLobbyScene);
 
 private:

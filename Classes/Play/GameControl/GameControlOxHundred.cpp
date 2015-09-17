@@ -1952,7 +1952,7 @@ void GameControlOxHundred::onSubUserState(void * pDataBuffer, unsigned short wDa
 		{
 			GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
 			//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
-			Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(false));
+			Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(false,""));
 			//MTNotificationQueue::sharedNotificationQueue()->postNotification(S_L_US_FREE,NULL);
 		}
 		else

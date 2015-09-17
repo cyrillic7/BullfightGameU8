@@ -44,12 +44,14 @@ GameLobbyScene::~GameLobbyScene(){
 	CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
 	CCTextureCache::sharedTextureCache()->removeUnusedTextures();
 }
-CCScene* GameLobbyScene::scene(bool showUpTip)
+CCScene* GameLobbyScene::scene(bool showUpTip, std::string strTipContent)
 {
     CCScene *scene = CCScene::create();
     GameLobbyScene *layer = GameLobbyScene::create();
     scene->addChild(layer);
 	isShowUpTip = showUpTip;
+	layer->strUpTipContent = strTipContent;
+	//this->strUpTipContent = strUpTipContent;
     return scene;
 }
 void GameLobbyScene::onEnter(){
@@ -190,7 +192,11 @@ bool GameLobbyScene::isShowSign(){
 void GameLobbyScene::showUpTip(){
 	PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
 	this->addChild(tipInfo,2);
-	tipInfo->setTipInfoContent(("长时间不操作，自动退出！"));
+	if (strUpTipContent.length()==0)
+	{
+		strUpTipContent = "长时间不操作，自动退出！";
+	}
+	tipInfo->setTipInfoContent(strUpTipContent.c_str());
 }
 void GameLobbyScene::onExit(){
    

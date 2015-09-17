@@ -341,7 +341,7 @@ void ClassicLobbyScene::popDialogBox(){
 	}*/
 	GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
 
-	Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(false));
+	Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(false,""));
 }
 void ClassicLobbyScene::enterMainSceneByMode(int mode){
 	switch (mode)

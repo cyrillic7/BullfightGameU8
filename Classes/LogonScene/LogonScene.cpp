@@ -769,7 +769,7 @@ void LogonScene::onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned s
 
 			Tools::saveIntByRMS(RMS_LOGON_TYPE, DataModel::sharedDataModel()->logonType);
 
-			Tools::setTransitionAnimation(0,0,GameLobbyScene::scene(false));
+			Tools::setTransitionAnimation(0,0,GameLobbyScene::scene(false,""));
 		}
 		break;
 	default:

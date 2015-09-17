@@ -758,7 +758,7 @@ void GameControlBase::onUnconnect(WORD wSubCmdID){
 }
 //关闭回调
 void GameControlBase::onCloseTipInfo(CCLayer *pTipInfo){
-	Tools::setTransitionAnimation(0,0,GameLobbyScene::scene(false));
+	Tools::setTransitionAnimation(0,0,GameLobbyScene::scene(false,""));
 }
 void GameControlBase::frameEvent(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
 	switch (wSubCmdID)
@@ -1392,7 +1392,7 @@ void GameControlBase::OnUserFree(std::string userFreeTipContent){
 	//CCMessageBox(Tools::GBKToUTF8("长时间不操作，自动退出！"), Tools::GBKToUTF8("提示"));
 	//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 	GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
-	Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(!isExitGame));
+	Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(!isExitGame,userFreeTipContent));
 	CCLOG("退出 ");
 }
 //用户进入
@@ -1739,7 +1739,7 @@ void GameControlBase::standUpWithExit(){
 	{
 		GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
 		//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
-		Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(false));
+		Tools::setTransitionAnimation(0, 0, GameLobbyScene::scene(false,""));
 	}
 	else
 	{
