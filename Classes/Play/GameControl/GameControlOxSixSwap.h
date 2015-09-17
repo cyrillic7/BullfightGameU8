@@ -29,6 +29,8 @@ private:
 	long long								lScoreTax;                          //换牌手续费
 	//结算输赢
 	long long								llGameScore[GAME_PLAYER];			//游戏得分
+
+	short wCallBanker;
 public:
 	GameControlOxSixSwap();
 	~GameControlOxSixSwap();
@@ -98,4 +100,6 @@ private:
 
 	//显示结算（）
 	virtual void showResultAnimation();
+	//开始动画播放完成回调
+	virtual void onAnimationBeginGameFinsh();
 };

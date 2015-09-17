@@ -33,6 +33,7 @@ GameControlBase::GameControlBase()
 	{
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationActionPrompt.ExportJson));
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationGameIng.ExportJson));
+	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationBeginGame.ExportJson));
 	schedule(SEL_SCHEDULE(&GameControlBase::updateTimer), 1);
 	scheduleUpdate();
 
@@ -55,6 +56,8 @@ void GameControlBase::onEnter(){
 	this->addChild(pWidget);
 	//初始化操作者动画
 	initActionPrompt();
+	//初始化开始动画
+	initBeginGame();
 
 	UILayout *pLayout = dynamic_cast<UILayout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UIGameHUD.ExportJson)));
 	pWidget->addWidget(pLayout);
@@ -151,6 +154,16 @@ void GameControlBase::initActionPrompt(){
 	pArmatureActionPrompt = CCArmature::create("AnimationActionPrompt");
 	this->addChild(pArmatureActionPrompt, 2);
 	hideActionPrompt();
+}
+//初始化开始动画
+void GameControlBase::initBeginGame(){
+	pArmatureBeginGame = CCArmature::create("AnimationBeginGame");
+	this->addChild(pArmatureBeginGame, 2);
+	pArmatureBeginGame->setPosition(DataModel::sharedDataModel()->deviceSize.width/2,DataModel::sharedDataModel()->deviceSize.height/2);
+	pArmatureBeginGame->setVisible(false);
+
+	pArmatureBeginGame->getAnimation()->setMovementEventCallFunc(this, movementEvent_selector(GameControlBase::onAnimationEventOver));//动画播完回调用
+	pArmatureBeginGame->getAnimation()->setFrameEventCallFunc(this, frameEvent_selector(GameControlBase::onAnimationEventFrame));
 }
 void GameControlBase::initTimer(UILayer *pWidget){
 	pITimer = static_cast<UIImageView*>(pWidget->getWidgetByName("ImageTimer"));
@@ -921,6 +934,11 @@ bool GameControlBase::OnSubGameStart(const void * pBuffer, WORD wDataSize){
 	CMD_S_GameStart * pGameStart = (CMD_S_GameStart *)pBuffer;
 	wBankerUser = pGameStart->wBankerUser;
 	//CCLOG("开始游戏--庄家:%d   最大:::%lld",pGameStart->wBankerUser,pGameStart->lTurnMaxScore);
+	pArmatureBeginGame->setVisible(true);
+	pArmatureBeginGame->getAnimation()->play("AnimationBeginGame");
+	
+
+
 	DataModel::sharedDataModel()->m_lTurnMaxScore = pGameStart->lTurnMaxScore;
 	//设置筹码
 	for (int i = 0; i < 4; i++)
@@ -1742,5 +1760,30 @@ void GameControlBase::delayedShowOx(CCNode *pNode){
 	if (iCurDelayedCount>=iDelayedMaxCount)
 	{
 		showResultAnimation();
+	}
+}
+//动画回调
+void GameControlBase::onAnimationEventOver(CCArmature *pArmature, MovementEventType movementType, const char *movementID){
+	switch (movementType)
+	{
+	case cocos2d::extension::COMPLETE:
+	case cocos2d::extension::LOOP_COMPLETE:
+	{
+		if (strcmp(movementID, "AnimationBeginGame") == 0)
+		{
+			pArmature->setVisible(false);
+			onAnimationBeginGameFinsh();
+		}
+	}
+	break;
+	default:
+		break;
+	}
+}
+void GameControlBase::onAnimationEventFrame(CCBone *bone, const char *evt, int originFrameIndex, int currentFrameIndex){
+	if (strcmp(evt, "userEnter") == 0)
+	{
+
+		//pPlayerData[bone->getArmature()->getTag()]->pIPlayerIcon->setVisible(true);
 	}
 }

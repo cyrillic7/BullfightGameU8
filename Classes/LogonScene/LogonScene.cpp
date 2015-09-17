@@ -24,6 +24,9 @@
 #include "../Platform/coPlatform.h"
 #include "../extensions/spine/Json.h"
 LogonScene* LogonScene::pLScene=NULL;
+
+#define urlQQLogon "{\"act\":200 ,\"url\":\"http://www.qicainiu.net/QQLogin.aspx\"}"
+
 LogonScene::LogonScene()
 	:eLogonType(LOGON_ACCOUNT)
 	, isReadMessage(true)
@@ -277,7 +280,7 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 				tipInfo->setTipInfoContent(BaseAttributes::sharedAttributes()->sWaitCodeing.c_str());
 #else
 				m_pWidget->setTouchEnabled(false);
-				platformAction("{\"act\":200 ,\"url\":\"http://www.qicainiu.net/QQLogin.aspx\"}").c_str();
+				platformAction(urlQQLogon).c_str();
 #endif
                 
 			}
@@ -328,7 +331,7 @@ void LogonScene::quickLogon(){
 		tipInfo->setTipInfoContent(BaseAttributes::sharedAttributes()->sWaitCodeing.c_str());
 #else
 		m_pWidget->setTouchEnabled(false);
-		platformAction("{\"act\":200 ,\"url\":\"http://www.999xw.com/QQLogin.aspx\"}").c_str();
+		platformAction(urlQQLogon).c_str();
 #endif
 	}
 		break;

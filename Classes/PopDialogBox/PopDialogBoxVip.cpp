@@ -147,10 +147,18 @@ void PopDialogBoxVip::onMenuReward(CCObject *object, TouchEventType type){
 		case REWARD_GOLD:
 		case REWARD_RED_MONEY:
 		{
-			setVipActionType(VIP_REWARD);
-			setRewardType((RewardType)pBTemp->getTag());
-			connectServer();
-			connectSuccess();
+			CCString *strData = (CCString*)pBTemp->getUserData();
+			if (strcmp(strData->getCString(), "state3") == 0)
+			{
+				CCLOG("state3333333 <<%s>>", __FUNCTION__);
+			}
+			else
+			{
+				setVipActionType(VIP_REWARD);
+				setRewardType((RewardType)pBTemp->getTag());
+				connectServer();
+				connectSuccess();
+			}
 		}
 			break;
 		case REWARD_SHOP:
@@ -218,7 +226,20 @@ void PopDialogBoxVip::updateListVip(){
 	pBRewardGold->setTag(REWARD_GOLD);
 	pBRewardGold->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxVip::onMenuReward));
 	
-	switch (vipPower.dwLoginScoreStatus)
+
+	if (vipPower.dwVipID == 0)
+	{
+		setButtonState(pBRewardGold, 3);
+	}
+	else
+	{
+		setButtonState(pBRewardGold, vipPower.dwLoginScoreStatus);
+	}
+
+		
+	
+	//setButtonState(pBRewardGold, vipPower.dwLoginScoreStatus);
+	/*switch (vipPower.dwLoginScoreStatus)
 	{
 	case 0://无效
 	{
@@ -244,7 +265,7 @@ void PopDialogBoxVip::updateListVip(){
 	break;
 	default:
 		break;
-	}
+	}*/
 	
 	//////////////////////////////////////////////////////////////////////////
 	//红包奖励
@@ -322,7 +343,21 @@ void PopDialogBoxVip::updateListVipByIndex(int index){
 	}
 	else
 	{
-		setButtonState(pBRewardGold,0);
+		if (vipPower.dwVipID==0)
+		{
+			setButtonState(pBRewardGold, 3);
+			return;
+		}
+
+		if (index < vipPower.dwVipID - 1)
+		{
+			setButtonState(pBRewardGold, 0);
+		}
+		else
+		{
+			setButtonState(pBRewardGold, 3);
+		}
+		
 	}
 	//////////////////////////////////////////////////////////////////////////
 	//红包奖励
@@ -369,10 +404,14 @@ void PopDialogBoxVip::updateListVipByIndex(int index){
 //设置按键状态
 void PopDialogBoxVip::setButtonState(UIButton *button,int state){
 	int colorH = 125;
+	button->setUserData(CCString::createWithFormat("state%d",state));
 	switch (state)
 	{
 	case 0://无效
 	{
+		button->loadTextureNormal("LQJL_Btn_Normal.png", UI_TEX_TYPE_PLIST);
+		button->loadTexturePressed("LQJL_Btn_Down.png", UI_TEX_TYPE_PLIST);
+
 		button->setColor(ccc3(colorH, colorH, colorH));
 		button->setTitleColor(ccc3(colorH, colorH, colorH));
 		button->setTouchEnabled(false);
@@ -381,6 +420,9 @@ void PopDialogBoxVip::setButtonState(UIButton *button,int state){
 	break;
 	case 1://未领取
 	{
+		button->loadTextureNormal("LQJL_Btn_Normal.png", UI_TEX_TYPE_PLIST);
+		button->loadTexturePressed("LQJL_Btn_Down.png", UI_TEX_TYPE_PLIST);
+
 		button->setColor(ccc3(255, 255, 255));
 		button->setTitleColor(ccc3(255, 255, 255));
 		button->setTouchEnabled(true);
@@ -389,12 +431,23 @@ void PopDialogBoxVip::setButtonState(UIButton *button,int state){
 	break;
 	case 2://已领取
 	{
+		button->loadTextureNormal("LQJL_Btn_Normal.png", UI_TEX_TYPE_PLIST);
+		button->loadTexturePressed("LQJL_Btn_Down.png", UI_TEX_TYPE_PLIST);
+
 		button->setColor(ccc3(colorH, colorH, colorH));
 		button->setTitleColor(ccc3(colorH, colorH, colorH));
 		button->setTouchEnabled(false);
 		//button->setTitleText(" 已领取 ");
 	}
 	break;
+	case 3:
+	{
+		button->loadTextureNormal("JHJL_Btn_Normal.png", UI_TEX_TYPE_PLIST);
+		button->loadTexturePressed("JHJL_Btn_Down.png", UI_TEX_TYPE_PLIST);
+		button->setColor(ccc3(255, 255, 255));
+		button->setTouchEnabled(true);
+	}
+		break;
 	default:
 		break;
 	}
@@ -488,7 +541,7 @@ void PopDialogBoxVip::connectSuccess(){
 void PopDialogBoxVip::onSubVipInfo(void * pDataBuffer, unsigned short wDataSize){
 	CMD_GP_VipPower *pVipPower = (CMD_GP_VipPower*)pDataBuffer;
 	memcpy(&vipPower, pVipPower, sizeof(CMD_GP_VipPower));
-
+	
 	//设置VIP等级
 	setVipGrade(pVipPower->dwVipID);
 	setNextVipGrade(pVipPower->dwVipID + 1);

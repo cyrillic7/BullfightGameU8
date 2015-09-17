@@ -10,14 +10,20 @@
   "designHeight": 640,
   "designWidth": 1136,
   "textures": [
-    "UIGameIngHundred.plist",
-    "UIUserIcon.plist",
-    "UIUserInfo.plist"
+    "UIPanel.plist",
+    "UIButton.plist",
+    "UIVip.plist",
+    "UIGameLobby.plist",
+    "UILoadingBar.plist",
+    "UIKnapsack.plist"
   ],
   "texturesPng": [
-    "UIGameIngHundred.png",
-    "UIUserIcon.png",
-    "UIUserInfo.png"
+    "UIPanel.png",
+    "UIButton.png",
+    "UIVip.png",
+    "UIGameLobby.png",
+    "UILoadingBar.png",
+    "UIKnapsack.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

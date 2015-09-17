@@ -71,4 +71,7 @@ private:
 	void onUserShowOx(CCNode *pNode);
 	//显示结算（）
 	virtual void showResultAnimation();
+
+	//开始动画播放完成回调
+	virtual void onAnimationBeginGameFinsh();
 };

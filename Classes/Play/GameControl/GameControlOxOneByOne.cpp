@@ -483,6 +483,9 @@ bool GameControlOxOneByOne::OnSubGameStart(const void * pBuffer, WORD wDataSize)
 	//效验数据
 	if (wDataSize != sizeof(CMD_S_GameStart)) return false;
 	CMD_S_GameStart * pGameStart = (CMD_S_GameStart *)pBuffer;
+	//播放开始动画
+	pArmatureBeginGame->setVisible(true);
+	pArmatureBeginGame->getAnimation()->play("AnimationBeginGame");
 	//隐藏行为类型显示语
 	for (int i = 0; i < MAX_PLAYER; i++)
 	{
@@ -586,10 +589,6 @@ bool GameControlOxOneByOne::OnSubGameStart(const void * pBuffer, WORD wDataSize)
 	}
 	//	m_GameClientView.PlaceUserJetton(1,100);
 	*/
-	//发送消息
-	CMD_C_AddScore AddScore;
-	AddScore.lScore = DataModel::sharedDataModel()->m_lTurnMaxScore;
-	GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GF_GAME, SUB_C_ADD_SCORE, &AddScore, sizeof(AddScore));
 	return true;
 }
 //发牌消息
@@ -1097,4 +1096,13 @@ bool GameControlOxOneByOne::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 	*/
 	
 	return true;
+}
+//开始动画播放完成回调
+void GameControlOxOneByOne::onAnimationBeginGameFinsh(){
+	//开始游戏
+	//发送消息
+	CMD_C_AddScore AddScore;
+	AddScore.lScore = DataModel::sharedDataModel()->m_lTurnMaxScore;
+	GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GF_GAME, SUB_C_ADD_SCORE, &AddScore, sizeof(AddScore));
+
 }

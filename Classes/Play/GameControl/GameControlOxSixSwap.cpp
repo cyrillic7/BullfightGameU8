@@ -893,20 +893,12 @@ bool GameControlOxSixSwap::OnSubCallBanker(const void * pBuffer, WORD wDataSize)
 	{
 	CCLOG("推庄");
 	}*/
-	//始叫用户
-	if (!IsLookonMode() && pCallBanker->wCallBanker == getMeChairID())
-	{
-		hideActionPrompt();
-		getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_CALL_BANKER);
-	}
-	else
-	{
-		showActionPrompt(ACTION_PROMPT_CALL_BANK, CCPointZero);
-	}
-	for (int i = 0; i < MAX_PLAYER; i++)
-	{
-		getMainScene()->playerLayer->pPlayerData[i]->hideActionType();
-	}
+	wCallBanker = pCallBanker->wCallBanker;
+	//播放开始动画
+	pArmatureBeginGame->setVisible(true);
+	pArmatureBeginGame->getAnimation()->play("AnimationBeginGame");
+
+
 	/*//游戏当前处于叫庄状态
 	//SetGameStatus(GS_TK_CALL);
 	if(!pCallBanker->bFirstTimes && pCallBanker->wCallBanker==GetMeChairID())
@@ -1614,5 +1606,23 @@ void GameControlOxSixSwap::onAnimationEventFrame(CCBone *bone, const char *evt, 
 	if (strcmp(evt, "bomb1") == 0)
 	{
 
+	}
+}
+//开始动画播放完成回调
+void GameControlOxSixSwap::onAnimationBeginGameFinsh(){
+	//开始游戏
+	//始叫用户
+	if (!IsLookonMode() && wCallBanker == getMeChairID())
+	{
+		hideActionPrompt();
+		getMainScene()->setGameStateWithUpdate(MainSceneOxTwo::STATE_CALL_BANKER);
+	}
+	else
+	{
+		showActionPrompt(ACTION_PROMPT_CALL_BANK, CCPointZero);
+	}
+	for (int i = 0; i < MAX_PLAYER; i++)
+	{
+		getMainScene()->playerLayer->pPlayerData[i]->hideActionType();
 	}
 }

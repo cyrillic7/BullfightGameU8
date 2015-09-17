@@ -52,10 +52,12 @@ public:
 	Button *pBSwapCard;
 	//不换
 	Button *pBDontSwapCard;
+	//开始动画
+	CCArmature *pArmatureBeginGame;
 private:
 	//操作者提示动画
 	CCArmature *pArmatureActionPrompt;
-	
+
 	//抢庄容器
 	UIPanel *pFightForBanker;
 	//投注容器
@@ -128,6 +130,8 @@ private:
 	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
 	//初始化操作者提示动画
 	void initActionPrompt();
+	//初始化开始动画
+	void initBeginGame();
 	//初始化计时器
 	void initTimer(UILayer *pWidget);
 	//更新计时器
@@ -227,6 +231,9 @@ public:
 	virtual void onSubUserState(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize);
 	//隐藏所有操作按键
 	void hideAllActionPanel();
+
+	//开始动画播放完成回调
+	virtual void onAnimationBeginGameFinsh(){}
 private:
 	void goldJump(int index,CCPoint beginPos,CCPoint endPos);
 	void onGoldJump(CCNode *node);
@@ -236,6 +243,9 @@ private:
 
 	//////////////////////////////////////////////////////////////////////////
 	void onCloseGameIngUpdate(CCObject *pObj);
+	//动画回调
+	void onAnimationEventOver(CCArmature *pArmature, MovementEventType movementType, const char *movementID);
+	void onAnimationEventFrame(CCBone *bone, const char *evt, int originFrameIndex, int currentFrameIndex);
 };
 
 #endif /* defined(__BullfightGame__GameHUD__) */
