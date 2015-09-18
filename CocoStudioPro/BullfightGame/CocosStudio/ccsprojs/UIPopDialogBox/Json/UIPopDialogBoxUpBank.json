@@ -12,14 +12,18 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UILogon.plist",
-    "UIUserInfo.plist"
+    "UIVip.plist",
+    "UIGameLobby.plist",
+    "UILoadingBar.plist",
+    "UIKnapsack.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UILogon.png",
-    "UIUserInfo.png"
+    "UIVip.png",
+    "UIGameLobby.png",
+    "UILoadingBar.png",
+    "UIKnapsack.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -520,7 +524,7 @@
                   },
                   "opacity": 255,
                   "positionPercentX": 0,
-                  "positionPercentY": 0.671428561,
+                  "positionPercentY": 1.66785717,
                   "positionType": 0,
                   "rotation": 0,
                   "scaleX": 1,
@@ -534,7 +538,7 @@
                   "visible": true,
                   "width": 600,
                   "x": 0,
-                  "y": 188,
+                  "y": 467,
                   "adaptScreen": false,
                   "backGroundImage": null,
                   "backGroundImageData": null,

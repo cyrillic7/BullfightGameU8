@@ -338,6 +338,8 @@ struct CMD_GP_ServerOnline
 #define SUB_GP_CONVERSION_AUCTIONSCORE   414                            //拍卖所得兑换 
 #define SUB_GP_MORE_GAME			415									//更多游戏
 #define SUB_GP_FEEDBACK				416									//反馈
+#define SUB_GP_UNREAD_MSG_COUNT			418								//未读的信息
+#define SUB_GP_TASK_FINISH_COUNT		419								//完成的任务
 
 //操作结果
 #define SUB_GP_OPERATE_SUCCESS		900									//操作成功
@@ -1408,6 +1410,15 @@ struct CMD_MB_LogonSuccess
 	DWORD							dwLoveLiness;						//用户魅力
 	TCHAR							szNickName[LEN_NICKNAME];			//用户昵称
 };*/
+//未读信息或完成的任务
+struct  CMD_GP_UserIDNotify
+{
+	CMD_GP_UserIDNotify()
+	{
+		//memset(this, 0, sizeof(CMD_GP_UserIDNotify));
+	}
+	DWORD dwCount;
+};
 //登录成功
 struct CMD_MB_LogonSuccess
 {

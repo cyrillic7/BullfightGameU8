@@ -8,16 +8,23 @@
   <JsonFolder>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\ccsprojs\UIPopDialogBox\Json</JsonFolder>
   <JsonList>
     <string>UIPopDialogBoxBank.json</string>
+    <string>UIPopDialogBoxBindingPhone.json</string>
     <string>UIPopDialogBoxBuyCount.json</string>
     <string>UIPopDialogBoxChangePassword.json</string>
     <string>UIPopDialogBoxFeedback.json</string>
+    <string>UIPopDialogBoxFirstRecharge.json</string>
+    <string>UIPopDialogBoxForgetPassword.json</string>
     <string>UIPopDialogBoxHelp.json</string>
+    <string>UIPopDialogBoxInputExchange.json</string>
     <string>UIPopDialogBoxKnapsack.json</string>
     <string>UIPopDialogBoxLoadingOther.json</string>
     <string>UIPopDialogBoxMore.json</string>
     <string>UIPopDialogBoxMsg.json</string>
     <string>UIPopDialogBoxOnline.json</string>
     <string>UIPopDialogBoxRanking.json</string>
+    <string>UIPopDialogBoxRecharge.json</string>
+    <string>UIPopDialogBoxRegistered.json</string>
+    <string>UIPopDialogBoxSetting.json</string>
     <string>UIPopDialogBoxSetUp.json</string>
     <string>UIPopDialogBoxShop.json</string>
     <string>UIPopDialogBoxTask.json</string>
@@ -25,13 +32,6 @@
     <string>UIPopDialogBoxUpBank.json</string>
     <string>UIPopDialogBoxUserInfo.json</string>
     <string>UIPopDialogBoxVip.json</string>
-    <string>UIPopDialogBoxRegistered.json</string>
-    <string>UIPopDialogBoxBindingPhone.json</string>
-    <string>UIPopDialogBoxForgetPassword.json</string>
-    <string>UIPopDialogBoxRecharge.json</string>
-    <string>UIPopDialogBoxFirstRecharge.json</string>
-    <string>UIPopDialogBoxSetting.json</string>
-    <string>UIPopDialogBoxInputExchange.json</string>
   </JsonList>
   <CanvasSize>
     <Width>1136</Width>

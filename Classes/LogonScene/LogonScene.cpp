@@ -772,6 +772,12 @@ void LogonScene::onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned s
 			Tools::setTransitionAnimation(0,0,GameLobbyScene::scene(false,""));
 		}
 		break;
+	case SUB_GP_UNREAD_MSG_COUNT://未读的信息
+	{
+		CMD_GP_UserIDNotify *pUserIDNotify = (CMD_GP_UserIDNotify*)pDataBuffer;
+		CCLOG(" <<%s>>", __FUNCTION__);
+	}
+		break;
 	default:
 		CCLOG("other:%d<<%s>>",wSubCmdID,__FUNCTION__);
 		break;

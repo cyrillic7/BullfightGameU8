@@ -52,6 +52,11 @@ private:
 	CMD_GP_VipPower vipPower;
 	//vip等级复选框
 	UICheckBox *pCBVip[maxVipLevel];
+	//下一等级奖励提示
+	int nVipNextRewordTip[maxVipLevel];
+	int iCurTag;
+	//激活提示
+	UIImageView *pIVActivationTip;
 public:
 	PopDialogBoxVip();
 	~PopDialogBoxVip();
@@ -70,12 +75,16 @@ private:
 	void onMenuRecharge(CCObject *object, TouchEventType type);
 	//领取奖励按键
 	void onMenuReward(CCObject *object, TouchEventType type);
+	//激活奖励按键
+	void onMenuActivation(CCObject *object, TouchEventType type);
 	//设置按键状态
 	void setButtonState(UIButton *button,int state);
 	//设置VIP等级
 	void setVipGrade(int iGrade);
 	//设置VIP下一等级
 	void setNextVipGrade(int iGrade);
+	//重设按键类型
+	void resetRewordButtonType(UIButton *button, long dwVipID, long dwLoginScoreStatus);
 	//更新列表
 	void updateListVip();
 	//更新列表
