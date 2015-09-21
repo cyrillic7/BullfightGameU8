@@ -214,7 +214,7 @@ void PopDialogBoxRanking::onEventUserService(WORD wSubCmdID, void * pDataBuffer,
 void PopDialogBoxRanking::onSubRankingList(void * pDataBuffer, unsigned short wDataSize){
 	//assert(wDataSize >= sizeof(CMD_GP_TreasureRank));
 	int count = wDataSize / sizeof(CMD_GP_TreasureRank);
-
+	int sSize = sizeof(CMD_GP_TreasureRank);
 	BYTE cbDataBuffer[SOCKET_TCP_PACKET + sizeof(TCP_Head)];
 	CopyMemory(cbDataBuffer, pDataBuffer, wDataSize);
 

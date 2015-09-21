@@ -192,6 +192,7 @@ void GameControlOxSixSwap::onUserEnter(){
 	std::map<long, tagUserInfo>::iterator iter;
 	for (iter = tempTagUserInfo.begin(); iter != tempTagUserInfo.end(); iter++)
 	{
+		CCLOG("faceID:%d  userID:%ld<<%s>>",iter->second.wFaceID,iter->second.dwUserID, __FUNCTION__);
 		if (iter->second.wChairID > 5 || iter->second.wChairID < 0 
 			//|| iter->second.wTableID != DataModel::sharedDataModel()->userInfo->wTableID
 			)

@@ -136,11 +136,11 @@ void LogonScene::onEnter(){
 	spriteBg->addChild(pAnimate);
 	
 	//标题动画
-	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationLogonTitle.ExportJson));
-	CCArmature *pAnimateTitle = CCArmature::create("AnimationLogonTitle");
+	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationMenuTitle.ExportJson));
+	CCArmature *pAnimateTitle = CCArmature::create("AnimationMenuTitle");
 	pAnimateTitle->setAnchorPoint(ccp(1,1));
 	pAnimateTitle->setPosition(SCENE_SIZE);
-	pAnimateTitle->getAnimation()->play("AnimationTitle");
+	pAnimateTitle->getAnimation()->play("Animation1");
 	spriteBg->addChild(pAnimateTitle);
 
 	//闪光

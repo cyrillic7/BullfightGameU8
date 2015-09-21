@@ -1679,6 +1679,7 @@ void GameControlOxHundred::onSubUserEnter(void * pDataBuffer, unsigned short wDa
 	UserInfo.lScore = pUserInfoHead->lScore;
 	UserInfo.wChairID = pUserInfoHead->wChairID;
 	UserInfo.wTableID = pUserInfoHead->wTableID;
+	UserInfo.wFaceID = pUserInfoHead->wFaceID;
 	BYTE cbDataBuffer[SOCKET_TCP_PACKET + sizeof(TCP_Head)];
 	CopyMemory(cbDataBuffer, pDataBuffer, wDataSize);
 

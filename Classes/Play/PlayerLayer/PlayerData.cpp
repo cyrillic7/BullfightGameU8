@@ -50,7 +50,7 @@ void PlayerData::setUserInfo(tagUserInfo userInfo){
 	pLGoldCount->setText(formatNumber(CCString::createWithFormat("%lld", userInfo.lScore)->getCString()));
 	//pLGoldCount->setText(CCString::createWithFormat("%lld", userInfo.lScore)->getCString());
 	//设置头像
-	//pIPlayerIcon->loadTexture(CCString::createWithFormat("u_p_icon_%d.png",userInfo.wFaceID)->getCString(), UI_TEX_TYPE_PLIST);
+	pIPlayerIcon->loadTexture(CCString::createWithFormat("u_p_icon_%d.png",userInfo.wFaceID)->getCString(), UI_TEX_TYPE_PLIST);
 }
 
 //显示结算动画
