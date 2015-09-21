@@ -115,7 +115,9 @@ void PopDialogBoxSign::updateListSignInfo(){
 		pLRewardGold->setText(CCString::createWithFormat("%lld金币", vecSignInfo[i].lScore)->getCString());
 		//签到天数
 		UILabel *pLSignDay = static_cast<UILabel*>(pIVSignBg->getChildByName("LabelSignLimite"));
-		pLSignDay->setText(vecSignInfo[i].dwDay>27?"满月 ":CCString::createWithFormat("连续签到%ld天 ", vecSignInfo[i].dwDay)->getCString());
+		//pLSignDay->setText(vecSignInfo[i].dwDay>27?"满月 ":CCString::createWithFormat("连续签到%ld天 ", vecSignInfo[i].dwDay)->getCString());
+		pLSignDay->setText(CCString::createWithFormat("连续签到%ld天 ", vecSignInfo[i].dwDay)->getCString());
+
 		//连续签到奖励
 		UICheckBox *pCBRewardIcon = static_cast<UICheckBox*>(pIVSignBg->getChildByName("CheckBoxRewardIcon"));
 		pCBRewardIcon->loadTextureBackGround(CCString::createWithFormat("u_s_reward_gold%d.png",i)->getCString(), UI_TEX_TYPE_PLIST);
@@ -153,7 +155,7 @@ void PopDialogBoxSign::updateSignDayPanel(int iCurSignDay){
 			pCBRewardIcon->setSelectedState(true);
 		}
 	}
-	pLSignDayInfo->setText(CCString::createWithFormat("%ld天后清空签到信息", 31L - iCurSignDay)->getCString());
+	//pLSignDayInfo->setText(CCString::createWithFormat("%ld天后清空签到信息", 31L - iCurSignDay)->getCString());
 }
 //////////////////////////////////////////////////////////////////////////
 void PopDialogBoxSign::update(float delta){

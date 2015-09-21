@@ -3012,7 +3012,7 @@
               "touchAble": false,
               "useMergedTexture": true,
               "visible": true,
-              "width": 184,
+              "width": 192,
               "x": -127,
               "y": -133,
               "areaHeight": 0,
@@ -3021,7 +3021,7 @@
               "fontName": "微软雅黑",
               "fontSize": 20,
               "hAlignment": 0,
-              "text": "31天后清空签到信息",
+              "text": "每月1号清空签到信息",
               "touchScaleEnable": false,
               "vAlignment": 0
             }
