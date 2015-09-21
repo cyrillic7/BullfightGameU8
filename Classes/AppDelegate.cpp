@@ -1,6 +1,6 @@
 #include "AppDelegate.h"
 #include "Tools/GameConfig.h"
-#include "LogonScene/LogonScene.h"
+#include "Logo/LogoScene.h"
 #include "Tools/BaseAttributes.h"
 #include "Tools/DataModel.h"
 #include "MTNotificationQueue/MTNotificationQueue.h"
@@ -62,7 +62,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	//设置缩放因子
 	//CCDirector::sharedDirector()->setContentScaleFactor(SCENE_SIZE.height / pDirector->getWinSize().height);
     // create a scene. it's an autorelease object
-	CCScene *pScene = LogonScene::scene();
+	CCScene *pScene = LogoScene::scene();
 	//CCScene *pScene=MainSceneOxHundred::scene();
     //run
     pDirector->runWithScene(pScene);

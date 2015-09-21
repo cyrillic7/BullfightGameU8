@@ -21,7 +21,13 @@ public:
     CREATE_FUNC(LogoScene);
     
 private:
+	virtual void onEnter();
+	virtual void onExit();
 	//进入主游戏场景
     void updateToMainScene(float dt);
+
+	//动画回调
+	void onAnimationEventOver(CCArmature *pArmature, MovementEventType movementType, const char *movementID);
+	void onAnimationEventFrame(CCBone *bone, const char *evt, int originFrameIndex, int currentFrameIndex);
 };
 #endif /* defined(__BullfightGame__LogoScene__) */

@@ -1,0 +1,16 @@
+{
+  "content_scale": 1.0,
+  "armature_data": [
+    {
+      "strVersion": "1.6.0.0",
+      "version": 1.6,
+      "name": "AnimationActivity"
+    }
+  ],
+  "animation_data": [
+    {
+      "name": "AnimationActivity"
+    }
+  ],
+  "texture_data": null
+}
