@@ -263,12 +263,20 @@ void PopDialogBoxKnapsack::onSubUseGoods(void * pDataBuffer, unsigned short wDat
 			iCurSelectIndex = vecGoods.size()-1;
 		}
 		updateListGoods();
-		if (vecGoods[iCurSelectIndex].dwExchangeType == EXCHANGE_STATE)
+		if (vecGoods.size()>0)
+		{
+			if (vecGoods[iCurSelectIndex].dwExchangeType == EXCHANGE_STATE)
+			{
+				setAgainGetData(AGAIN_UPDATE_LIST);
+				sDisplayTipInfo = GBKToUTF8(pOpenCard->szDescribeString);
+				return;
+			}
+		}
+		else
 		{
 			setAgainGetData(AGAIN_UPDATE_LIST);
 			sDisplayTipInfo = GBKToUTF8(pOpenCard->szDescribeString);
 			return;
-			/**/
 		}
 	}
 	else

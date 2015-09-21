@@ -17,14 +17,7 @@
     "UILoadingBar.plist",
     "UIKnapsack.plist"
   ],
-  "texturesPng": [
-    "UIPanel.png",
-    "UIButton.png",
-    "UIVip.png",
-    "UIGameLobby.png",
-    "UILoadingBar.png",
-    "UIKnapsack.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -1237,7 +1230,7 @@
                   "scaleX": 1,
                   "scaleY": 1,
                   "sizePercentX": 0.680851042,
-                  "sizePercentY": 0.7037037,
+                  "sizePercentY": 0.7962963,
                   "sizeType": 0,
                   "tag": 5646,
                   "touchAble": false,

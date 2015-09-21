@@ -313,7 +313,12 @@ void LogonScene::quickLogon(){
 	CCLOG("uuid:%s <<%s>>",uuid.c_str(), __FUNCTION__);
 	CMD_MB_Quick_Logon mbQuickLogon;
 	mbQuickLogon.dwOpTerminal = 2;
-	strcpy(mbQuickLogon.szMachineID, uuid.c_str());//银行密码
+
+	MD5 m;
+	m.ComputMd5(uuid.c_str(), uuid.length());
+	std::string md5UUID = m.GetMd5();
+	
+	strcpy(mbQuickLogon.szMachineID, md5UUID.c_str());//银行密码
 	gameSocket.SendData(MDM_MB_LOGON, SUB_MB_QUICK_LOGIN, &mbQuickLogon, sizeof(mbQuickLogon));
 	/*switch (DataModel::sharedDataModel()->logonType)
 	{

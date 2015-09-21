@@ -12,18 +12,18 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIVip.plist",
-    "UIGameLobby.plist",
-    "UILoadingBar.plist",
-    "UIKnapsack.plist"
+    "UISetUp.plist",
+    "UIUserInfo.plist",
+    "UICheckBox.plist",
+    "UIUserIcon.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UIVip.png",
-    "UIGameLobby.png",
-    "UILoadingBar.png",
-    "UIKnapsack.png"
+    "UISetUp.png",
+    "UIUserInfo.png",
+    "UICheckBox.png",
+    "UIUserIcon.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -812,7 +812,7 @@
                   "rotation": 0,
                   "scaleX": 1,
                   "scaleY": 1,
-                  "sizePercentX": 0.492,
+                  "sizePercentX": 0.439285725,
                   "sizePercentY": 0.42413792,
                   "sizeType": 0,
                   "tag": 120,
@@ -866,7 +866,7 @@
                   "rotation": 0,
                   "scaleX": 1,
                   "scaleY": 1,
-                  "sizePercentX": 0.224,
+                  "sizePercentX": 0.2,
                   "sizePercentY": 0.124137931,
                   "sizeType": 0,
                   "tag": 121,
@@ -916,7 +916,7 @@
                   "rotation": 0,
                   "scaleX": 1,
                   "scaleY": 1,
-                  "sizePercentX": 0.66,
+                  "sizePercentX": 0.589285731,
                   "sizePercentY": 0.220689654,
                   "sizeType": 0,
                   "tag": 122,
@@ -989,7 +989,7 @@
                   "rotation": 0,
                   "scaleX": 1,
                   "scaleY": 1,
-                  "sizePercentX": 0.412,
+                  "sizePercentX": 0.367857128,
                   "sizePercentY": 0.355172426,
                   "sizeType": 0,
                   "tag": 6785,
@@ -1040,20 +1040,20 @@
               "rotation": 0,
               "scaleX": 1,
               "scaleY": 1,
-              "sizePercentX": 0.357142866,
+              "sizePercentX": 0.4,
               "sizePercentY": 0.660592258,
               "sizeType": 0,
               "tag": 115,
               "touchAble": false,
               "useMergedTexture": false,
               "visible": true,
-              "width": 250,
+              "width": 280,
               "x": 190,
               "y": 29,
               "capInsetsHeight": 6,
               "capInsetsWidth": 6,
               "capInsetsX": 75,
-              "capInsetsY": 80,
+              "capInsetsY": 101,
               "fileName": null,
               "fileNameData": {
                 "path": "u_p_BDSJ_DW.png",
@@ -1062,7 +1062,7 @@
               },
               "scale9Enable": true,
               "scale9Height": 290,
-              "scale9Width": 250
+              "scale9Width": 280
             }
           },
           {

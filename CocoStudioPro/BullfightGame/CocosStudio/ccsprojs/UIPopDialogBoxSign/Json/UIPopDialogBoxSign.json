@@ -14,7 +14,11 @@
     "UIButton.plist",
     "UISign.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIPanel.png",
+    "UIButton.png",
+    "UISign.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
