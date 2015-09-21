@@ -7,11 +7,11 @@
             <key>a_mt_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{282,143}}</string>
+                <string>{{2,457},{282,143}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{282,143}}</string>
                 <key>sourceSize</key>
@@ -20,11 +20,11 @@
             <key>a_mt_card1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{240,336},{111,117}}</string>
+                <string>{{240,2},{111,117}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{1,0},{111,117}}</string>
                 <key>sourceSize</key>
@@ -33,11 +33,11 @@
             <key>a_mt_card2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{286,2},{95,111}}</string>
+                <string>{{240,243},{95,111}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,1},{95,111}}</string>
                 <key>sourceSize</key>
@@ -46,11 +46,11 @@
             <key>a_mt_card3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{286,115},{90,111}}</string>
+                <string>{{240,340},{90,111}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{1,1},{90,111}}</string>
                 <key>sourceSize</key>
@@ -59,11 +59,11 @@
             <key>a_mt_card4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{240,228},{106,120}}</string>
+                <string>{{240,121},{106,120}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{106,120}}</string>
                 <key>sourceSize</key>
@@ -72,24 +72,24 @@
             <key>a_mt_light0.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{240,449},{223,98}}</string>
+                <string>{{240,432},{97,86}}</string>
                 <key>offset</key>
-                <string>{-43,46}</string>
+                <string>{-176,52}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{75,23},{223,98}}</string>
+                <string>{{5,23},{97,86}}</string>
                 <key>sourceSize</key>
                 <string>{459,236}</string>
             </dict>
             <key>a_mt_light1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{223,674},{177,158}}</string>
+                <string>{{147,534},{177,158}}</string>
                 <key>offset</key>
                 <string>{-125,-8}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{16,47},{177,158}}</string>
                 <key>sourceSize</key>
@@ -98,7 +98,7 @@
             <key>a_mt_light2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{166,853},{183,144}}</string>
+                <string>{{168,694},{183,144}}</string>
                 <key>offset</key>
                 <string>{-15,-9}</string>
                 <key>rotated</key>
@@ -111,11 +111,11 @@
             <key>a_mt_light3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,602},{219,164}}</string>
+                <string>{{2,741},{219,164}}</string>
                 <key>offset</key>
                 <string>{83,-9}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{203,45},{219,164}}</string>
                 <key>sourceSize</key>
@@ -124,7 +124,7 @@
             <key>a_mt_light4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,853},{157,162}}</string>
+                <string>{{168,840},{157,162}}</string>
                 <key>offset</key>
                 <string>{127,-23}</string>
                 <key>rotated</key>
@@ -137,11 +137,11 @@
             <key>a_mt_star.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,768},{75,76}}</string>
+                <string>{{147,457},{75,76}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{75,76}}</string>
                 <key>sourceSize</key>
@@ -150,7 +150,7 @@
             <key>a_mt_title.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,147},{453,236}}</string>
+                <string>{{2,2},{453,236}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -168,9 +168,9 @@
             <key>realTextureFileName</key>
             <string>AnimationMenuTitle.png</string>
             <key>size</key>
-            <string>{383,1012}</string>
+            <string>{353,999}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:6ff629c5596444bb5593c968dd7eaefb:2f2adf4227928f20738f47d894666e9c:7436edc98edcdff75d928ef1770cb6c7$</string>
+            <string>$TexturePacker:SmartUpdate:388ec70affc86133758c07d2dff5607d:fc48e5cd15786911fa7a25dc086f9026:7436edc98edcdff75d928ef1770cb6c7$</string>
             <key>textureFileName</key>
             <string>AnimationMenuTitle.png</string>
         </dict>
