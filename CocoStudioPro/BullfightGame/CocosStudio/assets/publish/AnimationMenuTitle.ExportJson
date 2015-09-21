@@ -542,8 +542,8 @@
                   "fi": 50,
                   "twE": 0,
                   "tweenFrame": false,
-                  "bd_src": 1,
-                  "bd_dst": 771
+                  "bd_src": 774,
+                  "bd_dst": 1
                 },
                 {
                   "dI": -1000,
@@ -695,8 +695,8 @@
                   "fi": 45,
                   "twE": 0,
                   "tweenFrame": false,
-                  "bd_src": 1,
-                  "bd_dst": 771
+                  "bd_src": 774,
+                  "bd_dst": 1
                 },
                 {
                   "dI": -1000,
@@ -746,8 +746,8 @@
                   "fi": 40,
                   "twE": 0,
                   "tweenFrame": false,
-                  "bd_src": 1,
-                  "bd_dst": 771
+                  "bd_src": 774,
+                  "bd_dst": 1
                 },
                 {
                   "dI": -1000,

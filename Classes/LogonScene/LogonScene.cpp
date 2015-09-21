@@ -141,6 +141,7 @@ void LogonScene::onEnter(){
 	pAnimateTitle->setAnchorPoint(ccp(1,1));
 	pAnimateTitle->setPosition(SCENE_SIZE);
 	pAnimateTitle->getAnimation()->play("Animation1");
+	pAnimateTitle->setScale(0.95);
 	spriteBg->addChild(pAnimateTitle);
 
 	//闪光

@@ -9,7 +9,7 @@
         {
           "name": "star",
           "parent": "",
-          "dI": -1000,
+          "dI": 0,
           "x": 38.714286804199219,
           "y": 18.816196441650391,
           "z": 12,
@@ -41,7 +41,7 @@
         {
           "name": "light3",
           "parent": "",
-          "dI": 0,
+          "dI": -1000,
           "x": 0.0,
           "y": 0.0,
           "z": 11,
@@ -542,8 +542,8 @@
                   "fi": 50,
                   "twE": 0,
                   "tweenFrame": false,
-                  "bd_src": 1,
-                  "bd_dst": 771
+                  "bd_src": 774,
+                  "bd_dst": 1
                 },
                 {
                   "dI": -1000,
@@ -695,8 +695,8 @@
                   "fi": 45,
                   "twE": 0,
                   "tweenFrame": false,
-                  "bd_src": 1,
-                  "bd_dst": 771
+                  "bd_src": 774,
+                  "bd_dst": 1
                 },
                 {
                   "dI": -1000,
@@ -746,8 +746,8 @@
                   "fi": 40,
                   "twE": 0,
                   "tweenFrame": false,
-                  "bd_src": 1,
-                  "bd_dst": 771
+                  "bd_src": 774,
+                  "bd_dst": 1
                 },
                 {
                   "dI": -1000,

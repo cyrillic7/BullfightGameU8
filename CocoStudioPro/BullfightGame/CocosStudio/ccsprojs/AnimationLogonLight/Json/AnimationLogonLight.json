@@ -9,7 +9,7 @@
         {
           "name": "Layer1",
           "parent": "",
-          "dI": -993,
+          "dI": 1,
           "x": 0.0,
           "y": 0.0,
           "z": 1,
@@ -324,48 +324,48 @@
     },
     {
       "name": "animationLogon/Light01",
-      "width": 0.0,
-      "height": 0.0,
+      "width": 64.0,
+      "height": 64.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": ""
     },
     {
       "name": "animationLogon/Light02",
-      "width": 0.0,
-      "height": 0.0,
+      "width": 64.0,
+      "height": 64.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": ""
     },
     {
       "name": "animationLogon/Light03",
-      "width": 0.0,
-      "height": 0.0,
+      "width": 64.0,
+      "height": 64.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": ""
     },
     {
       "name": "animationLogon/Light04",
-      "width": 0.0,
-      "height": 0.0,
+      "width": 64.0,
+      "height": 64.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": ""
     },
     {
       "name": "animationLogon/Light05",
-      "width": 0.0,
-      "height": 0.0,
+      "width": 64.0,
+      "height": 64.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": ""
     },
     {
       "name": "animationLogon/Light06",
-      "width": 0.0,
-      "height": 0.0,
+      "width": 64.0,
+      "height": 64.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": ""
