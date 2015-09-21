@@ -287,6 +287,7 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 				break;
 			case LOGON_QUICK://快速登录
 				{
+					DataModel::sharedDataModel()->logonType = LOGON_QUICK;
 					quickLogon();
 					/*PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
 					this->addChild(tipInfo);
@@ -307,7 +308,14 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 }
 //快速登录
 void LogonScene::quickLogon(){
-	switch (DataModel::sharedDataModel()->logonType)
+	connectServer();
+	std::string uuid=platformAction("{\"act\":100}").c_str();
+	CCLOG("uuid:%s <<%s>>",uuid.c_str(), __FUNCTION__);
+	CMD_MB_Quick_Logon mbQuickLogon;
+	mbQuickLogon.dwOpTerminal = 2;
+	strcpy(mbQuickLogon.szMachineID, uuid.c_str());//银行密码
+	gameSocket.SendData(MDM_MB_LOGON, SUB_MB_QUICK_LOGIN, &mbQuickLogon, sizeof(mbQuickLogon));
+	/*switch (DataModel::sharedDataModel()->logonType)
 	{
 	case LOGON_ACCOUNT:
 	{
@@ -343,7 +351,7 @@ void LogonScene::quickLogon(){
 			pRegistered->setIPopAssistRegistered(this);
 		}
 		break;
-	}
+	}*/
 }
 void LogonScene::update(float delta){
 	/*if (isReadMessage)
@@ -673,6 +681,21 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			//tcp->createSocket("112.1.1.1", pLobbyIp->dwServerPort, new LobbyGameListerner());
 		}*/
 		
+	}
+		break;
+	case SUB_MB_QUICK_LOGIN:
+	{
+		CMD_MB_Quick_Logon_Success *pQuickLogonSuccess = (CMD_MB_Quick_Logon_Success*)pDataBuffer;
+		if (pQuickLogonSuccess->lResultCode==0)
+		{
+			logonQQ(pQuickLogonSuccess->szAccounts, pQuickLogonSuccess->szLogonPass);
+		}
+		else
+		{
+			PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+			this->addChild(tipInfo);
+			tipInfo->setTipInfoContent(pQuickLogonSuccess->szDescribeString);
+		}
 	}
 		break;
 	default:

@@ -28,6 +28,9 @@ std::string platformAction(const std::string& jsonString)
 
 		switch (act)
 		{
+		case 100:
+			return "A100003BBEEB3A";
+			break;
 		default:
 			break;
 		}

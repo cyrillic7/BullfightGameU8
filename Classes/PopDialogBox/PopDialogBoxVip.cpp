@@ -476,8 +476,8 @@ void PopDialogBoxVip::setButtonState(UIButton *button,int state){
 	break;
 	case 2://已领取
 	{
-		button->loadTextureNormal("LQJL_Btn_Normal.png", UI_TEX_TYPE_PLIST);
-		button->loadTexturePressed("LQJL_Btn_Down.png", UI_TEX_TYPE_PLIST);
+		button->loadTextureNormal("YLQ_Btn_Down.png", UI_TEX_TYPE_PLIST);
+		button->loadTexturePressed("YLQ_Btn_Down.png", UI_TEX_TYPE_PLIST);
 
 		button->setColor(ccc3(colorH, colorH, colorH));
 		button->setTitleColor(ccc3(colorH, colorH, colorH));

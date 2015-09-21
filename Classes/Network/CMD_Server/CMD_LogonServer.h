@@ -1328,6 +1328,7 @@ struct CMD_GP_S_SearchCorrespond
 #define SUB_MB_LOGON_GAMEID			1									//I D 登录
 #define SUB_MB_LOGON_ACCOUNTS		2									//帐号登录
 #define SUB_MB_REGISTER_ACCOUNTS	3									//注册帐号
+#define SUB_MB_QUICK_LOGIN			4									//快速登录
 
 //登录结果
 #define SUB_MB_LOGON_SUCCESS		100									//登录成功
@@ -1456,7 +1457,20 @@ struct CMD_MB_UpdateNotify
 	BYTE							cbAdviceUpdate;						//建议升级
 	DWORD							dwCurrentVersion;					//当前版本
 };
-
+//快速登录
+struct CMD_MB_Quick_Logon
+{
+	DWORD							dwOpTerminal;						//操作终端（0：公用 1：pc, 2：手机牛牛 3：手机捕鱼）
+	TCHAR							szMachineID[LEN_MACHINE_ID];		//机器标识
+};
+//快速登录返回
+struct CMD_MB_Quick_Logon_Success
+{
+	TCHAR							szAccounts[LEN_ACCOUNTS];			//登录帐号
+	TCHAR							szLogonPass[LEN_MD5];				//登录密码
+	long							lResultCode;						//错误代码
+	TCHAR							szDescribeString[128];				//描述消息
+};
 //////////////////////////////////////////////////////////////////////////////////
 //列表命令
 

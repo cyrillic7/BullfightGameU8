@@ -1,0 +1,16 @@
+{
+  "content_scale": 1.0,
+  "armature_data": [
+    {
+      "strVersion": "1.6.0.0",
+      "version": 1.6,
+      "name": "AnimationCompanyLogo"
+    }
+  ],
+  "animation_data": [
+    {
+      "name": "AnimationCompanyLogo"
+    }
+  ],
+  "texture_data": null
+}
