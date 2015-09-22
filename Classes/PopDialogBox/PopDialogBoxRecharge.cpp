@@ -14,13 +14,17 @@
 #define MAX_GOLD_COUNT    6
 
 std::string sGoldIconName[MAX_GOLD_COUNT] = { "u_recharge_gold0.png", "u_recharge_gold1.png", "u_recharge_gold2.png", "u_recharge_gold3.png", "u_recharge_gold4.png", "u_recharge_gold5.png" };
-std::string sGoldExchangeNum[MAX_GOLD_COUNT] = { " 1万 ", " 3万 ", " 5万 ", " 10万 ", " 50万 ", " 100万 " };
-long lGoldPice[MAX_GOLD_COUNT] = { 1, 3, 5, 10, 50, 100 };
+std::string sGoldExchangeNum[MAX_GOLD_COUNT] = { " 10万金币 ", " 30万金币 ", " 50万金币 ", " 100万金币 ", " 200万金币 ", " 500万金币 " };
+std::string sGoldOtherNum[MAX_GOLD_COUNT] = { "", "", "", "", "", "" };
+
+long lGoldPice[MAX_GOLD_COUNT] = { 10, 30, 50, 100, 200, 500 };
 
 #define MAX_BIG_GOLD_COUNT    6
-std::string sBigGoldIconName[MAX_BIG_GOLD_COUNT] = { "u_recharge_gold0.png", "u_recharge_gold1.png", "u_recharge_gold2.png", "u_recharge_gold3.png", "u_recharge_gold4.png", "u_recharge_gold5.png" };
-std::string sBigGoldExchangeNum[MAX_BIG_GOLD_COUNT] = { " 1个 ", " 3个 ", " 5个 ", " 10个 ", " 50个 ", " 100个 " };
-long lBigGoldPice[MAX_GOLD_COUNT] = { 1, 3, 5, 10, 50, 100 };
+std::string sBigGoldIconName[MAX_BIG_GOLD_COUNT] = { "u_recharge_yb0.png", "u_recharge_yb1.png", "u_recharge_yb2.png", "u_recharge_yb3.png", "u_recharge_yb4.png", "u_recharge_yb5.png" };
+std::string sBigGoldExchangeNum[MAX_BIG_GOLD_COUNT] = { " 10元宝 ", " 30元宝 ", " 50元宝 ", " 100元宝 ", " 200元宝 ", " 500元宝 " };
+std::string sBigGoldOtherNum[MAX_BIG_GOLD_COUNT] = { " 加送1个红包碎片 ", " 加送5个红包碎片 ", " 加送2个红包 ", " 加送5个红包 ", " 加送12个红包 ", " 加送35个红包 " };
+
+long lBigGoldPice[MAX_GOLD_COUNT] = { 10, 30, 50, 100, 200, 500 };
 
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxRecharge::PopDialogBoxRecharge()
@@ -34,6 +38,7 @@ PopDialogBoxRecharge::PopDialogBoxRecharge()
 		RechargeData rData;
 		rData.sImageIconName = sGoldIconName[i];
 		rData.sExchangeNum = sGoldExchangeNum[i];
+		rData.sOtherNum = sGoldOtherNum[i];
 		rData.lExchangePice = lGoldPice[i];
 		vecRechargeGold.push_back(rData);
 	}
@@ -42,6 +47,7 @@ PopDialogBoxRecharge::PopDialogBoxRecharge()
 		RechargeData rData;
 		rData.sImageIconName = sBigGoldIconName[i];
 		rData.sExchangeNum = sBigGoldExchangeNum[i];
+		rData.sOtherNum = sBigGoldOtherNum[i];
 		rData.lExchangePice = lBigGoldPice[i];
 		vecRechargeBigGold.push_back(rData);
 	}
@@ -232,6 +238,9 @@ void PopDialogBoxRecharge::updateListRecharge(std::vector<RechargeData> qMsg){
 		pLContent0->setText(qMsg[i].sExchangeNum.c_str());
 		UILabel *pLContent1 = static_cast<UILabel*>(pIVItem->getChildByName("LabelGoldNum1"));
 		pLContent1->setText(qMsg[i].sExchangeNum.c_str());
+		//加送数量
+		UILabel *pLOtherNum = static_cast<UILabel*>(pIVItem->getChildByName("LabelOtherNum"));
+		pLOtherNum->setText(qMsg[i].sOtherNum.c_str());
 		
 		
 	}

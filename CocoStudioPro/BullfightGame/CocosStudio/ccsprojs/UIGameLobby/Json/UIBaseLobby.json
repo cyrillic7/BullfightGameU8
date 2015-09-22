@@ -10,14 +10,14 @@
   "designHeight": 640,
   "designWidth": 1136,
   "textures": [
-    "UIGameLobby.plist",
-    "UIAuction.plist",
-    "UIUserIcon.plist"
+    "UIClassicLobby.plist",
+    "UIPanel.plist",
+    "UIButton.plist"
   ],
   "texturesPng": [
-    "UIGameLobby.png",
-    "UIAuction.png",
-    "UIUserIcon.png"
+    "UIClassicLobby.png",
+    "UIPanel.png",
+    "UIButton.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

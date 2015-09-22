@@ -51,6 +51,7 @@ private:
 	{
 		std::string sImageIconName;						//图片名称
 		std::string sExchangeNum;						//兑换数
+		std::string sOtherNum;							//加送数
 		long lExchangePice;								//兑换价格
 	};
 	std::vector<RechargeData> vecRechargeGold;			//金币
