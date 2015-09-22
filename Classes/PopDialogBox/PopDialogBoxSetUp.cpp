@@ -62,6 +62,11 @@ void PopDialogBoxSetUp::onEnter(){
 	//修改登录密码
 	backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonCLPassword"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxSetUp::onMenuChangePassword));
+	if (DataModel::isQuickUser)
+	{
+		backButton->setColor(ccc3(100,100,100));
+		backButton->setTouchEnabled(false);
+	}
 	//修改保险箱密码
 	backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonCBPassword"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxSetUp::onMenuChangePassword));

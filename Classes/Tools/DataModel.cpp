@@ -9,6 +9,8 @@
 #include "GameConfig.h"
 bool DataModel::isSound = true;
 bool DataModel::isMusic = true;
+//是否是游客
+bool DataModel::isQuickUser = false;
 //int DataModel::gameChapter = 0;
 //int DataModel::gameCustomsPass = 0;
 DataModel* _sharedContext;

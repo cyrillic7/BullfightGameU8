@@ -9,7 +9,7 @@
         {
           "name": "star_Copy15",
           "parent": "",
-          "dI": 0,
+          "dI": -1000,
           "x": 309.51089477539062,
           "y": 152.46920776367188,
           "z": 15,
@@ -41,7 +41,7 @@
         {
           "name": "star_Copy16",
           "parent": "",
-          "dI": 0,
+          "dI": -1000,
           "x": -170.4891357421875,
           "y": 181.0406494140625,
           "z": 14,
@@ -297,7 +297,7 @@
         {
           "name": "eye z",
           "parent": "",
-          "dI": 0,
+          "dI": -1000,
           "x": 175.83755493164063,
           "y": 143.94380187988281,
           "z": 6,
@@ -329,7 +329,7 @@
         {
           "name": "eye y",
           "parent": "",
-          "dI": 0,
+          "dI": -1000,
           "x": 123.01931762695313,
           "y": 163.94381713867188,
           "z": 5,
@@ -1568,13 +1568,13 @@
     }
   ],
   "config_file_path": [
-    "AnimationLogonOx1.plist",
+    "AnimationMenuTitle.plist",
     "AnimationLogonOx.plist",
-    "AnimationMenuTitle.plist"
+    "AnimationLogonOx1.plist"
   ],
   "config_png_path": [
-    "AnimationLogonOx1.png",
+    "AnimationMenuTitle.png",
     "AnimationLogonOx.png",
-    "AnimationMenuTitle.png"
+    "AnimationLogonOx1.png"
   ]
 }

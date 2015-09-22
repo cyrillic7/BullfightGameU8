@@ -17,6 +17,8 @@ public:
 	static bool isSound;
 	//音乐开关
 	static bool isMusic;
+	//是否是游客
+	static bool isQuickUser;
 	//登录模式
 	int logonType;
 	//是否坐下

@@ -15,9 +15,9 @@
   <ProjectType>AnimationProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <ResourceFileList>
-    <string>AnimationLogonOx1.plist</string>
-    <string>AnimationLogonOx.plist</string>
     <string>AnimationMenuTitle.plist</string>
+    <string>AnimationLogonOx.plist</string>
+    <string>AnimationLogonOx1.plist</string>
   </ResourceFileList>
   <bBatchImage>true</bBatchImage>
 </AnimationProject>

@@ -17,5 +17,5 @@
   <ResourceFileList>
     <string>AnimationMenuTitle.plist</string>
   </ResourceFileList>
-  <bBatchImage>false</bBatchImage>
+  <bBatchImage>true</bBatchImage>
 </AnimationProject>

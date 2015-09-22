@@ -255,6 +255,7 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 		{
 			UIButton *pBtn =(UIButton *)pSender;
 			setLogonType((LogonType)pBtn->getTag());
+			DataModel::isQuickUser = false;
 			switch (pBtn->getTag())
 			{
 			case LOGON_ACCOUNT:
@@ -288,6 +289,7 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 				break;
 			case LOGON_QUICK://快速登录
 				{
+					DataModel::isQuickUser = true;
 					DataModel::sharedDataModel()->logonType = LOGON_QUICK;
 					quickLogon();
 					/*PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
