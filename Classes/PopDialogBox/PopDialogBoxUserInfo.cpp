@@ -12,6 +12,8 @@
 #include "../Tools/Tools.h"
 #include "PopDialogBoxRecharge.h"
 #include "../Network/MD5/MD5.h"
+#include "../Platform/coPlatform.h"
+#include "../GameLobby/GameLobbyScene.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxUserInfo::PopDialogBoxUserInfo()
 :isShowChange(false)
@@ -285,11 +287,6 @@ void PopDialogBoxUserInfo::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, v
 	case MDM_GP_USER_SERVICE://用户服务
 	{
 		onEventUserService(wSubCmdID, pDataBuffer, wDataSize);
-		//移除loading
-		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
-		//关闭网络
-		//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_USER_INFO);
-		gameSocket.Destroy(true);
 	}
 	break;
 	default:
@@ -330,6 +327,45 @@ void PopDialogBoxUserInfo::connectSuccess(){
 		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_MODIFY_INDIVIDUAL, &modifyIndividual, sizeof(modifyIndividual));
 	}
 		break;
+	case PopDialogBoxUserInfo::USER_CHANGE_FACE:
+	{
+		CMD_GP_SystemFaceInfo systemFaceInfo;
+		systemFaceInfo.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+		MD5 m;
+		m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
+		std::string md5PassWord = m.GetMd5();
+		strcpy(systemFaceInfo.szPassword, md5PassWord.c_str());
+
+		std::string uuid = platformAction("{\"act\":100}").c_str();
+		m.ComputMd5(uuid.c_str(), uuid.length());
+		std::string md5UUID = m.GetMd5();
+		strcpy(systemFaceInfo.szMachineID, uuid.c_str());//
+		if (DataModel::sharedDataModel()->userInfo->cbGender==0)
+		{
+			systemFaceInfo.wFaceID = abs(rand()%5);
+		}
+		else if (DataModel::sharedDataModel()->userInfo->cbGender==1)
+		{
+			systemFaceInfo.wFaceID = abs(rand() % 5)+10;
+		}
+		
+		if (DataModel::sharedDataModel()->userInfo->wFaceID >= 5 && DataModel::sharedDataModel()->userInfo->wFaceID<=9)
+		{
+			systemFaceInfo.wFaceID=DataModel::sharedDataModel()->userInfo->wFaceID;
+		}
+		//systemFaceInfo.wFaceID = 5;
+		DataModel::sharedDataModel()->userInfo->wFaceID = systemFaceInfo.wFaceID;
+
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_SYSTEM_FACE_INFO, &systemFaceInfo, sizeof(systemFaceInfo));
+		
+		UIImageView *pIVIcon = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImageHand"));
+		pIVIcon->loadTexture(CCString::createWithFormat("u_p_icon_%d.png", DataModel::sharedDataModel()->userInfo->wFaceID)->getCString(), UI_TEX_TYPE_PLIST);
+		//更改
+		((GameLobbyScene*)this->getParent())->pBUserInfo->loadTextureNormal(CCString::createWithFormat("u_p_icon_%d.png", DataModel::sharedDataModel()->userInfo->wFaceID)->getCString(), UI_TEX_TYPE_PLIST);
+		((GameLobbyScene*)this->getParent())->pBUserInfo->loadTexturePressed(CCString::createWithFormat("u_p_icon_%d.png", DataModel::sharedDataModel()->userInfo->wFaceID)->getCString(), UI_TEX_TYPE_PLIST);
+
+	}
+		break;
 	default:
 		break;
 	}
@@ -341,6 +377,9 @@ void PopDialogBoxUserInfo::onEventUserService(WORD wSubCmdID, void * pDataBuffer
 	case SUB_GP_TREASURE://财富详细 
 	{
 		onSubTreasure(pDataBuffer, wDataSize);
+		//移除loading
+		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+		gameSocket.Destroy(true);
 	}
 	break;
 	case SUB_GP_OPERATE_SUCCESS:
@@ -350,17 +389,34 @@ void PopDialogBoxUserInfo::onEventUserService(WORD wSubCmdID, void * pDataBuffer
 
 		DataModel::sharedDataModel()->userInfo->cbGender = pcbSexBoy->getSelectedState() ? 1 :0;
 		setShowChangeView();
-
+		if (getUserInfoType()==USER_CHANGE_INFO)
+		{
+			//移除loading
+			this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+			gameSocket.Destroy(true);
+			
+			setUserInfoType(USER_CHANGE_FACE);
+			connectServer();
+			connectSuccess();
+		}
 	}
 		break;
 	case SUB_GP_OPERATE_FAILURE:
 	{
 		CMD_GP_OperateFailure *pFailure = (CMD_GP_OperateFailure*)pDataBuffer;
 		showTipInfo(GBKToUTF8(pFailure->szDescribeString).c_str());
+		//移除loading
+		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+		gameSocket.Destroy(true);
 	}
 		break;
 	default:
+	{
+		//移除loading
+		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+		gameSocket.Destroy(true);
 		CCLOG("   %d<<%s>>", wSubCmdID, __FUNCTION__);
+	}
 		break;
 	}
 }

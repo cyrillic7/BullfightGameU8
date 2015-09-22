@@ -76,6 +76,7 @@ private:
 	Button *pBSetting;
 	//退出
 	Button *pBExit;
+
 	//游戏状态
 protected:
 	bool							m_bAllowLookon;						//允许旁观
@@ -99,6 +100,8 @@ public:
 	bool isPalySoundHundedWarn;
 	//是否换桌
 	bool isChangeChair;
+	//不否刷新用户
+	bool isUpdateUserInfo;
 public:
 	GameControlBase();
 	~GameControlBase();

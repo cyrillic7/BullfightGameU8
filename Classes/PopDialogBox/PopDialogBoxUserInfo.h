@@ -20,6 +20,7 @@ private:
 	{
 		USER_GET_MONEY=0,					//获取财富
 		USER_CHANGE_INFO,					//修改信息
+		USER_CHANGE_FACE,					//修改头像
 	};
 	CC_SYNTHESIZE(UserInfoType, eUserInfoType, UserInfoType);
     

@@ -30,6 +30,7 @@ GameControlBase::GameControlBase()
 	, isPalySoundWarn(true)
 	, isPalySoundHundedWarn(false)
 	, isChangeChair(false)
+	, isUpdateUserInfo(false)
 	{
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationActionPrompt.ExportJson));
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationGameIng.ExportJson));
@@ -88,9 +89,12 @@ void GameControlBase::onEnter(){
 	//绑定准备按键
 	button = static_cast<UIButton*>(pWidget->getWidgetByName("buttonReady"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuReady));
+	button->setPositionX(DataModel::sharedDataModel()->deviceSize.width / 2);
 	//绑定换桌
-	button = static_cast<UIButton*>(pWidget->getWidgetByName("ButtonChangeChair"));
-	button->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuChangeChair));
+	UIButton *pBChangeChair = static_cast<UIButton*>(pWidget->getWidgetByName("ButtonChangeChair"));
+	pBChangeChair->addTouchEventListener(this, SEL_TouchEvent(&GameControlBase::menuChangeChair));
+	pBChangeChair->setTouchEnabled(false);
+	pBChangeChair->setVisible(false);
 	//准备容器
 	pPanelReady = static_cast<UIPanel*>(pWidget->getWidgetByName("PanelReady"));
 	//换牌容器
@@ -1446,12 +1450,16 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 
 				CCLabelTTF *label = (CCLabelTTF*)this->getChildByTag(999);
 				label->setString(CCString::createWithFormat("table::%d",DataModel::sharedDataModel()->userInfo->wTableID+1)->getCString());
-
-				for (int i = 0; i < 6; i++)
+				if (isUpdateUserInfo)
 				{
-					getMainScene()->playerLayer->pPlayerData[i]->hidePlayer();
+					isUpdateUserInfo = false;
+					for (int i = 0; i < 6; i++)
+					{
+						getMainScene()->playerLayer->pPlayerData[i]->hidePlayer();
+					}
+					DataModel::sharedDataModel()->mTagUserInfo.clear();
 				}
-				DataModel::sharedDataModel()->mTagUserInfo.clear();
+				
 				/*for (int i = 0; i < 6; i++) 
 				{
 					getMainScene()->playerLayer->pPlayerData[i]->hidePlayer();

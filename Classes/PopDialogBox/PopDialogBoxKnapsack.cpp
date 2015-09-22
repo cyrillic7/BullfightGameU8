@@ -263,7 +263,7 @@ void PopDialogBoxKnapsack::onSubUseGoods(void * pDataBuffer, unsigned short wDat
 			iCurSelectIndex = vecGoods.size()-1;
 		}
 		updateListGoods();
-		if (vecGoods.size()>0)
+		/*if (vecGoods.size()>0)
 		{
 			if (vecGoods[iCurSelectIndex].dwExchangeType == EXCHANGE_STATE)
 			{
@@ -272,7 +272,7 @@ void PopDialogBoxKnapsack::onSubUseGoods(void * pDataBuffer, unsigned short wDat
 				return;
 			}
 		}
-		else
+		else*/
 		{
 			setAgainGetData(AGAIN_UPDATE_LIST);
 			sDisplayTipInfo = GBKToUTF8(pOpenCard->szDescribeString);
