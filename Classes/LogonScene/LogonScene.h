@@ -18,6 +18,20 @@
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace ui;
+//更新信息
+struct updateInfo
+{
+	//是否显示更新
+	bool isShowUpdateTip;
+	//更新说明
+	std::string strUpdateContent;
+	//更新类型（1强制更新）
+	int iUpdateType;
+	//更新动作(update:程序内更新 toUrl:跳转url更新)
+	std::string strUpdateAction;
+	//url地址
+	std::string strUpdateUrl;
+};
 class LogonScene:public CCLayer,public CStringAide,public IPopAssistRegistered,public IGameSocket
 {
 private:
@@ -45,6 +59,7 @@ public:
 	virtual void onEnter();
 	virtual void onExit();
     static CCScene* scene();
+	static CCScene* scene(updateInfo uInfo);
     
     void closeWebView();
     void logonQQ(const char*id,const char*pwd);
@@ -55,6 +70,8 @@ private:
 	void update(float delta);
 	//默认登录
 	void defaultLogon();
+	//显示更新
+	void showUpdateContent(updateInfo uInfo);
 public:
 	//登录游戏(帐号登录)
 	void logonGameByAccount(float dt);

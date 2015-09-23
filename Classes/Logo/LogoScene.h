@@ -9,10 +9,16 @@
 #ifndef __BullfightGame__LogoScene__
 #define __BullfightGame__LogoScene__
 #include "cocos-ext.h"
+#include "../LogonScene/LogonScene.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 class LogoScene:public CCLayer
 {
+private:
+	//更新校验是否完成
+	bool isCheckFinsh;
+	//更新信息
+	updateInfo uInfo;
 public:
     LogoScene();
     ~LogoScene();
@@ -29,5 +35,10 @@ private:
 	//动画回调
 	void onAnimationEventOver(CCArmature *pArmature, MovementEventType movementType, const char *movementID);
 	void onAnimationEventFrame(CCBone *bone, const char *evt, int originFrameIndex, int currentFrameIndex);
+
+	//下载回调
+	void HttpRequestComplete(CCHttpClient *sender, CCHttpResponse *response);
+	//更新校验
+	void checkUpdate(const char* buf,const char * cName);
 };
 #endif /* defined(__BullfightGame__LogoScene__) */

@@ -81,7 +81,7 @@ public class BullfightGame extends Cocos2dxActivity {
 	private final int CLOSE_VIEW = 0;// 关闭web视图
 	private final int NETWORK_STATE_CONNECT = 1;// 网络连接
 	private final int NETWORK_STATE_UNCONNECT = 2;// 网络断开
-
+	public String updateUrl;//更新地址
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -205,6 +205,26 @@ public class BullfightGame extends Cocos2dxActivity {
 				avilibleMoreGames(packageName,activity,url);
 			}
 				break;
+			case 600://获取版本号
+			{
+				return getVersion();
+			}
+			case 700://升级
+			{				
+				updateUrl = jsonObject.getString("updateUrl");
+				Log.v("update",updateUrl);
+				startService(new Intent(BullfightGame.this, UpdateManager.class));
+				//UpdateManager updateManager=new UpdateManager();
+				//updateManager.checkUpdate();
+				/*Message msg = Message.obtain();
+				msg.what = 2;
+				mExitHandler.sendMessage(msg);*/
+				//updateManager.showDownloadDialog();
+				// 启动新线程下载软件
+				//new downloadApkThread().start();
+				//
+			}
+			break;
 			default:
 				break;
 			}
@@ -215,6 +235,17 @@ public class BullfightGame extends Cocos2dxActivity {
 		}
 
 		return "";
+	}
+	public String getVersion() {
+		try {
+			PackageManager manager = this.getPackageManager();
+			PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
+			String version = info.versionName;
+			return  version;
+		} catch (Exception e) {
+		e.printStackTrace();
+		return "";
+		}
 	}
 
 	// 打开网页
@@ -601,6 +632,12 @@ public class BullfightGame extends Cocos2dxActivity {
 						});
 				builder.setNegativeButton("取消", null);
 				builder.show();
+			}
+				break;
+			case 2:
+			{
+				//Log.v("update", "2222222222222222");
+				//startService(new Intent(BullfightGame.this, UpdateManager.class));
 			}
 				break;
 			default:

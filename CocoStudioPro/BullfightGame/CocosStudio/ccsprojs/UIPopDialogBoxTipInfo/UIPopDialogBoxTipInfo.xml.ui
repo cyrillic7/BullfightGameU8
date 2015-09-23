@@ -8,6 +8,7 @@
   <JsonFolder>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\ccsprojs\UIPopDialogBoxTipInfo\Json</JsonFolder>
   <JsonList>
     <string>UIPopDialogBoxTipInfo.json</string>
+    <string>UIPopDialogBoxUpdateTipInfo.json</string>
   </JsonList>
   <CanvasSize>
     <Width>1136</Width>
@@ -20,10 +21,7 @@
     <string>UIPanel.plist</string>
     <string>UIButton.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>UIPanel.png</string>
-    <string>UIButton.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxTipInfo.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxUpdateTipInfo.json</CurrentUIJson>
 </UIProject>

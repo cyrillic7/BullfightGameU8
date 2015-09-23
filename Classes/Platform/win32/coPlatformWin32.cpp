@@ -31,6 +31,9 @@ std::string platformAction(const std::string& jsonString)
 		case 100:
 			return "A100003BBEEB3A23";
 			break;
+		case 600:
+			return "2.0.1";
+			break;
 		default:
 			break;
 		}

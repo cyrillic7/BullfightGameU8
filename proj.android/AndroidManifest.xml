@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.xw.BullfightGame"
       android:versionCode="1"
-      android:versionName="1.0"
+      android:versionName="1.0.0"
       android:installLocation="auto">
 
     <uses-sdk android:minSdkVersion="8"/>
@@ -45,6 +45,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:name="UpdateManager"></service>
     </application>
     <supports-screens android:largeScreens="true"
                       android:smallScreens="true"

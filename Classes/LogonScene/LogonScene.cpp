@@ -12,6 +12,7 @@
 #include "../PopDialogBox/PopDialogBoxOtherLoading.h"
 #include "../PopDialogBox/PopDialogBoxLogonAccount.h"
 #include "../PopDialogBox/PopDialogBoxTipInfo.h"
+#include "../PopDialogBox/PopDialogBoxUpdateTipInfo.h"
 
 #include "../GameLobby/GameLobbyScene.h"
 //#include "../Network/ListernerThread/LogonGameListerner.h"
@@ -117,6 +118,26 @@ CCScene* LogonScene::scene()
     scene->addChild(layer);
     pLScene=layer;
     return scene;
+}
+CCScene* LogonScene::scene(updateInfo uInfo)
+{
+	CCScene *scene = CCScene::create();
+	LogonScene *layer = LogonScene::create();
+	scene->addChild(layer);
+	layer->showUpdateContent(uInfo);
+	pLScene = layer;
+	return scene;
+}
+//显示更新
+void LogonScene::showUpdateContent(updateInfo uInfo){
+	if (uInfo.isShowUpdateTip)
+	{
+		PopDialogBoxUpdateTipInfo *pUTipInfo = PopDialogBoxUpdateTipInfo::create();
+		this->addChild(pUTipInfo, 100);
+		pUTipInfo->setTipInfoContent(GBKToUTF8(uInfo.strUpdateContent.c_str()).c_str());
+		pUTipInfo->iUpdateType = uInfo.iUpdateType;
+		//CCLOG("%s <<%s>>", GBKToUTF8(uInfo.strUpdateContent.c_str()).c_str(), __FUNCTION__);
+	}
 }
 void LogonScene::onEnter(){
 	CCLayer::onEnter();

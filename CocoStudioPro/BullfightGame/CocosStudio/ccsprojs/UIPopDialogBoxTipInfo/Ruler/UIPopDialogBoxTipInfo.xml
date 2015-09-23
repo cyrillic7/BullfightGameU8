@@ -4,4 +4,8 @@
     <Project>UIPopDialogBoxTipInfo</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxUpdateTipInfo</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>
