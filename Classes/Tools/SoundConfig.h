@@ -1,28 +1,28 @@
 #pragma once
 
-#define kMusicHundred "music/BACK_GROUND.wav"                                 //百人牛牛背音乐
+#define kMusicHundred "music/BACK_GROUND.m4a"                                 //百人牛牛背音乐
 #define kMusicOtherOx "music/ox_backbround.m4a"                                 //其它牛牛背音乐
 
 
-#define kSoundHundredAddGold "sound/ADD_GOLD"                                 //百人牛牛下注
+#define kSoundHundredAddGold "sound/ADD_GOLD.m4a"                                 //百人牛牛下注
 
 
-#define kSoundOx(name) CCString::createWithFormat("sound/otherOx/ox%d.wav",(name))->getCString() //牛牛类型
+#define kSoundOx(name) CCString::createWithFormat("sound/otherOx/ox%d.m4a",(name))->getCString() //牛牛类型
 
-#define kSoundLost "sound/otherOx/GAME_LOST.WAV"							//失败
-#define kSoundWin "sound/otherOx/GAME_WIN.WAV"								//胜利
-#define kSoundEnd "sound/otherOx/GAME_END.WAV"								//他人游戏结束
-#define kSoundWarn "sound/otherOx/GAME_WARN.WAV"							//倒计时警告
-#define kSoundStart "sound/otherOx/GAME_START.WAV"							//游戏开始
-#define kSoundSendCard "sound/otherOx/SEND_CARD.wav"						//发牌
+#define kSoundLost "sound/otherOx/GAME_LOST.m4a"							//失败
+#define kSoundWin "sound/otherOx/GAME_WIN.m4a"								//胜利
+#define kSoundEnd "sound/otherOx/GAME_END.m4a"								//他人游戏结束
+#define kSoundWarn "sound/otherOx/GAME_WARN.m4a"							//倒计时警告
+#define kSoundStart "sound/otherOx/GAME_START.m4a"							//游戏开始
+#define kSoundSendCard "sound/otherOx/SEND_CARD.m4a"						//发牌
 
-#define kSoundHundredWarn "sound/TIME_WARIMG.wav"							//百人牛牛倒计时警告
-#define kSoundHundredSendCard "sound//OUT_CARD.wav"							//百人牛牛发牌
-#define kSoundHundredAddGold "sound/ADD_GOLD.wav"							//百人牛牛加注	
-#define kSoundHundredStart "sound/GAME_START.wav"							//百人牛牛开始
-#define kSoundHundredEndDraw "sound/END_DRAW.wav"							//百人结束未下注
-#define kSoundHundredEndLost "sound/END_LOST.wav"							//百人结束输
-#define kSoundHundredEndWin "sound/END_WIN.wav"								//百人结束赢
+#define kSoundHundredWarn "sound/TIME_WARIMG.m4a"							//百人牛牛倒计时警告
+#define kSoundHundredSendCard "sound//OUT_CARD.m4a"							//百人牛牛发牌
+#define kSoundHundredAddGold "sound/ADD_GOLD.m4a"							//百人牛牛加注	
+#define kSoundHundredStart "sound/GAME_START.m4a"							//百人牛牛开始
+#define kSoundHundredEndDraw "sound/END_DRAW.m4a"							//百人结束未下注
+#define kSoundHundredEndLost "sound/END_LOST.m4a"							//百人结束输
+#define kSoundHundredEndWin "sound/END_WIN.m4a"								//百人结束赢
 /*
 #define kMusicGameMenu "music/m_menu.mp3"
 #define kMusicGameIn "music/m_gameIn.mp3"

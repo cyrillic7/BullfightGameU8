@@ -39,6 +39,6 @@ private:
 	//下载回调
 	void HttpRequestComplete(CCHttpClient *sender, CCHttpResponse *response);
 	//更新校验
-	void checkUpdate(const char* buf,const char * cName);
+	void checkUpdate(const char* buf);
 };
 #endif /* defined(__BullfightGame__LogoScene__) */

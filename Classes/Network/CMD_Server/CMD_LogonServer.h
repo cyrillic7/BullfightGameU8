@@ -1442,6 +1442,9 @@ struct CMD_MB_LogonSuccess
 	TCHAR							szNickName[LEN_NICKNAME];			//用户昵称
 	TCHAR							szPhone[LEN_MOBILE_PHONE];			//电话号码
 	TCHAR							szPassPortID[LEN_PASS_PORT_ID];		 //身份证号（身份证绑定使用）
+
+	DWORD							dwTaskCount;						//完成任务	
+	DWORD							dwUnReadCount;						//未读信息
 };
 
 
@@ -1596,6 +1599,8 @@ enum MsgType
 	Msg_Sell,				//拍卖			（只弹一次，在线）
 	Msg_Rolling,			//滚动消息		 (发送一次，实时显示）
 	Msg_Notice,				//公告			（登录或在线，都发送）
+	Msg_Building,			//抢楼			 只弹一次，在线）
+	Msg_Sell_Success,		//拍卖成功
 };
 
 struct CMD_GL_MsgNode

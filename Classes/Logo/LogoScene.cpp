@@ -40,7 +40,7 @@ void LogoScene::onEnter(){
 	pAnimateTitle->getAnimation()->play("Animation1");
 	this->addChild(pAnimateTitle);
 
-	std::string url = "http://download.qicainiu.com/download/Mobile/BullfightGame/updateConfig.txt";
+	std::string url = "http://download.qicainiu.com/download/Mobile/BullfightGame/updateConfigQCN.txt";
 
 	CCHttpRequest* request = new CCHttpRequest();
 	request->setUrl(url.c_str());
@@ -117,7 +117,7 @@ void LogoScene::HttpRequestComplete(CCHttpClient *sender, CCHttpResponse *respon
 	std::vector<char> *buffer = response->getResponseData();
 	std::string bufffff(buffer->begin(), buffer->end());
 	CCLOG("-:%s <<%s>>", bufffff.c_str(), __FUNCTION__);
-	checkUpdate(bufffff.c_str(), "updateConfigQCN");
+	checkUpdate(bufffff.c_str());
 	
 	/*
 	//保存到本地文件
@@ -130,7 +130,7 @@ void LogoScene::HttpRequestComplete(CCHttpClient *sender, CCHttpResponse *respon
 	*/
 }
 //更新校验
-void LogoScene::checkUpdate(const char* buf, const char * cName){
+void LogoScene::checkUpdate(const char* buf){
 	//获取当前版本号
 	std::string sCurVersion = platformAction("{\"act\":600}");
 	//服务器版本号
@@ -146,7 +146,7 @@ void LogoScene::checkUpdate(const char* buf, const char * cName){
 	Json *root = Json_create(buf);
 	if (root)
 	{
-		Json* _date = Json_getItem(root, cName);
+		Json* _date = Json_getItem(root, "updateConfig");
 		
 		Json* _strVar = Json_getItem(_date, "var");
 		if (_strVar->type == Json_String)
