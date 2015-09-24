@@ -36,7 +36,7 @@ void PopDialogBoxUpdateTipInfo::onEnter(){
 	pLInfo->setTextAreaSize(CCSize(400, 0));
 	
 	//////////////////////////////////////////////////////////////////////////
-	pLInfo->setText(strContent.c_str());
+	pLInfo->setText(GBKToUTF8(uInfo.strUpdateContent.c_str()).c_str());
 	float offsetY = 40 - pLInfo->getSize().height;
 	CCSize cSize = CCSize(pWidgetBg->getContentSize().width, pWidgetBg->getContentSize().height - offsetY);
 	pWidgetBg->setSize(cSize);
@@ -51,7 +51,7 @@ void PopDialogBoxUpdateTipInfo::onExit(){
 void PopDialogBoxUpdateTipInfo::onMenuCloseTipInfo(CCObject *object, TouchEventType type){
 	if (type == TOUCH_EVENT_ENDED)
 	{
-		if (iUpdateType==1)
+		if (uInfo.iUpdateType==1)
 		{
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
 			CCMessageBox("You pressed the close button. Windows Store Apps do not implement a close button.", "Alert");
@@ -72,11 +72,13 @@ void PopDialogBoxUpdateTipInfo::onMenuCloseTipInfo(CCObject *object, TouchEventT
 void PopDialogBoxUpdateTipInfo::onMenuSure(CCObject *object, TouchEventType type){
 	if (type == TOUCH_EVENT_ENDED)
 	{
-		std::string url = "{\"act\":700,\"updateUrl\":\"http://download.qicainiu.com/download/Mobile/BullfightGame/BullfightGame2.0.1.apk\"}";
+		std::string url = "{\"act\":700,\"updateUrl\":\"";
+		url += uInfo.strUpdateUrl;
+		url+="\"}";
 		platformAction(url);
 	}
 }
 //设置提示内容
-void PopDialogBoxUpdateTipInfo::setTipInfoContent(const char *content){
-	strContent = content;
+void PopDialogBoxUpdateTipInfo::setTipInfoData(updateInfo upInfo){
+	this->uInfo = upInfo;
 }

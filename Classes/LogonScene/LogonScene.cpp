@@ -134,8 +134,9 @@ void LogonScene::showUpdateContent(updateInfo uInfo){
 	{
 		PopDialogBoxUpdateTipInfo *pUTipInfo = PopDialogBoxUpdateTipInfo::create();
 		this->addChild(pUTipInfo, 100);
-		pUTipInfo->setTipInfoContent(GBKToUTF8(uInfo.strUpdateContent.c_str()).c_str());
-		pUTipInfo->iUpdateType = uInfo.iUpdateType;
+		//pUTipInfo->setTipInfoContent(GBKToUTF8(uInfo.strUpdateContent.c_str()).c_str());
+		//pUTipInfo->iUpdateType = uInfo.iUpdateType;
+		pUTipInfo->setTipInfoData(uInfo);
 		//CCLOG("%s <<%s>>", GBKToUTF8(uInfo.strUpdateContent.c_str()).c_str(), __FUNCTION__);
 	}
 }

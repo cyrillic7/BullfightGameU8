@@ -212,17 +212,8 @@ public class BullfightGame extends Cocos2dxActivity {
 			case 700://升级
 			{				
 				updateUrl = jsonObject.getString("updateUrl");
-				Log.v("update",updateUrl);
+				stopService(new Intent(BullfightGame.this, UpdateManager.class));
 				startService(new Intent(BullfightGame.this, UpdateManager.class));
-				//UpdateManager updateManager=new UpdateManager();
-				//updateManager.checkUpdate();
-				/*Message msg = Message.obtain();
-				msg.what = 2;
-				mExitHandler.sendMessage(msg);*/
-				//updateManager.showDownloadDialog();
-				// 启动新线程下载软件
-				//new downloadApkThread().start();
-				//
 			}
 			break;
 			default:

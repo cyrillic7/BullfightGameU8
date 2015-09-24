@@ -18,7 +18,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.DialogInterface.OnClickListener;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Environment;
@@ -28,6 +27,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,13 +40,10 @@ public class UpdateManager extends Service
 	private static final int DOWNLOAD_FINISH = 2;
 	/**下载失败*/
 	private static final int DOWNLOADFAIL=3;
-	
-	
 	/**下载保存路径 */
 	private String mSavePath;
 	/** 记录进度条数量 */
 	private int progress;
-	
 	/** 保存解析的XML信息 */
 	HashMap<String, String> mHashMap;
 	/** 更新进度条 */
@@ -54,12 +51,9 @@ public class UpdateManager extends Service
 	/**进度条进度数字*/
 	private TextView updateProgressBar;
 	private Dialog mDownloadDialog;
-//	private Dialog mDownloadFailDialog;//下载失败对话框
 	/** 是否取消更新 */
 	private boolean cancelUpdate = false;
-//	private Context mContext;
-	
-	private BullfightGame bma;
+	private BullfightGame game;
 	@Override
 	public IBinder onBind(Intent intent) {
 		// TODO Auto-generated method stub
@@ -68,162 +62,63 @@ public class UpdateManager extends Service
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		bma=BullfightGame.game;
+		game=BullfightGame.game;
+		mHashMap=new HashMap<String, String>();
 	}
-
 	//@Override
 	public void onStart(Intent intent, int startId) {
 		super.onStart(intent, startId);
 		showDownloadDialog();
-		//checkUpdate();
-		// System.out.println("onStartName:"+intent.getClass().getName());
-//		startTimer();
 	}
-
-	
 	public void onDestroy() {
 		super.onDestroy();
-//		stopTimer();
+		stopService(new Intent(game,UpdateManager.class));
 	}
-//	public UpdateManager(Context context)
-//	{
-//		this.mContext = context;
-//	}
-	/**
-	 * 检测软件更新
-	 */
-	/*public void checkUpdate()
-	{
-		if (isUpdate())
-		{
-			// 显示提示对话框
-			showNoticeDialog();
-		} else
-		{
-			Toast.makeText(bma,"已是最新版本", Toast.LENGTH_LONG).show();
-		}
-	}*/
-	/**
-	 * 检查软件是否有更新版本
-	 * 
-	 * @return
-	 */
-	/*private boolean isUpdate()
-	{
-		// 获取当前软件版本
-		float versionCode = getVersionCode(bma);
-		// 把version.xml放到网络上，然后获取文件信息
-		InputStream inStream = ParseXmlService.class.getClassLoader().getResourceAsStream("com/thirdnet/zh/update/version.xml");
-		// 解析XML文件。 由于XML文件比较小，因此使用DOM方式进行解析
-		ParseXmlService service = new ParseXmlService();
-		try
-		{
-			mHashMap = service.parseXml(inStream);
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		if (null != mHashMap)
-		{
-			float serviceCode = Float.valueOf(mHashMap.get("version"));
-			System.out.println("serviceCode:"+serviceCode);
-			System.out.println("versionCode:"+versionCode);
-			// 版本判断
-			if (serviceCode > versionCode)
-			{
-				return true;
-			}
-		}
-		return false;
-	}*/
-
-	/**
-	 * 获取本地软件版本号
-	 * 
-	 * @param context
-	 * @return
-	 */
-	/*private float getVersionCode(Context context)
-	{
-		float versionCode = 0;
-		try
-		{
-			// 获取软件版本号，对应AndroidManifest.xml下android:versionCode
-			versionCode = Float.parseFloat(context.getPackageManager().getPackageInfo("com.thirdnet.zh", 0).versionName);
-		} catch (NameNotFoundException e)
-		{
-			e.printStackTrace();
-		}
-		return versionCode;
-	}*/
-
-	/**
-	 * 显示软件更新对话框
-	 */
-	/*private void showNoticeDialog()
-	{
-		// 构造对话框
-		AlertDialog.Builder builder = new Builder(bma);
-		builder.setTitle("软件更新");
-		builder.setMessage("检测到新版本，立即更新吗");
-		// 更新
-		builder.setPositiveButton("更新", new OnClickListener()
-		{
-			@Override
-			public void onClick(DialogInterface dialog, int which)
-			{
-				cancelUpdate=false;
-				dialog.dismiss();
-				// 显示下载对话框
-				showDownloadDialog();
-			}
-		});
-		// 稍后更新
-		builder.setNegativeButton("稍后更新", new OnClickListener()
-		{
-			@Override
-			public void onClick(DialogInterface dialog, int which)
-			{
-				restart();
-				dialog.dismiss();
-			}
-		});
-		Dialog noticeDialog = builder.create();
-		noticeDialog.show();
-	}*/
 	/**
 	 * 显示软件下载对话框
 	 */
 	private void showDownloadDialog()
 	{
-		mHashMap.put("url",bma.updateUrl );
-		Log.v("update","name:"+bma.updateUrl.lastIndexOf("/"));
-		String name=bma.updateUrl.substring( bma.updateUrl.lastIndexOf("/"));
-		mHashMap.put("name1",name);
-		Log.v("update", "name:"+name);
-		Log.v("update",bma.updateUrl);
+		String name=game.updateUrl.substring( game.updateUrl.lastIndexOf("/")+1,game.updateUrl.length());
+		mHashMap.put("url", game.updateUrl);
+		mHashMap.put("name", name);
+		
 		// 构造软件下载对话框
-		AlertDialog.Builder builder = new Builder(bma);
+		AlertDialog.Builder builder = new Builder(game);
 		builder.setTitle("正在更新...");
 		// 给下载对话框增加进度条
-		final LayoutInflater inflater = LayoutInflater.from(bma);
-		View v = inflater.inflate(R.layout.softupdate_view, null);
-		mProgress = (ProgressBar) v.findViewById(R.id.update_progress);
-		updateProgressBar=(TextView) v.findViewById(R.id.updateProgressBar);
-		builder.setView(v);
+		final LayoutInflater inflater = LayoutInflater.from(game);
+		View view = inflater.inflate(R.layout.softupdate_view, null);
+		builder.setView(view);
+		mProgress = (ProgressBar) view.findViewById(R.id.update_progress);
+		updateProgressBar=(TextView) view.findViewById(R.id.updateProgressBar);
+		
+		//game.m_webLayout.addView(view);
+		// 屏蔽按键不下漏
+		view.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+			}
+		});
+		builder.setCancelable(false);
 		// 取消更新
-		builder.setNegativeButton("取消", new OnClickListener()
+		builder.setPositiveButton("取消", new android.content.DialogInterface.OnClickListener()
 		{
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
+				Log.v("update", "取消-----------------");
 				restart();
 				dialog.dismiss();
 				// 设置取消状态
 				cancelUpdate = true;
 			}
 		});
+		
+		//builder.setNeutralButton("", listener)
 		mDownloadDialog = builder.create();
+		
 		mDownloadDialog.show();
 		// 下载文件
 		downloadApk();
@@ -252,6 +147,7 @@ public class UpdateManager extends Service
 					// 获得存储卡的路径
 					String sdpath = Environment.getExternalStorageDirectory() + "/";
 					mSavePath = sdpath + "download";
+					Log.v("update","savePath:"+mSavePath);
 					URL url = new URL(mHashMap.get("url"));
 					// 创建连接
 					URLConnection conn = (URLConnection) url.openConnection();
@@ -262,7 +158,7 @@ public class UpdateManager extends Service
 					InputStream is = conn.getInputStream();
 					if(is==null){
 						mDownloadDialog.dismiss();
-						Toast.makeText(bma,"与服务器断开连接!", Toast.LENGTH_LONG).show();
+						Toast.makeText(game,"与服务器断开连接!", Toast.LENGTH_LONG).show();
 						return;
 					}
 
@@ -311,7 +207,7 @@ public class UpdateManager extends Service
 
 	}
 	private void showFail(){
-		new AlertDialog.Builder(bma)
+		new AlertDialog.Builder(game)
 		.setTitle("失败！")
 		.setMessage("更新失败，请重新下载")
 		.setPositiveButton("确定",
@@ -365,9 +261,10 @@ public class UpdateManager extends Service
 		// 通过Intent安装APK文件
 		Intent i = new Intent(Intent.ACTION_VIEW);
 		i.setDataAndType(Uri.parse("file://" + apkfile.toString()), "application/vnd.android.package-archive");
-		bma.startActivity(i);
+		game.startActivity(i);
 	}
 	private void restart(){
-		stopService(new Intent(bma,UpdateManager.class));
+		Log.v("update", "restart");
+		stopService(new Intent(game,UpdateManager.class));
 	}
 }

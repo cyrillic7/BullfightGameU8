@@ -7,20 +7,22 @@
 
 #pragma once
 #include "PopDialogBox.h"
+#include "../LogonScene/LogonScene.h"
 class PopDialogBoxUpdateTipInfo :public PopDialogBox{
 public:
 	//关闭
 	Button *pBClose;
-	int iUpdateType;
+	//int iUpdateType;
 private:
 	Label *pLInfo;
-	std::string strContent;
+	//std::string strContent;
+	updateInfo uInfo;
 public:
 	PopDialogBoxUpdateTipInfo();
 	virtual ~PopDialogBoxUpdateTipInfo();
 	CREATE_FUNC(PopDialogBoxUpdateTipInfo);
 	//设置提示内容
-	void setTipInfoContent(const char *content);
+	void setTipInfoData(updateInfo upInfo);
 private:
 	virtual void onEnter();
 	virtual void onExit();
