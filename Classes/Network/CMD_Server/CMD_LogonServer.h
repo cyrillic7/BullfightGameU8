@@ -304,6 +304,8 @@ struct CMD_GP_ServerOnline
 #define SUB_GP_SET_INSUREPASS_GET_CAPTCHA			128					//获取验证码
 #define SUB_GP_SET_INSUREPASS_SEND_CAPTCHA			129					//发送验证码
 
+#define SUB_GP_VIPSHOP				132				   //vip馆
+
 #define SUB_GP_CHECK_ACCOUNT		140									//核对账号
 #define SUB_GP_GET_CAPTCHA_BY_ID	141									//根据ID获取验证码
 #define SUB_GP_SET_LOGIN_PASS		142									//设置新登录密码

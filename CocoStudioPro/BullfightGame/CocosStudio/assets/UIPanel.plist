@@ -7,11 +7,11 @@
             <key>BiaoTi_MBDW.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{948,2},{184,64}}</string>
+                <string>{{681,541},{184,64}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{184,64}}</string>
                 <key>sourceSize</key>
@@ -20,7 +20,7 @@
             <key>ChongZhi_Kuang.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{832,481},{93,90}}</string>
+                <string>{{839,434},{93,90}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -30,14 +30,27 @@
                 <key>sourceSize</key>
                 <string>{93,90}</string>
             </dict>
-            <key>TiShi_BiaoTi.png</key>
+            <key>ShengJi_BiaoTi.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{927,481},{93,47}}</string>
+                <string>{{934,434},{96,48}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{96,48}}</string>
+                <key>sourceSize</key>
+                <string>{96,48}</string>
+            </dict>
+            <key>TiShi_BiaoTi.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{918,532},{93,47}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{93,47}}</string>
                 <key>sourceSize</key>
@@ -46,11 +59,11 @@
             <key>XiaoBiaoTi_DiWen02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{950,188},{109,41}}</string>
+                <string>{{525,632},{109,41}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,1},{109,41}}</string>
                 <key>sourceSize</key>
@@ -59,7 +72,7 @@
             <key>u_lobby_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{832,573},{49,37}}</string>
+                <string>{{912,581},{49,37}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +85,7 @@
             <key>u_p_BDSJ_DW.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{792,232},{156,166}}</string>
+                <string>{{681,373},{156,166}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +98,7 @@
             <key>u_p_DiWen.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{792,2},{154,228}}</string>
+                <string>{{525,402},{154,228}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,7 +124,7 @@
             <key>u_pop_small_title.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{750,618},{229,45}}</string>
+                <string>{{681,607},{229,45}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -124,7 +137,7 @@
             <key>u_shop_package.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{525,402},{223,267}}</string>
+                <string>{{792,2},{223,267}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -137,7 +150,7 @@
             <key>u_u_info_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{950,299},{49,49}}</string>
+                <string>{{867,526},{49,49}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -150,11 +163,11 @@
             <key>u_u_info_title.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{750,400},{216,80}}</string>
+                <string>{{792,271},{216,80}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{216,80}}</string>
                 <key>sourceSize</key>
@@ -176,7 +189,7 @@
             <key>u_u_info_title2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{832,400},{180,79}}</string>
+                <string>{{839,353},{180,79}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -189,7 +202,7 @@
             <key>u_u_knapsack_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{660,373},{34,22}}</string>
+                <string>{{636,632},{34,22}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -220,9 +233,9 @@
             <key>realTextureFileName</key>
             <string>UIPanel.png</string>
             <key>size</key>
-            <string>{1014,676}</string>
+            <string>{1021,676}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:6d4f3a586b72408084b176070a7705e1:6da9a014151548db65750491a44c0e44:32c497890652a868b1bc601216ad4c61$</string>
+            <string>$TexturePacker:SmartUpdate:d9239a933c725c451f8610fcf1982f15:a16ff1680a210c5ccfc61b589dd22513:32c497890652a868b1bc601216ad4c61$</string>
             <key>textureFileName</key>
             <string>UIPanel.png</string>
         </dict>

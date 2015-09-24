@@ -10,7 +10,7 @@
 #include "PopDialogBox.h"
 #include "../Network/CMD_Server/CMD_LogonServer.h"
 #include "PopDialogBoxKnapsack.h"
-#define MAX_SHOP_ITEM_COUNT				2			//最大商店项总数
+#define MAX_SHOP_ITEM_COUNT				3			//最大商店项总数
 class PopDialogBoxShop: public PopDialogBox,public IPopAssist,public IPopAssistKnapsack {
 public:
 	CC_SYNTHESIZE(IPopDialogBoxAssist *, iIPopAssistShop, IPopDialogBoxAssist);
@@ -20,8 +20,10 @@ private:
 	{
 		SHOP_GIFT_PACKAGE=0,			//礼品包
 		SHOP_PROP,						//道具馆
+		SHOP_VIP,						//VIP馆
 		SHOP_BUY_GIFT,					//购买礼品
 		SHOP_BUY_PROP,					//购买道具
+		SHOP_BUY_VIP,					//购买VIP
 		//SHOP_KNAPSACK_LIST,				//背包列表
 		SHOP_GET_PROPERTY,				//获取财产
 
@@ -36,6 +38,8 @@ private:
 	std::vector<CMD_GP_Gift> vecGift;
 	//道具
 	std::vector<CMD_GP_Gift> vecProp;
+	//VIP
+	std::vector<CMD_GP_Gift> vecVip;
 	//购买道具索引
 	int iBuyPropIndex;
 

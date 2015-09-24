@@ -56,7 +56,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	CCEGLView::sharedOpenGLView()->setDesignResolutionSize(SCENE_SIZE.width, SCENE_SIZE.height, kResolutionFixedWidth);
 	pDirector->setProjection(kCCDirectorProjection2D);//2D投影
     // turn on display FPS
-    pDirector->setDisplayStats(true);
+    pDirector->setDisplayStats(false);
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
 	//设置缩放因子

@@ -13,7 +13,10 @@
     "UIPanel.plist",
     "UIButton.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIPanel.png",
+    "UIButton.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -119,7 +122,7 @@
                   "customProperty": "",
                   "flipX": false,
                   "flipY": false,
-                  "height": 47,
+                  "height": 48,
                   "ignoreSize": true,
                   "layoutParameter": null,
                   "opacity": 255,
@@ -129,14 +132,14 @@
                   "rotation": 0,
                   "scaleX": 1,
                   "scaleY": 1,
-                  "sizePercentX": 0.5054348,
-                  "sizePercentY": 0.734375,
+                  "sizePercentX": 0.5217391,
+                  "sizePercentY": 0.75,
                   "sizeType": 0,
                   "tag": 1854,
                   "touchAble": false,
                   "useMergedTexture": false,
                   "visible": true,
-                  "width": 93,
+                  "width": 96,
                   "x": 0,
                   "y": -18,
                   "capInsetsHeight": 1,
@@ -145,13 +148,13 @@
                   "capInsetsY": 0,
                   "fileName": null,
                   "fileNameData": {
-                    "path": "TiShi_BiaoTi.png",
+                    "path": "ShengJi_BiaoTi.png",
                     "plistFile": "UIPanel.plist",
                     "resourceType": 1
                   },
                   "scale9Enable": false,
-                  "scale9Height": 47,
-                  "scale9Width": 93
+                  "scale9Height": 48,
+                  "scale9Width": 96
                 }
               }
             ],

@@ -156,9 +156,7 @@ void PopDialogBoxShop::onCloseKnapsack(){
 }
 //购买道具
 void PopDialogBoxShop::onMenuBuyProp(CCObject *object, TouchEventType type){
-	switch (type)
-	{
-	case TOUCH_EVENT_ENDED:
+	if(type == TOUCH_EVENT_ENDED)
 	{
 		UIButton *pButton = static_cast<UIButton*>(object);
 		iBuyPropIndex = pButton->getTag();
@@ -196,15 +194,27 @@ void PopDialogBoxShop::onMenuBuyProp(CCObject *object, TouchEventType type){
 			showInputNumBox(BUY_SHOP, GBKToUTF8(vecProp[iBuyPropIndex].szName).c_str(), vecProp[iBuyPropIndex].szImgName, 1, vipPice, vecProp[iBuyPropIndex].dwDiscount, 0, this);
 		}
 			break;
+		case PopDialogBoxShop::SHOP_VIP:
+		case PopDialogBoxShop::SHOP_BUY_VIP:
+		{
+			setShopItem(SHOP_BUY_VIP);
+
+			//会员价
+			float vipDiscount = vecVip.at(iBuyPropIndex).dwDiscount / 100.0;
+			if (vecVip.at(iBuyPropIndex).dwDiscount == 0)
+			{
+				vipDiscount = 1;
+			}
+			long vipPice = vecVip.at(iBuyPropIndex).price[0].dwCount*vipDiscount;
+
+			showInputNumBox(BUY_SHOP, GBKToUTF8(vecVip[iBuyPropIndex].szName).c_str(), vecVip[iBuyPropIndex].szImgName, 1, vipPice, vecVip[iBuyPropIndex].dwDiscount, 0, this);
+		}
+		break;
 		default:
 			break;
 		}
 		
 		//connectServer(SOCKET_SHOP);
-	}
-	break;
-	default:
-		break;
 	}
 }
 //复选框回调
@@ -280,6 +290,20 @@ void PopDialogBoxShop::changeSelectItem(ShopItem eItem){
 			updateListCommodity(&vecProp);
 		}
 		
+	}
+		break;
+	case PopDialogBoxShop::SHOP_VIP:
+	{
+		if (vecVip.size() <= 0)
+		{
+			//连接服务器
+			connectServer();
+			connectSuccess();
+		}
+		else
+		{
+			updateListCommodity(&vecVip);
+		}
 	}
 		break;
 	default:
@@ -383,6 +407,12 @@ void PopDialogBoxShop::buyPropForType(){
 		buyGift.dwType = 2;
 	}
 		break;
+	case PopDialogBoxShop::SHOP_BUY_VIP:
+	{
+		buyGift.dwID = vecVip[iBuyPropIndex].dwID;
+		buyGift.dwType = 3;
+	}
+	break;
 	default:
 		break;
 	}
@@ -416,8 +446,17 @@ void PopDialogBoxShop::connectSuccess(){
 		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_PROPERTY, &getGift, sizeof(getGift));
 	}
 	break;
+	case PopDialogBoxShop::SHOP_VIP:
+	{
+		CMD_GP_GetGift getGift;
+		getGift.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+		getGift.dwOpTerminal = 2;
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_VIPSHOP, &getGift, sizeof(getGift));
+	}
+	break;
 	case PopDialogBoxShop::SHOP_BUY_GIFT:
 	case PopDialogBoxShop::SHOP_BUY_PROP:
+	case PopDialogBoxShop::SHOP_BUY_VIP:
 	{
 		buyPropForType();
 	}
@@ -467,6 +506,9 @@ void PopDialogBoxShop::onEventUserService(WORD wSubCmdID, void * pDataBuffer, un
 		break;							
 	case SUB_GP_PROPERTY://道具列表
 		onSubGiftList(pDataBuffer, wDataSize,vecProp);
+		break;
+	case SUB_GP_VIPSHOP://VIP馆
+		onSubGiftList(pDataBuffer, wDataSize, vecVip);
 		break;
 	case SUB_GP_BUYGIFT://购买礼品包,道具
 		onSubBuyGift(pDataBuffer, wDataSize);
@@ -567,9 +609,13 @@ void PopDialogBoxShop::onSubTreasure(void * pDataBuffer, unsigned short wDataSiz
 	{
 		setShopItem(SHOP_GIFT_PACKAGE);
 	}
-	else
+	else if(pCBShopItems[1]->getSelectedState())
 	{
 		setShopItem(SHOP_PROP);
+	}
+	else if (pCBShopItems[2]->getSelectedState())
+	{
+		setShopItem(SHOP_VIP);
 	}
 	
 }

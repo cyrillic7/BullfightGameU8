@@ -39,11 +39,11 @@ GameControlBase::GameControlBase()
 	scheduleUpdate();
 
 
-	CCLabelTTF *label = CCLabelTTF::create("", "Marker Felt", 20);
+	/*CCLabelTTF *label = CCLabelTTF::create("", "Marker Felt", 20);
 	this->addChild(label, 2, 999);
 	label->setColor(ccc3(255, 0, 0));
 	label->setPosition(ccp(0, DataModel::sharedDataModel()->deviceSize.height));
-	label->setAnchorPoint(ccp(0, 1));
+	label->setAnchorPoint(ccp(0, 1));*/
 }
 GameControlBase::~GameControlBase(){
 	unschedule(SEL_SCHEDULE(&GameControlBase::updateTimer));
@@ -306,10 +306,11 @@ void GameControlBase::menuPause(CCObject* pSender, TouchEventType type){
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		isShowMoer = !isShowMoer;
+		standUpWithExit();
+		/*isShowMoer = !isShowMoer;
 		pIVMoer->setVisible(isShowMoer);
 		pBSetting->setTouchEnabled(isShowMoer);
-		pBExit->setTouchEnabled(isShowMoer);
+		pBExit->setTouchEnabled(isShowMoer);*/
 	}
 	break;
 	default:
@@ -1448,8 +1449,8 @@ void GameControlBase::onSubUserState(WORD wSubCmdID, void * pDataBuffer, unsigne
 				DataModel::sharedDataModel()->userInfo->wTableID = info->UserStatus.wTableID;
 				DataModel::sharedDataModel()->userInfo->wChairID = info->UserStatus.wChairID;
 
-				CCLabelTTF *label = (CCLabelTTF*)this->getChildByTag(999);
-				label->setString(CCString::createWithFormat("table::%d",DataModel::sharedDataModel()->userInfo->wTableID+1)->getCString());
+				//CCLabelTTF *label = (CCLabelTTF*)this->getChildByTag(999);
+				//label->setString(CCString::createWithFormat("table::%d",DataModel::sharedDataModel()->userInfo->wTableID+1)->getCString());
 				if (isUpdateUserInfo)
 				{
 					isUpdateUserInfo = false;
