@@ -23,5 +23,7 @@ public:
 	bool isAllChniese(std::string string);
 	//是否全是数字
 	bool isDigit2(std::string str);
+	//分割字符串
+	CCArray* split(const char* srcStr, const char* sSep);
 };
 

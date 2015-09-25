@@ -83,4 +83,6 @@ private:
 	virtual void keyBackClicked();  //响应返回键  
 	//金币闪光动画
 	void updateGoldLight(float dt);
+	//更新新游戏状态
+	void updateNewMsgState(CCObject *obj);
 };

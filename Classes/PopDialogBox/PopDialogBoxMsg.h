@@ -43,6 +43,8 @@ public:
 private:
 	virtual void onEnter();
 	virtual void onExit();
+	//关闭
+	void onMenuClose(CCObject *object, TouchEventType type);
 	//消息按键回调
 	void onMenuMsg(CCObject *object, TouchEventType type);
 	//消息返回按键回调
@@ -51,4 +53,6 @@ private:
 	void onMenuSelectMsgItem(CCObject *object, TouchEventType type);
 	//更新消息列表
 	void updateListMsg(std::vector<std::string> qMsg);
+	//保存消息ID
+	void saveMsgID();
 };

@@ -53,6 +53,10 @@ void LobbyMsgHandler::onOpen(){
 	CCLOG("open <<%s>>", __FUNCTION__);
 }
 void LobbyMsgHandler::onError(const char* sError){
+	DataModel::sharedDataModel()->vecSystemMsg.clear();
+	DataModel::sharedDataModel()->vecMyMsg.clear();
+	connectServer(DataModel::sharedDataModel()->sLobbyIp, DataModel::sharedDataModel()->lLobbyProt);
+	return;
 	ReadData rData;
 	rData.wMainCmdID = MDM_MB_UNCONNECT;
 	rData.wSubCmdID = SUB_MB_SOCKET_NETWORK_ERROR;
@@ -83,6 +87,58 @@ bool LobbyMsgHandler::onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuf
 			CMD_GL_MsgNode *msgNode = (CMD_GL_MsgNode*)pDataBuffer;
 
 			std::string msg = msgNode->szMsgcontent;
+
+			//////////////////////////////////////////////////////////////////////////
+			if (msgNode->dwMsgType == Msg_Notice)
+			{
+				map<long, NewMsg >::iterator l_it;
+				l_it = DataModel::sharedDataModel()->mNewMsg.find(DataModel::sharedDataModel()->userInfo->dwUserID);
+				if (l_it != DataModel::sharedDataModel()->mNewMsg.end())
+				{
+					if (checkMsgById(l_it->second.sMsgId.c_str(), msgNode->dwMsgID))
+					{
+						
+					}
+					else
+					{
+						l_it->second.sMsgId += CCString::createWithFormat(",%ld", msgNode->dwMsgID)->getCString();
+						DataModel::sharedDataModel()->isShowNewMsg = true;
+						/*l_it->second.sMsgId += CCString::createWithFormat(",%ld", msgNode->dwMsgID)->getCString();
+						CCArray *strArray=split(l_it->second.sMsgId.c_str(),",");
+						CCLOG("---:%s <<%s>>", l_it->second.sMsgId.c_str(), __FUNCTION__);
+						
+
+						CCObject *object = NULL;
+						CCARRAY_FOREACH(strArray, object)
+						{
+							CCString *str = (CCString*)object;
+							CCLOG(str->getCString());
+						}*/
+					}
+				}
+				else
+				{
+					NewMsg newMsg;
+					newMsg.sMsgId = CCString::createWithFormat("%ld", msgNode->dwMsgID)->getCString();
+					DataModel::sharedDataModel()->mNewMsg.insert(map<long, NewMsg>::value_type(DataModel::sharedDataModel()->userInfo->dwUserID, newMsg));
+					DataModel::sharedDataModel()->isShowNewMsg = true;
+				}
+
+
+				
+				MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_NEW_MSG_STATE, NULL);
+			}
+			else if (msgNode->dwMsgType == Msg_Sell_Success)
+			{
+				DataModel::sharedDataModel()->isShowNewAuctionMsg = true;
+				MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_NEW_MSG_STATE, NULL);
+			}
+			else if (msgNode->dwMsgType == Msg_Rewards)
+			{
+				DataModel::sharedDataModel()->isShowNewTaskMsg = true;
+				MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_NEW_MSG_STATE, NULL);
+			}
+			//////////////////////////////////////////////////////////////////////////
 			if (msgNode->dwUserID == 0)
 			{
 
@@ -131,4 +187,19 @@ void LobbyMsgHandler::onCloseTipInfo(CCLayer *pTipInfo){
 
 
 	Tools::setTransitionAnimation(0, 0, LogonScene::scene());
+}
+//查找消息ID
+bool LobbyMsgHandler::checkMsgById(const char *strMsgId, DWORD dwCurMsgID){
+	CCArray *strArray = split(strMsgId, ",");
+	CCObject *object = NULL;
+	CCARRAY_FOREACH(strArray, object)
+	{
+		CCString *str = (CCString*)object;
+		DWORD dwMsgID = strtol(str->getCString(), NULL, 10);
+		if (dwMsgID==dwCurMsgID)
+		{
+			return true;
+		}
+	}
+	return false;
 }

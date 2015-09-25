@@ -25,6 +25,8 @@
 #include "../PopDialogBox/PopDialogBoxFirstRecharge.h"
 #include "../Platform/coPlatform.h"
 #include "../Tools/DataModel.h"
+#include "../Network/SEvent.h"
+#include "../MTNotificationQueue/MTNotificationQueue.h"
 #include "network/HttpRequest.h"
 BaseLobbyScene * BaseLobbyScene::lobbyScene = NULL;
 BaseLobbyScene::BaseLobbyScene()
@@ -125,9 +127,15 @@ void BaseLobbyScene::onEnter(){
 	pAnimate->setPosition(3, 1);
 	pAnimate->setVisible(false);
 	schedule(SEL_SCHEDULE(&BaseLobbyScene::updateGoldLight), 2);
+
+
+	//添加监听事件
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(BaseLobbyScene::updateNewMsgState), UPDATE_NEW_MSG_STATE, NULL);
 }
 //退出场景
 void BaseLobbyScene::onExit(){
+	//移除监听事件 
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, UPDATE_NEW_MSG_STATE);
 	CCLayer::onExit();
 }
 //post回调
@@ -308,10 +316,14 @@ void BaseLobbyScene::onMenuCallback(CCObject* pSender, TouchEventType type){
 			else if(strcmp(button->getName(),"ButtonActivity")==0)
 			{
 				popDialogBox(POP_ACTIVITY);
+				DataModel::sharedDataModel()->isShowNewAuctionMsg = false;
+				MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_NEW_MSG_STATE, NULL);
 			}
 			else if(strcmp(button->getName(),"ButtonTask")==0)
 			{
 				popDialogBox(POP_TASK);
+				DataModel::sharedDataModel()->isShowNewTaskMsg = false;
+				MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_NEW_MSG_STATE, NULL);
 			}
 			else if(strcmp(button->getName(),"ButtonTask")==0)
 			{
@@ -407,4 +419,21 @@ void BaseLobbyScene::updateGoldLight(float dt){
 		pAnimate->setVisible(true);
 	}
 	pAnimate->getAnimation()->play("cUIGold");
+}
+//更新新游戏状态
+void BaseLobbyScene::updateNewMsgState(CCObject *obj){
+	//消息
+	UIButton *bMsg = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonMsg"));
+	UIImageView *pIVNewMsg = static_cast<UIImageView*>(bMsg->getChildByName("ImageNewMsg"));
+	pIVNewMsg->setVisible(DataModel::sharedDataModel()->isShowNewMsg);
+
+	//任务
+	UIButton *bTask = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonTask"));
+	UIImageView *pIVTaskMsg = static_cast<UIImageView*>(bTask->getChildByName("ImageNewMsg"));
+	pIVTaskMsg->setVisible(DataModel::sharedDataModel()->isShowNewTaskMsg);
+
+	//拍卖
+	UIButton *bAuction = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonAuction"));
+	UIImageView *pIVAuctionMsg = static_cast<UIImageView*>(bAuction->getChildByName("ImageNewMsg"));
+	pIVAuctionMsg->setVisible(DataModel::sharedDataModel()->isShowNewAuctionMsg);
 }

@@ -8,6 +8,7 @@
 #ifndef MTNOTIFICATIONQUEUE_H_
 #define MTNOTIFICATIONQUEUE_H_
 #include "cocos2d.h"
+#include "../Network/SEvent.h"
 USING_NS_CC;
 using namespace std;
 class MTNotificationQueue:public CCObject {

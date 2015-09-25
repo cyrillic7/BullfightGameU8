@@ -368,6 +368,7 @@ struct CMD_GP_GetMoreGame
 		//memset(this, 0, sizeof(CMD_GP_GetMoreGame));
 	}
 	DWORD	dwOpTerminal;												//操作终端（1：pc, 2：手机牛牛 3：手机捕鱼）
+	WORD	wPlatformType;												//平台类型（1：七彩牛平台）
 };
 struct CMD_GP_MoreGame
 {
@@ -375,10 +376,14 @@ struct CMD_GP_MoreGame
 	{
 		//memset(this, 0, sizeof(CMD_GP_MoreGame));
 	}
-	TCHAR	szName[MORENAME_NAME_LEN];									//游戏名称
-	TCHAR	szAppName[MORENAME_NAME_LEN];								//进程名称
-	TCHAR	szICO[MORENAME_ICO_LEN];
-	TCHAR	szUrl[MORENAME_URL_LEN];									//下载地址
+	TCHAR	szPackageName[MORENAME_NAME_LEN];							//游戏包名
+	TCHAR	szActivityName[MORENAME_NAME_LEN];							//进程名称
+	TCHAR	szICO[MORENAME_ICO_LEN];									//图片下载地址
+	TCHAR	szUrlAndroid[MORENAME_URL_LEN];								//android下载地址
+	TCHAR	szUrlIos[MORENAME_URL_LEN];									//ios下载地址
+
+	TCHAR	szGameName[MORENAME_NAME_LEN];								//应用名
+	TCHAR	szDescribeString[MORENAME_URL_LEN];							//描述消息
 };
 
 //反馈
@@ -1595,12 +1600,17 @@ enum MsgPositionType
 enum MsgType
 {
 	Msg_Delta = 1,			//充值			（只弹一次，在线）
-	Msg_Rewards,			//任务奖励		（只弹一次，在线）
+	Msg_Rewards,			//任务完成		（只弹一次，在线）
 	Msg_Sell,				//拍卖			（只弹一次，在线）
 	Msg_Rolling,			//滚动消息		 (发送一次，实时显示）
 	Msg_Notice,				//公告			（登录或在线，都发送）
 	Msg_Building,			//抢楼			 只弹一次，在线）
 	Msg_Sell_Success,		//拍卖成功
+	Msg_Vip,				//vip			（只弹一次，在线
+	Msg_9,
+	Msg_10,
+	Msg_11,
+	Msg_12,
 };
 
 struct CMD_GL_MsgNode

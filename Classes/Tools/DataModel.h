@@ -6,10 +6,16 @@
 #include "../Network/CMD_Server/CMD_LogonServer.h"
 #include "../Play/OxHundred/JettonNode.h"
 USING_NS_CC;
+//更多帐号
 struct MoreAccount
 {
 	std::string userAccount;
 	std::string userPwd;
+};
+//新消息ID
+struct NewMsg
+{
+	std::string sMsgId;
 };
 class DataModel:public CCObject{
 public:
@@ -23,6 +29,13 @@ public:
 	int logonType;
 	//是否坐下
 	bool isSit;
+	//是否显示新消息提示
+	bool isShowNewMsg;
+	//是否显示新任务提示
+	bool isShowNewTaskMsg;
+	//是否显示新拍卖提示
+	bool isShowNewAuctionMsg;
+
 	CCSize deviceSize;
 	//登录帐号
 	std::string sLogonAccount;
@@ -30,6 +43,8 @@ public:
 	std::string sLogonPassword;
 	//更多帐号
 	std::vector <MoreAccount> vecMoreAccount;
+	//新消息提示
+	std::map <long,NewMsg> mNewMsg;
 	//长连接大厅地址
 	std::string sLobbyIp;
 	//手机号码
@@ -82,6 +97,8 @@ public:
 	static DataModel* sharedDataModel();
 private:
 	void initDataModel();
+	//初始化新消息提示
+	void initNewMsgTip();
 public:
 	//排序vector
 	void sortVector(std::vector <tagGameServer *> &vTagGameServer);

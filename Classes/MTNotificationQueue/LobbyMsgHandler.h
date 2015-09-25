@@ -26,4 +26,6 @@ private:
 	virtual void onOpen();
 	virtual void onError(const char* e);
 	virtual bool onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
+	//查找消息ID
+	bool checkMsgById(const char *strMsgId, DWORD dwCurMsgID);
 };

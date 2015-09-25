@@ -8,6 +8,8 @@
 #include "PopDialogBoxMsg.h"
 #include "../Tools/DataModel.h"
 #include "../Tools/GameConfig.h"
+#include "../Tools/Tools.h"
+#include "../MTNotificationQueue/MTNotificationQueue.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxMsg::PopDialogBoxMsg()
 {
@@ -26,7 +28,7 @@ void PopDialogBoxMsg::onEnter(){
 	pWidgetBg->setScale(0.8);
 	//关闭
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
-	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::menuBack));
+	backButton->addTouchEventListener(this, toucheventselector(PopDialogBoxMsg::onMenuClose));
 	//系统消息按键
 	pBSystemMsg = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonSystem"));
 	pBSystemMsg->addTouchEventListener(this, toucheventselector(PopDialogBoxMsg::onMenuMsg));
@@ -72,6 +74,14 @@ void PopDialogBoxMsg::onEnter(){
 }
 void PopDialogBoxMsg::onExit(){
 	CCLayer::onExit();
+}
+//关闭
+void PopDialogBoxMsg::onMenuClose(CCObject *object, TouchEventType type){
+	if (type == TOUCH_EVENT_ENDED)
+	{
+		saveMsgID();
+		PopDialogBox::menuBack(object, type);
+	}
 }
 //消息按键回调
 void PopDialogBoxMsg::onMenuMsg(CCObject *object, TouchEventType type){
@@ -190,4 +200,22 @@ void PopDialogBoxMsg::updateListMsg(std::vector<std::string> qMsg){
 		}
 
 	}*/
+}
+//保存消息ID
+void PopDialogBoxMsg::saveMsgID(){
+	//保存
+	std::string saveStr = "{";
+
+	std::map<long, NewMsg>::iterator iter;
+	for (iter = DataModel::sharedDataModel()->mNewMsg.begin(); iter != DataModel::sharedDataModel()->mNewMsg.end(); iter++)
+	{
+		saveStr += CCString::createWithFormat("\"newMsgData\":{\"userId\":\"%s\",\"msgId\":\"%s\"},", CCString::createWithFormat("%ld", iter->first)->getCString(), iter->second.sMsgId.c_str())->getCString();
+	}
+	saveStr.erase(saveStr.end() - 1);
+
+	saveStr += "}";
+	Tools::saveStringByRMS(RMS_NEW_MSG_TIP, saveStr.c_str());
+
+	DataModel::sharedDataModel()->isShowNewMsg = false;
+	MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_NEW_MSG_STATE, NULL);
 }

@@ -609,6 +609,8 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			if (wDataSize < sizeof(CMD_MB_LogonSuccess)) return;
 			CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)pDataBuffer;
 			CCLOG("登录成功 %ld %s", ls->dwUserID, GBKToUTF8(ls->szNickName).c_str());
+
+			DataModel::sharedDataModel()->isShowNewTaskMsg = ls->dwTaskCount>0;
 			//赋值
 			strcpy(DataModel::sharedDataModel()->userInfo->szNickName,ls->szNickName);
 			DataModel::sharedDataModel()->userInfo->lScore=ls->lUserScore;
@@ -885,6 +887,7 @@ void LogonScene::initRSM(){
 	Tools::saveStringByRMS(RMS_LOGON_PASSWORD,"");
 	Tools::saveStringByRMS(RMS_SIGN_RECORD, "");
 	Tools::saveStringByRMS(RMS_MORE_ACCOUNT,"");
+	Tools::saveStringByRMS(RMS_NEW_MSG_TIP, "");
 }
 bool LogonScene::isHaveSaveFile(){
 	if (!Tools::getBoolByRMS("isHaveSaveFileXml"))

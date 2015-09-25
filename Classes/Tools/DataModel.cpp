@@ -7,6 +7,7 @@
 #include "DataModel.h"
 #include "Tools.h"
 #include "GameConfig.h"
+#include "../extensions/spine/Json.h"
 bool DataModel::isSound = true;
 bool DataModel::isMusic = true;
 //是否是游客
@@ -17,6 +18,9 @@ DataModel* _sharedContext;
 DataModel::DataModel()
 :isSit(false)
 ,m_lTurnMaxScore(0)
+, isShowNewMsg(false)
+, isShowNewTaskMsg(false)
+, isShowNewAuctionMsg(false)
 {
     
 	DataModel::isMusic = Tools::getBoolByRMS(RMS_IS_MUSIC);
@@ -29,6 +33,7 @@ DataModel::DataModel()
 //	logonSuccessUserInfo=new CMD_MB_LogonSuccess();
 	userInfo=new tagUserInfo();
 	// pthread_mutex_init(&sResponseQueueMutex, NULL);
+	//
 }
 DataModel::~DataModel() {
 	CCLOG("~ <<%s>>",__FUNCTION__);
@@ -97,6 +102,8 @@ void DataModel::initDataModel(){
 
 	m_aTagGameKind = CCArray::create();
 	m_aTagGameKind->retain();
+
+	initNewMsgTip();
 	/*
 	
 	_outputEnemysData = CCArray::create();
@@ -123,6 +130,34 @@ void DataModel::initDataModel(){
 	//
 	//_bulletMagicWands = CCArray::create();
 	//_bulletMagicWands->retain();*/
+}
+//初始化新消息提示
+void DataModel::initNewMsgTip(){
+	std::string sMore = Tools::getStringByRMS(RMS_NEW_MSG_TIP);
+	Json *root = Json_create(sMore.c_str());
+	if (root)
+	{
+		Json* _date = Json_getItem(root, "newMsgData");
+		Json* _record = root->child;
+		while (_record)
+		{
+			NewMsg newMsg;
+			long userID;
+			Json* _userID = Json_getItem(_record, "userId");
+			if (_userID->type == Json_String)
+			{
+				userID = strtol(_userID->valuestring,NULL,10);
+			}
+			Json* _pwd = Json_getItem(_record, "msgId");
+			if (_pwd->type == Json_String)
+			{
+				newMsg.sMsgId = _pwd->valuestring;
+			}
+			DataModel::sharedDataModel()->mNewMsg.insert(std::map<long, NewMsg>::value_type(userID, newMsg));
+			_record = _record->next;
+		}
+	}
+	Json_dispose(root);
 }
 bool lessSecond(const tagGameServer * m1, const tagGameServer * m2) {
 	//CCLOG("m1:%d  m2:%d <<%s>>",m1->wSortID,m2->wSortID, __FUNCTION__);

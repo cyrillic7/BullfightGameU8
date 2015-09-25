@@ -14,7 +14,11 @@
     "UIButton.plist",
     "card.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIGameIng.png",
+    "UIButton.png",
+    "card.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",

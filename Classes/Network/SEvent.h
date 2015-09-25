@@ -18,3 +18,5 @@
 #define UPDATE_BANK_LIST						"updateBankList"				//刷新百人牛牛庄家列表
 #define S_L_COLSE_GAMEING_UPDATE				"closeGameIngUpdate"			//关闭刷新升级
 
+#define UPDATE_NEW_MSG_STATE					"updateNewMsgState"				//更新新消息状态
+

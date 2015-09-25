@@ -59,8 +59,8 @@ void PopDialogBoxMore::onMenuOpenGame(CCObject *object, TouchEventType type){
 		UIButton *pButton = (UIButton*)object;
 		int tag = pButton->getTag();
 		//vecMoreInfo[tag].szAppName;
-		CCString *sAction = CCString::createWithFormat("{\"act\":500 ,\"packageName\":\"%s\",\"activity\":\"%s\",\"url\":\"%s\"}", vecMoreInfo[tag].szName, vecMoreInfo[tag].szAppName, vecMoreInfo[tag].szUrl);
-		platformAction(sAction->getCString());
+		//CCString *sAction = CCString::createWithFormat("{\"act\":500 ,\"packageName\":\"%s\",\"activity\":\"%s\",\"url\":\"%s\"}", vecMoreInfo[tag].szName, vecMoreInfo[tag].szAppName, vecMoreInfo[tag].szUrl);
+		//platformAction(sAction->getCString());
 	}
 }
 //更新更多游戏列表
@@ -112,6 +112,7 @@ void PopDialogBoxMore::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void 
 void PopDialogBoxMore::connectSuccess(){
 	CMD_GP_GetMoreGame moreGame;
 	moreGame.dwOpTerminal = 2;
+	moreGame.wPlatformType = 1;
 	gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_MORE_GAME,&moreGame,sizeof(CMD_GP_GetMoreGame));
 }
 //用户服务
@@ -142,10 +143,10 @@ void PopDialogBoxMore::onSubMoreGameList(void * pDataBuffer, unsigned short wDat
 		CMD_GP_MoreGame *pMoreGame = (CMD_GP_MoreGame*)pDataBuffer;
 
 		CMD_GP_MoreGame moreGame;
-		strcpy(moreGame.szAppName, pMoreGame->szAppName);
+		/*strcpy(moreGame.szAppName, pMoreGame->szAppName);
 		strcpy(moreGame.szICO, pMoreGame->szICO);
 		strcpy(moreGame.szName, pMoreGame->szName);
-		strcpy(moreGame.szUrl, pMoreGame->szUrl);
+		strcpy(moreGame.szUrl, pMoreGame->szUrl);*/
 
 		vecMoreInfo.push_back(moreGame);
 	}
