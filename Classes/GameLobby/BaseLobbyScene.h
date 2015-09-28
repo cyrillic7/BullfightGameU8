@@ -85,4 +85,8 @@ private:
 	void updateGoldLight(float dt);
 	//更新新游戏状态
 	void updateNewMsgState(CCObject *obj);
+
+
+	//首充回调
+	void onUpdateFirstDelta(CCObject *obj);
 };

@@ -545,7 +545,7 @@ public class BullfightGame extends Cocos2dxActivity {
 		// orderInfo += "&notify_url=" + "\"" +
 		// "http://pay.999qp.com/alipay/notify_url.aspx"
 		orderInfo += "&notify_url=" + "\""
-				+ "http://121.40.231.233:8019/alipay/notify_url.aspx" + "\"";
+				+ "http://pay.qicainiu.com/alipay/notify_url.aspx" + "\"";
 		// 服务接口名称， 固定值
 		orderInfo += "&service=\"mobile.securitypay.pay\"";
 		// 支付类型， 固定值
@@ -563,7 +563,7 @@ public class BullfightGame extends Cocos2dxActivity {
 		// 支付宝处理完请求后，当前页面跳转到商户指定页面的路径，可空
 		// orderInfo +=
 		// "&return_url=\"http://pay.999qp.com/alipay/return_url.aspx\"";
-		orderInfo += "&return_url=\"http://121.40.231.233:8019/alipay/return_url.aspx\"";
+		orderInfo += "&return_url=\"http://pay.qicainiu.com/alipay/return_url.aspx\"";
 		// 调用银行卡支付，需配置此参数，参与签名， 固定值 （需要签约《无线银行卡快捷支付》才能使用）
 		// orderInfo += "&paymethod=\"expressGateway\"";
 		return orderInfo;

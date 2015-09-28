@@ -20,4 +20,5 @@
 
 #define UPDATE_NEW_MSG_STATE					"updateNewMsgState"				//更新新消息状态
 #define UPDATE_DELTA							"updateDelta"					//更新充值
+#define UPDATE_FIRST_DELTA						"updateFirstDelta"				//更新首充充值
 

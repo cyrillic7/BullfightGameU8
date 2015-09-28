@@ -256,6 +256,8 @@ struct tagUserInfo
 	//////////////////////////////////////////////////////////////////////////
 	SCORE								lIngot;								//元宝
 	SCORE								lIngotScore;						//元宝
+
+	DWORD							dwFirstOnLineOrder;					//是否首冲
 };
 
 //用户信息

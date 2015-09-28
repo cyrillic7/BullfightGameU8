@@ -100,8 +100,8 @@ void BaseLobbyScene::onEnter(){
 	button = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonKnapsack"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
 	//绑定充值
-	button = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonRecharge"));
-	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
+	UIButton* pBRecharge = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonRecharge"));
+	pBRecharge->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
 	//立即游戏
 	//UIButton *pBStartGame = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonStartGame"));
 	//pBStartGame->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuQuickGame));
@@ -112,7 +112,7 @@ void BaseLobbyScene::onEnter(){
 	//绑定首充
 	UIImageView *pFirstRecharge = static_cast<UIImageView*>(m_pWidgetBase->getWidgetByName("ButtonFirstRecharge"));
 	pFirstRecharge->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuFirstRecharge));
-	
+	pFirstRecharge->setEnabled(DataModel::sharedDataModel()->userInfo->dwFirstOnLineOrder);
 	//用户名
 	userName=static_cast<UILabel*>(m_pWidgetBase->getWidgetByName("labelUserName"));
 	//金币
@@ -131,11 +131,15 @@ void BaseLobbyScene::onEnter(){
 
 	//添加监听事件
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(BaseLobbyScene::updateNewMsgState), UPDATE_NEW_MSG_STATE, NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(BaseLobbyScene::onUpdateFirstDelta), UPDATE_FIRST_DELTA, NULL);
+
 }
 //退出场景
 void BaseLobbyScene::onExit(){
 	//移除监听事件 
 	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, UPDATE_NEW_MSG_STATE);
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, UPDATE_FIRST_DELTA);
+
 	CCLayer::onExit();
 }
 //post回调
@@ -436,4 +440,10 @@ void BaseLobbyScene::updateNewMsgState(CCObject *obj){
 	UIButton *bAuction = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonAuction"));
 	UIImageView *pIVAuctionMsg = static_cast<UIImageView*>(bAuction->getChildByName("ImageNewMsg"));
 	pIVAuctionMsg->setVisible(DataModel::sharedDataModel()->isShowNewAuctionMsg);
+}
+//首充回调
+void BaseLobbyScene::onUpdateFirstDelta(CCObject *obj){
+	//绑定首充
+	UIImageView *pFirstRecharge = static_cast<UIImageView*>(m_pWidgetBase->getWidgetByName("ButtonFirstRecharge"));
+	pFirstRecharge->setEnabled(DataModel::sharedDataModel()->userInfo->dwFirstOnLineOrder);
 }

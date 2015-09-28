@@ -623,6 +623,7 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			DataModel::sharedDataModel()->userInfo->lIngotScore = ls->lIngotScore;
 			DataModel::sharedDataModel()->sPhone = ls->szPhone;
 			DataModel::sharedDataModel()->userInfo->dwVipLevel = ls->dwVipLevel;
+			DataModel::sharedDataModel()->userInfo->dwFirstOnLineOrder = ls->dwFirstOnLineOrder;
 			if (!DataModel::sharedDataModel()->sPhone.empty())
 			{
 				DataModel::sharedDataModel()->sPhone.erase(0, DataModel::sharedDataModel()->sPhone.find_first_not_of(" "));
@@ -673,6 +674,12 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 		
 			gameSocket.Destroy(true);
 			
+			PopDialogBoxOtherLoading *pLoading = (PopDialogBoxOtherLoading*)this->getChildByTag(TAG_LOADING);
+			if (pLoading)
+			{
+				pLoading->removeFromParentAndCleanup(true);
+			}
+
 			PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
 			this->addChild(tipInfo);
 			tipInfo->setTipInfoContent(GBKToUTF8(describeStr).c_str());

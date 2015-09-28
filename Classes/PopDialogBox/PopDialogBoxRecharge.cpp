@@ -327,7 +327,7 @@ void PopDialogBoxRecharge::connectSuccess(){
 	case R_Action_SEND_ORDER://发送订单号
 	{
 		CMD_GP_RechargeOrder rOrder;
-		rOrder.dwFirst = 10;
+		rOrder.dwFirst = 0;
 		rOrder.dwOpTerminal = 2;
 		rOrder.dwOrderAmount = lBigGoldPice[iCurSelectIndex];
 		rOrder.dwShareID = 7;

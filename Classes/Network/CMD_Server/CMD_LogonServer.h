@@ -1474,6 +1474,7 @@ struct CMD_MB_LogonSuccess
 
 	DWORD							dwTaskCount;						//完成任务	
 	DWORD							dwUnReadCount;						//未读信息
+	DWORD							dwFirstOnLineOrder;					//首冲（0未首充，1已首充）
 };
 
 
