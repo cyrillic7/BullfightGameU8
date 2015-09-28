@@ -304,6 +304,7 @@ struct CMD_GP_ServerOnline
 #define SUB_GP_SET_INSUREPASS_GET_CAPTCHA			128					//获取验证码
 #define SUB_GP_SET_INSUREPASS_SEND_CAPTCHA			129					//发送验证码
 
+#define SUB_GP_RECHARGE_ORDER		131									//充值订单
 #define SUB_GP_VIPSHOP				132				   //vip馆
 
 #define SUB_GP_CHECK_ACCOUNT		140									//核对账号
@@ -1117,7 +1118,30 @@ struct CMD_GP_ModifyIndividual
 	DWORD							dwUserID;							//用户 I D
 	TCHAR							szPassword[LEN_PASSWORD];			//用户密码
 };
-
+//充值下订单
+struct CMD_GP_RechargeOrder
+{
+	CMD_GP_RechargeOrder()
+	{
+		//memset(this, 0, sizeof(CMD_GP_RechargeOrder));
+	}
+	TCHAR	szAccounts[LEN_ACCOUNTS];									//帐号
+	DWORD	dwOpTerminal;												//操作终端（1：pc, 2：手机牛牛 3：手机捕鱼）
+	DWORD	dwFirst;													//首次冲值
+	DWORD	dwOrderAmount;												//金额
+	DWORD	dwShareID;													//服务类型 2：网银 7：支付宝
+	TCHAR	szLogonPass[LEN_MD5];										//登录密码
+	TCHAR	szRechargeOrder[33];										//订单
+};
+struct CMD_GP_RechargeOrderLog
+{
+	CMD_GP_RechargeOrderLog()
+	{
+		//memset(this, 0, sizeof(CMD_GP_RechargeOrderLog));
+	}
+	DWORD	dwRet;														//0：成功，1：失败
+	TCHAR	szDescribeString[128];										//描述消息
+};
 //////////////////////////////////////////////////////////////////////////////////
 //携带信息 CMD_GP_UserIndividual
 
@@ -1640,6 +1664,7 @@ struct CMD_GL_SystemMessage
 	WORD							wLength;							//消息长度
 	TCHAR							szString[1024];						//消息内容
 };
+
 #pragma pack()
 
 #endif

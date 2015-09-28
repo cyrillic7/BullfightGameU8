@@ -59,8 +59,8 @@ void PopDialogBoxMore::onMenuOpenGame(CCObject *object, TouchEventType type){
 		UIButton *pButton = (UIButton*)object;
 		int tag = pButton->getTag();
 		//vecMoreInfo[tag].szAppName;
-		//CCString *sAction = CCString::createWithFormat("{\"act\":500 ,\"packageName\":\"%s\",\"activity\":\"%s\",\"url\":\"%s\"}", vecMoreInfo[tag].szName, vecMoreInfo[tag].szAppName, vecMoreInfo[tag].szUrl);
-		//platformAction(sAction->getCString());
+		CCString *sAction = CCString::createWithFormat("{\"act\":500 ,\"packageName\":\"%s\",\"activity\":\"%s\",\"url\":\"%s\"}", vecMoreInfo[tag].szPackageName, vecMoreInfo[tag].szActivityName, vecMoreInfo[tag].szUrlAndroid);
+		platformAction(sAction->getCString());
 	}
 }
 //更新更多游戏列表
@@ -80,7 +80,13 @@ void PopDialogBoxMore::updateListMore(){
 		pLVTemp->insertDefaultItem(inserterPos);
 		
 		UIImageView *pIVBg = static_cast<UIImageView*>(pLVTemp->getItem(inserterPos)->getChildByName("ImageBg")); 
-		addDownloadImage(pIVBg, vecMoreInfo[i].szICO, ccp(0, 0), 1, -1, false);
+		addDownloadImage(pIVBg, vecMoreInfo[i].szICO, ccp(-150, 0), 1, -1, false);
+		//游戏名称
+		UILabel *pLGameName = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("LabelName"));
+		pLGameName->setText(GBKToUTF8(vecMoreInfo[i].szGameName).c_str());
+		//游戏说明
+		UILabel *pLGameContent = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("LabelContent"));
+		pLGameContent->setText(GBKToUTF8(vecMoreInfo[i].szDescribeString).c_str());
 		//按键
 		UIButton *pButton = static_cast<UIButton*>(pLVTemp->getItem(inserterPos)->getChildByName("ButtonOpenGame"));
 		pButton->setTag(i);
@@ -130,7 +136,7 @@ void PopDialogBoxMore::onEventUserService(WORD wSubCmdID, void * pDataBuffer, un
 //更多游戏列表
 void PopDialogBoxMore::onSubMoreGameList(void * pDataBuffer, unsigned short wDataSize){
 	
-	
+	int size = sizeof(CMD_GP_MoreGame);
 	int count = wDataSize / sizeof(CMD_GP_MoreGame);
 
 	BYTE cbDataBuffer[SOCKET_TCP_PACKET + sizeof(TCP_Head)];
@@ -143,10 +149,14 @@ void PopDialogBoxMore::onSubMoreGameList(void * pDataBuffer, unsigned short wDat
 		CMD_GP_MoreGame *pMoreGame = (CMD_GP_MoreGame*)pDataBuffer;
 
 		CMD_GP_MoreGame moreGame;
-		/*strcpy(moreGame.szAppName, pMoreGame->szAppName);
+		strcpy(moreGame.szActivityName, pMoreGame->szActivityName);
+		strcpy(moreGame.szDescribeString,pMoreGame->szDescribeString);
+		strcpy(moreGame.szGameName, pMoreGame->szGameName);
 		strcpy(moreGame.szICO, pMoreGame->szICO);
-		strcpy(moreGame.szName, pMoreGame->szName);
-		strcpy(moreGame.szUrl, pMoreGame->szUrl);*/
+		strcpy(moreGame.szPackageName, pMoreGame->szPackageName);
+		strcpy(moreGame.szUrlAndroid, pMoreGame->szUrlAndroid);
+		strcpy(moreGame.szUrlIos, pMoreGame->szUrlIos);
+
 
 		vecMoreInfo.push_back(moreGame);
 	}

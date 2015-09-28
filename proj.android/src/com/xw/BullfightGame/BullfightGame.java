@@ -40,6 +40,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import com.alipay.sdk.app.PayTask;
+import com.xw.BullfightGame.R;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -82,6 +83,15 @@ public class BullfightGame extends Cocos2dxActivity {
 	private final int NETWORK_STATE_CONNECT = 1;// 网络连接
 	private final int NETWORK_STATE_UNCONNECT = 2;// 网络断开
 	public String updateUrl;//更新地址
+	private BroadcastReceiver connectionReceiver;
+	static BullfightGame game;
+	// 打开网页
+	WebView m_webView;// WebView控件
+	//ImageView m_imageView;// ImageView控件
+	FrameLayout m_webLayout;// FrameLayout布局
+	LinearLayout m_topLayout;// LinearLayout布局
+	Button m_backButton;// 关闭按钮
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -107,8 +117,6 @@ public class BullfightGame extends Cocos2dxActivity {
 
 		return glSurfaceView;
 	}
-
-	private BroadcastReceiver connectionReceiver;
 
 	@Override
 	protected void onStart() {
@@ -156,7 +164,6 @@ public class BullfightGame extends Cocos2dxActivity {
 	public static native void JniOnActivity(int tyep);
 
 	// public static native void JniCaller();
-	static BullfightGame game;
 
 	public static BullfightGame shared() {
 		return game;
@@ -168,7 +175,7 @@ public class BullfightGame extends Cocos2dxActivity {
 			JSONObject jsonObject = (JSONObject) jsonTokener.nextValue();
 			iActionType = jsonObject.getInt("act");
 			switch (iActionType) {
-			case 100: {
+			case 100: {//获取设置码
 				TelephonyManager tm = (TelephonyManager) this
 						.getSystemService(TELEPHONY_SERVICE);
 				return tm.getDeviceId();
@@ -196,13 +203,14 @@ public class BullfightGame extends Cocos2dxActivity {
 				mExitHandler.sendMessage(msg);
 			}
 				break;
-			case 500:
+			case 500://更多游戏
 			{
 				String packageName = jsonObject.getString("packageName");
 				String activity= jsonObject.getString("activity");
 				String url=jsonObject.getString("url");
 				System.out.println("packageName:"+packageName+"    activity:"+activity +"   url:"+url);
 				avilibleMoreGames(packageName,activity,url);
+				//avilibleMoreGames("com.game.GameCatchFish","GameCatchFish",url);
 			}
 				break;
 			case 600://获取版本号
@@ -216,6 +224,11 @@ public class BullfightGame extends Cocos2dxActivity {
 				startService(new Intent(BullfightGame.this, UpdateManager.class));
 			}
 			break;
+			case 800://获取订单号
+			{
+				sOrderId=GetOrderIDByPrefix("MFB");	
+				return sOrderId;
+			}
 			default:
 				break;
 			}
@@ -239,12 +252,7 @@ public class BullfightGame extends Cocos2dxActivity {
 		}
 	}
 
-	// 打开网页
-	WebView m_webView;// WebView控件
-	//ImageView m_imageView;// ImageView控件
-	FrameLayout m_webLayout;// FrameLayout布局
-	LinearLayout m_topLayout;// LinearLayout布局
-	Button m_backButton;// 关闭按钮
+
 
 	public void openWebview(final String url) {
 		this.runOnUiThread(new Runnable() {// 在主线程里添加别的控件
@@ -429,6 +437,7 @@ public class BullfightGame extends Cocos2dxActivity {
 	private static final int SDK_PAY_FLAG = 1;
 
 	private static final int SDK_CHECK_FLAG = 2;
+	private String sOrderId;//订单号
 	private Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
@@ -581,12 +590,12 @@ public class BullfightGame extends Cocos2dxActivity {
 	 * 
 	 */
 	public String getOutTradeNo() {
-		 UUID uuid = UUID.randomUUID();
+		 /*UUID uuid = UUID.randomUUID();
 		 String key = uuid.toString();
 		 System.out.println("---TradeKey:"+key);
 			key = key.substring(0, 23);
-			key="MFB"+key;
-			System.out.println("---TradeResult:"+key);
+			key="MFB"+key;*/
+			
 		/*SimpleDateFormat format = new SimpleDateFormat("MMddHHmmss",
 				Locale.getDefault());
 		Date date = new Date();
@@ -598,8 +607,75 @@ public class BullfightGame extends Cocos2dxActivity {
 		key = key.substring(0, 23);
 		key="MFB"+key;
 		System.out.println("---Traderesult:"+key);*/
-		return key;
+		
+		///////////////////////////////////////////////////////
+		//String key =GetOrderIDByPrefix("MFB");	
+		//System.out.println("---TradeResult:"+key);
+		return sOrderId;
 	}
+	/***
+	 * 
+	 * @param prefix
+	 * @return
+	 */
+	public static String GetOrderIDByPrefix(String prefix)
+    {
+        //构造订单号 (形如:20101201102322159111111)
+        int orderIDLength = 32;
+        int randomLength = 6;
+        StringBuffer tradeNoBuffer = new StringBuffer();
+
+        tradeNoBuffer.append(prefix);
+        tradeNoBuffer.append(GetDateTimeLongString());
+
+        if ((tradeNoBuffer.length() + randomLength) > orderIDLength)
+            randomLength = orderIDLength - tradeNoBuffer.length();
+
+        tradeNoBuffer.append(CreateRandom(randomLength, 1, 0, 0, 0, ""));
+        System.out.println("toString:"+tradeNoBuffer.toString());
+        return tradeNoBuffer.toString();
+    }
+
+	 public static String GetDateTimeLongString()
+     {
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmssSSS",
+					Locale.getDefault());
+		Date date = new Date();
+		String key = format.format(date);
+		return key;
+     }
+public static String CreateRandom(int length, int useNum, int useLow, int useUpp, int useSpe, String custom)
+    {
+        byte[] data = new byte[4];
+       // new RNGCryptoServiceProvider().GetBytes(data);
+        //Random random = new Random(BitConverter.ToInt32(data, 0));
+        Random random=new Random();
+        String str = "";
+        String str2 = custom;
+        if (useNum == 1)
+        {
+            str2 = str2 + "0123456789"; 
+        }
+        if (useLow == 1)
+        {
+            str2 = str2 + "abcdefghijklmnopqrstuvwxyz";
+        }
+        if (useUpp == 1)
+        {
+            str2 = str2 + "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        }
+        if (useSpe == 1)
+        {
+            str2 = str2 + "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+        }
+        for (int i = 0; i < length; i++)
+        {
+        	int start=random.nextInt(str2.length() - 1);
+        	String strTemp= str2.substring(start, start+1);
+            str = str +strTemp;
+        }
+        return str;
+    }
 
 	// //////////////////////////////////////////////////////////////////////
 	private Handler mExitHandler = new Handler() {
@@ -667,10 +743,13 @@ public class BullfightGame extends Cocos2dxActivity {
 			/*Uri uri = Uri.parse("http://google.com");  
 			Intent it = new Intent(Intent.ACTION_VIEW, uri);  
 			startActivity(it);*/
-			
-			Uri uri=Uri.parse(url);
+			updateUrl = url;
+			stopService(new Intent(BullfightGame.this, UpdateManager.class));
+			startService(new Intent(BullfightGame.this, UpdateManager.class));
+			/*Uri uri=Uri.parse(url);
 			Intent it = new Intent(Intent.ACTION_VIEW, uri);
-			startActivity(it);
+			startActivity(it);*/
+			
 		}
 	}
 }

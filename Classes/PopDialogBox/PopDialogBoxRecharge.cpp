@@ -185,9 +185,16 @@ void PopDialogBoxRecharge::onMenuExchange(CCObject *object, TouchEventType type)
 			break;
 		case PopDialogBoxRecharge::RECHARGE_BIG_GOLD:
 		{
-			CCString *sAction = CCString::createWithFormat("{\"act\":300 ,\"propName\":\"元宝\",\"propInfo\":\"%s\",\"propPice\":\"0.01\"}", sBigGoldExchangeNum[iCurSelectIndex].c_str());
-			platformAction(sAction->getCString());
+			//CCString *sAction = CCString::createWithFormat("{\"act\":300 ,\"propName\":\"元宝\",\"propInfo\":\"%s\",\"propPice\":\"0.01\"}", sBigGoldExchangeNum[iCurSelectIndex].c_str());
+			//platformAction(sAction->getCString());
+			
+			orderID = platformAction("{\"act\":800}");
 
+			setRechargeActionType(R_Action_SEND_ORDER);
+			connectServer();
+			connectSuccess();
+			CCLOG("orderID:%s <<%s>>",orderID.c_str(), __FUNCTION__);
+			//CCLOG("orderID:%s <<%s>>",orderID, __FUNCTION__);
 		}
 			break;
 		default:
@@ -311,6 +318,39 @@ void PopDialogBoxRecharge::connectSuccess(){
 		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_EXCHANGE_INGOT, &userExchange, sizeof(userExchange));
 	}
 		break;
+	case R_Action_SEND_ORDER:
+	{
+		CMD_GP_RechargeOrder rOrder;
+		rOrder.dwFirst = 10;
+		rOrder.dwOpTerminal = 2;
+		rOrder.dwOrderAmount = lBigGoldPice[iCurSelectIndex];
+		rOrder.dwShareID = 7;
+		
+		strcpy(rOrder.szAccounts, DataModel::sharedDataModel()->sLogonAccount.c_str());
+		MD5 m;
+		m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
+		std::string md5PassWord = m.GetMd5();
+		strcpy(rOrder.szLogonPass, md5PassWord.c_str());
+
+		strcpy(rOrder.szRechargeOrder, orderID.c_str());
+		
+
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_RECHARGE_ORDER, &rOrder, sizeof(rOrder));
+		/*CMD_GP_UserExchangeIngot userExchange;
+		userExchange.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+		userExchange.dwIngot = lGoldPice[iCurSelectIndex];
+
+		MD5 m;
+		m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
+		std::string md5PassWord = m.GetMd5();
+		strcpy(userExchange.szPassword, md5PassWord.c_str());
+
+
+		strcpy(userExchange.szMachineID, platformAction("{\"act\":100}").c_str());
+
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_EXCHANGE_INGOT, &userExchange, sizeof(userExchange));*/
+	}
+	break;
 	default:
 		break;
 	}
@@ -337,9 +377,23 @@ void PopDialogBoxRecharge::onEventUserService(WORD wSubCmdID, void * pDataBuffer
 		this->addChild(pTipInfo, 10);
 		pTipInfo->setTipInfoContent(GBKToUTF8(pFailure->szDescribeString).c_str());
 		pTipInfo->setIPopAssistTipInfo(this);
-		pTipInfo->pBClose->setTitleText(" 前往充值 ");
+		//pTipInfo->pBClose->setTitleText(" 前往充值 ");
 	}
 	break;
+	case SUB_GP_RECHARGE_ORDER:
+	{
+		CMD_GP_RechargeOrderLog *rOrderLog = (CMD_GP_RechargeOrderLog*)pDataBuffer;
+		if (rOrderLog->dwRet==0)
+		{
+			CCString *sAction = CCString::createWithFormat("{\"act\":300 ,\"propName\":\"%s\",\"propInfo\":\"%s\",\"propPice\":\"%ld\"}", "元宝",sBigGoldExchangeNum[iCurSelectIndex].c_str(), lBigGoldPice[iCurSelectIndex]);
+			platformAction(sAction->getCString());
+		}
+		else
+		{
+			showTipInfo(GBKToUTF8(rOrderLog->szDescribeString).c_str());
+		}
+	}
+		break;
 	default:
 		CCLOG("   %d<<%s>>", wSubCmdID, __FUNCTION__);
 		break;

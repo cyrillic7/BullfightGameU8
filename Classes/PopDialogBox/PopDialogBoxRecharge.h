@@ -19,6 +19,7 @@ private:
 	{
 		R_Action_GET_MONEY = 0,					//获取财富
 		R_Action_EXCHANGE,						//兑换
+		R_Action_SEND_ORDER,					//下订单
 	};
 	CC_SYNTHESIZE(RechargeActionType, eRechargeActionType, RechargeActionType);
 
@@ -46,6 +47,8 @@ private:
 	UILabel *pLCurBigGoldCount;
 	//当前按键索引
 	int iCurSelectIndex;
+	//订单号
+	std::string orderID;
 private:
 	struct RechargeData
 	{

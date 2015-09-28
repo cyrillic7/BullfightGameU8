@@ -10,6 +10,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
 
+import com.xw.BullfightGame.R;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -85,7 +87,7 @@ public class UpdateManager extends Service
 		
 		// 构造软件下载对话框
 		AlertDialog.Builder builder = new Builder(game);
-		builder.setTitle("正在更新...");
+		builder.setTitle("正在下载...");
 		// 给下载对话框增加进度条
 		final LayoutInflater inflater = LayoutInflater.from(game);
 		View view = inflater.inflate(R.layout.softupdate_view, null);
