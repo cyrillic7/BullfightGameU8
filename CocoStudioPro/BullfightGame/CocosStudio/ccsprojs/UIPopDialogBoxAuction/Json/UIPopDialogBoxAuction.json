@@ -16,13 +16,7 @@
     "UIShop.plist",
     "UIUserInfo.plist"
   ],
-  "texturesPng": [
-    "UIPanel.png",
-    "UIAuction.png",
-    "UIButton.png",
-    "UIShop.png",
-    "UIUserInfo.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -4988,8 +4982,8 @@
                   "rotation": 0,
                   "scaleX": 1,
                   "scaleY": 1,
-                  "sizePercentX": 0.22758621,
-                  "sizePercentY": 0.425,
+                  "sizePercentX": 0.229310349,
+                  "sizePercentY": 0.45,
                   "sizeType": 0,
                   "tag": 3,
                   "touchAble": true,

@@ -112,7 +112,7 @@ void BaseLobbyScene::onEnter(){
 	//绑定首充
 	UIImageView *pFirstRecharge = static_cast<UIImageView*>(m_pWidgetBase->getWidgetByName("ButtonFirstRecharge"));
 	pFirstRecharge->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuFirstRecharge));
-	pFirstRecharge->setEnabled(DataModel::sharedDataModel()->userInfo->dwFirstOnLineOrder);
+	pFirstRecharge->setEnabled(!DataModel::sharedDataModel()->userInfo->dwFirstOnLineOrder);
 	//用户名
 	userName=static_cast<UILabel*>(m_pWidgetBase->getWidgetByName("labelUserName"));
 	//金币
@@ -445,5 +445,5 @@ void BaseLobbyScene::updateNewMsgState(CCObject *obj){
 void BaseLobbyScene::onUpdateFirstDelta(CCObject *obj){
 	//绑定首充
 	UIImageView *pFirstRecharge = static_cast<UIImageView*>(m_pWidgetBase->getWidgetByName("ButtonFirstRecharge"));
-	pFirstRecharge->setEnabled(DataModel::sharedDataModel()->userInfo->dwFirstOnLineOrder);
+	pFirstRecharge->setEnabled(!DataModel::sharedDataModel()->userInfo->dwFirstOnLineOrder);
 }

@@ -14,11 +14,7 @@
     "UIButton.plist",
     "card.plist"
   ],
-  "texturesPng": [
-    "UIGameIng.png",
-    "UIButton.png",
-    "card.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -53,8 +49,8 @@
           "rotation": 0,
           "scaleX": 1,
           "scaleY": 1,
-          "sizePercentX": 0.05721831,
-          "sizePercentY": 0.0875,
+          "sizePercentX": 0.0862676054,
+          "sizePercentY": 0.153125,
           "sizeType": 0,
           "tag": 5,
           "touchAble": true,

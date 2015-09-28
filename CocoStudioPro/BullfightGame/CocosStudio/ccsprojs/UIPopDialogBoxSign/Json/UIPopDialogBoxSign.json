@@ -14,11 +14,7 @@
     "UIButton.plist",
     "UISign.plist"
   ],
-  "texturesPng": [
-    "UIPanel.png",
-    "UIButton.png",
-    "UISign.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -3005,7 +3001,7 @@
               "rotation": 0,
               "scaleX": 1,
               "scaleY": 1,
-              "sizePercentX": 0.262857139,
+              "sizePercentX": 0.2742857,
               "sizePercentY": 0.0574468076,
               "sizeType": 0,
               "tag": 3635,
