@@ -383,6 +383,9 @@ void PopDialogBoxRecharge::onEventUserService(WORD wSubCmdID, void * pDataBuffer
 		this->addChild(pTipInfo, 10);
 		pTipInfo->setTipInfoContent(GBKToUTF8(pFailure->szDescribeString).c_str());
 		pTipInfo->setIPopAssistTipInfo(this);
+
+		pTipInfo->pBClose->loadTextureNormal("QianWangChongZhi_Btn_Normal.png", UI_TEX_TYPE_PLIST);
+		pTipInfo->pBClose->loadTexturePressed("QianWangChongZhi_Btn_Down.png", UI_TEX_TYPE_PLIST);
 		//pTipInfo->pBClose->setTitleText(" 前往充值 ");
 	}
 	break;

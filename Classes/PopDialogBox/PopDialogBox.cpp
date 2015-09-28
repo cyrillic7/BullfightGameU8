@@ -134,7 +134,7 @@ void PopDialogBox::addDownloadImage(UIWidget *widget, const char *name, CCPoint 
 	widget->addNode(pNImage, zOrder);
 	const char* url_item = IMAGE_URL(name);
 	const char* image_name = IMAGE_NAME(name);
-
+	CCLOG("%s <<%s>>",url_item, __FUNCTION__);
 	ImageDownloader* item = ImageDownloader::create();
 	item->SendHttpRequest(this, imagenotification_selector(PopDialogBox::loadCompleteCallBack), url_item, pNImage, image_name);
 	

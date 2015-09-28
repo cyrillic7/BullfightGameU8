@@ -7,7 +7,7 @@
             <key>GengDuo_BiaoTi.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{323,29},{76,42}}</string>
+                <string>{{449,2},{76,42}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -17,18 +17,31 @@
                 <key>sourceSize</key>
                 <string>{76,42}</string>
             </dict>
-            <key>u_more_download.png</key>
+            <key>KSYX_Btn_Down.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{296,29},{96,25}}</string>
+                <string>{{296,2},{151,58}}</string>
                 <key>offset</key>
-                <string>{-1,0}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{96,25}}</string>
+                <string>{{0,0},{151,58}}</string>
                 <key>sourceSize</key>
-                <string>{98,25}</string>
+                <string>{151,58}</string>
+            </dict>
+            <key>KSYX_Btn_Normal.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{296,62},{141,54}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{141,54}}</string>
+                <key>sourceSize</key>
+                <string>{141,54}</string>
             </dict>
             <key>u_more_frame.png</key>
             <dict>
@@ -43,19 +56,6 @@
                 <key>sourceSize</key>
                 <string>{292,130}</string>
             </dict>
-            <key>u_more_open.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{296,2},{94,25}}</string>
-                <key>offset</key>
-                <string>{-2,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{94,25}}</string>
-                <key>sourceSize</key>
-                <string>{98,25}</string>
-            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -64,9 +64,9 @@
             <key>realTextureFileName</key>
             <string>UIMore.png</string>
             <key>size</key>
-            <string>{392,134}</string>
+            <string>{493,134}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:38233c020aff72d6fdf0609a168de83b:90177271be4f668954142591bea7e7b4:d783d047e944d80c3df6474eecfc3847$</string>
+            <string>$TexturePacker:SmartUpdate:fd9dde85aadb8eafacd77c15c563fa1a:5ae5e1255731dfac6a7b0bc68326be03:d783d047e944d80c3df6474eecfc3847$</string>
             <key>textureFileName</key>
             <string>UIMore.png</string>
         </dict>

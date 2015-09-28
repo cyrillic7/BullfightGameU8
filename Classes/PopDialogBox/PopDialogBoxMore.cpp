@@ -80,7 +80,7 @@ void PopDialogBoxMore::updateListMore(){
 		pLVTemp->insertDefaultItem(inserterPos);
 		
 		UIImageView *pIVBg = static_cast<UIImageView*>(pLVTemp->getItem(inserterPos)->getChildByName("ImageBg")); 
-		addDownloadImage(pIVBg, vecMoreInfo[i].szICO, ccp(-150, 0), 1, -1, false);
+		addDownloadImage(pIVBg, vecMoreInfo[i].szICO, ccp(-176, 0), 1, -1, false);
 		//游戏名称
 		UILabel *pLGameName = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("LabelName"));
 		pLGameName->setText(GBKToUTF8(vecMoreInfo[i].szGameName).c_str());

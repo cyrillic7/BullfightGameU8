@@ -12,14 +12,12 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIRecharge.plist",
-    "UIAuction.plist"
+    "UIMore.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UIRecharge.png",
-    "UIAuction.png"
+    "UIMore.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -657,13 +655,13 @@
                           "ignoreSize": true,
                           "layoutParameter": null,
                           "opacity": 255,
-                          "positionPercentX": 1.96818721E-08,
-                          "positionPercentY": -0.2659177,
+                          "positionPercentX": 0,
+                          "positionPercentY": -0.2659176,
                           "positionType": 0,
                           "rotation": 0,
                           "scaleX": 1,
                           "scaleY": 1,
-                          "sizePercentX": 0.4822335,
+                          "sizePercentX": 0.7715736,
                           "sizePercentY": 0.101123594,
                           "sizeType": 0,
                           "tag": 17651,
