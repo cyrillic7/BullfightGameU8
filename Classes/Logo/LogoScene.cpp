@@ -12,6 +12,14 @@
 #include "../Platform/coPlatform.h"
 LogoScene::LogoScene()
 	:isCheckFinsh(false){
+	/*std::string str = "恭喜，您已经成功充值10元宝。#30#300#";
+	int s=str.find("#");
+	std::string tmp_s = str.substr(0, s);
+ 	CCLOG("ss-- :%s<<%s>>",tmp_s.c_str(), __FUNCTION__);*/
+	std::string str = "sss。#30#300#";
+	//int s = str.find("#");
+	//std::string tmp_s = str.substr(0, s);
+
 }
 LogoScene::~LogoScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);

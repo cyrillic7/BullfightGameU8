@@ -38,13 +38,14 @@ void GameEndLayer::onAnimationEventOver(CCArmature *pArmature, MovementEventType
 	case cocos2d::extension::COMPLETE:
 	case cocos2d::extension::LOOP_COMPLETE:
 		{
-			if (strcmp(movementID, "winO") == 0)
+			/*if (strcmp(movementID, "winO") == 0)
 			{
 				pArmature->getAnimation()->play("win");
 			}else if (strcmp(movementID, "lostO") == 0)
 			{
 				pArmature->getAnimation()->play("lost");
-			}
+			}*/
+			pArmature->setVisible(false);
 		}
 		break; 
 	default:
@@ -58,11 +59,12 @@ void GameEndLayer::onAnimationEventFrame(CCBone *bone, const char *evt, int orig
 	}*/
 }
 void GameEndLayer::showEnd(bool isWin){
+	pAGameEnd->setVisible(true);
 	if (isWin)
 	{
-		pAGameEnd->getAnimation()->play("winO");
+		pAGameEnd->getAnimation()->play("Animation1");
 	}else
 	{
-		pAGameEnd->getAnimation()->play("lostO");
+		pAGameEnd->getAnimation()->play("Animation2");
 	}
 }

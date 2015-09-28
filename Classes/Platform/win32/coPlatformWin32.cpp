@@ -35,7 +35,7 @@ std::string platformAction(const std::string& jsonString)
 			return "2.0.6";
 			break;
 		case 800:
-			return "MFB20150926180340277543136";
+			return "MFB20150926180340277543138";
 			break;
 		default:
 			break;

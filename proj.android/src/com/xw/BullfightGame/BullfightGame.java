@@ -193,7 +193,7 @@ public class BullfightGame extends Cocos2dxActivity {
 				final String propInfo = jsonObject.getString("propInfo");
 				final String propPice = jsonObject.getString("propPice");
 				System.out.println(propName + propInfo + propPice);
-				pay(null);
+				pay(propName,propInfo,propPice);
 			}
 				break;
 			case 400:// 退出游戏
@@ -484,9 +484,9 @@ public class BullfightGame extends Cocos2dxActivity {
 	 * call alipay sdk pay. 调用SDK支付
 	 * 
 	 */
-	public void pay(View v) {
+	public void pay(String propName,String propContent,String price) {
 		// 订单
-		String orderInfo = getOrderInfo("测试的商品", "该测试商品的详细描述", "0.01");
+		String orderInfo = getOrderInfo(propName, propContent, price);
 
 		// 对订单做RSA 签名
 		String sign = sign(orderInfo);
@@ -532,7 +532,9 @@ public class BullfightGame extends Cocos2dxActivity {
 		// 签约卖家支付宝账号
 		orderInfo += "&seller_id=" + "\"" + SELLER + "\"";
 		// 商户网站唯一订单号
-		orderInfo += "&out_trade_no=" + "\"" + getOutTradeNo() + "\"";
+		//orderInfo += "&out_trade_no=" + "\"" + getOutTradeNo() + "\"";
+		System.out.println("orderID:"+sOrderId);
+		orderInfo += "&out_trade_no=" + "\"" + sOrderId + "\"";
 		// 商品名称
 		orderInfo += "&subject=" + "\"" + subject + "\"";
 		// 商品详情

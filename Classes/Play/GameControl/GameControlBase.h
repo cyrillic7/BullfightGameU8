@@ -54,6 +54,8 @@ public:
 	Button *pBDontSwapCard;
 	//开始动画
 	CCArmature *pArmatureBeginGame;
+	//游戏结算层
+	GameEndLayer *pEndLayer;
 private:
 	//操作者提示动画
 	CCArmature *pArmatureActionPrompt;
@@ -66,8 +68,7 @@ private:
 	//是否主动退出
 	bool isExitGame;
 	
-	//游戏结算层
-	GameEndLayer *pEndLayer;
+
 	//更多框
 	ImageView *pIVMoer;
 	//是否显示更多

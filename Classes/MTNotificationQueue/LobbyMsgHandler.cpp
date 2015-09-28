@@ -91,42 +91,7 @@ bool LobbyMsgHandler::onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuf
 			//////////////////////////////////////////////////////////////////////////
 			if (msgNode->dwMsgType == Msg_Notice)
 			{
-				map<long, NewMsg >::iterator l_it;
-				l_it = DataModel::sharedDataModel()->mNewMsg.find(DataModel::sharedDataModel()->userInfo->dwUserID);
-				if (l_it != DataModel::sharedDataModel()->mNewMsg.end())
-				{
-					if (checkMsgById(l_it->second.sMsgId.c_str(), msgNode->dwMsgID))
-					{
-						
-					}
-					else
-					{
-						l_it->second.sMsgId += CCString::createWithFormat(",%ld", msgNode->dwMsgID)->getCString();
-						DataModel::sharedDataModel()->isShowNewMsg = true;
-						/*l_it->second.sMsgId += CCString::createWithFormat(",%ld", msgNode->dwMsgID)->getCString();
-						CCArray *strArray=split(l_it->second.sMsgId.c_str(),",");
-						CCLOG("---:%s <<%s>>", l_it->second.sMsgId.c_str(), __FUNCTION__);
-						
-
-						CCObject *object = NULL;
-						CCARRAY_FOREACH(strArray, object)
-						{
-							CCString *str = (CCString*)object;
-							CCLOG(str->getCString());
-						}*/
-					}
-				}
-				else
-				{
-					NewMsg newMsg;
-					newMsg.sMsgId = CCString::createWithFormat("%ld", msgNode->dwMsgID)->getCString();
-					DataModel::sharedDataModel()->mNewMsg.insert(map<long, NewMsg>::value_type(DataModel::sharedDataModel()->userInfo->dwUserID, newMsg));
-					DataModel::sharedDataModel()->isShowNewMsg = true;
-				}
-
-
-				
-				MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_NEW_MSG_STATE, NULL);
+				newNoticeMsgTip(msgNode);
 			}
 			else if (msgNode->dwMsgType == Msg_Sell_Success)
 			{
@@ -137,6 +102,27 @@ bool LobbyMsgHandler::onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuf
 			{
 				DataModel::sharedDataModel()->isShowNewTaskMsg = true;
 				MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_NEW_MSG_STATE, NULL);
+			}
+			else if (msgNode->dwMsgType == Msg_Delta){//充值成功
+				DataModel::sharedDataModel()->isShowNewMsg = true;
+				MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_NEW_MSG_STATE, NULL);
+
+
+				CCArray *strArray = split(msg.c_str(), "#");
+				if (strArray->count() >= 1)
+				{
+					CCString *strNum = (CCString*)strArray->objectAtIndex(1);
+					DataModel::sharedDataModel()->userInfo->lIngot = strtoll(strNum->getCString(), NULL, 10);
+				}
+				MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_DELTA, NULL);
+
+				int index = msg.find("#");
+				if (index>0)
+				{
+					msg = msg.substr(0, index);
+				}
+
+				
 			}
 			//////////////////////////////////////////////////////////////////////////
 			if (msgNode->dwUserID == 0)
@@ -202,4 +188,32 @@ bool LobbyMsgHandler::checkMsgById(const char *strMsgId, DWORD dwCurMsgID){
 		}
 	}
 	return false;
+}
+//新消息提示
+void LobbyMsgHandler::newNoticeMsgTip(CMD_GL_MsgNode *msgNode){
+	map<long, NewMsg >::iterator l_it;
+	l_it = DataModel::sharedDataModel()->mNewMsg.find(DataModel::sharedDataModel()->userInfo->dwUserID);
+	if (l_it != DataModel::sharedDataModel()->mNewMsg.end())
+	{
+		if (checkMsgById(l_it->second.sMsgId.c_str(), msgNode->dwMsgID))
+		{
+
+		}
+		else
+		{
+			l_it->second.sMsgId += CCString::createWithFormat(",%ld", msgNode->dwMsgID)->getCString();
+			DataModel::sharedDataModel()->isShowNewMsg = true;
+		}
+	}
+	else
+	{
+		NewMsg newMsg;
+		newMsg.sMsgId = CCString::createWithFormat("%ld", msgNode->dwMsgID)->getCString();
+		DataModel::sharedDataModel()->mNewMsg.insert(map<long, NewMsg>::value_type(DataModel::sharedDataModel()->userInfo->dwUserID, newMsg));
+		DataModel::sharedDataModel()->isShowNewMsg = true;
+	}
+
+
+
+	MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_NEW_MSG_STATE, NULL);
 }

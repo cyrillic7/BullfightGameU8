@@ -7,6 +7,7 @@
 #include "../Network/TCPSocket/CGameSocket.h"
 #include "../PopDialogBox/PopDialogBoxTipInfo.h"
 #include "../Tools/CStringAide.h"
+#include "../Network/CMD_Server/CMD_LogonServer.h"
 USING_NS_CC;
 class LobbyMsgHandler :public CCNode, public IGameSocket, public CStringAide,public IPopAssistTipInfo{
 public:
@@ -28,4 +29,6 @@ private:
 	virtual bool onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
 	//查找消息ID
 	bool checkMsgById(const char *strMsgId, DWORD dwCurMsgID);
+	//新消息提示
+	void newNoticeMsgTip(CMD_GL_MsgNode *msgNode);
 };

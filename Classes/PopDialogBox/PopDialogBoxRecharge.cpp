@@ -10,6 +10,7 @@
 #include "../Tools/GameConfig.h"
 #include "../Network/MD5/MD5.h"
 #include "../Platform/coPlatform.h"
+#include "../Network/SEvent.h"
 
 #define MAX_GOLD_COUNT    6
 
@@ -112,8 +113,13 @@ void PopDialogBoxRecharge::onEnter(){
 	connectSuccess();
 
 	playAnimation();
+
+	//添加监听事件
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(PopDialogBoxRecharge::onUpdateDelta), UPDATE_DELTA, NULL);
 }
 void PopDialogBoxRecharge::onExit(){
+	//移除监听事件 
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, UPDATE_DELTA);
 	CCLayer::onExit();
 }
 //关闭窗口
@@ -266,7 +272,7 @@ void PopDialogBoxRecharge::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, v
 	{
 	case MDM_MB_SOCKET://socket连接成功
 	{
-		connectSuccess();
+		//connectSuccess();
 	}
 	break;
 	case MDM_GP_USER_SERVICE://用户服务
@@ -318,7 +324,7 @@ void PopDialogBoxRecharge::connectSuccess(){
 		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_EXCHANGE_INGOT, &userExchange, sizeof(userExchange));
 	}
 		break;
-	case R_Action_SEND_ORDER:
+	case R_Action_SEND_ORDER://发送订单号
 	{
 		CMD_GP_RechargeOrder rOrder;
 		rOrder.dwFirst = 10;
@@ -334,7 +340,7 @@ void PopDialogBoxRecharge::connectSuccess(){
 
 		strcpy(rOrder.szRechargeOrder, orderID.c_str());
 		
-
+		CCLOG("orderID:%s <<%s>>", orderID.c_str(), __FUNCTION__);
 		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_RECHARGE_ORDER, &rOrder, sizeof(rOrder));
 		/*CMD_GP_UserExchangeIngot userExchange;
 		userExchange.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
@@ -424,4 +430,9 @@ void PopDialogBoxRecharge::onCloseTipInfo(CCLayer *pTipInfo){
 
 	UIButton *pBExchangeBigGold = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonBigGold"));
 	onMenuChangeExchangeType(pBExchangeBigGold, TOUCH_EVENT_ENDED);
+}
+//付费成功回调
+void PopDialogBoxRecharge::onUpdateDelta(CCObject *obj){
+	pLCurGoldCount->setText(CCString::createWithFormat("%lld", DataModel::sharedDataModel()->userInfo->lScore)->getCString());
+	pLCurBigGoldCount->setText(CCString::createWithFormat("%lld", DataModel::sharedDataModel()->userInfo->lIngot)->getCString());
 }

@@ -21,6 +21,10 @@ GameControlOxOneByOne::~GameControlOxOneByOne(){
 }
 void GameControlOxOneByOne::onEnter(){
 	GameControlBase::onEnter();
+
+	//pEndLayer = GameEndLayer::create();
+	//this->addChild(pEndLayer);
+
 	//添加标题 
 	getMainScene()->addTitle();
 	hideAllActionPanel();
@@ -796,6 +800,15 @@ void GameControlOxOneByOne::onUserShowOx(CCNode *pNode){
 }
 //显示结算（）
 void GameControlOxOneByOne::showResultAnimation(){
+	if (llGameScore[getMeChairID()]!=0)
+	{
+		//GameEndLayer *pEndLayer = GameEndLayer::create();
+		//this->addChild(pEndLayer);
+		//pEndLayer->showEnd(llGameScore[getMeChairID()] >= 0);
+	}
+	
+
+
 	for (int i = 0; i < GAME_PLAYER; i++)
 	{
 		long long lGameScore = llGameScore[i];

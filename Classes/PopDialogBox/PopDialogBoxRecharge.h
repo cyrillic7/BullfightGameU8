@@ -90,4 +90,7 @@ private:
 	void onSubTreasure(void * pDataBuffer, unsigned short wDataSize);
 	//兑换元宝
 	void onSubExchangeBigGold(void * pDataBuffer, unsigned short wDataSize);
+
+	//付费成功回调
+	void onUpdateDelta(CCObject *obj);
 };

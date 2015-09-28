@@ -19,4 +19,5 @@
 #define S_L_COLSE_GAMEING_UPDATE				"closeGameIngUpdate"			//关闭刷新升级
 
 #define UPDATE_NEW_MSG_STATE					"updateNewMsgState"				//更新新消息状态
+#define UPDATE_DELTA							"updateDelta"					//更新充值
 
