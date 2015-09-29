@@ -16,7 +16,13 @@
     "UIShop.plist",
     "UIUserInfo.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIPanel.png",
+    "UIAuction.png",
+    "UIButton.png",
+    "UIShop.png",
+    "UIUserInfo.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",

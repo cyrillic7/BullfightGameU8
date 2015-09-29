@@ -62,7 +62,9 @@ void PopDialogBoxUserInfo::onEnter(){
 	labelUserID->setText(CCString::createWithFormat("%ld",DataModel::sharedDataModel()->userInfo->dwGameID)->getCString());
 	//昵称输入框
 	pLabelNickName=static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldNickName"));
-	pLabelNickName->setText(Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName));
+
+	std::string nickName = Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName);
+	pLabelNickName->setText(Tools::subUTF8(nickName, 0, 8));
 	pLabelNickName->setTouchEnabled(false);
 	//性别选择
 	pcbSexGirl=static_cast<UICheckBox*>(pUILayer->getWidgetByName("CheckBoxSexGirl"));

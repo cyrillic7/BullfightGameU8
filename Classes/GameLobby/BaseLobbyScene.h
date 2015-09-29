@@ -89,4 +89,6 @@ private:
 
 	//首充回调
 	void onUpdateFirstDelta(CCObject *obj);
+	//VIP回调
+	void onUpdateVip(CCObject *obj);
 };

@@ -654,6 +654,9 @@ struct CMD_GP_Knapsack
 	TCHAR				szName[GIFT_NAME_LEN];					//名称
 	TCHAR				szImgName[GIFT_IMGNAME];				//图片
 	TCHAR				szRemark[GIFT_IMGNAME];					//兑换描述
+	TCHAR				szOpenDespict[64];
+	TCHAR				szDespict[64];
+
 };
 struct CMD_GP_KnapsackLog
 {

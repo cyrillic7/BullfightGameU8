@@ -331,14 +331,14 @@ void PopDialogBoxKnapsack::updateListGoods(){
 
 				//设置数量
 				UIImageView *pINumBg = static_cast<UIImageView*>(pListViewGoods->getItem(pListViewGoods->getItems()->count() - 1)->getChildByName(CCString::createWithFormat("ImageItem%d", j)->getCString()));
-				UILabel *pPropDescription = static_cast<UILabel*>(pINumBg->getChildByName("LabelGoldNum"));
+				UILabelAtlas *pPropDescription = static_cast<UILabelAtlas*>(pINumBg->getChildByName("AtlasLabelGoldNum"));
 				if (vecGoods[tempIndex].dwNum>99)
 				{
-					pPropDescription->setText("99+");
+					pPropDescription->setStringValue("99:");
 				}
 				else
 				{
-					pPropDescription->setText(CCString::createWithFormat("%ld", vecGoods[tempIndex].dwNum)->getCString());
+					pPropDescription->setStringValue(CCString::createWithFormat("%ld", vecGoods[tempIndex].dwNum)->getCString());
 				}
 				
 			}

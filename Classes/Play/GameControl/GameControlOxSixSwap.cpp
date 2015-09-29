@@ -16,6 +16,7 @@ GameControlOxSixSwap::GameControlOxSixSwap()
 :isShowAllUserOx(false)
 {
 	memset(m_cbPlayStatus, 0, sizeof(m_cbPlayStatus));
+	lServiceScore = 0;
 }
 GameControlOxSixSwap::~GameControlOxSixSwap(){
 	DataModel::sharedDataModel()->mTagUserInfo.clear();

@@ -23,7 +23,13 @@
     <string>UIShop.plist</string>
     <string>UIUserInfo.plist</string>
   </imageFileList>
-  <imagePngList />
+  <imagePngList>
+    <string>UIPanel.png</string>
+    <string>UIAuction.png</string>
+    <string>UIButton.png</string>
+    <string>UIShop.png</string>
+    <string>UIUserInfo.png</string>
+  </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>UIPopDialogBoxAuction.json</CurrentUIJson>
 </UIProject>

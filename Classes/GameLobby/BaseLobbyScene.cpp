@@ -132,6 +132,7 @@ void BaseLobbyScene::onEnter(){
 	//添加监听事件
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(BaseLobbyScene::updateNewMsgState), UPDATE_NEW_MSG_STATE, NULL);
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(BaseLobbyScene::onUpdateFirstDelta), UPDATE_FIRST_DELTA, NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(BaseLobbyScene::onUpdateVip), UPDATE_VIP, NULL);
 
 }
 //退出场景
@@ -139,6 +140,7 @@ void BaseLobbyScene::onExit(){
 	//移除监听事件 
 	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, UPDATE_NEW_MSG_STATE);
 	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, UPDATE_FIRST_DELTA);
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, UPDATE_VIP);
 
 	CCLayer::onExit();
 }
@@ -446,4 +448,10 @@ void BaseLobbyScene::onUpdateFirstDelta(CCObject *obj){
 	//绑定首充
 	UIImageView *pFirstRecharge = static_cast<UIImageView*>(m_pWidgetBase->getWidgetByName("ButtonFirstRecharge"));
 	pFirstRecharge->setEnabled(!DataModel::sharedDataModel()->userInfo->dwFirstOnLineOrder);
+}
+//VIP回调
+void BaseLobbyScene::onUpdateVip(CCObject *obj){
+	//绑定VIP
+	UIImageView *pIVip = static_cast<UIImageView*>(m_pWidgetBase->getWidgetByName("ImageVip"));
+	pIVip->loadTexture(CCString::createWithFormat("icon_vip%d.png", DataModel::sharedDataModel()->userInfo->dwVipLevel)->getCString(), UI_TEX_TYPE_PLIST);
 }

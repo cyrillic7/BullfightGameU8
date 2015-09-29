@@ -12,12 +12,12 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIKnapsack.plist"
+    "UIFirstRecharge.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UIKnapsack.png"
+    "UIFirstRecharge.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

@@ -14,7 +14,7 @@
 GameControlOxOneByOne::GameControlOxOneByOne()
 	:isShowAllUserOx(false)
 {
-
+	lServiceScore = 0;
 }
 GameControlOxOneByOne::~GameControlOxOneByOne(){
 	DataModel::sharedDataModel()->mTagUserInfo.clear();

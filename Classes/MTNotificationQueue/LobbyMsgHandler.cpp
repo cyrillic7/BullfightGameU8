@@ -101,6 +101,11 @@ bool LobbyMsgHandler::onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuf
 			else if (msgNode->dwMsgType == Msg_Rewards)
 			{
 				DataModel::sharedDataModel()->isShowNewTaskMsg = true;
+				int index = msg.find("#");
+				if (index > 0)
+				{
+					msg = msg.substr(0, index);
+				}
 				MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_NEW_MSG_STATE, NULL);
 			}
 			else if (msgNode->dwMsgType == Msg_Delta){//充值成功
@@ -121,19 +126,27 @@ bool LobbyMsgHandler::onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuf
 				{
 					msg = msg.substr(0, index);
 				}
-
-				
+			}
+			else if (msgNode->dwMsgType == Msg_Vip)//VIP使用
+			{
+				std::string msgContent=msgNode->szMsgcontent;
+				DataModel::sharedDataModel()->userInfo->dwVipLevel = strtol(msgContent.c_str(), NULL, 10);
+				MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_VIP, NULL);
 			}
 			//////////////////////////////////////////////////////////////////////////
-			if (msgNode->dwUserID == 0)
+			if (msgNode->dwMsgType != Msg_Vip)
 			{
+				if (msgNode->dwUserID == 0)
+				{
 
-				DataModel::sharedDataModel()->vecSystemMsg.push_back(msg);
+					DataModel::sharedDataModel()->vecSystemMsg.push_back(msg);
+				}
+				else
+				{
+					DataModel::sharedDataModel()->vecMyMsg.push_back(msg);
+				}
 			}
-			else
-			{
-				DataModel::sharedDataModel()->vecMyMsg.push_back(msg);
-			}
+			
 			//CCLOG("msg main:%d sub:%d %s<<%s>>", wMainCmdID, wSubCmdID, (msgNode->szMsgcontent), __FUNCTION__);
 		}
 			break;
