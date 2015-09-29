@@ -252,6 +252,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 		int size = sizeof(CMD_S_StatusFree);
 		if (wDataSize != sizeof(CMD_S_StatusFree)) return false;
 		CMD_S_StatusFree * pStatusFree = (CMD_S_StatusFree *)pData;
+		lServiceScore = pStatusFree->lServiceScore;
 		CCLOG("%s <<%s>>", Tools::GBKToUTF8(" 空闲状态 ").c_str(), __FUNCTION__);
 		hideAllActionPanel();
 		isPalySoundWarn = true;
@@ -273,6 +274,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 		int size = sizeof(CMD_S_StatusCall);
 		if (wDataSize != sizeof(CMD_S_StatusCall)) return false;
 		CMD_S_StatusCall * pStatusCall = (CMD_S_StatusCall *)pData;
+		lServiceScore = pStatusCall->lServiceScore;
 		CCLOG("%s <<%s>>", Tools::GBKToUTF8(" 叫庄状态 ").c_str(), __FUNCTION__);
 		hideAllActionPanel();
 		isPalySoundWarn = false;
@@ -339,6 +341,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 		int size = sizeof(CMD_S_StatusScore);
 		if (wDataSize != sizeof(CMD_S_StatusScore)) return false;
 		CMD_S_StatusScore * pStatusScore = (CMD_S_StatusScore *)pData;
+		lServiceScore = pStatusScore->lServiceScore;
 		hideAllActionPanel();
 		CCLOG("%s <<%s>>", Tools::GBKToUTF8(" 下注状态 ").c_str(), __FUNCTION__);
 		isPalySoundWarn = false;
@@ -415,6 +418,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 		int size = sizeof(CMD_S_StatusPlay);
 		if (wDataSize != sizeof(CMD_S_StatusPlay)) return false;
 		CMD_S_StatusPlay * pStatusPlay = (CMD_S_StatusPlay *)pData;
+		lServiceScore = pStatusPlay->lServiceScore;
 		isPalySoundWarn = false;
 		isShowAllUserOx = false;
 		hideAllActionPanel();
@@ -564,7 +568,7 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 		int size = sizeof(CMD_S_StatusChange);
 		if (wDataSize != sizeof(CMD_S_StatusChange)) return false;
 		CMD_S_StatusChange * pStatusChange = (CMD_S_StatusChange *)pData;
-
+		lServiceScore = pStatusChange->lServiceScore;
 		isShowAllUserOx = false;
 		isPalySoundWarn = false;
 		hideAllActionPanel();

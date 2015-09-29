@@ -17,5 +17,5 @@
   <ResourceFileList>
     <string>AnimationCompanyLogo.plist</string>
   </ResourceFileList>
-  <bBatchImage>true</bBatchImage>
+  <bBatchImage>false</bBatchImage>
 </AnimationProject>

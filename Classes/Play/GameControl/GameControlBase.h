@@ -56,6 +56,8 @@ public:
 	CCArmature *pArmatureBeginGame;
 	//游戏结算层
 	GameEndLayer *pEndLayer;
+	//服务费用
+	long long lServiceScore;                      
 private:
 	//操作者提示动画
 	CCArmature *pArmatureActionPrompt;
@@ -250,6 +252,9 @@ private:
 	//动画回调
 	void onAnimationEventOver(CCArmature *pArmature, MovementEventType movementType, const char *movementID);
 	void onAnimationEventFrame(CCBone *bone, const char *evt, int originFrameIndex, int currentFrameIndex);
+
+	//税收提示文本回调
+	void onServiceScoreText(CCNode *node);
 };
 
 #endif /* defined(__BullfightGame__GameHUD__) */

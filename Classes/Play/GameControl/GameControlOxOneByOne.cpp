@@ -154,6 +154,7 @@ bool GameControlOxOneByOne::OnEventSceneMessage(void * pData, WORD wDataSize){
 		CMD_S_StatusFree * pStatusFree = (CMD_S_StatusFree *)pData;
 		pPanelReady->setEnabled(true);
 		isPalySoundWarn = true;
+		lServiceScore = pStatusFree->lServiceScore;
 		//设置控件
 		//@if (IsLookonMode() == false && GetMeUserItem()->GetUserStatus() != US_READY)
 		{
@@ -226,6 +227,7 @@ bool GameControlOxOneByOne::OnEventSceneMessage(void * pData, WORD wDataSize){
 		//效验数据
 		if (wDataSize != sizeof(CMD_S_StatusPlay)) return false;
 		CMD_S_StatusPlay * pStatusPlay = (CMD_S_StatusPlay *)pData;
+		lServiceScore = pStatusPlay->lServiceScore;
 		hideAllActionPanel();
 		isPalySoundWarn = false;
 		//设置变量

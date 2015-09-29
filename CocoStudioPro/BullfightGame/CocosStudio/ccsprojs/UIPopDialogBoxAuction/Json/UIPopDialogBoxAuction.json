@@ -4828,7 +4828,7 @@
                   "customProperty": "",
                   "flipX": false,
                   "flipY": false,
-                  "height": 34,
+                  "height": 38,
                   "ignoreSize": true,
                   "layoutParameter": null,
                   "opacity": 255,
@@ -4845,7 +4845,7 @@
                   "touchAble": true,
                   "useMergedTexture": false,
                   "visible": true,
-                  "width": 132,
+                  "width": 146,
                   "x": -203,
                   "y": -4,
                   "backGroundBox": null,
@@ -4878,7 +4878,7 @@
                     "plistFile": "UIAuction.plist",
                     "resourceType": 1
                   },
-                  "selectedState": false
+                  "selectedState": true
                 }
               },
               {
@@ -4900,7 +4900,7 @@
                   "customProperty": "",
                   "flipX": false,
                   "flipY": false,
-                  "height": 34,
+                  "height": 37,
                   "ignoreSize": true,
                   "layoutParameter": null,
                   "opacity": 255,
@@ -4917,7 +4917,7 @@
                   "touchAble": true,
                   "useMergedTexture": false,
                   "visible": true,
-                  "width": 131,
+                  "width": 144,
                   "x": 1,
                   "y": -4,
                   "backGroundBox": null,
@@ -4972,7 +4972,7 @@
                   "customProperty": "",
                   "flipX": false,
                   "flipY": false,
-                  "height": 36,
+                  "height": 39,
                   "ignoreSize": true,
                   "layoutParameter": null,
                   "opacity": 255,
@@ -4989,7 +4989,7 @@
                   "touchAble": true,
                   "useMergedTexture": false,
                   "visible": true,
-                  "width": 133,
+                  "width": 146,
                   "x": 207,
                   "y": -4,
                   "backGroundBox": null,

@@ -31,6 +31,7 @@ GameControlBase::GameControlBase()
 	, isPalySoundHundedWarn(false)
 	, isChangeChair(false)
 	, isUpdateUserInfo(false)
+	, lServiceScore(0)
 	{
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationActionPrompt.ExportJson));
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationGameIng.ExportJson));
@@ -441,7 +442,25 @@ void GameControlBase::menuReady(CCObject* pSender, TouchEventType type){
 		image->setVisible(false);
 		}*/
 
+		CCLabelTTF *label = CCLabelTTF::create("", "Marker Felt", 20);
+		this->addChild(label, 2, 999);
+		label->setColor(ccc3(0, 0, 0));
+		label->setPosition(ccp(DataModel::sharedDataModel()->deviceSize.width/2, label->getContentSize().height+10));
+		label->setString(CCString::createWithFormat("每局赢家消耗%lld金币",lServiceScore)->getCString());
 
+		CCLabelTTF *labelServiceSore = CCLabelTTF::create("", "Marker Felt", 20);
+		labelServiceSore->setString(label->getString());
+		labelServiceSore->setPosition(ccp(label->getContentSize().width / 2 + 1, label->getContentSize().height/2+1));
+		labelServiceSore->setAnchorPoint(ccp(0.5,0.5));
+		labelServiceSore->setColor(ccc3(255, 255, 255));
+		label->addChild(labelServiceSore);
+
+		CCSequence *pSeq = CCSequence::create(
+			CCDelayTime::create(3), 
+			CCCallFuncN::create(this, SEL_CallFuncN(&GameControlBase::onServiceScoreText)),
+			NULL);
+		label->runAction(pSeq);
+		
 		getMainScene()->onEventReadyFnish();
 	}
 	break;
@@ -1796,4 +1815,9 @@ void GameControlBase::onAnimationEventFrame(CCBone *bone, const char *evt, int o
 
 		//pPlayerData[bone->getArmature()->getTag()]->pIPlayerIcon->setVisible(true);
 	}
+}
+
+//税收提示文本回调
+void GameControlBase::onServiceScoreText(CCNode *node){
+	node->removeFromParentAndCleanup(true);
 }
