@@ -369,7 +369,7 @@ void PopDialogBoxKnapsack::initGoodsInfo(){
 //更新物品信息
 void PopDialogBoxKnapsack::updateGoodInfo(int index){
 	pLGoodsName->setText(GBKToUTF8(vecGoods[index].szName));
-	pLInfoContent->setText(GBKToUTF8(vecGoods[index].szRemark));
+	pLInfoContent->setText(GBKToUTF8(vecGoods[index].szOpenDespict));
 	pLGoodsNum->setText(CCString::createWithFormat("数量:%ld",vecGoods[index].dwNum)->getCString());
 
 	//兑换

@@ -100,6 +100,7 @@ bool LobbyMsgHandler::onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuf
 			}
 			else if (msgNode->dwMsgType == Msg_Rewards)
 			{
+				DataModel::sharedDataModel()->isShowNewMsg = true;
 				DataModel::sharedDataModel()->isShowNewTaskMsg = true;
 				int index = msg.find("#");
 				if (index > 0)

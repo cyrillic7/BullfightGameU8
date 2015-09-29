@@ -128,7 +128,8 @@ void BaseLobbyScene::onEnter(){
 	pAnimate->setVisible(false);
 	schedule(SEL_SCHEDULE(&BaseLobbyScene::updateGoldLight), 2);
 
-
+	//更新消息提示
+	updateNewMsgState(NULL);
 	//添加监听事件
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(BaseLobbyScene::updateNewMsgState), UPDATE_NEW_MSG_STATE, NULL);
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(BaseLobbyScene::onUpdateFirstDelta), UPDATE_FIRST_DELTA, NULL);
