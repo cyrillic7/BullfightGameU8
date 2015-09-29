@@ -91,7 +91,7 @@ void GameLobbyScene::onEnter(){
 
 	//Tools::iconv_convert(&DataModel::sharedDataModel()->userInfo->szNickName, sizeof(DataModel::sharedDataModel()->userInfo->szNickName), "GBK", &DataModel::sharedDataModel()->userInfo->szNickName, sizeof(DataModel::sharedDataModel()->userInfo->szNickName), "UTF-8");
 	std::string nickName = Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName);
-	userName->setText(Tools::subUTF8(nickName, 0, 4));
+	userName->setText(Tools::subUTF8(nickName, 0, 6));
 	//userName->setText(Tools::GBKToUTF8(DataModel::sharedDataModel()->userInfo->szNickName));
 	/*//用户名
 	userName=static_cast<UILabel*>(m_pWidget->getWidgetByName("labelUserName"));

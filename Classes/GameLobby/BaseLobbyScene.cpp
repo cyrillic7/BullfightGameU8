@@ -320,8 +320,6 @@ void BaseLobbyScene::onMenuCallback(CCObject* pSender, TouchEventType type){
 			else if(strcmp(button->getName(),"ButtonActivity")==0)
 			{
 				popDialogBox(POP_ACTIVITY);
-				DataModel::sharedDataModel()->isShowNewAuctionMsg = false;
-				MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_NEW_MSG_STATE, NULL);
 			}
 			else if(strcmp(button->getName(),"ButtonTask")==0)
 			{
@@ -344,6 +342,8 @@ void BaseLobbyScene::onMenuCallback(CCObject* pSender, TouchEventType type){
 			else if(strcmp(button->getName(),"ButtonAuction")==0)
 			{
 				popDialogBox(POP_AUCTION);
+				DataModel::sharedDataModel()->isShowNewAuctionMsg = false;
+				MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_NEW_MSG_STATE, NULL);
 			}
 			else if(strcmp(button->getName(),"ButtonRanking")==0)
 			{

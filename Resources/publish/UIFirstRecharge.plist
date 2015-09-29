@@ -20,20 +20,20 @@
             <key>u_f_r_reword_icon.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{187,2},{275,278}}</string>
+                <string>{{187,2},{267,276}}</string>
                 <key>offset</key>
-                <string>{0,0}</string>
+                <string>{2,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{275,278}}</string>
+                <string>{{6,1},{267,276}}</string>
                 <key>sourceSize</key>
                 <string>{275,278}</string>
             </dict>
             <key>u_f_r_title.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{187,282},{178,31}}</string>
+                <string>{{187,280},{178,31}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -51,9 +51,9 @@
             <key>realTextureFileName</key>
             <string>UIFirstRecharge.png</string>
             <key>size</key>
-            <string>{464,392}</string>
+            <string>{456,392}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:4e8be219f018a80699c0f088d7dd3940:f1a3c173b4be323bfb4a49c3c316859d:56dac8667f17678de0f1173abbb9d008$</string>
+            <string>$TexturePacker:SmartUpdate:6e773b0e43c3e07804a16bafddbd6e75:192d11b24ce5a213c8c6fc4c44dc1eb7:56dac8667f17678de0f1173abbb9d008$</string>
             <key>textureFileName</key>
             <string>UIFirstRecharge.png</string>
         </dict>

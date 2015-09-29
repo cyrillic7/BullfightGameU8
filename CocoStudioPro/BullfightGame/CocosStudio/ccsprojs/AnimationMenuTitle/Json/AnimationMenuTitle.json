@@ -39,44 +39,12 @@
           ]
         },
         {
-          "name": "light3",
-          "parent": "",
-          "dI": -1000,
-          "x": 0.0,
-          "y": 0.0,
-          "z": 11,
-          "cX": 1.0,
-          "cY": 1.0,
-          "kX": 0.0,
-          "kY": 0.0,
-          "arrow_x": 0.0,
-          "arrow_y": 0.0,
-          "effectbyskeleton": false,
-          "bl": 0,
-          "display_data": [
-            {
-              "name": "a_mt_light2.png",
-              "displayType": 0,
-              "skin_data": [
-                {
-                  "x": 0.0,
-                  "y": 0.0,
-                  "cX": 1.0,
-                  "cY": 1.0,
-                  "kX": 0.0,
-                  "kY": 0.0
-                }
-              ]
-            }
-          ]
-        },
-        {
           "name": "light5",
           "parent": "",
           "dI": -1000,
           "x": 0.0,
           "y": 0.0,
-          "z": 10,
+          "z": 11,
           "cX": 1.0,
           "cY": 1.0,
           "kX": 0.0,
@@ -108,7 +76,7 @@
           "dI": -1000,
           "x": 0.0,
           "y": 0.0,
-          "z": 9,
+          "z": 10,
           "cX": 1.0,
           "cY": 1.0,
           "kX": 0.0,
@@ -120,6 +88,38 @@
           "display_data": [
             {
               "name": "a_mt_light3.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "light3",
+          "parent": "",
+          "dI": 0,
+          "x": 0.0,
+          "y": 0.0,
+          "z": 9,
+          "cX": 1.0,
+          "cY": 1.0,
+          "kX": 0.0,
+          "kY": 0.0,
+          "arrow_x": 0.0,
+          "arrow_y": 0.0,
+          "effectbyskeleton": false,
+          "bl": 0,
+          "display_data": [
+            {
+              "name": "a_mt_light2.png",
               "displayType": 0,
               "skin_data": [
                 {
@@ -489,7 +489,7 @@
                   "bd_dst": 771
                 },
                 {
-                  "dI": -1000,
+                  "dI": 0,
                   "x": 0.0,
                   "y": 0.0,
                   "z": 0,
@@ -501,62 +501,11 @@
                   "twE": 0,
                   "tweenFrame": true,
                   "color": {
-                    "a": 100,
+                    "a": 0,
                     "r": 255,
                     "g": 255,
                     "b": 255
                   },
-                  "bd_src": 1,
-                  "bd_dst": 771
-                }
-              ]
-            },
-            {
-              "name": "light3",
-              "dl": 0.0,
-              "frame_data": [
-                {
-                  "dI": -1000,
-                  "x": 0.0,
-                  "y": 0.0,
-                  "z": 0,
-                  "cX": 1.0,
-                  "cY": 1.0,
-                  "kX": 0.0,
-                  "kY": 0.0,
-                  "fi": 0,
-                  "twE": 0,
-                  "tweenFrame": true,
-                  "bd_src": 774,
-                  "bd_dst": 1
-                },
-                {
-                  "dI": 0,
-                  "x": 0.0,
-                  "y": 0.0,
-                  "z": 0,
-                  "cX": 1.0,
-                  "cY": 1.0,
-                  "kX": 0.0,
-                  "kY": 0.0,
-                  "fi": 50,
-                  "twE": 0,
-                  "tweenFrame": false,
-                  "bd_src": 774,
-                  "bd_dst": 1
-                },
-                {
-                  "dI": -1000,
-                  "x": 0.0,
-                  "y": 0.0,
-                  "z": 0,
-                  "cX": 1.0,
-                  "cY": 1.0,
-                  "kX": 0.0,
-                  "kY": 0.0,
-                  "fi": 55,
-                  "twE": 0,
-                  "tweenFrame": true,
                   "bd_src": 1,
                   "bd_dst": 771
                 }
@@ -579,7 +528,7 @@
                   "twE": 0,
                   "tweenFrame": true,
                   "bd_src": 774,
-                  "bd_dst": 771
+                  "bd_dst": 1
                 },
                 {
                   "dI": 0,
@@ -593,8 +542,8 @@
                   "fi": 60,
                   "twE": 0,
                   "tweenFrame": false,
-                  "bd_src": 774,
-                  "bd_dst": 1
+                  "bd_src": 1,
+                  "bd_dst": 771
                 },
                 {
                   "dI": -1000,
@@ -607,7 +556,7 @@
                   "kY": 0.0,
                   "fi": 65,
                   "twE": 0,
-                  "tweenFrame": true,
+                  "tweenFrame": false,
                   "bd_src": 1,
                   "bd_dst": 771
                 }
@@ -657,6 +606,57 @@
                   "kX": 0.0,
                   "kY": 0.0,
                   "fi": 60,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                }
+              ]
+            },
+            {
+              "name": "light3",
+              "dl": 0.0,
+              "frame_data": [
+                {
+                  "dI": -1000,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 0,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 774,
+                  "bd_dst": 1
+                },
+                {
+                  "dI": 0,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 50,
+                  "twE": 0,
+                  "tweenFrame": false,
+                  "bd_src": 774,
+                  "bd_dst": 1
+                },
+                {
+                  "dI": -1000,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 55,
                   "twE": 0,
                   "tweenFrame": true,
                   "bd_src": 1,
@@ -1293,40 +1293,40 @@
     },
     {
       "name": "a_mt_light0",
-      "width": 97.0,
-      "height": 86.0,
+      "width": 55.0,
+      "height": 88.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": "AnimationMenuTitle.plist"
     },
     {
       "name": "a_mt_light1",
-      "width": 177.0,
-      "height": 158.0,
+      "width": 185.0,
+      "height": 154.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": "AnimationMenuTitle.plist"
     },
     {
       "name": "a_mt_light2",
-      "width": 183.0,
-      "height": 144.0,
+      "width": 233.0,
+      "height": 194.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": "AnimationMenuTitle.plist"
     },
     {
       "name": "a_mt_light3",
-      "width": 219.0,
-      "height": 164.0,
+      "width": 259.0,
+      "height": 208.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": "AnimationMenuTitle.plist"
     },
     {
       "name": "a_mt_light4",
-      "width": 157.0,
-      "height": 162.0,
+      "width": 91.0,
+      "height": 110.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": "AnimationMenuTitle.plist"

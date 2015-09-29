@@ -478,8 +478,9 @@ void ClassicLobbyScene::onEventConnect(WORD wSubCmdID, void * pDataBuffer, unsig
 		logonMobile.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
 
 		MD5 m;
-		//MD5::char8 str[] = "z12345678";
-		//m.ComputMd5(str,sizeof(str)-1);
+		//MD5::char8 str[] = "z12345678";5165
+		//m.ComputMd5(str,sizeof(str)-1);5afb7b5360ab76ae55734560b574845d
+
 		m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
 		std::string md5PassWord = m.GetMd5();
 		strcpy(logonMobile.szPassword, md5PassWord.c_str());

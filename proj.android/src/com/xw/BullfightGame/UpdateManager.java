@@ -210,8 +210,8 @@ public class UpdateManager extends Service
 	}
 	private void showFail(){
 		new AlertDialog.Builder(game)
-		.setTitle("失败！")
-		.setMessage("更新失败，请重新下载")
+		.setTitle("下载失败")
+		.setMessage("下载失败，请重新下载")
 		.setPositiveButton("确定",
 				new DialogInterface.OnClickListener() {
 
