@@ -10,17 +10,11 @@
   "designHeight": 640,
   "designWidth": 1136,
   "textures": [
-    "UIGameLobby.plist",
-    "UIAuction.plist",
-    "UIButton.plist",
-    "UIUserIcon.plist"
+    "UIClassicLobby.plist",
+    "UIPanel.plist",
+    "UIButton.plist"
   ],
-  "texturesPng": [
-    "UIGameLobby.png",
-    "UIAuction.png",
-    "UIButton.png",
-    "UIUserIcon.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -1321,7 +1315,7 @@
                       "rotation": 0,
                       "scaleX": 1,
                       "scaleY": 1,
-                      "sizePercentX": 0.115606934,
+                      "sizePercentX": 0.3901734,
                       "sizePercentY": 0.166666672,
                       "sizeType": 0,
                       "tag": 6,

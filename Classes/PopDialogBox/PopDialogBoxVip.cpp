@@ -322,7 +322,7 @@ void PopDialogBoxVip::updateListVip(){
 	}
 	else
 	{
-		setButtonState(pBRewardRedMoney, vipPower.dwLoginScoreStatus);
+		setButtonState(pBRewardRedMoney, vipPower.dwRedPaperStatus);
 	}
 	//////////////////////////////////////////////////////////////////////////
 	//商城折扣
@@ -600,10 +600,10 @@ void PopDialogBoxVip::onSubVipInfo(void * pDataBuffer, unsigned short wDataSize)
 	else
 	{
 		//下一VIP等级进度
-		float fNextPercent = (float)pVipPower->dwIngot / pVipPower->dwAllIngot;
+		float fNextPercent = (float)(pVipPower->dwAllIngot-pVipPower->dwIngot)/ pVipPower->dwAllIngot;
 		pLBVipNextGrade->setPercent(fNextPercent * 100);
 		//设置下一级
-		pLVipNextContent->setText(CCString::createWithFormat("还需充值%ld元宝，即可成为VIP%ld，福利翻倍哦", pVipPower->dwAllIngot - pVipPower->dwIngot, pVipPower->dwVipID + 1)->getCString());
+		pLVipNextContent->setText(CCString::createWithFormat("还需充值%ld元宝，即可成为VIP%ld，福利翻倍哦",  pVipPower->dwIngot, pVipPower->dwVipID + 1)->getCString());
 
 	}
 	//更新列表

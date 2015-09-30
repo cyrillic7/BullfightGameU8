@@ -124,9 +124,9 @@ void BaseLobbyScene::onEnter(){
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationGameIng.ExportJson));
 	pAnimate = CCArmature::create("AnimationGameIng");
 	pIVGoldIcon->addNode(pAnimate, 100);
-	pAnimate->setPosition(3, 1);
+	pAnimate->setPosition(0, 0);
 	pAnimate->setVisible(false);
-	schedule(SEL_SCHEDULE(&BaseLobbyScene::updateGoldLight), 2);
+	schedule(SEL_SCHEDULE(&BaseLobbyScene::updateGoldLight), 2); 
 
 	//更新消息提示
 	updateNewMsgState(NULL);

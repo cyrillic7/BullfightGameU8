@@ -55,7 +55,7 @@
         {
           "name": "Layer1",
           "parent": "",
-          "dI": -971,
+          "dI": 29,
           "x": 0.0,
           "y": 0.0,
           "z": 1,
@@ -487,6 +487,20 @@
                   "kY": 0.0
                 }
               ]
+            },
+            {
+              "name": "a_c_gold7.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0
+                }
+              ]
             }
           ]
         }
@@ -881,7 +895,7 @@
         },
         {
           "name": "handWave",
-          "dr": 36,
+          "dr": 35,
           "lp": true,
           "to": 0,
           "drTW": 0,
@@ -1054,7 +1068,7 @@
         },
         {
           "name": "cUIGold",
-          "dr": 36,
+          "dr": 41,
           "lp": false,
           "to": 0,
           "drTW": 0,
@@ -1077,8 +1091,8 @@
                   "fi": 0,
                   "twE": 0,
                   "tweenFrame": true,
-                  "bd_src": 1,
-                  "bd_dst": 771
+                  "bd_src": 774,
+                  "bd_dst": 1
                 },
                 {
                   "dI": 24,
@@ -1092,8 +1106,8 @@
                   "fi": 5,
                   "twE": 0,
                   "tweenFrame": true,
-                  "bd_src": 1,
-                  "bd_dst": 771
+                  "bd_src": 774,
+                  "bd_dst": 1
                 },
                 {
                   "dI": 25,
@@ -1107,8 +1121,8 @@
                   "fi": 10,
                   "twE": 0,
                   "tweenFrame": true,
-                  "bd_src": 1,
-                  "bd_dst": 771
+                  "bd_src": 774,
+                  "bd_dst": 1
                 },
                 {
                   "dI": 26,
@@ -1122,8 +1136,8 @@
                   "fi": 15,
                   "twE": 0,
                   "tweenFrame": true,
-                  "bd_src": 1,
-                  "bd_dst": 771
+                  "bd_src": 774,
+                  "bd_dst": 1
                 },
                 {
                   "dI": 27,
@@ -1137,8 +1151,8 @@
                   "fi": 20,
                   "twE": 0,
                   "tweenFrame": true,
-                  "bd_src": 1,
-                  "bd_dst": 771
+                  "bd_src": 774,
+                  "bd_dst": 1
                 },
                 {
                   "dI": 28,
@@ -1171,7 +1185,7 @@
                   "bd_dst": 771
                 },
                 {
-                  "dI": -971,
+                  "dI": 30,
                   "x": 0.0,
                   "y": 0.0,
                   "z": 0,
@@ -1180,6 +1194,21 @@
                   "kX": 0.0,
                   "kY": 0.0,
                   "fi": 35,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                },
+                {
+                  "dI": -971,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 40,
                   "twE": 0,
                   "tweenFrame": true,
                   "bd_src": 1,
@@ -1395,38 +1424,46 @@
     },
     {
       "name": "a_c_gold0",
-      "width": 12.0,
-      "height": 23.0,
+      "width": 21.0,
+      "height": 19.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": "AnimationGameIng.plist"
     },
     {
       "name": "a_c_gold1",
-      "width": 26.0,
-      "height": 37.0,
+      "width": 29.0,
+      "height": 29.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": "AnimationGameIng.plist"
     },
     {
       "name": "a_c_gold2",
-      "width": 24.0,
-      "height": 37.0,
+      "width": 31.0,
+      "height": 31.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": "AnimationGameIng.plist"
     },
     {
       "name": "a_c_gold3",
-      "width": 16.0,
-      "height": 25.0,
+      "width": 29.0,
+      "height": 29.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": "AnimationGameIng.plist"
     },
     {
       "name": "a_c_gold4",
+      "width": 21.0,
+      "height": 21.0,
+      "pX": 0.5,
+      "pY": 0.5,
+      "plistFile": "AnimationGameIng.plist"
+    },
+    {
+      "name": "a_c_gold5",
       "width": 12.0,
       "height": 11.0,
       "pX": 0.5,
@@ -1434,7 +1471,7 @@
       "plistFile": "AnimationGameIng.plist"
     },
     {
-      "name": "a_c_gold5",
+      "name": "a_c_gold6",
       "width": 22.0,
       "height": 23.0,
       "pX": 0.5,
@@ -1442,7 +1479,7 @@
       "plistFile": "AnimationGameIng.plist"
     },
     {
-      "name": "a_c_gold6",
+      "name": "a_c_gold7",
       "width": 18.0,
       "height": 17.0,
       "pX": 0.5,
