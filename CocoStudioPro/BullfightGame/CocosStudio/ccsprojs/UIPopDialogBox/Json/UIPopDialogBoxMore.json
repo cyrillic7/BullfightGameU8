@@ -17,14 +17,7 @@
     "UICheckBox.plist",
     "UIUserIcon.plist"
   ],
-  "texturesPng": [
-    "UIPanel.png",
-    "UIButton.png",
-    "UISetUp.png",
-    "UIUserInfo.png",
-    "UICheckBox.png",
-    "UIUserIcon.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -444,7 +437,7 @@
                       "areaWidth": 190,
                       "fontFile": null,
                       "fontName": "微软雅黑",
-                      "fontSize": 20,
+                      "fontSize": 18,
                       "hAlignment": 0,
                       "text": "Text Label",
                       "touchScaleEnable": false,

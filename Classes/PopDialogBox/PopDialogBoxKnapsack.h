@@ -58,6 +58,8 @@ private:
 	Label *pLGoodsName;
 	//物品数量
 	Label *pLGoodsNum;
+	//物品获得方式
+	Label *pLAccessMethod;
 	//物品描述
 	Label *pLInfoContent;
 	//物品图片

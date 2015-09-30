@@ -442,13 +442,13 @@ void GameControlBase::menuReady(CCObject* pSender, TouchEventType type){
 		image->setVisible(false);
 		}*/
 
-		CCLabelTTF *label = CCLabelTTF::create("", "Marker Felt", 20);
+		CCLabelTTF *label = CCLabelTTF::create("", "Marker Felt", 28);
 		this->addChild(label, 2, 999);
 		label->setColor(ccc3(0, 0, 0));
-		label->setPosition(ccp(DataModel::sharedDataModel()->deviceSize.width/2, label->getContentSize().height+10));
+		label->setPosition(ccp(DataModel::sharedDataModel()->deviceSize.width/2, label->getContentSize().height+16));
 		label->setString(CCString::createWithFormat("每局赢家消耗%lld金币",lServiceScore)->getCString());
 
-		CCLabelTTF *labelServiceSore = CCLabelTTF::create("", "Marker Felt", 20);
+		CCLabelTTF *labelServiceSore = CCLabelTTF::create("", "Marker Felt", 28);
 		labelServiceSore->setString(label->getString());
 		labelServiceSore->setPosition(ccp(label->getContentSize().width / 2 + 1, label->getContentSize().height/2+1));
 		labelServiceSore->setAnchorPoint(ccp(0.5,0.5));
@@ -1595,16 +1595,14 @@ void GameControlBase::onUserReady(CMD_GR_UserStatus *info){
 }
 //用户进入
 void GameControlBase::onSubUserEnter(void * pDataBuffer, unsigned short wDataSize){
-#if (DEBUG_TEST==0)
+/*#if (DEBUG_TEST==0)
 	//效验参数
 	assert(wDataSize >= sizeof(tagUserInfoHead));
 	if (wDataSize < sizeof(tagUserInfoHead)) return false;
 	//消息处理
 	tagUserInfoHead * pUserInfoHead = (tagUserInfoHead *)pDataBuffer;
 
-	/*if (pUserInfoHead->wTableID==DataModel::sharedDataModel()->userInfo->wTableID)
-	{
-	}*/
+	
 	int wPacketSize = 0;
 	//变量定义
 	tagUserInfo UserInfo;
@@ -1651,7 +1649,7 @@ void GameControlBase::onSubUserEnter(void * pDataBuffer, unsigned short wDataSiz
 		}
 	}
 #endif
-#if (DEBUG_TEST==1)
+#if (DEBUG_TEST==1)*/
 	//效验参数
 	assert(wDataSize >= sizeof(tagMobileUserInfoHead));
 	if (wDataSize < sizeof(tagMobileUserInfoHead)) return;
@@ -1715,7 +1713,7 @@ void GameControlBase::onSubUserEnter(void * pDataBuffer, unsigned short wDataSiz
 	{
 		DataModel::sharedDataModel()->mTagUserInfo.insert(std::map<long, tagUserInfo>::value_type(pUserInfoHead->dwUserID, UserInfo));
 	}
-#endif
+/*#endif*/
 }
 
 void GameControlBase::goldJump(int index, CCPoint beginPos, CCPoint endPos){

@@ -365,11 +365,13 @@ void PopDialogBoxKnapsack::initGoodsInfo(){
 	pLGoodsName = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelGoodsName"));
 	pLGoodsNum = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelPropCount"));
 	pLInfoContent = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelInfoContent"));
+	pLAccessMethod = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelOpenDespic"));
 }
 //更新物品信息
 void PopDialogBoxKnapsack::updateGoodInfo(int index){
 	pLGoodsName->setText(GBKToUTF8(vecGoods[index].szName));
-	pLInfoContent->setText(GBKToUTF8(vecGoods[index].szOpenDespict));
+	pLInfoContent->setText(GBKToUTF8(vecGoods[index].szDespict));
+	pLAccessMethod->setText(GBKToUTF8(vecGoods[index].szOpenDespict));
 	pLGoodsNum->setText(CCString::createWithFormat("数量:%ld",vecGoods[index].dwNum)->getCString());
 
 	//兑换
