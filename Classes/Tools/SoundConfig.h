@@ -14,7 +14,7 @@
 #define kSoundEnd "sound/otherOx/GAME_END.m4a"								//他人游戏结束
 #define kSoundWarn "sound/otherOx/GAME_WARN.m4a"							//倒计时警告
 #define kSoundStart "sound/otherOx/GAME_START.m4a"							//游戏开始
-#define kSoundSendCard "sound/otherOx/SEND_CARD.m4a"						//发牌
+#define kSoundSendCard "sound/otherOx/SEND_CARD.wav"						//发牌
 
 #define kSoundHundredWarn "sound/TIME_WARIMG.m4a"							//百人牛牛倒计时警告
 #define kSoundHundredSendCard "sound//OUT_CARD.m4a"							//百人牛牛发牌

@@ -102,4 +102,6 @@ private:
 	virtual void showResultAnimation();
 	//开始动画播放完成回调
 	virtual void onAnimationBeginGameFinsh();
+	//显示税收
+	void doShowServiceScore();
 };

@@ -37,6 +37,7 @@ public:
 	{
 		BUY_AUCTION=0,					//拍卖购买
 		BUY_SHOP,						//商城购买
+		BUY_SHOP_VIP,					//商城VIP购买
 	};
 	CC_SYNTHESIZE(BuyType, buyType, BuyType);
 	//兑换类型

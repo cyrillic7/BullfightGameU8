@@ -137,7 +137,7 @@
         {
           "name": "light2",
           "parent": "",
-          "dI": 0,
+          "dI": -1000,
           "x": 0.0,
           "y": 0.0,
           "z": 8,
@@ -542,8 +542,8 @@
                   "fi": 60,
                   "twE": 0,
                   "tweenFrame": false,
-                  "bd_src": 1,
-                  "bd_dst": 771
+                  "bd_src": 774,
+                  "bd_dst": 1
                 },
                 {
                   "dI": -1000,
@@ -1309,32 +1309,32 @@
     },
     {
       "name": "a_mt_light2",
-      "width": 233.0,
-      "height": 194.0,
+      "width": 459.0,
+      "height": 236.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": "AnimationMenuTitle.plist"
     },
     {
       "name": "a_mt_light3",
-      "width": 259.0,
-      "height": 208.0,
+      "width": 459.0,
+      "height": 236.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": "AnimationMenuTitle.plist"
     },
     {
       "name": "a_mt_light4",
-      "width": 91.0,
-      "height": 110.0,
+      "width": 459.0,
+      "height": 236.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": "AnimationMenuTitle.plist"
     },
     {
       "name": "a_mt_star",
-      "width": 75.0,
-      "height": 76.0,
+      "width": 79.0,
+      "height": 80.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": "AnimationMenuTitle.plist"

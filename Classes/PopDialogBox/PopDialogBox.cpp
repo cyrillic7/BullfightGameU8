@@ -115,7 +115,7 @@ void PopDialogBox::setLobbyReadMessage(bool isRead){
 //显示数量输入框
 void PopDialogBox::showInputNumBox(BuyType eBuyType, const char* cPropName, const char* cPropImagePuth, long lMaxNum, long long lPice, long vipDiscount, int vipLevel, IPopAssist* pIPop){
 	PopDialogBoxInputNum *box = PopDialogBoxInputNum::create();
-	if (eBuyType==BUY_AUCTION)
+	if (eBuyType==BUY_AUCTION||eBuyType==BUY_SHOP_VIP)
 	{
 		box->isShowVipDiscount = false;
 	}

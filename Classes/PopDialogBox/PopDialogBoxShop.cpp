@@ -205,9 +205,10 @@ void PopDialogBoxShop::onMenuBuyProp(CCObject *object, TouchEventType type){
 			{
 				vipDiscount = 1;
 			}
+			vipDiscount = 1;
 			long vipPice = vecVip.at(iBuyPropIndex).price[0].dwCount*vipDiscount;
 
-			showInputNumBox(BUY_SHOP, GBKToUTF8(vecVip[iBuyPropIndex].szName).c_str(), vecVip[iBuyPropIndex].szImgName, 1, vipPice, vecVip[iBuyPropIndex].dwDiscount, 0, this);
+			showInputNumBox(BUY_SHOP_VIP, GBKToUTF8(vecVip[iBuyPropIndex].szName).c_str(), vecVip[iBuyPropIndex].szImgName, 1, vipPice, vecVip[iBuyPropIndex].dwDiscount, 0, this);
 		}
 		break;
 		default:
@@ -353,7 +354,13 @@ void PopDialogBoxShop::updateListCommodity(std::vector<CMD_GP_Gift> *vec){
 				pLVipPice0->setText(CCString::createWithFormat("%ld", vipPice)->getCString());
 				UILabel *pLVipPice1 = static_cast<UILabel*>(pIVItem->getChildByName("ImageVipPice")->getChildByName("LabelVipPice1"));
 				pLVipPice1->setText(CCString::createWithFormat("%ld", vipPice)->getCString());
-
+				if (getShopItem()==SHOP_VIP)
+				{
+					pLVipPice0->setVisible(false);
+					pLVipPice1->setVisible(false);
+					pLVipPice0->getParent()->setVisible(false);
+					vipDiscount = 1;
+				}
 
 				UILabel *pPropName = static_cast<UILabel*>(pListViewCommodity->getItem(pListViewCommodity->getItems()->count() - 1)->getChildByName(CCString::createWithFormat("ImageCommodity%d", j)->getCString())->getChildByName("LabelPropName"));
 				pPropName->setText(GBKToUTF8(vec->at(tempIndex).szName));

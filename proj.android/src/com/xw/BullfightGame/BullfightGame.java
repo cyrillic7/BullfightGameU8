@@ -59,6 +59,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore.Audio;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -84,7 +85,7 @@ public class BullfightGame extends Cocos2dxActivity {
 	private final int NETWORK_STATE_UNCONNECT = 2;// 网络断开
 	public String updateUrl;//更新地址
 	private BroadcastReceiver connectionReceiver;
-	static BullfightGame game;
+	public static BullfightGame game;
 	// 打开网页
 	WebView m_webView;// WebView控件
 	//ImageView m_imageView;// ImageView控件
@@ -261,11 +262,11 @@ public class BullfightGame extends Cocos2dxActivity {
 				View view = flater.inflate(R.layout.webview_layout, null);
 				m_webLayout.addView(view);
 				// 屏蔽按键不下漏
-				view.setOnClickListener(new OnClickListener() {
+				/*view.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
 					}
-				});
+				});*/
 				// 初始化webView
 				// m_webView = new WebView(game);
 				m_webView = (WebView) view.findViewById(R.id.webViewQQLogin);
@@ -397,6 +398,7 @@ public class BullfightGame extends Cocos2dxActivity {
 
 		m_topLayout.removeView(m_backButton);
 		m_backButton.destroyDrawingCache();
+		
 	}
 
 	// 重写返回键
@@ -406,7 +408,24 @@ public class BullfightGame extends Cocos2dxActivity {
 		 * KeyEvent.KEYCODE_BACK){ m_webView.goBack(); }else{
 		 * JniQQLogin(0,"",""); removeWebView(); }
 		 */
+		//return false;
+		super.onKeyDown(keyCoder, event);
+		
+		/*int currentVolume = audio.getStreamVolume(AudioManager.STREAM_MUSIC); 
+	
+		if (keyCoder == KeyEvent.KEYCODE_BACK) {
+		this.mCocos2dxGLSurfaceView.requestFocus(); //1
+		}
+		else if(keyCoder == KeyEvent.KEYCODE_VOLUME_DOWN)
+		     { 
+		     audio.setStreamVolume(AudioManager.STREAM_MUSIC, currentVolume-1, 1);//2
+		     }
+		     else if(keyCoder == KeyEvent.KEYCODE_VOLUME_UP)
+		     {
+		     audio.setStreamVolume(AudioManager.STREAM_MUSIC, currentVolume+1, 1);//3
+		     }*/
 		return false;
+
 	}
 
 	// //////////////////////////////////////////////////////////////////////////////////

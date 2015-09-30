@@ -24,7 +24,7 @@ private:
 		SHOP_BUY_GIFT,					//购买礼品
 		SHOP_BUY_PROP,					//购买道具
 		SHOP_BUY_VIP,					//购买VIP
-		//SHOP_KNAPSACK_LIST,				//背包列表
+		//SHOP_KNAPSACK_LIST,			//背包列表
 		SHOP_GET_PROPERTY,				//获取财产
 
 	};

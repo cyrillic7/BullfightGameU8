@@ -442,24 +442,7 @@ void GameControlBase::menuReady(CCObject* pSender, TouchEventType type){
 		image->setVisible(false);
 		}*/
 
-		CCLabelTTF *label = CCLabelTTF::create("", "Marker Felt", 28);
-		this->addChild(label, 2, 999);
-		label->setColor(ccc3(0, 0, 0));
-		label->setPosition(ccp(DataModel::sharedDataModel()->deviceSize.width/2, label->getContentSize().height+16));
-		label->setString(CCString::createWithFormat("每局赢家消耗%lld金币",lServiceScore)->getCString());
-
-		CCLabelTTF *labelServiceSore = CCLabelTTF::create("", "Marker Felt", 28);
-		labelServiceSore->setString(label->getString());
-		labelServiceSore->setPosition(ccp(label->getContentSize().width / 2 + 1, label->getContentSize().height/2+1));
-		labelServiceSore->setAnchorPoint(ccp(0.5,0.5));
-		labelServiceSore->setColor(ccc3(255, 255, 255));
-		label->addChild(labelServiceSore);
-
-		CCSequence *pSeq = CCSequence::create(
-			CCDelayTime::create(3), 
-			CCCallFuncN::create(this, SEL_CallFuncN(&GameControlBase::onServiceScoreText)),
-			NULL);
-		label->runAction(pSeq);
+		doShowServiceScore();
 		
 		getMainScene()->onEventReadyFnish();
 	}

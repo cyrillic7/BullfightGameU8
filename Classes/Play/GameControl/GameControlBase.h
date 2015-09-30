@@ -240,6 +240,8 @@ public:
 
 	//开始动画播放完成回调
 	virtual void onAnimationBeginGameFinsh(){}
+	//税收提示文本回调
+	void onServiceScoreText(CCNode *node);
 private:
 	void goldJump(int index,CCPoint beginPos,CCPoint endPos);
 	void onGoldJump(CCNode *node);
@@ -253,8 +255,9 @@ private:
 	void onAnimationEventOver(CCArmature *pArmature, MovementEventType movementType, const char *movementID);
 	void onAnimationEventFrame(CCBone *bone, const char *evt, int originFrameIndex, int currentFrameIndex);
 
-	//税收提示文本回调
-	void onServiceScoreText(CCNode *node);
+
+	//显示税收
+	virtual void doShowServiceScore(){};
 };
 
 #endif /* defined(__BullfightGame__GameHUD__) */
