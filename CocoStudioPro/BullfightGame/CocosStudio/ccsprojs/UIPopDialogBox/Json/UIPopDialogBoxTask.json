@@ -12,18 +12,12 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UISetUp.plist",
-    "UIUserInfo.plist",
-    "UICheckBox.plist",
-    "UIUserIcon.plist"
+    "UIKnapsack.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UISetUp.png",
-    "UIUserInfo.png",
-    "UICheckBox.png",
-    "UIUserIcon.png"
+    "UIKnapsack.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -480,13 +474,13 @@
                           "layoutParameter": null,
                           "opacity": 255,
                           "positionPercentX": 0,
-                          "positionPercentY": -0.83157897,
+                          "positionPercentY": -0.7979798,
                           "positionType": 0,
                           "rotation": 0,
                           "scaleX": 1,
                           "scaleY": 1,
-                          "sizePercentX": 1.53061223,
-                          "sizePercentY": 0.694736838,
+                          "sizePercentX": 1.47058821,
+                          "sizePercentY": 0.6666667,
                           "sizeType": 0,
                           "tag": 7366,
                           "touchAble": false,
@@ -522,7 +516,7 @@
                       "customProperty": "",
                       "flipX": false,
                       "flipY": false,
-                      "height": 95,
+                      "height": 99,
                       "ignoreSize": true,
                       "layoutParameter": null,
                       "opacity": 255,
@@ -539,7 +533,7 @@
                       "touchAble": false,
                       "useMergedTexture": false,
                       "visible": true,
-                      "width": 98,
+                      "width": 102,
                       "x": 0,
                       "y": 24,
                       "capInsetsHeight": 1,
@@ -553,8 +547,8 @@
                         "resourceType": 1
                       },
                       "scale9Enable": false,
-                      "scale9Height": 95,
-                      "scale9Width": 98
+                      "scale9Height": 99,
+                      "scale9Width": 102
                     }
                   },
                   {

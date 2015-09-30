@@ -12,12 +12,16 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIMore.plist"
+    "UIShop.plist",
+    "UIKnapsack.plist",
+    "UIUserInfo.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UIMore.png"
+    "UIShop.png",
+    "UIKnapsack.png",
+    "UIUserInfo.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -402,7 +406,7 @@
               "customProperty": "",
               "flipX": false,
               "flipY": false,
-              "height": 95,
+              "height": 99,
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
@@ -419,7 +423,7 @@
               "touchAble": false,
               "useMergedTexture": false,
               "visible": true,
-              "width": 98,
+              "width": 102,
               "x": -180,
               "y": 48,
               "capInsetsHeight": 1,
@@ -433,8 +437,8 @@
                 "resourceType": 1
               },
               "scale9Enable": false,
-              "scale9Height": 95,
-              "scale9Width": 98
+              "scale9Height": 99,
+              "scale9Width": 102
             }
           },
           {
@@ -464,13 +468,13 @@
                   "ignoreSize": false,
                   "layoutParameter": null,
                   "opacity": 255,
-                  "positionPercentX": 0.04,
+                  "positionPercentX": 0.03809524,
                   "positionPercentY": 0,
                   "positionType": 0,
                   "rotation": 0,
                   "scaleX": 1,
                   "scaleY": 1,
-                  "sizePercentX": 0.88,
+                  "sizePercentX": 0.838095248,
                   "sizePercentY": 0.675,
                   "sizeType": 0,
                   "tag": 3256,
@@ -519,14 +523,14 @@
               "rotation": 0,
               "scaleX": 1,
               "scaleY": 1,
-              "sizePercentX": 0.4,
+              "sizePercentX": 0.42,
               "sizePercentY": 0.137931034,
               "sizeType": 0,
               "tag": 3252,
               "touchAble": false,
               "useMergedTexture": false,
               "visible": true,
-              "width": 200,
+              "width": 210,
               "x": -36,
               "y": 62,
               "capInsetsHeight": 6,
@@ -541,7 +545,7 @@
               },
               "scale9Enable": true,
               "scale9Height": 40,
-              "scale9Width": 200
+              "scale9Width": 210
             }
           },
           {

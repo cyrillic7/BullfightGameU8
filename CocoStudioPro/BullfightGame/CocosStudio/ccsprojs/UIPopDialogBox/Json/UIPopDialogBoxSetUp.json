@@ -12,18 +12,12 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UISetUp.plist",
-    "UIUserInfo.plist",
-    "UICheckBox.plist",
-    "UIUserIcon.plist"
+    "UIKnapsack.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UISetUp.png",
-    "UIUserInfo.png",
-    "UICheckBox.png",
-    "UIUserIcon.png"
+    "UIKnapsack.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -866,8 +860,8 @@
                   "rotation": 0,
                   "scaleX": 1,
                   "scaleY": 1,
-                  "sizePercentX": 0.2,
-                  "sizePercentY": 0.124137931,
+                  "sizePercentX": 0.157142863,
+                  "sizePercentY": 0.103448279,
                   "sizeType": 0,
                   "tag": 121,
                   "touchAble": false,

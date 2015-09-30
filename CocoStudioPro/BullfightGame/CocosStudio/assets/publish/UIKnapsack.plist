@@ -169,9 +169,9 @@
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{98,95}}</string>
+                <string>{{2,2},{98,95}}</string>
                 <key>sourceSize</key>
-                <string>{98,95}</string>
+                <string>{102,99}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -183,7 +183,7 @@
             <key>size</key>
             <string>{254,562}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:b04e2700043d3230c9ee0d888eb393ba:3de50e642970c77d0a598cd8b7571f7c:7adc74eb6c6e62d8a58aec9d378b0cda$</string>
+            <string>$TexturePacker:SmartUpdate:0b5885f7ffadde0cc826b9b819677b34:2131b5d267897ea5c6bc9485b18c0c64:7adc74eb6c6e62d8a58aec9d378b0cda$</string>
             <key>textureFileName</key>
             <string>UIKnapsack.png</string>
         </dict>

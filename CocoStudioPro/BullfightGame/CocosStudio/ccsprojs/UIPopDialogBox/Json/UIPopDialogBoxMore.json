@@ -12,12 +12,12 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIMore.plist"
+    "UIKnapsack.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UIMore.png"
+    "UIKnapsack.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -408,7 +408,7 @@
                       "anchorPointX": 0,
                       "anchorPointY": 0.5,
                       "classType": "CocoStudio.EngineAdapterWrap.CSLabel",
-                      "colorB": 50,
+                      "colorB": 51,
                       "colorG": 50,
                       "colorR": 115,
                       "customProperty": "",

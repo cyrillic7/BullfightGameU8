@@ -12,12 +12,12 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIMore.plist"
+    "UIKnapsack.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UIMore.png"
+    "UIKnapsack.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -502,7 +502,7 @@
               "customProperty": "",
               "flipX": false,
               "flipY": false,
-              "height": 95,
+              "height": 99,
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
@@ -519,7 +519,7 @@
               "touchAble": false,
               "useMergedTexture": false,
               "visible": true,
-              "width": 98,
+              "width": 102,
               "x": -165,
               "y": 48,
               "capInsetsHeight": 1,
@@ -533,8 +533,8 @@
                 "resourceType": 1
               },
               "scale9Enable": false,
-              "scale9Height": 95,
-              "scale9Width": 98
+              "scale9Height": 99,
+              "scale9Width": 102
             }
           },
           {

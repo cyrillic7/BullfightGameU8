@@ -351,9 +351,9 @@
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{41,39}}</string>
+                <string>{{12,12},{41,39}}</string>
                 <key>sourceSize</key>
-                <string>{41,39}</string>
+                <string>{65,63}</string>
             </dict>
             <key>icon_vip1.png</key>
             <dict>
@@ -482,7 +482,7 @@
             <key>size</key>
             <string>{585,505}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:5edfff6682c87a3b2fad02389724c0ec:c6ca2126b77697a7048abb5492b5b15f:ca7fb764031d7f467815c068f939b837$</string>
+            <string>$TexturePacker:SmartUpdate:743820fb47351a2fff12af4ee5cdeb37:a635df95178deb4701988a6a0740a2ef:ca7fb764031d7f467815c068f939b837$</string>
             <key>textureFileName</key>
             <string>UIGameLobby.png</string>
         </dict>

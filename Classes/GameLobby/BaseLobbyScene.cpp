@@ -175,13 +175,13 @@ void BaseLobbyScene::popDialogBox(PopType type){
 		break;
 	case BaseLobbyScene::POP_ACTIVITY:
 	{
-		std::string actStr = "{\"act\":201 ,\"url\":\"http://121.40.31.203:9021/Home/Index/?account=";
+		std::string actStr = "{\"act\":201 ,\"url\":\"http://m.qicainiu.com/Home/Index/?account=";
 		actStr += DataModel::sharedDataModel()->sLogonAccount;
 		actStr += "&pwd=";
 		actStr += DataModel::sharedDataModel()->sLogonPassword;
 		actStr += "&plat=1\"}";
 		platformAction(actStr.c_str());
-
+		CCLOG("ac:%s <<%s>>",actStr.c_str(), __FUNCTION__);
 		//platformAction("{\"act\":201 ,\"url\":\"http://121.40.31.203:9021/Home/Index/?account=test0001&pwd=123456&plat=1\"}").c_str();
 
 		/*CCHttpRequest *request=new CCHttpRequest();
