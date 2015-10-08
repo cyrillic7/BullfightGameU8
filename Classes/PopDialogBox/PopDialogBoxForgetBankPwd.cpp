@@ -8,6 +8,7 @@
 #include "PopDialogBoxForgetBankPwd.h"
 #include "../Tools/DataModel.h"
 #include "../Tools/GameConfig.h"
+#include "../Tools/Tools.h"
 #include "../LogonScene/LogonScene.h"
 #include "../Network/MD5/MD5.h"
 #include "../Platform/coPlatform.h"
@@ -218,7 +219,7 @@ void PopDialogBoxForgetBankPwd::connectSuccess(){
 		std::string md5PassWord = m.GetMd5();
 		strcpy(pInsurePassGetCaptcha.szLogonPass,md5PassWord.c_str());
 
-		strcpy(pInsurePassGetCaptcha.szMachineID, platformAction("{\"act\":100}").c_str());
+		strcpy(pInsurePassGetCaptcha.szMachineID, Tools::getMachineID().c_str());
 
 		//发送数据
 		bool isSend = gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_SET_INSUREPASS_GET_CAPTCHA, &pInsurePassGetCaptcha, sizeof(pInsurePassGetCaptcha));

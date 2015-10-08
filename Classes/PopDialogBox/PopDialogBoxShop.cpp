@@ -8,6 +8,7 @@
 #include "PopDialogBoxShop.h"
 #include "../Tools/DataModel.h"
 #include "../Tools/GameConfig.h"
+#include "../Tools/Tools.h"
 #include "../Shader/BlurSprite.h"
 #include "PopDialogBoxLoading.h"
 
@@ -428,7 +429,7 @@ void PopDialogBoxShop::buyPropForType(){
 	buyGift.dwBuyMethod = 4;
 	
 //	strcpy(buyGift.szNote, "");
-	strcpy(buyGift.szMachineID, "12");
+	strcpy(buyGift.szMachineID, Tools::getMachineID().c_str());
 
 	bool isSend=gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_BUYGIFT, &buyGift, sizeof(CMD_GP_BuyGift));
 	CCLOG("send: %d  <<%s>>",isSend, __FUNCTION__);

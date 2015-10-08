@@ -58,5 +58,8 @@ private:
 public:
 	//截取字符串（中英文）
 	static std::string subUTF8(const std::string &str, int from, int to);
+
+	//获取机器码
+	static std::string getMachineID();
 };
 

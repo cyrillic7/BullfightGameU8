@@ -8,6 +8,7 @@
 #include "PopDialogBoxKnapsack.h"
 #include "../Tools/DataModel.h"
 #include "../Tools/GameConfig.h"
+#include "../Tools/Tools.h"
 #include "PopDialogBoxLoading.h"
 #include "PopDialogBoxShop.h"
 #include "PopDialogBoxTipInfo.h"
@@ -121,7 +122,7 @@ void PopDialogBoxKnapsack::connectSuccess(){
 		useKnapsack.dwNum = lExchangeNum;
 
 		strcpy(useKnapsack.szNote, sExchangeContent.c_str());//qq号或手机号
-		strcpy(useKnapsack.szMachineID, "12");
+		strcpy(useKnapsack.szMachineID, Tools::getMachineID().c_str());
 
 		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_USE_KNAPSACKLOG, &useKnapsack, sizeof(CMD_GP_UseKnapsack));
 

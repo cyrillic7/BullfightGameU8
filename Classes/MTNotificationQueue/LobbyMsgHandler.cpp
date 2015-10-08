@@ -36,7 +36,7 @@ void LobbyMsgHandler::connectServer(std::string sLobbyIp, long lLobbyProt){
 
 		CMD_GL_LogonAccounts LogonAccounts;
 		strcpy(LogonAccounts.szAccounts, DataModel::sharedDataModel()->sLogonAccount.c_str());
-		strcpy(LogonAccounts.szMachineID, "12");
+		strcpy(LogonAccounts.szMachineID, Tools::getMachineID().c_str());
 
 		MD5 m;
 		m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());

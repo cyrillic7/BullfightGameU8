@@ -8,6 +8,7 @@
 #include "PopDialogBoxBindingPhone.h"
 #include "../Tools/DataModel.h"
 #include "../Tools/GameConfig.h"
+#include "../Tools/Tools.h"
 #include "../Network/MD5/MD5.h"
 #include "../Platform/coPlatform.h"
 //////////////////////////////////////////////////////////////////////////
@@ -173,7 +174,7 @@ void PopDialogBoxBindingPhone::connectSuccess(){
 		sPhone = pEBPhone->getText();
 		strcpy(getCaptcha.szPhone, sPhone.c_str());
 
-		strcpy(getCaptcha.szMachineID, platformAction("{\"act\":100}").c_str());
+		strcpy(getCaptcha.szMachineID, Tools::getMachineID().c_str());
 
 		bool isSend=gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_GET_CAPTCHA, &getCaptcha, sizeof(getCaptcha));
 		if (isSend)

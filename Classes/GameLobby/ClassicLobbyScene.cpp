@@ -485,7 +485,7 @@ void ClassicLobbyScene::onEventConnect(WORD wSubCmdID, void * pDataBuffer, unsig
 		std::string md5PassWord = m.GetMd5();
 		strcpy(logonMobile.szPassword, md5PassWord.c_str());
 
-		strcpy(logonMobile.szMachineID, "123");
+		strcpy(logonMobile.szMachineID, Tools::getMachineID().c_str());
 
 		bool isSend = GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.SendData(MDM_GR_LOGON, SUB_GR_LOGON_MOBILE, &logonMobile, sizeof(logonMobile));
 					 

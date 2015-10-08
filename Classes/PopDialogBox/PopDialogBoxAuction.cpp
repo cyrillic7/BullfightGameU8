@@ -744,7 +744,7 @@ void PopDialogBoxAuction::connectSuccess(){
 		buyAuction.dwID = vecAuctionInfo[iAuctionBuyIndex].dwIndex;
 		buyAuction.dwNum = lCurBuyNum;
 
-		strcpy(buyAuction.szMachineID, "12");
+		strcpy(buyAuction.szMachineID, Tools::getMachineID().c_str());
 		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_BUY_AUCTION, &buyAuction, sizeof(buyAuction));
 	}
 		break;
@@ -761,7 +761,7 @@ void PopDialogBoxAuction::connectSuccess(){
 
 		cancel.dwID = vecMyAuction[iAuctionBuyIndex].dwIndex;
 
-		strcpy(cancel.szMachineID, "12");
+		strcpy(cancel.szMachineID, Tools::getMachineID().c_str());
 		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_CANCEL_AUCTION, &cancel, sizeof(cancel));
 	}
 		break;
@@ -796,7 +796,7 @@ void PopDialogBoxAuction::connectSuccess(){
 		CCEditBox *pEBGoodsNum = (CCEditBox*)pTFAuctionGoodsNum->getNodeByTag(TAG_INPUT_EDIT_BOX);
 		sellAuction.dwNum = strtol(pEBGoodsNum->getText(), NULL, 10);
 
-		strcpy(sellAuction.szMachineID, "12");
+		strcpy(sellAuction.szMachineID, Tools::getMachineID().c_str());
 		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_SELL_AUCTION, &sellAuction, sizeof(sellAuction));
 	}
 		break;

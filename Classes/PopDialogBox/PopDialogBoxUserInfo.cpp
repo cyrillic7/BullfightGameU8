@@ -338,10 +338,8 @@ void PopDialogBoxUserInfo::connectSuccess(){
 		std::string md5PassWord = m.GetMd5();
 		strcpy(systemFaceInfo.szPassword, md5PassWord.c_str());
 
-		std::string uuid = platformAction("{\"act\":100}").c_str();
-		m.ComputMd5(uuid.c_str(), uuid.length());
-		std::string md5UUID = m.GetMd5();
-		strcpy(systemFaceInfo.szMachineID, uuid.c_str());//
+		
+		strcpy(systemFaceInfo.szMachineID, Tools::getMachineID().c_str());//
 		if (DataModel::sharedDataModel()->userInfo->cbGender==0)
 		{
 			systemFaceInfo.wFaceID = abs(rand()%5);

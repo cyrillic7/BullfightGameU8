@@ -23,11 +23,7 @@
     <string>UIPanel.plist</string>
     <string>UIButton.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>UIClassicLobby.png</string>
-    <string>UIPanel.png</string>
-    <string>UIButton.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>UIClassicLobby.json</CurrentUIJson>
 </UIProject>

@@ -8,6 +8,7 @@
 #include "PopDialogBoxRecharge.h"
 #include "../Tools/DataModel.h"
 #include "../Tools/GameConfig.h"
+#include "../Tools/Tools.h"
 #include "../Network/MD5/MD5.h"
 #include "../Platform/coPlatform.h"
 #include "../Network/SEvent.h"
@@ -319,7 +320,7 @@ void PopDialogBoxRecharge::connectSuccess(){
 		strcpy(userExchange.szPassword, md5PassWord.c_str());
 
 
-		strcpy(userExchange.szMachineID, platformAction("{\"act\":100}").c_str());
+		strcpy(userExchange.szMachineID, Tools::getMachineID().c_str());
 
 		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_EXCHANGE_INGOT, &userExchange, sizeof(userExchange));
 	}

@@ -339,11 +339,7 @@ void LogonScene::quickLogon(){
 	CMD_MB_Quick_Logon mbQuickLogon;
 	mbQuickLogon.dwOpTerminal = 2;
 
-	MD5 m;
-	m.ComputMd5(uuid.c_str(), uuid.length());
-	std::string md5UUID = m.GetMd5();
-	
-	strcpy(mbQuickLogon.szMachineID, md5UUID.c_str());//银行密码
+	strcpy(mbQuickLogon.szMachineID, Tools::getMachineID().c_str());//机器码
 	gameSocket.SendData(MDM_MB_LOGON, SUB_MB_QUICK_LOGIN, &mbQuickLogon, sizeof(mbQuickLogon));
 	/*switch (DataModel::sharedDataModel()->logonType)
 	{
@@ -431,9 +427,9 @@ void LogonScene::logonGameByAccount(float dt){
 		logonAccounts.dwPlazaVersion = VERSION_PLAZA;
 		strcpy(logonAccounts.szAccounts, DataModel::sharedDataModel()->sLogonAccount.c_str());
 		//strcpy(logonAccounts.szAccounts,"zhangh189");
-		strcpy(logonAccounts.szMachineID, platformAction("{\"act\":100}").c_str());
-		strcpy(logonAccounts.szMobilePhone, "32");
-		strcpy(logonAccounts.szPassPortID, "12");
+		strcpy(logonAccounts.szMachineID, Tools::getMachineID().c_str());
+		strcpy(logonAccounts.szMobilePhone, "");
+		strcpy(logonAccounts.szPassPortID, "");
 		strcpy(logonAccounts.szPhoneVerifyID, "1");
 		//游戏标识
 		for (int i = 0; i < 10; i++)
@@ -491,7 +487,7 @@ void LogonScene::logonGame(){
 	logonAccounts.dwPlazaVersion = VERSION_PLAZA;
 	strcpy(logonAccounts.szAccounts, DataModel::sharedDataModel()->sLogonAccount.c_str());
 	//strcpy(logonAccounts.szAccounts,"zhangh189");
-	strcpy(logonAccounts.szMachineID, "12");
+	strcpy(logonAccounts.szMachineID, Tools::getMachineID().c_str());
 	strcpy(logonAccounts.szMobilePhone, "");
 	strcpy(logonAccounts.szPassPortID, "12");
 	strcpy(logonAccounts.szPhoneVerifyID, "1");
@@ -557,7 +553,7 @@ void LogonScene::registeredGame(){
 	//strcpy(registeredAccount.szCompellation, "");//真实名字
 
 	//registeredAccount.cbValidateFlags = 1;//校验标识		   
-	strcpy(registeredAccount.szMachineID, "12");//机器序列
+	strcpy(registeredAccount.szMachineID, Tools::getMachineID().c_str());//机器序列
 	strcpy(registeredAccount.szMobilePhone, "");//电话号码
 
 

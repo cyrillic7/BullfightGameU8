@@ -8,6 +8,7 @@
 #include "PopDialogBoxBank.h"
 #include "../Tools/DataModel.h"
 #include "../Tools/GameConfig.h"
+#include "../Tools/Tools.h"
 #include "../Tools/BaseAttributes.h"
 #include "../Network/MD5/MD5.h"
 #include "../GameLobby/BaseLobbyScene.h"
@@ -489,7 +490,7 @@ void PopDialogBoxBank::connectSuccess(){
 		strcpy(insurePass.szInsurePass, md5PassWord.c_str());
 		sTempPassword = md5PassWord;
 
-		strcpy(insurePass.szMachineID, "12");
+		strcpy(insurePass.szMachineID, Tools::getMachineID().c_str());
 		//发送数据
 		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_VERIFY_INSURE_PASS, &insurePass, sizeof(insurePass));
 	}
@@ -519,7 +520,7 @@ void PopDialogBoxBank::connectSuccess(){
 		//密码
 		strcpy(takeScore.szPassword, sTempPassword.c_str());
 
-		strcpy(takeScore.szMachineID, "12");
+		strcpy(takeScore.szMachineID, Tools::getMachineID().c_str());
 		//发送数据
 		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_USER_TAKE_SCORE, &takeScore, sizeof(takeScore));
 	}
@@ -530,7 +531,7 @@ void PopDialogBoxBank::connectSuccess(){
 		saveScore.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
 		CCEditBox *pEBInputMoney = (CCEditBox*)pTFInputMoney->getNodeByTag(TAG_INPUT_EDIT_BOX);
 		saveScore.lSaveScore = strtoll(pEBInputMoney->getText(), NULL, 10);
-		strcpy(saveScore.szMachineID, "12");
+		strcpy(saveScore.szMachineID, Tools::getMachineID().c_str());
 		//发送数据
 		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_USER_SAVE_SCORE, &saveScore, sizeof(saveScore));
 

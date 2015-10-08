@@ -21,6 +21,7 @@ public:
 	void ComputMd5(const char8 input[], const int length);
 
 	string GetMd5();
+	string GetMd5(const char8 input[], const int length);
 
 	void printMd5();
 

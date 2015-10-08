@@ -123,6 +123,10 @@ string MD5::GetMd5()
 	string a((const char *)md5Result_hex_);
 	return a;
 }
+string MD5::GetMd5(const char8 input[], const int length){
+	ComputMd5(input,length);
+	return GetMd5();
+}
 
 void MD5::UcharToUint(uint32 output[], const uchar8 input[], const unsigned int transLength)
 {

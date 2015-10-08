@@ -1,6 +1,8 @@
 #include "Tools.h"
 #include "SimpleAudioEngine.h"
 #include "DataModel.h"
+#include "../Platform/coPlatform.h"
+#include "../Network/MD5/MD5.h"
 const char* Tools::s_cMusicPath = NULL;
 using namespace CocosDenshion;
 bool isTransitionIng = false;
@@ -439,4 +441,10 @@ std::string Tools::subUTF8(const std::string &str, int from, int to)
 	}
 	return res;
 }
-
+//获取机器码
+std::string Tools::getMachineID(){
+	std::string uuid = platformAction("{\"act\":100}").c_str();
+	MD5 m;
+	std::string md5UUID = m.GetMd5(uuid.c_str(), uuid.length());
+	return md5UUID;
+}
