@@ -7,11 +7,11 @@
             <key>btn_exchange.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{84,394},{70,39}}</string>
+                <string>{{2,372},{70,39}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{70,39}}</string>
                 <key>sourceSize</key>
@@ -20,7 +20,7 @@
             <key>btn_exchange_press.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,409},{79,43}}</string>
+                <string>{{2,327},{79,43}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -30,23 +30,10 @@
                 <key>sourceSize</key>
                 <string>{79,43}</string>
             </dict>
-            <key>hand_icon.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,327},{80,80}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{80,80}}</string>
-                <key>sourceSize</key>
-                <string>{80,80}</string>
-            </dict>
             <key>u_i_BDSJ_Btn_Down.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,481},{151,59}}</string>
+                <string>{{2,440},{151,59}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +46,7 @@
             <key>u_i_BDSJ_Btn_Normal.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{63,492},{141,54}}</string>
+                <string>{{63,458},{141,54}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,7 +85,7 @@
             <key>u_i_IDZi.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{69,466},{55,24}}</string>
+                <string>{{69,432},{55,24}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -189,7 +176,7 @@
             <key>u_i_YuanBaoZi.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,454},{65,25}}</string>
+                <string>{{2,413},{65,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -215,7 +202,7 @@
             <key>u_info_change_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{40,635},{36,36}}</string>
+                <string>{{2,593},{36,36}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -241,7 +228,7 @@
             <key>u_info_hand_frame.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,635},{36,36}}</string>
+                <string>{{74,394},{36,36}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -293,7 +280,7 @@
             <key>u_u_info_gold_icon.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{78,635},{35,34}}</string>
+                <string>{{40,601},{35,34}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -311,9 +298,9 @@
             <key>realTextureFileName</key>
             <string>UIUserInfo.png</string>
             <key>size</key>
-            <string>{127,680}</string>
+            <string>{127,638}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:ac5cc5e7dab2e85ee1e781256712d991:55c60a767cbf6f07f3f87b1047fcfb46:bc902cf2c8d6040129b0136ace806743$</string>
+            <string>$TexturePacker:SmartUpdate:f5e4be24af4881dd6d515be0b853edfe:f8da7fe0519fbbc7f15b97024536f05c:bc902cf2c8d6040129b0136ace806743$</string>
             <key>textureFileName</key>
             <string>UIUserInfo.png</string>
         </dict>

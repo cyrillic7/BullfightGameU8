@@ -32,7 +32,7 @@ std::string platformAction(const std::string& jsonString)
 			return "A100003BBEEB3A23";
 			break;
 		case 600:
-			return "1.0.1";
+			return "1.0.2";
 			break;
 		case 800:
 			return "MFB20150926180340277543138";

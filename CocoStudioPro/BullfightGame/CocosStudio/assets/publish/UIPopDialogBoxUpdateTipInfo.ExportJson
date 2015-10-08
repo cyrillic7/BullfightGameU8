@@ -252,7 +252,7 @@
               "fontFile": null,
               "fontName": "微软雅黑",
               "fontSize": 20,
-              "hAlignment": 1,
+              "hAlignment": 0,
               "text": "",
               "touchScaleEnable": false,
               "vAlignment": 1

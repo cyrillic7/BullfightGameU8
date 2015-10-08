@@ -143,18 +143,45 @@ void GameLobbyScene::onEnter(){
 	this->addChild(menu);
 }
 CCMenuItemSprite *GameLobbyScene::createMenuItem(int index){
-	CCSprite * selectedSprite = CCSprite::createWithSpriteFrameName(CCString::createWithFormat("mode%d.png", index)->getCString());
-	CCSprite * normalSprite = CCSprite::createWithSpriteFrameName(CCString::createWithFormat("mode%d_press.png", index)->getCString());
+	//CCSprite * selectedSprite = CCSprite::createWithSpriteFrameName(CCString::createWithFormat("mode%d.png", index)->getCString());
+	//CCSprite * normalSprite = CCSprite::createWithSpriteFrameName(CCString::createWithFormat("mode%d_press.png", index)->getCString());
 	
-	//CCSize deviceSize = DataModel::sharedDataModel()->deviceSize;
-	//float scale = selectedSprite->getContentSize().height / deviceSize.height;
-	
-	//selectedSprite->setScale(scale);
-	//normalSprite->setScale(scale);
+
+	CCSprite * selectedSprite = CCSprite::createWithSpriteFrameName("mode.png");
+	CCSprite * normalSprite = CCSprite::createWithSpriteFrameName("mode_press.png");
+
 
 
 	CCMenuItemSprite *pItem = CCMenuItemSprite::create(normalSprite, selectedSprite, this, menu_selector(GameLobbyScene::onMenuStartGame));
 	pItem->setTag(index + 1);
+	//icon
+	ccColor3B colorNormal = ccc3(200, 200, 200);
+	ccColor3B colorSelect = ccc3(255, 255, 255);
+	CCPoint	posIcon = ccp(normalSprite->getContentSize().width/2,normalSprite->getContentSize().height/2+26);
+	if (index==2)
+	{
+		posIcon = ccpAdd(posIcon, ccp(-10,0));
+	}
+	CCSprite * pNModeIcon = CCSprite::createWithSpriteFrameName(CCString::createWithFormat("u_mode_icon%d.png", index)->getCString());
+	normalSprite->addChild(pNModeIcon);
+	pNModeIcon->setPosition(posIcon);
+	pNModeIcon->setColor(colorNormal);
+
+	CCSprite * pSModeIcon = CCSprite::createWithSpriteFrameName(CCString::createWithFormat("u_mode_icon%d.png", index)->getCString());
+	selectedSprite->addChild(pSModeIcon);
+	pSModeIcon->setPosition(posIcon);
+	pSModeIcon->setColor(colorSelect);
+	//名字
+	CCPoint	posName = ccp(normalSprite->getContentSize().width / 2, normalSprite->getContentSize().height / 2 - 110);
+	CCSprite * pNModeName = CCSprite::createWithSpriteFrameName(CCString::createWithFormat("u_mode_name%d.png", index)->getCString());
+	normalSprite->addChild(pNModeName);
+	pNModeName->setPosition(posName);
+	pNModeName->setColor(colorNormal);
+
+	CCSprite * pSModeName = CCSprite::createWithSpriteFrameName(CCString::createWithFormat("u_mode_name%d.png", index)->getCString());
+	selectedSprite->addChild(pSModeName);
+	pSModeName->setPosition(posName);
+	pSModeName->setColor(colorSelect);
 	return pItem;
 }
 //开始游戏
