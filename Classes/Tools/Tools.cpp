@@ -422,7 +422,7 @@ std::vector<std::string> Tools::parseUTF8(const std::string &str)
 std::string Tools::subUTF8(const std::string &str, int from, int to)
 {
 	if (from > to) return "";
-	if (str.length() < to) return "";
+	if (str.length() < to) return str;
 	std::vector<std::string> vstr = parseUTF8(str);
 	if (to>vstr.size())
 	{
