@@ -40,13 +40,13 @@ void PopDialogBoxChangePassword::onEnter(){
 	//pLTitle1 = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelTitle1"));
 	//旧密码
 	pTFOldPassword = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldOldPassword"));
-	addEditBox(pTFOldPassword, kEditBoxInputModeAny);
+	addEditBox(pTFOldPassword, kEditBoxInputModeSingleLine);
 	//新密码0
 	pTFNewPassword0 = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldNewPassword0"));
-	addEditBox(pTFNewPassword0, kEditBoxInputModeAny);
+	addEditBox(pTFNewPassword0, kEditBoxInputModeSingleLine);
 	//新密码1
 	pTFNewPassword1 = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldNewPassword1"));
-	addEditBox(pTFNewPassword1, kEditBoxInputModeAny);
+	addEditBox(pTFNewPassword1, kEditBoxInputModeSingleLine);
 	//播放显示动画
 	playAnimation();
 	

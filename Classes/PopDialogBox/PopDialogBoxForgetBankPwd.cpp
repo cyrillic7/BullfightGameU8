@@ -52,7 +52,7 @@ void PopDialogBoxForgetBankPwd::onEnter(){
 	pPForgetPwd->setEnabled(false);
 	//输入帐号框
 	pTFInputId = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldId")); 
-	addEditBox(pTFInputId, kEditBoxInputModeAny);
+	addEditBox(pTFInputId, kEditBoxInputModeSingleLine);
 	//输入手机
 	UITextField *pTFPhone = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldPhone"));
 	addEditBox(pTFPhone, kEditBoxInputModePhoneNumber);
@@ -61,7 +61,7 @@ void PopDialogBoxForgetBankPwd::onEnter(){
 	pEBInputPhone->setText(DataModel::sharedDataModel()->sPhone.c_str());
 	//输入新密码
 	UITextField *pTFNewPwd = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldNewPwd"));
-	addEditBox(pTFNewPwd, kEditBoxInputModeAny);
+	addEditBox(pTFNewPwd, kEditBoxInputModeSingleLine);
 	pEBInputNewPwd = (CCEditBox*)pTFNewPwd->getNodeByTag(TAG_INPUT_EDIT_BOX);
 	pEBInputNewPwd->setEnabled(false);
 	//输入验证码

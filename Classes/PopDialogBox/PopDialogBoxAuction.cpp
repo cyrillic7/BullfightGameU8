@@ -83,7 +83,7 @@ void PopDialogBoxAuction::onEnter(){
 	addEditBox(pTFAuctionGoodsPice, kEditBoxInputModeNumeric);
 	//搜索物品输入框
 	pTFSearchByID = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldSearchByID"));
-	addEditBox(pTFSearchByID, kEditBoxInputModeAny);
+	addEditBox(pTFSearchByID, kEditBoxInputModeSingleLine);
 	//搜索按键
 	pBSearchByID = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonSearchByID"));
 	pBSearchByID->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxAuction::onMenuSearchByID));

@@ -46,11 +46,11 @@ void PopDialogBoxBank::onEnter(){
 	pPanelCreatePassword = static_cast<UIPanel*>(pUILayer->getWidgetByName("PanelCreatePassword"));
 	//密码输入框
 	pTFCreatePassword0 = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldCreatePassword0"));
-	addEditBox(pTFCreatePassword0, kEditBoxInputModeAny);
+	addEditBox(pTFCreatePassword0, kEditBoxInputModeSingleLine);
 	pEBCreatePassword0  = (CCEditBox*)pTFCreatePassword0->getNodeByTag(TAG_INPUT_EDIT_BOX);
 
 	pTFCreatePassword1 = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldCreatePassword1"));
-	addEditBox(pTFCreatePassword1, kEditBoxInputModeAny);
+	addEditBox(pTFCreatePassword1, kEditBoxInputModeSingleLine);
 	pEBCreatePassword1 = (CCEditBox*)pTFCreatePassword1->getNodeByTag(TAG_INPUT_EDIT_BOX);
 	//创建密码保存按键
 	UIButton *pBSave = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonCreatePassword"));
@@ -60,7 +60,7 @@ void PopDialogBoxBank::onEnter(){
 	pPanelInputPassword = static_cast<UIPanel*>(pUILayer->getWidgetByName("PanelEnterPassword"));
 	//输入密码框
 	pTFInputPassword = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldEnterPassword"));
-	addEditBox(pTFInputPassword,kEditBoxInputModeAny);
+	addEditBox(pTFInputPassword, kEditBoxInputModeSingleLine);
 	pEBInputPassword = (CCEditBox*)pTFInputPassword->getNodeByTag(TAG_INPUT_EDIT_BOX);
 	//输入密码保存按键
 	UIButton *pBInput = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonEnterPassword"));

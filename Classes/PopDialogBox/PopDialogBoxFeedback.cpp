@@ -35,7 +35,7 @@ void PopDialogBoxFeedback::onEnter(){
 	//反馈内容输入框
 	UITextField *pTFFeedbackContent = static_cast<UITextField*>(pUILayer->getWidgetByName("TextFieldContent"));
     pTFFeedbackContent->addEventListenerTextField(this, SEL_TextFieldEvent(&PopDialogBoxFeedback::onTextFeild));
-    //addEditBox(pTFFeedbackContent,kEditBoxInputModeAny);
+    //addEditBox(pTFFeedbackContent,kEditBoxInputModeSingleLine);
 	//pEBFeedbackContent = (CCEditBox*)pTFFeedbackContent->getNodeByTag(TAG_INPUT_EDIT_BOX);
 
 	//pEBFeedbackContent->setEnabled(false);
