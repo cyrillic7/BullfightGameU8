@@ -31,4 +31,6 @@ private:
 	bool checkMsgById(const char *strMsgId, DWORD dwCurMsgID);
 	//新消息提示
 	void newNoticeMsgTip(CMD_GL_MsgNode *msgNode);
+	//延时重连
+	void delayConnect(float  dt);
 };

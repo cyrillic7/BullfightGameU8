@@ -53,9 +53,7 @@ void LobbyMsgHandler::onOpen(){
 	CCLOG("open <<%s>>", __FUNCTION__);
 }
 void LobbyMsgHandler::onError(const char* sError){
-	DataModel::sharedDataModel()->vecSystemMsg.clear();
-	DataModel::sharedDataModel()->vecMyMsg.clear();
-	connectServer(DataModel::sharedDataModel()->sLobbyIp, DataModel::sharedDataModel()->lLobbyProt);
+	scheduleOnce(SEL_SCHEDULE(&LobbyMsgHandler::delayConnect), 1);
 	return;
 	ReadData rData;
 	rData.wMainCmdID = MDM_MB_UNCONNECT;
@@ -230,4 +228,10 @@ void LobbyMsgHandler::newNoticeMsgTip(CMD_GL_MsgNode *msgNode){
 
 
 	MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_NEW_MSG_STATE, NULL);
+}
+//延时重连
+void LobbyMsgHandler::delayConnect(float  dt){
+	DataModel::sharedDataModel()->vecSystemMsg.clear();
+	DataModel::sharedDataModel()->vecMyMsg.clear();
+	connectServer(DataModel::sharedDataModel()->sLobbyIp, DataModel::sharedDataModel()->lLobbyProt);
 }

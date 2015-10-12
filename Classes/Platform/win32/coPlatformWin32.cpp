@@ -29,10 +29,10 @@ std::string platformAction(const std::string& jsonString)
 		switch (act)
 		{
 		case 100:
-			return "A100003BBEEB3A23";
+			return "A100003BBEEB9A2";
 			break;
 		case 600:
-			return "1.0.2";
+			return "1.0.3";
 			break;
 		case 800:
 			return "MFB20150926180340277543138";

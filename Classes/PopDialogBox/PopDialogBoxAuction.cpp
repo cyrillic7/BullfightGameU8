@@ -524,6 +524,7 @@ void PopDialogBoxAuction::updateListAuctionInfo(){
 		UILabel *pGoodsName = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("Label0"));
 		pGoodsName->setText(GBKToUTF8(vecAuctionInfo[i].szAuctionName));
 		//addDownloadImage(pGoodsName,vecAuctionInfo[i].)
+		
 		//拍卖数量
 		UILabel *pGoodsCount = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("Label1"));
 		pGoodsCount->setText(CCString::createWithFormat("%ld",vecAuctionInfo[i].dwPropNum)->getCString());
@@ -545,6 +546,8 @@ void PopDialogBoxAuction::updateListAuctionInfo(){
 			pButton->setTitleColor(ccc3(100, 100, 100));
 			pButton->setTouchEnabled(false);
 		}
+		//UIImageView *pIVGoodsIcon = static_cast<UIImageView*>(pLVTemp->getItem(inserterPos)->getChildByName("ImageGoodsIcon"));
+		//addDownloadImage(pIVGoodsIcon, vecAuctionInfo[i].szImgName, CCPointZero, 0.3, -100, false);
 	}
 }
 // 更新我的列表
