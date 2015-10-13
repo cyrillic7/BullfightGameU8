@@ -446,5 +446,8 @@ std::string Tools::getMachineID(){
 	std::string uuid = platformAction("{\"act\":100}").c_str();
 	MD5 m;
 	std::string md5UUID = m.GetMd5(uuid.c_str(), uuid.length());
+	
+	md5UUID=md5UUID.substr(0, 26);
+	md5UUID.insert(0, "mobile");
 	return md5UUID;
 }
