@@ -150,6 +150,8 @@ void ClassicLobbyScene::initTCPLogon(int index){
 	std::string ip = "";
 	short port = 0;
 	//TCPSocketControl *tcp=TCPSocketControl::sharedTCPSocketControl();
+	CCLOG("gameItem:%d <<%s>>",getGameItem(), __FUNCTION__);
+	backGameItem = getGameItem();
 	switch (getGameItem())
 	{
 	/*case ITEM_0:
