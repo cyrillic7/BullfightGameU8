@@ -187,6 +187,10 @@ void LogonScene::onEnter(){
 		button  = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("ButtonLogon%d",i)->getCString()));
 		button->addTouchEventListener(this, SEL_TouchEvent(&LogonScene::onMenuLogon));
 	}
+	//分享
+	UIButton* pBShare = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonShare"));
+	pBShare->addTouchEventListener(this, SEL_TouchEvent(&LogonScene::onMenuShare));
+	
 	//logonGameByAccount();
 	//默认登录
 	//defaultLogon();
@@ -329,6 +333,13 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 		break;
 	default:
 		break;
+	}
+}
+//分享
+void LogonScene::onMenuShare(CCObject* pSender, TouchEventType type){
+	if (type==TOUCH_EVENT_ENDED)
+	{
+		platformAction("{\"act\":900}");
 	}
 }
 //快速登录

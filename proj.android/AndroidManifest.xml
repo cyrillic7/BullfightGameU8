@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.xw.BullfightGame"
       android:versionCode="1"
-      android:versionName="1.0.4"
+      android:versionName="1.1.0"
       android:installLocation="auto">
 
     <uses-sdk android:minSdkVersion="8"/>
@@ -44,6 +44,15 @@
             </intent-filter>
         </activity>
         <service android:name="UpdateManager"></service>
+        <!-- 微信 -->
+            <receiver
+            android:name="com.tx.wx.wxapi.AppRegister"
+            android:permission="com.tencent.mm.plugin.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
+            </intent-filter>
+        </receiver>
+        
     </application>
     <supports-screens android:largeScreens="true"
                       android:smallScreens="true"

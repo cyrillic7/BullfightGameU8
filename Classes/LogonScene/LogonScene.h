@@ -66,6 +66,8 @@ public:
     CREATE_FUNC(LogonScene);
 private:
 	void onMenuLogon(CCObject* pSender, TouchEventType type);
+	//分享
+	void onMenuShare(CCObject* pSender, TouchEventType type);
 
 	void update(float delta);
 	//默认登录

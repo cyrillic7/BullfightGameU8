@@ -40,6 +40,8 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import com.alipay.sdk.app.PayTask;
+import com.tx.wx.wxapi.AppRegister;
+import com.tx.wx.wxapi.SendToWXActivity;
 import com.xw.BullfightGame.R;
 
 import android.app.AlertDialog;
@@ -59,7 +61,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore.Audio;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -85,6 +86,7 @@ public class BullfightGame extends Cocos2dxActivity {
 	private final int NETWORK_STATE_UNCONNECT = 2;// 网络断开
 	public String updateUrl;//更新地址
 	private BroadcastReceiver connectionReceiver;
+	private BroadcastReceiver wxAppRegisterReceiver;//微信注册
 	public static BullfightGame game;
 	// 打开网页
 	WebView m_webView;// WebView控件
@@ -145,6 +147,11 @@ public class BullfightGame extends Cocos2dxActivity {
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
 		registerReceiver(connectionReceiver, filter);
+		//微信注册
+		wxAppRegisterReceiver=new AppRegister();
+		IntentFilter filterAppRegister = new IntentFilter();
+		filterAppRegister.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+		registerReceiver(wxAppRegisterReceiver, filterAppRegister);
 	}
 
 	@Override
@@ -152,6 +159,7 @@ public class BullfightGame extends Cocos2dxActivity {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		unregisterReceiver(connectionReceiver);
+		unregisterReceiver(wxAppRegisterReceiver);
 	}
 
 	static {
@@ -230,6 +238,12 @@ public class BullfightGame extends Cocos2dxActivity {
 				sOrderId=GetOrderIDByPrefix("MFB");	
 				return sOrderId;
 			}
+			case 900://分享
+			{
+				SendToWXActivity pSendActivity=new SendToWXActivity();
+				pSendActivity.sendShareTest("再不牛牛我们就老了！您的微信好友邀请您玩“ 达人牛牛”，立即前往下载游戏支援好友！~ ");
+			}
+			break;
 			default:
 				break;
 			}

@@ -440,7 +440,7 @@ std::string Tools::subUTF8(const std::string &str, int from, int to)
 		res += "...";
 	}
 	return res;
-}
+}   
 //获取机器码
 std::string Tools::getMachineID(){
 	std::string uuid = platformAction("{\"act\":100}").c_str();
