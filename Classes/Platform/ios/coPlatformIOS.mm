@@ -78,6 +78,12 @@ std::string platformAction(const std::string& jsonString)
             CCLOG("isAction:%d <<%s>>",isAction,__PRETTY_FUNCTION__);
         }
             break;
+        case 600:
+        {
+            NSString *version=(NSString*)[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+            return [version UTF8String];
+        }
+            break;
             
         default:
             break;
