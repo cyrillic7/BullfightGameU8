@@ -21,9 +21,7 @@
   <imageFileList>
     <string>UIMode.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>UIMode.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIGameLobby.json</CurrentUIJson>
+  <CurrentUIJson>UIBaseLobby.json</CurrentUIJson>
 </UIProject>

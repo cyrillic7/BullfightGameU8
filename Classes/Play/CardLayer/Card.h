@@ -36,6 +36,7 @@ public:
 	void upCard(bool isAction);
 	//获取牌是否抬起
 	bool getIsUpCard();
+	void resetIsUpCard();
 private:
 	void showCard();
 };

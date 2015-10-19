@@ -99,6 +99,9 @@ void BaseLobbyScene::onEnter(){
 	//绑定背包
 	button = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonKnapsack"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
+	//绑定分享
+	button = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonShare"));
+	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
 	//绑定充值
 	UIButton* pBRecharge = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonRecharge"));
 	pBRecharge->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
@@ -282,6 +285,11 @@ void BaseLobbyScene::popDialogBox(PopType type){
 	}
 
 	break;
+	case BaseLobbyScene::POP_SHARE://分享
+	{
+		platformAction("{\"act\":900}");
+	}
+		break;
 	default:
 		break;
 	}
@@ -363,6 +371,10 @@ void BaseLobbyScene::onMenuCallback(CCObject* pSender, TouchEventType type){
 			else if (strcmp(button->getName(), "ButtonRecharge") == 0)
 			{
 				popDialogBox(POP_RECHARGE);
+			}
+			else if (strcmp(button->getName(), "ButtonShare") == 0)
+			{
+				popDialogBox(POP_SHARE);
 			}
 			else
 			{

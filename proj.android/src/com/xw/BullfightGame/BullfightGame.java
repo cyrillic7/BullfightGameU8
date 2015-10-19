@@ -1,8 +1,6 @@
 /****************************************************************************
 Copyright (c) 2010-2011 cocos2d-x.org
-
 http://www.cocos2d-x.org
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -32,7 +30,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
-import java.util.UUID;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
@@ -40,11 +37,18 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import com.alipay.sdk.app.PayTask;
+import com.tencent.mm.sdk.modelmsg.SendAuth;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tx.qq.qqapi.BaseUiListener;
 import com.tx.wx.wxapi.AppRegister;
+import com.tx.wx.wxapi.Constants;
 import com.tx.wx.wxapi.SendToWXActivity;
 import com.xw.BullfightGame.R;
 
-import android.app.AlertDialog;
+import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -57,7 +61,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -75,7 +78,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -177,7 +179,6 @@ public class BullfightGame extends Cocos2dxActivity {
 	public static BullfightGame shared() {
 		return game;
 	}
-
 	public String jniCjAction(String str) {
 		try {
 			JSONTokener jsonTokener = new JSONTokener(str);
@@ -190,6 +191,19 @@ public class BullfightGame extends Cocos2dxActivity {
 				return tm.getDeviceId();
 			}
 			case 200:// QQ登录
+			{
+				String mAppid="101243232";
+				Tencent mTencent= Tencent.createInstance(mAppid, this);
+				
+				IUiListener listener=new BaseUiListener();
+				if (!mTencent.isSessionValid())
+				 {
+					mTencent.login((Activity)this, "all", listener);
+					//mTencent.login(this, "all", listener);
+					//mTencent.login(this, "all", listener);
+				 }
+			}
+				break;
 			case 201:// 活动
 			{
 				final String url = jsonObject.getString("url");
@@ -244,6 +258,16 @@ public class BullfightGame extends Cocos2dxActivity {
 				pSendActivity.sendShareTest("再不牛牛我们就老了！您的微信好友邀请您玩“ 达人牛牛”，立即前往下载游戏支援好友！~ ");
 			}
 			break;
+			case 901://微信登录
+			{
+			    SendAuth.Req req = new SendAuth.Req();
+			    req.scope = "snsapi_userinfo";
+			    req.state = "wechat_sdk_demo_test";
+			    
+			    IWXAPI api= WXAPIFactory.createWXAPI(BullfightGame.game, Constants.APP_ID);
+			    api.sendReq(req);
+			}
+				break;
 			default:
 				break;
 			}

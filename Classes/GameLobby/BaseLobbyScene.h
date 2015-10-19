@@ -38,6 +38,7 @@ public:
 		POP_VIP,					//VIP
 		POP_KNAPSACK,				//背包
 		POP_RECHARGE,				//充值
+		POP_SHARE,					//分享
 	};
 private:
 	//金币闪光动画

@@ -71,3 +71,6 @@ void Card::upCard(bool isAction){
 bool Card::getIsUpCard(){
 	return isUpCard;
 }
+void Card::resetIsUpCard(){
+	isUpCard = false;
+}

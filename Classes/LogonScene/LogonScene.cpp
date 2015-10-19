@@ -8,6 +8,7 @@
 
 #include "LogonScene.h"
 #include "../Tools/Tools.h"
+#include "../Tools/Statistics.h"
 #include "../PopDialogBox/PopDialogBoxLoading.h"
 #include "../PopDialogBox/PopDialogBoxOtherLoading.h"
 #include "../PopDialogBox/PopDialogBoxLogonAccount.h"
@@ -31,6 +32,7 @@ LogonScene* LogonScene::pLScene=NULL;
 LogonScene::LogonScene()
 	:eLogonType(LOGON_ACCOUNT)
 	, isReadMessage(true)
+	, isFormRegisterAction(false)
 {
 
 
@@ -190,10 +192,14 @@ void LogonScene::onEnter(){
 	//分享
 	UIButton* pBShare = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonShare"));
 	pBShare->addTouchEventListener(this, SEL_TouchEvent(&LogonScene::onMenuShare));
-	
+	pBShare->setEnabled(false);
 	//logonGameByAccount();
 	//默认登录
 	//defaultLogon();
+	if (isFirstLogon)
+	{
+		statisticsLogon();
+	}
 }
 void LogonScene::onExit(){
 
@@ -307,7 +313,7 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 				this->addChild(tipInfo);
 				tipInfo->setTipInfoContent(BaseAttributes::sharedAttributes()->sWaitCodeing.c_str());
 #else
-				m_pWidget->setTouchEnabled(false);
+				//m_pWidget->setTouchEnabled(false);
 				platformAction(urlQQLogon).c_str();
 #endif
                 
@@ -339,7 +345,8 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 void LogonScene::onMenuShare(CCObject* pSender, TouchEventType type){
 	if (type==TOUCH_EVENT_ENDED)
 	{
-		platformAction("{\"act\":900}");
+		platformAction("{\"act\":901}").c_str();
+		
 	}
 }
 //快速登录
@@ -664,7 +671,22 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 				Tools::saveStringByRMS(RMS_LOGON_ACCOUNT, DataModel::sharedDataModel()->sLogonAccount);
 				Tools::saveStringByRMS(RMS_LOGON_PASSWORD, DataModel::sharedDataModel()->sLogonPassword);
 			}
+			//数据统计
+			if (isFormRegisterAction)
+			{
+				isFormRegisterAction = true;
+				//发送注册统计数据
+				Statistics *pStatistice = Statistics::create();
+				pStatistice->sendStatisticsData(Statistics::S_REGISTER);
+			}
+			else
+			{
+				//发送登录统计数据
+				Statistics *pStatistice = Statistics::create();
+				pStatistice->sendStatisticsData(Statistics::S_ACCOUNT_LOGON);
+			}
 			
+
 		}
 		break;
 	case SUB_MB_LOGON_FAILURE:
@@ -873,6 +895,7 @@ bool LogonScene::onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, 
 }
 //注册回调
 void LogonScene::onRegistered(const char *sAccount, const char*sNickname, const char*sPassword){
+	isFormRegisterAction = true;
 	sRegisterAccount = sAccount;
 	sRegisterNickname = sNickname;
 	sRegisterPasswrod = sPassword;
@@ -887,6 +910,7 @@ void LogonScene::readRMS(){
 		DataModel::isMusic = Tools::getBoolByRMS(RMS_IS_MUSIC);
 		DataModel::isSound = Tools::getBoolByRMS(RMS_IS_SOUND);
 		DataModel::sharedDataModel()->logonType = Tools::getIntByRMS(RMS_LOGON_TYPE);
+		isFirstLogon = Tools::getBoolByRMS(RMS_FIRST_LOGON);
 	}
 	else{
 		this->initRSM();
@@ -902,6 +926,7 @@ void LogonScene::initRSM(){
 	Tools::saveStringByRMS(RMS_SIGN_RECORD, "");
 	Tools::saveStringByRMS(RMS_MORE_ACCOUNT,"");
 	Tools::saveStringByRMS(RMS_NEW_MSG_TIP, "");
+	Tools::saveBoolByRMS(RMS_FIRST_LOGON, true);
 }
 bool LogonScene::isHaveSaveFile(){
 	if (!Tools::getBoolByRMS("isHaveSaveFileXml"))
@@ -942,7 +967,11 @@ void LogonScene::saveAccount(){
 void LogonScene::keyBackClicked(){
 	platformAction("{\"act\":400}");
 }
-
+//统计登录
+void LogonScene::statisticsLogon(){
+	Statistics *pStatistice = Statistics::create();
+	pStatistice->sendStatisticsData(Statistics::S_INSTALL);
+}
 void LogonScene::closeWebView(){
     m_pWidget->setTouchEnabled(true);
 }

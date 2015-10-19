@@ -284,6 +284,7 @@ void CardLayerSixSwap::sendFiveCard(int index,int offsetIndex){
 	{
 		
 		pCard[i + index*MAX_COUNT]->m_cpArmatureCard->setScale(0.42);
+		pCard[i + index*MAX_COUNT]->resetIsUpCard();
 		int offx = rand() % 3;
 		int offy = rand() % 3;
 		pCard[i + index*MAX_COUNT]->m_cpArmatureCard->setPosition(ccp(DataModel::sharedDataModel()->deviceSize.width / 2 + offx, SCENE_SIZE.height/2 + offy));

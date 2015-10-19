@@ -50,9 +50,13 @@ private:
     UILayer *m_pWidget;
 
 	CGameSocket gameSocket;
+	//是否第一次登录游戏
+	bool isFirstLogon;
 public:
     static LogonScene* pLScene;
 	bool isReadMessage;
+	//是否来自注册操作
+	bool isFormRegisterAction;
 public:
     LogonScene();
     ~LogonScene();
@@ -117,6 +121,8 @@ private:
 	void quickLogon();
 
 	virtual void keyBackClicked();  //响应返回键  
+	//统计登录
+	void statisticsLogon();
 };
 
 #endif /* defined(__BullfightGame__LogonScene__) */
