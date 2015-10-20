@@ -11,7 +11,7 @@ import com.xw.BullfightGame.BullfightGame;
 import com.xw.BullfightGame.R;
 public class SendToWXActivity {
 
-	public void sendShareTest(String text){
+	public void sendShareTest(String text, int flag){
 		/*// 初始化一个WXTextObject对象
 		WXTextObject textObj = new WXTextObject();
 		textObj.text = text;
@@ -44,7 +44,7 @@ public class SendToWXActivity {
 		 SendMessageToWX.Req req = new SendMessageToWX.Req();  
 		 req.transaction = String.valueOf(System.currentTimeMillis());  
 		 req.message = msg;  
-		 int flag=0;
+		
 		 req.scene = flag==0?SendMessageToWX.Req.WXSceneSession:SendMessageToWX.Req.WXSceneTimeline;  
 		 IWXAPI api= WXAPIFactory.createWXAPI(BullfightGame.game, Constants.APP_ID);
 		api.sendReq(req);

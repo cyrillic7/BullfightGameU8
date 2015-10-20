@@ -12,13 +12,12 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIKnapsack.plist"
+    "UISetUp.plist",
+    "UIUserInfo.plist",
+    "UICheckBox.plist",
+    "UIUserIcon.plist"
   ],
-  "texturesPng": [
-    "UIPanel.png",
-    "UIButton.png",
-    "UIKnapsack.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -497,7 +496,7 @@
               "layoutParameter": null,
               "opacity": 255,
               "positionPercentX": -0.34,
-              "positionPercentY": 0.06833713,
+              "positionPercentY": 0.0660592243,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,

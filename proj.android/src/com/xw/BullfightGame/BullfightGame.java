@@ -255,10 +255,16 @@ public class BullfightGame extends Cocos2dxActivity {
 			case 900://分享
 			{
 				SendToWXActivity pSendActivity=new SendToWXActivity();
-				pSendActivity.sendShareTest("再不牛牛我们就老了！您的微信好友邀请您玩“ 达人牛牛”，立即前往下载游戏支援好友！~ ");
+				pSendActivity.sendShareTest("再不牛牛我们就老了！您的微信好友邀请您玩“ 达人牛牛”，立即前往下载游戏支援好友！~ ",1);
 			}
 			break;
-			case 901://微信登录
+			case 901://分享
+			{
+				SendToWXActivity pSendActivity=new SendToWXActivity();
+				pSendActivity.sendShareTest("再不牛牛我们就老了！您的微信好友邀请您玩“ 达人牛牛”，立即前往下载游戏支援好友！~ ",0);
+			}
+			break;
+			case 910://微信登录
 			{
 			    SendAuth.Req req = new SendAuth.Req();
 			    req.scope = "snsapi_userinfo";

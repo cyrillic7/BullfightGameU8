@@ -23,6 +23,7 @@
 #include "../PopDialogBox/PopDialogBoxVip.h"
 #include "../PopDialogBox/PopDialogBoxRecharge.h"
 #include "../PopDialogBox/PopDialogBoxFirstRecharge.h"
+#include "../PopDialogBox/PopDialogBoxShare.h"
 #include "../Platform/coPlatform.h"
 #include "../Tools/DataModel.h"
 #include "../Network/SEvent.h"
@@ -287,7 +288,8 @@ void BaseLobbyScene::popDialogBox(PopType type){
 	break;
 	case BaseLobbyScene::POP_SHARE://分享
 	{
-		platformAction("{\"act\":900}");
+		pdb = PopDialogBoxShare::create();
+		//platformAction("{\"act\":900}");
 	}
 		break;
 	default:

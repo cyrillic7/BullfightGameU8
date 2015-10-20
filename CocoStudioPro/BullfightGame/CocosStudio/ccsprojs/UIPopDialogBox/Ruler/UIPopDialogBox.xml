@@ -25,7 +25,7 @@
     <GuidesList>
       <GuidesInfo>
         <GuidesName>VThumb</GuidesName>
-        <GuidesPosition>571.68254307338168</GuidesPosition>
+        <GuidesPosition>571.68254307338157</GuidesPosition>
       </GuidesInfo>
     </GuidesList>
   </GuidesProject>
@@ -103,6 +103,10 @@
   </GuidesProject>
   <GuidesProject>
     <Project>UIPopDialogBoxInputExchange</Project>
+    <GuidesList />
+  </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxShare</Project>
     <GuidesList />
   </GuidesProject>
 </ArrayOfGuidesProject>
