@@ -87,6 +87,7 @@ void Statistics::sendStatisticsData(int type){
 		postData.append(code.c_str());
 		postData.append("&machineCode=");
 		postData.append(Tools::getMachineID().c_str());
+		CCLOG("%s?%s <<%s>>",url.c_str(),postData.c_str(), __FUNCTION__);
 	}
 		break;
 	default:
