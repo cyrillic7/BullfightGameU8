@@ -1,16 +1,11 @@
 #ifndef CMD_GAME_HEAD_FILE
 #define CMD_GAME_HEAD_FILE
+#include "Define.h"
 //#pragma pack(push)  
 #pragma pack(1)
 //如果是android平台需要定义宏
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID||CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
-#define RtlCopyMemory(Destination,Source,Length) memcpy((Destination),(Source),(Length))
-#define CopyMemory RtlCopyMemory
-typedef unsigned char       BYTE;
-typedef unsigned short      WORD;
-typedef unsigned long       DWORD;
 
-typedef char TCHAR, *PTCHAR;
 #define MAX_PATH          260
 typedef  int64_t      INT64, *PINT64;
 #endif

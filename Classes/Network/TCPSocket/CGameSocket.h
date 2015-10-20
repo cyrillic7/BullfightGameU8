@@ -3,7 +3,7 @@
 #include "cocos2d.h"
 USING_NS_CC;
 #include "../ListernerThread/Thread.h"
-
+#include "../CMD_Server/Define.h"
 #ifdef WIN32
 #include <windows.h>
 #include <WinSock.h>
@@ -29,14 +29,7 @@ typedef int				SOCKET;
 #define NTAPI
 #endif
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID||CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
-#define RtlCopyMemory(Destination,Source,Length) memcpy((Destination),(Source),(Length))
-#define CopyMemory RtlCopyMemory
-typedef unsigned char       BYTE;
-typedef unsigned short      WORD;
-typedef unsigned long       DWORD;
-typedef char TCHAR, *PTCHAR;
-#endif
+
 
 #ifndef CHECKF
 #define CHECKF(x) \

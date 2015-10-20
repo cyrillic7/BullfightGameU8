@@ -3,7 +3,7 @@
 #define LEN_GROUP_NAME				32									//社团名字
 #define LEN_UNDER_WRITE				32									//个性签名
 
-//如果是android平台需要定义宏
+/*//如果是android平台需要定义宏
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID||CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
 #define RtlCopyMemory(Destination,Source,Length) memcpy((Destination),(Source),(Length))
 #define CopyMemory RtlCopyMemory
@@ -11,7 +11,7 @@ typedef unsigned char       BYTE;
 typedef unsigned short      WORD;
 typedef unsigned long       DWORD;
 typedef char TCHAR, *PTCHAR;
-#endif
+#endif*/
 /*#define MAX_PT_MARK 4 */
 
 #pragma pack(1)

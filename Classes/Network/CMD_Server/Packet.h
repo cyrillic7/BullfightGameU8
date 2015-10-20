@@ -1,7 +1,7 @@
 #ifndef PACKET_HEAD_FILE
 #define PACKET_HEAD_FILE
 
-//如果是android平台需要定义宏
+/*//如果是android平台需要定义宏
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID||CC_TARGET_PLATFORM==CC_PLATFORM_IOS)
 #define RtlCopyMemory(Destination,Source,Length) memcpy((Destination),(Source),(Length))
 #define CopyMemory RtlCopyMemory
@@ -9,7 +9,7 @@ typedef unsigned char       BYTE;
 typedef unsigned short      WORD;
 typedef unsigned long       DWORD;
 typedef char TCHAR, *PTCHAR;
-#endif
+#endif*/
 
 #pragma pack(1)
 
