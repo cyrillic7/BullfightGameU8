@@ -1498,8 +1498,14 @@ struct CMD_MB_UpdateNotify
 //快速登录
 struct CMD_MB_Quick_Logon
 {
+	//DWORD							dwOpTerminal;						//操作终端（0：公用 1：pc, 2：手机牛牛 3：手机捕鱼）
+	//TCHAR							szMachineID[LEN_MACHINE_ID];		//机器标识
+
 	DWORD							dwOpTerminal;						//操作终端（0：公用 1：pc, 2：手机牛牛 3：手机捕鱼）
+	DWORD							dwSessionID;						//推广
+	TCHAR							szStatisCode[LEN_MACHINE_ID];		//推广	
 	TCHAR							szMachineID[LEN_MACHINE_ID];		//机器标识
+
 };
 //快速登录返回
 struct CMD_MB_Quick_Logon_Success

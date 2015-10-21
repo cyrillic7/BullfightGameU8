@@ -27,6 +27,7 @@ void Statistics::sendStatisticsData(int type){
 	{
 	case Statistics::S_INSTALL:
 	{
+
 		url += "GameInstall";
 
 		postData = "sessionID=";

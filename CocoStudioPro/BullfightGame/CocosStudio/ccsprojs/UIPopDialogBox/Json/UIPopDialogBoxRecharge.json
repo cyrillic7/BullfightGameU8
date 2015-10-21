@@ -12,10 +12,7 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UISetUp.plist",
-    "UIUserInfo.plist",
-    "UICheckBox.plist",
-    "UIUserIcon.plist"
+    "UIShare.plist"
   ],
   "texturesPng": [],
   "version": "1.6.0.0",
@@ -1396,7 +1393,7 @@
               "layoutParameter": null,
               "opacity": 255,
               "positionPercentX": -0.459183663,
-              "positionPercentY": -0.408390015,
+              "positionPercentY": -0.408163279,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,

@@ -378,6 +378,17 @@ void LogonScene::quickLogon(){
 	CMD_MB_Quick_Logon mbQuickLogon;
 	mbQuickLogon.dwOpTerminal = 2;
 
+	mbQuickLogon.dwSessionID = (int)atol(k_session_id);
+
+	std::string code = "server";
+	code.append(k_session_id);
+	code.append(k_session_verion);
+	code.append("lmyspread");
+	MD5 md;
+	code = md.GetMd5(code.c_str(), code.length());
+
+	strcpy(mbQuickLogon.szStatisCode,code.c_str());
+
 	strcpy(mbQuickLogon.szMachineID, Tools::getMachineID().c_str());//机器码
 	gameSocket.SendData(MDM_MB_LOGON, SUB_MB_QUICK_LOGIN, &mbQuickLogon, sizeof(mbQuickLogon));
 	/*switch (DataModel::sharedDataModel()->logonType)
