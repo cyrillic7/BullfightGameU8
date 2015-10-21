@@ -190,7 +190,7 @@ public class BullfightGame extends Cocos2dxActivity {
 						.getSystemService(TELEPHONY_SERVICE);
 				return tm.getDeviceId();
 			}
-			case 200:// QQ登录
+			/*case 200:// QQ登录
 			{
 				String mAppid="101243232";
 				Tencent mTencent= Tencent.createInstance(mAppid, this);
@@ -203,10 +203,13 @@ public class BullfightGame extends Cocos2dxActivity {
 					//mTencent.login(this, "all", listener);
 				 }
 			}
-				break;
+				break;*/
+			case 200:
 			case 201:// 活动
 			{
+				System.out.println("==================================");
 				final String url = jsonObject.getString("url");
+				System.out.println("url:"+url);
 				openWebview(url);
 			}
 				break;

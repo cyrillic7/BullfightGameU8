@@ -14,7 +14,7 @@
 #include "../PopDialogBox/PopDialogBoxLogonAccount.h"
 #include "../PopDialogBox/PopDialogBoxTipInfo.h"
 #include "../PopDialogBox/PopDialogBoxUpdateTipInfo.h"
-
+#include "../Tools/StatisticsConfig.h"
 #include "../GameLobby/GameLobbyScene.h"
 //#include "../Network/ListernerThread/LogonGameListerner.h"
 //#include "../Network/ListernerThread/LobbyGameListerner.h"
@@ -27,7 +27,8 @@
 #include "../extensions/spine/Json.h"
 LogonScene* LogonScene::pLScene=NULL;
 
-#define urlQQLogon "{\"act\":200 ,\"url\":\"http://www.qicainiu.net/QQLogin.aspx\"}"
+#define kURLQQLogon(name)  CCString::createWithFormat("{\"act\":200 ,\"url\":\"http://www.qicainiu.net/QQLogin.aspx?%s\"}",(name))->getCString()
+//#define  CCString::createWithFormat()
 
 LogonScene::LogonScene()
 	:eLogonType(LOGON_ACCOUNT)
@@ -313,8 +314,24 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 				this->addChild(tipInfo);
 				tipInfo->setTipInfoContent(BaseAttributes::sharedAttributes()->sWaitCodeing.c_str());
 #else
-				//m_pWidget->setTouchEnabled(false);
-				platformAction(urlQQLogon).c_str();
+				m_pWidget->setTouchEnabled(false);
+				std::string urlQQLogon="";
+				urlQQLogon.append("sessionID=");
+				urlQQLogon.append(k_session_id);
+				urlQQLogon.append("&code=");
+				std::string code = "server";
+				code.append(k_session_id);
+				code.append(k_session_verion);
+				code.append("lmyspread");
+
+				MD5 md;
+				code = md.GetMd5(code.c_str(), code.length());
+
+				urlQQLogon.append(code.c_str());
+				urlQQLogon.append("&machineCode=");
+				urlQQLogon.append(Tools::getMachineID().c_str());
+				CCLOG("%s <<%s>>", kURLQQLogon(urlQQLogon.c_str()), __FUNCTION__);
+				platformAction(kURLQQLogon(urlQQLogon.c_str()));
 #endif
                 
 			}
