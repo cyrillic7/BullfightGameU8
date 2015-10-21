@@ -310,7 +310,7 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 				break;
 			case LOGON_QQ:
 			{
-				setStatisticsType(STATISTICS_QQ);
+				setStatisticsType(STATISTICS_LOGON);
 				DataModel::sharedDataModel()->logonType = LOGON_QQ;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 				PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
