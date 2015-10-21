@@ -161,7 +161,7 @@ void PopDialogBox::addEditBox(UITextField *pTextField, EditBoxInputMode eInputMo
     if (pTextField->getMaxLength()>0) {
         pEditBox->setMaxLength(pTextField->getMaxLength());//最大长度
     }
-	pEditBox->setReturnType(kKeyboardReturnTypeDone);//键盘回车键名字
+	
 	if (pTextField->isPasswordEnabled())
 	{
 		pEditBox->setInputFlag(kEditBoxInputFlagPassword);//设置为密码模式
@@ -171,6 +171,7 @@ void PopDialogBox::addEditBox(UITextField *pTextField, EditBoxInputMode eInputMo
 	pEditBox->setAnchorPoint(pTextField->getAnchorPoint());
 	pEditBox->setTag(TAG_INPUT_EDIT_BOX);
 	pEditBox->setText(pTextField->getStringValue());
+	pEditBox->setReturnType(kKeyboardReturnTypeDefault);//键盘回车键名字
 	pEditBox->setDelegate(this);
 	//pEditBox->setColor(ccc3(243,218,185));
 	//pEditBox->setOpacity(0);

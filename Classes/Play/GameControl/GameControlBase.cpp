@@ -179,10 +179,22 @@ void GameControlBase::initTimer(UILayer *pWidget){
 }
 //触摸
 bool GameControlBase::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent){
-	CCPoint touchPoint = this->convertTouchToNodeSpace(pTouch);
-	CCLOG("meChiarID:%d <<%s>>", DataModel::sharedDataModel()->userInfo->wChairID, __FUNCTION__);
-	unsigned short beginPos = getViewChairID(DataModel::sharedDataModel()->userInfo->wChairID);
-	getMainScene()->cardLayer->touchCard(beginPos,touchPoint);
+	switch (getMainScene()->getGameState())
+	{
+	case MainSceneBase::STATE_OPT_OX:
+	case MainSceneBase::STATE_SWAP_CARD:
+	case MainSceneBase::STATE_SWAP_CARD_ING:
+	{
+		CCPoint touchPoint = this->convertTouchToNodeSpace(pTouch);
+		CCLOG("meChiarID:%d <<%s>>", DataModel::sharedDataModel()->userInfo->wChairID, __FUNCTION__);
+		unsigned short beginPos = getViewChairID(DataModel::sharedDataModel()->userInfo->wChairID);
+		getMainScene()->cardLayer->touchCard(beginPos, touchPoint);
+	}
+		break;
+	default:
+		break;
+	}
+	
 	return true;
 }
 //获取视图位置
