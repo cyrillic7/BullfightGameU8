@@ -55,8 +55,14 @@ private:
 public:
     static LogonScene* pLScene;
 	bool isReadMessage;
-	//是否来自注册操作
-	bool isFormRegisterAction;
+	//统计类型
+	enum StatisticsType
+	{
+		STATISTICS_REGISTER = 1,					//注册
+		STATISTICS_LOGON,							//登录
+		STATISTICS_QQ,								//QQ登录
+	};
+	CC_SYNTHESIZE(StatisticsType, eStatisticsType, StatisticsType);
 public:
     LogonScene();
     ~LogonScene();

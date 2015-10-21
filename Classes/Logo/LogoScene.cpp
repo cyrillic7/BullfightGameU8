@@ -207,6 +207,17 @@ void LogoScene::checkUpdate(const char* buf){
 	}
 	else
 	{
+		CCArray *sCurArray = split(sCurVersion.c_str(),".");
+		CCArray *sServiceArray = split(sServiceVersion.c_str(), ".");
+		if (!strComparisonByObj(sCurArray->objectAtIndex(0),sServiceArray->objectAtIndex(0))
+			|| !strComparisonByObj(sCurArray->objectAtIndex(1), sServiceArray->objectAtIndex(1)))
+		{
+			uInfo.iUpdateType = 1;
+		}
+		else
+		{
+			uInfo.iUpdateType = 0;
+		}
 		uInfo.isShowUpdateTip = true;
 	}
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
@@ -221,4 +232,14 @@ void LogoScene::checkUpdate(const char* buf){
 #endif
 
 	isCheckFinsh = true;
+}
+//比较字符
+bool LogoScene::strComparisonByObj(CCObject *obj1, CCObject *obj2){
+	CCString *sCur = (CCString*)obj1;
+	CCString *sService = (CCString*)obj2;
+	if (strcmp(sCur->getCString(),sService->getCString())==0)
+	{
+		return true;
+	}
+	return false;
 }

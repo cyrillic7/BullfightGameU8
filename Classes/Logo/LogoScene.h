@@ -10,9 +10,10 @@
 #define __BullfightGame__LogoScene__
 #include "cocos-ext.h"
 #include "../LogonScene/LogonScene.h"
+#include "../Tools/CStringAide.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
-class LogoScene:public CCLayer
+class LogoScene:public CCLayer,public CStringAide
 {
 private:
 	//更新校验是否完成
@@ -40,5 +41,7 @@ private:
 	void HttpRequestComplete(CCHttpClient *sender, CCHttpResponse *response);
 	//更新校验
 	void checkUpdate(const char* buf);
+	//比较字符
+	bool strComparisonByObj(CCObject *obj1,CCObject *obj2);
 };
 #endif /* defined(__BullfightGame__LogoScene__) */

@@ -33,7 +33,7 @@ LogonScene* LogonScene::pLScene=NULL;
 LogonScene::LogonScene()
 	:eLogonType(LOGON_ACCOUNT)
 	, isReadMessage(true)
-	, isFormRegisterAction(false)
+	, eStatisticsType(STATISTICS_LOGON)
 {
 
 
@@ -293,6 +293,7 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 			{
 			case LOGON_ACCOUNT:
 				{
+					setStatisticsType(STATISTICS_LOGON);
 					//logonGame();
 					PopDialogBox *pLogon = PopDialogBoxLogonAccount::create();
 					this->addChild(pLogon);
@@ -301,6 +302,7 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 				break;
 			case LOGON_REGISTER://注册
 			{
+				setStatisticsType(STATISTICS_REGISTER);
 				PopDialogBoxRegistered *pRegistered = PopDialogBoxRegistered::create();
 				this->addChild(pRegistered);
 				pRegistered->setIPopAssistRegistered(this);
@@ -308,6 +310,7 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 				break;
 			case LOGON_QQ:
 			{
+				setStatisticsType(STATISTICS_QQ);
 				DataModel::sharedDataModel()->logonType = LOGON_QQ;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 				PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
@@ -338,6 +341,7 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 				break;
 			case LOGON_QUICK://快速登录
 				{
+					setStatisticsType(STATISTICS_LOGON);
 					DataModel::isQuickUser = true;
 					DataModel::sharedDataModel()->logonType = LOGON_QUICK;
 					quickLogon();
@@ -689,20 +693,27 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 				Tools::saveStringByRMS(RMS_LOGON_PASSWORD, DataModel::sharedDataModel()->sLogonPassword);
 			}
 			//数据统计
-			if (isFormRegisterAction)
+			switch (eStatisticsType)
 			{
-				isFormRegisterAction = true;
+			case LogonScene::STATISTICS_REGISTER:
+			{
 				//发送注册统计数据
 				Statistics *pStatistice = Statistics::create();
 				pStatistice->sendStatisticsData(Statistics::S_REGISTER);
 			}
-			else
+				break;
+			case LogonScene::STATISTICS_LOGON:
 			{
 				//发送登录统计数据
 				Statistics *pStatistice = Statistics::create();
 				pStatistice->sendStatisticsData(Statistics::S_ACCOUNT_LOGON);
 			}
-			
+				break;
+			case LogonScene::STATISTICS_QQ:
+				break;
+			default:
+				break;
+			}
 
 		}
 		break;
@@ -912,7 +923,6 @@ bool LogonScene::onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, 
 }
 //注册回调
 void LogonScene::onRegistered(const char *sAccount, const char*sNickname, const char*sPassword){
-	isFormRegisterAction = true;
 	sRegisterAccount = sAccount;
 	sRegisterNickname = sNickname;
 	sRegisterPasswrod = sPassword;
