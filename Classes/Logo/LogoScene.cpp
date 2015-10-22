@@ -10,6 +10,7 @@
 #include "../Tools/DataModel.h"
 #include "../extensions/spine/Json.h"
 #include "../Platform/coPlatform.h"
+#include "../Tools/StatisticsConfig.h"
 LogoScene::LogoScene()
 	:isCheckFinsh(false){
 	/*std::string str = "恭喜，您已经成功充值10元宝。#30#300#";
@@ -19,7 +20,6 @@ LogoScene::LogoScene()
 	std::string str = "sss。#30#300#";
 	//int s = str.find("#");
 	//std::string tmp_s = str.substr(0, s);
-
 }
 LogoScene::~LogoScene(){
 	CCLog("~ <<%s>>", __FUNCTION__);
@@ -48,7 +48,9 @@ void LogoScene::onEnter(){
 	pAnimateTitle->getAnimation()->play("Animation1");
 	this->addChild(pAnimateTitle);
 
-	std::string url = "http://download.qicainiu.com/download/Mobile/BullfightGame/updateConfigQCN.txt";
+	std::string url = "http://download.qicainiu.com/download/Mobile/BullfightGame/updateConfig_";
+	url += k_session_id;
+	url += ".txt";
 
 	CCHttpRequest* request = new CCHttpRequest();
 	request->setUrl(url.c_str());

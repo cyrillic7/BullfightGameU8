@@ -10,6 +10,7 @@
 #include "../Tools/GameConfig.h"
 #include "../Platform/coPlatform.h"
 #include "../Network/CMD_Server/Packet.h"
+#include "../Tools/StatisticsConfig.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxMore::PopDialogBoxMore()
 {
@@ -59,7 +60,10 @@ void PopDialogBoxMore::onMenuOpenGame(CCObject *object, TouchEventType type){
 		UIButton *pButton = (UIButton*)object;
 		int tag = pButton->getTag();
 		//vecMoreInfo[tag].szAppName;
-		CCString *sAction = CCString::createWithFormat("{\"act\":500 ,\"packageName\":\"%s\",\"activity\":\"%s\",\"url\":\"%s\"}", vecMoreInfo[tag].szPackageName, vecMoreInfo[tag].szActivityName, vecMoreInfo[tag].szUrlAndroid);
+		std::string sUrlAndroid = vecMoreInfo[tag].szUrlAndroid;
+		//int index = sUrlAndroid.find(".apk");
+		//sUrlAndroid.insert(index,CCString::createWithFormat("_%s",k_session_id)->getCString());
+		CCString *sAction = CCString::createWithFormat("{\"act\":500 ,\"packageName\":\"%s\",\"activity\":\"%s\",\"url\":\"%s\"}", vecMoreInfo[tag].szPackageName, vecMoreInfo[tag].szActivityName, sUrlAndroid.c_str());
 		platformAction(sAction->getCString());
 	}
 }

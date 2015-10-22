@@ -199,7 +199,7 @@ void LogonScene::onEnter(){
 	//defaultLogon();
 	if (isFirstLogon)
 	{
-		statisticsLogon();
+		statisticsInstall();
 	}
 }
 void LogonScene::onExit(){
@@ -1005,8 +1005,8 @@ void LogonScene::saveAccount(){
 void LogonScene::keyBackClicked(){
 	platformAction("{\"act\":400}");
 }
-//统计登录
-void LogonScene::statisticsLogon(){
+//统计安装
+void LogonScene::statisticsInstall(){
 	Statistics *pStatistice = Statistics::create();
 	pStatistice->sendStatisticsData(Statistics::S_INSTALL);
 }

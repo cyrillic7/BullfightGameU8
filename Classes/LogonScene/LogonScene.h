@@ -127,8 +127,8 @@ private:
 	void quickLogon();
 
 	virtual void keyBackClicked();  //响应返回键  
-	//统计登录
-	void statisticsLogon();
+	//统计安装
+	void statisticsInstall();
 };
 
 #endif /* defined(__BullfightGame__LogonScene__) */
