@@ -27,6 +27,16 @@ void PopDialogBoxUpdateTipInfo::onEnter(){
 	//关闭
 	pBClose = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonCancel"));
 	pBClose->addTouchEventListener(this, toucheventselector(PopDialogBoxUpdateTipInfo::onMenuCloseTipInfo));
+	if (uInfo.iUpdateType == 1)
+	{
+		pBClose->loadTextureNormal("TuiChu_Btn_Normal.png", UI_TEX_TYPE_PLIST);
+		pBClose->loadTexturePressed("TuiChu_Btn_Down.png", UI_TEX_TYPE_PLIST);
+	}
+	else
+	{
+		pBClose->loadTextureNormal("QuXiao_Btn_Normal.png", UI_TEX_TYPE_PLIST);
+		pBClose->loadTexturePressed("QuXiao_Btn_Down.png", UI_TEX_TYPE_PLIST);
+	}
 
 	UIButton *pBSure = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonSure"));
 	pBSure->addTouchEventListener(this, toucheventselector(PopDialogBoxUpdateTipInfo::onMenuSure));

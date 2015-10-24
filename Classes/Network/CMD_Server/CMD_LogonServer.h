@@ -167,7 +167,7 @@ struct CMD_GP_LogonSuccess
 //登录失败
 struct CMD_GP_LogonFailure
 {
-	long							lResultCode;						//错误代码
+	int							lResultCode;						//错误代码
 	TCHAR							szDescribeString[128];				//描述消息
 };
 
@@ -478,7 +478,7 @@ struct CMD_GP_AccountsRet
 	{
 		//memset(this, 0, sizeof(CMD_GP_AccountsRet));
 	}
-	long							lResultCode;						//错误代码
+	int							lResultCode;						//错误代码
 	DWORD							dwUserID;
 	TCHAR							szPhone[LEN_MOBILE_PHONE];			//移动电话
 	TCHAR							szDescribeString[128];				//描述消息

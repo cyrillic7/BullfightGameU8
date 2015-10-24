@@ -50,6 +50,7 @@ import com.xw.BullfightGame.R;
 
 import android.app.Activity;
 import android.app.AlertDialog.Builder;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -71,6 +72,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -301,7 +303,7 @@ public class BullfightGame extends Cocos2dxActivity {
 	}
 
 
-
+	private ProgressDialog gressDialog;
 	public void openWebview(final String url) {
 		this.runOnUiThread(new Runnable() {// 在主线程里添加别的控件
 			public void run() {
@@ -362,17 +364,25 @@ public class BullfightGame extends Cocos2dxActivity {
 						return true;
 					}
 
+
 					@Override
 					public void onPageStarted(WebView view, String url,
 							Bitmap favicon) {
 						// TODO Auto-generated method stub
 						super.onPageStarted(view, url, favicon);
+			            gressDialog = ProgressDialog.show(m_webView.getContext(), "加载中...", "", true);
+			            gressDialog.setCanceledOnTouchOutside(true);
 					}
 					private boolean isFinish=false;
 					@Override
 					public void onPageFinished(WebView view, String url) {
 						// TODO Auto-generated method stub
+						
 						super.onPageFinished(view, url);
+						if (null != gressDialog) {
+			                gressDialog.dismiss();
+			            }
+
 						 if (iActionType == 201) {
 							 System.out.println("=======================210102222");
 							 if(!isFinish)
@@ -447,7 +457,6 @@ public class BullfightGame extends Cocos2dxActivity {
 		m_backButton.destroyDrawingCache();
 		
 	}
-
 	// 重写返回键
 	public boolean onKeyDown(int keyCoder, KeyEvent event) {
 		/*

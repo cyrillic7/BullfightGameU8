@@ -48,5 +48,5 @@
   </imageFileList>
   <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxShare.json</CurrentUIJson>
+  <CurrentUIJson />
 </UIProject>

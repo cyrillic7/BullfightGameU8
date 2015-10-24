@@ -23,7 +23,7 @@ typedef int				SOCKET;
 #define CopyMemory RtlCopyMemory
 typedef unsigned char       BYTE;
 typedef unsigned short      WORD;
-typedef unsigned long       DWORD;
+typedef unsigned int       DWORD;
 typedef char TCHAR, *PTCHAR;
 
 typedef struct _SYSTEMTIME {
