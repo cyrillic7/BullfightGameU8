@@ -17,6 +17,7 @@
 #include "../../PopDialogBox/PopDialogBoxOnLine.h"
 #include "../../PopDialogBox/PopDialogBoxTrend.h"
 #include "../../PopDialogBox/PopDialogBoxLoading.h"
+#include "../../PopDialogBox/PopDialogBoxMakeText.h"
 #include "../../Network/SEvent.h"
 #include "../../MTNotificationQueue/MTNotificationQueue.h"
 #include "../../PopDialogBox/PopDialogBoxRecharge.h"
@@ -1104,7 +1105,24 @@ void GameControlOxHundred::onSocketSubSystemMessage(void * pData, unsigned short
 	if ((pSystemMessage->wType&SMT_CHAT))
 		//if ((pSystemMessage->wType&SMT_CHAT) && (m_pIStringMessage != NULL))
 	{
-		CCLOG("%s<<%s>>", Tools::GBKToUTF8(pSystemMessage->szString).c_str(), __FUNCTION__);
+		PopDialogBoxMakeText *popMakeText = PopDialogBoxMakeText::create();
+		getMainScene()->addChild(popMakeText, K_Z_ORDER_POP);
+
+		std::string sContent = Tools::GBKToUTF8(pSystemMessage->szString);
+		sContent.erase(sContent.find_last_not_of("\n") + 1);
+
+		popMakeText->showMakeText(sContent);
+		CCLOG("makeTextSize:%d <<%s>>", DataModel::sharedDataModel()->m_aMakeText->count(), __FUNCTION__);
+		//
+		CCObject *object = NULL;
+		CCARRAY_FOREACH(DataModel::sharedDataModel()->m_aMakeText,object)
+		{
+			PopDialogBoxMakeText *tempPopMakeText = (PopDialogBoxMakeText*)object;
+			tempPopMakeText->movePlane(popMakeText->pIVBg->getContentSize().height + 10);
+		}
+	
+		DataModel::sharedDataModel()->m_aMakeText->addObject(popMakeText);
+		CCLOG("showTip:%s<<%s>>", Tools::GBKToUTF8(pSystemMessage->szString).c_str(), __FUNCTION__);
 		//m_pIStringMessage->InsertSystemString(pSystemMessage->szString);
 	}
 

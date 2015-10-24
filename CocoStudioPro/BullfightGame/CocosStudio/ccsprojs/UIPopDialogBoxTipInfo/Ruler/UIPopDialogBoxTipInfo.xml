@@ -8,4 +8,8 @@
     <Project>UIPopDialogBoxUpdateTipInfo</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxMakeText</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

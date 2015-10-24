@@ -279,6 +279,12 @@ public class BullfightGame extends Cocos2dxActivity {
 			    api.sendReq(req);
 			}
 				break;
+			/*case 1000://提示语
+			{
+				String sTipContent = jsonObject.getString("tipContent");
+				Toast.makeText(this, sTipContent, Toast.LENGTH_LONG).show();
+			}
+				break;*/
 			default:
 				break;
 			}

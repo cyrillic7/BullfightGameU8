@@ -229,7 +229,8 @@ bool GameControlOxSixSwap::OnSocketSubGameStatus(void * pData, WORD wDataSize)
 {
 	//效验参数
 	assert(wDataSize == sizeof(CMD_GF_GameStatus));
-	if (wDataSize != sizeof(CMD_GF_GameStatus)) return false;
+	if (wDataSize != sizeof(CMD_GF_GameStatus)) 
+		return false;
 
 	//消息处理
 	CMD_GF_GameStatus * pGameStatus = (CMD_GF_GameStatus *)pData;
@@ -251,7 +252,8 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 	{
 		//效验数据
 		int size = sizeof(CMD_S_StatusFree);
-		if (wDataSize != sizeof(CMD_S_StatusFree)) return false;
+		if (wDataSize != sizeof(CMD_S_StatusFree)) 
+			return false;
 		CMD_S_StatusFree * pStatusFree = (CMD_S_StatusFree *)pData;
 		lServiceScore = pStatusFree->lServiceScore;
 		CCLOG("%s <<%s>>", Tools::GBKToUTF8(" 空闲状态 ").c_str(), __FUNCTION__);
@@ -273,7 +275,8 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 	{
 		//效验数据
 		int size = sizeof(CMD_S_StatusCall);
-		if (wDataSize != sizeof(CMD_S_StatusCall)) return false;
+		if (wDataSize != sizeof(CMD_S_StatusCall)) 
+			return false;
 		CMD_S_StatusCall * pStatusCall = (CMD_S_StatusCall *)pData;
 		lServiceScore = pStatusCall->lServiceScore;
 		CCLOG("%s <<%s>>", Tools::GBKToUTF8(" 叫庄状态 ").c_str(), __FUNCTION__);
@@ -340,7 +343,8 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 	{
 		//效验数据
 		int size = sizeof(CMD_S_StatusScore);
-		if (wDataSize != sizeof(CMD_S_StatusScore)) return false;
+		if (wDataSize != sizeof(CMD_S_StatusScore)) 
+			return false;
 		CMD_S_StatusScore * pStatusScore = (CMD_S_StatusScore *)pData;
 		lServiceScore = pStatusScore->lServiceScore;
 		hideAllActionPanel();
@@ -417,7 +421,8 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 	{
 		//效验数据
 		int size = sizeof(CMD_S_StatusPlay);
-		if (wDataSize != sizeof(CMD_S_StatusPlay)) return false;
+		if (wDataSize != sizeof(CMD_S_StatusPlay))
+			return false;
 		CMD_S_StatusPlay * pStatusPlay = (CMD_S_StatusPlay *)pData;
 		lServiceScore = pStatusPlay->lServiceScore;
 		isPalySoundWarn = false;
@@ -567,7 +572,8 @@ bool GameControlOxSixSwap::OnEventSceneMessage(void * pData, WORD wDataSize){
 		
 		//效验数据
 		int size = sizeof(CMD_S_StatusChange);
-		if (wDataSize != sizeof(CMD_S_StatusChange)) return false;
+		if (wDataSize != sizeof(CMD_S_StatusChange))
+			return false;
 		CMD_S_StatusChange * pStatusChange = (CMD_S_StatusChange *)pData;
 		lServiceScore = pStatusChange->lServiceScore;
 		isShowAllUserOx = false;
@@ -798,7 +804,8 @@ void GameControlOxSixSwap::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, un
 bool GameControlOxSixSwap::OnSubChangeCard(const void * pBuffer, WORD wDataSize)
 {
 	//效验数据
-	if (wDataSize != sizeof(CMD_S_ChangeCard)) return false;
+	if (wDataSize != sizeof(CMD_S_ChangeCard)) 
+		return false;
 	CMD_S_ChangeCard * pChangeCard = (CMD_S_ChangeCard *)pBuffer;
 	if (pChangeCard->wPlayerID == (DataModel::sharedDataModel()->userInfo->wChairID))
 	{
@@ -855,7 +862,8 @@ bool GameControlOxSixSwap::OnSubChangeCard(const void * pBuffer, WORD wDataSize)
 bool GameControlOxSixSwap::OnSubGameBase(const void * pBuffer, WORD wDataSize)
 {
 	//效验数据
-	if (wDataSize != sizeof(CMD_S_GameBase)) return false;
+	if (wDataSize != sizeof(CMD_S_GameBase)) 
+		return false;
 	CMD_S_GameBase * pGameBase = (CMD_S_GameBase *)pBuffer;
 	//摊牌
 	UIButton *pBOpenCard = static_cast<UIButton*>(pOptOx->getChildByName("buttonOx"));
@@ -893,7 +901,8 @@ void GameControlOxSixSwap::hidePlayer(CMD_GR_UserStatus *userInfo){
 bool GameControlOxSixSwap::OnSubCallBanker(const void * pBuffer, WORD wDataSize){
 	//效验数据 
 	int size = sizeof(CMD_S_CallBanker);
-	if (wDataSize != sizeof(CMD_S_CallBanker)) return false;
+	if (wDataSize != sizeof(CMD_S_CallBanker))
+		return false;
 	CMD_S_CallBanker * pCallBanker = (CMD_S_CallBanker *)pBuffer;
 	/*if(!pCallBanker->bFirstTimes && pCallBanker->wCallBanker==getMeChairID())
 	{
@@ -986,7 +995,8 @@ bool GameControlOxSixSwap::OnSubCallBanker(const void * pBuffer, WORD wDataSize)
 bool GameControlOxSixSwap::OnSubAddScore(const void * pBuffer, WORD wDataSize)
 {
 	//效验数据
-	if (wDataSize != sizeof(CMD_S_AddScore)) return false;
+	if (wDataSize != sizeof(CMD_S_AddScore)) 
+		return false;
 	CMD_S_AddScore * pAddScore = (CMD_S_AddScore *)pBuffer;
 	hideActionPrompt();
 	showActionPrompt(ACTION_PROMPT_ADD_SCORE, CCPointZero);
@@ -1014,7 +1024,8 @@ bool GameControlOxSixSwap::OnSubAddScore(const void * pBuffer, WORD wDataSize)
 //游戏开始
 bool GameControlOxSixSwap::OnSubGameStart(const void * pBuffer, WORD wDataSize){
 	//效验数据
-	if (wDataSize != sizeof(CMD_S_GameStart)) return false;
+	if (wDataSize != sizeof(CMD_S_GameStart))
+		return false;
 	CMD_S_GameStart * pGameStart = (CMD_S_GameStart *)pBuffer;
 	wBankerUser = pGameStart->wBankerUser;
 	lScoreTax = pGameStart->lScoreTax;
@@ -1054,7 +1065,8 @@ bool GameControlOxSixSwap::OnSubGameStart(const void * pBuffer, WORD wDataSize){
 bool GameControlOxSixSwap::OnSubSendCard(const void * pBuffer, WORD wDataSize)
 {
 	//效验数据
-	if (wDataSize != sizeof(CMD_S_SendCard)) return false;
+	if (wDataSize != sizeof(CMD_S_SendCard)) 
+		return false;
 	CMD_S_SendCard * pSendCard = (CMD_S_SendCard *)pBuffer;
 	hideActionPrompt();
 	for (int i = 0; i < MAX_PLAYER; i++)
@@ -1140,7 +1152,8 @@ bool GameControlOxSixSwap::OnSubSendCard(const void * pBuffer, WORD wDataSize)
 bool GameControlOxSixSwap::OnSubOpenCard(const void * pBuffer, WORD wDataSize)
 {
 	//效验数据
-	if (wDataSize != sizeof(CMD_S_Open_Card)) return false;
+	if (wDataSize != sizeof(CMD_S_Open_Card)) 
+		return false;
 	CMD_S_Open_Card * pOpenCard = (CMD_S_Open_Card *)pBuffer;
 	/*
 	//设置变量
@@ -1285,7 +1298,8 @@ void GameControlOxSixSwap::showResultAnimation(){
 bool GameControlOxSixSwap::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 {
 	//效验参数
-	if (wDataSize != sizeof(CMD_S_GameEnd)) return false;
+	if (wDataSize != sizeof(CMD_S_GameEnd)) 
+		return false;
 	CMD_S_GameEnd * pGameEnd = (CMD_S_GameEnd *)pBuffer;
 	hideActionPrompt();
 	

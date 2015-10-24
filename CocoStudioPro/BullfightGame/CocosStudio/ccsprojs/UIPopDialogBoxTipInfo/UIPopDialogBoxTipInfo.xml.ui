@@ -9,6 +9,7 @@
   <JsonList>
     <string>UIPopDialogBoxTipInfo.json</string>
     <string>UIPopDialogBoxUpdateTipInfo.json</string>
+    <string>UIPopDialogBoxMakeText.json</string>
   </JsonList>
   <CanvasSize>
     <Width>1136</Width>
@@ -18,10 +19,11 @@
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <imageFileList>
-    <string>UIPanel.plist</string>
-    <string>UIButton.plist</string>
+    <string>UILoadingBar.plist</string>
   </imageFileList>
-  <imagePngList />
+  <imagePngList>
+    <string>UILoadingBar.png</string>
+  </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxUpdateTipInfo.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxMakeText.json</CurrentUIJson>
 </UIProject>

@@ -58,6 +58,7 @@ public:
 
     
 	CCArray *m_aTagGameKind;
+	CCArray *m_aMakeText;
 
 	std::vector <tagGameServer *> tagGameServerListOxTwo;
 	std::vector <tagGameServer *> tagGameServerListOxHundred;

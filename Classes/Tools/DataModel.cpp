@@ -39,6 +39,8 @@ DataModel::~DataModel() {
 	CCLOG("~ <<%s>>",__FUNCTION__);
 	m_aTagGameKind->removeAllObjects();
 	m_aTagGameKind->release();
+	m_aMakeText->removeAllObjects();
+	m_aMakeText->release();
 	while (readDataQueueGameIng.size()>0)
 	{
 		readDataQueueGameIng.pop();
@@ -102,6 +104,8 @@ void DataModel::initDataModel(){
 
 	m_aTagGameKind = CCArray::create();
 	m_aTagGameKind->retain();
+	m_aMakeText = CCArray::create();
+	m_aMakeText->retain();
 
 	initNewMsgTip();
 	/*
