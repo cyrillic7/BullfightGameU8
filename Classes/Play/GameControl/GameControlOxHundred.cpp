@@ -1118,7 +1118,7 @@ void GameControlOxHundred::onSocketSubSystemMessage(void * pData, unsigned short
 		CCARRAY_FOREACH(DataModel::sharedDataModel()->m_aMakeText,object)
 		{
 			PopDialogBoxMakeText *tempPopMakeText = (PopDialogBoxMakeText*)object;
-			tempPopMakeText->movePlane(popMakeText->pIVBg->getContentSize().height + 10);
+			tempPopMakeText->movePlane(popMakeText->pIVBg->getSize().height + 6);
 		}
 	
 		DataModel::sharedDataModel()->m_aMakeText->addObject(popMakeText);
