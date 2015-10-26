@@ -6,6 +6,8 @@
 //#include "../../LogonScene/LogonScene.h"
 //#include "../../Tools/DataModel.h"
 #include "FMLayerWebView.h"
+#include "weixin/WXApiResponseHandler.h"
+#include "weixin/WXApiRequestHandler.h"
 USING_NS_CC;
 //---------------------------------------------------------------------------
 /**
@@ -84,7 +86,44 @@ std::string platformAction(const std::string& jsonString)
             return [version UTF8String];
         }
             break;
+        case 900://分享
+        {
+            NSString *kLinkURL=@"http://m.qicainiu.com/Home/Download";
+            UIImage *thumbImage = [UIImage imageNamed:@"Icon-114.png"];
+            NSLog(@"URL:%s  %f",[kLinkURL UTF8String],thumbImage.size.width);
+           /* [WXApiResponseHandler respLinkURL:kLinkURL
+                                        Title:@"达人牛牛"
+                                  Description:@"在不牛牛"
+                                   ThumbImage:thumbImage];*/
+            [WXApiRequestHandler sendLinkURL:kLinkURL
+                                     TagName:@"share"
+                                       Title:@"达人牛牛"
+                                 Description:@"再不牛牛我们就老了！您的微信好友邀请您玩“ 达人牛牛”，立即前往下载游戏支援好友！~ "
+                                  ThumbImage:thumbImage
+                                     InScene:WXSceneSession];
+
+            //[self dismissModalViewControllerAnimated:YES];
+        }
+            break;
+        case 901://分享
+        {
+            NSString *kLinkURL=@"http://m.qicainiu.com/Home/Download";
+            UIImage *thumbImage = [UIImage imageNamed:@"Icon-114.png"];
+            NSLog(@"URL:%s  %f",[kLinkURL UTF8String],thumbImage.size.width);
+            /* [WXApiResponseHandler respLinkURL:kLinkURL
+             Title:@"达人牛牛"
+             Description:@"在不牛牛"
+             ThumbImage:thumbImage];*/
+            [WXApiRequestHandler sendLinkURL:kLinkURL
+                                     TagName:@"share"
+                                       Title:@"达人牛牛"
+                                 Description:@"再不牛牛我们就老了！您的微信好友邀请您玩“ 达人牛牛”，立即前往下载游戏支援好友！~ "
+                                  ThumbImage:thumbImage
+                                     InScene:WXSceneTimeline];
             
+            //[self dismissModalViewControllerAnimated:YES];
+        }
+            break;
         default:
             break;
     }
