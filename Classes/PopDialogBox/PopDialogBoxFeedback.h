@@ -8,7 +8,8 @@
 #pragma once
 
 #include "PopDialogBox.h"
-class PopDialogBoxFeedback: public PopDialogBox {
+#include "../PopDialogBox/PopDialogBoxTipInfo.h"
+class PopDialogBoxFeedback: public PopDialogBox,public IPopAssistTipInfo {
 private:
 	//联系方式
 	CCEditBox *pEBFeedbackQQ;
@@ -39,4 +40,8 @@ private:
 	void onEventUserService(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
 	//意见反馈
 	void onSubFeedback(void * pDataBuffer, unsigned short wDataSize);
+
+
+	//关闭回调
+	virtual void onCloseTipInfo(CCLayer *pTipInfo);
 };

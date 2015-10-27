@@ -165,5 +165,17 @@ void PopDialogBoxFeedback::onEventUserService(WORD wSubCmdID, void * pDataBuffer
 //反馈
 void PopDialogBoxFeedback::onSubFeedback(void * pDataBuffer, unsigned short wDataSize){
 	CMD_GP_FeedbackLog *pFeedback = (CMD_GP_FeedbackLog*)pDataBuffer;
-	showTipInfo(GBKToUTF8(pFeedback->szDescribeString).c_str());
+	if (pFeedback->dwRet==0)
+	{
+		showTipInfo(GBKToUTF8(pFeedback->szDescribeString).c_str(), this);
+	}
+	else
+	{
+		showTipInfo(GBKToUTF8(pFeedback->szDescribeString).c_str());
+	}
+	
+}
+//关闭回调
+void PopDialogBoxFeedback::onCloseTipInfo(CCLayer *pTipInfo){
+	this->removeFromParentAndCleanup(true);
 }

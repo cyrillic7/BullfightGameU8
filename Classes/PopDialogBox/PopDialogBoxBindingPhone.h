@@ -8,13 +8,14 @@
 #pragma once
 
 #include "PopDialogBox.h"
+#include "../PopDialogBox/PopDialogBoxTipInfo.h"
 struct IPopAssistBindingPhone//弹框绑定手机辅助接口
 {
 	virtual ~IPopAssistBindingPhone(){}
 	//关闭绑定phone
 	virtual void onCloseBindingPhone() = 0;
 };
-class PopDialogBoxBindingPhone: public PopDialogBox {
+class PopDialogBoxBindingPhone: public PopDialogBox ,public IPopAssistTipInfo{
 private:
 	CC_SYNTHESIZE(IPopAssistBindingPhone*, pIPopAssistBindingPhone, IPopAssistBindingPhone);
 
@@ -57,4 +58,7 @@ private:
 	virtual void onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
 	//用户服务
 	void onEventUserService(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize);
+
+	//关闭回调
+	virtual void onCloseTipInfo(CCLayer *pTipInfo);
 };
