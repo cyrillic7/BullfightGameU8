@@ -17,7 +17,7 @@ LogoScene::LogoScene()
 	int s=str.find("#");
 	std::string tmp_s = str.substr(0, s);
  	CCLOG("ss-- :%s<<%s>>",tmp_s.c_str(), __FUNCTION__);*/
-	std::string str = "sss。#30#300#";
+	//std::string str = "sss。#30#300#";
 	//int s = str.find("#");
 	//std::string tmp_s = str.substr(0, s);
 }
@@ -35,9 +35,9 @@ CCScene* LogoScene::scene()
 }
 void LogoScene::onEnter(){
 	CCLayer::onEnter();
-	CCLayerColor *pLayerColor = CCLayerColor::create(ccc4(255, 255, 255, 255));
+	CCLayerColor *pLayerColor = CCLayerColor::create(ccc4(0, 0, 0, 255));
 	this->addChild(pLayerColor);
-	//标题动画
+	/*//标题动画
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationCompanyLogo.ExportJson));
 	CCArmature *pAnimateTitle = CCArmature::create("AnimationCompanyLogo");
 	pAnimateTitle->setAnchorPoint(ccp(0.5, 0.5));
@@ -46,7 +46,8 @@ void LogoScene::onEnter(){
 	pAnimateTitle->getAnimation()->setMovementEventCallFunc(this, movementEvent_selector(LogoScene::onAnimationEventOver));//动画播完回调用
 	pAnimateTitle->getAnimation()->setFrameEventCallFunc(this, frameEvent_selector(LogoScene::onAnimationEventFrame));
 	pAnimateTitle->getAnimation()->play("Animation1");
-	this->addChild(pAnimateTitle);
+	this->addChild(pAnimateTitle);*/
+	schedule(SEL_SCHEDULE(&LogoScene::updateToMainScene), 0.1);
 
 	std::string url = "http://download.qicainiu.com/download/Mobile/BullfightGame/updateConfig_";
 	url += k_session_id;
