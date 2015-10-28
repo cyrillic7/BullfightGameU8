@@ -32,11 +32,20 @@ GameControlOxHundred::GameControlOxHundred()
 	, lUserScore(0)
 	, lBankerScore(0)
 {
-	nJetton[0] = 1000;
+	nAllJetton[0] = 10;
+	nAllJetton[1] = 50;
+	nAllJetton[2] = 100;
+	nAllJetton[3] = 1000;
+	nAllJetton[4] = 5000;
+	nAllJetton[5] = 10000;
+	nAllJetton[6] = 100000;
+	nAllJetton[7] = 500000;
+
+	/*nJetton[0] = 1000;
 	nJetton[1] = 5000;
 	nJetton[2] = 10000;
 	nJetton[3] = 100000;
-	nJetton[4] = 500000;
+	nJetton[4] = 500000;*/
 	//庄家信息
 	m_wBankerUser = INVALID_CHAIR;
 	isPalySoundWarn = false;
@@ -50,7 +59,7 @@ GameControlOxHundred::~GameControlOxHundred(){
 }
 void GameControlOxHundred::onEnter(){
 	CCLayer::onEnter();
-	UILayer *pWidget = UILayer::create();
+	pWidget = UILayer::create();
 	this->addChild(pWidget);
 
 	UILayout *pLayout = dynamic_cast<UILayout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UIGameIngHundred.ExportJson)));
@@ -76,6 +85,7 @@ void GameControlOxHundred::onEnter(){
 		//隐藏
 		pIJettonButton[i]->setColor(ccc3(100, 100, 100));
 		pIJettonButton[i]->setTouchEnabled(false);
+		pIJettonButton[i]->setVisible(false);
 	}
 	//筹码选择光标
 	pIJettonSelect = static_cast<UIImageView*>(pWidget->getWidgetByName("ImageSelectJetton"));
@@ -841,6 +851,17 @@ void GameControlOxHundred::onSubGameFrame(WORD wSubCmdID, void * pDataBuffer, un
 
 			//消息处理
 			CMD_S_StatusFree * pStatusFree = (CMD_S_StatusFree *)pDataBuffer;
+			//设置筹码起始下标
+			lJettonState = pStatusFree->lJettonState;
+			for (int i = 0; i < MAX_JETTON_BUTTON_COUNT; i++)
+			{
+				nJetton[i] = nAllJetton[lJettonState + i];
+				pIJettonButton[i] = static_cast<UIImageView*>(pWidget->getWidgetByName(CCString::createWithFormat("ImageJetton%d", i)->getCString()));
+				pIJettonButton[i]->loadTexture(CCString::createWithFormat("u_gih_jetton%d.png",i+lJettonState)->getCString(), UI_TEX_TYPE_PLIST);
+				pIJettonButton[i]->setVisible(true);
+			}
+		
+
 			//设置时间
 			resetTimer(pStatusFree->cbTimeLeave, BaseAttributes::sharedAttributes()->sGameFree.c_str());
 
@@ -908,6 +929,15 @@ void GameControlOxHundred::onSubGameFrame(WORD wSubCmdID, void * pDataBuffer, un
 
 			//消息处理
 			CMD_S_StatusPlay * pStatusPlay = (CMD_S_StatusPlay *)pDataBuffer;
+			//设置筹码起始下标
+			lJettonState = pStatusPlay->lJettonState;
+			for (int i = 0; i < MAX_JETTON_BUTTON_COUNT; i++)
+			{
+				nJetton[i] = nAllJetton[lJettonState + i];
+				pIJettonButton[i] = static_cast<UIImageView*>(pWidget->getWidgetByName(CCString::createWithFormat("ImageJetton%d", i)->getCString()));
+				pIJettonButton[i]->loadTexture(CCString::createWithFormat("u_gih_jetton%d.png", i + lJettonState)->getCString(), UI_TEX_TYPE_PLIST);
+				pIJettonButton[i]->setVisible(true);
+			}
 			m_lAreaLimitScore = pStatusPlay->lAreaLimitScore;
 			//下注信息
 			for (int nAreaIndex = 1; nAreaIndex <= AREA_COUNT; ++nAreaIndex)
