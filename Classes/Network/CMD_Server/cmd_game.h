@@ -192,6 +192,10 @@ struct CMD_S_StatusFree
 
 	//房间信息
 	TCHAR							szGameRoomName[SERVER_LEN];			//房间名称
+
+	WORD							wRevenueRatio;                      //税收比例
+	long long                       lServiceScore;                      //服务费用
+	WORD                            lJettonState;                       //筹码标示 
 };
 
 //游戏状态
@@ -233,6 +237,10 @@ struct CMD_S_StatusPlay
 
 	//房间信息
 	TCHAR							szGameRoomName[SERVER_LEN];			//房间名称
+
+	WORD							wRevenueRatio;                      //税收比例
+	long long                       lServiceScore;                      //服务费用
+	WORD                            lJettonState;                       //筹码标示 
 };
 
 //游戏空闲

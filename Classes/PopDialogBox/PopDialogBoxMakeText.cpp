@@ -65,7 +65,7 @@ void PopDialogBoxMakeText::onExit(){
 void PopDialogBoxMakeText::showMakeText(std::string sContents){
 	pLContent->setText(sContents.c_str());
 	pIVBg->setSize(pLContent->getContentSize() + ccp(20, 20));
-	int time = 3;
+	int time = 4;
 	CCSequence *seq = CCSequence::create(
 		CCFadeOut::create(time),
 		CCCallFunc::create(this, SEL_CallFunc(&PopDialogBoxMakeText::removeSelf)),
