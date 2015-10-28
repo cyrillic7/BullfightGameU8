@@ -3,7 +3,7 @@
     package="com.xw.BullfightGame"
     android:installLocation="auto"
     android:versionCode="1"
-    android:versionName="1.2.0" >
+    android:versionName="1.3.0" >
 
     <uses-sdk android:minSdkVersion="8" />
 
