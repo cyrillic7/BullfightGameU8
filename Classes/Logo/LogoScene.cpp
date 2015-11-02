@@ -104,6 +104,9 @@ void LogoScene::HttpRequestComplete(CCHttpClient *sender, CCHttpResponse *respon
 	{
 		return;
 	}
+	//保存到本地路径文件
+	std::string path = CCFileUtils::sharedFileUtils()->getWritablePath();
+	path += "updateInfo";
 
 	// You can get original request type from: response->request->reqType
 	if (0 != strlen(response->getHttpRequest()->getTag()))
@@ -122,23 +125,28 @@ void LogoScene::HttpRequestComplete(CCHttpClient *sender, CCHttpResponse *respon
 		CCLOG("error buffer: %s", response->getErrorBuffer());
 		isCheckFinsh = true;
 		uInfo.isShowUpdateTip = false;
+		//读取本地文件
+		unsigned long bufferSize = 0;
+		unsigned char* sData = CCFileUtils::sharedFileUtils()->getFileData(path.c_str(),"r",&bufferSize);
+		if (sData)
+		{
+			checkUpdate(CCString::createWithFormat("%s", sData)->getCString());
+		}
 		return;
 	}
 	// dump data
 	std::vector<char> *buffer = response->getResponseData();
-	std::string bufffff(buffer->begin(), buffer->end());
-	CCLOG("-:%s <<%s>>", bufffff.c_str(), __FUNCTION__);
-	checkUpdate(bufffff.c_str());
+	std::string strBuf(buffer->begin(), buffer->end());
+	CCLOG("-:%s <<%s>>", strBuf.c_str(), __FUNCTION__);
+	checkUpdate(strBuf.c_str());
 	
-	/*
-	//保存到本地文件
-	path += this->filename;
+	//保存数据
 	CCLOG("path: %s", path.c_str());
 	FILE *fp = fopen(path.c_str(), "wb+");
-	fwrite(bufffff.c_str(), 1, buffer->size(), fp);
+	fwrite(strBuf.c_str(), 1, buffer->size(), fp);
 	fclose(fp);
 
-	*/
+	
 }
 //更新校验
 void LogoScene::checkUpdate(const char* buf){
@@ -201,6 +209,12 @@ void LogoScene::checkUpdate(const char* buf){
 		{
 			urlIphone = _strUrlIphone->valuestring;
 			CCLOG("iphone:%s <<%s>>", urlIphone.c_str(), __FUNCTION__);
+		}
+		Json* _strUrlLogon = Json_getItem(_date, "url_logon");
+		if (_strUrlLogon->type == Json_String)
+		{
+			DataModel::sharedDataModel()->urlLogon = _strUrlLogon->valuestring;
+			CCLOG("logon:%s <<%s>>", DataModel::sharedDataModel()->urlLogon.c_str(), __FUNCTION__);
 		}
 	}
 	Json_dispose(root);

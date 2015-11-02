@@ -444,7 +444,16 @@ void LogonScene::connectServer(){
 
 	if (gameSocket.getSocketState() != CGameSocket::SOCKET_STATE_CONNECT_SUCCESS)
 	{
-		gameSocket.Create(GAME_IP, PORT_LOGON);
+		if (DataModel::sharedDataModel()->ipaddr.length()==0)
+		{
+			struct hostent* hostInfo = gethostbyname(DataModel::sharedDataModel()->urlLogon.c_str());
+			if (hostInfo)
+			{
+				DataModel::sharedDataModel()->ipaddr = inet_ntoa(*(struct in_addr *)*hostInfo->h_addr_list);
+			}
+		}
+		CCLOG("ip:%s <<%s>>", DataModel::sharedDataModel()->ipaddr.c_str(), __FUNCTION__);
+		gameSocket.Create(DataModel::sharedDataModel()->ipaddr.c_str(), PORT_LOGON);
 		gameSocket.setIGameSocket(this);
 	}
 	/*PopDialogBox *box = PopDialogBoxLoading::create();

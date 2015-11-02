@@ -15,6 +15,7 @@
 #include "PopDialogBoxTipInfo.h"
 #include "PopDialogBoxInputNum.h"
 #include "../GameLobby/BaseLobbyScene.h"
+#include "../Tools/DataModel.h"
 std::string PopDialogBox::sSocketName = "";
 PopDialogBox::PopDialogBox()
 :pUILayer(NULL)
@@ -80,8 +81,16 @@ void PopDialogBox::connectServer(){
 
 	if (gameSocket.getSocketState() != CGameSocket::SOCKET_STATE_CONNECT_SUCCESS)
 	{
+		if (DataModel::sharedDataModel()->ipaddr.length() == 0)
+		{
+			struct hostent* hostInfo = gethostbyname(DataModel::sharedDataModel()->urlLogon.c_str());
+			if (hostInfo)
+			{
+				DataModel::sharedDataModel()->ipaddr = inet_ntoa(*(struct in_addr *)*hostInfo->h_addr_list);
+			}
+		}
 		gameSocket.setIGameSocket(this);
-		gameSocket.Create(GAME_IP, PORT_LOGON);
+		gameSocket.Create(DataModel::sharedDataModel()->ipaddr.c_str(), PORT_LOGON);
 	}
 }
 void PopDialogBox::setSocketName(std::string sName){

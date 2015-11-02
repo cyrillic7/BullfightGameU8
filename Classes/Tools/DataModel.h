@@ -19,6 +19,10 @@ struct NewMsg
 };
 class DataModel:public CCObject{
 public:
+	//登录url
+	std::string urlLogon;
+	//ip地址
+	std::string ipaddr;
 	//音效开关
 	static bool isSound;
 	//音乐开关

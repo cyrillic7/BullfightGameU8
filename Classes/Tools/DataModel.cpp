@@ -8,6 +8,7 @@
 #include "Tools.h"
 #include "GameConfig.h"
 #include "../extensions/spine/Json.h"
+#include "../Network/CMD_Server/Packet.h"
 bool DataModel::isSound = true;
 bool DataModel::isMusic = true;
 //是否是游客
@@ -21,6 +22,8 @@ DataModel::DataModel()
 , isShowNewMsg(false)
 , isShowNewTaskMsg(false)
 , isShowNewAuctionMsg(false)
+, ipaddr("")
+, urlLogon(GAME_IP)
 {
     
 	DataModel::isMusic = Tools::getBoolByRMS(RMS_IS_MUSIC);
