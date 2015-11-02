@@ -448,7 +448,7 @@ struct CMD_GP_CaptchaRet
 	{
 		//memset(this, 0, sizeof(CMD_GP_CaptchaRet));
 	}
-	long							lResultCode;						//错误代码
+	int							lResultCode;						//错误代码
 	TCHAR							szDescribeString[128];				//描述消息
 };
 //重设密码返回
@@ -458,7 +458,7 @@ struct CMD_GP_SetPassRet
 	{
 		//memset(this, 0, sizeof(CMD_GP_SetPassRet));
 	}
-	long							lResultCode;						//错误代码
+	int							lResultCode;						//错误代码
 	TCHAR							szDescribeString[128];				//描述消息
 };
 //////////////////////////////////////////////////////////////////////////
@@ -525,7 +525,7 @@ struct CMD_GP_UnMoorMachineRet
 	{
 		//memset(this, 0, sizeof(CMD_GP_UnMoorMachineRet));
 	}
-	long							lResultCode;						//错误代码
+	int							lResultCode;						//错误代码
 	TCHAR							szDescribeString[128];				//描述消息
 };
 //////////////////////////////////////////////////////////////////////////
@@ -561,7 +561,7 @@ struct CMD_GP_CaptchaRet
 	{
 		//memset(this, 0, sizeof(CMD_GP_CaptchaRet));
 	}
-	long							lResultCode;						//错误代码
+	int							lResultCode;						//错误代码
 	TCHAR							szDescribeString[128];				//描述消息
 };*/
 //商店////////////////////////////////////////礼品/////////////////////////////
@@ -962,7 +962,7 @@ struct CMD_GP_ConversionAuctionScore
 	{
 		//memset(this, 0, sizeof(CMD_GP_ConversionAuctionScore));
 	}
-	long							lResultCode;						//操作代码
+	int							lResultCode;						//操作代码
 	SCORE							lInsureScore;						//银行金币
 	TCHAR							szDescribeString[128];				//描述消息
 };
@@ -1220,7 +1220,7 @@ struct CMD_GP_UserInsureSuccess
 //银行失败
 struct CMD_GP_UserInsureFailure
 {
-	long							lResultCode;						//错误代码
+	int							lResultCode;						//错误代码
 	TCHAR							szDescribeString[128];				//描述消息
 };
 
@@ -1273,14 +1273,14 @@ struct CMD_GP_UserTransferUserInfo
 //操作失败
 struct CMD_GP_OperateFailure
 {
-	long							lResultCode;						//错误代码
+	int							lResultCode;						//错误代码
 	TCHAR							szDescribeString[128];				//描述消息
 };
 
 //操作成功
 struct CMD_GP_OperateSuccess
 {
-	long							lResultCode;						//操作代码
+	int							lResultCode;						//操作代码
 	TCHAR							szDescribeString[128];				//成功消息
 };
 
@@ -1484,7 +1484,7 @@ struct CMD_MB_LogonSuccess
 //登录失败
 struct CMD_MB_LogonFailure
 {
-	long							lResultCode;								 //错误代码
+	int							lResultCode;								 //错误代码
 	TCHAR						szDescribeString[128];				//描述消息
 };
 
@@ -1512,7 +1512,7 @@ struct CMD_MB_Quick_Logon_Success
 {
 	TCHAR							szAccounts[LEN_ACCOUNTS];			//登录帐号
 	TCHAR							szLogonPass[LEN_MD5];				//登录密码
-	long							lResultCode;						//错误代码
+	int							lResultCode;						//错误代码
 	TCHAR							szDescribeString[128];				//描述消息
 };
 //////////////////////////////////////////////////////////////////////////////////
@@ -1616,7 +1616,7 @@ struct CMD_GL_TaskIDLog
 	{
 		//memset(this, 0, sizeof(CMD_GL_TaskIDLog));
 	}
-	long							lResultCode;						//操作代码
+	int							lResultCode;						//操作代码
 	TCHAR							szDescribeString[128];				//成功消息
 };
 //////////////////////////////////////////////////////////////////////////

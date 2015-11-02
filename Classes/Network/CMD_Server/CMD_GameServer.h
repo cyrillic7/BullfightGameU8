@@ -88,7 +88,7 @@ struct CMD_GR_LogonSuccess
 //登录失败
 struct CMD_GR_LogonFailure
 {
-	long							lErrorCode;							//错误代码
+	int							lErrorCode;							//错误代码
 	TCHAR							szDescribeString[128];				//描述消息
 };
 
@@ -286,7 +286,7 @@ struct CMD_GR_UserMatchStatus
 //请求失败
 struct CMD_GR_RequestFailure
 {
-	long							lErrorCode;							//错误代码
+	int							lErrorCode;							//错误代码
 	TCHAR							szDescribeString[256];				//描述信息
 };
 
@@ -407,7 +407,7 @@ struct CMD_GR_S_PropertySuccess
 struct CMD_GR_PropertyFailure
 {
 	WORD                            wRequestArea;                       //请求区域
-	long							lErrorCode;							//错误代码
+	int							lErrorCode;							//错误代码
 	TCHAR							szDescribeString[256];				//描述信息
 };
 
@@ -472,8 +472,8 @@ struct CMD_GR_UserRule
 	BYTE							cbRuleMask;							//规则掩码
 	WORD							wMinWinRate;						//最低胜率
 	WORD							wMaxFleeRate;						//最高逃率
-	long							lMaxGameScore;						//最高分数
-	long							lMinGameScore;						//最低分数
+	int							lMaxGameScore;						//最高分数
+	int							lMinGameScore;						//最低分数
 };
 
 //请求用户信息
@@ -624,7 +624,7 @@ struct CMD_GR_S_UserInsureSuccess
 struct CMD_GR_S_UserInsureFailure
 {
 	BYTE                            cbActivityGame;                     //游戏动作
-	long							lErrorCode;							//错误代码
+	int							lErrorCode;							//错误代码
 	TCHAR							szDescribeString[128];				//描述消息
 };
 
@@ -987,7 +987,7 @@ struct CMD_GF_S_UserExpression
 //签到
 struct GP_CheckInGetSocre
 {
-	long							lResultCode;						//操作代码
+	int							lResultCode;						//操作代码
 	TCHAR							szDescribeString[128];				//描述消息
 };
 
