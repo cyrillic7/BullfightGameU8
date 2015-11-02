@@ -150,7 +150,7 @@ struct tagUserScore
 	//全局信息
 	DWORD							dwUserMedal;						//用户奖牌
 	DWORD							dwExperience;						//用户经验
-	long							lLoveLiness;						//用户魅力
+	int							lLoveLiness;						//用户魅力
 };
 
 //用户积分
@@ -250,7 +250,7 @@ struct tagUserInfo
 	BYTE							cbEnlistStatus;						//报名状态
 
 	//扩展标识
-	long							lExpand;
+	int							lExpand;
 	DWORD							dwExpand;
 
 	//////////////////////////////////////////////////////////////////////////
@@ -340,7 +340,7 @@ struct tagGamePlaza
 //级别子项
 struct tagLevelItem
 {
-	long							lLevelScore;						//级别积分
+	int							lLevelScore;						//级别积分
 	TCHAR							szLevelName[16];					//级别描述
 };
 
