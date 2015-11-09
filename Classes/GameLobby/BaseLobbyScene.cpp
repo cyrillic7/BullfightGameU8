@@ -24,6 +24,7 @@
 #include "../PopDialogBox/PopDialogBoxRecharge.h"
 #include "../PopDialogBox/PopDialogBoxFirstRecharge.h"
 #include "../PopDialogBox/PopDialogBoxShare.h"
+#include "../PopDialogBox/PopDialogBoxGiftExchang.h"
 #include "../Platform/coPlatform.h"
 #include "../Tools/DataModel.h"
 #include "../Network/SEvent.h"
@@ -102,6 +103,9 @@ void BaseLobbyScene::onEnter(){
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
 	//绑定分享
 	button = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonShare"));
+	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
+	//绑定礼包兑换
+	button = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonExchang"));
 	button->addTouchEventListener(this, SEL_TouchEvent(&BaseLobbyScene::onMenuCallback));
 	//绑定充值
 	UIButton* pBRecharge = static_cast<UIButton*>(m_pWidgetBase->getWidgetByName("ButtonRecharge"));
@@ -292,6 +296,11 @@ void BaseLobbyScene::popDialogBox(PopType type){
 		//platformAction("{\"act\":900}");
 	}
 		break;
+	case BaseLobbyScene::POP_GIFT_EXCHANG:
+	{
+		pdb = PopDialogBoxGiftExchang::create();
+	}
+		break;
 	default:
 		break;
 	}
@@ -377,6 +386,10 @@ void BaseLobbyScene::onMenuCallback(CCObject* pSender, TouchEventType type){
 			else if (strcmp(button->getName(), "ButtonShare") == 0)
 			{
 				popDialogBox(POP_SHARE);
+			}
+			else if (strcmp(button->getName(), "ButtonExchang") == 0)
+			{
+				popDialogBox(POP_GIFT_EXCHANG);
 			}
 			else
 			{

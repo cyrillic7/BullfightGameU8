@@ -109,4 +109,8 @@
     <Project>UIPopDialogBoxShare</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>UIGiftExchang</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

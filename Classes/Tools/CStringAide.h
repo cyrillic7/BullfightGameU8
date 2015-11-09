@@ -4,6 +4,7 @@
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace ui;
+using   namespace   std;
 class CStringAide
 {
 public:
@@ -25,5 +26,7 @@ public:
 	bool isDigit2(std::string str);
 	//分割字符串
 	CCArray* split(const char* srcStr, const char* sSep);
+	//替换字符
+	string&   replace_all(string&   str, const   string&   old_value, const   string&   new_value);
 };
 
