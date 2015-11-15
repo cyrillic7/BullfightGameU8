@@ -5,7 +5,6 @@ proj.android/obj/
 proj.android/.settings/
 proj.android/gen/
 proj.android/libs/
-proj.ios/
 proj.linux/
 proj.blackberry/
 proj.mac/

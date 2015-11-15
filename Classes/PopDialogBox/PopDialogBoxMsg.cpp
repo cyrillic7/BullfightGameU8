@@ -183,7 +183,7 @@ void PopDialogBoxMsg::updateListMsg(std::vector<std::string> qMsg){
 		UIImageView *pIVItem = static_cast<UIImageView*>(pLVMsgList->getItem(pLVMsgList->getItems()->count() - 1)->getChildByName("ImageBg"));
 		pIVItem->addTouchEventListener(this, SEL_TouchEvent(&PopDialogBoxMsg::onMenuSelectMsgItem));
 
-		
+		//[0] = "喜讯来啦：达人捕鱼话费天天送，每天乐开花了吧！更大重磅的消息来了，我们推出了电脑版【七彩牛游戏中心】有多种不同游戏，有比赛：二人斗地主比赛，千变双扣比赛，捕鱼比赛；有牛牛：百人牛牛，二人牛牛，通比牛牛
 				
 		UILabel *pLContent = static_cast<UILabel*>(pIVItem->getChildByName("LabelContent"));
 		CCLOG("-:%s <<%s>>", GBKToUTF8(qMsg[i].c_str()).c_str(), __FUNCTION__);
