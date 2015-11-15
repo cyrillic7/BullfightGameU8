@@ -3,10 +3,9 @@
 #import "cocos2d.h"
 #import "AppDelegate.h"
 #import "RootViewController.h"
-
 #import "WXApiManager.h"
 #import "SendMessageToWXReq+requestWithTextOrMediaMessage.h"
-
+#include "../Classes/Network/TCPSocket/CGameSocket.h"
 @implementation AppController
 
 #pragma mark -
@@ -56,6 +55,10 @@ static AppDelegate s_sharedApplication;
 
     //向微信注册
     [WXApi registerApp:@"wx523a92d2630efd6b" withDescription:@"BullfightGame"];
+    //监听网络状态
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChange) name:kReachabilityChangedNotification object:nil];
+    self.coon=[Reachability reachabilityForInternetConnection];
+    [self.coon startNotifier];
     return YES;
 }
 
@@ -117,8 +120,28 @@ static AppDelegate s_sharedApplication;
 
 - (void)dealloc {
     [window release];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
-
+//
+-(void)networkChange{
+    [self checkNetworkState];
+}
+-(void)checkNetworkState{
+    Reachability *WIFI=[Reachability reachabilityForLocalWiFi];
+    Reachability *conn=[Reachability reachabilityForInternetConnection];
+    if ([WIFI currentReachabilityStatus]!=NotReachable) {
+        NSLog(@"当前连着WIFI");
+        CGameSocket::isConnect=true;
+    }else{
+        if ([conn currentReachabilityStatus]!=NotReachable) {
+            NSLog(@"当前连着2G/3G网络");
+            CGameSocket::isConnect=true;
+        }else{
+            NSLog(@"没网络");
+            CGameSocket::isConnect=false;
+        }
+    }
+}
 
 @end
