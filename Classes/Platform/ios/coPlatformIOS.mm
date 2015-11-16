@@ -8,6 +8,7 @@
 #include "FMLayerWebView.h"
 #include "weixin/WXApiResponseHandler.h"
 #include "weixin/WXApiRequestHandler.h"
+#include "PaymentViewController.h"
 USING_NS_CC;
 //---------------------------------------------------------------------------
 /**
@@ -63,6 +64,17 @@ std::string platformAction(const std::string& jsonString)
             web->setUrlWithOpen(url);
             
             CCDirector::sharedDirector()->getRunningScene()->addChild(web);
+            
+        }
+            break;
+        case 300:
+        {
+            std::string propName = aide.getString("propName");
+            std::string propInfo = aide.getString("propInfo");
+            std::string propPice = aide.getString("propPice");
+            //pay(propName,propInfo,propPice);
+            PaymentViewController *pay=[[PaymentViewController alloc] init];
+            [pay purchaseFunc];
             
         }
             break;
