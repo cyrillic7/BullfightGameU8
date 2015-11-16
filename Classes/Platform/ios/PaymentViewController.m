@@ -12,23 +12,27 @@
 {
     self = [super init];
     if (self) {
+        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+        
         CGRect cRect=[[UIScreen mainScreen] applicationFrame];
         NSLog(@"%f  %f %f  %f",cRect.origin.x,cRect.origin.y,cRect.size.width,cRect.size.height);
-         mView=[[UIView alloc] initWithFrame:CGRectMake(cRect.origin.x, cRect.origin.y, cRect.size.width/2 , cRect.size.height/2)];
+         mView=[[UIView alloc] initWithFrame:CGRectMake(cRect.origin.x, cRect.origin.y, cRect.size.width, cRect.size.height)];
         [mView setBackgroundColor:[UIColor blackColor]];
         [mView setAlpha:0.5];
-        [mView setUserInteractionEnabled:YES];
+       
         [[EAGLView sharedEGLView] addSubview:mView];
         [self showLoading];
         //
+         [mView setUserInteractionEnabled:NO];
         
-        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+        
     }
     return self;
 }
 -(void)showLoading{
     activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    activityView.frame = CGRectMake(mView.frame.size.width/2, mView.frame.size.height/2, 37.0f, 37.0f);
+    int sizeW=36;
+    activityView.frame = CGRectMake(mView.frame.size.width/2-sizeW/2, mView.frame.size.height/2-sizeW/2, sizeW, sizeW);
     [mView addSubview:activityView];
     [activityView startAnimating];
 }

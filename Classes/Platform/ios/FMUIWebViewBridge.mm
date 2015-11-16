@@ -140,9 +140,16 @@
     return dic;
 }
 - (void)webViewDidStartLoad:(UIWebView *)thisWebView {
-    
+        activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        int sizeW=36;
+        activityView.frame = CGRectMake(mView.frame.size.width/2-sizeW/2, mView.frame.size.height/2-sizeW/2, sizeW, sizeW);
+        [mView addSubview:activityView];
+        [activityView startAnimating];
 }
 - (void)webViewDidFinishLoad:(UIWebView *)thisWebView{
+    [activityView stopAnimating];
+    [activityView release];
+    
     [mWebView setUserInteractionEnabled:YES];
     mLayerWebView->webViewDidFinishLoad();
     

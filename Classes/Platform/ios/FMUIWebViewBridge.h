@@ -28,6 +28,7 @@
     
     UIBarButtonItem *mBackButton;
     
+    UIActivityIndicatorView *activityView;
 }
 
 

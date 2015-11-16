@@ -217,7 +217,7 @@ void LogoScene::checkUpdate(const char* buf){
 			//CCLOG("logon:%s <<%s>>", DataModel::sharedDataModel()->urlLogon.c_str(), __FUNCTION__);
 		}
 		Json* _strUrlLogonList = Json_getItem(_date, "url_logon_list");
-		if (_strUrlLogonList->type == Json_Array)
+		if (_strUrlLogonList&&_strUrlLogonList->type == Json_Array)
 		{
 			for (int i = 0; i < Json_getSize(_strUrlLogonList); i++)
 			{
