@@ -20,7 +20,9 @@ struct NewMsg
 class DataModel:public CCObject{
 public:
 	//登录url
-	std::string urlLogon;
+	CCArray *urlLogon;
+	//当前线路索引
+	static int curLineIndex;
 	//ip地址
 	std::string ipaddr;
 	//音效开关
@@ -109,4 +111,8 @@ public:
 	void sortVector(std::vector <tagGameServer *> &vTagGameServer);
 	//移除服务列表
 	void removeTagGameServerList(std::vector <tagGameServer *> vTagGameServer);
+	//获取ip地址
+	std::string getLogonAddr();
+	//重设连接
+	void resetCon();
 };

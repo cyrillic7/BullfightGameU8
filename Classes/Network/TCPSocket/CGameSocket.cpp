@@ -115,6 +115,7 @@ void CGameSocket::Run(){
 }
 bool CGameSocket::Create(const char* pszServerIP, int nServerPort, int nBlockSec, bool bKeepAlive /*= FALSE*/)
 {
+	CCLOG("ip::%s <<%s>>",pszServerIP, __FUNCTION__);
 	// 检查参数
 	if (pszServerIP == 0 || strlen(pszServerIP) > 15) {
 		return false;
@@ -782,14 +783,14 @@ void CGameSocket::updateSocketData(float delta){
 	if (getSocketState() == SOCKET_STATE_ERROR) {
 		pIGameSocket->onError("与服务器断开连接");
 		setSocketState(CGameSocket::SOCKET_STATE_FREE);
-		DataModel::sharedDataModel()->ipaddr = "";
+		DataModel::sharedDataModel()->resetCon();
 		return;
 	}
 	//连接失败
 	if (getSocketState() == SOCKET_STATE_CONNECT_FAILURE) {
 		pIGameSocket->onError(" 连接服务器失败 ");
 		setSocketState(CGameSocket::SOCKET_STATE_FREE);
-		DataModel::sharedDataModel()->ipaddr = "";
+		DataModel::sharedDataModel()->resetCon();
 		return;
 	}
 	if (!Check()) {
@@ -798,7 +799,7 @@ void CGameSocket::updateSocketData(float delta){
 		setSocketState(CGameSocket::SOCKET_STATE_ERROR);
 		// 掉线了
 		CCLOG("abort------------- <<%s>>", __FUNCTION__);
-		DataModel::sharedDataModel()->ipaddr = "";
+		DataModel::sharedDataModel()->resetCon();
 		return;
 	}
 

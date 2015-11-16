@@ -83,7 +83,8 @@ void PopDialogBox::connectServer(){
 	{
 		if (DataModel::sharedDataModel()->ipaddr.length() == 0)
 		{
-			struct hostent* hostInfo = gethostbyname(DataModel::sharedDataModel()->urlLogon.c_str());
+			std::string sLogonAddr = DataModel::sharedDataModel()->getLogonAddr();
+			struct hostent* hostInfo = gethostbyname(sLogonAddr.c_str());
 			if (hostInfo)
 			{
 				DataModel::sharedDataModel()->ipaddr = inet_ntoa(*(struct in_addr *)*hostInfo->h_addr_list);
