@@ -8,7 +8,7 @@
 #include "FMLayerWebView.h"
 #include "weixin/WXApiResponseHandler.h"
 #include "weixin/WXApiRequestHandler.h"
-#include "PaymentViewController.h"
+#import  "PaymentViewController.h"
 USING_NS_CC;
 //---------------------------------------------------------------------------
 /**

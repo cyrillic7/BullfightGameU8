@@ -45,12 +45,17 @@ void PopDialogBoxFirstRecharge::onExit(){
 void PopDialogBoxFirstRecharge::onMenuExchange(CCObject *object, TouchEventType type){
 	if (type == TOUCH_EVENT_ENDED)
 	{
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
+
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
         CCString *sAction = CCString::createWithFormat("{\"act\":300 ,\"propName\":\"%s\",\"propInfo\":\"%s\",\"propPice\":\"%ld\"}", "首充豪礼", "送100000金币再送50000金币",10);
         platformAction(sAction->getCString());
-		/*orderID = platformAction("{\"act\":800}");
-		setFRechargeActionType(FR_ACTION_SEND_ORDER);
-		connectServer();
-		connectSuccess();*/
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
+        orderID = platformAction("{\"act\":800}");
+        setFRechargeActionType(FR_ACTION_SEND_ORDER);
+        connectServer();
+        connectSuccess();
+#endif
 	}
 }
 void PopDialogBoxFirstRecharge::update(float delta){

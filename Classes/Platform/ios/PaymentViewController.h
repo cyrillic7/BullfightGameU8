@@ -1,12 +1,10 @@
 
 #import <UIKit/UIKit.h>
 #import <StoreKit/StoreKit.h>
-@interface PaymentViewController : UIViewController<SKPaymentTransactionObserver,SKProductsRequestDelegate>
-
-@property (strong, nonatomic) IBOutlet UITextField *productID;
-
-@property (strong, nonatomic) IBOutlet UIButton *purchase;
-
-- (IBAction)purchaseFunc;
-
+@interface PaymentViewController : NSObject<SKPaymentTransactionObserver,SKProductsRequestDelegate>
+{
+    UIView *mView;
+    UIActivityIndicatorView *activityView;
+}
+- (void)purchaseFunc;
 @end
