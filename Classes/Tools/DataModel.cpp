@@ -28,6 +28,7 @@ DataModel::DataModel()
     
 	DataModel::isMusic = Tools::getBoolByRMS(RMS_IS_MUSIC);
 	DataModel::isSound = Tools::getBoolByRMS(RMS_IS_SOUND);
+	DataModel::curLineIndex = Tools::getIntByRMS(RMS_LINE_INDEX);
 	sLogonAccount=Tools::getStringByRMS(RMS_LOGON_ACCOUNT);
 	sLogonPassword=Tools::getStringByRMS(RMS_LOGON_PASSWORD);
 
@@ -156,4 +157,5 @@ std::string DataModel::getLogonAddr(){
 void DataModel::resetCon(){
 	ipaddr = "";
 	curLineIndex++;
+	Tools::saveIntByRMS(RMS_LINE_INDEX, curLineIndex);
 }
