@@ -31,6 +31,7 @@
 #define RMS_MORE_ACCOUNT					"moreAccount"				//更多帐号
 #define RMS_NEW_MSG_TIP						"newMsgTip"					//新消息提示
 #define RMS_FIRST_LOGON						"firstLogon"				//是否第一次登录
+#define RMS_LINE_INDEX						"lineIndex"					//登录线路索引
 
 //层级////////////////////////////////////////////////////////////////////////
 #define K_Z_ORDER_POP				12			//弹出层

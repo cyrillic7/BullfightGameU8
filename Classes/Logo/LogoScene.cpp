@@ -213,8 +213,20 @@ void LogoScene::checkUpdate(const char* buf){
 		Json* _strUrlLogon = Json_getItem(_date, "url_logon");
 		if (_strUrlLogon->type == Json_String)
 		{
-			DataModel::sharedDataModel()->urlLogon = _strUrlLogon->valuestring;
-			CCLOG("logon:%s <<%s>>", DataModel::sharedDataModel()->urlLogon.c_str(), __FUNCTION__);
+			//DataModel::sharedDataModel()->urlLogon = _strUrlLogon->valuestring;
+			//CCLOG("logon:%s <<%s>>", DataModel::sharedDataModel()->urlLogon.c_str(), __FUNCTION__);
+		}
+		Json* _strUrlLogonList = Json_getItem(_date, "url_logon_list");
+		if (_strUrlLogonList->type == Json_Array)
+		{
+			for (int i = 0; i < Json_getSize(_strUrlLogonList); i++)
+			{
+				Json *s = Json_getItemAt(_strUrlLogonList, i);
+				Json *sAddr=Json_getItem(s, "logonAddr");
+				//std::string strLogonAddr = sAddr->valuestring;
+				CCString *strAddr = CCString::createWithFormat("%s", sAddr->valuestring);
+				DataModel::sharedDataModel()->urlLogon->addObject(strAddr);
+			}
 		}
 	}
 	Json_dispose(root);

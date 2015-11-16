@@ -11,6 +11,7 @@
 #include "../Network/CMD_Server/Packet.h"
 bool DataModel::isSound = true;
 bool DataModel::isMusic = true;
+int DataModel::curLineIndex = 0;
 //是否是游客
 bool DataModel::isQuickUser = false;
 //int DataModel::gameChapter = 0;
@@ -23,11 +24,11 @@ DataModel::DataModel()
 , isShowNewTaskMsg(false)
 , isShowNewAuctionMsg(false)
 , ipaddr("")
-, urlLogon(GAME_IP)
 {
     
 	DataModel::isMusic = Tools::getBoolByRMS(RMS_IS_MUSIC);
 	DataModel::isSound = Tools::getBoolByRMS(RMS_IS_SOUND);
+	DataModel::curLineIndex = Tools::getIntByRMS(RMS_LINE_INDEX);
 	sLogonAccount=Tools::getStringByRMS(RMS_LOGON_ACCOUNT);
 	sLogonPassword=Tools::getStringByRMS(RMS_LOGON_PASSWORD);
 
@@ -44,6 +45,8 @@ DataModel::~DataModel() {
 	m_aTagGameKind->release();
 	m_aMakeText->removeAllObjects();
 	m_aMakeText->release();
+	urlLogon->removeAllObjects();
+	urlLogon->release();
 	while (readDataQueueGameIng.size()>0)
 	{
 		readDataQueueGameIng.pop();
@@ -61,28 +64,6 @@ DataModel::~DataModel() {
 	removeTagGameServerList(tagGameServerListSixSwap);
 	vecJettonNode.clear();
 	// pthread_mutex_destroy(&sResponseQueueMutex);
-	/*
-	_outputEnemysData->removeAllObjects();
-	_outputEnemysData->release();
-	_enemys->removeAllObjects();
-	_enemys->release();
-	_lineDatas->removeAllObjects();
-	_lineDatas->release();
-	_tMapTilesetInfo->removeAllObjects();
-	_tMapTilesetInfo->release();
-	_goods->removeAllObjects();
-	_goods->release();
-	_effectSprite->removeAllObjects();
-	_effectSprite->release();
-	
-
-	_pDicSoundName->removeAllObjects();
-	_pDicSoundName->release();
-	_pDicSoundName = NULL;
-
-	_pDicSound->removeAllObjects();
-	_pDicSound->release();
-	_pDicSound = NULL;*/
 	/*
 	_partners->removeAllObjects();
 	_partners->release();
@@ -109,34 +90,10 @@ void DataModel::initDataModel(){
 	m_aTagGameKind->retain();
 	m_aMakeText = CCArray::create();
 	m_aMakeText->retain();
+	urlLogon = CCArray::create();
+	urlLogon->retain();
 
 	initNewMsgTip();
-	/*
-	
-	_outputEnemysData = CCArray::create();
-	_outputEnemysData->retain();
-	_enemys = CCArray::create();
-	_enemys->retain();
-	_lineDatas = CCArray::create();
-	_lineDatas->retain();
-	_tMapTilesetInfo = CCArray::create();
-	_tMapTilesetInfo->retain();
-	_goods = CCArray::create();
-	_goods->retain();
-	_effectSprite = CCArray::create();
-	_effectSprite->retain();
-	
-	
-	_pDicSoundName = CCDictionary::create();
-	_pDicSoundName->retain();
-
-	_pDicSound = CCDictionary::create();
-	_pDicSound->retain();
-	//_partners = CCArray::create();
-	//_partners->retain();
-	//
-	//_bulletMagicWands = CCArray::create();
-	//_bulletMagicWands->retain();*/
 }
 //初始化新消息提示
 void DataModel::initNewMsgTip(){
@@ -183,4 +140,22 @@ void DataModel::removeTagGameServerList(std::vector <tagGameServer *> vTagGameSe
 	}
 	vTagGameServer.clear();
 	vTagGameServer.resize(0);
+}
+std::string DataModel::getLogonAddr(){
+	if (urlLogon->count()==0)
+	{
+		return GAME_IP;
+	}
+	if (curLineIndex>=urlLogon->count())
+	{
+		curLineIndex = 0;
+	}
+	std::string sAddr =((CCString*)urlLogon->objectAtIndex(curLineIndex))->getCString();
+	return sAddr;
+}
+//重设连接
+void DataModel::resetCon(){
+	ipaddr = "";
+	curLineIndex++;
+	Tools::saveIntByRMS(RMS_LINE_INDEX, curLineIndex);
 }
