@@ -23,7 +23,7 @@ GameIngMsgHandler* GameIngMsgHandler::sharedGameIngMsgHandler()
 	return _sharedGameIng;
 }
 //连接服务器
-void GameIngMsgHandler::connectServer(std::string sLobbyIp, long lLobbyProt){
+void GameIngMsgHandler::connectServer(std::string sLobbyIp, int lLobbyProt){
 	if (gameSocket.getSocketState() != CGameSocket::SOCKET_STATE_CONNECT_SUCCESS)
 	{
 		gameSocket.setIGameSocket(this);

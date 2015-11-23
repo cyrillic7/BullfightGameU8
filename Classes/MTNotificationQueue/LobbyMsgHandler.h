@@ -18,7 +18,7 @@ public:
 	static LobbyMsgHandler* sharedLobbyMsgHandler();
 	void update(float dt);
 	//连接服务器
-	void connectServer(std::string sLobbyIp, long lLobbyProt);
+	void connectServer(std::string sLobbyIp, int lLobbyProt);
 
 private:
 	//关闭回调

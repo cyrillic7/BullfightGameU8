@@ -56,6 +56,7 @@ static AppDelegate s_sharedApplication;
     //向微信注册
     [WXApi registerApp:@"wx523a92d2630efd6b" withDescription:@"BullfightGame"];
     //监听网络状态
+    [self networkChange];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkChange) name:kReachabilityChangedNotification object:nil];
     self.coon=[Reachability reachabilityForInternetConnection];
     [self.coon startNotifier];

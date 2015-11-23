@@ -172,7 +172,7 @@ bool CGameSocket::Create(const char* pszServerIP, int nServerPort, int nBlockSec
 	fcntl(m_sockClient, F_SETFL, O_NONBLOCK);
 #endif
 
-	unsigned long serveraddr = inet_addr(pszServerIP);
+	unsigned int serveraddr = inet_addr(pszServerIP);
 	if (serveraddr == INADDR_NONE)	// 检查IP地址格式错误
 	{
 		closeSocket();
@@ -405,7 +405,7 @@ bool CGameSocket::recvFromSock(void)
 	// 缓冲区数据的末尾
 	savepos = (m_nInbufStart + m_nInbufLen) % INBUFSIZE;
 	CHECKF(savepos + savelen <= INBUFSIZE);
-	int inlen = recv(m_sockClient, m_bufInput + savepos, savelen, 0);
+	int inlen = (int)recv(m_sockClient, m_bufInput + savepos, savelen, 0);
 	if (inlen > 0) {
 		// 有接收到数据
 		m_nInbufLen += inlen;
@@ -419,7 +419,7 @@ bool CGameSocket::recvFromSock(void)
 			int savelen = INBUFSIZE - m_nInbufLen;
 			int savepos = (m_nInbufStart + m_nInbufLen) % INBUFSIZE;
 			CHECKF(savepos + savelen <= INBUFSIZE);
-			inlen = recv(m_sockClient, m_bufInput + savepos, savelen, 0);
+			inlen = (int)recv(m_sockClient, m_bufInput + savepos, savelen, 0);
 			if (inlen > 0) {
 				m_nInbufLen += inlen;
 				if (m_nInbufLen > INBUFSIZE) {
@@ -466,7 +466,7 @@ bool CGameSocket::Flush(void)		//? 如果 OUTBUF > SENDBUF 则需要多次SEND�
 
 	// 发送一段数据
 	int	outsize;
-	outsize = send(m_sockClient, m_bufOutput, m_nOutbufLen, 0);
+	outsize = (int)send(m_sockClient, m_bufOutput, m_nOutbufLen, 0);
 	if (outsize > 0) {
 		// 删除已发送的部分
 		if (m_nOutbufLen - outsize > 0) {
@@ -501,7 +501,7 @@ bool CGameSocket::Check(void)
 		return false;
 	}
 	char buf[1];
-	int	ret = recv(m_sockClient, buf, 1, MSG_PEEK);
+	int	ret = (int)recv(m_sockClient, buf, 1, MSG_PEEK);
 	if (ret == 0) {
 		Destroy(false);
 		return false;
@@ -536,7 +536,7 @@ void CGameSocket::Destroy(bool isActive)
 	struct linger so_linger;
 	so_linger.l_onoff = 1;
 	so_linger.l_linger = 0;
-	int ret = setsockopt(m_sockClient, SOL_SOCKET, SO_LINGER, (const char*)&so_linger, sizeof(so_linger));
+	setsockopt(m_sockClient, SOL_SOCKET, SO_LINGER, (const char*)&so_linger, sizeof(so_linger));
 
 
 
@@ -647,7 +647,7 @@ WORD CGameSocket::EncryptBuffer(BYTE pcbDataBuffer[], WORD wDataSize, WORD wBuff
 
 		//CoCreateGuid(&Guid);
 		//dwXorKey = GetTickCount()*GetTickCount();
-		dwXorKey = Tools::getMicroSeconds();
+		dwXorKey = (int)Tools::getMicroSeconds();
 		dwXorKey ^= Guid.Data1;
 		dwXorKey ^= Guid.Data2;
 		dwXorKey ^= Guid.Data3;

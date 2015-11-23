@@ -27,7 +27,7 @@ LobbyMsgHandler* LobbyMsgHandler::sharedLobbyMsgHandler()
 	return _sharedSocketControl;
 }
 //连接服务器
-void LobbyMsgHandler::connectServer(std::string sLobbyIp, long lLobbyProt){
+void LobbyMsgHandler::connectServer(std::string sLobbyIp, int lLobbyProt){
 	if (gameSocket.getSocketState() != CGameSocket::SOCKET_STATE_CONNECT_SUCCESS)
 	{
 		gameSocket.setIGameSocket(this);

@@ -149,6 +149,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)thisWebView{
     [activityView stopAnimating];
     [activityView release];
+    activityView=nil;
     
     [mWebView setUserInteractionEnabled:YES];
     mLayerWebView->webViewDidFinishLoad();
