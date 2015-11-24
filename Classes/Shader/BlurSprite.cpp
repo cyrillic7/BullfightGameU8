@@ -117,7 +117,7 @@ void BlurSprite::draw()
 
 	ccGLBlendFunc( m_sBlendFunc.src, m_sBlendFunc.dst );
 
-	// 水平方向blur 
+	// 姘村钩鏂瑰悜blur 
 	m_frameTexture->clear(0.f, 0.f, 0.f, 0.f);
 	m_frameTexture->begin();
 	{
@@ -165,7 +165,7 @@ void BlurSprite::draw()
 	}
 	m_frameTexture->end();
 
-	// 垂直方向blur
+	// 鍨傜洿鏂瑰悜blur
 	CCTexture2D* rt = m_frameTexture->getSprite()->getTexture();
 #if CC_DEBUG
 	m_frameTexture2->clear(0.f, 0.f, 0.f, 0.f);

@@ -573,9 +573,8 @@ DWORD __cdecl CGameSocket::SendData(WORD wMainCmdID, WORD wSubCmdID)
 	//发送数据
 	return SendMsg(cbDataBuffer, wSendSize);
 }
-
 //发送函数
-DWORD __cdecl CGameSocket::SendData(WORD wMainCmdID, WORD wSubCmdID, void * pData, WORD wDataSize)
+DWORD __cdecl CGameSocket::SendData(WORD wMainCmdID, WORD wSubCmdID, void * const pData, WORD wDataSize)
 {
 	//效验状态
 	if (m_sockClient == INVALID_SOCKET) return false;
@@ -741,14 +740,13 @@ WORD CGameSocket::CrevasseBuffer(BYTE pcbDataBuffer[], WORD wDataSize)
 	return wDataSize;
 }
 //随机映射
-WORD CGameSocket::SeedRandMap(WORD wSeed)
+inline WORD CGameSocket::SeedRandMap(WORD wSeed)
 {
 	DWORD dwHold = wSeed;
 	return (WORD)((dwHold = dwHold * 241103L + 2533101L) >> 16);
 }
-
 //映射发送数据
-BYTE CGameSocket::MapSendByte(BYTE const cbData)
+inline BYTE CGameSocket::MapSendByte(BYTE  cbData)
 {
 	BYTE cbMap = g_SendByteMap[(BYTE)(cbData + m_cbSendRound)];
 	m_cbSendRound += 3;
@@ -756,7 +754,7 @@ BYTE CGameSocket::MapSendByte(BYTE const cbData)
 }
 
 //映射接收数据
-BYTE CGameSocket::MapRecvByte(BYTE const cbData)
+inline BYTE CGameSocket::MapRecvByte(BYTE  cbData)
 {
 	BYTE cbMap = g_RecvByteMap[cbData] - m_cbRecvRound;
 	m_cbRecvRound += 3;
