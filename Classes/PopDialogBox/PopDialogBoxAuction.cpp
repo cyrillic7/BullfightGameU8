@@ -44,7 +44,10 @@ void PopDialogBoxAuction::onEnter(){
 
 	//添加背景
 	CCSize deviceSize = DataModel::sharedDataModel()->deviceSize;
-	BlurSprite *bg = BlurSprite::create("res/main_bg.jpg");
+	
+    CCSprite *blurSprite=BlurSprite::create("res/main_bg.jpg");
+    CCSprite *bg = CCSprite::createWithTexture(blurSprite->getTexture()) ;
+    //BlurSprite *bg = BlurSprite::create("res/main_bg.jpg");
 	pWidgetBg->addNode(bg, -1);
 	bg->setPosition(CCPointZero);
 	float scale = deviceSize.height / bg->getContentSize().height;

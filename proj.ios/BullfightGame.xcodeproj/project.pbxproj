@@ -211,6 +211,7 @@
 		15C0B596196D412F007F909D /* TriggerMng.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15C0B547196D412F007F909D /* TriggerMng.cpp */; };
 		15C0B597196D412F007F909D /* TriggerObj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15C0B549196D412F007F909D /* TriggerObj.cpp */; };
 		181358AC1BE85387004C5D50 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 181358AB1BE85387004C5D50 /* libiconv.tbd */; };
+		188C722C1C03FB5300E5F47F /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 188C722B1C03FB5300E5F47F /* SSKeychain.m */; };
 		188E8E661BE847F60038F71E /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 188E8D6E1BE847F60038F71E /* AppDelegate.cpp */; };
 		188E8E671BE847F60038F71E /* BaseLobbyScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 188E8D721BE847F60038F71E /* BaseLobbyScene.cpp */; };
 		188E8E681BE847F60038F71E /* ClassicLobbyScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 188E8D741BE847F60038F71E /* ClassicLobbyScene.cpp */; };
@@ -826,6 +827,8 @@
 		15C0B549196D412F007F909D /* TriggerObj.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TriggerObj.cpp; sourceTree = "<group>"; };
 		15C0B54A196D412F007F909D /* TriggerObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriggerObj.h; sourceTree = "<group>"; };
 		181358AB1BE85387004C5D50 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		188C722A1C03FB5300E5F47F /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = SOURCE_ROOT; };
+		188C722B1C03FB5300E5F47F /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = SOURCE_ROOT; };
 		188E8D6E1BE847F60038F71E /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		188E8D6F1BE847F60038F71E /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		188E8D701BE847F60038F71E /* AppMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppMacros.h; sourceTree = "<group>"; };
@@ -1179,6 +1182,8 @@
 		080E96DDFE201D6D7F000001 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				188C722A1C03FB5300E5F47F /* SSKeychain.h */,
+				188C722B1C03FB5300E5F47F /* SSKeychain.m */,
 				18D7327D1BF86BDF00A2B233 /* Reachability.h */,
 				18D7327E1BF86BDF00A2B233 /* Reachability.m */,
 				1AC3624216D4A1E8000847F2 /* AppController.h */,
@@ -3165,6 +3170,7 @@
 				188E8EC51BE847F60038F71E /* BaseAttributes.cpp in Sources */,
 				1A8F3B7F175E05DA00049216 /* Skin.cpp in Sources */,
 				1A8F3B80175E05DA00049216 /* Slot.cpp in Sources */,
+				188C722C1C03FB5300E5F47F /* SSKeychain.m in Sources */,
 				1A8F3B81175E05DA00049216 /* SlotData.cpp in Sources */,
 				1A8F3B82175E05DA00049216 /* spine-cocos2dx.cpp in Sources */,
 				15C0B565196D412F007F909D /* CCSpriteFrameCacheHelper.cpp in Sources */,

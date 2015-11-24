@@ -46,7 +46,8 @@ void PopDialogBoxShop::onEnter(){
 	pWidgetBg->setScale(0.8);
 	//添加背景
 	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
-	BlurSprite *bg = BlurSprite::create("res/main_bg.jpg");
+    CCSprite *blurSprite=BlurSprite::create("res/main_bg.jpg");
+    CCSprite *bg = CCSprite::createWithTexture(blurSprite->getTexture()) ;
 	pWidgetBg->addNode(bg,-1);
 	bg->setPosition(CCPointZero);
 	float scale=deviceSize.height/bg->getContentSize().height;
