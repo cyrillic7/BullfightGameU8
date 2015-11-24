@@ -664,7 +664,7 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			//if (wDataSize != sizeof(CMD_MB_LogonSuccess)) return ;
 			if (wDataSize < sizeof(CMD_MB_LogonSuccess)) return;
 			CMD_MB_LogonSuccess *ls = (CMD_MB_LogonSuccess*)pDataBuffer;
-			CCLOG("登录成功 %ld %s", ls->dwUserID, GBKToUTF8(ls->szNickName).c_str());
+			CCLOG("登录成功 %d %s", ls->dwUserID, GBKToUTF8(ls->szNickName).c_str());
 
 			DataModel::sharedDataModel()->isShowNewTaskMsg = ls->dwTaskCount>0;
 			//赋值
@@ -744,7 +744,7 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 			//assert(wDataSize >= sizeof(CMD_MB_LogonFailure));
 			//if (wDataSize < sizeof(CMD_MB_LogonFailure)) return;
 			CMD_MB_LogonFailure *lf = (CMD_MB_LogonFailure*)pDataBuffer;
-			long code = lf->lResultCode;
+			int code = lf->lResultCode;
 			char *describeStr = lf->szDescribeString;
 			this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 			CCLOG("登录失败:%s", GBKToUTF8(describeStr).c_str());

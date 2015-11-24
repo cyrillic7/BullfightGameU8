@@ -97,7 +97,7 @@ void * Thread::DoRun(void* context)
 {
 	Thread * thread = (Thread *) context;
 	sem_wait(thread->sem);
-	if (RUNNING == thread->status)
+	//if (RUNNING == thread->status)
 	{
 		thread->Run();
 	}

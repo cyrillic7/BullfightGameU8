@@ -113,6 +113,16 @@ std::string platformAction(const std::string& jsonString)
             return [version UTF8String];
         }
             break;
+        case 601:
+        {
+            return "999";
+        }
+            break;
+        case 602:
+        {
+            return "a01";
+        }
+            break;
         case 900://分享
         {
             NSString *kLinkURL=@"http://m.qicainiu.com/Home/Download";
