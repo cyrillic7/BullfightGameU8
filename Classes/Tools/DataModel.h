@@ -58,7 +58,7 @@ public:
 	//手机号码
 	std::string sPhone;
 	//长连接大厅端口
-	long lLobbyProt;
+	int lLobbyProt;
 	//主场景对象
 	CC_SYNTHESIZE(MainSceneOxTwo *, mainSceneOxTwo, MainSceneOxTwo);
 	CC_SYNTHESIZE(MainSceneOxHundred *, mainSceneOxHundred, MainSceneOxHundred);

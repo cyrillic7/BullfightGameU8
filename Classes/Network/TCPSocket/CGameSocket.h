@@ -71,7 +71,7 @@ public:
 	};
 	CC_SYNTHESIZE(SocketState, eSocketState, SocketState);
 private:
-	unsigned long ip;
+	unsigned int ip;
 	unsigned short port;
 	int iBlockSec;
 	//计时

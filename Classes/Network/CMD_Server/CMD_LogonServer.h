@@ -1561,7 +1561,7 @@ struct CMD_MB_Quick_Logon_Success
 #define SUB_GL_MB_LOGON_ACCOUNTS	 	116								//手机登录
 
 
-#define  TASK_TITLE_LEN			16
+//#define  TASK_TITLE_LEN			16
 #define  TASK_TITLE_LEN			32
 #define	 TASK_AWARD				8
 #define  TASK_INFO_COUNT		20

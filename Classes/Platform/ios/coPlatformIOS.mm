@@ -9,6 +9,7 @@
 #include "weixin/WXApiResponseHandler.h"
 #include "weixin/WXApiRequestHandler.h"
 #import  "PaymentViewController.h"
+#import "SSKeychain.h"
 USING_NS_CC;
 //---------------------------------------------------------------------------
 /**
@@ -31,7 +32,21 @@ std::string platformAction(const std::string& jsonString)
     switch (act) {
         case 100:
         {
-           // NSString *retrieveuuid = [SSKeychain passwordForService:@"com.mohe.userinfo"account:@"uuid"];
+            NSString *saved_uuid = [SSKeychain passwordForService:@"com.xw.games" account:@"catchFish"];
+            if (saved_uuid == nil||(saved_uuid!=nil&&[saved_uuid length]==0))
+            {
+                CFUUIDRef uuid = CFUUIDCreate(NULL);
+                CFStringRef uuidStr = CFUUIDCreateString(NULL, uuid);
+                CFRelease(uuid);
+                saved_uuid = [NSString stringWithCString:CFStringGetCStringPtr(uuidStr, kCFStringEncodingUTF8)
+                                                encoding:NSUTF8StringEncoding];
+                [SSKeychain setPassword: [NSString stringWithFormat:@"%@", uuidStr]
+                             forService:@"com.xw.games" account:@"catchFish"];
+                CFRelease(uuidStr);
+            }
+            NSLog(@"uuid:%@",saved_uuid);
+            return [saved_uuid cStringUsingEncoding:NSUTF8StringEncoding];
+           /*// NSString *retrieveuuid = [SSKeychain passwordForService:@"com.mohe.userinfo"account:@"uuid"];
             
             //if ( retrieveuuid == nil || [retrieveuuid isEqualToString:@""]){
                 CFUUIDRef uuid = CFUUIDCreate(NULL);
@@ -48,7 +63,7 @@ std::string platformAction(const std::string& jsonString)
             NSLog(@"---:%@",retrieveuuid);
            // const char *cStr =[[[NSProcessInfo processInfo] globallyUniqueString] UTF8String];
             //return [str str];
-            return [retrieveuuid UTF8String];
+            return [retrieveuuid UTF8String];*/
         }
             break;
         case 200:

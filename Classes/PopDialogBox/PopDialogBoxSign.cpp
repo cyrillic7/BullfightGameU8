@@ -308,3 +308,15 @@ void PopDialogBoxSign::saveSignRecord(){
 
 	
 }
+void PopDialogBoxSign::onError(const char *e){
+    //PopDialogBox::onError(e);
+    showTipInfo(e, this);
+    //移除loading
+    if (this->getChildByTag(TAG_LOADING))
+    {
+        this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
+    }
+}
+void PopDialogBoxSign::onCloseTipInfo(cocos2d::CCLayer *pTipInfo){
+    this->removeFromParent();
+}

@@ -10,7 +10,8 @@
 #include "PopDialogBox.h"
 #include "../Network/CMD_Server/CMD_LogonServer.h"
 #include "PopDialogBoxLoading.h"
-class PopDialogBoxSign : public PopDialogBox,public IOutTime {
+#include "PopDialogBoxTipInfo.h"
+class PopDialogBoxSign : public PopDialogBox,public IOutTime,public IPopAssistTipInfo {
 private:
 	enum SignState
 	{
@@ -65,4 +66,8 @@ private:
 	//////////////////////////////////////////////////////////////////////////
 	//保存签到记录
 	void saveSignRecord();
+    //链接失败
+    virtual void onError(const char* e);
+    //关闭回调
+    virtual void onCloseTipInfo(CCLayer *pTipInfo);
 };

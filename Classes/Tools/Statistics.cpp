@@ -40,7 +40,7 @@ void Statistics::sendStatisticsData(int type){
 		code.append("lmyspread");
 
 		MD5 md;
-		code = md.GetMd5(code.c_str(), code.length());
+		code = md.GetMd5(code.c_str(), (int)code.length());
 
 		postData.append(code.c_str());
 		postData.append("&machineCode=");
@@ -52,7 +52,7 @@ void Statistics::sendStatisticsData(int type){
 		url += "AccountsRegister";
 		//////////////////////////////////////////////////////////////////////////
 		postData = "gameID=";
-		postData.append(CCString::createWithFormat("%ld", DataModel::sharedDataModel()->userInfo->dwGameID)->getCString());
+		postData.append(CCString::createWithFormat("%d", DataModel::sharedDataModel()->userInfo->dwGameID)->getCString());
 		postData.append("&sessionID=");
 		postData.append(DataModel::sharedDataModel()->sSessionID.c_str());
 		postData.append("&code=");
@@ -62,7 +62,7 @@ void Statistics::sendStatisticsData(int type){
 		code.append("lmyspread");
 
 		MD5 md;
-		code = md.GetMd5(code.c_str(), code.length());
+		code = md.GetMd5(code.c_str(), (int)code.length());
 
 		postData.append(code.c_str());
 		postData.append("&machineCode=");
@@ -74,7 +74,7 @@ void Statistics::sendStatisticsData(int type){
 		url += "AccountsLogon";
 		//////////////////////////////////////////////////////////////////////////
 		postData = "gameID=";
-		postData.append(CCString::createWithFormat("%ld", DataModel::sharedDataModel()->userInfo->dwGameID)->getCString());
+		postData.append(CCString::createWithFormat("%d", DataModel::sharedDataModel()->userInfo->dwGameID)->getCString());
 		postData.append("&sessionID=");
 		postData.append(DataModel::sharedDataModel()->sSessionID.c_str());
 		postData.append("&code=");
@@ -84,7 +84,7 @@ void Statistics::sendStatisticsData(int type){
 		code.append("lmyspread");
 
 		MD5 md;
-		code = md.GetMd5(code.c_str(), code.length());
+		code = md.GetMd5(code.c_str(), (int)code.length());
 
 		postData.append(code.c_str());
 		postData.append("&machineCode=");
@@ -98,7 +98,7 @@ void Statistics::sendStatisticsData(int type){
 	
 	
 	request->setUrl(url.c_str());
-	request->setRequestData(postData.c_str(), strlen(postData.c_str()));
+	request->setRequestData(postData.c_str(), (int)strlen(postData.c_str()));
 	CCHttpClient::getInstance()->send(request);
 	request->release();
 }

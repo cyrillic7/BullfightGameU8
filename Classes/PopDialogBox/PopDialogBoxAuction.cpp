@@ -44,7 +44,10 @@ void PopDialogBoxAuction::onEnter(){
 
 	//添加背景
 	CCSize deviceSize = DataModel::sharedDataModel()->deviceSize;
-	BlurSprite *bg = BlurSprite::create("res/main_bg.jpg");
+	
+    CCSprite *blurSprite=BlurSprite::create("res/main_bg.jpg");
+    CCSprite *bg = CCSprite::createWithTexture(blurSprite->getTexture()) ;
+    //BlurSprite *bg = BlurSprite::create("res/main_bg.jpg");
 	pWidgetBg->addNode(bg, -1);
 	bg->setPosition(CCPointZero);
 	float scale = deviceSize.height / bg->getContentSize().height;
@@ -527,11 +530,11 @@ void PopDialogBoxAuction::updateListAuctionInfo(){
 		
 		//拍卖数量
 		UILabel *pGoodsCount = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("Label1"));
-		pGoodsCount->setText(CCString::createWithFormat("%ld",vecAuctionInfo[i].dwPropNum)->getCString());
+		pGoodsCount->setText(CCString::createWithFormat("%d",vecAuctionInfo[i].dwPropNum)->getCString());
 		//卖家
 		UILabel *pSeller = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("Label2"));
 		std::string nickName = GBKToUTF8(vecAuctionInfo[i].szNickName);
-		CCString *pSSellerNick = CCString::createWithFormat("%s\nID:%ld", Tools::subUTF8(nickName, 0, 4).c_str(), vecAuctionInfo[i].dwGameID);
+		CCString *pSSellerNick = CCString::createWithFormat("%s\nID:%d", Tools::subUTF8(nickName, 0, 4).c_str(), vecAuctionInfo[i].dwGameID);
 		pSeller->setText(pSSellerNick->getCString());
 		//价格
 		UILabel *pPice = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("Label3"));
@@ -555,7 +558,7 @@ void PopDialogBoxAuction::updateListMyAuctionRecord(){
 	UIListView *pLVTemp = pLVAuction[AUCTION_MY];
 	pLVTemp->removeAllItems();
 
-	int tempSize = vecMyAuction.size();
+	int tempSize = (int)vecMyAuction.size();
 	if (tempSize == 0)
 	{
 		return;
@@ -570,7 +573,7 @@ void PopDialogBoxAuction::updateListMyAuctionRecord(){
 		pGoodsName->setText(GBKToUTF8(vecMyAuction[i].szAuctionName));
 		//拍卖数量
 		UILabel *pGoodsCount = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("Label1"));
-		pGoodsCount->setText(CCString::createWithFormat("%ld", vecMyAuction[i].dwPropNum)->getCString());
+		pGoodsCount->setText(CCString::createWithFormat("%d", vecMyAuction[i].dwPropNum)->getCString());
 		//价格
 		UILabel *pPice = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("Label2"));
 		pPice->setText(CCString::createWithFormat("%lld", vecMyAuction[i].lGold)->getCString());
@@ -601,7 +604,7 @@ void PopDialogBoxAuction::updateListHistoryAuctionRecord(){
 		//状态
 		UILabel *pAuctionState = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("Label1"));
 		pAuctionState->setText(vecHistoryAuction[i].dwType == 1 ? BaseAttributes::sharedAttributes()->sAuctionBuy.c_str() : BaseAttributes::sharedAttributes()->sAuctionSell.c_str());
-		CCLOG("%ld <<%s>>",vecHistoryAuction[i].dwType, __FUNCTION__);
+		CCLOG("%d <<%s>>",vecHistoryAuction[i].dwType, __FUNCTION__);
 		CCLOG(" <<%s>>", __FUNCTION__);
 		/*//拍卖数量
 		UILabel *pGoodsCount = static_cast<UILabel*>(pLVAuction[0]->getItem(inserterPos)->getChildByName("Label1"));
@@ -626,7 +629,7 @@ void PopDialogBoxAuction::updateListHistoryAuctionRecord(){
 		pTime->setText(pStrTime->getCString());
 		//数量
 		UILabel *pLNum = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("Label4"));
-		pLNum->setText(CCString::createWithFormat("%ld", vecHistoryAuction[i].dwPropNum)->getCString());
+		pLNum->setText(CCString::createWithFormat("%d", vecHistoryAuction[i].dwPropNum)->getCString());
 		//价格
 		UILabel *pPice = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("Label5"));
 		pPice->setText(CCString::createWithFormat("%lld", vecHistoryAuction[i].lGold)->getCString());
@@ -637,7 +640,7 @@ void PopDialogBoxAuction::updateListMyAuctionGoods(){
 	UIListView *pLVTemp = pLVMyAuction;
 	pLVTemp->removeAllItems();
 
-	int tempSize = vecMyAuctionGoods.size();
+	int tempSize = (int)vecMyAuctionGoods.size();
 	if (tempSize == 0)
 	{
 		return;
@@ -652,7 +655,7 @@ void PopDialogBoxAuction::updateListMyAuctionGoods(){
 		pLVTemp->insertDefaultItem(inserterPos);
 		//拍卖物品名称
 		UILabel *pGoodsName = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("LabelGoodsContent"));
-		CCString *strGoodInfo = CCString::createWithFormat("X%ld %s", vecMyAuctionGoods[i].dwNum, GBKToUTF8(vecMyAuctionGoods[i].szName).c_str());
+		CCString *strGoodInfo = CCString::createWithFormat("X%d %s", vecMyAuctionGoods[i].dwNum, GBKToUTF8(vecMyAuctionGoods[i].szName).c_str());
 		pGoodsName->setText(strGoodInfo->getCString());
 
 		UIImageView *pIVCell=static_cast<UIImageView*>(pLVTemp->getItem(inserterPos));
@@ -778,8 +781,8 @@ void PopDialogBoxAuction::connectSuccess(){
 		std::string md5PassWord = m.GetMd5();
 		strcpy(gpUserID.szPassword, md5PassWord.c_str());
 		
-		bool isSend=gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_AUCTION, &gpUserID, sizeof(gpUserID));
-		CCLOG("send <<%s>>", __FUNCTION__);
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_AUCTION, &gpUserID, sizeof(gpUserID));
+		//CCLOG("send <<%s>>", __FUNCTION__);
 	}
 		break;
 	case AUCTION_SELL_AUCTION://卖拍卖品

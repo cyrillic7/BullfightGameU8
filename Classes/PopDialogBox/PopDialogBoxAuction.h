@@ -86,7 +86,7 @@ private:
 	//卖索引
 	int iAuctionSellIndex;
 	//当前购买数量
-	long lCurBuyNum;
+	int lCurBuyNum;
 	//当前页
 	int iCurPage[MAX_AUCTION_ITEM_COUNT];
 	//总页数
