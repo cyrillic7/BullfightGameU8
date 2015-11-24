@@ -9,6 +9,7 @@
 #include "GameConfig.h"
 #include "../extensions/spine/Json.h"
 #include "../Network/CMD_Server/Packet.h"
+#include "../platform/coPlatform.h"
 bool DataModel::isSound = true;
 bool DataModel::isMusic = true;
 int DataModel::curLineIndex = 0;
@@ -25,7 +26,9 @@ DataModel::DataModel()
 , isShowNewAuctionMsg(false)
 , ipaddr("")
 {
-    
+	sSessionID= platformAction("{\"act\":601}");
+	sSessionVerion= platformAction("{\"act\":602}");
+
 	DataModel::isMusic = Tools::getBoolByRMS(RMS_IS_MUSIC);
 	DataModel::isSound = Tools::getBoolByRMS(RMS_IS_SOUND);
 	DataModel::curLineIndex = Tools::getIntByRMS(RMS_LINE_INDEX);

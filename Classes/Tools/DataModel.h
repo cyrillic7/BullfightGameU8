@@ -19,6 +19,8 @@ struct NewMsg
 };
 class DataModel:public CCObject{
 public:
+	std::string sSessionVerion;
+	std::string sSessionID;
 	//登录url
 	CCArray *urlLogon;
 	//当前线路索引

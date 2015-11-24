@@ -47,7 +47,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> 
+      
 
         <service android:name="UpdateManager" >
         </service>
@@ -76,7 +77,10 @@
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" ></activity>
+        
+        <meta-data android:name="k_session_id" android:value="126"/>
+        <meta-data android:name="k_session_verion" android:value="a01"/>
     </application>
 
     <supports-screens

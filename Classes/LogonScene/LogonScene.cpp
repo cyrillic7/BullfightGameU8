@@ -320,11 +320,11 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 				m_pWidget->setTouchEnabled(false);
 				std::string urlQQLogon="";
 				urlQQLogon.append("sessionID=");
-				urlQQLogon.append(k_session_id);
+				urlQQLogon.append(DataModel::sharedDataModel()->sSessionID.c_str());
 				urlQQLogon.append("&code=");
 				std::string code = "server";
-				code.append(k_session_id);
-				code.append(k_session_verion);
+				code.append(DataModel::sharedDataModel()->sSessionID.c_str());
+				code.append(DataModel::sharedDataModel()->sSessionVerion.c_str());
 				code.append("lmyspread");
 
 				MD5 md;
@@ -378,11 +378,11 @@ void LogonScene::quickLogon(){
 	CMD_MB_Quick_Logon mbQuickLogon;
 	mbQuickLogon.dwOpTerminal = 2;
 
-	mbQuickLogon.dwSessionID = (int)atol(k_session_id);
+	mbQuickLogon.dwSessionID = (int)atol(DataModel::sharedDataModel()->sSessionID.c_str());
 
 	std::string code = "server";
-	code.append(k_session_id);
-	code.append(k_session_verion);
+	code.append(DataModel::sharedDataModel()->sSessionID.c_str());
+	code.append(DataModel::sharedDataModel()->sSessionVerion.c_str());
 	code.append("lmyspread");
 	MD5 md;
 	code = md.GetMd5(code.c_str(), code.length());

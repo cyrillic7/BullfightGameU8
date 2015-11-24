@@ -62,7 +62,7 @@ void PopDialogBoxMore::onMenuOpenGame(CCObject *object, TouchEventType type){
 		//vecMoreInfo[tag].szAppName;
 		std::string sUrlAndroid = vecMoreInfo[tag].szUrlAndroid;
 		//int index = sUrlAndroid.find(".apk");
-		//sUrlAndroid.insert(index,CCString::createWithFormat("_%s",k_session_id)->getCString());
+		//sUrlAndroid.insert(index,CCString::createWithFormat("_%s",DataModel::sharedDataModel()->sSessionID.c_str())->getCString());
 		CCString *sAction = CCString::createWithFormat("{\"act\":500 ,\"packageName\":\"%s\",\"activity\":\"%s\",\"url\":\"%s\"}", vecMoreInfo[tag].szPackageName, vecMoreInfo[tag].szActivityName, sUrlAndroid.c_str());
 		platformAction(sAction->getCString());
 	}

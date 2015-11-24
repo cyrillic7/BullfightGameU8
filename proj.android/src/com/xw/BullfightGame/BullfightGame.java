@@ -31,6 +31,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
+import org.apache.http.io.SessionOutputBuffer;
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 import org.json.JSONObject;
@@ -57,8 +58,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -98,7 +102,9 @@ public class BullfightGame extends Cocos2dxActivity {
 	FrameLayout m_webLayout;// FrameLayout布局
 	LinearLayout m_topLayout;// LinearLayout布局
 	Button m_backButton;// 关闭按钮
-	
+	////////////////////////////////////////////////////////
+	private final int K_ACTION_SESSION_ID=601;//渠道ID
+	private final int K_ACTION_SESSION_VERION=602;//渠道版本号
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -244,6 +250,32 @@ public class BullfightGame extends Cocos2dxActivity {
 			case 600://获取版本号
 			{
 				return getVersion();
+			}
+			case K_ACTION_SESSION_ID://获取渠道ID
+			{
+				String sessionID="";
+				try {
+				    ApplicationInfo appInfo = this.getPackageManager().getApplicationInfo(getPackageName(),  
+				    		PackageManager.GET_META_DATA); 
+				    sessionID=appInfo.metaData.get("k_session_id").toString(); 		 
+				} catch (NameNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}  
+				return sessionID;
+			}
+			case K_ACTION_SESSION_VERION://获取渠道版本号
+			{
+				String sessionVerion="";
+				try {
+				    ApplicationInfo appInfo = this.getPackageManager().getApplicationInfo(getPackageName(),  
+				    		PackageManager.GET_META_DATA); 
+				    sessionVerion=appInfo.metaData.get("k_session_verion").toString(); 		 
+				} catch (NameNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}  
+				return sessionVerion;
 			}
 			case 700://升级
 			{				

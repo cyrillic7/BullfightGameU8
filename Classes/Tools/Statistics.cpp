@@ -9,6 +9,7 @@
 Statistics::Statistics()
 	:eStatisticsType(S_INSTALL)
 {
+
 }
 Statistics::~Statistics() {
 }
@@ -31,11 +32,11 @@ void Statistics::sendStatisticsData(int type){
 		url += "GameInstall";
 
 		postData = "sessionID=";
-		postData.append(k_session_id);
+		postData.append(DataModel::sharedDataModel()->sSessionID.c_str());
 		postData.append("&code=");
 		std::string code = "server";
-		code.append(k_session_id);
-		code.append(k_session_verion);
+		code.append(DataModel::sharedDataModel()->sSessionID.c_str());
+		code.append(DataModel::sharedDataModel()->sSessionVerion.c_str());
 		code.append("lmyspread");
 
 		MD5 md;
@@ -53,11 +54,11 @@ void Statistics::sendStatisticsData(int type){
 		postData = "gameID=";
 		postData.append(CCString::createWithFormat("%ld", DataModel::sharedDataModel()->userInfo->dwGameID)->getCString());
 		postData.append("&sessionID=");
-		postData.append(k_session_id);
+		postData.append(DataModel::sharedDataModel()->sSessionID.c_str());
 		postData.append("&code=");
 		std::string code = "server";
-		code.append(k_session_id);
-		code.append(k_session_verion);
+		code.append(DataModel::sharedDataModel()->sSessionID.c_str());
+		code.append(DataModel::sharedDataModel()->sSessionVerion.c_str());
 		code.append("lmyspread");
 
 		MD5 md;
@@ -75,11 +76,11 @@ void Statistics::sendStatisticsData(int type){
 		postData = "gameID=";
 		postData.append(CCString::createWithFormat("%ld", DataModel::sharedDataModel()->userInfo->dwGameID)->getCString());
 		postData.append("&sessionID=");
-		postData.append(k_session_id);
+		postData.append(DataModel::sharedDataModel()->sSessionID.c_str());
 		postData.append("&code=");
 		std::string code = "server";
-		code.append(k_session_id);
-		code.append(k_session_verion);
+		code.append(DataModel::sharedDataModel()->sSessionID.c_str());
+		code.append(DataModel::sharedDataModel()->sSessionVerion.c_str());
 		code.append("lmyspread");
 
 		MD5 md;
