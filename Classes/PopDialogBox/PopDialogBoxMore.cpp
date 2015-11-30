@@ -61,10 +61,17 @@ void PopDialogBoxMore::onMenuOpenGame(CCObject *object, TouchEventType type){
 		int tag = pButton->getTag();
 		//vecMoreInfo[tag].szAppName;
 		std::string sUrlAndroid = vecMoreInfo[tag].szUrlAndroid;
+        std::string sUrlIos = vecMoreInfo[tag].szUrlIos;
 		//int index = sUrlAndroid.find(".apk");
 		//sUrlAndroid.insert(index,CCString::createWithFormat("_%s",DataModel::sharedDataModel()->sSessionID.c_str())->getCString());
-		CCString *sAction = CCString::createWithFormat("{\"act\":500 ,\"packageName\":\"%s\",\"activity\":\"%s\",\"url\":\"%s\"}", vecMoreInfo[tag].szPackageName, vecMoreInfo[tag].szActivityName, sUrlAndroid.c_str());
-		platformAction(sAction->getCString());
+#if CC_PLATFORM_ANDROID == CC_TARGET_PLATFORM
+        CCString *sAction = CCString::createWithFormat("{\"act\":500 ,\"packageName\":\"%s\",\"activity\":\"%s\",\"url\":\"%s\"}", vecMoreInfo[tag].szPackageName, vecMoreInfo[tag].szActivityName, sUrlAndroid.c_str());
+        platformAction(sAction->getCString());
+#elif CC_PLATFORM_IOS == CC_TARGET_PLATFORM
+        CCString *sAction = CCString::createWithFormat("{\"act\":500 ,\"packageName\":\"%s\",\"activity\":\"%s\",\"url\":\"%s\"}", vecMoreInfo[tag].szPackageName, vecMoreInfo[tag].szActivityName, sUrlIos.c_str());
+        platformAction(sAction->getCString());
+#endif
+		
 	}
 }
 //更新更多游戏列表

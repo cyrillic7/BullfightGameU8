@@ -97,12 +97,16 @@ std::string platformAction(const std::string& jsonString)
         {
             std::string sPackageName=aide.getString("packageName");
             std::string sActivity=aide.getString("activity");
-            
+            std::string sURL=aide.getString("url");
+            CCLOG("%s %s %s",sPackageName.c_str(),sActivity.c_str(),sURL.c_str());
             //NSString *sTemp=[NSString stringWithFormat:@"%s",sActivity.c_str()];
-            NSString *sTemp=[NSString stringWithFormat:@"DDPGame://"];
+            NSString *sTemp=[NSString stringWithFormat:@"%s://",sActivity.c_str()];
             BOOL isAction=[[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:sTemp]];
             if (isAction) {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:sTemp]];
+            }else{
+                NSString *appleURL = [NSString stringWithFormat:@"%s",sURL.c_str()];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:appleURL]];
             }
             CCLOG("isAction:%d <<%s>>",isAction,__PRETTY_FUNCTION__);
         }
@@ -121,6 +125,11 @@ std::string platformAction(const std::string& jsonString)
         case 602:
         {
             return "a01";
+        }
+            break;
+        case 800:
+        {
+            return [[PaymentViewController GetOrderIDByPrefix:@"MFB"] UTF8String];
         }
             break;
         case 900://分享
