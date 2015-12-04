@@ -33,4 +33,6 @@ private:
 	void newNoticeMsgTip(CMD_GL_MsgNode *msgNode);
 	//延时重连
 	void delayConnect(float  dt);
+	//财富排行
+	void onWealthRanking(void * pDataBuffer, unsigned short wDataSize);
 };

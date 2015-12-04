@@ -12,7 +12,9 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIShare.plist"
+    "UIGiftExchang.plist",
+    "UIUserInfo.plist",
+    "UILogon.plist"
   ],
   "texturesPng": [],
   "version": "1.6.0.0",

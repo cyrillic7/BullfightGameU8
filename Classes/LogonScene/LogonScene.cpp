@@ -201,6 +201,15 @@ void LogonScene::onEnter(){
 	{
 		statisticsInstall();
 	}
+
+	std::string sPara = platformAction("{\"act\":603}").c_str();
+	if (sPara.length()!=0)
+	{
+		DataModel::sharedDataModel()->sLogonPassword;
+		//pwd  accou;
+		//{"pwd":"2048c05c5606c25c0e2e7adc7b006c81", "account" : "nbaobama"}
+
+	}
 }
 void LogonScene::onExit(){
 
@@ -491,7 +500,7 @@ void LogonScene::logonGameByAccount(float dt){
 		strcpy(logonAccounts.szMobilePhone, "");
 		strcpy(logonAccounts.szPassPortID, "");
 		strcpy(logonAccounts.szPhoneVerifyID, "1");
-		//游戏标识
+		/*//游戏标识
 		for (int i = 0; i < 10; i++)
 		{
 			logonAccounts.wModuleID[i] = 0;
@@ -500,6 +509,8 @@ void LogonScene::logonGameByAccount(float dt){
 		logonAccounts.wModuleID[0] = 30; //30为百人牛牛标示
 		logonAccounts.wModuleID[1] = 130; //1002为通比牛牛标示
 		logonAccounts.wModuleID[2] = 430; //六人换牌
+		*/
+		resetKindID(logonAccounts);
 
 		MD5 m;
 		//std::string passWord = GBKToUTF8(DataModel::sharedDataModel()->sLogonPassword.c_str());
@@ -532,8 +543,20 @@ void LogonScene::onEventReadMessage(WORD wMainCmdID,WORD wSubCmdID,void * pDataB
 		break;
 	}
 }
+//重设要获取的房间ID
+void LogonScene::resetKindID(CMD_MB_LogonAccounts &logonAccounts){
+	//游戏标识
+	for (int i = 0; i < 10; i++)
+	{
+		logonAccounts.wModuleID[i] = 0;
+	}
+	//logonAccounts.wModuleID[0] = 210; //210为二人牛牛标示
+	logonAccounts.wModuleID[0] = 30; //30为百人牛牛标示
+	logonAccounts.wModuleID[1] = 130; //1002为通比牛牛标示
+	logonAccounts.wModuleID[2] = 430; //六人换牌
+}
 //登录游戏
-void LogonScene::logonGame(){
+void LogonScene::otherLogonGamePara(){
 	CMD_MB_LogonAccounts logonAccounts;
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
@@ -551,23 +574,9 @@ void LogonScene::logonGame(){
 	strcpy(logonAccounts.szMobilePhone, "");
 	strcpy(logonAccounts.szPassPortID, "12");
 	strcpy(logonAccounts.szPhoneVerifyID, "1");
-	//游戏标识
-	for (int i = 0; i < 10; i++)
-	{
-		logonAccounts.wModuleID[i] = 0;
-	}
-	//logonAccounts.wModuleID[0] = 210; //210为二人牛牛标示
-	logonAccounts.wModuleID[0] = 30; //30为百人牛牛标示
-	logonAccounts.wModuleID[1] = 130; //1002为通比牛牛标示
-	logonAccounts.wModuleID[2] = 430; //六人换牌
+	resetKindID(logonAccounts);
 	
-	MD5 m;
-	//std::string passWord = GBKToUTF8(DataModel::sharedDataModel()->sLogonPassword.c_str());
-	//m.ComputMd5(passWord.c_str(), passWord.length());
-	m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
-	std::string md5PassWord = m.GetMd5();
-	strcpy(logonAccounts.szPassword, md5PassWord.c_str());
-	CCLOG("%s  --  :%s   %d<<%s>>", logonAccounts.szAccounts, logonAccounts.szPassword, sizeof(logonAccounts), __FUNCTION__);
+	strcpy(logonAccounts.szPassword, DataModel::sharedDataModel()->sLogonPassword.c_str());
 	gameSocket.SendData(MDM_MB_LOGON, SUB_MB_LOGON_ACCOUNTS, &logonAccounts, sizeof(logonAccounts));
 	
 }

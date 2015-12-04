@@ -25,6 +25,7 @@
 #include "../PopDialogBox/PopDialogBoxFirstRecharge.h"
 #include "../PopDialogBox/PopDialogBoxShare.h"
 #include "../PopDialogBox/PopDialogBoxGiftExchang.h"
+#include "../PopDialogBox/PopDialogBoxWealthRanking.h"
 #include "../Platform/coPlatform.h"
 #include "../Tools/DataModel.h"
 #include "../Network/SEvent.h"
@@ -263,7 +264,7 @@ void BaseLobbyScene::popDialogBox(PopType type){
 		pdb=PopDialogBoxAuction::create();
 		break;
 	case BaseLobbyScene::POP_RANKING:
-		pdb=PopDialogBoxRanking::create();
+		pdb=PopDialogBoxWealthRanking::create();
 		break;
 	case BaseLobbyScene::POP_MSG:
 		pdb = PopDialogBoxMsg::create();

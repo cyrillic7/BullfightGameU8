@@ -31,7 +31,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
-import org.apache.http.io.SessionOutputBuffer;
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 import org.json.JSONObject;
@@ -41,15 +40,11 @@ import com.alipay.sdk.app.PayTask;
 import com.tencent.mm.sdk.modelmsg.SendAuth;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
-import com.tencent.tauth.IUiListener;
-import com.tencent.tauth.Tencent;
-import com.tx.qq.qqapi.BaseUiListener;
 import com.tx.wx.wxapi.AppRegister;
 import com.tx.wx.wxapi.Constants;
 import com.tx.wx.wxapi.SendToWXActivity;
 import com.xw.BullfightGame.R;
 
-import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -58,7 +53,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -76,7 +70,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -96,6 +89,7 @@ public class BullfightGame extends Cocos2dxActivity {
 	private BroadcastReceiver connectionReceiver;
 	private BroadcastReceiver wxAppRegisterReceiver;//微信注册
 	public static BullfightGame game;
+	public String sBundleResult="";//第三方应用调用传过来的参数
 	// 打开网页
 	WebView m_webView;// WebView控件
 	//ImageView m_imageView;// ImageView控件
@@ -103,8 +97,9 @@ public class BullfightGame extends Cocos2dxActivity {
 	LinearLayout m_topLayout;// LinearLayout布局
 	Button m_backButton;// 关闭按钮
 	////////////////////////////////////////////////////////
-	private final int K_ACTION_SESSION_ID=601;//渠道ID
-	private final int K_ACTION_SESSION_VERION=602;//渠道版本号
+	private final int K_ACTION_SESSION_ID=601;							//渠道ID
+	private final int K_ACTION_SESSION_VERION=602;					//渠道版本号
+	private final int K_GET_PARA=603;											//渠道版本号
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -121,6 +116,19 @@ public class BullfightGame extends Cocos2dxActivity {
 				height);
 		lytp.gravity = Gravity.CENTER;
 		addContentView(m_webLayout, lytp);
+		
+		
+		//获取第三方应用调用所传过来的参数
+		Bundle bundle = new Bundle();
+	    bundle = this.getIntent().getExtras();
+	    if(bundle!=null){
+	    	sBundleResult= bundle.getString("para");
+	    	System.out.println("============:"+sBundleResult);
+	    	 /*if(sBundleResult!=null){
+		    	 Toast.makeText(BullfightGame.this, "检查结果为：" +sBundleResult,
+							Toast.LENGTH_SHORT).show();
+		     }*/
+	    }
 	}
 
 	public Cocos2dxGLSurfaceView onCreateView() {
@@ -276,6 +284,10 @@ public class BullfightGame extends Cocos2dxActivity {
 					e.printStackTrace();
 				}  
 				return sessionVerion;
+			}
+			case K_GET_PARA://获取第三方应用调用参数
+			{
+				return sBundleResult;
 			}
 			case 700://升级
 			{				

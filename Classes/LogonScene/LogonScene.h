@@ -97,7 +97,9 @@ private:
 	//连接服务器
 	void connectServer();
 	//登录
-	void logonGame();
+	void otherLogonGamePara();
+	//重设要获取的房间ID
+	void resetKindID(CMD_MB_LogonAccounts &logonAccounts);
 	//注册
 	void registeredGame();
 	

@@ -113,4 +113,25 @@
     <Project>UIGiftExchang</Project>
     <GuidesList />
   </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxWealthRanking</Project>
+    <GuidesList>
+      <GuidesInfo>
+        <GuidesName>VThumb</GuidesName>
+        <GuidesPosition>235.9165990920294</GuidesPosition>
+      </GuidesInfo>
+      <GuidesInfo>
+        <GuidesName>VThumb</GuidesName>
+        <GuidesPosition>333.67853800455725</GuidesPosition>
+      </GuidesInfo>
+      <GuidesInfo>
+        <GuidesName>VThumb</GuidesName>
+        <GuidesPosition>538.18247976757243</GuidesPosition>
+      </GuidesInfo>
+      <GuidesInfo>
+        <GuidesName>VThumb</GuidesName>
+        <GuidesPosition>735.20628929138184</GuidesPosition>
+      </GuidesInfo>
+    </GuidesList>
+  </GuidesProject>
 </ArrayOfGuidesProject>

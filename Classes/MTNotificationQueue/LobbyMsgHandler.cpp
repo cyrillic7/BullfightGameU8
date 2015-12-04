@@ -69,6 +69,9 @@ bool LobbyMsgHandler::onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuf
 	{
 		switch (wSubCmdID)
 		{
+		case SUB_GL_C_WEALTH_RANK://财富版
+			onWealthRanking(pDataBuffer,wDataSize);
+			break;
 		case SUB_GL_C_TASK_LOAD:
 		case SUB_GL_C_TASK_REWARD:
 		{
@@ -234,4 +237,37 @@ void LobbyMsgHandler::delayConnect(float  dt){
 	DataModel::sharedDataModel()->vecSystemMsg.clear();
 	DataModel::sharedDataModel()->vecMyMsg.clear();
 	connectServer(DataModel::sharedDataModel()->sLobbyIp, DataModel::sharedDataModel()->lLobbyProt);
+}
+//财富排行
+void LobbyMsgHandler::onWealthRanking(void * pDataBuffer, unsigned short wDataSize){
+	//财富排行数据
+	CMD_GL_WealthRank* wealthRanks = static_cast<CMD_GL_WealthRank*>(pDataBuffer);
+	int gift_cnt = wDataSize / sizeof(CMD_GL_WealthRank);
+	
+	for (int i = 0; i < gift_cnt; i++)
+	{
+		if (DataModel::sharedDataModel()->vecRanking.size()<=i)
+		{
+			CMD_GL_WealthRank wealthRank;
+			wealthRank.dwFaceID = wealthRanks->dwFaceID;
+			wealthRank.dwMemberOrder = wealthRanks->dwMemberOrder;
+			wealthRank.dwRankID = wealthRanks->dwRankID;
+			wealthRank.dwUserID = wealthRanks->dwUserID;
+			wealthRank.lScore = wealthRanks->lScore;
+			strcpy(wealthRank.szNickName, wealthRanks->szNickName);
+			DataModel::sharedDataModel()->vecRanking.push_back(wealthRank);
+			
+		}
+		else
+		{
+			DataModel::sharedDataModel()->vecRanking.at(i).dwFaceID = wealthRanks->dwFaceID;
+			DataModel::sharedDataModel()->vecRanking.at(i).dwMemberOrder = wealthRanks->dwMemberOrder;
+			DataModel::sharedDataModel()->vecRanking.at(i).dwRankID = wealthRanks->dwRankID;
+			DataModel::sharedDataModel()->vecRanking.at(i).dwUserID = wealthRanks->dwUserID;
+			DataModel::sharedDataModel()->vecRanking.at(i).lScore = wealthRanks->lScore;
+			strcpy(DataModel::sharedDataModel()->vecRanking.at(i).szNickName, wealthRanks->szNickName);
+		}
+		wealthRanks++;
+	}
+	MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_WEALTH_RANK, NULL);
 }

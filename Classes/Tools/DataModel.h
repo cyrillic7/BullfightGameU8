@@ -100,6 +100,8 @@ public:
 	
 	//筹码
 	std::vector<JettonNode *>vecJettonNode;
+	//财富排名
+	std::vector<CMD_GL_WealthRank> vecRanking;
 public:
 	DataModel();
 	~DataModel();

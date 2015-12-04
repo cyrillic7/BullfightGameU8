@@ -35,7 +35,7 @@ std::string platformAction(const std::string& jsonString)
 			return "1.3.0";
 			break;
 		case 601:
-			return "126";
+			return "9999";
 			break;
 		case 602:
 			return "a01";

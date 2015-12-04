@@ -12,16 +12,16 @@
   "textures": [
     "UIPanel.plist",
     "UIButton.plist",
-    "UIGiftExchang.plist",
-    "UIUserInfo.plist",
-    "UILogon.plist"
+    "UIRanking.plist",
+    "UIUserIcon.plist",
+    "UIWealthRanking.plist"
   ],
   "texturesPng": [
     "UIPanel.png",
     "UIButton.png",
-    "UIGiftExchang.png",
-    "UIUserInfo.png",
-    "UILogon.png"
+    "UIRanking.png",
+    "UIUserIcon.png",
+    "UIWealthRanking.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

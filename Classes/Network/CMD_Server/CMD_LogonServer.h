@@ -897,6 +897,21 @@ struct CMD_GP_TreasureRank
 	DWORD							dwFaceID;
 	SCORE							lScore;
 };
+//财富排行新
+struct CMD_GL_WealthRank
+{
+	CMD_GL_WealthRank()
+	{
+		//memset(this, 0, sizeof(CMD_GL_WealthRank));
+	}
+	DWORD          dwRankID;
+	DWORD          dwUserID;
+	DWORD          dwFaceID;
+	DWORD		   dwMemberOrder;
+	TCHAR		   szNickName[LEN_NICKNAME];
+	SCORE		   lScore;
+};
+
 //////////////////////////////////////////////////////////////////////////
 //vip特权
 struct CMD_GP_VipUserID
@@ -1559,6 +1574,7 @@ struct CMD_MB_Quick_Logon_Success
 #define	SUB_GL_C_TASK_LOAD				114								//加载任务
 #define	SUB_GL_C_TASK_REWARD			115								//领取奖励
 #define SUB_GL_MB_LOGON_ACCOUNTS	 	116								//手机登录
+#define SUB_GL_C_WEALTH_RANK	 		117								//财富排名
 
 
 //#define  TASK_TITLE_LEN			16
