@@ -10,6 +10,7 @@
     <string>UIBaseLobby.json</string>
     <string>UIClassicLobby.json</string>
     <string>UIGameLobby.json</string>
+    <string>UILobbyHorn.json</string>
   </JsonList>
   <CanvasSize>
     <Width>1136</Width>
@@ -19,15 +20,11 @@
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <imageFileList>
-    <string>UIClassicLobby.plist</string>
-    <string>UIPanel.plist</string>
-    <string>UIButton.plist</string>
+    <string>UIHorn.plist</string>
   </imageFileList>
   <imagePngList>
-    <string>UIClassicLobby.png</string>
-    <string>UIPanel.png</string>
-    <string>UIButton.png</string>
+    <string>UIHorn.png</string>
   </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIClassicLobby.json</CurrentUIJson>
+  <CurrentUIJson>UILobbyHorn.json</CurrentUIJson>
 </UIProject>

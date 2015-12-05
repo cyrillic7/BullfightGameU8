@@ -924,9 +924,26 @@ void LogonScene::onEventServerList(WORD wSubCmdID,void * pDataBuffer, unsigned s
 	case SUB_GP_UNREAD_MSG_COUNT://未读的信息
 	{
 		CMD_GP_UserIDNotify *pUserIDNotify = (CMD_GP_UserIDNotify*)pDataBuffer;
-		CCLOG(" <<%s>>", __FUNCTION__);
 	}
 		break;
+		/*case DTP_GP_GET_LABA_COUNT: //喇叭数
+	{
+		DTP_GP_GetLabaCount * pHornNum = (DTP_GP_GetLabaCount *)pDataBuffer;
+		DataModel::sharedDataModel()->userInfo->dwHornCount = pHornNum->dwLabaCount;
+		//pIndividualUserData->dwHornNum = pHornNum->dwLabaCount;
+		break;
+	}
+	case DTP_GP_GET_DIAL_COUNT: //转盘数
+	{
+		ASSERT(DataDescribe.wDataSize == sizeof(DTP_GP_DialCount));
+		if (DataDescribe.wDataSize == sizeof(DTP_GP_DialCount))
+		{
+			DTP_GP_DialCount * pDialNum = (DTP_GP_DialCount *)pDataBuffer;
+			pIndividualUserData->dwDialNum = pDialNum->dwDialCount;
+		}
+		break;
+	}*/
+
 	default:
 		CCLOG("other:%d<<%s>>",wSubCmdID,__FUNCTION__);
 		break;

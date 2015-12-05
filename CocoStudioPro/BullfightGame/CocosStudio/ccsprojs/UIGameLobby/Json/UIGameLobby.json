@@ -13,9 +13,16 @@
     "UIGameLobby.plist",
     "UIAuction.plist",
     "UIButton.plist",
-    "UIUserIcon.plist"
+    "UIUserIcon.plist",
+    "UIHorn.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIGameLobby.png",
+    "UIAuction.png",
+    "UIButton.png",
+    "UIUserIcon.png",
+    "UIHorn.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",

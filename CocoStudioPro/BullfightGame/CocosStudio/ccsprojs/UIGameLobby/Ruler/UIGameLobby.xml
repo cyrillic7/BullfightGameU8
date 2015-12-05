@@ -54,4 +54,8 @@
       </GuidesInfo>
     </GuidesList>
   </GuidesProject>
+  <GuidesProject>
+    <Project>UILobbyHorn</Project>
+    <GuidesList />
+  </GuidesProject>
 </ArrayOfGuidesProject>

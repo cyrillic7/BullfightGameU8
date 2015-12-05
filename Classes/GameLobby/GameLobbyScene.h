@@ -30,7 +30,8 @@ private:
 	std::string strUpTipContent;
 	//是否显示签到
 	bool isShowSign();
-
+	//喇叭按键
+	UIImageView *pIVHorn;
 public:
     GameLobbyScene();
     ~GameLobbyScene();
@@ -39,7 +40,8 @@ public:
 
 	static CCScene* scene(bool showUpTip,std::string strTipContent);
     CREATE_FUNC(GameLobbyScene);
-
+	//显示喇叭框
+	void showHorn();
 private:
 	
 	//弹出框
@@ -77,4 +79,8 @@ private:
 	virtual void quickGame();
 	//创建菜单
 	CCMenuItemSprite *createMenuItem(int index);
+	//显示喇叭框
+	void onMenuShowHornMsg(CCObject* pSender, TouchEventType type);
+	//跑马灯
+	void showPMD();
 };

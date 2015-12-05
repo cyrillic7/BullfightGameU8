@@ -14,7 +14,11 @@
     "UIButton.plist",
     "UIWealthRanking.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIPanel.png",
+    "UIButton.png",
+    "UIWealthRanking.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",

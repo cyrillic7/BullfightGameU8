@@ -15,6 +15,7 @@
 #include "../PopDialogBox/PopDialogBoxTipInfo.h"
 #include "../PopDialogBox/PopDialogBoxSign.h"
 #include "ClassicLobbyScene.h"
+#include "LobbyHornLayer.h"
 #include "../Play/GameControl/GameControlOxHundred.h"
 #include "../Tools/DataModel.h"
 #include "../PopDialogBox/PopDialogBoxSetUp.h"
@@ -30,6 +31,7 @@ bool GameLobbyScene::isShowUpTip = false;
 GameLobbyScene::GameLobbyScene()
 {
 	scheduleUpdate();
+
 }
 GameLobbyScene::~GameLobbyScene(){
 	CCLOG("~ <<%s>>", __FUNCTION__);
@@ -140,7 +142,12 @@ void GameLobbyScene::onEnter(){
 	}
 	menu->setPosition(DataModel::sharedDataModel()->deviceSize / 2);
 	menu->setPositionY(menu->getPositionY() + 30);
-	this->addChild(menu);
+	this->addChild(menu,-1);
+	//喇叭按键
+	pIVHorn = static_cast<UIImageView*>(m_pWidgetBase->getWidgetByName("ImageHornBg"));
+	pIVHorn->addTouchEventListener(this, SEL_TouchEvent(&GameLobbyScene::onMenuShowHornMsg));
+
+	showPMD();
 }
 CCMenuItemSprite *GameLobbyScene::createMenuItem(int index){
 	//CCSprite * selectedSprite = CCSprite::createWithSpriteFrameName(CCString::createWithFormat("mode%d.png", index)->getCString());
@@ -867,3 +874,63 @@ void GameLobbyScene::quickGame(){
 	onEventConnect(1, NULL, 0);
 }
 
+//显示喇叭消息
+void GameLobbyScene::onMenuShowHornMsg(CCObject* pSender, TouchEventType type){
+	switch (type)
+	{
+	case TOUCH_EVENT_ENDED:
+	{
+		LobbyHornLayer *pLayer = LobbyHornLayer::create();
+		pLayer->setPosition(CCPointZero);
+		this->addChild(pLayer, 100);
+
+		//pIVHorn->runAction(CCMoveTo::create(0.2,ccp(pIVHorn->getPositionX(),-pIVHorn->getContentSize().height)));
+
+		CCEaseExponentialIn  *out = CCEaseExponentialIn::create(CCMoveTo::create(0.2, ccp(pIVHorn->getPositionX(), -pIVHorn->getSize().height)));
+		//CCCallFunc *call = CCCallFunc::create(this, SEL_CallFunc(&LobbyHornLayer::removSelf));
+		CCSequence *seq = CCSequence::create(out, /*call,*/ NULL);
+		pIVHorn->runAction(seq);
+	}
+	break;
+	default:
+		break;
+	}
+}
+//显示喇叭框
+void GameLobbyScene::showHorn(){
+	CCEaseExponentialOut  *out = CCEaseExponentialOut::create(CCMoveTo::create(0.2, ccp(pIVHorn->getPositionX(), DataModel::sharedDataModel()->deviceSize.height*0.07)));
+	CCSequence *seq = CCSequence::create(out, NULL);
+	pIVHorn->runAction(seq);
+}
+void GameLobbyScene::showPMD(){
+	UILabel *txt = UILabel::create();
+	txt->setFontSize(30);
+	txt->setColor(ccc3(255,255,255));     //裁剪内容
+	txt->setText("this ad dklskldksldkslkdslkdsldklskldksldkslkdslkdsldklskldksldkslkdslkdsldklskldksldkslkdslkdsl");
+
+	CCClippingNode* clip = CCClippingNode::create();
+	//  以下模型是drawnode遮罩
+	int width = pIVHorn->getSize().width-80;
+	int height = pIVHorn->getSize().height;
+	CCDrawNode* front=CCDrawNode::create();
+	ccColor4F yellow = {1, 1, 0, 1};
+	CCPoint rect[4] = { ccp(0, 0), ccp(width, 0), ccp(width, height), ccp(0, height) };
+	front->drawPolygon(rect, 4, yellow, 0, yellow); //绘制四边形
+	front->setPosition(ccp(0, 0));
+	clip->setStencil(front); //一定要有，设置裁剪模板
+
+
+	txt->setAnchorPoint(CCPointZero);
+	clip->addChild(txt);
+
+	clip->setInverted(false);    //设置裁剪区域可见还是非裁剪区域可见  这里为裁剪区域可见
+	clip->setAlphaThreshold(0);
+	clip->setPosition(pIVHorn->getPositionX() - pIVHorn->getSize().width / 2 + 40, pIVHorn->getPositionY()-txt->getSize().height/2);
+	this->addChild(clip);
+
+
+	txt->setPositionX(clip->getContentSize().width);
+	float speed = 70.0f;
+	CCMoveTo* to2 = CCMoveTo::create(txt->getContentSize().width/speed, ccp(-txt->getContentSize().width, 0));
+	txt->runAction(CCSequence::create(CCDelayTime::create(5), to2, NULL));
+}

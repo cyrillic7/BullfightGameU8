@@ -169,7 +169,11 @@ bool LobbyMsgHandler::onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuf
 
 		}
 			break;
-
+		case SUB_GL_C_LABA_LOG:
+		{
+			onHornMsg(pDataBuffer, wDataSize);
+		}
+			break;
 		default:
 		{
 			CCLOG("else main:%d sub:%d <<%s>>", wMainCmdID, wSubCmdID, __FUNCTION__);
@@ -270,4 +274,21 @@ void LobbyMsgHandler::onWealthRanking(void * pDataBuffer, unsigned short wDataSi
 		wealthRanks++;
 	}
 	MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_WEALTH_RANK, NULL);
+}
+//喇叭消息
+void LobbyMsgHandler::onHornMsg(void * pDataBuffer, unsigned short wDataSize){
+	//财富排行数据
+	CMD_GL_LabaLog* hornMsg = static_cast<CMD_GL_LabaLog*>(pDataBuffer);
+	if (hornMsg->lResultCode==0)
+	{
+		CCLOG("%s <<%s>>",hornMsg->szDescribeString, __FUNCTION__);
+	}
+	else
+	{
+		CCLOG("%s <<%s>>", hornMsg->szDescribeString, __FUNCTION__);
+	}
+
+	/*CMD_GL_Laba * pHorn = (CMD_GL_Laba *)(pData);
+	//pHorn->dwPropNum = CWHService::GetRandNum(100);
+	CSLGameFrame::Instance()->OnReceiveHoreMsg(pHorn);*/
 }

@@ -48,7 +48,11 @@
     <string>UIButton.plist</string>
     <string>UIWealthRanking.plist</string>
   </imageFileList>
-  <imagePngList />
+  <imagePngList>
+    <string>UIPanel.png</string>
+    <string>UIButton.png</string>
+    <string>UIWealthRanking.png</string>
+  </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>UIPopDialogBoxWealthRanking.json</CurrentUIJson>
 </UIProject>

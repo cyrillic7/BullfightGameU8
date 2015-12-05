@@ -35,4 +35,6 @@ private:
 	void delayConnect(float  dt);
 	//财富排行
 	void onWealthRanking(void * pDataBuffer, unsigned short wDataSize);
+	//喇叭消息
+	void onHornMsg(void * pDataBuffer, unsigned short wDataSize);
 };

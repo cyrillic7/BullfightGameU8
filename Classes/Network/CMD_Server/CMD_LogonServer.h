@@ -200,6 +200,9 @@ struct CMD_GP_UpdateNotify
 #define	DTP_GP_UNDER_WRITE			3									//个性签名
 #define DTP_GP_STATION_URL			4									//主页信息
 
+#define DTP_GP_GET_LABA_COUNT		8	                                //喇叭个数
+#define DTP_GP_GET_DIAL_COUNT		9									//转盘个数
+
 //社团信息
 struct DTP_GP_GroupInfo
 {
@@ -213,7 +216,11 @@ struct DTP_GP_MemberInfo
 	BYTE							cbMemberOrder;						//会员等级
 	//先注销SYSTEMTIME						MemberOverDate;						//到期时间
 };
-
+//喇叭数
+struct DTP_GP_GetLabaCount
+{
+	DWORD							 dwLabaCount;			//喇叭数
+};
 //////////////////////////////////////////////////////////////////////////////////
 //列表命令
 
@@ -906,10 +913,12 @@ struct CMD_GL_WealthRank
 	}
 	DWORD          dwRankID;
 	DWORD          dwUserID;
+	DWORD		   dwGameID;
 	DWORD          dwFaceID;
 	DWORD		   dwMemberOrder;
 	TCHAR		   szNickName[LEN_NICKNAME];
 	SCORE		   lScore;
+	TCHAR		   szUnderWrite[LEN_UNDER_WRITE];		//个性签名
 };
 
 //////////////////////////////////////////////////////////////////////////
@@ -1575,7 +1584,8 @@ struct CMD_MB_Quick_Logon_Success
 #define	SUB_GL_C_TASK_REWARD			115								//领取奖励
 #define SUB_GL_MB_LOGON_ACCOUNTS	 	116								//手机登录
 #define SUB_GL_C_WEALTH_RANK	 		117								//财富排名
-
+#define SUB_GL_C_LABA	 				118								//喇叭
+#define SUB_GL_C_LABA_LOG	 			119								//喇叭返回 
 
 //#define  TASK_TITLE_LEN			16
 #define  TASK_TITLE_LEN			32
@@ -1584,6 +1594,32 @@ struct CMD_MB_Quick_Logon_Success
 #define	 IMGNAME				32
 #define  PROC_NAME				64
 #define  LEN_AWARD				32
+//喇叭  大喇叭：dwKindID=0，dwServerID=0 ；小喇叭：dwKindID != 0，dwServerID != 0
+struct CMD_GL_Laba
+{
+	CMD_GL_Laba()
+	{
+		//memset(this, 0, sizeof(CMD_GL_Laba));
+	}
+	DWORD							dwUserID;
+	TCHAR							szNickName[LEN_NICKNAME];
+	DWORD							dwKindID;
+	DWORD							dwServerID;
+	DWORD                           dwPropNum;
+	TCHAR							szLabaText[256];				//喇叭消息
+};
+
+//喇叭返回
+struct CMD_GL_LabaLog
+{
+	CMD_GL_LabaLog()
+	{
+		//memset(this, 0, sizeof(CMD_GL_LabaLog));
+	}
+	int								lResultCode;						//操作代码 0 成功
+	DWORD							dwPropNum;							//喇叭个数
+	TCHAR							szDescribeString[128];				//成功消息
+};
 //帐号登录
 struct CMD_GL_LogonAccounts
 {
