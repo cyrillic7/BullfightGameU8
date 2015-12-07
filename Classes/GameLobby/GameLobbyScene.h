@@ -32,6 +32,7 @@ private:
 	bool isShowSign();
 	//喇叭按键
 	UIImageView *pIVHorn;
+	float fontHeight;
 public:
     GameLobbyScene();
     ~GameLobbyScene();
@@ -82,5 +83,5 @@ private:
 	//显示喇叭框
 	void onMenuShowHornMsg(CCObject* pSender, TouchEventType type);
 	//跑马灯
-	void showPMD();
+	void showClipLabel();
 };

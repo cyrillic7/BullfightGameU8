@@ -921,6 +921,7 @@ struct CMD_GL_WealthRank
 	TCHAR		   szUnderWrite[LEN_UNDER_WRITE];		//个性签名
 };
 
+
 //////////////////////////////////////////////////////////////////////////
 //vip特权
 struct CMD_GP_VipUserID

@@ -147,7 +147,7 @@ void GameLobbyScene::onEnter(){
 	pIVHorn = static_cast<UIImageView*>(m_pWidgetBase->getWidgetByName("ImageHornBg"));
 	pIVHorn->addTouchEventListener(this, SEL_TouchEvent(&GameLobbyScene::onMenuShowHornMsg));
 
-	showPMD();
+	showClipLabel();
 }
 CCMenuItemSprite *GameLobbyScene::createMenuItem(int index){
 	//CCSprite * selectedSprite = CCSprite::createWithSpriteFrameName(CCString::createWithFormat("mode%d.png", index)->getCString());
@@ -890,6 +890,13 @@ void GameLobbyScene::onMenuShowHornMsg(CCObject* pSender, TouchEventType type){
 		//CCCallFunc *call = CCCallFunc::create(this, SEL_CallFunc(&LobbyHornLayer::removSelf));
 		CCSequence *seq = CCSequence::create(out, /*call,*/ NULL);
 		pIVHorn->runAction(seq);
+		CCClippingNode* clip = (CCClippingNode*)this->getChildByTag(TAG_CLIP_LABEL);
+		if (clip)
+		{
+			CCEaseExponentialIn  *outClip = CCEaseExponentialIn::create(CCMoveTo::create(0.2, ccp(clip->getPositionX(), -pIVHorn->getSize().height-fontHeight)));
+			CCSequence *seqClip = CCSequence::create(outClip, /*call,*/ NULL);
+			clip->runAction(seqClip);
+		}
 	}
 	break;
 	default:
@@ -901,8 +908,16 @@ void GameLobbyScene::showHorn(){
 	CCEaseExponentialOut  *out = CCEaseExponentialOut::create(CCMoveTo::create(0.2, ccp(pIVHorn->getPositionX(), DataModel::sharedDataModel()->deviceSize.height*0.07)));
 	CCSequence *seq = CCSequence::create(out, NULL);
 	pIVHorn->runAction(seq);
+	
+	CCClippingNode* clip = (CCClippingNode*)this->getChildByTag(TAG_CLIP_LABEL);
+	if (clip)
+	{
+		CCEaseExponentialOut  *outClip = CCEaseExponentialOut::create(CCMoveTo::create(0.2, ccp(clip->getPositionX(), DataModel::sharedDataModel()->deviceSize.height*0.07-fontHeight)));
+		CCSequence *seqClip = CCSequence::create(outClip, NULL);
+		clip->runAction(seqClip);
+	}
 }
-void GameLobbyScene::showPMD(){
+void GameLobbyScene::showClipLabel(){
 	UILabel *txt = UILabel::create();
 	txt->setFontSize(30);
 	txt->setColor(ccc3(255,255,255));     //裁剪内容
@@ -925,8 +940,9 @@ void GameLobbyScene::showPMD(){
 
 	clip->setInverted(false);    //设置裁剪区域可见还是非裁剪区域可见  这里为裁剪区域可见
 	clip->setAlphaThreshold(0);
-	clip->setPosition(pIVHorn->getPositionX() - pIVHorn->getSize().width / 2 + 40, pIVHorn->getPositionY()-txt->getSize().height/2);
-	this->addChild(clip);
+	fontHeight =  txt->getSize().height / 2;
+	clip->setPosition(pIVHorn->getPositionX() - pIVHorn->getSize().width / 2 + 40, pIVHorn->getPositionY()-fontHeight);
+	this->addChild(clip, 0, TAG_CLIP_LABEL);
 
 
 	txt->setPositionX(clip->getContentSize().width);

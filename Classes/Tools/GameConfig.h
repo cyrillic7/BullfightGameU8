@@ -50,6 +50,7 @@
 #define TAG_INPUT_EDIT_BOX						1003							//输入框
 #define TAG_UP_BANK								1004							//百人上庄
 #define TAG_ONLINE								1005							//百人在线玩家
+#define TAG_CLIP_LABEL							1006							//裁剪文本
 
 
 

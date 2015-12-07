@@ -360,12 +360,6 @@ public class BullfightGame extends Cocos2dxActivity {
 				LayoutInflater flater = LayoutInflater.from(game);
 				View view = flater.inflate(R.layout.webview_layout, null);
 				m_webLayout.addView(view);
-				// 屏蔽按键不下漏
-				/*view.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-					}
-				});*/
 				// 初始化webView
 				// m_webView = new WebView(game);
 				m_webView = (WebView) view.findViewById(R.id.webViewQQLogin);
