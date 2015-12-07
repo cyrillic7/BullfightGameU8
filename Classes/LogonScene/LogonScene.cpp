@@ -103,7 +103,7 @@ LogonScene::LogonScene()
 #endif
 
 	setKeypadEnabled(true);//设置相应按键消息 
-	readConfigData();//读取数据
+	
 }
 LogonScene::~LogonScene(){
 	CCLOG("~ <<%s>>", __FUNCTION__);
@@ -147,6 +147,7 @@ void LogonScene::readConfigData(){
 			Json *root = Json_create(CCString::createWithFormat("%s", sData)->getCString());
 			if (root)
 			{
+				DataModel::sharedDataModel()->urlLogon->removeAllObjects();
 				Json* _date = Json_getItem(root, "updateConfig");
 				Json* _strUrlLogonList = Json_getItem(_date, "url_logon_list");
 				if (_strUrlLogonList&&_strUrlLogonList->type == Json_Array)
@@ -179,6 +180,7 @@ void LogonScene::showUpdateContent(updateInfo uInfo){
 }
 void LogonScene::onEnter(){
 	CCLayer::onEnter();
+	readConfigData();//读取数据
 	//添加背景
 	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
 	CCSprite *spriteBg=CCSprite::create("res/logon.jpg");

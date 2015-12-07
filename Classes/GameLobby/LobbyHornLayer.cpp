@@ -9,6 +9,7 @@
 #include "../Tools/DataModel.h"
 #include "GameLobbyScene.h"
 #include "../MTNotificationQueue/LobbyMsgHandler.h"
+#include "../Network/SEvent.h"
 LobbyHornLayer::LobbyHornLayer()
 {
 }
@@ -42,10 +43,17 @@ void LobbyHornLayer::onEnter(){
 	this->setTouchEnabled(true);
 	this->setTouchPriority(0);
 	this->setTouchMode(kCCTouchesOneByOne);
+
+	//添加监听事件
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(LobbyHornLayer::onUpdateHornMsg),UPDATE_HORN_MSG, NULL);
 }
 void LobbyHornLayer::onExit(){
-   
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, UPDATE_HORN_MSG);
 	CCLayer::onExit();
+}
+//更新喇叭消息
+void LobbyHornLayer::onUpdateHornMsg(CCObject *obj){
+	setScrollViewData();
 }
 //菜单发送消息
 void LobbyHornLayer::onMenuSendMsg(CCObject* pSender, TouchEventType type){
@@ -59,15 +67,13 @@ void LobbyHornLayer::onMenuSendMsg(CCObject* pSender, TouchEventType type){
 		else
 		{
 			CMD_GL_Laba HornMsg;
-			
 			HornMsg.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
-			strcmp(HornMsg.szNickName,DataModel::sharedDataModel()->userInfo->szNickName);
-			strcmp(HornMsg.szLabaText, pEBInputMsgContent->getText());
-			//lstrcpyn(HornMsg.szNickName, pGlobalUserData->szNickName, CountArray(HornMsg.szNickName));
-			//lstrcpyn(HornMsg.szLabaText, sHornMsg, CountArray(HornMsg.szLabaText));
-
-			 LobbyMsgHandler::sharedLobbyMsgHandler()->gameSocket.SendData(MDM_GL_C_DATA, SUB_GL_C_LABA, &HornMsg, sizeof(HornMsg));
-			//LobbyMsgHandler::sharedLobbyMsgHandler()->gameSocket.SendData();
+			strcpy(HornMsg.szNickName, DataModel::sharedDataModel()->userInfo->szNickName);
+			HornMsg.dwKindID = 0;
+			HornMsg.dwServerID = 0;
+			HornMsg.dwPropNum = 0;
+			strcpy(HornMsg.szLabaText, UTF8ToGBK(pEBInputMsgContent->getText()).c_str());
+			LobbyMsgHandler::sharedLobbyMsgHandler()->gameSocket.SendData(MDM_GL_C_DATA, SUB_GL_C_LABA, &HornMsg, sizeof(HornMsg));
 		}
 	}
 }
@@ -105,7 +111,7 @@ void LobbyHornLayer::hideMsg(){
 }
 //设置滚动容器数据
 void LobbyHornLayer::setScrollViewData(){
-	for (int i = 0; i < 10; i++)
+	/*for (int i = 0; i < 10; i++)
 	{
 		std::string sTemp = "测试数据:";
 		if (i%2==0)
@@ -123,7 +129,32 @@ void LobbyHornLayer::setScrollViewData(){
 		pSVMsg->addChild(pLContent);
 		pSVMsg->setInnerContainerSize(CCSize(pLContent->getContentSize().width, height));
 	}
-	pSVMsg->scrollToBottom(0,false);
+	pSVMsg->scrollToBottom(0,false);*/
+	pSVMsg->removeAllChildrenWithCleanup(true);
+
+	int height = 0;
+	std::list <std::string> ::iterator iter;
+	for (iter = DataModel::sharedDataModel()->listHornMsg.begin(); iter != DataModel::sharedDataModel()->listHornMsg.end(); iter++)
+	{
+		UILabel *pLContent = createMsgContent(iter->c_str());
+		height += pLContent->getSize().height;
+		pLContent->setPosition(ccp(0, height));
+		pSVMsg->addChild(pLContent);
+		pSVMsg->setInnerContainerSize(CCSize(pLContent->getContentSize().width, height));
+	} 
+	//if (height > pSVMsg->getCustomSize().height);
+	{
+		pSVMsg->scrollToBottom(0.1, false);
+	}
+	/*for (int i = 0; i < 3; i++)
+	{
+		UILabel *pLContent = createMsgContent("dsdsdsdsdsdsdsggfdhgf");
+		height += pLContent->getSize().height;
+		pLContent->setPosition(ccp(0, height));
+		pSVMsg->addChild(pLContent);
+		pSVMsg->setInnerContainerSize(CCSize(pLContent->getContentSize().width, height));
+	}*/
+	//
 }
 //创建消息内容
 UILabel *LobbyHornLayer::createMsgContent(std::string content){

@@ -26,6 +26,7 @@
 //#include "../Network/ListernerThread/LobbyGameListerner.h"
 //#include "../Network/ListernerThread/GameIngListerner.h"
 #include "../Network/CMD_Server/Packet.h"
+#include "../Network/SEvent.h"
 bool GameLobbyScene::isShowUpTip = false;
 
 GameLobbyScene::GameLobbyScene()
@@ -151,6 +152,10 @@ void GameLobbyScene::onEnter(){
 	//重设喇叭数
 	resetHornNum();
 	showClipLabel();
+
+	//添加监听事件
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(GameLobbyScene::resetClipLabelData), UPDATE_HORN_MSG, NULL);
+
 }
 //重设喇叭数
 void GameLobbyScene::resetHornNum(){
@@ -240,7 +245,7 @@ void GameLobbyScene::showUpTip(){
 	tipInfo->setTipInfoContent(strUpTipContent.c_str());
 }
 void GameLobbyScene::onExit(){
-   
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, UPDATE_HORN_MSG);
 	BaseLobbyScene::onExit();
 }
 void GameLobbyScene::menuResetUser(CCObject* pSender, TouchEventType type){
@@ -928,8 +933,7 @@ void GameLobbyScene::showClipLabel(){
 	UILabel *txt = UILabel::create();
 	txt->setFontSize(30);
 	txt->setColor(ccc3(255,255,255));     //裁剪内容
-	txt->setText("this ad dklskldksldkslkdslkdsldklskldksldkslkdslkdsldklskldksldkslkdslkdsldklskldksldkslkdslkdsl");
-
+	txt->setText(" ");
 	CCClippingNode* clip = CCClippingNode::create();
 	//  以下模型是drawnode遮罩
 	int width = pIVHorn->getSize().width-80;
@@ -941,19 +945,43 @@ void GameLobbyScene::showClipLabel(){
 	front->setPosition(ccp(0, 0));
 	clip->setStencil(front); //一定要有，设置裁剪模板
 
-
 	txt->setAnchorPoint(CCPointZero);
-	clip->addChild(txt);
+	clip->addChild(txt,0,999);
 
 	clip->setInverted(false);    //设置裁剪区域可见还是非裁剪区域可见  这里为裁剪区域可见
 	clip->setAlphaThreshold(0);
 	fontHeight =  txt->getSize().height / 2;
 	clip->setPosition(pIVHorn->getPositionX() - pIVHorn->getSize().width / 2 + 40, pIVHorn->getPositionY()-fontHeight);
 	this->addChild(clip, 0, TAG_CLIP_LABEL);
+}
+//设置跑马灯内容
+void GameLobbyScene::resetClipLabelData(CCObject *obj){
+	CCClippingNode* clip = (CCClippingNode*)this->getChildByTag(TAG_CLIP_LABEL);
+	if (clip)
+	{
+		UILabel *txt =(UILabel*) clip->getChildByTag(999);
+		if (txt)
+		{
+			if (DataModel::sharedDataModel()->listHornMsg.size() > 0)
+			{
+				//std::list <std::string> ::iterator iter = DataModel::sharedDataModel()->listHornMsg.rbegin();
+				txt->setText(DataModel::sharedDataModel()->listHornMsg.rbegin()->c_str());
+			}
+			else
+			{
+				txt->setText("");
+			}
+			txt->stopAllActions();
+			txt->setPositionX(clip->getContentSize().width);
+			float speed = 70.0f;
+			CCMoveTo* to2 = CCMoveTo::create(txt->getContentSize().width / speed, ccp(-txt->getContentSize().width-10, 0));
+			CCCallFunc *call = CCCallFunc::create(this, SEL_CallFunc(&GameLobbyScene::onMoveFinsh));
+			txt->runAction(CCSequence::create(CCDelayTime::create(3), to2, CCDelayTime::create(3), call, NULL));
 
-
-	txt->setPositionX(clip->getContentSize().width);
-	float speed = 70.0f;
-	CCMoveTo* to2 = CCMoveTo::create(txt->getContentSize().width/speed, ccp(-txt->getContentSize().width, 0));
-	txt->runAction(CCSequence::create(CCDelayTime::create(5), to2, NULL));
+		}
+	}
+}
+//移动完成
+void GameLobbyScene::onMoveFinsh(){
+	resetClipLabelData(NULL);
 }

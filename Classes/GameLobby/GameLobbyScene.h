@@ -87,4 +87,8 @@ private:
 	void onMenuShowHornMsg(CCObject* pSender, TouchEventType type);
 	//跑马灯
 	void showClipLabel();
+	//设置跑马灯内容
+	void resetClipLabelData(CCObject *obj);
+	//移动完成
+	void onMoveFinsh();
 };

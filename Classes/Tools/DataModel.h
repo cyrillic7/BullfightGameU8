@@ -102,6 +102,8 @@ public:
 	std::vector<JettonNode *>vecJettonNode;
 	//财富排名
 	std::vector<CMD_GL_WealthRank> vecRanking;
+	//喇叭消息
+	std::list<std::string> listHornMsg;
 public:
 	DataModel();
 	~DataModel();

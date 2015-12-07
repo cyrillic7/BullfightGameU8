@@ -23,3 +23,4 @@
 #define UPDATE_FIRST_DELTA						"updateFirstDelta"				//更新首充充值
 #define UPDATE_VIP								"updateVIp"						//更新VIP等级
 #define UPDATE_WEALTH_RANK						"updateWealthRank"				//更新财富排行
+#define UPDATE_HORN_MSG							"updateHornMsg"					//更新喇叭消息

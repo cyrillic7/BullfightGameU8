@@ -8,6 +8,7 @@
 #include "../MTNotificationQueue/MessageQueueLobby.h"
 #include "../MTNotificationQueue/MTNotificationQueue.h"
 #include "../Network/SEvent.h"
+#define MAX_HORN_MSG_COUNT				10					//最大消息数
 LobbyMsgHandler* _sharedSocketControl;
 LobbyMsgHandler::LobbyMsgHandler()
 {
@@ -171,7 +172,12 @@ bool LobbyMsgHandler::onMessage(WORD wMainCmdID, WORD wSubCmdID, void * pDataBuf
 			break;
 		case SUB_GL_C_LABA_LOG:
 		{
-			onHornMsg(pDataBuffer, wDataSize);
+			onHornMsgLog(pDataBuffer, wDataSize);
+		}
+			break;
+		case SUB_GL_C_LABA:
+		{
+			onRecvHornMsg(pDataBuffer, wDataSize);
 		}
 			break;
 		default:
@@ -275,9 +281,8 @@ void LobbyMsgHandler::onWealthRanking(void * pDataBuffer, unsigned short wDataSi
 	}
 	MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_WEALTH_RANK, NULL);
 }
-//喇叭消息
-void LobbyMsgHandler::onHornMsg(void * pDataBuffer, unsigned short wDataSize){
-	//财富排行数据
+//喇叭消息日志
+void LobbyMsgHandler::onHornMsgLog(void * pDataBuffer, unsigned short wDataSize){
 	CMD_GL_LabaLog* hornMsg = static_cast<CMD_GL_LabaLog*>(pDataBuffer);
 	if (hornMsg->lResultCode==0)
 	{
@@ -287,8 +292,17 @@ void LobbyMsgHandler::onHornMsg(void * pDataBuffer, unsigned short wDataSize){
 	{
 		CCLOG("%s <<%s>>", hornMsg->szDescribeString, __FUNCTION__);
 	}
-
-	/*CMD_GL_Laba * pHorn = (CMD_GL_Laba *)(pData);
-	//pHorn->dwPropNum = CWHService::GetRandNum(100);
-	CSLGameFrame::Instance()->OnReceiveHoreMsg(pHorn);*/
+}
+//收喇叭消息
+void LobbyMsgHandler::onRecvHornMsg(void * pDataBuffer, unsigned short wDataSize){
+	CMD_GL_Laba * pHorn = (CMD_GL_Laba *)(pDataBuffer);
+	std::string msg = GBKToUTF8(pHorn->szNickName);
+	msg += ":";
+	msg += GBKToUTF8(pHorn->szLabaText);
+	DataModel::sharedDataModel()->listHornMsg.push_back(msg);
+	if (DataModel::sharedDataModel()->listHornMsg.size() > MAX_HORN_MSG_COUNT)
+	{
+		DataModel::sharedDataModel()->listHornMsg.pop_front();
+	}
+	MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_HORN_MSG, NULL);
 }

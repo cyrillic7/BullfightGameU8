@@ -9,7 +9,7 @@
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
-class LobbyHornLayer :public CCLayer, public CCEditBoxDelegate
+class LobbyHornLayer :public CCLayer, public CCEditBoxDelegate,public CStringAide
 {
 private:
 	//喇叭消息背景
@@ -50,4 +50,6 @@ private:
 	virtual void editBoxReturn(cocos2d::extension::CCEditBox* editBox);
 	//显示提示语
 	void showTipInfo(const char* sInfo);
+	//更新喇叭消息
+	void onUpdateHornMsg(CCObject *obj);
 };
