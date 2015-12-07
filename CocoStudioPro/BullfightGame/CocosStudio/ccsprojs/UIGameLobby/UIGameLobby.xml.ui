@@ -22,9 +22,7 @@
   <imageFileList>
     <string>UIHorn.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>UIHorn.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIBaseLobby.json</CurrentUIJson>
+  <CurrentUIJson>UILobbyHorn.json</CurrentUIJson>
 </UIProject>

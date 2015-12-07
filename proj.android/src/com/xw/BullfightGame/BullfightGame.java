@@ -94,7 +94,7 @@ public class BullfightGame extends Cocos2dxActivity {
 	WebView m_webView;// WebView控件
 	//ImageView m_imageView;// ImageView控件
 	FrameLayout m_webLayout;// FrameLayout布局
-	LinearLayout m_topLayout;// LinearLayout布局
+	//LinearLayout m_topLayout;// LinearLayout布局
 	Button m_backButton;// 关闭按钮
 	////////////////////////////////////////////////////////
 	private final int K_ACTION_SESSION_ID=601;							//渠道ID
@@ -446,8 +446,7 @@ public class BullfightGame extends Cocos2dxActivity {
 				 * m_topLayout.setOrientation(LinearLayout.VERTICAL);
 				 */
 				//m_imageView = (ImageView) view.findViewById(R.id.imageViewBg);
-				m_topLayout = (LinearLayout) view
-						.findViewById(R.id.LinearLayoutLogin);
+				//m_topLayout = (LinearLayout) view.findViewById(R.id.LinearLayoutLogin);
 				// 初始化返回按钮
 				// m_backButton = new Button(game);
 				m_backButton = (Button) view.findViewById(R.id.buttonBack);
@@ -491,13 +490,13 @@ public class BullfightGame extends Cocos2dxActivity {
 		m_webLayout.removeAllViews();
 		//m_imageView.destroyDrawingCache();
 
-		m_webLayout.removeView(m_topLayout);
-		m_topLayout.destroyDrawingCache();
+		//m_webLayout.removeView(m_topLayout);
+		//m_topLayout.destroyDrawingCache();
 
-		m_topLayout.removeView(m_webView);
+		//m_topLayout.removeView(m_webView);
 		m_webView.destroy();
 
-		m_topLayout.removeView(m_backButton);
+		//m_topLayout.removeView(m_backButton);
 		m_backButton.destroyDrawingCache();
 		
 	}

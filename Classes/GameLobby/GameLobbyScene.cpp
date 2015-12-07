@@ -146,8 +146,15 @@ void GameLobbyScene::onEnter(){
 	//喇叭按键
 	pIVHorn = static_cast<UIImageView*>(m_pWidgetBase->getWidgetByName("ImageHornBg"));
 	pIVHorn->addTouchEventListener(this, SEL_TouchEvent(&GameLobbyScene::onMenuShowHornMsg));
-
+	//喇叭数量
+	pLHornNum = static_cast<UILabel*>(m_pWidgetBase->getWidgetByName("LabelHornNum"));
+	//重设喇叭数
+	resetHornNum();
 	showClipLabel();
+}
+//重设喇叭数
+void GameLobbyScene::resetHornNum(){
+	pLHornNum->setText(CCString::createWithFormat("%d", DataModel::sharedDataModel()->userInfo->dwHornCount)->getCString());
 }
 CCMenuItemSprite *GameLobbyScene::createMenuItem(int index){
 	//CCSprite * selectedSprite = CCSprite::createWithSpriteFrameName(CCString::createWithFormat("mode%d.png", index)->getCString());

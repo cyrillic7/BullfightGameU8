@@ -221,6 +221,16 @@ struct DTP_GP_GetLabaCount
 {
 	DWORD							 dwLabaCount;			//喇叭数
 };
+//加载转盘次数
+struct DTP_GP_DialCount
+{
+	DTP_GP_DialCount()
+	{
+		//memset(this, 0, sizeof(DTP_GP_DialCount));
+	}
+	DWORD		dwDialCount;
+};
+
 //////////////////////////////////////////////////////////////////////////////////
 //列表命令
 

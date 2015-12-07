@@ -32,6 +32,8 @@ private:
 	bool isShowSign();
 	//喇叭按键
 	UIImageView *pIVHorn;
+	//喇叭数量
+	UILabel *pLHornNum;
 	float fontHeight;
 public:
     GameLobbyScene();
@@ -44,7 +46,8 @@ public:
 	//显示喇叭框
 	void showHorn();
 private:
-	
+	//重设喇叭数
+	void resetHornNum();
 	//弹出框
 	void popDialogBoxUserInfo();
 	//菜单设置用户信息

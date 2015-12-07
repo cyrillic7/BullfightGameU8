@@ -84,12 +84,18 @@ private:
 	void defaultLogon();
 	//显示更新
 	void showUpdateContent(updateInfo uInfo);
+	//发送数据统计
+	void sendLoginStatistics();
+	//解析附加数据
+	void parsingAdditionalData(CMD_MB_LogonSuccess *ls, void * pDataBuffer, unsigned short wDataSize);
 public:
 	//登录游戏(帐号登录)
 	void logonGameByAccount(float dt);
 	//保存帐号
 	void saveAccount();
 private:
+	//读取配置文件
+	void readConfigData();
 	//初始化签到信息
 	void initSignInfo();
 	//初始化更多帐号

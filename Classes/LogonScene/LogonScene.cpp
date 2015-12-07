@@ -8,6 +8,7 @@
 
 #include "LogonScene.h"
 #include "../Tools/Tools.h"
+#include "../Tools/DataModel.h"
 #include "../Tools/Statistics.h"
 #include "../PopDialogBox/PopDialogBoxLoading.h"
 #include "../PopDialogBox/PopDialogBoxOtherLoading.h"
@@ -15,6 +16,7 @@
 #include "../PopDialogBox/PopDialogBoxTipInfo.h"
 #include "../PopDialogBox/PopDialogBoxUpdateTipInfo.h"
 #include "../Tools/StatisticsConfig.h"
+#include "../Network/CMD_Server/PacketAide.h"
 #include "../GameLobby/GameLobbyScene.h"
 //#include "../Network/ListernerThread/LogonGameListerner.h"
 //#include "../Network/ListernerThread/LobbyGameListerner.h"
@@ -101,6 +103,7 @@ LogonScene::LogonScene()
 #endif
 
 	setKeypadEnabled(true);//设置相应按键消息 
+	readConfigData();//读取数据
 }
 LogonScene::~LogonScene(){
 	CCLOG("~ <<%s>>", __FUNCTION__);
@@ -130,6 +133,37 @@ CCScene* LogonScene::scene(updateInfo uInfo)
 	layer->showUpdateContent(uInfo);
 	pLScene = layer;
 	return scene;
+}
+//读取配置文件
+void LogonScene::readConfigData(){
+	std::string path = CCFileUtils::sharedFileUtils()->getWritablePath();
+	path += "updateInfo";
+	{
+		//读取本地文件
+		unsigned long bufferSize = 0;
+		unsigned char* sData = CCFileUtils::sharedFileUtils()->getFileData(path.c_str(), "r", &bufferSize);
+		if (sData)
+		{
+			Json *root = Json_create(CCString::createWithFormat("%s", sData)->getCString());
+			if (root)
+			{
+				Json* _date = Json_getItem(root, "updateConfig");
+				Json* _strUrlLogonList = Json_getItem(_date, "url_logon_list");
+				if (_strUrlLogonList&&_strUrlLogonList->type == Json_Array)
+				{
+					for (int i = 0; i < Json_getSize(_strUrlLogonList); i++)
+					{
+						Json *s = Json_getItemAt(_strUrlLogonList, i);
+						Json *sAddr = Json_getItem(s, "logonAddr");
+						//std::string strLogonAddr = sAddr->valuestring;
+						CCString *strAddr = CCString::createWithFormat("%s", sAddr->valuestring);
+						DataModel::sharedDataModel()->urlLogon->addObject(strAddr);
+					}
+				}
+			}
+			Json_dispose(root);
+		}
+	}
 }
 //显示更新
 void LogonScene::showUpdateContent(updateInfo uInfo){
@@ -663,6 +697,68 @@ void LogonScene::onEventConnect(WORD wSubCmdID,void * pDataBuffer, unsigned shor
 		break;
 	}
 }*/
+//发送数据统计
+void LogonScene::sendLoginStatistics(){
+	switch (eStatisticsType)
+	{
+	case LogonScene::STATISTICS_REGISTER:
+	{
+		//发送注册统计数据
+		Statistics *pStatistice = Statistics::create();
+		pStatistice->sendStatisticsData(Statistics::S_REGISTER);
+	}
+	break;
+	case LogonScene::STATISTICS_LOGON:
+	{
+		//发送登录统计数据
+		Statistics *pStatistice = Statistics::create();
+		pStatistice->sendStatisticsData(Statistics::S_ACCOUNT_LOGON);
+	}
+	break;
+	case LogonScene::STATISTICS_QQ:
+		break;
+	default:
+		break;
+	}
+}
+//解析附加数据
+void LogonScene::parsingAdditionalData(CMD_MB_LogonSuccess *ls, void * pDataBuffer, unsigned short wDataSize){
+	int wPacketSize = 0;
+	BYTE cbDataBuffer[SOCKET_TCP_PACKET + sizeof(TCP_Head)];
+	CopyMemory(cbDataBuffer, pDataBuffer, wDataSize);
+	wPacketSize += sizeof(CMD_MB_LogonSuccess);
+	while (true)
+	{
+		void * pDataBuffer1 = cbDataBuffer + wPacketSize;
+		tagDataDescribe *DataDescribe = (tagDataDescribe*)pDataBuffer1;
+		wPacketSize += sizeof(tagDataDescribe);
+		switch (DataDescribe->wDataDescribe)
+		{
+		case DTP_GP_GET_LABA_COUNT://喇叭个数
+		{
+			DTP_GP_GetLabaCount  pHornNum;
+			CopyMemory(&pHornNum, cbDataBuffer + wPacketSize, DataDescribe->wDataSize);
+			DataModel::sharedDataModel()->userInfo->dwHornCount = pHornNum.dwLabaCount;
+			CCLOG("horn:%d <<%s>>",pHornNum.dwLabaCount, __FUNCTION__);
+		}
+		break;
+		case DTP_GP_GET_DIAL_COUNT://转盘个数
+		{
+			DTP_GP_DialCount  pDialNum;
+			CopyMemory(&pDialNum, cbDataBuffer + wPacketSize, DataDescribe->wDataSize);
+			CCLOG("dial:%d <<%s>>", pDialNum.dwDialCount, __FUNCTION__);
+		}
+		break;
+		default:
+			break;
+		}
+		wPacketSize += DataDescribe->wDataSize;
+		if (wPacketSize >= wDataSize)
+		{
+			break;
+		}
+	}
+}
 //登录消息
 void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short wDataSize){
 	switch (wSubCmdID)
@@ -722,28 +818,11 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 				Tools::saveStringByRMS(RMS_LOGON_ACCOUNT, DataModel::sharedDataModel()->sLogonAccount);
 				Tools::saveStringByRMS(RMS_LOGON_PASSWORD, DataModel::sharedDataModel()->sLogonPassword);
 			}
+			//解析附加数据
+			parsingAdditionalData(ls,pDataBuffer,wDataSize);
+
 			//数据统计
-			switch (eStatisticsType)
-			{
-			case LogonScene::STATISTICS_REGISTER:
-			{
-				//发送注册统计数据
-				Statistics *pStatistice = Statistics::create();
-				pStatistice->sendStatisticsData(Statistics::S_REGISTER);
-			}
-				break;
-			case LogonScene::STATISTICS_LOGON:
-			{
-				//发送登录统计数据
-				Statistics *pStatistice = Statistics::create();
-				pStatistice->sendStatisticsData(Statistics::S_ACCOUNT_LOGON);
-			}
-				break;
-			case LogonScene::STATISTICS_QQ:
-				break;
-			default:
-				break;
-			}
+			sendLoginStatistics();
 
 		}
 		break;
