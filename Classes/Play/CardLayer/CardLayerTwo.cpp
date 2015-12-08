@@ -191,7 +191,7 @@ void CardLayerTwo::sendFiveCard(int index,int offsetIndex){
 }
 //移动单张牌
 void CardLayerTwo::moveCardAction(CCArmature *armature, float fTime, CCPoint targetPos,int index){
-	float moveSpeed=0.05;
+	float moveSpeed=0.25;
 	CCDelayTime *delayTime = CCDelayTime::create(fTime);
 	CCMoveTo *moveTo = CCMoveTo::create(moveSpeed, targetPos);
 	CCScaleTo *scaleTo = CCScaleTo::create(moveSpeed, getCardScale(index));
