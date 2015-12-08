@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <array>
@@ -6,7 +6,7 @@
 		<key>offset_x</key>
 		<integer>-550</integer>
 		<key>offset_y</key>
-		<integer>0</integer>
+		<integer>-20</integer>
 		<key>offset_space</key><!--间隔-->
 		<integer>105</integer>
 	</dict>

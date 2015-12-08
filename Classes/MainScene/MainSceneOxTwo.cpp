@@ -59,7 +59,7 @@ void MainSceneOxTwo::onExit(){
 }
 void MainSceneOxTwo::addBg(){
 	CCSize deviceSize=DataModel::sharedDataModel()->deviceSize;
-	CCSprite *spriteBg=CCSprite::create("res/room1_n.jpg");
+	CCSprite *spriteBg=CCSprite::create("res/room_one_by_one.jpg");
 	this->addChild(spriteBg,-1);
 	spriteBg->setPosition(ccp(deviceSize.width/2,deviceSize.height/2));
 	float scaleY=deviceSize.height/spriteBg->getContentSize().height;

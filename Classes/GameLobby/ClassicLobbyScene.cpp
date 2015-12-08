@@ -107,9 +107,10 @@ void ClassicLobbyScene::onEnter(){
 	updateRoomList();
 	//游戏选择卡列表视图
 	pLVItems = static_cast<UIListView*>(m_pWidget->getWidgetByName("ListViewItems"));
+	pLVItems->setEnabled(false);
 	//初始化游戏选项触摸事件
 	initItemTouchEvent();
-	if (getGameItem()!=ITEM_3)
+	/*if (getGameItem()!=ITEM_3)
 	{
 		selectGameItem(0);
 	}
@@ -117,7 +118,7 @@ void ClassicLobbyScene::onEnter(){
 	{
 		pLVItems->setEnabled(false);
 		//pLVItems->getParent()->setVisible(false);
-	}
+	}*/
 	
 	//添加监听事件
 	//CCNotificationCenter::sharedNotificationCenter()->addObserver(this,callfuncO_selector(ClassicLobbyScene::onPlay),S_L_PLAY,NULL);
@@ -154,12 +155,12 @@ void ClassicLobbyScene::initTCPLogon(int index){
 	backGameItem = getGameItem();
 	switch (getGameItem())
 	{
-	/*case ITEM_0:
+	case ITEM_0:
 	{
 		ip = DataModel::sharedDataModel()->tagGameServerListOxTwo[index]->szServerAddr;
 		port = DataModel::sharedDataModel()->tagGameServerListOxTwo[index]->wServerPort;
 	}
-	break;*/
+	break;
 	case ITEM_1:
 	{
 		ip = DataModel::sharedDataModel()->tagGameServerListOxOneByOne[index]->szServerAddr;
@@ -192,11 +193,11 @@ void ClassicLobbyScene::initTCPLogon(int index){
 void  ClassicLobbyScene::updateRoomList(){
 	switch (getGameItem())
 	{
-	/*case ITEM_0://二人牛牛
+	case ITEM_0://二人牛牛
 	{
 		updateRoom(DataModel::sharedDataModel()->tagGameServerListOxTwo);
 	}
-	break;*/
+	break;
 	case ITEM_1://通比牛牛
 	{
 		updateRoom(DataModel::sharedDataModel()->tagGameServerListOxOneByOne);
@@ -348,9 +349,9 @@ void ClassicLobbyScene::popDialogBox(){
 void ClassicLobbyScene::enterMainSceneByMode(int mode){
 	switch (mode)
 	{
-	/*case ITEM_0:
+	case ITEM_0:
 		Tools::setTransitionAnimation(0, 0, MainSceneOxTwo::scene());
-		break;*/
+		break;
 	case ITEM_1:
 		Tools::setTransitionAnimation(0, 0, MainSceneOxOneByOne::scene());
 		break;
@@ -441,12 +442,12 @@ void ClassicLobbyScene::onEventConnect(WORD wSubCmdID, void * pDataBuffer, unsig
 
 		switch (getGameItem())
 		{
-		/*case ITEM_0:
+		case ITEM_0:
 		{
 			logonMobile.wGameID = 210;
 			logonMobile.dwProcessVersion = VERSION_CLIENT;
 		}
-		break;*/
+		break;
 		case ITEM_1:
 		{
 			logonMobile.wGameID = 130;

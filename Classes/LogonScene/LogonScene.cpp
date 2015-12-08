@@ -586,10 +586,10 @@ void LogonScene::resetKindID(CMD_MB_LogonAccounts &logonAccounts){
 	{
 		logonAccounts.wModuleID[i] = 0;
 	}
-	//logonAccounts.wModuleID[0] = 210; //210为二人牛牛标示
-	logonAccounts.wModuleID[0] = 30; //30为百人牛牛标示
-	logonAccounts.wModuleID[1] = 130; //1002为通比牛牛标示
-	logonAccounts.wModuleID[2] = 430; //六人换牌
+	logonAccounts.wModuleID[0] = 210; //210为二人牛牛标示
+	logonAccounts.wModuleID[1] = 30; //30为百人牛牛标示
+	logonAccounts.wModuleID[2] = 130; //1002为通比牛牛标示
+	logonAccounts.wModuleID[3] = 430; //六人换牌
 }
 //登录游戏
 void LogonScene::otherLogonGamePara(){

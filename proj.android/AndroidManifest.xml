@@ -79,7 +79,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" ></activity>
         
-        <meta-data android:name="k_session_id" android:value="9999"/>
+        <meta-data android:name="k_session_id" android:value="162"/>
         <meta-data android:name="k_session_verion" android:value="a01"/>
     </application>
 

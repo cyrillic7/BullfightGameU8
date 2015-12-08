@@ -16,10 +16,14 @@ public:
 	
 	enum ModeType
 	{
-		MODE_CLASSIC=1,					//经典模式
+		/*MODE_CLASSIC=1,					//经典模式
 		MODE_Hundred,						//百人场
 		MODE_ONE_BY_ONE,				//通比
+		MODE_SIX_SWAP,					//六人换牌*/
+		MODE_TWO = 1,					//二人
+		MODE_ONE_BY_ONE,				//通比
 		MODE_SIX_SWAP,					//六人换牌
+		MODE_Hundred,					//百人场
 	};
 private:
 	//CGameSocket gameSocket;

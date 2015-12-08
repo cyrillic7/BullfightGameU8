@@ -137,7 +137,7 @@ void GameLobbyScene::onEnter(){
 	}*/
 	//旋转菜单////////////////////////////////////////////////////////////////////////
 	RotateMenu *menu = RotateMenu::create();
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		menu->addMenuItem(createMenuItem(i));
 	}
@@ -207,16 +207,16 @@ CCMenuItemSprite *GameLobbyScene::createMenuItem(int index){
 //开始游戏
 void GameLobbyScene::onMenuStartGame(cocos2d::CCObject* pSender){
 	CCMenuItemSprite *button = (CCMenuItemSprite*)pSender;
-	if (button->getTag() < 3)
+	//if (button->getTag() < 3)
 	{
 		enterLobbyByMode(button->getTag());
 	}
-	else
+	/*else
 	{
 		PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
 		this->addChild(tipInfo);
 		tipInfo->setTipInfoContent(BaseAttributes::sharedAttributes()->sWaitCodeing.c_str());
-	}
+	}*/
 }
 //显示签到
 bool GameLobbyScene::isShowSign(){
@@ -308,13 +308,61 @@ void GameLobbyScene::popDialogBoxUserInfo(){
 void GameLobbyScene::enterLobbyByMode(int mode){
 	switch (mode)
 	{
-	case MODE_CLASSIC:
+	/*case MODE_CLASSIC:
 		{
 			ClassicLobbyScene *pLayer = ClassicLobbyScene::create();
 			this->addChild(pLayer, 100);
 				//Tools::setTransitionAnimation(0, 0, ClassicLobbyScene::scene(false));
 		}
-		break;
+		break;*/
+	case MODE_TWO:
+	{
+		if (DataModel::sharedDataModel()->tagGameServerListOxTwo.size() <= 0)
+		{
+			PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+			this->addChild(tipInfo);
+			tipInfo->setTipInfoContent(("获取房间列表失败!"));
+		}
+		else
+		{
+			ClassicLobbyScene *pLayer = ClassicLobbyScene::create();
+			pLayer->setGameItem(ClassicLobbyScene::ITEM_0);
+			this->addChild(pLayer, 100);
+		}
+	}
+	break;
+	case MODE_ONE_BY_ONE:
+	{
+		if (DataModel::sharedDataModel()->tagGameServerListOxOneByOne.size() <= 0)
+		{
+			PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+			this->addChild(tipInfo);
+			tipInfo->setTipInfoContent(("获取房间列表失败!"));
+		}
+		else
+		{
+			ClassicLobbyScene *pLayer = ClassicLobbyScene::create();
+			pLayer->setGameItem(ClassicLobbyScene::ITEM_1);
+			this->addChild(pLayer, 100);
+		}
+	}
+	break;
+	case MODE_SIX_SWAP:
+	{
+		if (DataModel::sharedDataModel()->tagGameServerListSixSwap.size() <= 0)
+		{
+			PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
+			this->addChild(tipInfo);
+			tipInfo->setTipInfoContent(("获取房间列表失败!"));
+		}
+		else
+		{
+			ClassicLobbyScene *pLayer = ClassicLobbyScene::create();
+			pLayer->setGameItem(ClassicLobbyScene::ITEM_2);
+			this->addChild(pLayer, 100);
+		}
+	}
+	break;
 	case MODE_Hundred:
 		{
 			if (DataModel::sharedDataModel()->tagGameServerListOxHundred.size()<=0)
