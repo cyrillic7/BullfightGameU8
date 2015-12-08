@@ -11,6 +11,7 @@
 #define MAX_HORN_MSG_COUNT				10					//最大消息数
 LobbyMsgHandler* _sharedSocketControl;
 LobbyMsgHandler::LobbyMsgHandler()
+	:iHornMsgAssist(NULL)
 {
 	this->onEnter();
 	this->onEnterTransitionDidFinish();
@@ -286,11 +287,16 @@ void LobbyMsgHandler::onHornMsgLog(void * pDataBuffer, unsigned short wDataSize)
 	CMD_GL_LabaLog* hornMsg = static_cast<CMD_GL_LabaLog*>(pDataBuffer);
 	if (hornMsg->lResultCode==0)
 	{
-		CCLOG("%s <<%s>>",hornMsg->szDescribeString, __FUNCTION__);
+		DataModel::sharedDataModel()->userInfo->dwHornCount = hornMsg->dwPropNum;
+		MTNotificationQueue::sharedNotificationQueue()->postNotification(UPDATE_HORN_COUNT, NULL);
 	}
 	else
 	{
-		CCLOG("%s <<%s>>", hornMsg->szDescribeString, __FUNCTION__);
+		if (getIHornMsgAssist())
+		{
+			std::string sContent = GBKToUTF8(hornMsg->szDescribeString);
+			getIHornMsgAssist()->onSendFail(sContent);
+		}
 	}
 }
 //收喇叭消息

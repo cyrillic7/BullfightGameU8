@@ -6,10 +6,12 @@
 #include "cocos-ext.h"
 #include "BaseLobbyScene.h"
 #include "../MTNotificationQueue/MessageQueueGameIng.h"
+#include "../MTNotificationQueue/IHornMsgAssist.h"
+#include "PopDialogBox/PopDialogBoxOptTipInfo.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 using namespace gui;
-class LobbyHornLayer :public CCLayer, public CCEditBoxDelegate,public CStringAide
+class LobbyHornLayer :public CCLayer, public CCEditBoxDelegate,public CStringAide,public IHornMsgAssist
 {
 private:
 	//喇叭消息背景
@@ -52,4 +54,10 @@ private:
 	void showTipInfo(const char* sInfo);
 	//更新喇叭消息
 	void onUpdateHornMsg(CCObject *obj);
+	//发送失败
+	virtual void onSendFail(std::string content);
+	//发送确定回调
+	virtual void onSendSure();
+	//发送消息
+	void sendHornMsg(std::string content);
 };

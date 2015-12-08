@@ -21,9 +21,7 @@
   <imageFileList>
     <string>UILoadingBar.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>UILoadingBar.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
   <CurrentUIJson>UIPopDialogBoxMakeText.json</CurrentUIJson>
 </UIProject>

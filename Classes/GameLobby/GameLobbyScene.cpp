@@ -155,6 +155,7 @@ void GameLobbyScene::onEnter(){
 
 	//添加监听事件
 	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(GameLobbyScene::resetClipLabelData), UPDATE_HORN_MSG, NULL);
+	CCNotificationCenter::sharedNotificationCenter()->addObserver(this, callfuncO_selector(GameLobbyScene::onUpdateHornCount), UPDATE_HORN_COUNT, NULL);
 
 }
 //重设喇叭数
@@ -246,6 +247,7 @@ void GameLobbyScene::showUpTip(){
 }
 void GameLobbyScene::onExit(){
 	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, UPDATE_HORN_MSG);
+	CCNotificationCenter::sharedNotificationCenter()->removeObserver(this, UPDATE_HORN_COUNT);
 	BaseLobbyScene::onExit();
 }
 void GameLobbyScene::menuResetUser(CCObject* pSender, TouchEventType type){
@@ -984,4 +986,8 @@ void GameLobbyScene::resetClipLabelData(CCObject *obj){
 //移动完成
 void GameLobbyScene::onMoveFinsh(){
 	resetClipLabelData(NULL);
+}
+//设置喇叭数
+void GameLobbyScene::onUpdateHornCount(CCObject *obj){
+	resetHornNum();
 }

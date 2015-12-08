@@ -8,10 +8,12 @@
 #include "../PopDialogBox/PopDialogBoxTipInfo.h"
 #include "../Tools/CStringAide.h"
 #include "../Network/CMD_Server/CMD_LogonServer.h"
+#include "IHornMsgAssist.h"
 USING_NS_CC;
 class LobbyMsgHandler :public CCNode, public IGameSocket, public CStringAide,public IPopAssistTipInfo{
 public:
 	CGameSocket gameSocket;
+	CC_SYNTHESIZE(IHornMsgAssist *, iHornMsgAssist, IHornMsgAssist);
 public:
 	LobbyMsgHandler();
 	~LobbyMsgHandler();

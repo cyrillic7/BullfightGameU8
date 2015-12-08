@@ -66,16 +66,36 @@ void LobbyHornLayer::onMenuSendMsg(CCObject* pSender, TouchEventType type){
 		}
 		else
 		{
-			CMD_GL_Laba HornMsg;
-			HornMsg.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
-			strcpy(HornMsg.szNickName, DataModel::sharedDataModel()->userInfo->szNickName);
-			HornMsg.dwKindID = 0;
-			HornMsg.dwServerID = 0;
-			HornMsg.dwPropNum = 0;
-			strcpy(HornMsg.szLabaText, UTF8ToGBK(pEBInputMsgContent->getText()).c_str());
-			LobbyMsgHandler::sharedLobbyMsgHandler()->gameSocket.SendData(MDM_GL_C_DATA, SUB_GL_C_LABA, &HornMsg, sizeof(HornMsg));
+			if (DataModel::sharedDataModel()->userInfo->dwHornCount<=0)
+			{
+				PopDialogBoxOptTipInfo *pUTipInfo = PopDialogBoxOptTipInfo::create();
+				this->addChild(pUTipInfo, 100);
+				pUTipInfo->setIHornMsgAssist(this);
+				pUTipInfo->setTipInfoData("您可发送的喇叭数为0，继续发送将会从保险柜中扣除100万币，是否继续发送？");
+			}
+			else
+			{
+				sendHornMsg(UTF8ToGBK(pEBInputMsgContent->getText()));
+			}
 		}
 	}
+}
+//发送确定回调
+void LobbyHornLayer::onSendSure(){
+	CCEditBox *pEBInputMsgContent = (CCEditBox*)pTFHornMsgContent->getNodeByTag(TAG_INPUT_EDIT_BOX);
+	sendHornMsg(UTF8ToGBK(pEBInputMsgContent->getText()));
+}
+//发送消息
+void LobbyHornLayer::sendHornMsg(std::string content){
+	LobbyMsgHandler::sharedLobbyMsgHandler()->setIHornMsgAssist(this);
+	CMD_GL_Laba HornMsg;
+	HornMsg.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
+	strcpy(HornMsg.szNickName, DataModel::sharedDataModel()->userInfo->szNickName);
+	HornMsg.dwKindID = 0;
+	HornMsg.dwServerID = 0;
+	HornMsg.dwPropNum = 0;
+	strcpy(HornMsg.szLabaText,content.c_str());
+	LobbyMsgHandler::sharedLobbyMsgHandler()->gameSocket.SendData(MDM_GL_C_DATA, SUB_GL_C_LABA, &HornMsg, sizeof(HornMsg));
 }
 bool LobbyHornLayer::ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent){
 	CCPoint touchPoint = this->convertTouchToNodeSpace(pTouch);
@@ -111,27 +131,7 @@ void LobbyHornLayer::hideMsg(){
 }
 //设置滚动容器数据
 void LobbyHornLayer::setScrollViewData(){
-	/*for (int i = 0; i < 10; i++)
-	{
-		std::string sTemp = "测试数据:";
-		if (i%2==0)
-		{
-			sTemp += "多天呆要要要要要要大在在一一在在在在在在在在在在在在在在在在要要要要要要要要本年数据";
-		}
-		sContentList.push_back(sTemp);
-	}
-	int height = 0;
-	for (int i = 0; i<sContentList.size(); i++)
-	{
-		UILabel *pLContent = createMsgContent(sContentList[i]);
-		height += pLContent->getSize().height;
-		pLContent->setPosition(ccp(0,height));
-		pSVMsg->addChild(pLContent);
-		pSVMsg->setInnerContainerSize(CCSize(pLContent->getContentSize().width, height));
-	}
-	pSVMsg->scrollToBottom(0,false);*/
 	pSVMsg->removeAllChildrenWithCleanup(true);
-
 	int height = 0;
 	std::list <std::string> ::iterator iter;
 	for (iter = DataModel::sharedDataModel()->listHornMsg.begin(); iter != DataModel::sharedDataModel()->listHornMsg.end(); iter++)
@@ -141,20 +141,15 @@ void LobbyHornLayer::setScrollViewData(){
 		pLContent->setPosition(ccp(0, height));
 		pSVMsg->addChild(pLContent);
 		pSVMsg->setInnerContainerSize(CCSize(pLContent->getContentSize().width, height));
+		
+		UIImageView *pIVHornLine = UIImageView::create();
+		pIVHornLine->loadTexture("u_line-between.png", UI_TEX_TYPE_PLIST);
+		pIVHornLine->setScaleX(pSVMsg->getSize().width);
+		height += pIVHornLine->getContentSize().height;
+		pIVHornLine->setPosition(ccp(0,height));
+		pSVMsg->addChild(pIVHornLine);
 	} 
-	//if (height > pSVMsg->getCustomSize().height);
-	{
-		pSVMsg->scrollToBottom(0.1, false);
-	}
-	/*for (int i = 0; i < 3; i++)
-	{
-		UILabel *pLContent = createMsgContent("dsdsdsdsdsdsdsggfdhgf");
-		height += pLContent->getSize().height;
-		pLContent->setPosition(ccp(0, height));
-		pSVMsg->addChild(pLContent);
-		pSVMsg->setInnerContainerSize(CCSize(pLContent->getContentSize().width, height));
-	}*/
-	//
+	pSVMsg->scrollToBottom(0.2, false);
 }
 //创建消息内容
 UILabel *LobbyHornLayer::createMsgContent(std::string content){
@@ -221,4 +216,16 @@ void LobbyHornLayer::showTipInfo(const char* sInfo){
 	PopDialogBoxTipInfo *pTipInfo = PopDialogBoxTipInfo::create();
 	this->addChild(pTipInfo, 10);
 	pTipInfo->setTipInfoContent(sInfo);
+}
+/*//显示提示语
+void LobbyHornLayer::showTipInfo(const char* sInfo, IPopAssistTipInfo *pITipInfo, int eButtonType){
+	PopDialogBoxTipInfo *pTipInfo = PopDialogBoxTipInfo::create();
+	this->addChild(pTipInfo, 10);
+	pTipInfo->setTipButtonContent((PopDialogBoxTipInfo::TipButtonType)eButtonType);
+	pTipInfo->setIPopAssistTipInfo(pITipInfo);
+	pTipInfo->setTipInfoContent(sInfo);
+}*/
+//发送失败
+void LobbyHornLayer::onSendFail(std::string content){
+	showTipInfo(content.c_str());
 }

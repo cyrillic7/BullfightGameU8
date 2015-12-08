@@ -12,9 +12,7 @@
   "textures": [
     "UILoadingBar.plist"
   ],
-  "texturesPng": [
-    "UILoadingBar.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -94,7 +92,7 @@
           "ignoreSize": false,
           "layoutParameter": null,
           "opacity": 255,
-          "positionPercentX": 0.5042444,
+          "positionPercentX": 0.503521144,
           "positionPercentY": 0.1875,
           "positionType": 1,
           "rotation": 0,

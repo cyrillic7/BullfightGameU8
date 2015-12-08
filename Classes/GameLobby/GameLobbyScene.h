@@ -91,4 +91,6 @@ private:
 	void resetClipLabelData(CCObject *obj);
 	//移动完成
 	void onMoveFinsh();
+	//设置喇叭数
+	void onUpdateHornCount(CCObject *obj);
 };

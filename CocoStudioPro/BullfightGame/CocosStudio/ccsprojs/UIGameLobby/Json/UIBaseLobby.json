@@ -12,9 +12,7 @@
   "textures": [
     "UIHorn.plist"
   ],
-  "texturesPng": [
-    "UIHorn.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -1742,7 +1740,7 @@
               "ignoreSize": true,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": -0.5025,
+              "positionPercentX": -0.5015625,
               "positionPercentY": 0,
               "positionType": 1,
               "rotation": 0,
@@ -1794,7 +1792,7 @@
           "layoutParameter": null,
           "opacity": 255,
           "positionPercentX": 0.5,
-          "positionPercentY": 0.07,
+          "positionPercentY": 0.06875,
           "positionType": 1,
           "rotation": 0,
           "scaleX": 1,

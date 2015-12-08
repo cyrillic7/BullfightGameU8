@@ -24,3 +24,4 @@
 #define UPDATE_VIP								"updateVIp"						//更新VIP等级
 #define UPDATE_WEALTH_RANK						"updateWealthRank"				//更新财富排行
 #define UPDATE_HORN_MSG							"updateHornMsg"					//更新喇叭消息
+#define UPDATE_HORN_COUNT						"updateHornCount"				//更新喇叭数
