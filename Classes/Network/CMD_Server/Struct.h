@@ -259,6 +259,7 @@ struct tagUserInfo
 
 	DWORD							dwFirstOnLineOrder;					//是否首冲
 	DWORD						dwHornCount;							//喇叭数
+	DWORD						dwDialCount;								//转盘数
 };
 
 //用户信息

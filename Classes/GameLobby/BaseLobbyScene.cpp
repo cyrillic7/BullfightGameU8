@@ -26,6 +26,7 @@
 #include "../PopDialogBox/PopDialogBoxShare.h"
 #include "../PopDialogBox/PopDialogBoxGiftExchang.h"
 #include "../PopDialogBox/PopDialogBoxWealthRanking.h"
+#include "../PopDialogBox/PopDialogBoxDial.h"
 #include "../Platform/coPlatform.h"
 #include "../Tools/DataModel.h"
 #include "../Network/SEvent.h"
@@ -180,6 +181,7 @@ void BaseLobbyScene::popDialogBox(PopType type){
 		pdb=PopDialogBoxSetUp::create();
 		break;
 	case BaseLobbyScene::POP_MORE:
+		//pdb = PopDialogBoxDial::create();
 		pdb=PopDialogBoxMore::create();
 		break;
 	case BaseLobbyScene::POP_ACTIVITY:

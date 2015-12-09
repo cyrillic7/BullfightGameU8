@@ -31,6 +31,7 @@ LogonScene* LogonScene::pLScene=NULL;
 
 #define kURLQQLogon(name)  CCString::createWithFormat("{\"act\":200 ,\"url\":\"http://www.qicainiu.net/QQLogin.aspx?%s\"}",(name))->getCString()
 //#define  CCString::createWithFormat()
+//#define kURLQQLogon(name)  CCString::createWithFormat("{\"act\":200 ,\"url\":\"http://121.40.31.203:9021/Test.aspx?%s\"}",(name))->getCString()
 
 LogonScene::LogonScene()
 	:eLogonType(LOGON_ACCOUNT)
@@ -741,14 +742,13 @@ void LogonScene::parsingAdditionalData(CMD_MB_LogonSuccess *ls, void * pDataBuff
 			DTP_GP_GetLabaCount  pHornNum;
 			CopyMemory(&pHornNum, cbDataBuffer + wPacketSize, DataDescribe->wDataSize);
 			DataModel::sharedDataModel()->userInfo->dwHornCount = pHornNum.dwLabaCount;
-			CCLOG("horn:%d <<%s>>",pHornNum.dwLabaCount, __FUNCTION__);
 		}
 		break;
 		case DTP_GP_GET_DIAL_COUNT://转盘个数
 		{
 			DTP_GP_DialCount  pDialNum;
 			CopyMemory(&pDialNum, cbDataBuffer + wPacketSize, DataDescribe->wDataSize);
-			CCLOG("dial:%d <<%s>>", pDialNum.dwDialCount, __FUNCTION__);
+			DataModel::sharedDataModel()->userInfo->dwDialCount = pDialNum.dwDialCount;
 		}
 		break;
 		default:
