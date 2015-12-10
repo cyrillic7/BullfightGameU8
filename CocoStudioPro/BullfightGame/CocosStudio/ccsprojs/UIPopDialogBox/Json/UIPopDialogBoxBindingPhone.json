@@ -10,11 +10,11 @@
   "designHeight": 640,
   "designWidth": 1136,
   "textures": [
-    "UIPanel.plist",
-    "UIButton.plist",
-    "UIShare.plist"
+    "UIDial.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIDial.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",

@@ -11,7 +11,7 @@
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{645,612}}</string>
                 <key>sourceSize</key>
@@ -20,7 +20,7 @@
             <key>close.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{666,581},{56,56}}</string>
+                <string>{{821,52},{56,56}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +33,7 @@
             <key>close_press.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{666,523},{56,56}}</string>
+                <string>{{915,2},{56,56}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,11 +46,11 @@
             <key>ptgo.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1827,173},{170,169}}</string>
+                <string>{{820,344},{170,169}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{170,169}}</string>
                 <key>sourceSize</key>
@@ -59,72 +59,20 @@
             <key>ptgo_press.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1655,173},{170,169}}</string>
+                <string>{{649,344},{170,169}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{170,169}}</string>
                 <key>sourceSize</key>
                 <string>{170,169}</string>
             </dict>
-            <key>ptlight1.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1814,344},{158,157}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{6,6},{158,157}}</string>
-                <key>sourceSize</key>
-                <string>{170,169}</string>
-            </dict>
-            <key>ptlight2.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1807,504},{150,147}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{10,11},{150,147}}</string>
-                <key>sourceSize</key>
-                <string>{170,169}</string>
-            </dict>
-            <key>u_opt0.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1342,522},{130,200}}</string>
-                <key>offset</key>
-                <string>{0,24}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{0,5},{130,200}}</string>
-                <key>sourceSize</key>
-                <string>{130,258}</string>
-            </dict>
-            <key>u_opt1.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1136,522},{130,204}}</string>
-                <key>offset</key>
-                <string>{0,25}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{0,2},{130,204}}</string>
-                <key>sourceSize</key>
-                <string>{130,258}</string>
-            </dict>
             <key>vipgo.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1827,2},{170,169}}</string>
+                <string>{{649,173},{170,169}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -137,7 +85,7 @@
             <key>vipgo_press.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1655,2},{170,169}}</string>
+                <string>{{649,2},{170,169}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -147,70 +95,18 @@
                 <key>sourceSize</key>
                 <string>{170,169}</string>
             </dict>
-            <key>viplight1.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1655,344},{158,157}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{6,6},{158,157}}</string>
-                <key>sourceSize</key>
-                <string>{170,169}</string>
-            </dict>
-            <key>viplight2.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1655,504},{150,147}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{10,11},{150,147}}</string>
-                <key>sourceSize</key>
-                <string>{170,169}</string>
-            </dict>
             <key>zhen.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{616,523},{48,92}}</string>
+                <string>{{821,2},{48,92}}</string>
                 <key>offset</key>
                 <string>{0,29}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{48,92}}</string>
                 <key>sourceSize</key>
                 <string>{48,150}</string>
-            </dict>
-            <key>zhp_light_1.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1136,2},{517,518}}</string>
-                <key>offset</key>
-                <string>{-33,-16}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{31,63},{517,518}}</string>
-                <key>sourceSize</key>
-                <string>{645,612}</string>
-            </dict>
-            <key>zhp_light_2.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{616,2},{519,518}}</string>
-                <key>offset</key>
-                <string>{-34,-16}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{29,63},{519,518}}</string>
-                <key>sourceSize</key>
-                <string>{645,612}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -220,9 +116,9 @@
             <key>realTextureFileName</key>
             <string>UIDial.png</string>
             <key>size</key>
-            <string>{1999,654}</string>
+            <string>{991,616}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:1bd75210ed3b9a968a024bed05608418:45339db8ad71d28c619e44b8d043f598:1fa5bfd3d5801ed61bb3a300db4a84ab$</string>
+            <string>$TexturePacker:SmartUpdate:b46fa3b596f90c9f9191aec308aaf2d2:2ffb60fd6a6bc09f56d461119d4466ff:1fa5bfd3d5801ed61bb3a300db4a84ab$</string>
             <key>textureFileName</key>
             <string>UIDial.png</string>
         </dict>

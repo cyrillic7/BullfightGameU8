@@ -189,6 +189,8 @@ public class BullfightGame extends Cocos2dxActivity {
 
 	// 活动
 	public static native void JniOnActivity(int tyep);
+	// 微信登录
+	public static native void JniWXLogin(String code);
 
 	// public static native void JniCaller();
 

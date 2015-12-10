@@ -10,18 +10,10 @@
   "designHeight": 640,
   "designWidth": 1136,
   "textures": [
-    "UIPanel.plist",
-    "UIButton.plist",
-    "UIGiftExchang.plist",
-    "UIUserInfo.plist",
-    "UILogon.plist"
+    "UIDial.plist"
   ],
   "texturesPng": [
-    "UIPanel.png",
-    "UIButton.png",
-    "UIGiftExchang.png",
-    "UIUserInfo.png",
-    "UILogon.png"
+    "UIDial.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {
@@ -522,7 +514,7 @@
                   },
                   "opacity": 255,
                   "positionPercentX": 0,
-                  "positionPercentY": 0.671428561,
+                  "positionPercentY": 1.66785717,
                   "positionType": 0,
                   "rotation": 0,
                   "scaleX": 1,
@@ -536,7 +528,7 @@
                   "visible": true,
                   "width": 600,
                   "x": 0,
-                  "y": 188,
+                  "y": 467,
                   "adaptScreen": false,
                   "backGroundImage": null,
                   "backGroundImageData": null,

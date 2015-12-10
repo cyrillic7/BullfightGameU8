@@ -16,6 +16,7 @@
 #include "PopDialogBoxInputNum.h"
 #include "../GameLobby/BaseLobbyScene.h"
 #include "../Tools/DataModel.h"
+#include "../PopDialogBox/PopDialogBoxDial.h"
 std::string PopDialogBox::sSocketName = "";
 PopDialogBox::PopDialogBox()
 :pUILayer(NULL)

@@ -49,6 +49,8 @@ public:
     CREATE_FUNC(GameLobbyScene);
 	//显示喇叭框
 	void showHorn();
+	//显示VIP
+	void addVip();
 private:
 	//重设喇叭数
 	void resetHornNum();

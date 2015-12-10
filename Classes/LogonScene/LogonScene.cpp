@@ -222,7 +222,7 @@ void LogonScene::onEnter(){
 	m_pWidget->addWidget(pWidget);
 	//绑定按键
 	UIButton* button;
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		button  = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("ButtonLogon%d",i)->getCString()));
 		button->addTouchEventListener(this, SEL_TouchEvent(&LogonScene::onMenuLogon));
@@ -397,6 +397,14 @@ void LogonScene::onMenuLogon(CCObject* pSender, TouchEventType type){
 					//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_LOGON_GAME);
 					*/
 				}
+				break;
+			case LOGON_WEI_XIN:
+			{
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#else
+				platformAction("{\"act\":910}").c_str();
+#endif
+			}
 				break;
 			default:
 				break;
@@ -1136,6 +1144,20 @@ void LogonScene::logonQQ(const char*id,const char*pwd){
     DataModel::sharedDataModel()->sLogonPassword=pwd;
     scheduleOnce(SEL_SCHEDULE(&LogonScene::logonGameByAccount),0.5);
 }
+void LogonScene::logonWX(const char*code){
+	connectServer();
+	{
+		CMD_MB_AccessToken logonToken;
+		logonToken.dwSessionID = 111111;
+		strcpy(logonToken.szUMId,"");
+		logonToken.dwSex = 0;
+		strcpy(logonToken.szNickName,"");
+		strcpy(logonToken.szMachineID, Tools::getMachineID().c_str());
+		strcpy(logonToken.szAccessToken, code);
+		gameSocket.SendData(MDM_MB_LOGON, SUB_MB_ACCESSTOKEN, &logonToken, sizeof(logonToken));
+	}
+	CCLOG("-----------------------------WXING :%s<<%s>>",code, __FUNCTION__);
+}
 /////////////////////////////////////////////////////////////////////////////
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include <jni.h>
@@ -1168,6 +1190,14 @@ extern "C"
 			break;
 		}
 	} 
+	//java 调用(签名验证)
+	JNIEXPORT void JNICALL Java_com_xw_BullfightGame_BullfightGame_JniWXLogin(JNIEnv* env,jobject job, jstring code)
+	{
+		const char * sCode= env->GetStringUTFChars(code, NULL);
+		
+		LogonScene::pLScene->logonWX(sCode);
+		
+	}
 #ifdef __cplusplus
 }
 #endif

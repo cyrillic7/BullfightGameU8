@@ -13,5 +13,5 @@ struct IHornMsgAssist//
 	//发送失败
 	virtual void onSendFail(std::string content) = 0;
 	//发送确定
-	virtual void onSendSure()=0;
+	virtual void onSendSure(CCLayer *layer) = 0;
 };

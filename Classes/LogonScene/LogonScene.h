@@ -41,6 +41,7 @@ private:
 		LOGON_QQ,							//QQ登录
 		LOGON_REGISTER,						//注册
 		LOGON_QUICK,						//快速登录
+		LOGON_WEI_XIN,						//微信`登录
 	};
 	CC_SYNTHESIZE(LogonType, eLogonType, LogonType);
 	std::string sRegisterAccount;
@@ -73,6 +74,7 @@ public:
     
     void closeWebView();
     void logonQQ(const char*id,const char*pwd);
+	void logonWX(const char*code);
     CREATE_FUNC(LogonScene);
 private:
 	void onMenuLogon(CCObject* pSender, TouchEventType type);

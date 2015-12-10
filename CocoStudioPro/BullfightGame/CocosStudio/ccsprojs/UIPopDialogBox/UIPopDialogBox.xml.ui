@@ -7,10 +7,12 @@
   <JsonFileName>UIPopDialogBox.json</JsonFileName>
   <JsonFolder>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\ccsprojs\UIPopDialogBox\Json</JsonFolder>
   <JsonList>
+    <string>UIGiftExchang.json</string>
     <string>UIPopDialogBoxBank.json</string>
     <string>UIPopDialogBoxBindingPhone.json</string>
     <string>UIPopDialogBoxBuyCount.json</string>
     <string>UIPopDialogBoxChangePassword.json</string>
+    <string>UIPopDialogBoxDial.json</string>
     <string>UIPopDialogBoxFeedback.json</string>
     <string>UIPopDialogBoxFirstRecharge.json</string>
     <string>UIPopDialogBoxForgetPassword.json</string>
@@ -26,14 +28,13 @@
     <string>UIPopDialogBoxRegistered.json</string>
     <string>UIPopDialogBoxSetting.json</string>
     <string>UIPopDialogBoxSetUp.json</string>
+    <string>UIPopDialogBoxShare.json</string>
     <string>UIPopDialogBoxShop.json</string>
     <string>UIPopDialogBoxTask.json</string>
     <string>UIPopDialogBoxTrend.json</string>
     <string>UIPopDialogBoxUpBank.json</string>
     <string>UIPopDialogBoxUserInfo.json</string>
     <string>UIPopDialogBoxVip.json</string>
-    <string>UIPopDialogBoxShare.json</string>
-    <string>UIGiftExchang.json</string>
     <string>UIPopDialogBoxWealthRanking.json</string>
   </JsonList>
   <CanvasSize>
@@ -44,15 +45,9 @@
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <imageFileList>
-    <string>UIPanel.plist</string>
-    <string>UIButton.plist</string>
-    <string>UIWealthRanking.plist</string>
+    <string>UIDial.plist</string>
   </imageFileList>
-  <imagePngList>
-    <string>UIPanel.png</string>
-    <string>UIButton.png</string>
-    <string>UIWealthRanking.png</string>
-  </imagePngList>
+  <imagePngList />
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson>UIPopDialogBoxWealthRanking.json</CurrentUIJson>
+  <CurrentUIJson>UIPopDialogBoxDial.json</CurrentUIJson>
 </UIProject>

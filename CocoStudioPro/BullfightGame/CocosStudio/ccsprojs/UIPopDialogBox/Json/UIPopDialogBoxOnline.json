@@ -10,11 +10,11 @@
   "designHeight": 640,
   "designWidth": 1136,
   "textures": [
-    "UIPanel.plist",
-    "UIButton.plist",
-    "UIShare.plist"
+    "UIDial.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIDial.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -273,8 +273,8 @@
                 "type": 1
               },
               "opacity": 255,
-              "positionPercentX": 0,
-              "positionPercentY": 0.8017621,
+              "positionPercentX": 0.804,
+              "positionPercentY": 1.09471369,
               "positionType": 0,
               "rotation": 0,
               "scaleX": 1,
@@ -287,8 +287,8 @@
               "useMergedTexture": false,
               "visible": true,
               "width": 250,
-              "x": 0,
-              "y": 364,
+              "x": 201,
+              "y": 497,
               "adaptScreen": false,
               "backGroundImage": null,
               "backGroundImageData": null,

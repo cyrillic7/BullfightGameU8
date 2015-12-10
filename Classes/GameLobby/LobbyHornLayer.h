@@ -57,7 +57,7 @@ private:
 	//发送失败
 	virtual void onSendFail(std::string content);
 	//发送确定回调
-	virtual void onSendSure();
+	virtual void onSendSure(CCLayer *layer);
 	//发送消息
 	void sendHornMsg(std::string content);
 };

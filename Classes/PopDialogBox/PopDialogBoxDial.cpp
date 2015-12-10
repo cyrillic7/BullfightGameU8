@@ -10,23 +10,26 @@
 #include "../Tools/GameConfig.h"
 #include "../Tools/Tools.h"
 #include "../Network/MD5/MD5.h"
+#include "../Network/CMD_Server/Packet.h"
+#include "../PopDialogBox/PopDialogBoxOptTipInfo.h"
+#include "../GameLobby/GameLobbyScene.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxDial::PopDialogBoxDial()
-	:eSignState(SIGN_LIST)
-	, isSign(true)
+	: eDialState(DIAL_FREE)
+	, dialIndex(0)
 {
-	
 	scheduleUpdate();
+	//加载扑克动画文件
+	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(CCS_PATH_SCENE(AnimationDial.ExportJson));
 }
 PopDialogBoxDial::~PopDialogBoxDial() {
 	CCLOG("~ <<%s>>",__FUNCTION__);
 	unscheduleUpdate();
-	//TCPSocketControl::sharedTCPSocketControl()->removeTCPSocket(SOCKET_SIGN);
 	//gameSocket.Destroy(true);
 }
 void PopDialogBoxDial::onEnter(){
 	CCLayer::onEnter();
-	Layout* layoutPauseUI = static_cast<Layout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UIPopDialogBoxSign.ExportJson)));
+	Layout* layoutPauseUI = static_cast<Layout*>(GUIReader::shareReader()->widgetFromJsonFile(CCS_PATH_SCENE(UIPopDialogBoxDial.ExportJson)));
 	pUILayer->addWidget(layoutPauseUI);
 	
 	pWidgetBg = static_cast<UIImageView*>(pUILayer->getWidgetByName("bg"));
@@ -34,51 +37,76 @@ void PopDialogBoxDial::onEnter(){
 	//关闭
 	UIButton *backButton = static_cast<UIButton*>(pUILayer->getWidgetByName("buttonClose"));
 	backButton->addTouchEventListener(this, toucheventselector(PopDialogBox::onMenuBackWithReadMsg));
-	backButton->setEnabled(false);
-	//签到
-	pBSign = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonSign"));
-	pBSign->addTouchEventListener(this, toucheventselector(PopDialogBoxDial::onMenuSign));
-	//签到奖励金币
-	pLSignRewardGold = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelSignRewardGold"));
-	//签到天数信息
-	pLSignDayInfo = static_cast<UILabel*>(pUILayer->getWidgetByName("LabelSignDayInfo"));
-	//签到奖励列表
-	pLVSign = static_cast<UIListView*>(pUILayer->getWidgetByName("ListViewSignReward"));
-	//设置cell模式
-	pLVSign->setItemModel(pLVSign->getItem(0));
-	updateListSignInfo();
+	//开始按键
+	pBStart = static_cast<UIButton*>(pUILayer->getWidgetByName("ButtonStart"));
+	pBStart->addTouchEventListener(this, toucheventselector(PopDialogBoxDial::onMenuStart));
+	//转盘指针
+	pIVPointer = static_cast<UIImageView*>(pUILayer->getWidgetByName("ImagePointer"));
 
+	pAEnd = CCArmature::create("AnimationDial");
+	pIVPointer->addNode(pAEnd);
+	pAEnd->getAnimation()->play("AnimationEnd");
+	pAEnd->setVisible(false);
+	
+
+	CCArmature *pABg = CCArmature::create("AnimationDial");
+	pWidgetBg->addNode(pABg);
+	pABg->getAnimation()->play("AnimationBg");
+
+	pAStartButton = CCArmature::create("AnimationDial");
+	pBStart->addNode(pAStartButton);
+	pAStartButton->getAnimation()->play("AnimationButton");
+	/*
+	
+	connectSignServer();*/
 	setLobbyReadMessage(false);
-	connectSignServer();
 
 	playAnimation();
 }
 void PopDialogBoxDial::onExit(){
+	setLobbyReadMessage(true);
 	CCLayer::onExit();
 }
 //连接服务器
-void PopDialogBoxDial::connectSignServer(){
-	connectServer();
+void PopDialogBoxDial::connectDialServer(){
+	if (gameSocket.getSocketState() != CGameSocket::SOCKET_STATE_CONNECT_SUCCESS)
+	{
+		if (DataModel::sharedDataModel()->ipaddr.length() == 0)
+		{
+			std::string sLogonAddr = DataModel::sharedDataModel()->getLogonAddr();
+			struct hostent* hostInfo = gethostbyname(sLogonAddr.c_str());
+			if (hostInfo)
+			{
+				DataModel::sharedDataModel()->ipaddr = inet_ntoa(*(struct in_addr *)*hostInfo->h_addr_list);
+			}
+		}
+		gameSocket.setIGameSocket(this);
+		gameSocket.Create(DataModel::sharedDataModel()->ipaddr.c_str(), PORT_LOGON);
+	}
+	//////////////////////////////////////////////////////////////////////////
 	if (getLoading())
 	{
 		getLoading()->setIOutTime(this);
 	}
 	connectSuccess();
 }
-//签到按键
-void PopDialogBoxDial::onMenuSign(CCObject *object, TouchEventType type){
+//转盘开始按键
+void PopDialogBoxDial::onMenuStart(CCObject *object, TouchEventType type){
 	switch (type)
 	{
 	case TOUCH_EVENT_ENDED:
 	{
-		if (isSign)
+		switch (eDialState)
 		{
-			setSignState(SIGN_ING);
-			connectSignServer();
+		case PopDialogBoxDial::DIAL_FREE:
+		{
+			pAEnd->setVisible(false);
+			setDialState(DIAL_ING);
+			connectDialServer();
 		}
-		else
-		{
-			onMenuBackWithReadMsg(NULL, TOUCH_EVENT_ENDED);
+			break;
+		default:
+			break;
 		}
 	}
 		break;
@@ -88,74 +116,6 @@ void PopDialogBoxDial::onMenuSign(CCObject *object, TouchEventType type){
 }
 //超时回调
 void PopDialogBoxDial::onOutTime(){
-	isSign = false;
-	//pBSign->setTitleText("关闭");
-	pBSign->loadTextureNormal("GB_Btn_Normal.png", UI_TEX_TYPE_PLIST);
-	pBSign->loadTexturePressed("GB_Btn_Down.png", UI_TEX_TYPE_PLIST);
-}
-//更新签到列表
-void PopDialogBoxDial::updateListSignInfo(){
-	UIListView *pLVTemp = pLVSign;
-
-	pLVTemp->removeAllItems();
-	int tempSize = vecSignInfo.size();
-	if (tempSize == 0)
-	{
-		return;
-	}
-
-	for (int i = 0; i < tempSize; i++)
-	{
-		int inserterPos = pLVTemp->getItems()->count();
-		pLVTemp->insertDefaultItem(inserterPos);
-
-		UIImageView *pIVSignBg = static_cast<UIImageView*>(pLVTemp->getItem(inserterPos)->getChildByName("ImageSignBg"));
-		//奖励金币
-		UILabel *pLRewardGold = static_cast<UILabel*>(pIVSignBg->getChildByName("LabelRewardGoldNum"));
-		pLRewardGold->setText(CCString::createWithFormat("%lld金币", vecSignInfo[i].lScore)->getCString());
-		//签到天数
-		UILabel *pLSignDay = static_cast<UILabel*>(pIVSignBg->getChildByName("LabelSignLimite"));
-		//pLSignDay->setText(vecSignInfo[i].dwDay>27?"满月 ":CCString::createWithFormat("连续签到%ld天 ", vecSignInfo[i].dwDay)->getCString());
-		pLSignDay->setText(CCString::createWithFormat("连续签到%ld天 ", vecSignInfo[i].dwDay)->getCString());
-
-		//连续签到奖励
-		UICheckBox *pCBRewardIcon = static_cast<UICheckBox*>(pIVSignBg->getChildByName("CheckBoxRewardIcon"));
-		pCBRewardIcon->loadTextureBackGround(CCString::createWithFormat("u_s_reward_gold%d.png",i)->getCString(), UI_TEX_TYPE_PLIST);
-	}
-}
-//更新签到天数
-void PopDialogBoxDial::updateSignDayPanel(int iCurSignDay){
-	for (int i = 0; i < 31; i++)
-	{
-		UIButton *pBSignCurDay = static_cast<UIButton*>(pUILayer->getWidgetByName(CCString::createWithFormat("ButtonSignDay%d",i)->getCString()));
-		pBSignCurDay->loadTextureNormal("u_s_unsign.png", UI_TEX_TYPE_PLIST);
-		pBSignCurDay->loadTextureDisabled("u_s_sign.png", UI_TEX_TYPE_PLIST);
-		if (i<iCurSignDay)
-		{
-			pBSignCurDay->setBright(false);
-		}
-		else
-		{
-			pBSignCurDay->setBright(true);
-		}
-	}
-	//更新列表
-	for (int i = 0; i < vecSignInfo.size(); i++)
-	{
-		int day = vecSignInfo[i].dwDay;
-		UIButton *pBSignCurDay = static_cast<UIButton*>(pUILayer->getWidgetByName(CCString::createWithFormat("ButtonSignDay%d", day-1)->getCString()));
-		pBSignCurDay->loadTextureNormal(CCString::createWithFormat("u_s_gem_box%d.png",i)->getCString(), UI_TEX_TYPE_PLIST);
-		pBSignCurDay->loadTextureDisabled(CCString::createWithFormat("u_s_gem_box_open%d.png", i)->getCString(), UI_TEX_TYPE_PLIST);
-
-		//连续签到奖励
-		UIImageView *pIVSignBg = static_cast<UIImageView*>(pLVSign->getItem(i)->getChildByName("ImageSignBg"));
-		UICheckBox *pCBRewardIcon = static_cast<UICheckBox*>(pIVSignBg->getChildByName("CheckBoxRewardIcon"));
-		if (iCurSignDay>=day)
-		{
-			pCBRewardIcon->setSelectedState(true);
-		}
-	}
-	//pLSignDayInfo->setText(CCString::createWithFormat("%ld天后清空签到信息", 31L - iCurSignDay)->getCString());
 }
 //////////////////////////////////////////////////////////////////////////
 void PopDialogBoxDial::update(float delta){
@@ -178,9 +138,7 @@ void PopDialogBoxDial::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void 
 	{
 		onEventUserService(wSubCmdID, pDataBuffer, wDataSize);
 		//移除loading
-		this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
-		//关闭网络
-		//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_SIGN);
+		//this->getChildByTag(TAG_LOADING)->removeFromParentAndCleanup(true);
 		gameSocket.Destroy(true);
 	}
 	break;
@@ -191,30 +149,19 @@ void PopDialogBoxDial::onEventReadMessage(WORD wMainCmdID, WORD wSubCmdID, void 
 }
 //连接成功
 void PopDialogBoxDial::connectSuccess(){
-	switch (eSignState)
+	switch (eDialState)
 	{
-	case PopDialogBoxDial::SIGN_LIST:
+	case PopDialogBoxDial::DIAL_ING:
 	{
-		CMD_GP_GetSignInTask getSignInTask;
-		getSignInTask.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
-		getSignInTask.dwOpTerminal = 2;
-		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_GET_SIGNIN_TASK, &getSignInTask, sizeof(getSignInTask));
-	}
-		break;
-	case PopDialogBoxDial::SIGN_ING:
-	{
-		CMD_GP_SignIn signIn;
-		signIn.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
-
-		signIn.dwOpTerminal=2;
+		CMD_GP_UserID userID;
+		userID.dwUserID = DataModel::sharedDataModel()->userInfo->dwUserID;
 
 		MD5 m;
 		m.ComputMd5(DataModel::sharedDataModel()->sLogonPassword.c_str(), DataModel::sharedDataModel()->sLogonPassword.length());
 		std::string md5PassWord = m.GetMd5();
-		strcpy(signIn.szLogonPass, md5PassWord.c_str());
-
-											
-		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_SIGNIN, &signIn, sizeof(signIn));
+		strcpy(userID.szPassword, md5PassWord.c_str());
+		//发送数据
+		gameSocket.SendData(MDM_GP_USER_SERVICE, SUB_GP_DIAL, &userID, sizeof(userID));
 	}
 		break;
 	default:
@@ -225,14 +172,9 @@ void PopDialogBoxDial::connectSuccess(){
 void PopDialogBoxDial::onEventUserService(WORD wSubCmdID, void * pDataBuffer, unsigned short wDataSize){
 	switch (wSubCmdID)
 	{
-	case SUB_GP_GET_SIGNIN_TASK:
+	case SUB_GP_DIAL:
 	{
-		onSubSignInfo(pDataBuffer,wDataSize);
-	}
-		break;
-	case SUB_GP_SIGNIN:
-	{
-		onSubSignIn(pDataBuffer, wDataSize);
+		onSubDial(pDataBuffer,wDataSize);
 	}
 		break;
 	default:
@@ -240,73 +182,55 @@ void PopDialogBoxDial::onEventUserService(WORD wSubCmdID, void * pDataBuffer, un
 	break;
 	}
 }
-//签到信息
-void PopDialogBoxDial::onSubSignInfo(void * pDataBuffer, unsigned short wDataSize){
-	assert(wDataSize == sizeof(CMD_GP_GetSignInTaskInfo));
-	CMD_GP_GetSignInTaskInfo *signInfo = (CMD_GP_GetSignInTaskInfo*)pDataBuffer;
-	for (int i = 0; i < 7; i++)
+//转盘信息
+void PopDialogBoxDial::onSubDial(void * pDataBuffer, unsigned short wDataSize){
+	CMD_GP_DialLog *signInfo = (CMD_GP_DialLog*)pDataBuffer;
+	if (signInfo->dwRet==0)
 	{
-		if (signInfo->SignInTask[i].dwDay>1)
-		{
-			CMD_GP_SignInTask signInTask;
-			signInTask.dwDay = signInfo->SignInTask[i].dwDay;
-			signInTask.lScore = signInfo->SignInTask[i].lScore;
-			
-			vecSignInfo.push_back(signInTask);
-		}
-		else if (signInfo->SignInTask[i].dwDay==1)
-		{
-			pLSignRewardGold->setText(CCString::createWithFormat("签到即可领取%lld金币", signInfo->SignInTask[i].lScore)->getCString());
-		}
+		dialIndex = signInfo->dwIndex;
+		float endAnlg = 360 * 15 + 360.0 / 12.0 * dialIndex;
+		CCEaseExponentialIn  *in = CCEaseExponentialIn::create(CCRotateTo::create(8.0, 360 * 15));
+		CCEaseExponentialOut  *out = CCEaseExponentialOut::create(CCRotateTo::create(8.0, endAnlg));
+		CCCallFunc *call = CCCallFunc::create(this, SEL_CallFunc(&PopDialogBoxDial::dialAnimationFinsh));
+		CCSequence *seq = CCSequence::create(in, out, call,NULL);
+		pIVPointer->runAction(seq);
 	}
-	
-	updateListSignInfo();
-
-	updateSignDayPanel(signInfo->dwDay);
-	//updateSignDayPanel(31);
+	else if (signInfo->dwRet == 2)
+	{
+		setDialState(DIAL_FREE);
+		//showTipInfo(GBKToUTF8(signInfo->szDescribeString).c_str());
+		//showTipInfo(GBKToUTF8(signInfo->szDescribeString).c_str(), this, 0);
+		PopDialogBoxOptTipInfo *pUTipInfo = PopDialogBoxOptTipInfo::create();
+		this->addChild(pUTipInfo, 100);
+		pUTipInfo->setIHornMsgAssist(this);
+		pUTipInfo->setTipInfoData(GBKToUTF8(signInfo->szDescribeString).c_str());
+	}
+	else{
+		setDialState(DIAL_FREE);
+		showTipInfo(GBKToUTF8(signInfo->szDescribeString).c_str());
+	}
 }
-//签到
-void PopDialogBoxDial::onSubSignIn(void * pDataBuffer, unsigned short wDataSize){
-	assert(wDataSize == sizeof(CMD_GP_SignInTaskLog));
-	CMD_GP_SignInTaskLog *pSignInLog = (CMD_GP_SignInTaskLog*)pDataBuffer;
-	if (pSignInLog->dwRet==0)
-	{
-		updateSignDayPanel(pSignInLog->dwDay);
-		pLSignRewardGold->setText(CCString::createWithFormat("签到即可领取%lld金币", pSignInLog->lScore)->getCString());
-	}
-
-	//保存签到记录
-	saveSignRecord();
-
-	showTipInfo(GBKToUTF8(pSignInLog->szDescribeString).c_str());
-	onOutTime();
+//确定
+void PopDialogBoxDial::onSendSure(CCLayer *layer){
+	((GameLobbyScene*)this->getParent())->addVip();
+	layer->removeFromParentAndCleanup(true);
 }
-//保存签到记录
-void PopDialogBoxDial::saveSignRecord(){
-	//更新记录
-	map<long, int >::iterator l_it;
-	l_it = DataModel::sharedDataModel()->mapSignRecord.find(DataModel::sharedDataModel()->userInfo->dwUserID);
-	if (l_it != DataModel::sharedDataModel()->mapSignRecord.end())
-	{
-		l_it->second = Tools::getCurDay();
-	}
-	else
-	{
-		DataModel::sharedDataModel()->mapSignRecord.insert(map<long, int>::value_type(DataModel::sharedDataModel()->userInfo->dwUserID, Tools::getCurDay()));
-	}
-	//保存
-	std::string saveStr="{";
-	std::map<long, int>::iterator iter;
-	for (iter = DataModel::sharedDataModel()->mapSignRecord.begin(); iter != DataModel::sharedDataModel()->mapSignRecord.end(); iter++)
-	{
-		saveStr += CCString::createWithFormat("\"signData\":{\"userId\":%ld,\"signDay\":%d},",iter->first,iter->second)->getCString();
-	}
-	saveStr.erase(saveStr.end()-1);
+//动画完成
+void PopDialogBoxDial::dialAnimationFinsh(){
+	pBStart->loadTextureNormal("vipgo.png", UI_TEX_TYPE_PLIST);
+	pBStart->loadTexturePressed("vipgo_press.png", UI_TEX_TYPE_PLIST);
+	pAStartButton->getAnimation()->play("AnimationButton1");
+	pAEnd->setVisible(true);
 
-	saveStr += "}";
-	Tools::saveStringByRMS(RMS_SIGN_RECORD, saveStr.c_str());
-
-	
+	scheduleOnce(SEL_SCHEDULE(&PopDialogBoxDial::showReward),0.5);
+}
+//显示奖励
+void PopDialogBoxDial::showReward(float dt){
+	CCArmature *pABg = CCArmature::create("AnimationDial");
+	pWidgetBg->addNode(pABg,100);
+	pABg->getAnimation()->setMovementEventCallFunc(this, movementEvent_selector(PopDialogBoxDial::onAnimationEventOver));//动画播完回调用
+	pABg->getAnimation()->setFrameEventCallFunc(this, frameEvent_selector(PopDialogBoxDial::onAnimationEventFrame));
+	pABg->getAnimation()->play(CCString::createWithFormat("AnimationGetProp%d", dialIndex)->getCString());
 }
 void PopDialogBoxDial::onError(const char *e){
     //PopDialogBox::onError(e);
@@ -319,4 +243,31 @@ void PopDialogBoxDial::onError(const char *e){
 }
 void PopDialogBoxDial::onCloseTipInfo(cocos2d::CCLayer *pTipInfo){
     this->removeFromParent();
+}
+void PopDialogBoxDial::onAnimationEventOver(CCArmature *pArmature, MovementEventType movementType, const char *movementID){
+	switch (movementType)
+	{
+	case cocos2d::extension::COMPLETE:
+	case cocos2d::extension::LOOP_COMPLETE:
+	{
+		for (int i = 0; i < 12; i++)
+		{
+			CCString *aName = CCString::createWithFormat("AnimationGetProp%d", i);
+			if (strcmp(movementID, aName->getCString()) == 0){
+				pArmature->removeFromParentAndCleanup(true);
+				setDialState(DIAL_FREE);
+				return;
+			}
+		}
+	}
+	break;
+	default:
+		break;
+	}
+}
+void PopDialogBoxDial::onAnimationEventFrame(CCBone *bone, const char *evt, int originFrameIndex, int currentFrameIndex){
+	/*if (strcmp(evt, "bomb1") == 0)
+	{
+
+	}*/
 }

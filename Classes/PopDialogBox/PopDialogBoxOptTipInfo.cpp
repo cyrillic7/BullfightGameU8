@@ -65,8 +65,8 @@ void PopDialogBoxOptTipInfo::onMenuSure(CCObject *object, TouchEventType type){
 	{
 		if (iHornMsgAssist)
 		{
-			iHornMsgAssist->onSendSure();
-			this->removeFromParentAndCleanup(true);
+			iHornMsgAssist->onSendSure(this);
+			//this->removeFromParentAndCleanup(true);
 		}
 	}
 }

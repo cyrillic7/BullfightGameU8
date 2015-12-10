@@ -26,7 +26,6 @@
 #include "../PopDialogBox/PopDialogBoxShare.h"
 #include "../PopDialogBox/PopDialogBoxGiftExchang.h"
 #include "../PopDialogBox/PopDialogBoxWealthRanking.h"
-#include "../PopDialogBox/PopDialogBoxDial.h"
 #include "../Platform/coPlatform.h"
 #include "../Tools/DataModel.h"
 #include "../Network/SEvent.h"

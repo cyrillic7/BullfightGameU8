@@ -10,6 +10,8 @@
 #include "../Tools/GameConfig.h"
 #include "../Tools/Tools.h"
 #include "../Network/MD5/MD5.h"
+#include "../GameLobby/GameLobbyScene.h"
+#include "PopDialogBoxDial.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxSign::PopDialogBoxSign()
 	:eSignState(SIGN_LIST)
@@ -78,6 +80,8 @@ void PopDialogBoxSign::onMenuSign(CCObject *object, TouchEventType type){
 		}
 		else
 		{
+			PopDialogBoxDial *dial = PopDialogBoxDial::create();
+			((GameLobbyScene*)this->getParent())->addChild(dial);
 			onMenuBackWithReadMsg(NULL, TOUCH_EVENT_ENDED);
 		}
 	}

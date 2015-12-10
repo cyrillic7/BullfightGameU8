@@ -134,4 +134,17 @@
       </GuidesInfo>
     </GuidesList>
   </GuidesProject>
+  <GuidesProject>
+    <Project>UIPopDialogBoxDial</Project>
+    <GuidesList>
+      <GuidesInfo>
+        <GuidesName>VThumb</GuidesName>
+        <GuidesPosition>535.48797607421875</GuidesPosition>
+      </GuidesInfo>
+      <GuidesInfo>
+        <GuidesName>HThumb</GuidesName>
+        <GuidesPosition>304.3585567292713</GuidesPosition>
+      </GuidesInfo>
+    </GuidesList>
+  </GuidesProject>
 </ArrayOfGuidesProject>

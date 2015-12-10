@@ -299,7 +299,10 @@ void GameLobbyScene::menuSelectMode(CCObject* pSender, TouchEventType type){
 		break;
 	}
 }
-
+//显示VIP
+void GameLobbyScene::addVip(){
+	popDialogBox(POP_VIP);
+}
 void GameLobbyScene::popDialogBoxUserInfo(){
 	popDialogBox(POP_USER_INFO);
 	//PopDialogBox *pdb = PopDialogBoxUserInfo::create();

@@ -10,18 +10,10 @@
   "designHeight": 640,
   "designWidth": 1136,
   "textures": [
-    "UIPanel.plist",
-    "UIButton.plist",
-    "UIRanking.plist",
-    "UIUserIcon.plist",
-    "UIWealthRanking.plist"
+    "UIDial.plist"
   ],
   "texturesPng": [
-    "UIPanel.png",
-    "UIButton.png",
-    "UIRanking.png",
-    "UIUserIcon.png",
-    "UIWealthRanking.png"
+    "UIDial.png"
   ],
   "version": "1.6.0.0",
   "widgetTree": {

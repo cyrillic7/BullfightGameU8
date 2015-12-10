@@ -81,9 +81,10 @@ void LobbyHornLayer::onMenuSendMsg(CCObject* pSender, TouchEventType type){
 	}
 }
 //发送确定回调
-void LobbyHornLayer::onSendSure(){
+void LobbyHornLayer::onSendSure(CCLayer *layer){
 	CCEditBox *pEBInputMsgContent = (CCEditBox*)pTFHornMsgContent->getNodeByTag(TAG_INPUT_EDIT_BOX);
 	sendHornMsg(UTF8ToGBK(pEBInputMsgContent->getText()));
+	layer->removeFromParentAndCleanup(true);
 }
 //发送消息
 void LobbyHornLayer::sendHornMsg(std::string content){
