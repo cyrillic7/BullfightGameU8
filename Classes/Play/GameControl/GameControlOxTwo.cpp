@@ -8,6 +8,8 @@
 
 #include "GameControlOxTwo.h"
 #include "../../Tools/DataModel.h"
+#include "../../Tools/Tools.h"
+#include "../../Tools/SoundConfig.h"
 #include "../../Network/CMD_Server/cmd_ox.h"
 GameControlOxTwo::GameControlOxTwo()
 {
@@ -87,6 +89,7 @@ void GameControlOxTwo::onEventGameIng(WORD wSubCmdID, void * pDataBuffer, unsign
 	break;
 	case SUB_S_GAME_START:	//游戏开始
 	{
+		Tools::playSound(kSoundStart);
 		//消息处理
 		OnSubGameStart(pDataBuffer, wDataSize);
 		CCLOG("游戏开始<<%s>>", __FUNCTION__);

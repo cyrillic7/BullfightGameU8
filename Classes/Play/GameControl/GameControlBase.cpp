@@ -1168,6 +1168,7 @@ bool GameControlBase::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 						CCPoint endPos = ccpAdd(pPlayer3->getPosition(), ccp(pPlayer3->getContentSize().width / 2, pPlayer3->getContentSize().height / 2));
 
 						goldJump(i, begingPos, endPos);
+						Tools::playSound(kSoundWin);
 					}
 					else
 					{
@@ -1175,6 +1176,7 @@ bool GameControlBase::OnSubGameEnd(const void * pBuffer, WORD wDataSize)
 						CCPoint begingPos = ccpAdd(pPlayer3->getPosition(), ccp(pPlayer3->getContentSize().width / 2, pPlayer3->getContentSize().height / 2));
 
 						goldJump(i, begingPos, endPos);
+						Tools::playSound(kSoundLost);
 					}
 				}
 			}

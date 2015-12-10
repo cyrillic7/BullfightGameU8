@@ -9,6 +9,8 @@
 #include "MainSceneOxTwo.h"
 #include "../Tools/GameConfig.h"
 #include "../Tools/DataModel.h"
+#include "../Tools/Tools.h"
+#include "../Tools/SoundConfig.h"
 #include "../Tools/BaseAttributes.h"
 #include "../Play/CardLayer/CardLayerTwo.h"
 MainSceneOxTwo::MainSceneOxTwo()
@@ -16,6 +18,7 @@ MainSceneOxTwo::MainSceneOxTwo()
 }
 MainSceneOxTwo::~MainSceneOxTwo(){
 	CCLOG("~ <<%s>>", __FUNCTION__);
+	Tools::stopMusic();
 	//TCPSocketControl::sharedTCPSocketControl()->stopSocket(SOCKET_LOGON_ROOM);
 	//GameIngMsgHandler::sharedGameIngMsgHandler()->gameSocket.Destroy(true);
 	
@@ -37,6 +40,7 @@ CCScene* MainSceneOxTwo::scene()
     return scene;
 }
 void MainSceneOxTwo::onEnter(){
+	Tools::playMusic(kMusicOtherOx);
 	//CCLayer::onEnter();
 	addBg();
 	initCardLayer();
