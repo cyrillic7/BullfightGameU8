@@ -998,6 +998,8 @@ bool GameControlOxSixSwap::OnSubAddScore(const void * pBuffer, WORD wDataSize)
 	if (wDataSize != sizeof(CMD_S_AddScore)) 
 		return false;
 	CMD_S_AddScore * pAddScore = (CMD_S_AddScore *)pBuffer;
+	getMainScene()->playerLayer->setUserAddJettonNum(getViewChairID(pAddScore->wAddScoreUser), pAddScore->lAddScoreCount);
+
 	hideActionPrompt();
 	showActionPrompt(ACTION_PROMPT_ADD_SCORE, CCPointZero);
 	/*//删除定时器/控制按钮

@@ -49,6 +49,10 @@ void PlayerLayer::initPlayerInfo(){
 		pPlayerData[i]->pIActionTypeBg=static_cast<UIImageView*>(pPlayerData[i]->pPlayerPanel->getChildByName("ImageAction"));
 		//行为内容
 		pPlayerData[i]->pIActionContent=static_cast<UIImageView*>(pPlayerData[i]->pPlayerPanel->getChildByName("ImageAction")->getChildByName("ImageActionContent"));
+		//筹码icon
+		pPlayerData[i]->pIVJetton = static_cast<UIImageView*>(pPlayerData[i]->pPlayerPanel->getChildByName("ImageCMIcon"));
+		//筹码数
+		pPlayerData[i]->pLJettonNum = static_cast<UILabel*>(pPlayerData[i]->pPlayerPanel->getChildByName("ImageCMIcon")->getChildByName("LabelCMNum"));
 		//隐藏用户
 		pPlayerData[i]->hidePlayer();
 
@@ -110,6 +114,21 @@ void PlayerLayer::setUserInfo(int panelIndex,tagUserInfo tagUser){
 		userEnterEffect(pPlayerData[panelIndex]->pIPlayerIcon->getWorldPosition(), panelIndex);
 	}
 	pPlayerData[panelIndex]->setUserInfo(tagUser);
+}
+//设置下注筹码
+void PlayerLayer::setUserAddJettonNum(int panelIndex, long long goldCount){
+	pPlayerData[panelIndex]->pIVJetton->setVisible(true);
+	pPlayerData[panelIndex]->pLJettonNum->setText(CCString::createWithFormat("%lld",goldCount)->getCString());
+	
+	UIImageView *pIVBg = static_cast<UIImageView *>(pPlayerData[panelIndex]->pIVJetton->getChildByName("ImageCMBg"));
+	pIVBg->setSize(CCSize(pPlayerData[panelIndex]->pLJettonNum->getContentSize().width+4, pPlayerData[panelIndex]->pLJettonNum->getContentSize().height));
+}
+//隐藏所有下注筹码
+void PlayerLayer::hideAllAddJetton(){
+	for (int i = 0; i < MAX_PLAYER; i++)
+	{
+		pPlayerData[i]->pIVJetton->setVisible(false);
+	}
 }
 void PlayerLayer::setUserGold(int panelIndex,long long goldCount){
 	//DataModel::sharedDataModel()->

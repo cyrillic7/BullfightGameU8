@@ -53,6 +53,8 @@ private:
 	CGameSocket gameSocket;
 	//是否第一次登录游戏
 	bool isFirstLogon;
+	//token
+	std::string sTokenCode;
 public:
     static LogonScene* pLScene;
 	bool isReadMessage;
@@ -77,6 +79,8 @@ public:
 	void logonWX(const char*code);
     CREATE_FUNC(LogonScene);
 private:
+	//微信登录
+	void updateLogonWX(float dt);
 	void onMenuLogon(CCObject* pSender, TouchEventType type);
 	//分享
 	void onMenuShare(CCObject* pSender, TouchEventType type);

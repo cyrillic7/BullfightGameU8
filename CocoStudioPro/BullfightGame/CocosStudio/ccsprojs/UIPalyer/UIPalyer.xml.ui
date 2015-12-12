@@ -17,8 +17,8 @@
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <imageFileList>
-    <string>UIUserIcon.plist</string>
     <string>UIGameIng.plist</string>
+    <string>UIUserIcon.plist</string>
   </imageFileList>
   <imagePngList />
   <JsonSuffix>.json</JsonSuffix>

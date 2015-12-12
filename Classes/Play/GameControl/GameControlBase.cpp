@@ -672,6 +672,7 @@ void GameControlBase::updateState(){
 		pFightForBanker->setEnabled(false);
 		pBetting->setEnabled(false);
 		pPanelSwapCard->setEnabled(false);
+		getMainScene()->playerLayer->hideAllAddJetton();
 	}
 	break;
 	case MainSceneBase::STATE_SWAP_CARD://换牌
@@ -995,6 +996,15 @@ bool GameControlBase::OnSubAddScore(const void * pBuffer, WORD wDataSize)
 	CMD_S_AddScore * pAddScore = (CMD_S_AddScore *)pBuffer;
 	//CCLOG("用户下注 %d  %lld",pAddScore->wAddScoreUser,pAddScore->lAddScoreCount);
 	hideActionPrompt();
+
+	if (pAddScore->wAddScoreUser == getMeChairID()){
+		getMainScene()->playerLayer->setUserAddJettonNum(3, pAddScore->lAddScoreCount);
+	}
+	else
+	{
+		getMainScene()->playerLayer->setUserAddJettonNum(0, pAddScore->lAddScoreCount);
+	}
+	
 	/*
 	//变量定义
 	WORD wMeChairID=GetMeChairID();

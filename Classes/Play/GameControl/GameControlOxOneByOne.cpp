@@ -463,6 +463,8 @@ bool GameControlOxOneByOne::OnSubAddScore(const void * pBuffer, WORD wDataSize)
 	if (wDataSize != sizeof(CMD_S_AddScore)) return false;
 	CMD_S_AddScore * pAddScore = (CMD_S_AddScore *)pBuffer;
 	CCLOG("userScore : %lld<<%s>>",pAddScore->lAddScoreCount,__FUNCTION__);
+	getMainScene()->playerLayer->setUserAddJettonNum(getViewChairID(pAddScore->wAddScoreUser), pAddScore->lAddScoreCount);
+
 	/*//删除定时器/控制按钮
 	if (IsCurrentUser(pAddScore->wAddScoreUser) && m_GameClientView.m_btOneScore.IsWindowVisible() == TRUE)
 	{

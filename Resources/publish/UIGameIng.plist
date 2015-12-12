@@ -225,6 +225,32 @@
                 <key>sourceSize</key>
                 <string>{17,28}</string>
             </dict>
+            <key>u_cm_bg.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{440,420},{20,19}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{20,19}}</string>
+                <key>sourceSize</key>
+                <string>{20,19}</string>
+            </dict>
+            <key>u_cm_icon.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{422,862},{39,43}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{39,43}}</string>
+                <key>sourceSize</key>
+                <string>{39,43}</string>
+            </dict>
             <key>u_gi_bank_icon.png</key>
             <dict>
                 <key>frame</key>
@@ -241,11 +267,11 @@
             <key>u_gi_begin.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{422,860},{76,35}}</string>
+                <string>{{463,847},{76,35}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{1,0},{76,35}}</string>
                 <key>sourceSize</key>
@@ -267,7 +293,7 @@
             <key>u_gi_call.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{461,333},{78,35}}</string>
+                <string>{{460,611},{78,35}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -280,7 +306,7 @@
             <key>u_gi_call_bank.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{422,743},{74,37}}</string>
+                <string>{{358,917},{74,37}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -293,7 +319,7 @@
             <key>u_gi_exit.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{461,219},{112,33}}</string>
+                <string>{{461,333},{112,33}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -306,11 +332,11 @@
             <key>u_gi_exit_pre.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{282,917},{112,33}}</string>
+                <string>{{461,219},{112,33}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{112,33}}</string>
                 <key>sourceSize</key>
@@ -332,11 +358,11 @@
             <key>u_gi_gold_bg.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{477,442},{33,25}}</string>
+                <string>{{212,929},{33,25}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{33,25}}</string>
                 <key>sourceSize</key>
@@ -345,11 +371,11 @@
             <key>u_gi_gold_icon.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{477,413},{27,26}}</string>
+                <string>{{434,907},{27,26}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{27,26}}</string>
                 <key>sourceSize</key>
@@ -384,7 +410,7 @@
             <key>u_gi_not_call.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{422,704},{74,37}}</string>
+                <string>{{282,917},{74,37}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -397,11 +423,11 @@
             <key>u_gi_not_swap.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{423,666},{77,36}}</string>
+                <string>{{422,783},{77,36}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{77,36}}</string>
                 <key>sourceSize</key>
@@ -410,7 +436,7 @@
             <key>u_gi_open_card.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{459,782},{76,35}}</string>
+                <string>{{460,769},{76,35}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -436,7 +462,7 @@
             <key>u_gi_prompt.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{422,782},{76,35}}</string>
+                <string>{{460,691},{76,35}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -449,7 +475,7 @@
             <key>u_gi_ready.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{422,897},{69,37}}</string>
+                <string>{{438,514},{69,37}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -462,7 +488,7 @@
             <key>u_gi_replace.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{440,420},{76,35}}</string>
+                <string>{{423,626},{76,35}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -553,11 +579,11 @@
             <key>u_gi_swap_card.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{423,628},{77,36}}</string>
+                <string>{{422,704},{77,36}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{77,36}}</string>
                 <key>sourceSize</key>
@@ -579,7 +605,7 @@
             <key>u_gi_talk.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{438,570},{65,56}}</string>
+                <string>{{438,553},{65,56}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -592,11 +618,11 @@
             <key>u_gi_talk_pre.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{438,512},{65,56}}</string>
+                <string>{{440,447},{65,56}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{65,56}}</string>
                 <key>sourceSize</key>
@@ -623,9 +649,9 @@
             <key>realTextureFileName</key>
             <string>UIGameIng.png</string>
             <key>size</key>
-            <string>{505,953}</string>
+            <string>{509,956}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:cb7123186af4861e0a65aed9adeef72b:a8af56fc6e125de8084a9c395ed26bbb:ca83526fc713a10942f5ff4e6a514509$</string>
+            <string>$TexturePacker:SmartUpdate:b2956eedf11a02fb233753b0d34dc97b:0495cd9f233212299060421e5fcc369e:ca83526fc713a10942f5ff4e6a514509$</string>
             <key>textureFileName</key>
             <string>UIGameIng.png</string>
         </dict>

@@ -16,6 +16,7 @@ void PlayerData::hidePlayer(){
 	pLUserName->setVisible(false);
 	pLGoldCount->setVisible(false);
 	pIActionTypeBg->setVisible(false);
+	pIVJetton->setVisible(false);
 }
 //设置为庄家
 void PlayerData::setBankIcon(){

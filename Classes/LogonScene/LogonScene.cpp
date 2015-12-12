@@ -1144,19 +1144,24 @@ void LogonScene::logonQQ(const char*id,const char*pwd){
     DataModel::sharedDataModel()->sLogonPassword=pwd;
     scheduleOnce(SEL_SCHEDULE(&LogonScene::logonGameByAccount),0.5);
 }
-void LogonScene::logonWX(const char*code){
+//微信登录
+void LogonScene::updateLogonWX(float dt){
 	connectServer();
 	{
 		CMD_MB_AccessToken logonToken;
 		logonToken.dwSessionID = 111111;
-		strcpy(logonToken.szUMId,"");
+		strcpy(logonToken.szUMId, "");
 		logonToken.dwSex = 0;
-		strcpy(logonToken.szNickName,"");
+		strcpy(logonToken.szNickName, "");
 		strcpy(logonToken.szMachineID, Tools::getMachineID().c_str());
-		strcpy(logonToken.szAccessToken, code);
+		strcpy(logonToken.szAccessToken, sTokenCode.c_str());
 		gameSocket.SendData(MDM_MB_LOGON, SUB_MB_ACCESSTOKEN, &logonToken, sizeof(logonToken));
 	}
-	CCLOG("-----------------------------WXING :%s<<%s>>",code, __FUNCTION__);
+}
+
+void LogonScene::logonWX(const char*code){
+	sTokenCode = code;
+	scheduleOnce(SEL_SCHEDULE(&LogonScene::updateLogonWX), 1);
 }
 /////////////////////////////////////////////////////////////////////////////
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)

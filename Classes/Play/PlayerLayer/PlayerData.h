@@ -36,6 +36,10 @@ public:
 	ImageView *pIActionTypeBg;
 	//行为内容
 	ImageView *pIActionContent;
+	//筹码icon
+	ImageView *pIVJetton;
+	//筹码数
+	Label *pLJettonNum;
 private:
 	//用户信息
 	tagUserInfo userInfoPlayer;

@@ -29,6 +29,10 @@ public:
 	void setUserGold(int panelIndex,long long goldCount);
 	//设置庄家
 	void setBankIcon(int bankIndex);
+	//设置下注筹码
+	void setUserAddJettonNum(int panelIndex, long long goldCount);
+	//隐藏所有下注筹码
+	void hideAllAddJetton();
 	//隐藏二人牛牛玩家
 	void hideOxTwoPlayer();
 	//设置牌位置
