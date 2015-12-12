@@ -13,7 +13,10 @@
     "UIGameIng.plist",
     "UIUserIcon.plist"
   ],
-  "texturesPng": [],
+  "texturesPng": [
+    "UIGameIng.png",
+    "UIUserIcon.png"
+  ],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
