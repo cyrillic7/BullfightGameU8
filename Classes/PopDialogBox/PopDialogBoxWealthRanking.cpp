@@ -118,7 +118,8 @@ void PopDialogBoxWealthRanking::updateListRanking(CCObject *obj){
 		//昵称
 		UILabel *pName = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("LabelNick"));
 		std::string sNike = GBKToUTF8(DataModel::sharedDataModel()->vecRanking[i].szNickName);
-		pName->setText(subUTF8(sNike,0,8));
+		//pName->setText(subUTF8(sNike,0,8));
+		pName->setText(sNike);
 		//金币
 		UILabel *pLGold = static_cast<UILabel*>(pLVTemp->getItem(inserterPos)->getChildByName("LabelGold"));
 		pLGold->setText(CCString::createWithFormat("%lld", DataModel::sharedDataModel()->vecRanking[i].lScore)->getCString());

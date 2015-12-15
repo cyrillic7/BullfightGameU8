@@ -8,7 +8,7 @@
 #pragma once
 
 #include "PopDialogBox.h"
-#define MAX_HELP_COUNT 3
+#define MAX_HELP_COUNT 4
 class PopDialogBoxHelp: public PopDialogBox {
 private:
     

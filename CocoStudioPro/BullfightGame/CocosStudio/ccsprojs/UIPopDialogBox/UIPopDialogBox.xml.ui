@@ -45,9 +45,15 @@
   <ProjectType>UIProject</ProjectType>
   <ResRelativePath>\\..\\..\\assets</ResRelativePath>
   <imageFileList>
-    <string>UIDial.plist</string>
+    <string>UIPanel.plist</string>
+    <string>UIButton.plist</string>
+    <string>UIHelp.plist</string>
   </imageFileList>
-  <imagePngList />
+  <imagePngList>
+    <string>UIPanel.png</string>
+    <string>UIButton.png</string>
+    <string>UIHelp.png</string>
+  </imagePngList>
   <JsonSuffix>.json</JsonSuffix>
-  <CurrentUIJson />
+  <CurrentUIJson>UIPopDialogBoxHelp.json</CurrentUIJson>
 </UIProject>

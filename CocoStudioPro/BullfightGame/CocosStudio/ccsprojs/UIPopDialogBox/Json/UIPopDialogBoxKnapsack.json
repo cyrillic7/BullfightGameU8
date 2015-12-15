@@ -12,9 +12,7 @@
   "textures": [
     "UIDial.plist"
   ],
-  "texturesPng": [
-    "UIDial.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -1401,7 +1399,7 @@
                   },
                   "opacity": 255,
                   "positionPercentX": 0,
-                  "positionPercentY": 0.73537606,
+                  "positionPercentY": 1.735376,
                   "positionType": 0,
                   "rotation": 0,
                   "scaleX": 1,
@@ -1415,7 +1413,7 @@
                   "visible": true,
                   "width": 450,
                   "x": 0,
-                  "y": 264,
+                  "y": 623,
                   "adaptScreen": false,
                   "backGroundImage": null,
                   "backGroundImageData": null,

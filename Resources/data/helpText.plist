@@ -1,8 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<array>
+<array>	
 
+	<dict>
+	<key>help</key>
+	<string>【二人牛牛】
+两位玩家分的五张牌，玩家编排牌型后亮牌比较大小，按照玩家牌型大小计算得分。
+牌型大小
+大王、小王、J、Q、K都是当10点，然后A是当1点，其他的牌型当自身的点数。
+牌型依次大小为：大王、小王、K、Q、J、10、9、8、7、6、5、4、3、2 、A。
+接下来在将其余的两张的点数相加得出几点。去掉十位数，只留个位数来进行比较，如果接下来两张的相加点数也正好是整数的话，那就是最大的牌型：“牛牛”。
+当庄家与闲家同时出现相同点数时，系统自动将两家手中牌的最大那一张进行比较，谁大就由谁获得胜利。如果出现牌也相同大的话，就按花色来进行比较，黑桃>红桃>梅花>方片。
+注：如果游戏介绍与游戏实际规则不同，请以实际游戏规则为准。</string>
+	</dict>
 
 	<dict>
 	<key>help</key>

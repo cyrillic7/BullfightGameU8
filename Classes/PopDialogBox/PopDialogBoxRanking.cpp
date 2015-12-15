@@ -114,6 +114,7 @@ void PopDialogBoxRanking::updateListRanking(){
 		//pLName->setText(GBKToUTF8(vecRanking[i].szNickName));
 		std::string nickName = GBKToUTF8(vecRanking[i].szNickName);
 		pLName->setText(Tools::subUTF8(nickName, 0, 4));
+		//pLName->setText(nickName);
 		
 		//头像
 		UIImageView *pIVIcon = static_cast<UIImageView*>(pUILayer->getWidgetByName(CCString::createWithFormat("ImageNumber%d",i+1)->getCString())->getChildByName("ImageIcon"));

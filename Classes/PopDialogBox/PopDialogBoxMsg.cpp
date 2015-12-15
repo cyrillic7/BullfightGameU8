@@ -157,7 +157,7 @@ void PopDialogBoxMsg::onMenuSelectMsgItem(CCObject *object, TouchEventType type)
 		UILabel *pLMsgContent = static_cast<UILabel*>(pSVMsgContent->getChildByName("LabelMsgContent"));
 		pLMsgContent->ignoreContentAdaptWithSize(true);
 		pLMsgContent->setTextAreaSize(CCSize(608, 0));
-
+		pLMsgContent->setColor(ccc3(89, 40, 0));
 		pLMsgContent->setText(pLContent->getStringValue());
 		
 		pSVMsgContent->setInnerContainerSize(pLMsgContent->getContentSize());
@@ -188,7 +188,7 @@ void PopDialogBoxMsg::updateListMsg(std::vector<std::string> qMsg){
 		UILabel *pLContent = static_cast<UILabel*>(pIVItem->getChildByName("LabelContent"));
 		CCLOG("-:%s <<%s>>", GBKToUTF8(qMsg[i].c_str()).c_str(), __FUNCTION__);
 		pLContent->setText(GBKToUTF8(qMsg[i].c_str()));
-		
+		pLContent->setColor(ccc3(89, 40, 0));
 		
 	}
 	/*
