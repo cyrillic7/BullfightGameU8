@@ -13,7 +13,7 @@
 using namespace CocosDenshion;
 USING_NS_CC;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-#include "vld.h"
+//#include "vld.h"
 #endif
 AppDelegate::AppDelegate() {
 

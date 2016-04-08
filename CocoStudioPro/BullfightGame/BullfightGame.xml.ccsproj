@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <GameProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ProjectDir>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame</ProjectDir>
+  <ProjectDir>G:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame</ProjectDir>
   <Version>1.6.0.0</Version>
-  <Resources>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame</Resources>
+  <Resources>G:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame</Resources>
   <Name>BullfightGame</Name>
   <JsonFileName>BullfightGame.json</JsonFileName>
   <JsonList />
@@ -10,10 +10,10 @@
     <Width>480</Width>
     <Height>320</Height>
   </CanvasSize>
-  <filePath>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\BullfightGame.xml.ccsproj</filePath>
+  <filePath>G:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\BullfightGame.xml.ccsproj</filePath>
   <ProjectType>GameProject</ProjectType>
   <ResRelativePath />
-  <ResProjFolder>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\ccsprojs</ResProjFolder>
-  <AssetsDir>D:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\assets</AssetsDir>
+  <ResProjFolder>G:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\ccsprojs</ResProjFolder>
+  <AssetsDir>G:\cocos2dx\cocos2d-x-2.2.6\projects\BullfightGame\CocoStudioPro\BullfightGame\CocosStudio\assets</AssetsDir>
   <LanaguageType>cpp</LanaguageType>
 </GameProject>

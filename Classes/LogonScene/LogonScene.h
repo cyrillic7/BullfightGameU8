@@ -55,6 +55,12 @@ private:
 	bool isFirstLogon;
 	//token
 	std::string sTokenCode;
+	//umid
+	std::string sUmid;
+	//dwSubSessionID
+	std::string sSubSessionID;
+	//sdkname
+	std::string sSdkNickname;
 public:
     static LogonScene* pLScene;
 	bool isReadMessage;
@@ -77,8 +83,12 @@ public:
     void closeWebView();
     void logonQQ(const char*id,const char*pwd);
 	void logonWX(const char*code);
+	//SDK登录
+	void SDKlgoin(const char* umid, const char* token, const char* userid, const char* username);
     CREATE_FUNC(LogonScene);
 private:
+	//SDK
+	void updateLogonSDK(float dt);
 	//微信登录
 	void updateLogonWX(float dt);
 	void onMenuLogon(CCObject* pSender, TouchEventType type);

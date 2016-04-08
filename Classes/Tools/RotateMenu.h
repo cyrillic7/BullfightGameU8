@@ -48,6 +48,6 @@ private:
 	//当前被选择的item
 	cocos2d::CCMenuItem *_selectedItem;
 	//动画运行时间
-	float animationDuration = 0.3f;
+	float animationDuration;
 };
 #endif

@@ -10,15 +10,9 @@
   "designHeight": 640,
   "designWidth": 1136,
   "textures": [
-    "UIClassicLobby.plist",
-    "UIPanel.plist",
-    "UIButton.plist"
+    "UIHorn.plist"
   ],
-  "texturesPng": [
-    "UIClassicLobby.png",
-    "UIPanel.png",
-    "UIButton.png"
-  ],
+  "texturesPng": [],
   "version": "1.6.0.0",
   "widgetTree": {
     "classname": "Panel",
@@ -360,7 +354,7 @@
               "ignoreSize": false,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": 0.0510563329,
+              "positionPercentX": 0.050176058,
               "positionPercentY": 0.5515625,
               "positionType": 1,
               "rotation": 0,
@@ -934,8 +928,8 @@
               "ignoreSize": false,
               "layoutParameter": null,
               "opacity": 255,
-              "positionPercentX": 0.04401407,
-              "positionPercentY": 0.124999978,
+              "positionPercentX": 0.0431338027,
+              "positionPercentY": 0.1234375,
               "positionType": 1,
               "rotation": 0,
               "scaleX": 1,

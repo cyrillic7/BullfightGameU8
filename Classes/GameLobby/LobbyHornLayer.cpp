@@ -150,6 +150,7 @@ void LobbyHornLayer::setScrollViewData(){
 		pIVHornLine->setPosition(ccp(0,height));
 		pSVMsg->addChild(pIVHornLine);
 	} 
+
 	pSVMsg->scrollToBottom(0.2, false);
 }
 //创建消息内容

@@ -43,6 +43,8 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.tx.wx.wxapi.AppRegister;
 import com.tx.wx.wxapi.Constants;
 import com.tx.wx.wxapi.SendToWXActivity;
+import com.u8.sdk.U8CocosActivity;
+import com.u8.sdk.U8SDK;
 import com.xw.BullfightGame.R;
 
 import android.app.AlertDialog.Builder;
@@ -80,7 +82,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-public class BullfightGame extends Cocos2dxActivity {
+public class BullfightGame extends U8CocosActivity {
 	private int iActionType = 0;
 	private final int CLOSE_VIEW = 0;// 关闭web视图
 	private final int NETWORK_STATE_CONNECT = 1;// 网络连接
@@ -140,7 +142,7 @@ public class BullfightGame extends Cocos2dxActivity {
 	}
 
 	@Override
-	protected void onStart() {
+	public void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
 		// 监听网络状态
@@ -173,7 +175,7 @@ public class BullfightGame extends Cocos2dxActivity {
 	}
 
 	@Override
-	protected void onDestroy() {
+	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		unregisterReceiver(connectionReceiver);
@@ -264,14 +266,15 @@ public class BullfightGame extends Cocos2dxActivity {
 			case K_ACTION_SESSION_ID://获取渠道ID
 			{
 				String sessionID="";
-				try {
+				/*try {
 				    ApplicationInfo appInfo = this.getPackageManager().getApplicationInfo(getPackageName(),  
 				    		PackageManager.GET_META_DATA); 
 				    sessionID=appInfo.metaData.get("k_session_id").toString(); 		 
 				} catch (NameNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}  
+				}*/
+				sessionID = Integer.toString(U8SDK.getInstance().getCurrChannel());
 				return sessionID;
 			}
 			case K_ACTION_SESSION_VERION://获取渠道版本号
@@ -300,19 +303,19 @@ public class BullfightGame extends Cocos2dxActivity {
 			break;
 			case 800://获取订单号
 			{
-				sOrderId=GetOrderIDByPrefix("MFB");	
+				sOrderId=GetOrderIDByPrefix("NOPO");	
 				return sOrderId;
 			}
 			case 900://分享
 			{
 				SendToWXActivity pSendActivity=new SendToWXActivity();
-				pSendActivity.sendShareTest("再不牛牛我们就老了！您的微信好友邀请您玩“ 达人牛牛”，立即前往下载游戏支援好友！~ ",1);
+				pSendActivity.sendShareTest("再不牛牛我们就老了！您的微信好友邀请您玩“ 快玩牛牛”，立即前往下载游戏支援好友！~ ",1);
 			}
 			break;
 			case 901://分享
 			{
 				SendToWXActivity pSendActivity=new SendToWXActivity();
-				pSendActivity.sendShareTest("再不牛牛我们就老了！您的微信好友邀请您玩“ 达人牛牛”，立即前往下载游戏支援好友！~ ",0);
+				pSendActivity.sendShareTest("再不牛牛我们就老了！您的微信好友邀请您玩“ 快玩牛牛”，立即前往下载游戏支援好友！~ ",0);
 			}
 			break;
 			case 910://微信登录

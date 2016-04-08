@@ -32,6 +32,9 @@ FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/Network/HttpDownload/*.cpp)
 
 FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/Platform/android/*.cpp)
 FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/Libs/*.cpp)
+FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/jansson/*.c)
+FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/NDKHelper/*.cpp)
+FILE_LIST += $(wildcard $(LOCAL_PATH)/../../Classes/u8sdk/*.cpp)
 
 LOCAL_SRC_FILES := hellocpp/main.cpp
 LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%) 

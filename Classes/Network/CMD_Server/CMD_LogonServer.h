@@ -1452,6 +1452,7 @@ struct CMD_MB_AccessToken
 	TCHAR							szNickName[LEN_NICKNAME];			//用户昵称
 	TCHAR							szMachineID[LEN_MACHINE_ID];		//机器标识
 	TCHAR							szAccessToken[256];					//Token
+	DWORD							dwSubSessionID;						//推广ID 不同的登录方式
 };
 
 //////////////////////////////////////////////////////////////////////////////////

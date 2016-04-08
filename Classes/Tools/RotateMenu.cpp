@@ -19,6 +19,7 @@ bool RotateMenu::init(){
 	this->setTouchEnabled(true);
 	this->setTouchPriority(1);
 	this->setTouchMode(kCCTouchesOneByOne);
+	animationDuration = 0.3f;
 	return true;
 };
 

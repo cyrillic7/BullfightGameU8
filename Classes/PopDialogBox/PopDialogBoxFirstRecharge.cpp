@@ -11,6 +11,7 @@
 #include "../Network/MD5/MD5.h"
 #include "../Platform/coPlatform.h"
 #include "../Network/SEvent.h"
+#include "../u8sdk/CU8sdkFunction.h"
 //////////////////////////////////////////////////////////////////////////
 PopDialogBoxFirstRecharge::PopDialogBoxFirstRecharge()
 {
@@ -127,7 +128,11 @@ void PopDialogBoxFirstRecharge::onEventUserService(WORD wSubCmdID, void * pDataB
 		if (rOrderLog->dwRet == 0)
 		{
 			CCString *sAction = CCString::createWithFormat("{\"act\":300 ,\"propName\":\"%s\",\"propInfo\":\"%s\",\"propPice\":\"%ld\"}", "首充豪礼", "送100000金币再送50000金币",10);
-			platformAction(sAction->getCString());
+			//platformAction(sAction->getCString());
+			std::string propName = "元宝";
+			std::string propInfo = "送100000金币再送50000金币";
+
+			CU8sdkFunction::GetInstance().OnU8sdkPay(propName, propInfo, 10, orderID);
 		}
 		else
 		{

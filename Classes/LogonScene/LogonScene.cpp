@@ -27,6 +27,7 @@
 #include "../Tools/BaseAttributes.h"
 #include "../Platform/coPlatform.h"
 #include "../extensions/spine/Json.h"
+#include "../u8sdk/CU8sdkFunction.h"
 LogonScene* LogonScene::pLScene=NULL;
 
 #define kURLQQLogon(name)  CCString::createWithFormat("{\"act\":200 ,\"url\":\"http://www.qicainiu.net/QQLogin.aspx?%s\"}",(name))->getCString()
@@ -104,7 +105,6 @@ LogonScene::LogonScene()
 #endif
 
 	setKeypadEnabled(true);//设置相应按键消息 
-	
 }
 LogonScene::~LogonScene(){
 	CCLOG("~ <<%s>>", __FUNCTION__);
@@ -226,6 +226,7 @@ void LogonScene::onEnter(){
 	{
 		button  = static_cast<UIButton*>(m_pWidget->getWidgetByName(CCString::createWithFormat("ButtonLogon%d",i)->getCString()));
 		button->addTouchEventListener(this, SEL_TouchEvent(&LogonScene::onMenuLogon));
+		button->setVisible(false);
 	}
 	//分享
 	UIButton* pBShare = static_cast<UIButton*>(m_pWidget->getWidgetByName("ButtonShare"));
@@ -247,6 +248,9 @@ void LogonScene::onEnter(){
 		//{"pwd":"2048c05c5606c25c0e2e7adc7b006c81", "account" : "nbaobama"}
 
 	}
+	CU8sdkFunction::GetInstance().OnU8sdkInit();
+	//U8
+	CU8sdkFunction::GetInstance().OnU8sdkLogin();
 }
 void LogonScene::onExit(){
 
@@ -901,6 +905,8 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 	case SUB_MB_QUICK_LOGIN:
 	{
 		CMD_MB_Quick_Logon_Success *pQuickLogonSuccess = (CMD_MB_Quick_Logon_Success*)pDataBuffer;
+		char *describeStr = pQuickLogonSuccess->szDescribeString;
+		CCLog("LOGON_QUICK快速登录:%s", pQuickLogonSuccess->szDescribeString);
 		if (pQuickLogonSuccess->lResultCode==0)
 		{
 			logonQQ(pQuickLogonSuccess->szAccounts, pQuickLogonSuccess->szLogonPass);
@@ -909,7 +915,7 @@ void LogonScene::onEventLogon(WORD wSubCmdID,void * pDataBuffer, unsigned short 
 		{
 			PopDialogBoxTipInfo *tipInfo = PopDialogBoxTipInfo::create();
 			this->addChild(tipInfo);
-			tipInfo->setTipInfoContent(pQuickLogonSuccess->szDescribeString);
+			tipInfo->setTipInfoContent(GBKToUTF8(describeStr).c_str());
 		}
 	}
 		break;
@@ -1163,6 +1169,34 @@ void LogonScene::logonWX(const char*code){
 	sTokenCode = code;
 	scheduleOnce(SEL_SCHEDULE(&LogonScene::updateLogonWX), 1);
 }
+
+//SDK登录
+void LogonScene::updateLogonSDK(float dt){
+	connectServer();
+	{
+		CMD_MB_AccessToken logonToken;
+		logonToken.dwSessionID = atoi((CU8sdkFunction::GetInstance().OnGetChannelid()).c_str());
+		strcpy(logonToken.szUMId, sUmid.c_str());
+		logonToken.dwSex = 0;
+		strcpy(logonToken.szNickName, sSdkNickname.c_str());
+		strcpy(logonToken.szMachineID, Tools::getMachineID().c_str());
+		strcpy(logonToken.szAccessToken, sTokenCode.c_str());
+		logonToken.dwSubSessionID = atoi(sSubSessionID.c_str());
+		CCLog("SDKlgoin -- %d", logonToken.dwSubSessionID);
+		gameSocket.SendData(MDM_MB_LOGON, SUB_MB_ACCESSTOKEN, &logonToken, sizeof(logonToken));
+		CCLog("SDKlgoin");
+	}
+}
+
+void LogonScene::SDKlgoin(const char* umid, const char* token, const char* userid, const char* username)
+{
+	sUmid = umid;
+	sTokenCode = token;
+	sSubSessionID = userid;
+	sSdkNickname = username;
+	scheduleOnce(SEL_SCHEDULE(&LogonScene::updateLogonSDK), 1);
+}
+
 /////////////////////////////////////////////////////////////////////////////
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include <jni.h>

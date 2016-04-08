@@ -12,6 +12,7 @@
 #include "../Network/MD5/MD5.h"
 #include "../Platform/coPlatform.h"
 #include "../Network/SEvent.h"
+#include "../u8sdk/CU8sdkFunction.h"
 
 #define MAX_GOLD_COUNT    6
 
@@ -396,7 +397,10 @@ void PopDialogBoxRecharge::onEventUserService(WORD wSubCmdID, void * pDataBuffer
 		if (rOrderLog->dwRet==0)
 		{
 			CCString *sAction = CCString::createWithFormat("{\"act\":300 ,\"propName\":\"%s\",\"propInfo\":\"%s\",\"propPice\":\"%ld\"}", "元宝",sBigGoldExchangeNum[iCurSelectIndex].c_str(), lBigGoldPice[iCurSelectIndex]);
-			platformAction(sAction->getCString());
+			//platformAction(sAction->getCString());
+			std::string propName = "元宝";
+
+			CU8sdkFunction::GetInstance().OnU8sdkPay(propName, sBigGoldExchangeNum[iCurSelectIndex], (int)lBigGoldPice[iCurSelectIndex], orderID);
 		}
 		else
 		{

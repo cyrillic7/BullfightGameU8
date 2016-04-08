@@ -50,7 +50,7 @@ void LogoScene::onEnter(){
 	schedule(SEL_SCHEDULE(&LogoScene::updateToMainScene), 0.1);
 
 	std::string url = "http://download.qicainiu.com/download/Mobile/BullfightGame/updateConfig_";
-	url += DataModel::sharedDataModel()->sSessionID.c_str();
+	url += 112;//DataModel::sharedDataModel()->sSessionID.c_str();
 	url += ".txt";
 
 	CCHttpRequest* request = new CCHttpRequest();

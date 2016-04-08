@@ -9,7 +9,7 @@
         {
           "name": "getProp0",
           "parent": "",
-          "dI": 12,
+          "dI": 6,
           "x": 0.0,
           "y": 0.0,
           "z": 9,
@@ -209,7 +209,7 @@
         {
           "name": "getPropReward",
           "parent": "",
-          "dI": 7,
+          "dI": 9,
           "x": 0.0,
           "y": 0.0,
           "z": 8,
@@ -771,7 +771,7 @@
         },
         {
           "name": "AnimationButton",
-          "dr": 11,
+          "dr": 10,
           "lp": true,
           "to": 0,
           "drTW": 0,
@@ -833,7 +833,7 @@
         },
         {
           "name": "AnimationButton1",
-          "dr": 11,
+          "dr": 10,
           "lp": true,
           "to": 0,
           "drTW": 0,
@@ -895,7 +895,7 @@
         },
         {
           "name": "AnimationEnd",
-          "dr": 11,
+          "dr": 10,
           "lp": true,
           "to": 0,
           "drTW": 0,
@@ -5129,7 +5129,7 @@
         },
         {
           "name": "AnimationGetProp7",
-          "dr": 81,
+          "dr": 80,
           "lp": false,
           "to": 0,
           "drTW": 0,
@@ -5725,7 +5725,7 @@
         },
         {
           "name": "AnimationGetProp8",
-          "dr": 81,
+          "dr": 80,
           "lp": false,
           "to": 0,
           "drTW": 0,
